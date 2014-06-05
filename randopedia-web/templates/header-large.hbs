@@ -1,0 +1,36 @@
+<div class="header-box">
+    <div class="row">
+        <div class="small-9 large-3 columns">
+            {{#linkTo "index"}}<p class="randopedia-logo-text randopedia-logo-header left">Randopedia</p>{{/linkTo}}
+        </div>
+        
+        <div class="large-5 columns hide-for-small">             
+            {{view App.SearchTextField valueBinding="controllers.search.query"}}
+        </div>
+        
+        <div class="large-4 columns hide-for-small">
+            <ul class="header-link-list">
+                {{!-- <li class="header-link">{{#linkTo "browse"}}Browse{{/linkTo}}</li> --}}
+                
+                {{#if controllers.login.isLoggedIn}}
+                    <li class="header-link right"><a id="toggleUserMenuDropdown" data-dropdown="userMenuDropdown" data-options="align_right:true">Menu</a></li>
+                {{else}}
+                    {{#if controllers.login.isLoggingIn}}
+                        <li class="right"><div class="header-login-text">Logging in...</div></li>
+                    {{else}}
+                        <li class="header-link right"><a id="toggleLoginDropdown" data-dropdown="loginDropdown" data-options="align_right:true">Login</a></li>
+                    {{/if}}
+                {{/if}}
+            </ul>
+        </div>
+        
+    </div>
+</div>
+
+<div id="loginDropdown" class="f-dropdown content small" data-dropdown-content>
+    {{view App.LoginView}}
+</div>
+
+<div id="userMenuDropdown" class="f-dropdown content small" data-dropdown-content>
+    {{view App.UserMenuView}}
+</div>

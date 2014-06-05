@@ -1,0 +1,39 @@
+/* font-face */
+@font-face {
+  font-family: "Randopedia-Icons";
+  src: url("../fonts/randopedia-icons.otf");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* global randopedia styles */
+[class*="randicon-"] {
+  display: inline;
+  width: auto;
+  height: auto;
+  line-height: inherit;
+  vertical-align: baseline;
+  background-image: none;
+  background-position: 0 0;
+  background-repeat: repeat;Y
+}
+
+[class*="randicon-"]:before {
+  font-family: "Randopedia-Icons";
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: inherit;
+}
+
+/* icons */
+.randicon-menu:before {
+  content: "\0031";
+}
+
+.randicon-mountaineering:before {
+  content: "\0032";
+}
+
+.randicon-warning:before {
+  content: "\0033";
+}

@@ -1,0 +1,8 @@
+mongo.url=mongodb://localhost:27017/test
+mongo.host=localhost
+mongo.databasename=randopedia
+mongo.password=password
+facebook.app.id=1234567890
+facebook.app.secret=1234567890
+google.app.id=1234567890
+google.app.secret=1234567890

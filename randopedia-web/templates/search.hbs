@@ -1,0 +1,12 @@
+<div class="row">
+    <div class="small-12 columns">
+        <span class="show-for-small right"><a {{action "clearResult"}}>Clear</a></span>
+		<h3>
+		    Tour search<span class="secondary-text">({{length}} tours found)</span>
+		</h3>
+    </div>
+</div> 
+
+{{#each tour in controller}}
+    {{view App.TourItemView}}
+{{/each}}

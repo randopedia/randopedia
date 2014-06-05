@@ -1,0 +1,9 @@
+<!--
+    Template for showing list of tours (search result)
+-->
+{{#if content.isUpdating}}
+    <img src="images/ajax-loader.gif"/>
+{{/if}}
+{{#each tour in controller}}
+	{{view App.TourItemView}}
+{{/each}}

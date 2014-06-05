@@ -1,0 +1,617 @@
+<!--    
+    Template for editing a tour
+ -->
+{{#if authenticationErrors}}
+<div class="row">
+    <div class="small-12 columns">
+        <div data-alert class="alert-box error">
+            Oh noes, you have most likely been logged out. Try to log in again!
+            <a href="#" class="close">&times;</a>
+        </div>
+    </div>
+</div>
+{{/if}}
+
+{{#if serverErrors}}
+<div class="row">
+    <div class="small-12 columns">
+        <div data-alert class="alert-box error">
+            Something went wrong when saving the tour, please try again!
+            <a href="#" class="close">&times;</a>
+        </div>
+    </div>
+</div>
+{{/if}}
+
+{{#if validationErrors}}
+<div class="row">
+    <div class="small-12 columns">
+        <div data-alert class="alert-box error">
+            Oh noes, there was some validation errors, please try again!
+            <a href="#" class="close">&times;</a>
+        </div>
+    </div>
+</div>
+{{/if}}
+
+{{#if draftValidationErrors}}
+<div class="row">
+    <div class="small-12 columns">
+        <div data-alert class="alert-box error">
+            Couldn't save draft. Area and name must be set!
+            <a href="#" class="close">&times;</a>
+        </div>
+    </div>
+</div>
+{{/if}}
+
+{{#if isDraft}}
+<div class="row">
+    <div class="small-12 columns">
+         <div data-alert class="alert-box information">
+            This is a draft, the tour has not yet been published
+            <a href="#" class="close">&times;</a>
+        </div>
+    </div>
+</div>
+{{/if}}
+
+{{#if isDeleted}}
+<div class="row">
+    <div class="small-12 columns">
+        <div data-alert class="alert-box error">
+            TOUR IS DELETED
+        </div>
+    </div>
+</div>
+{{/if}}
+
+{{#if updateSuccessfully}}
+<div class="row">
+    <div class="small-12 columns">
+        <div data-alert class="alert-box success">
+            Tour was successfully updated!
+            <a href="#" class="close">&times;</a>
+        </div>
+    </div>
+</div>
+{{/if}}
+        
+<div class="row">
+    <div class="edittools-container">
+        {{#if havePendingOperations}}
+            <div class="small-12 columns">
+               <div class="preloader"></div>
+            </div>
+        {{else}}
+            <div class="small-12 large-10 columns">
+                {{#unless isDeleted}}
+                    {{#unless isPublished}}
+                        <button {{bindAttr disabled="isSaveAsDraftDisabled"}} {{action "saveAsDraft"}}>Save as draft</button>
+                    {{/unless}}
+                    <button data-reveal-id="tourPreviewReveal" {{action "goToPreview"}}>Preview</button>
+                    <button {{bindAttr disabled="isStartPublishDisabled"}} {{action "startPublishTour" target="view"}}>Publish</button>   
+                    {{#if hasChanges}}
+                        <span class="info label">Tour has unsaved changes!</span>
+                    {{/if}}
+                {{/unless}}
+            </div>
+    		    
+            <div class="small-12 large-2 columns">
+                <button {{action "startCancelingEditTour" target="view"}} class="right">Exit edit</button>
+            </div>
+		{{/if}}  
+    </div>
+</div> 
+
+<div class="row"> 
+	<div class="small-12 columns">
+		<div class="section-container auto" data-section>
+		    <section id="tour-edit-section-details" class="active">
+		        <p class="title section-icon-header" data-section-title><a href="#detailsPanel"><i class="foundicon-paper-clip"></i>Details</a></p>
+		        <div class="content" data-section-content>				        
+		           <div class="row">
+		                <div class="large-4 columns">
+                            <label>Area<span class="req-field">*</span></label>
+                            <button data-dropdown="areaTip" data-options="align_right:true" class="info right"></button>
+                            <div><a data-reveal-id="areaPickerReveal">{{#unless area}}Select area...{{else}}{{area.name}}{{/unless}}</a></div>
+		                </div>
+		                <div class="large-8 columns">
+		                    <label>Name of tour<span class="req-field">*</span></label>
+		                    <button data-dropdown="tourNameTip" data-options="align_right:true" class="info right"></button>
+		                    {{view App.TextField valueBinding="name" required="true" maxlength="80" pattern="^.{3,80}$"}}
+		                </div>
+		           </div>
+
+                   <div class="row">
+                       <div class="small-12 columns descTextAreaContainer">
+                           <label>Tour summary<span class="warn-field">*</span></label>
+                           <button data-dropdown="descTip" data-options="align_right:true" class="info right"></button>
+                           {{view App.TextField valueBinding="shortDescription" maxlength="300"}}                       
+                       </div>
+                   </div>		
+                   
+				   <div class="row">
+				       <div class="small-12 columns descTextAreaContainer">
+                           <label>Access point<span class="req-field">*</span></label>
+                           <button data-dropdown="startingPointTip" data-options="align_right:true" class="info right"></button>
+                           {{view App.TextArea valueBinding="accessPoint" maxlength="1000"}}
+				       </div>
+				   </div>
+		
+				   <div class="row">
+				       <div class="large-3 columns">
+				           <div class="row collapse">
+				               <label>Elevation loss<span class="req-field">*</span></label>
+				               <button data-dropdown="elevationLossTip" class="info right"></button>
+				               <div class="small-10 columns">
+				                    {{input placeholder="" pattern=App.Validate.numberRegex value=elevationLoss}}
+				               </div>
+				               <div class="small-2 columns">
+				                   <span class="postfix">m</span>
+				               </div>
+				           </div>
+				       </div>
+				       <div class="large-3 columns">
+				           <div class="row collapse">
+				               <label>Elevation gain<span class="req-field">*</span></label>
+				               <button data-dropdown="elevationGainTip" data-options="align_right:true" class="info right"></button>
+				               <div class="small-10 columns">
+				                    {{input placeholder="" pattern=App.Validate.numberRegex value=elevationGain}}
+				               </div>
+				               <div class="small-2 columns">
+				                   <span class="postfix">m</span>
+				               </div>
+				           </div>
+				       </div>
+				       <div class="large-3 columns">
+                           <div class="row collapse">
+                               <label>Highest point<span class="warn-field">*</span></label>
+                               <button data-dropdown="highestPointTip" data-options="align_right:true" class="info right"></button>
+                               <div class="small-10 columns">
+                                   {{input placeholder="" pattern=App.Validate.numberRegex value=elevationMax}}
+                               </div>
+                               <div class="small-2 columns">
+                                   <span class="postfix">m</span>
+                               </div>
+                           </div>
+                       </div>  
+				       <div class="large-3 columns">
+				           <label>Main aspect of slopes</label>
+				           <button data-dropdown="aspectTip" data-options="align_right:true" class="info right"></button>
+				           {{view Ember.Select
+				                  contentBinding="App.Fixtures.Aspects"
+				                  optionValuePath="content.value"
+				                  optionLabelPath="content.name"
+				                  valueBinding="aspect"}}          
+				       </div>          
+				   </div>
+		
+				   <div class="row">
+				       <div class="large-3 columns">
+				           <div class="row collapse">
+				               <label>Time, min<span class="req-field">*</span></label>
+				               <button data-dropdown="timeMinTip" class="info right"></button>
+				               <div class="small-10 columns">
+				                    {{input placeholder="" pattern=App.Validate.numberRegex value=timingMin}}
+				               </div>
+				               <div class="small-2 columns">
+				                   <span class="postfix">h</span>
+				               </div>
+				           </div>
+				       </div>
+				       <div class="large-3 columns">
+				           <div class="row collapse">
+				               <label>Time, max<span class="req-field">*</span></label>
+				               <button data-dropdown="timeMaxTip" data-options="align_right:true" class="info right"></button>
+				               <div class="small-10 columns">
+				                    {{input placeholder="" pattern=App.Validate.numberRegex value=timingMax}}
+				               </div>
+				               <div class="small-2 columns">
+				                   <span class="postfix">h</span>
+				               </div>
+				           </div>
+				       </div>
+				       <div class="large-3 columns">
+				           <label>Season from<span class="warn-field">*</span></label>
+				           <button data-dropdown="seasonFromTip" data-options="align_right:true" class="info right"></button>
+				           {{view Ember.Select
+				                  contentBinding="App.Fixtures.Months"
+				                  optionValuePath="content.value"
+				                  optionLabelPath="content.name"
+				                  valueBinding="timeOfYearFrom"}}           
+				       </div>
+				       <div class="large-3 columns">
+				           <label>Season to<span class="warn-field">*</span></label>
+				           <button data-dropdown="seasonToTip" data-options="align_right:true" class="info right"></button>
+				           {{view Ember.Select
+				                  contentBinding="App.Fixtures.Months"
+				                  optionValuePath="content.value"
+				                  optionLabelPath="content.name"
+				                  valueBinding="timeOfYearTo"}}         
+				       </div>
+				   </div>
+		
+				   <div class="row">
+				       <div class="large-3 columns">
+				           <label>Grade<span class="warn-field">*</span></label>
+				           <button data-dropdown="gradeTip" class="info right"></button>
+				           {{view Ember.Select
+				                  contentBinding="App.Fixtures.Grades"
+				                  optionValuePath="content.value"
+				                  optionLabelPath="content.name"
+				                  valueBinding="grade"}}
+				       </div>
+                       <div class="large-3 columns">
+                           <div class="row collapse">
+	                           <label>Steepness, max</label>
+	                           <button data-dropdown="degreesMaxTip" data-options="align_right:true" class="info right"></button>
+	                            <div class="small-10 columns">
+	                                {{input placeholder="" pattern=App.Validate.numberRegex value=degreesMax}}
+	                            </div>
+	                            <div class="small-2 columns">
+	                                <span class="postfix">&#176;</span>
+	                            </div>
+                            </div>
+                       </div>
+				   </div>
+		
+				   <div class="row">
+				        <div class="large-6 columns descTextAreaContainer">
+                            <label>Hazards</label> {{view Ember.Checkbox checkedBinding="haveHazards"}}
+                            <button data-dropdown="hasDangerTip" data-options="align_right:true" class="info right"></button>
+                            {{view App.TextArea valueBinding="hazardsDescription" disabledBinding="haveNoHazards" maxlength="500"}}
+				        </div>
+				        <div class="large-6 columns descTextAreaContainer">
+                            <label>Requires mountaineering skills/equipment</label> {{view Ember.Checkbox checkedBinding="requiresTools"}}
+                            <button data-dropdown="mntSkillsTip" data-options="align_right:true" class="info right"></button>                                
+                            {{view App.TextArea valueBinding="toolsDescription" disabledBinding="doesNotRequireTools" maxlength="500"}}
+				        </div>
+				   </div>
+				   
+				   <div class="row">
+				        <div class="large-6 columns">
+				            <label>Tags</label>
+				            <button data-dropdown="tagsTip" data-options="align_right:true" class="info right"></button>
+				            {{view App.TextArea valueBinding="tagsString" maxlength=500}}
+				        </div>
+				   </div>
+				   
+				   <div class="row">
+				    <div class="small-12 columns small-text">
+				        <span class="req-field">*</span> Required field (tour cannot be published if not set) <br />
+				        <span class="warn-field">*</span> Recommended field (tour will be marked as incomplete if not set)
+				    </div>
+				   </div>
+				   
+		        </div>
+		        
+		    </section>
+		        
+			<section>
+		        <p class="title section-icon-header" data-section-title><a href="#itineraryPanel"><i class="foundicon-compass"></i>Description</a></p>
+		        <div class="content" data-section-content>
+					<div class="row">
+					   <div class="small-12 columns largeTextAreaContainer">
+					       <label>Description<span class="req-field">*</span></label>
+					       <button data-dropdown="itineraryTip" data-options="align_right:true" class="info right"></button>
+					       {{view App.TextArea valueBinding="itinerary" maxlength="8000"}}
+					   </div>
+					</div>  
+		           </div>
+			</section>	  
+			
+			<section>
+			    <p class="title section-icon-header" data-section-title><a href="#mapPanel"><i class="foundicon-globe"></i>Map</a></p>
+		        <div class="content" data-section-content>
+		            <div class="row">
+		                {{view App.TourEditMapView}}
+		            </div>  
+		            <div class="row">
+                        <div class="small-12 columns small-text" style="margin-top: 1em;">
+                            Tip: The markers on the browse map on the frontpage are set by the first point added to the tour map above. 
+                            Start drawing from the summit point of the tour to make that the point that's marked on the browse map.
+                        </div> 
+                    </div>
+		        </div>
+		    </section>  
+		    
+		    <section>
+                <p class="title section-icon-header" data-section-title><a href="#imagesPanel"><i class="foundicon-photo"></i>Images</a></p>
+                <div class="content" data-section-content>
+                    <div class="row">
+                        <div class="normal-margin">
+                            {{#if isNew}}
+                                <p>Images cannot be uploaded until tour is saved. Please save tour and then come back!</p>
+                            {{else}}
+                                {{partial "touredit-images" }}
+                            {{/if}}
+                        </div>
+                    </div>  
+                </div>
+            </section>                    
+		      
+		    <section>
+                <p class="title section-icon-header" data-section-title><a href="#historyPanel"><i class="foundicon-folder"></i>History</a></p>
+                <div class="content" data-section-content>
+                    <div class="row">
+                        <div class="small-12 columns normal-margin">
+                            Tour status: {{displayStatus}}
+                        </div>
+                    </div>
+                    <div class="row">
+                       <div class="small-12 columns largeTextAreaContainer">
+                           <table class="no-margin">
+						      <thead>
+							    <tr>
+							      <th>Time</th>
+							      <th>Type</th>
+							      <th>User</th>
+							      <th>Comment</th>
+							    </tr>
+						      </thead>
+						      <tbody>
+                                {{#each action in actions}}
+							    <tr>
+							      <td>{{displayTimestamp action.time}}</td>
+							      <td>{{resolveTourAction action.type}}</td>
+							      <td>{{action.userName}}</td>
+							      <td>{{action.comment}}</td>
+							    </tr>
+							    {{/each}}
+							  </tbody>
+							</table>
+                       </div>
+                    </div>  
+                </div>
+            </section>  
+		</div>
+	</div>
+</div>
+
+{{!-- <!-- Adv opt and delete/restore tour removed for now. Might be reintroduced for drafts  -->
+<div class="adv-opt-panel-container">
+	<div class="row">
+	    <div class="small-12 columns"> 
+	        <div class="row">
+		        <div class="small-12 columns adv-opt-panel-heading">
+		            {{#if view.showAdvancedOptions}}
+		                <a class="icon-link adv-opt-panel-icon-link" {{action "toggleAdvancedOption" target="view"}}><i class="foundicon-minus"></i></a>
+		            {{else}}
+		                <a class="icon-link adv-opt-panel-icon-link" {{action "toggleAdvancedOption" target="view"}}><i class="foundicon-plus"></i></a>
+		            {{/if}}
+		            More options
+		        </div>   
+	        </div>
+	        <div class="row">
+			    <div class="small-12 columns">   
+			        {{#if view.showAdvancedOptions}}
+				         <div class="adv-opt-links-container">
+				            {{#if isDeleted}}
+				                <a {{action "restoreTour"}}>Restore tour</a>
+				            {{else}}
+				                <a data-reveal-id="confirmDeleteTourReveal">Delete tour</a>
+				            {{/if}}
+				        </div>
+			        {{/if}}
+			    </div>
+	        </div>
+	    </div>
+	</div>
+</div>
+--}}
+
+<div id="areaPickerReveal" class="reveal-modal scrollable small">
+
+    {{view App.AreaPickerView}}
+    
+</div>
+
+<div id="discardChangesTourReveal" class="reveal-modal small">
+    <div class="confirmation-message">
+        The tour has unsaved changes, do you want to discard them?
+    </div>
+    
+    <hr />
+    
+    <div class="confirmation-footer">
+        <button class="left" {{action "closeConfirmDiscardChangesDialog" target="view" }}>Cancel</button>
+        <button class="right" {{action "confirmDiscardChanges" target="view" }}>Discard changes</button>
+    </div>
+</div>
+
+<div id="validationErrorsTourReveal" class="reveal-modal small">
+    <div class="confirmation-message">
+        There are validation errors that must be corrected before the tour can be published.
+    </div>
+    
+    <hr />
+    
+    <div class="confirmation-footer">
+        <button class="right" {{action "closeValidationErrorsDialog" target="view" }}>OK</button>
+    </div>
+</div>
+
+<div id="confirmDeleteTourReveal" class="reveal-modal small">
+
+    <div class="confirmation-message">
+        Are you sure you want to delete the tour?
+    </div>
+    
+    <hr />
+    
+    <div class="confirmation-footer">
+		<button class="right" {{action "closeConfirmDeleteTour" target="view" }}>Cancel</button>
+		<button class="left" {{action "confirmDeleteTour" target="view"}}>Delete tour</button>
+    </div>
+</div>
+    
+<div id="confirmPublishTourReveal" class="reveal-modal small">
+
+    <div class="confirmation-message">
+        Changes will be published, do you want to continue?
+    </div>
+    
+    <hr />
+    
+    <div class="confirmation-footer">
+        <button class="right" {{action "closeConfirmPublishTourDialog" target="view" }}>Cancel</button>
+        <button class="left" {{action "confirmPublishTour" target="view"}}>Publish</button>
+    </div>
+</div>
+
+<div id="publishTourStep1Reveal" class="reveal-modal small">
+    {{view App.TourPublishView}}
+</div>
+
+<div id="tourPreviewReveal" class="reveal-modal large scrollable">
+    <h5>Tour preview</h5>
+    <hr/>
+    {{view App.TourDetailsView}}
+    <hr/>
+    
+    <a class="close-reveal-modal" {{action "exitPreview" target="view"}}>&#215;</a>
+</div>
+
+<div id="gradeGuideReveal" class="reveal-modal small scrollable">
+    {{partial "about-grades"}}
+    <a class="close-reveal-modal">&#215;</a>
+</div>
+
+
+<!-- Field/Validation tips -->
+
+<div id="areaTip" class="f-dropdown content small" data-dropdown-content>
+    <div>
+        The area where the tour is located.
+    </div>
+</div>
+
+<div id="tourNameTip" class="f-dropdown content small" data-dropdown-content>
+    <div>
+        The name of the tour.
+        <hr />
+        Name is required and must be between 3 and 80 characters long.
+    </div>
+</div>
+
+<div id="startingPointTip" class="f-dropdown content small" data-dropdown-content>
+    <div>
+        Description of the access point and how to get there.
+        <hr />
+        The access point description can have a maximum of 1000 characters.
+    </div>
+</div>
+
+<div id="descTip" class="f-dropdown content small" data-dropdown-content>
+    <div>
+        A brief description summarizing the highlights of the tour.
+        <hr />
+        Description can have a maximum of 300 characters.
+    </div>
+</div>
+
+<div id="elevationGainTip" class="f-dropdown content small" data-dropdown-content>
+    <div>
+        Total elevation to climb 
+        <hr />
+        Only digits are allowed.
+    </div>
+</div>
+
+<div id="elevationLossTip" class="f-dropdown content small" data-dropdown-content>
+    <div>
+        Total elevation to descend
+        <hr />
+        Only digits are allowed.
+    </div>
+</div>
+
+<div id="highestPointTip" class="f-dropdown content small" data-dropdown-content>
+    <div>
+        The highest point of the tour.
+        <hr />
+        Only digits are allowed.
+    </div>
+</div>
+
+<div id="aspectTip" class="f-dropdown content small" data-dropdown-content>
+    <div>
+        Aspect of the main part of the slopes on the descent route.
+    </div>
+</div>
+
+<div id="timeMinTip" class="f-dropdown content small" data-dropdown-content>
+    <div>
+        The minimum amount of time that can be expected for the tour.
+        <hr />
+        Only digits are allowed.
+    </div>
+</div>
+
+<div id="timeMaxTip" class="f-dropdown content small" data-dropdown-content>
+    <div>
+        The maximum amount of time that can be expected for the tour.
+	    <hr />
+	    Only digits are allowed.
+    </div>
+</div>
+
+<div id="degreesMaxTip" class="f-dropdown content small" data-dropdown-content>
+    <div>
+        Degrees on the steepest part of the route.
+        <hr />
+        Only digits are allowed.
+    </div>
+</div>
+
+<div id="gradeTip" class="f-dropdown content small" data-dropdown-content>
+    <div>
+        The grade of the tour. Technical difficulties on both the ascent and the descent should be considered.
+        <hr />
+        See <a data-reveal-id="gradeGuideReveal">grade guide</a> for more info
+    </div>
+</div>
+
+<div id="seasonFromTip" class="f-dropdown content small" data-dropdown-content>
+    <div>
+        First month of the season when the tour normally is skiable.
+    </div>
+</div>
+
+<div id="seasonToTip" class="f-dropdown content small" data-dropdown-content>
+    <div> 
+        Last month of the season when the tour normally is skiable.
+    </div>
+</div>
+
+<div id="hasDangerTip" class="f-dropdown content small" data-dropdown-content>
+    <div>
+        Description of any special hazards that skiers should be aware of. 
+        <hr />
+        Description can have a maximum of 300 characters.
+    </div>
+</div>
+
+<div id="mntSkillsTip" class="f-dropdown content small" data-dropdown-content>
+	<div>
+	    Description of any mountaineering skills or equipment needed. Rappels, glacier safety equipment etc.
+	    <hr />
+	    Description can have a maximum of 300 characters.
+	</div>
+</div>
+
+<div id="itineraryTip" class="f-dropdown content small" data-dropdown-content>
+    <div>
+        Description of the tour itinerary and anything else that could be useful.
+        <hr />
+        Description can have a maximum of 8000 characters.
+    </div>
+</div>
+
+<div id="tagsTip" class="f-dropdown content small" data-dropdown-content>
+    <div>
+        You can tag your tour with tag words that gives a quick overview of the tour. Separate them with comma.
+        For example: steep, powder, fields
+    </div>
+</div>

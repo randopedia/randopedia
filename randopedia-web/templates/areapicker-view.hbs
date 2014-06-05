@@ -1,0 +1,69 @@
+  
+{{#if addSubareaMode}}
+
+    <div class="row">
+        <div class="large-12 columns">
+            <h5>Add new area in {{controller.tempSelectedArea.name}}</h5>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="large-12 columns">
+            <label>Name</label>
+            {{view App.FocusTextField valueBinding="newArea.name" required="true" maxlength="80" pattern="^.{3,80}$"}}
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="large-12 columns descTextAreaContainer">
+            <label>Short description</label>
+            {{view App.TextArea valueBinding="newArea.description" maxlength="300"}}
+        </div>
+    </div>    
+    
+    <hr />
+
+    <div class="row">
+        <div class="confirmation-footer"> 
+    
+            <div class="small-12 columns">
+                <button {{action "addSubArea"}}>Add</button>    
+                <button {{action "cancelAddSubArea"}} class="right">Cancel</button>
+            </div>
+                
+        </div>
+    </div>
+    
+{{else}}
+
+	<h5>Select area {{#if view.loading}}<span class="secondary-text">(Loading...)</span>{{/if}}</h5>
+
+    {{#each toplevel in toplevels}}
+
+        {{#if toplevel.area.children}} 
+            
+            {{#each toplevel.area.children}}
+            
+                {{view App.AreaPickerItemView itemBinding="this"}}
+            
+            {{/each}}
+            
+        {{/if}}
+
+    {{/each}}
+
+    <hr />
+    
+	<div>
+	    Selected: <strong>{{controller.tempSelectedArea.name}}</strong>
+	    <a class="right" {{action "startAddingSubArea"}}>Add new area in {{controller.tempSelectedArea.name}}</a>
+	</div>
+
+	<hr />
+	
+	<div class="confirmation-footer">
+	    <button class="left" {{action "confirmSelectedArea" target="view" }}>Set area</button>
+	    <button class="right" {{action "closeAreaPickerDialog" target="view" }}>Cancel</button>
+	</div>
+	
+{{/if}}

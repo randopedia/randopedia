@@ -1,0 +1,13 @@
+<div class="row">
+    <div class="small-12 columns">
+        <h3>
+            #{{name}}
+        </h3>
+    </div>
+</div>
+{{#if content.isUpdating}}
+    <img src="images/ajax-loader.gif"/>
+{{/if}}
+{{#each tour in tours}}
+    {{view App.TourItemView}}
+{{/each}}

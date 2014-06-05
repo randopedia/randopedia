@@ -1,0 +1,101 @@
+<!-- 
+    Template for an image uploader with preview of selected images    
+-->
+
+<div class="row">
+    <div class="small-12 columns">
+        <h5 class="subheader">Upload new images</h5>
+    </div>
+</div>
+
+<div class="row">
+    <div class="small-12 columns">
+        <div>{{view App.FileUploadView}}</div>
+        <p />
+    </div>
+</div>
+
+{{#if hasNewImage}}
+<div class="row">
+   <div class="small-12 columns">
+        <div class="panel">
+            <div class="row">
+                <div class="small-12 large-2 columns">
+                    <div class="">
+                         <div class="thumbnail-wrapper">
+                            <img {{bindAttr src="newImage.imageData"}} class="thumbnail-image" />
+                        </div>
+                    </div>
+                </div>
+                <div class="small-12 large-10 columns">
+                     <label>Caption</label>
+                     <button data-dropdown="imageTip" class="info right"></button>
+                     {{view App.TextField valueBinding="newImage.caption" maxlength="300"}}
+                     <button  {{action "saveNewImage"}} class="img-panel-button">Upload image</button>
+                     <button  {{action "removeNewImage"}} class="img-panel-button">Cancel</button>
+                </div>
+            </div>
+        </div>
+     </div>
+</div>
+{{/if}}
+
+<p class="small-text">Images will be scaled down to 1024*768px (Recommended to only upload images in landscape format)</p>
+
+<div class="row">
+    <div class="small-12 columns">
+        <hr />
+        <h5 class="subheader">Current tour images <span class="secondary-text">({{images.length}})</span></h5>
+    </div>
+</div>
+
+<div class="row">
+	<div class="small-12 columns">
+	{{#each image in images}}
+	    {{#unless image.isNew}}
+            <div class="small-12 columns">
+                <div class="panel">
+                    <div class="row">
+                        <div class="small-12 large-2 columns">
+                            <div class="">
+                                 <div class="thumbnail-wrapper">
+                                    <img {{bindAttr src="image.imageData"}} class="thumbnail-image" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="small-12 large-10 columns">
+                             <label>Caption</label>
+                             {{ view App.TextField valueBinding="image.caption" maxlength="300" }}
+                             {{ input type="checkbox" name="isPorfolio" checked=image.isPortfolio }} Is portfolio image
+                             <button  {{action "saveImage" image}} {{bindAttr disabled="image.isUpdateDisabled"}} class="img-panel-button">Update</button>
+                             <button {{action "startDeleteImage" image target="view"}} data-reveal-id="confirmDeleteImageReveal" {{bindAttr disabled="image.isDeleteDisabled"}} class="img-panel-button">Delete image</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+	    {{/unless}}
+	{{/each}}
+    </div>         
+</div>
+
+<div id="confirmDeleteImageReveal" class="reveal-modal small">
+
+    <div class="confirmation-message">
+        <p>Are you sure you want to delete the image? It will not be possible to restore the image.</p> 
+    </div>
+    
+    <hr />
+    
+    <div class="confirmation-footer">
+        <button class="right" {{action "closeConfirmDeleteImage" target="view" }}>Cancel</button>
+        <button class="left" {{action "confirmDeleteImage" target="view"}}>Delete image</button>
+    </div>
+</div>
+
+<div id="imageTip" class="f-dropdown content small" data-dropdown-content>
+    <div>
+        An image caption.
+        <hr />
+        Captions can have a maximum of 300 characters.
+    </div>
+</div>

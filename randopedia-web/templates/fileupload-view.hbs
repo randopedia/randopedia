@@ -1,0 +1,6 @@
+<!--  
+    View that wraps the javascript file uploader. The original UI is hidden
+ -->
+ 
+<input type="file" id="fileInputElement" class="hide" />
+<button {{action "openFileDialog" target="view"}} {{bindAttr disabled="havePendingOperations"}}>Select image...</button>

@@ -1,0 +1,46 @@
+{{#if controllers.browse.onlyShowWithTours}}
+
+    {{#if hasTours}}
+		{{#if isExpanded}}
+		    {{#if children}}
+		        <a href="#" class="icon-link areatree-expand" {{ action toggleArea }}><i class="foundicon-minus"></i></a>
+	        {{else}}
+	            <span class="expand-placeholder"></span>		        
+		    {{/if}}
+		{{else}}
+		    {{#if children}}
+		        <a href="#" class="icon-link areatree-expand" {{ action toggleArea }}><i class="foundicon-plus"></i></a>
+            {{else}}
+                <span class="expand-placeholder"></span>
+		    {{/if}}
+        {{/if}}
+    
+        <a class="areatree-link" {{action "routeToArea" target="view"}}>{{view.areaTitle}}</a>
+
+    {{/if}}
+
+{{else}}
+
+    {{#if isExpanded}}
+        {{#if children}}
+            <a href="#" class="icon-link areatree-expand" {{ action toggleArea }}><i class="foundicon-minus"></i></a>
+        {{else}}
+            <span class="expand-placeholder"></span>
+        {{/if}}
+    {{else}}
+        {{#if children}}
+            <a href="#" class="icon-link areatree-expand" {{ action toggleArea }}><i class="foundicon-plus"></i></a>
+        {{else}}
+            <span class="expand-placeholder"></span>
+        {{/if}}
+    {{/if}}
+    
+    <a class="areatree-link" {{action "routeToArea" target="view"}}>{{view.areaTitle}}</a>
+
+{{/if}}
+
+{{#if children }}
+    {{#if isExpanded}}
+        <div>{{control "areaItems" content}}
+    {{/if}}
+{{/if}}

@@ -1,0 +1,17 @@
+{{#if teaserTour}}
+	<div class="teaser-container">
+	    <img id="teaser-img-id" class="teaser-img" {{bindAttr src="teaserTour.portfolioImage.imageData"}}>
+	  
+	    {{#if teaserTour.portfolioImage.imageData}}
+	        <div class="teaser-text-container">
+	            {{#linkTo "tour" teaserTour}}{{teaserTour.name}}{{/linkTo}}<span class="teaser-area">, {{teaserTour.area.name}}</span>
+	            <span class="right"><a class="teaser-refresh-link" {{action "reloadTour" target="view"}}><i class="foundicon-refresh right"></i></a></span>
+	        </div>
+	    {{/if}}
+	  
+	    {{#if isLoadingTour}}<div class="teaser-preloader preloader"></div>{{/if}}
+	    
+	</div>
+{{else}}
+    <div>Loading tour image...</div>
+{{/if}}

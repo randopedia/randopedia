@@ -1,0 +1,25 @@
+<div class="row">
+    <div class="large-5 columns">
+        <span class="browse-header">Browse ski tours</span>
+    </div>
+    
+     <div class="large-7 columns">
+        <div class="main-tab-container large-browse-tabs">
+            <button class="right" {{action "showAreaTree"}}>Tree view</button>
+            <button class="right selected" disabled>Map view</button>
+        </div>
+     </div>
+    
+</div>
+
+<div style="margin-top: 0.2em;"></div>
+
+<div class="row">
+    <div class="large-12 columns">
+        {{#if liteTours}}
+            {{browse-tourmap store=store tours=liteTours}}
+        {{else}}
+            Loading map...
+        {{/if}}
+    </div>
+</div>

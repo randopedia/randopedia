@@ -1,0 +1,17 @@
+<div>
+    <a {{action goToAddNewTour target=view}} class="login-link">
+        <div class="login-link-container">
+        Add new tour
+        </div>
+    </a>
+    <a {{action goToMyTours target=view}} class="login-link">
+        <div class="login-link-container">
+        View my tours
+        </div>
+    </a>
+    <hr />
+    <div class="disclaimer-text">
+    Logged in as {{maxString controllers.login.currentUser.userName 50}}
+    </div>
+    
+</div>

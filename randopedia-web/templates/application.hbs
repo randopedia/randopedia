@@ -1,0 +1,33 @@
+<!--
+    Default application template. Defines the application layout and starts everything off.
+-->     
+    
+<div class="hide-for-small">
+    {{partial "header-large"}}
+</div>
+
+<div class="show-for-small">
+	{{partial "header-small"}}
+</div>
+
+<div class="body-wrapper">
+            
+    <div class="row">
+    	<div class="small-12 columns main-content">
+            
+	        <section role="main">
+
+		       {{outlet}}
+	        
+	        </section>
+	        
+		</div>
+    </div> 
+    
+    <div class="push-footer"></div>
+
+</div>
+
+<footer class="footer">
+    {{ partial "footer" }}
+</footer>

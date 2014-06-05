@@ -1,0 +1,11 @@
+App.Config = Ember.Object.create();
+
+
+App.Config.host = 'randopedia/api';
+App.Config.facebookAppIdTest = '123456';
+App.Config.facebookAppIdLocalhost = '123456';
+App.Config.facebookAppIdProd = '123456';
+
+App.Config.googleAppIdTest = '123456';
+App.Config.googleAppIdLocalhost = '123456';
+App.Config.googleAppIdProd = '123456';

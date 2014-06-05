@@ -1,0 +1,32 @@
+<h4>My tours (drafts)</h4>
+
+{{#if serverErrors}}
+<div class="row">
+    <div class="small-12 columns">
+        <div data-alert class="alert-box error">
+            An error occurred when getting your drafts, maybe you have been logged out? Try to reload the page and log in again.
+            <a href="#" class="close">&times;</a>
+        </div>
+    </div>
+</div>
+{{else}}
+
+	{{#if isLoadingDrafts }}
+	
+	    <div class="row">
+	        <div class="small-12 columnn">
+	            <div class="preloader"></div>
+	        </div>
+	    </div>
+	
+	{{else}}
+	
+	    {{#each tour in drafts}}
+	        {{view App.TourItemView}}
+	    {{else}}
+	        <p>You have no saved tour drafts</p>
+	    {{/each}}
+	
+	{{/if}}
+
+{{/if}}

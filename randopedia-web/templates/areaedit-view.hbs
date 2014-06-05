@@ -1,0 +1,251 @@
+<!-- 
+    Template for editing an area
+ --> 
+
+{{#if validationErrors}}
+<div class="row">
+    <div class="small-12 columns">
+        <div data-alert class="alert-box error">
+            Oh noes, there was some validation errors, please try again!
+            <a href="#" class="close">&times;</a>
+        </div>
+    </div>
+</div>
+{{/if}}
+
+{{#if authenticationErrors}}
+<div class="row">
+    <div class="small-12 columns">
+        <div data-alert class="alert-box error">
+            Oh noes, you have most likely been logged out. Try to log in again!
+            <a href="#" class="close">&times;</a>
+        </div>
+    </div>
+</div>
+{{/if}}
+
+{{#if serverErrors}}
+<div class="row">
+    <div class="small-12 columns">
+        <div data-alert class="alert-box error">
+            Something went wrong when saving the area, please try again!
+            <a href="#" class="close">&times;</a>
+        </div>
+    </div>
+</div>
+{{/if}}
+
+{{#if updateSuccessfully}}
+<div class="row">
+    <div class="small-12 columns">
+        <div data-alert class="alert-box success">
+            Area was successfully updated!
+            <a href="#" class="close">&times;</a>
+        </div>
+    </div>
+</div>
+{{/if}}
+
+<div class="row">
+    <div class="edittools-container">
+         {{#if isSaving}}
+	        <div class="small-12 columns">
+	           <div class="preloader"></div>
+        </div>
+        {{else}}
+	        <div class="small-12 columns">
+	            {{#if isReadOnlyArea}}
+	                <span class="info label" class="alert">{{name}} is a root area and cannot be edited, but it's possible to add subareas.</span>
+	            {{else}}
+	                <button {{bindAttr disabled="isNotDirty"}} {{action "saveArea" target="view"}}>Publish</button>
+	                {{#unless isNotDirty}}
+	                    <span class="info label">Area have unsaved changes!</span>
+	                {{/unless}}
+	            {{/if}}
+	            <button {{action "startCancelingEdit" target="view"}} class="right">Exit edit</button>
+	        </div>
+        {{/if}}
+    </div>
+</div>
+
+<div class="row">
+    
+    <div class="small-12 columns">
+        {{#if isReadOnlyArea}}
+            <h3>{{name}}</h3>
+        {{else}}
+        <form>
+            <fieldset>
+                <legend>Area details</legend>
+                <div class="row">
+                    <div class="small-12 large-8 columns">
+                        <label>Name</label>
+                        <button data-dropdown="nameTip" data-options="align_right:true" class="info right"></button>
+                        {{view App.TextField valueBinding="name" required="true" maxlength="80" pattern="^.{3,80}$"}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="large-12 columns descTextAreaContainer">
+                        <label>Description</label>
+			            <button data-dropdown="descTip" data-options="align_right:true" class="info right"></button>
+			            {{view App.TextArea valueBinding="description" maxlength="500"}}
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+        {{/if}}
+    </div>
+    
+    <div class="small-12 columns">
+        <form>
+            <fieldset>
+                <legend>Subareas</legend>
+                
+                <div class="row">
+                    <div class="large-12 columns">
+                        <button {{action "openAddSubAreaDialog" target="view"}} class="right">Add new subarea...</button>
+                     </div>
+                </div>
+				<p/>
+                <div class="row">
+                    <div class="large-12 columns">
+                        <ul class="inline-list">
+		                {{#each child in children}}
+		                    <li>{{child.name}}</li> 
+		                {{else}}
+		                    <li>Area has no subareas</li>
+		                {{/each}}
+		                </ul>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
+
+{{#unless isReadOnlyArea}}
+<div class="row">
+    <div class="small-12 columns">
+        <form>
+            <fieldset>
+                <legend>Tours</legend>
+                <div class="row">
+                    <div class="large-12 columns">
+                        <button {{action "addTour"}} class="right">Add new tour</button>
+                    </div>
+                </div>
+                <p/>
+                <div class="row">
+                    <div class="large-12 columns">
+                        {{#if tours}}
+                            {{name}} currently have {{tours.length}} tours.
+                        {{else}}
+                            There are currently no tours in {{name}}.
+                        {{/if}}
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
+{{/unless}}
+
+<div id="discardChangesAreaReveal" class="reveal-modal small">
+    <div class="confirmation-message">
+        The area has unsaved changes, do you want to discard them?
+    </div>
+    
+    <hr />
+    
+    <div class="confirmation-footer">
+        <button class="left" {{action "closeConfirmDiscardChangesDialog" target="view" }}>Cancel</button>
+        <button class="right" {{action "confirmDiscardChanges" target="view" }}>Discard changes</button>
+    </div>
+</div>
+
+<div id="validationErrorsAreaReveal" class="reveal-modal small confirmation">
+    <div class="confirmation-message">
+        There are validation errors that must be corrected before the area can be published.
+    </div>
+    
+    <hr />
+    
+    <div class="confirmation-footer">
+        <button class="right" {{action "closeValidationErrorsDialog" target="view" }}>OK</button>
+    </div>
+</div>
+
+<div id="confirmPublishAreaReveal" class="reveal-modal small confirmation">
+
+    <div class="confirmation-message">
+        Changes will be published, do you want to continue?
+    </div>
+    
+    <hr />
+    
+    <div class="confirmation-footer">
+        <button class="right" {{action "closeConfirmPublishAreaDialog" target="view" }}>Cancel</button>
+        <button class="left" {{action "confirmSaveArea" target="view"}}>Publish</button>
+    </div>
+</div>
+
+<div id="addSubAreaReveal" class="reveal-modal small">
+
+    <div class="row">
+        <div class="large-12 columns">
+            <h4>Add new subarea</h4>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="large-12 columns">
+            <label>Name</label>
+            {{view App.FocusTextField valueBinding="newArea.name" required="true" maxlength="80" pattern="^.{3,80}$"}}
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="large-12 columns descTextAreaContainer">
+            <label>Short description</label>
+            {{view App.TextArea valueBinding="newArea.description" maxlength="500"}}
+        </div>
+    </div>    
+    
+    <hr />
+
+    <div class="row">
+        <div class="confirmation-footer"> 
+    
+            <div class="small-12 columns">
+                <button {{bindAttr disabled="isAddSubareaDisabled"}} {{action "addSubArea" target="view"}}>Add</button>    
+                <button {{action "cancelAddSubAreaDialog" target="view"}} class="right">Cancel</button>
+            </div>
+                
+        </div>
+    </div>
+</div>
+
+
+<!-- Field/Validation tips -->
+
+<div id="nameTip" class="f-dropdown content small" data-dropdown-content>
+    <div>
+        The name of the area.
+        <hr />
+        Name is required and can have a maximum of 80 characters.
+    </div>
+</div>
+
+<div id="descTip" class="f-dropdown content small" data-dropdown-content>
+    <div>
+        A short description of the area.
+        <hr />
+        A description can have a maximum of 500 characters.
+    </div>
+</div>
+
+<div id="parentTip" class="f-dropdown content small" data-dropdown-content>
+    <div>
+        The parent area where the new one is located.
+    </div>
+</div>

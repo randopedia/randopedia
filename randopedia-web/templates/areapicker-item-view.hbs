@@ -1,0 +1,34 @@
+
+{{#if view.isExpanded}}
+    {{#if children}}
+        <a href="#" class="icon-link areatree-expand" {{action toggleExpandChildren target="view"}}><i class="foundicon-minus"></i></a>
+    {{else}}
+        <span class="expand-placeholder"></span>
+    {{/if}}
+{{else}}
+    {{#if children}}
+        <a href="#" class="icon-link areatree-expand" {{action toggleExpandChildren target="view"}}><i class="foundicon-plus"></i></a>
+    {{else}}
+        <span class="expand-placeholder"></span>
+    {{/if}}
+{{/if}}
+
+{{#if view.isSelected}}
+    <button class="areatree is-selected">{{name}}</button>  
+{{else}}
+    {{#if isReadOnlyArea}}
+        <button class="areatree" disabled="disabled" >{{name}}</button>
+    {{else}}    
+        <button class="areatree" {{action "selectArea" target="view"}}>{{name}}</button>
+    {{/if}}
+{{/if}}
+
+{{#if view.isExpanded}}
+
+	{{#each children}}
+	
+	    <div style="margin-left:2em;">{{view App.AreaPickerItemView itemBinding="this"}}</div>
+	
+	{{/each}}
+
+{{/if}}

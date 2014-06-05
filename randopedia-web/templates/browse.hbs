@@ -1,0 +1,40 @@
+{{!-- OBSOLETE, TO BE REMOVED --}}
+<h3>Browse by area</h3>
+
+<p>
+Find tours on the map or by browsing the area tree.
+</p>
+
+<!-- Background needs to be set in some other way, does not scale correctly
+<img class="area-browse-bg" src="images/world.svg">
+-->
+
+<div class="row">
+     <div class="small-12 columns">
+            <div class="section-container auto" data-section>
+        
+	           <section class="active">
+	               <p class="title" data-section-title><a href="#panel1">Map view</a></p>
+	               <div class="content" data-section-content>
+	                    {{view App.TourClusterMapView}}   
+	               </div>
+	           </section>
+	           
+	           <section>
+	               <p class="title" data-section-title><a href="#panel2">Tree view</a></p>
+	               <div class="content" data-section-content>
+	                   {{#each toplevel in controller}}
+				           {{#if toplevel.area.children}} 
+				               {{control "areaItems" toplevel.area}}
+				           {{/if}}
+				       {{/each}}    
+	               </div>
+	           </section>
+           
+           </div>
+    </div>
+</div>
+
+
+
+

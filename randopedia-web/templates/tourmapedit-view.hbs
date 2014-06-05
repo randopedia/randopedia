@@ -1,0 +1,20 @@
+<div class="mapToolbar right">
+    <a data-reveal-id="confirmDeleteRoutesReveal">Remove routes</a>
+</div>
+
+<div class="mapContainer">
+    <div id="tourMapRootElement"></div>
+</div>
+
+<div id="confirmDeleteRoutesReveal" class="reveal-modal small">
+    <div class="confirmation-message">
+        Are you sure you want to remove all routes from the map?
+    </div>
+    
+    <hr />
+    
+    <div class="confirmation-footer">
+        <button class="right" {{action "closeDeleteRoutes" target="view" }}>Cancel</button>
+        <button class="left" {{action "deleteRoutes" target="view"}}>Remove</button>
+    </div>
+</div>

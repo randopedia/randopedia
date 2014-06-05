@@ -1,0 +1,60 @@
+<div class="row">
+    <div class="small-10 columns">
+        <h3>{{name}} {{#if parent}}{{#linkTo "area" parent}}<span class="secondary-text">{{parent.name}}</span>{{/linkTo}}{{/if}}</h3>
+    </div>
+    
+    <div class="small-2 columns">
+        {{#if controllers.login.isLoggedIn}}  
+        {{#unless isRootArea}}
+        	<h3><a class="icon-link right" {{action "editArea"}}><i class="foundicon-edit"></i></a></h3>
+        {{/unless}}
+        {{/if}}
+    </div>
+</div>
+
+{{#if description}}
+<div class="row">
+    <div class="small-12 large-10 columns">
+        <pre style="margin-bottom: -2em;" class="formatted-desc">{{{ markedDescription }}}</pre>
+    </div>
+</div>
+{{/if}}
+
+{{#if children}}
+<div class="row">
+	<div class="small-12 columns">
+	    <h4 class="subheader">Areas</h4>
+	    <ul class="inline-list">
+	     {{#each child in children}}
+	         <li>
+		         {{#linkTo "area" child}} {{child.name}} {{/linkTo}} 
+		         {{!--
+		         {{#if child.hasTours }}
+		             ({{ child.nbrTours }} tours) 
+		         {{/if}}
+		         --}}
+	         </li>
+	     {{/each}}
+	     </ul>
+	</div>
+</div>
+{{/if}}
+
+{{#unless isReadOnlyArea}}
+	{{#if hasTours}}
+		<div class="row">
+		    <div class="small-12 columns">
+		        <h4 class="subheader">Tours</h4>
+		        {{#if content.isUpdating}}
+		            <div class="preloader"></div>
+		        {{/if}}
+		        {{#each tour in tours}}
+		            {{view App.TourItemView}}
+		        {{/each}}  
+		    </div>
+		</div>
+	{{/if}}
+{{/unless}}
+
+
+

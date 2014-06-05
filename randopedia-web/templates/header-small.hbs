@@ -1,0 +1,44 @@
+<nav class="top-bar">
+  
+    <ul class="title-area">
+      <li class="name">
+        <h1 class="randopedia-logo-text">
+            <a {{action goToIndex}}>Randopedia</a>
+        </h1>
+      </li>
+      <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
+    </ul>
+ 
+    <section class="top-bar-section">
+      <ul class="right">
+      
+        <li class="divider"></li>
+        <li><a {{action topbarMenuLink "index"}}>Home / Search</a></li>
+        
+        <li class="divider"></li>
+        <li><a {{action topbarMenuLink "about"}}>About Randpedia</a></li>
+        
+        {{#if controllers.login.isLoggedIn}}
+        <li class="divider"></li>
+        <li><a {{action topbarMenuLink "tour.new"}}>Add new tour</a></li>
+        {{/if}}
+        
+        <li class="divider"></li>
+        {{#if controllers.login.isLoggedIn}}
+            <li><a {{action topbarMenuLink "myTours"}}>View my tours</a></li>
+        {{else}}
+            {{#if controllers.login.isLoggingIn}}
+                <li><div class="header-login-text top-bar-menu-nolink">Logging in...</div></li>
+            {{else}}
+                <li><a data-reveal-id="loginReveal" {{action topbarMenuLink}}>Login</a></li>
+            {{/if}}
+		{{/if}}  
+      </ul>
+    </section>
+  
+</nav>
+
+<div id="loginReveal" class="reveal-modal small">
+	{{view App.LoginView}}
+	<a class="close-reveal-modal" {{action "exitPreview" target="view"}}>&#215;</a>
+</div>
