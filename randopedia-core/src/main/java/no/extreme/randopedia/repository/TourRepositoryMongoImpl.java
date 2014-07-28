@@ -36,8 +36,10 @@ public class TourRepositoryMongoImpl implements TourRepository {
 
     @Autowired
     MongoOperations mongoOperations;
-    @Value("${pictures.webapp.directory}")
-    private String BASE_PICTURE_PATH;
+    @Value("${webapp.client.directory}")
+    private String WEBAPP_CLIENT_DIRECTORY;
+    @Value("${tourimages.directory}")
+    private String TOURIMAGES_DIRECTORY;
 
 
     private Criteria onlyPublishedCriteria = Criteria.where("status").is(TourStatus.PUBLISHED);
@@ -219,12 +221,13 @@ public class TourRepositoryMongoImpl implements TourRepository {
         
         byte[] imageBytes = ImageUtils.getImageBytesFromBase64(image.getImageData());
                 
-        String fileName = BASE_PICTURE_PATH + "/" + tour.getClientId() + "_" + images.size() + 1;
+        String fileName = WEBAPP_CLIENT_DIRECTORY + "/" + TOURIMAGES_DIRECTORY + "/" + tour.getClientId() + "_" + images.size() + 1 + ".jpg";
+        String databaseFileName = TOURIMAGES_DIRECTORY + "/" + tour.getClientId() + "_" + images.size() + 1 + ".jpg";
         FileOutputStream fos = new FileOutputStream(fileName);
         
         try {
             fos.write(imageBytes);
-            image.setImageFile(fileName);
+            image.setImageFile(databaseFileName);
             image.set_Id(ObjectId.get());
             images.add(image);
             tour.setTourImages(images);

@@ -6,3 +6,6 @@ facebook.app.id=1234567890
 facebook.app.secret=1234567890
 google.app.id=1234567890
 google.app.secret=1234567890
+pictures.migrate.directory=/tmp/directory
+webapp.client.directory=/tmp/directory
+tourimages.directory=/tmp/directory
