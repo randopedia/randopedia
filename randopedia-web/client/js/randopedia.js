@@ -47013,8 +47013,7 @@ App.Config.facebookAppIdProd = '387025698094707';
 
 App.Config.googleAppIdTest = '';
 App.Config.googleAppIdLocalhost = '991673526883.apps.googleusercontent.com';
-App.Config.googleAppIdProd = '719190645609-c0ogrmvrbtgbl5ohlb81d0lflf31uo51.apps.googleusercontent.com';
-;App.ApplicationController = Ember.ArrayController.extend({
+App.Config.googleAppIdProd = '719190645609-c0ogrmvrbtgbl5ohlb81d0lflf31uo51.apps.googleusercontent.com';;App.ApplicationController = Ember.ArrayController.extend({
     needs: ['login', 'search'],
     
     verifyLogin : function() {
