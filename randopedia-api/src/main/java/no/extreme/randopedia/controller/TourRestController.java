@@ -1,5 +1,6 @@
 package no.extreme.randopedia.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -184,7 +185,7 @@ public class TourRestController {
             @RequestBody TourImageContainer tourImageContainer,
             @RequestHeader("X-Header-Token") String token,
             @RequestHeader("X-Header-Provider") String provider) 
-                    throws TokenInvalidException {
+                    throws TokenInvalidException, IOException {
         
         User user = authenticationRepository.getUserFromToken(token, provider);
         

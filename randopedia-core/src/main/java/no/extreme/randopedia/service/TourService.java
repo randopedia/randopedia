@@ -1,5 +1,7 @@
 package no.extreme.randopedia.service;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -21,9 +23,11 @@ import no.extreme.randopedia.repository.AreaRepository;
 import no.extreme.randopedia.repository.AuthenticationRepository;
 import no.extreme.randopedia.repository.TourRepository;
 import no.extreme.randopedia.utils.DataWasher;
+import no.extreme.randopedia.utils.ImageUtils;
 import no.extreme.randopedia.validator.TourValidator;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -36,7 +40,7 @@ public class TourService {
     AuthenticationRepository authenticationRepository;
     @Autowired
     ActionRepository actionRepository;
-
+    
     /**
      * Get tours form query or ids
      * @param token
@@ -207,10 +211,13 @@ public class TourService {
      * Create new image
      * @param image
      * @param user
+     * @throws Exception 
      */
-    public void createNewImage(TourImage image, User user) {
+    public void createNewImage(TourImage image, User user) throws IOException {
         Tour tour = tourRepository.findTourByClientId(image.getTour());
+
         tourRepository.addImageToTour(tour, image);
+
         saveTourAction(user, tour, TourActionType.IMAGE_CREATE);        
     }
     

@@ -46733,6 +46733,8 @@ Ember.Inflector.inflector = new Ember.Inflector(Ember.Inflector.defaultRules);
             googleAppid = App.Config.googleAppIdProd;
         }
         else {
+            var html = url.indexOf('index.html');
+            url = url.slice(0, html);
             facebookAppId = App.Config.facebookAppIdLocalhost;
             googleAppId = App.Config.googleAppIdLocalhost;
         }
@@ -48354,6 +48356,7 @@ App.Maps = Ember.Object.create();
 
 App.Image = DS.Model.extend({
 	imageData: DS.attr('string'),
+        imageFile: DS.attr('string'),
 	tour: DS.belongsTo('tour', {inverse: 'images'}),
 	caption: DS.attr('string'),
 	isPortfolio: DS.attr('boolean'),
@@ -48446,7 +48449,8 @@ App.Tour = DS.Model.extend({
         }
         return null;
     }.property('tagsString')
-});;App.Router.map(function() {
+});
+;App.Router.map(function() {
 	this.resource('toplevels', function(){
         this.resource('toplevel', {path:':toplevel_id'});
 	});

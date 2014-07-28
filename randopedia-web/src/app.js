@@ -20,6 +20,8 @@ var App = Ember.Application.create({
             googleAppid = App.Config.googleAppIdProd;
         }
         else {
+            var html = url.indexOf('index.html');
+            url = url.slice(0, html);
             facebookAppId = App.Config.facebookAppIdLocalhost;
             googleAppId = App.Config.googleAppIdLocalhost;
         }

@@ -9,6 +9,7 @@ public class TourImage {
     @Id
     private ObjectId _id;
     private String imageData;
+    private String imageFile;
     private String tour;
     private String caption;
     private boolean isPortfolio;
@@ -60,5 +61,13 @@ public class TourImage {
     @JsonProperty("isPortfolio")
     public void setPortfolio(boolean isPortfolio) {
         this.isPortfolio = isPortfolio;
+    }
+
+    public String getImageFile() {
+        return imageFile;
+    }
+
+    public void setImageFile(String imageFile) {
+        this.imageFile = imageFile;
     }
 }

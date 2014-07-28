@@ -1,5 +1,7 @@
 package no.extreme.randopedia.repository;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -18,10 +20,12 @@ import no.extreme.randopedia.model.tour.TourAction;
 import no.extreme.randopedia.model.tour.TourComment;
 import no.extreme.randopedia.model.tour.TourImage;
 import no.extreme.randopedia.model.tour.TourStatus;
+import no.extreme.randopedia.utils.ImageUtils;
 import no.extreme.randopedia.utils.RandoNameUtils;
 
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -32,6 +36,9 @@ public class TourRepositoryMongoImpl implements TourRepository {
 
     @Autowired
     MongoOperations mongoOperations;
+    @Value("${pictures.webapp.directory}")
+    private String BASE_PICTURE_PATH;
+
 
     private Criteria onlyPublishedCriteria = Criteria.where("status").is(TourStatus.PUBLISHED);
     
@@ -204,15 +211,30 @@ public class TourRepositoryMongoImpl implements TourRepository {
     }
     
     @Override
-    public void addImageToTour(Tour tour, TourImage image) {
+    public void addImageToTour(Tour tour, TourImage image) throws IOException {
         List<TourImage> images = tour.getTourImages();
         if(images == null) {
             images = new ArrayList<TourImage>();
         }
-        image.set_Id(ObjectId.get());
-        images.add(image);
-        tour.setTourImages(images);
-        saveTour(tour);
+        
+        byte[] imageBytes = ImageUtils.getImageBytesFromBase64(image.getImageData());
+                
+        String fileName = BASE_PICTURE_PATH + "/" + tour.getClientId() + "_" + images.size() + 1;
+        FileOutputStream fos = new FileOutputStream(fileName);
+        
+        try {
+            fos.write(imageBytes);
+            image.setImageFile(fileName);
+            image.set_Id(ObjectId.get());
+            images.add(image);
+            tour.setTourImages(images);
+            saveTour(tour);
+        }
+        finally {
+            fos.close();
+        }
+            
+        
     }
 
     @Override

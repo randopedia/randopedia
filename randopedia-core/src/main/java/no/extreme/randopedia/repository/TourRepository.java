@@ -1,5 +1,6 @@
 package no.extreme.randopedia.repository;
 
+import java.io.IOException;
 import java.util.List;
 
 import no.extreme.randopedia.model.tag.TagCloudTag;
@@ -18,7 +19,7 @@ public interface TourRepository {
     void addCommentToTour(Tour t, TourComment comment);
     List<TourImage> getTourImages(Object[] ids);
     TourImage getTourImage(String imageId);
-    void addImageToTour(Tour tour, TourImage image);
+    void addImageToTour(Tour tour, TourImage image) throws IOException;
     TourImage updateImageOnTour(Tour tour, String imageId, TourImage image);
     void deleteImageFromTour(String imageId);
 	Tour getTourFromImageId(String imageId);

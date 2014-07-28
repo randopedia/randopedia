@@ -92,6 +92,14 @@ module.exports = function(grunt) {
                     //rewrite: {
                     //    '^/api/$': '/randopedia/api/$1'
                     //}
+                },
+                {
+                    context: '/randopedia/logincallback',
+                    host: '127.0.0.1',
+                    port: 8080,
+                    https: false,
+                    changeOrigin: false,
+                    xforward: false
                 }
             ]
         }

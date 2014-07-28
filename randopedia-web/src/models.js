@@ -53,6 +53,7 @@ App.Maps = Ember.Object.create();
 
 App.Image = DS.Model.extend({
 	imageData: DS.attr('string'),
+        imageFile: DS.attr('string'),
 	tour: DS.belongsTo('tour', {inverse: 'images'}),
 	caption: DS.attr('string'),
 	isPortfolio: DS.attr('boolean'),

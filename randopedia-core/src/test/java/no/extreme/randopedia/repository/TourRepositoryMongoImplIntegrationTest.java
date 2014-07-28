@@ -182,9 +182,10 @@ public class TourRepositoryMongoImplIntegrationTest extends AbstractJUnit4Spring
     
     /**
      * Test adding an image to a tour
+     * @throws IOException 
      */
     @Test 
-    public void testAddImageToTour_ImageIsReturnedOnFindTourWithDataAndCaption() {
+    public void testAddImageToTour_ImageIsReturnedOnFindTourWithDataAndCaption() throws IOException {
         String imageCaption = "Is this caption really stored in database?";
         createAndSaveBasicTourAndAddOneImage(imageCaption);
         
@@ -198,9 +199,10 @@ public class TourRepositoryMongoImplIntegrationTest extends AbstractJUnit4Spring
 
     /**
      * Test update caption on an image
+     * @throws IOException 
      */
     @Test
-    public void testUpdateImage_CaptionIsUpdatedOnImageOnFindTour() {
+    public void testUpdateImage_CaptionIsUpdatedOnImageOnFindTour() throws IOException {
         String orgCaption = "original caption";
         String newCaption = "new caption";
         createAndSaveBasicTourAndAddOneImage(orgCaption);
@@ -216,9 +218,10 @@ public class TourRepositoryMongoImplIntegrationTest extends AbstractJUnit4Spring
     
     /**
      * Test delete an image on a tour
+     * @throws IOException 
      */
     @Test
-    public void testDeleteImage_ImageIsNotReturnedOnFindTour() {
+    public void testDeleteImage_ImageIsNotReturnedOnFindTour() throws IOException {
         createAndSaveBasicTourAndAddOneImage(null);
         
         Tour tour = tourRepo.findAllTours().get(0);        
@@ -230,7 +233,7 @@ public class TourRepositoryMongoImplIntegrationTest extends AbstractJUnit4Spring
     }
     
     @Test
-    public void test_setPortfolioImage_CorrectImageIsPortfolio() {
+    public void test_setPortfolioImage_CorrectImageIsPortfolio() throws IOException {
         // ARRANGE
         createAndSaveBasicTour();
         
@@ -272,7 +275,7 @@ public class TourRepositoryMongoImplIntegrationTest extends AbstractJUnit4Spring
     }
     
     @Test
-    public void test_setPortfolioImage_CorrectImageIsSetAsPortfolioOnTour() {
+    public void test_setPortfolioImage_CorrectImageIsSetAsPortfolioOnTour() throws IOException {
         // ARRANGE
         createAndSaveBasicTour();
         
@@ -300,7 +303,7 @@ public class TourRepositoryMongoImplIntegrationTest extends AbstractJUnit4Spring
     }
     
     @Test
-    public void test_setPortfolioImage_PortfolioImageIsFirstAndCorrectNrOfImagesInList() {
+    public void test_setPortfolioImage_PortfolioImageIsFirstAndCorrectNrOfImagesInList() throws IOException {
         // ARRANGE
         createAndSaveBasicTour();
         
@@ -328,7 +331,7 @@ public class TourRepositoryMongoImplIntegrationTest extends AbstractJUnit4Spring
     }
         
     @Test
-    public void test_getRandomTour() {
+    public void test_getRandomTour() throws IOException {
         createAndSaveBasicTourAndAddOneImage("image0");
         createAndSaveBasicTourAndAddOneImage("image1");
         createAndSaveBasicTour();
@@ -472,7 +475,7 @@ public class TourRepositoryMongoImplIntegrationTest extends AbstractJUnit4Spring
         areaRepo.addArea(norway, europe);     
     }
     
-    private void createAndSaveBasicTourAndAddOneImage(String caption){
+    private void createAndSaveBasicTourAndAddOneImage(String caption) throws IOException{
         createAndSaveBasicTour();
         
         List<Tour> tours = tourRepo.findAllTours();

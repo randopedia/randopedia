@@ -48,18 +48,22 @@ public class MigratePicturesController {
                     BASE64Decoder decoder = new BASE64Decoder();
                     byte[] decodeBuffer = decoder.decodeBuffer(imageParts[1]);
                     String fileName = 
-                            BASE_PICTURE_PATH + "/" + tour.getClientId()
-                            + "_" + i + ".jpg";
+                            BASE_PICTURE_PATH + "/"
+                                    + tour.getClientId() + "_" + i + ".jpg";
+                    String databaseFileName = "tourimages/" + tour.getClientId() + "_" + i + ".jpg";
                     FileOutputStream fos = new FileOutputStream(fileName);
                     try {
                         fos.write(decodeBuffer);
+                        image.setImageFile(databaseFileName);
+                        tourRepository.saveTour(tour);
                     } finally {
                         fos.close();
                     }
-
+                    
                     i++;
                 }
             }
+            logger.debug("Updated tour " + tour.getClientId());
         }
 
         MigrationResult result = new MigrationResult();
