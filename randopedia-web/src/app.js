@@ -21,7 +21,7 @@ var App = Ember.Application.create({
         }
         else {
             var html = url.indexOf('index.html');
-            url = url.slice(0, html);
+            url = url.slice(0, html) + '/randopedia';
             facebookAppId = App.Config.facebookAppIdLocalhost;
             googleAppId = App.Config.googleAppIdLocalhost;
         }

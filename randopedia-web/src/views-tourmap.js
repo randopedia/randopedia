@@ -204,14 +204,14 @@ App.TourEditMapView = Ember.View.extend({
     parseGeoJson: function() {
         var geojson = this.get('controller.model.geoJson');
         if(!geojson){ 
-        	return; 
+            return; 
         }
         
         var self = this;
         
         var onPathChanged =  function (polyline){
             if(!self.get('drawingManager')){ 
-            	return; 
+                return; 
             }
             
             self.get('drawingManager').setDrawingMode(null);
@@ -219,9 +219,9 @@ App.TourEditMapView = Ember.View.extend({
         };
         
         for(var i = 0; i < geojson.features.length; i++) {
-        	var geometry = geojson.features[i];
-        	
-        	if(geometry.type === "LineString"){
+            var geometry = geojson.features[i];
+        
+            if(geometry.type === "LineString"){
                 var polyline = new google.maps.Polyline({
                     path:  self.swapGeoJsonCoordinates(geometry.coordinates),
                     strokeColor: '#ff0000',
@@ -239,46 +239,46 @@ App.TourEditMapView = Ember.View.extend({
 
                 this.get('currentMapPolylines').push(polyline);
                 polyline.setMap(this.get('map'));
-        	}
+            }
         }
     },
     
     // GeoJson use x, y (long, lat) while google object use lat, long. 
     swapGeoJsonCoordinates: function(coordinates) {
-    	var swapped = [];
-    	for(var i = 0; i < coordinates.length; i++) {
-    		swapped.push([coordinates[i].y, coordinates[i].x]);
-    	}
-    	
-    	return swapped;
+        var swapped = [];
+        for(var i = 0; i < coordinates.length; i++) {
+            swapped.push([coordinates[i].y, coordinates[i].x]);
+        }
+    
+        return swapped;
     },
     
     swapGoogleCoordinates: function(coordinates) {
-    	var swapped = [];
-    	for(var i = 0; i < coordinates.length; i++) {
-    		swapped.push([coordinates[i].longitude, coordinates[i].latitude]);
-    	}
-    	
-    	return swapped;
+        var swapped = [];
+        for(var i = 0; i < coordinates.length; i++) {
+            swapped.push([coordinates[i].longitude, coordinates[i].latitude]);
+        }
+
+        return swapped;
     },
     
     saveGeoJson: function() {
-    	var self = this;
-    	
+        var self = this;
+
         var geojson = {
-    		type: "FeatureCollection",
-    		features: []
+            type: "FeatureCollection",
+            features: []
         };
         
         for (var i = 0; i < this.get('currentMapPolylines').length; i++) {
             var polylinePathArray = this.get('currentMapPolylines')[i].getPath().getArray();
             
             geojson.features.push({
-            	type: "Feature",
-            	geometry: {
-            		type: "LineString",
-            		coordinates: self.swapGoogleCoordinates(polylinePathArray)
-            	}
+                type: "Feature",
+                geometry: {
+                    type: "LineString",
+                    coordinates: self.swapGoogleCoordinates(polylinePathArray)
+                }
             });
         }
         this.get('controller').send('updateGeoJson', geojson);
