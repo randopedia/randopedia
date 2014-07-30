@@ -33,8 +33,7 @@ public class MigratePicturesController {
     TourRepositoryMongoImpl tourRepository;
 
     @RequestMapping(method = RequestMethod.GET, value = "/migratePictures", produces = "application/json")
-    public @ResponseBody
-    MigrationResult migratePictures() throws IOException {
+    public @ResponseBody MigrationResult migratePictures() throws IOException {
 
         List<Tour> tours = tourRepository.findAllTours();
         for (Tour tour : tours) {
@@ -66,6 +65,26 @@ public class MigratePicturesController {
             logger.debug("Updated tour " + tour.getClientId());
         }
 
+        MigrationResult result = new MigrationResult();
+        result.setResult("OK");
+
+        return result;
+    }
+    
+    @RequestMapping(method = RequestMethod.GET, value = "/removePictureBlobs", produces = "application/json")
+    public @ResponseBody MigrationResult removePictureBlobs() throws Exception {
+        List<Tour> tours = tourRepository.findAllTours();
+        for (Tour tour : tours) {
+            List<TourImage> tourImages = tour.getTourImages();
+            int i = 0;
+            if (tourImages != null) {
+                for (TourImage image : tourImages) {
+                    image.setImageData(null);
+                    
+                }
+                tourRepository.saveTour(tour);
+            }
+        }
         MigrationResult result = new MigrationResult();
         result.setResult("OK");
 

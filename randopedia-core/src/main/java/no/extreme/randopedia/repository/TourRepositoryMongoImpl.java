@@ -221,8 +221,8 @@ public class TourRepositoryMongoImpl implements TourRepository {
         
         byte[] imageBytes = ImageUtils.getImageBytesFromBase64(image.getImageData());
                 
-        String fileName = WEBAPP_CLIENT_DIRECTORY + "/" + TOURIMAGES_DIRECTORY + "/" + tour.getClientId() + "_" + images.size() + 1 + ".jpg";
-        String databaseFileName = TOURIMAGES_DIRECTORY + "/" + tour.getClientId() + "_" + images.size() + 1 + ".jpg";
+        String fileName = WEBAPP_CLIENT_DIRECTORY + "/" + TOURIMAGES_DIRECTORY + "/" + tour.getClientId() + "_" + (images.size() + 1) + ".jpg";
+        String databaseFileName = TOURIMAGES_DIRECTORY + "/" + tour.getClientId() + "_" + (images.size() + 1) + ".jpg";
         FileOutputStream fos = new FileOutputStream(fileName);
         
         try {

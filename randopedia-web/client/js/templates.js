@@ -1647,10 +1647,10 @@ function program1(depth0,data) {
   var buffer = '', stack1, helper, options;
   data.buffer.push("\r\n	<div class=\"teaser-container\">\r\n	    <img id=\"teaser-img-id\" class=\"teaser-img\" ");
   data.buffer.push(escapeExpression((helper = helpers.bindAttr || (depth0 && depth0.bindAttr),options={hash:{
-    'src': ("teaserTour.portfolioImage.imageData")
+    'src': ("teaserTour.portfolioImage.imageFile")
   },hashTypes:{'src': "STRING"},hashContexts:{'src': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "bindAttr", options))));
   data.buffer.push(">\r\n	  \r\n	    ");
-  stack1 = helpers['if'].call(depth0, "teaserTour.portfolioImage.imageData", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(2, program2, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers['if'].call(depth0, "teaserTour.portfolioImage.imageFile", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(2, program2, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\r\n	  \r\n	    ");
   stack1 = helpers['if'].call(depth0, "isLoadingTour", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(5, program5, data),contexts:[depth0],types:["ID"],data:data});
@@ -2209,7 +2209,7 @@ function program1(depth0,data) {
   var buffer = '', helper, options;
   data.buffer.push("\r\n<div class=\"row\">\r\n   <div class=\"small-12 columns\">\r\n        <div class=\"panel\">\r\n            <div class=\"row\">\r\n                <div class=\"small-12 large-2 columns\">\r\n                    <div class=\"\">\r\n                         <div class=\"thumbnail-wrapper\">\r\n                            <img ");
   data.buffer.push(escapeExpression((helper = helpers.bindAttr || (depth0 && depth0.bindAttr),options={hash:{
-    'src': ("newImage.imageData")
+    'src': ("newImage.imageFile")
   },hashTypes:{'src': "STRING"},hashContexts:{'src': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "bindAttr", options))));
   data.buffer.push(" class=\"thumbnail-image\" />\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n                <div class=\"small-12 large-10 columns\">\r\n                     <label>Caption</label>\r\n                     <button data-dropdown=\"imageTip\" class=\"info right\"></button>\r\n                     ");
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "App.TextField", {hash:{
@@ -2238,7 +2238,7 @@ function program4(depth0,data) {
   var buffer = '', helper, options;
   data.buffer.push("\r\n            <div class=\"small-12 columns\">\r\n                <div class=\"panel\">\r\n                    <div class=\"row\">\r\n                        <div class=\"small-12 large-2 columns\">\r\n                            <div class=\"\">\r\n                                 <div class=\"thumbnail-wrapper\">\r\n                                    <img ");
   data.buffer.push(escapeExpression((helper = helpers.bindAttr || (depth0 && depth0.bindAttr),options={hash:{
-    'src': ("image.imageData")
+    'src': ("image.imageFile")
   },hashTypes:{'src': "STRING"},hashContexts:{'src': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "bindAttr", options))));
   data.buffer.push(" class=\"thumbnail-image\" />\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"small-12 large-10 columns\">\r\n                             <label>Caption</label>\r\n                             ");
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "App.TextField", {hash:{
