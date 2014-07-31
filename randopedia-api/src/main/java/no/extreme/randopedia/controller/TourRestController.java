@@ -343,6 +343,7 @@ public class TourRestController {
             tour.setHazardsDescription(clientTour.getHazardsDescription());
             tour.setItinerary(clientTour.getItinerary());
             tour.setMapPaths(clientTour.getMapPaths());
+            tour.setMapGeoJson(clientTour.getMapGeoJson());
             tour.setTags(clientTour.getTags());
             tour.setName(clientTour.getName());
             tour.setPortfolioImage(clientTour.getPortfolioImage());

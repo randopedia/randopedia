@@ -112,7 +112,7 @@ App.Tour = DS.Model.extend({
 	accessPoint: DS.attr('string'),
 	itinerary: DS.attr('string'),
 	mapPaths: DS.attr('raw'),
-	//geoJson: DS.attr('raw'),
+	mapGeoJson: DS.attr('raw'),
 	tags: DS.attr('raw'),
 	portfolioImage: DS.belongsTo('image'),
 	images: DS.hasMany('image', { async: true }),

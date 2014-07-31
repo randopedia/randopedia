@@ -34,6 +34,7 @@ public class Tour implements Comparable<Tour>{
     private String hazardsDescription;
     private Integer degreesMax;
     private List<Object> mapPaths;
+    private Object mapGeoJson;
     private List<String> tags;
     private String portfolioImage;
     private String clientId;
@@ -233,7 +234,15 @@ public class Tour implements Comparable<Tour>{
         this.mapPaths = mapPaths;
     }
 
-    @JsonIgnore
+    public Object getMapGeoJson() {
+		return mapGeoJson;
+	}
+
+	public void setMapGeoJson(Object mapGeoJson) {
+		this.mapGeoJson = mapGeoJson;
+	}
+
+	@JsonIgnore
     public List<TourImage> getTourImages() {
         return tourImages;
     }

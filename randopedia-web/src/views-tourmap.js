@@ -188,6 +188,9 @@ App.TourEditMapView = Ember.View.extend({
     },
     
     savePolylinesToController: function() {
+    	
+    	// TODO: Temporary, saving paths as geoJson
+    	this.saveGeoJson();
 
         var rawArray = [];
         
@@ -243,8 +246,12 @@ App.TourEditMapView = Ember.View.extend({
         }
     },
     
-    // GeoJson use x, y (long, lat) while google object use lat, long. 
+    /// GeoJson coordinates to Google LatLng
+    /// GeoJson use x, y (lng, lat) while google object use the reversed (lat, lng). 
     swapGeoJsonCoordinates: function(coordinates) {
+    	
+    	// TODO: This function should create and return list of Google LatLng objects
+    	
         var swapped = [];
         for(var i = 0; i < coordinates.length; i++) {
             swapped.push([coordinates[i].y, coordinates[i].x]);
@@ -253,12 +260,12 @@ App.TourEditMapView = Ember.View.extend({
         return swapped;
     },
     
-    swapGoogleCoordinates: function(coordinates) {
+    /// Google LatLng to GeoJson coordinates
+    swapGoogleCoordinates: function(path) {
         var swapped = [];
-        for(var i = 0; i < coordinates.length; i++) {
-            swapped.push([coordinates[i].longitude, coordinates[i].latitude]);
-        }
-
+        path.forEach(function(latlng) {
+            swapped.push([latlng.lng(), latlng.lat()]);
+        });
         return swapped;
     },
     
@@ -271,13 +278,13 @@ App.TourEditMapView = Ember.View.extend({
         };
         
         for (var i = 0; i < this.get('currentMapPolylines').length; i++) {
-            var polylinePathArray = this.get('currentMapPolylines')[i].getPath().getArray();
+            var polylinePath = this.get('currentMapPolylines')[i].getPath();
             
             geojson.features.push({
                 type: "Feature",
                 geometry: {
                     type: "LineString",
-                    coordinates: self.swapGoogleCoordinates(polylinePathArray)
+                    coordinates: self.swapGoogleCoordinates(polylinePath)
                 }
             });
         }

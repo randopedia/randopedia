@@ -26,6 +26,7 @@ public class ClientTour {
     private String hazardsDescription;
     private Integer degreesMax;
     private List<Object> mapPaths;
+    private Object mapGeoJson;
     private List<String> tags;
     private String portfolioImage;
     private List<String> actions;
@@ -166,7 +167,13 @@ public class ClientTour {
     public void setMapPaths(List<Object> mapPaths) {
         this.mapPaths = mapPaths;
     }
-    public String getPortfolioImage() {
+    public Object getMapGeoJson() {
+		return mapGeoJson;
+	}
+	public void setMapGeoJson(Object mapGeoJson) {
+		this.mapGeoJson = mapGeoJson;
+	}
+	public String getPortfolioImage() {
         return portfolioImage;
     }
     public void setPortfolioImage(String portfolioImage) {

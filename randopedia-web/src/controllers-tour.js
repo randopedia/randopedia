@@ -344,8 +344,7 @@ App.TourEditController = Ember.ObjectController.extend({
         },
         
         updateGeoJson: function(geoJson) {
-            // TODO 
-            //this.set('model.geoJson', geoJson);
+            this.set('model.mapGeoJson', geoJson);
         }
         
     },
