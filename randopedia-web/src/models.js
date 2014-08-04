@@ -9,7 +9,7 @@ App.Stats = DS.Model.extend({
 
 App.Toplevel = DS.Model.extend({
     area : DS.belongsTo('area'),
-	name : DS.attr('string')
+    name : DS.attr('string')
 });
 
 App.SearchResult = DS.Model.extend({
@@ -26,17 +26,17 @@ App.User = DS.Model.extend({
 });
 
 App.Area = DS.Model.extend({
-	name : DS.attr('string'),
-	description : DS.attr('string'),
-	parent : DS.belongsTo('area', { inverse: 'children' }),
-	children : DS.hasMany('area', { inverse: 'parent', async: true }),
-	hasTours: DS.attr('boolean'),
-	tours: DS.hasMany('tour', { async: true }),
-	nbrTours: DS.attr('number'),
-	areaType: DS.attr('number'),
+    name : DS.attr('string'),
+    description : DS.attr('string'),
+    parent : DS.belongsTo('area', { inverse: 'children' }),
+    children : DS.hasMany('area', { inverse: 'parent', async: true }),
+    hasTours: DS.attr('boolean'),
+    tours: DS.hasMany('tour', { async: true }),
+    nbrTours: DS.attr('number'),
+    areaType: DS.attr('number'),
     
-	// Computed properties
-	isRootArea: function() {
+    // Computed properties
+    isRootArea: function() {
         return (this.get('areaType') === App.Fixtures.AreaTypes.ROOT);
     }.property('areaType'),
     
@@ -52,13 +52,13 @@ App.Area = DS.Model.extend({
 App.Maps = Ember.Object.create();
 
 App.Image = DS.Model.extend({
-	imageData: DS.attr('string'),
+    imageData: DS.attr('string'),
         imageFile: DS.attr('string'),
-	tour: DS.belongsTo('tour', {inverse: 'images'}),
-	caption: DS.attr('string'),
-	isPortfolio: DS.attr('boolean'),
-	
-	// Computed properties
+    tour: DS.belongsTo('tour', {inverse: 'images'}),
+    caption: DS.attr('string'),
+    isPortfolio: DS.attr('boolean'),
+    
+    // Computed properties
     isUpdateDisabled: function() {
         return !this.get('isDirty') || this.get('isSaving');
     }.property('isDirty', 'isSaving'),
@@ -92,34 +92,34 @@ App.Tag = DS.Model.extend({
 });
 
 App.Tour = DS.Model.extend({
-	name: DS.attr('string'),
-	area: DS.belongsTo('area'),
-	shortDescription: DS.attr('string'),
-	elevationGain: DS.attr('number'),
-	elevationLoss: DS.attr('number'),
-	elevationMax: DS.attr('number'),
-	timingMin: DS.attr('number'),
-	timingMax: DS.attr('number'),
-	grade: DS.attr('number'),
-	haveHazards: DS.attr('boolean'),
-	hazardsDescription: DS.attr('string'),
-	degreesMax: DS.attr('string'),
-	requiresTools: DS.attr('boolean'),
-	toolsDescription: DS.attr('string'), 
-	aspect: DS.attr('number'),
-	timeOfYearFrom: DS.attr('number'),
-	timeOfYearTo: DS.attr('number'),
-	accessPoint: DS.attr('string'),
-	itinerary: DS.attr('string'),
-	mapPaths: DS.attr('raw'),
-	mapGeoJson: DS.attr('raw'),
-	tags: DS.attr('raw'),
-	portfolioImage: DS.belongsTo('image'),
-	images: DS.hasMany('image', { async: true }),
-	comments: DS.hasMany('comment', { async : true }),
-	actions: DS.hasMany('action', { async: true }),
-	status: DS.attr('number'),
-	publishComment: DS.attr('string'),
+    name: DS.attr('string'),
+    area: DS.belongsTo('area'),
+    shortDescription: DS.attr('string'),
+    elevationGain: DS.attr('number'),
+    elevationLoss: DS.attr('number'),
+    elevationMax: DS.attr('number'),
+    timingMin: DS.attr('number'),
+    timingMax: DS.attr('number'),
+    grade: DS.attr('number'),
+    haveHazards: DS.attr('boolean'),
+    hazardsDescription: DS.attr('string'),
+    degreesMax: DS.attr('string'),
+    requiresTools: DS.attr('boolean'),
+    toolsDescription: DS.attr('string'), 
+    aspect: DS.attr('number'),
+    timeOfYearFrom: DS.attr('number'),
+    timeOfYearTo: DS.attr('number'),
+    accessPoint: DS.attr('string'),
+    itinerary: DS.attr('string'),
+    mapPaths: DS.attr('raw'),
+    mapGeoJson: DS.attr('raw'),
+    tags: DS.attr('raw'),
+    portfolioImage: DS.belongsTo('image'),
+    images: DS.hasMany('image', { async: true }),
+    comments: DS.hasMany('comment', { async : true }),
+    actions: DS.hasMany('action', { async: true }),
+    status: DS.attr('number'),
+    publishComment: DS.attr('string'),
     tagsString : function() {
         var tagsArray = this.get('tags');
         var ret = '';

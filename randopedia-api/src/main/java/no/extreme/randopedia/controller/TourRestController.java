@@ -291,6 +291,7 @@ public class TourRestController {
             clientTour.setId(tour.getClientId());
             clientTour.setItinerary(tour.getItinerary());
             clientTour.setMapPaths(tour.getMapPaths());
+            clientTour.setMapGeoJson(tour.getMapGeoJson());
             clientTour.setTags(tour.getTags());
             clientTour.setName(tour.getName());
             clientTour.setPortfolioImage(tour.getPortfolioImage());

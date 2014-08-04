@@ -504,7 +504,7 @@ App.TourEditController = Ember.ObjectController.extend({
     
     replaceHtmlChars: function() {
         if(!this.get('itinerary')){ return; }
-	
+    
         var str = this.get('itinerary').replace(/</g, '&lt;').replace(/>/g, '&gt;');
         this.set('itinerary', str);
     },    
