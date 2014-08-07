@@ -19,8 +19,16 @@ App.TourMapView = Ember.View.extend({
         this.get('mapRootElement').css({ width: newWidth + 'px', height: newHeight + 'px' });
     },
     
-    parseGeoJson: function(geojson) {
+    parseGeoJson: function() {
         var self = this;
+        var geojson = self.get('controller.model.mapGeoJson');
+        
+        if(geojson && App.GeoHelper.validateGeoJson(geojson)) {
+            self.parseGeoJson(geojson);          
+        } else {
+            return;
+        } 
+        
         for(var i = 0; i < geojson.features.length; i++) {
             var geometry = geojson.features[i].geometry;
             if(geometry.type === "LineString"){
@@ -34,50 +42,6 @@ App.TourMapView = Ember.View.extend({
                 polyline.setMap(self.get('map'));
             }
         }        
-    },
-    
-    parseMapPathsOLD: function() {
-        
-        // TO BE REMOVED
-        
-        var mapPaths = this.get('controller').get('mapPaths');
-        if(!mapPaths){ 
-            return; 
-        }
-        
-        for (var i = 0; i < mapPaths.length; i++) {
-            var path = mapPaths[i];
-            var polyline = [];
-
-            for (var j = 0; j < path.length; j++) {
-                var points = path[j];
-                polyline.push(new google.maps.LatLng(points[0], points[1]));
-            }
-            
-            var line = new google.maps.Polyline({
-                path: polyline,
-                strokeColor: '#ff0000',
-                strokeWeight: 2,
-            });
-            
-            this.get('currentMapPolylines').push(line);
-            line.setMap(this.get('map'));
-        }  
-    },
-
-    setPolylinesFromMapPaths: function() {
-        
-        // THIS METHOD WILL BE REPLACED BY parseGeoJson()
-        
-        var self = this;
-        var geojson = self.get('controller.model.mapGeoJson');
-        
-        if(geojson && App.GeoHelper.validateGeoJson(geojson)) {
-            self.parseGeoJson(geojson);          
-        
-        } else {
-            self.parseMapPathsOLD();
-        }
     },
     
     setZoomAndCenter: function() {
@@ -128,7 +92,7 @@ App.TourMapView = Ember.View.extend({
         this.set('map', new google.maps.Map(this.get('mapRootElement').get(0), mapOptions));
         this.get('map').setCenter(self.setZoomAndCenter());
         this.setMapSize();
-        this.setPolylinesFromMapPaths();
+        this.parseGeoJson();
         
         redrawMap = function() {
             self.setMapSize();
@@ -180,82 +144,7 @@ App.TourEditMapView = Ember.View.extend({
         if(newWidth < 500) { newHeight = 300; }
         this.get('mapRootElement').css({ width: newWidth + 'px', height: newHeight + 'px' });
     },
-
-    setPolylinesFromMapPaths: function() {
-        var self = this;
-        
-        // TEMPORARY CODE. TO BE REFACTORED WHEN OLD "mapPaths" ARE CONVERTED
-        // setPolylinesFromMapPaths function will be replaced by parseGeoJson()
-        
-        var geoJson = self.get('controller.model.mapGeoJson');
-
-        if(geoJson) {
-            self.parseGeoJson();
-        } else {
-            
-            // TO BE REMOVED
-            
-            self.parseMapPathsOLD();
-        }
-    },
-    
-    savePolylinesToController: function() {
-        
-        // TEMPORARY CODE, WILL BE REFACTORED WHEN OLD "mapPaths" ARE CONVERTED
-        // This method will be replaced by saveGeoJson()
-        
-        this.saveGeoJson();
-
-        var rawArray = [];
-        for (var i = 0; i < this.get('currentMapPolylines').length; i++) {
-            var pathArray = this.get('currentMapPolylines')[i].getPath().getArray();
-            rawArray[i] = [];
-            for (var j = 0; j < pathArray.length; j++) {
-                rawArray[i].push([pathArray[j].lat(), pathArray[j].lng()]);
-            }
-        }
-        this.get('controller').send('updatePaths', rawArray);
-    },    
-    
-    parseMapPathsOLD: function() {
-        var mapPaths = self.get('controller.model.mapPaths');
-        if(!mapPaths){ return; }
-        
-        var onPathChanged =  function (polyline){
-            if(!self.get('drawingManager')){ return; }
-            self.get('drawingManager').setDrawingMode(null);
-            self.savePolylinesToController();
-        };
-        
-        for (var i = 0; i < mapPaths.length; i++) {
-            var path = mapPaths[i];
-            var polyline = [];
-
-            for (var j = 0; j < path.length; j++) {
-                var points = path[j];
-                polyline.push(new google.maps.LatLng(points[0], points[1]));
-            }
-            
-            var line = new google.maps.Polyline({
-                path: polyline,
-                strokeColor: '#ff0000',
-                strokeWeight: 2,
-                clickable: true,
-                draggable: true,
-                editable: true,
-                zIndex: 1,
-                geodesic: true
-            });                
-
-            var polylinePath = line.getPath();
-            google.maps.event.addListener(polylinePath, 'set_at', onPathChanged); 
-            google.maps.event.addListener(polylinePath, 'insert_at', onPathChanged); 
-
-            this.get('currentMapPolylines').push(line);
-            line.setMap(this.get('map'));
-        }        
-    },
-    
+ 
     parseGeoJson: function() {
         var self = this;
         
@@ -266,7 +155,9 @@ App.TourEditMapView = Ember.View.extend({
         }
         
         var onPathChanged =  function (polyline){
-            if(!self.get('drawingManager')){ return; }
+            if(!self.get('drawingManager')){ 
+                return; 
+            }
             self.get('drawingManager').setDrawingMode(null);
             self.saveGeoJson();
         };
@@ -339,7 +230,7 @@ App.TourEditMapView = Ember.View.extend({
     
     addPolyline: function(polyline) {
         this.get('currentMapPolylines').push(polyline);
-        this.savePolylinesToController();
+        this.saveGeoJson();
     },
     
     initMap: function() {
@@ -395,7 +286,7 @@ App.TourEditMapView = Ember.View.extend({
             
         this.get('drawingManager').setMap(this.get('map'));
         this.setMapSize();
-        this.setPolylinesFromMapPaths();
+        this.parseGeoJson();
         
         redrawMap = function() {
             self.setMapSize();
@@ -405,7 +296,7 @@ App.TourEditMapView = Ember.View.extend({
  
         var onPathChanged =  function (polyline){
             self.get('drawingManager').setDrawingMode(null);
-            self.savePolylinesToController();
+            self.saveGeoJson();
         };
         
         google.maps.event.addListener(self.get('drawingManager'), 'polylinecomplete', function(polyline){
@@ -446,20 +337,34 @@ App.TourClusterMapView = Ember.View.extend({
         }
     },
     
+    getFirstLatLng: function(geojson) {
+        if(!geojson || !geojson.features) {
+            return null;
+        }
+        
+        for(var i = 0; i < geojson.features.length; i++) {
+            
+            var geometry = geojson.features[i].geometry;
+            
+            if(geometry.type === "LineString"){
+                var array = App.GeoHelper.geoJsonCoordinatesToGoogleLatLngArray(geometry.coordinates);
+                return array[0];
+            }
+        }
+        return null;
+    },
+    
     initTours: function() {
         console.log('initTours');
         if(!this.get('controller.toursLoaded')){ return; }
         
         var self = this;
         this.get('controller').get('tours').forEach(function(tour){
-            var mapPaths = tour.get('mapPaths');
-            if(!mapPaths) { return; }
 
-            var mapPath = mapPaths[0];
-            if(!mapPath) { return; }
-            
-            var firstLatLng = mapPath[0];
-            if(!firstLatLng){ return; }
+            var firstLatLng = selg.getFirstLatLng(tour.get('mapGeoJson'));
+            if(!firstLatLng){
+                return;
+            }
 
             var marker = new google.maps.Marker({title: tour.get('name'), position: new google.maps.LatLng(firstLatLng[0], firstLatLng[1])});
             

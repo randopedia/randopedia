@@ -86,11 +86,11 @@ App.TourController = Ember.ObjectController.extend({
     }.property('model.images.length'),
 
     hasPaths: function() {
-        if(!this.get('mapPaths')){
+        if(!this.get('mapGeoJson')){
            return false;
         }
         return true;
-    }.property('model.mapPaths'),
+    }.property('model.mapGeoJson'),
     
     isIncomplete: function() {
         var warningCount = 0;
@@ -590,11 +590,11 @@ App.TourEditController = Ember.ObjectController.extend({
     }.property('newImage'),
 
     hasPaths: function() {
-        if(!this.get('mapPaths')){
+        if(!this.get('mapGeoJson')){
            return false;
         }
         return true;
-    }.property('model.mapPaths'),
+    }.property('model.mapGeoJson'),
     
     isIncomplete: function() {
         if(this.get('isDraft')){ return false; }
