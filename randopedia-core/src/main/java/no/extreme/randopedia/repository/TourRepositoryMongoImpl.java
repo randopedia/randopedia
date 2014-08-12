@@ -330,7 +330,7 @@ public class TourRepositoryMongoImpl implements TourRepository {
     @Override
     public List<Tour> getLiteTours() {
         Query query = new Query(onlyPublishedCriteria);
-        query.fields().include("mapPaths");
+        query.fields().include("mapGeoJson");
         query.fields().include("name");
         query.fields().include("grade");
         query.fields().include("elevationLoss");

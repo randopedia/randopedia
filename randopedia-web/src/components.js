@@ -29,20 +29,34 @@ App.BrowseTourmapComponent = Ember.Component.extend({
         });
     },
     
+    getFirstLatLng: function(geojson) {
+        if(!geojson || !geojson.features) {
+            return null;
+        }
+        
+        for(var i = 0; i < geojson.features.length; i++) {
+            
+            var geometry = geojson.features[i].geometry;
+            
+            if(geometry.type === "LineString"){
+                var array = App.GeoHelper.geoJsonCoordinatesToGoogleLatLngArray(geometry.coordinates);
+                return array[0];
+            }
+        }
+        return null;
+    },
+    
     addTourMarkers: function(tours) {
         var self = this;
         self.set('markers', []);
         tours.forEach(function(tour){
-            var mapPaths = tour.get('mapPaths');
-            if(!mapPaths) { return; }
 
-            var mapPath = mapPaths[0];
-            if(!mapPath) { return; }
-            
-            var firstLatLng = mapPath[0];
-            if(!firstLatLng){ return; }
+            var firstLatLng = self.getFirstLatLng(tour.get('mapGeoJson'));
+            if(!firstLatLng){
+                return;
+            }
 
-            var marker = new google.maps.Marker({title: tour.get('name'), position: new google.maps.LatLng(firstLatLng[0], firstLatLng[1])});
+            var marker = new google.maps.Marker({ title: tour.get('name'), position: firstLatLng });
             
             google.maps.event.addListener(marker, 'click', function() {
                 var contentString = 
