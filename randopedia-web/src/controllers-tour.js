@@ -99,7 +99,7 @@ App.TourController = Ember.ObjectController.extend({
         if(!App.Validate.isPosNumber(this.get('elevationMax'))) { warningCount++; }
         if(!this.get('timeOfYearFrom')) { warningCount++; }
         if(!this.get('timeOfYearTo')) { warningCount++; }
-        if(!App.Validate.isNotNull(this.get('mapPaths'))){ warningCount++; }
+        if(!App.Validate.isNotNull(this.get('mapGeoJson'))){ warningCount++; }
         if(!App.Validate.lengthOrNull(this.get('itinerary'), 100, 8000, false)){ warningCount++; }
         return warningCount > 0;
     }.property('name'),
@@ -335,12 +335,12 @@ App.TourEditController = Ember.ObjectController.extend({
         
         // MAP ACTIONS
         
-        updatePaths: function(paths) {
-            this.set('model.mapPaths', paths);
+        updatePaths: function(geoJson) {
+            this.set('model.mapGeoJson', geoJson);
         },
         
         deletePaths: function() {
-            this.set('model.mapPaths', null);
+            this.set('model.mapGeoJson', null);
         },
         
         updateGeoJson: function(geoJson) {
@@ -493,7 +493,7 @@ App.TourEditController = Ember.ObjectController.extend({
         if(!this.get('timeOfYearTo')) {
             this.get('validationWarnings').push('Season to');
         }
-        if(!App.Validate.isNotNull(this.get('mapPaths'))){
+        if(!App.Validate.isNotNull(this.get('mapGeoJson'))){
             this.get('validationWarnings').push('Map');
         }
         if(!App.Validate.lengthOrNull(this.get('itinerary'), 100, 8000, false)){
