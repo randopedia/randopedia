@@ -62,8 +62,6 @@ public class TourRepositoryMongoImpl implements TourRepository {
         mongoOperations.save(tour);
     }
     
-    
-
     /**
      * Returns all published tours
      */
@@ -139,8 +137,7 @@ public class TourRepositoryMongoImpl implements TourRepository {
         Set<Area> allFoundAreas = new HashSet<Area>();
         allFoundAreas.addAll(areasByName);
         allFoundAreas.addAll(subAreas);
-        
-        
+           
         List<String> areaIds = new ArrayList<String>();
         for(Area area : allFoundAreas) {
             areaIds.add(area.getId());

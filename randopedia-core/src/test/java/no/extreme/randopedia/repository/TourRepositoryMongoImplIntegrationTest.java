@@ -490,8 +490,7 @@ public class TourRepositoryMongoImplIntegrationTest extends AbstractJUnit4Spring
     private TourImage createImage(String imageName){
         if(imageName == null){
             imageName = "img-1024x768.jpg";
-        }
-        
+        } 
         TourImage image = new TourImage();        
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         InputStream input = classLoader.getResourceAsStream(imageName);
@@ -500,6 +499,7 @@ public class TourRepositoryMongoImplIntegrationTest extends AbstractJUnit4Spring
             byte[] bytes = IOUtils.toByteArray(input);
             byte[] imageDataBytes = Base64.encodeBase64(bytes);
             String imageDataString = new String(imageDataBytes, "UTF-8");
+            imageDataString = "jpg," + imageDataString;
             image.setImageData(imageDataString);
         } catch (IOException e) {
             e.printStackTrace();
