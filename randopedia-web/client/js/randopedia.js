@@ -46895,20 +46895,34 @@ App.RawTransform = DS.Transform.extend({
         });
     },
     
+    getFirstLatLng: function(geojson) {
+        if(!geojson || !geojson.features) {
+            return null;
+        }
+        
+        for(var i = 0; i < geojson.features.length; i++) {
+            
+            var geometry = geojson.features[i].geometry;
+            
+            if(geometry.type === "LineString"){
+                var array = App.GeoHelper.geoJsonCoordinatesToGoogleLatLngArray(geometry.coordinates);
+                return array[0];
+            }
+        }
+        return null;
+    },
+    
     addTourMarkers: function(tours) {
         var self = this;
         self.set('markers', []);
         tours.forEach(function(tour){
-            var mapPaths = tour.get('mapPaths');
-            if(!mapPaths) { return; }
 
-            var mapPath = mapPaths[0];
-            if(!mapPath) { return; }
-            
-            var firstLatLng = mapPath[0];
-            if(!firstLatLng){ return; }
+            var firstLatLng = self.getFirstLatLng(tour.get('mapGeoJson'));
+            if(!firstLatLng){
+                return;
+            }
 
-            var marker = new google.maps.Marker({title: tour.get('name'), position: new google.maps.LatLng(firstLatLng[0], firstLatLng[1])});
+            var marker = new google.maps.Marker({ title: tour.get('name'), position: firstLatLng });
             
             google.maps.event.addListener(marker, 'click', function() {
                 var contentString = 
@@ -47013,7 +47027,8 @@ App.Config.facebookAppIdProd = '387025698094707';
 
 App.Config.googleAppIdTest = '';
 App.Config.googleAppIdLocalhost = '991673526883.apps.googleusercontent.com';
-App.Config.googleAppIdProd = '719190645609-c0ogrmvrbtgbl5ohlb81d0lflf31uo51.apps.googleusercontent.com';;App.ApplicationController = Ember.ArrayController.extend({
+App.Config.googleAppIdProd = '719190645609-c0ogrmvrbtgbl5ohlb81d0lflf31uo51.apps.googleusercontent.com';
+;App.ApplicationController = Ember.ArrayController.extend({
     needs: ['login', 'search'],
     
     verifyLogin : function() {
@@ -47403,11 +47418,11 @@ App.TourController = Ember.ObjectController.extend({
     }.property('model.images.length'),
 
     hasPaths: function() {
-        if(!this.get('mapPaths')){
+        if(!this.get('mapGeoJson')){
            return false;
         }
         return true;
-    }.property('model.mapPaths'),
+    }.property('model.mapGeoJson'),
     
     isIncomplete: function() {
         var warningCount = 0;
@@ -47416,7 +47431,7 @@ App.TourController = Ember.ObjectController.extend({
         if(!App.Validate.isPosNumber(this.get('elevationMax'))) { warningCount++; }
         if(!this.get('timeOfYearFrom')) { warningCount++; }
         if(!this.get('timeOfYearTo')) { warningCount++; }
-        if(!App.Validate.isNotNull(this.get('mapPaths'))){ warningCount++; }
+        if(!App.Validate.isNotNull(this.get('mapGeoJson'))){ warningCount++; }
         if(!App.Validate.lengthOrNull(this.get('itinerary'), 100, 8000, false)){ warningCount++; }
         return warningCount > 0;
     }.property('name'),
@@ -47652,17 +47667,16 @@ App.TourEditController = Ember.ObjectController.extend({
         
         // MAP ACTIONS
         
-        updatePaths: function(paths) {
-            this.set('model.mapPaths', paths);
+        updatePaths: function(geoJson) {
+            this.set('model.mapGeoJson', geoJson);
         },
         
         deletePaths: function() {
-            this.set('model.mapPaths', null);
+            this.set('model.mapGeoJson', null);
         },
         
         updateGeoJson: function(geoJson) {
-            // TODO 
-            //this.set('model.geoJson', geoJson);
+            this.set('model.mapGeoJson', geoJson);
         }
         
     },
@@ -47811,7 +47825,7 @@ App.TourEditController = Ember.ObjectController.extend({
         if(!this.get('timeOfYearTo')) {
             this.get('validationWarnings').push('Season to');
         }
-        if(!App.Validate.isNotNull(this.get('mapPaths'))){
+        if(!App.Validate.isNotNull(this.get('mapGeoJson'))){
             this.get('validationWarnings').push('Map');
         }
         if(!App.Validate.lengthOrNull(this.get('itinerary'), 100, 8000, false)){
@@ -47822,7 +47836,7 @@ App.TourEditController = Ember.ObjectController.extend({
     
     replaceHtmlChars: function() {
         if(!this.get('itinerary')){ return; }
-	
+    
         var str = this.get('itinerary').replace(/</g, '&lt;').replace(/>/g, '&gt;');
         this.set('itinerary', str);
     },    
@@ -47908,11 +47922,11 @@ App.TourEditController = Ember.ObjectController.extend({
     }.property('newImage'),
 
     hasPaths: function() {
-        if(!this.get('mapPaths')){
+        if(!this.get('mapGeoJson')){
            return false;
         }
         return true;
-    }.property('model.mapPaths'),
+    }.property('model.mapGeoJson'),
     
     isIncomplete: function() {
         if(this.get('isDraft')){ return false; }
@@ -48292,6 +48306,34 @@ Ember.Handlebars.registerBoundHelper('resolveMonthName', function (value) {
 
 Ember.Handlebars.registerBoundHelper('resolveTourAction', function (value) {
     return App.Fixtures.resolveNameFromValue('TourActions', value);
+});;App.GeoHelper = Ember.Object.create({
+    
+    validateGeoJson: function(geojson) {
+        if(!geojson.features || geojson.features.length === 0) {
+            return false;
+        }
+        if(!geojson.features[0].geometry) {
+            return false;
+        }    
+        return true;
+    },
+    
+    geoJsonCoordinatesToGoogleLatLngArray: function(coordinates) {
+        var array = [];
+        for (var i = 0; i < coordinates.length; i++) {
+            var coordinate = coordinates[i];
+            array.push(new google.maps.LatLng(coordinate[1], coordinate[0]));
+        }    
+        return array;
+    },
+
+    googleLatLngArrayToGeoJsonCoordinates: function(array) {
+        var coordinates = [];
+        array.forEach(function(latlng) {
+            coordinates.push([latlng.lng(), latlng.lat()]);
+        });
+        return coordinates;
+    },
 });;/**
  * Displaying a Unix time stamp as a readable date string
  */
@@ -48317,7 +48359,7 @@ App.Stats = DS.Model.extend({
 
 App.Toplevel = DS.Model.extend({
     area : DS.belongsTo('area'),
-	name : DS.attr('string')
+    name : DS.attr('string')
 });
 
 App.SearchResult = DS.Model.extend({
@@ -48334,17 +48376,17 @@ App.User = DS.Model.extend({
 });
 
 App.Area = DS.Model.extend({
-	name : DS.attr('string'),
-	description : DS.attr('string'),
-	parent : DS.belongsTo('area', { inverse: 'children' }),
-	children : DS.hasMany('area', { inverse: 'parent', async: true }),
-	hasTours: DS.attr('boolean'),
-	tours: DS.hasMany('tour', { async: true }),
-	nbrTours: DS.attr('number'),
-	areaType: DS.attr('number'),
+    name : DS.attr('string'),
+    description : DS.attr('string'),
+    parent : DS.belongsTo('area', { inverse: 'children' }),
+    children : DS.hasMany('area', { inverse: 'parent', async: true }),
+    hasTours: DS.attr('boolean'),
+    tours: DS.hasMany('tour', { async: true }),
+    nbrTours: DS.attr('number'),
+    areaType: DS.attr('number'),
     
-	// Computed properties
-	isRootArea: function() {
+    // Computed properties
+    isRootArea: function() {
         return (this.get('areaType') === App.Fixtures.AreaTypes.ROOT);
     }.property('areaType'),
     
@@ -48360,13 +48402,13 @@ App.Area = DS.Model.extend({
 App.Maps = Ember.Object.create();
 
 App.Image = DS.Model.extend({
-	imageData: DS.attr('string'),
+    imageData: DS.attr('string'),
         imageFile: DS.attr('string'),
-	tour: DS.belongsTo('tour', {inverse: 'images'}),
-	caption: DS.attr('string'),
-	isPortfolio: DS.attr('boolean'),
-	
-	// Computed properties
+    tour: DS.belongsTo('tour', {inverse: 'images'}),
+    caption: DS.attr('string'),
+    isPortfolio: DS.attr('boolean'),
+    
+    // Computed properties
     isUpdateDisabled: function() {
         return !this.get('isDirty') || this.get('isSaving');
     }.property('isDirty', 'isSaving'),
@@ -48400,34 +48442,34 @@ App.Tag = DS.Model.extend({
 });
 
 App.Tour = DS.Model.extend({
-	name: DS.attr('string'),
-	area: DS.belongsTo('area'),
-	shortDescription: DS.attr('string'),
-	elevationGain: DS.attr('number'),
-	elevationLoss: DS.attr('number'),
-	elevationMax: DS.attr('number'),
-	timingMin: DS.attr('number'),
-	timingMax: DS.attr('number'),
-	grade: DS.attr('number'),
-	haveHazards: DS.attr('boolean'),
-	hazardsDescription: DS.attr('string'),
-	degreesMax: DS.attr('string'),
-	requiresTools: DS.attr('boolean'),
-	toolsDescription: DS.attr('string'), 
-	aspect: DS.attr('number'),
-	timeOfYearFrom: DS.attr('number'),
-	timeOfYearTo: DS.attr('number'),
-	accessPoint: DS.attr('string'),
-	itinerary: DS.attr('string'),
-	mapPaths: DS.attr('raw'),
-	//geoJson: DS.attr('raw'),
-	tags: DS.attr('raw'),
-	portfolioImage: DS.belongsTo('image'),
-	images: DS.hasMany('image', { async: true }),
-	comments: DS.hasMany('comment', { async : true }),
-	actions: DS.hasMany('action', { async: true }),
-	status: DS.attr('number'),
-	publishComment: DS.attr('string'),
+    name: DS.attr('string'),
+    area: DS.belongsTo('area'),
+    shortDescription: DS.attr('string'),
+    elevationGain: DS.attr('number'),
+    elevationLoss: DS.attr('number'),
+    elevationMax: DS.attr('number'),
+    timingMin: DS.attr('number'),
+    timingMax: DS.attr('number'),
+    grade: DS.attr('number'),
+    haveHazards: DS.attr('boolean'),
+    hazardsDescription: DS.attr('string'),
+    degreesMax: DS.attr('string'),
+    requiresTools: DS.attr('boolean'),
+    toolsDescription: DS.attr('string'), 
+    aspect: DS.attr('number'),
+    timeOfYearFrom: DS.attr('number'),
+    timeOfYearTo: DS.attr('number'),
+    accessPoint: DS.attr('string'),
+    itinerary: DS.attr('string'),
+    mapPaths: DS.attr('raw'),
+    mapGeoJson: DS.attr('raw'),
+    tags: DS.attr('raw'),
+    portfolioImage: DS.belongsTo('image'),
+    images: DS.hasMany('image', { async: true }),
+    comments: DS.hasMany('comment', { async : true }),
+    actions: DS.hasMany('action', { async: true }),
+    status: DS.attr('number'),
+    publishComment: DS.attr('string'),
     tagsString : function() {
         var tagsArray = this.get('tags');
         var ret = '';
@@ -48639,37 +48681,44 @@ App.TourMapView = Ember.View.extend({
         if(newWidth < 500) { newHeight = 300; }
         this.get('mapRootElement').css({ width: newWidth + 'px', height: newHeight + 'px' });
     },
-
-    setPolylinesFromMapPaths: function() {
-        var mapPaths = this.get('controller').get('mapPaths');
-        if(!mapPaths){ return; }
-        
+    
+    parseGeoJson: function() {
         var self = this;
+        var geojson = self.get('controller.model.mapGeoJson');
         
-        for (var i = 0; i < mapPaths.length; i++) {
-            var path = mapPaths[i];
-            var polyline = [];
+        console.log('geojson ' + geojson);
+        
+        if(!geojson || !App.GeoHelper.validateGeoJson(geojson)) {
+            return;
+        } 
+        
+        console.log('Has geojson');
+        
+        for(var i = 0; i < geojson.features.length; i++) {
+            
+            var geometry = geojson.features[i].geometry;
+            
+            if(geometry.type === "LineString"){
 
-            for (var j = 0; j < path.length; j++) {
-                var points = path[j];
-                polyline.push(new google.maps.LatLng(points[0], points[1]));
+                var polylinePath = App.GeoHelper.geoJsonCoordinatesToGoogleLatLngArray(geometry.coordinates);        
+                var polyline = new google.maps.Polyline({
+                    path:  polylinePath,
+                    strokeColor: '#ff0000',
+                    strokeWeight: 2
+                });
+                console.log('Pushing path');
+                self.get('currentMapPolylines').push(polyline);
+                polyline.setMap(self.get('map'));
             }
-            
-            var line = new google.maps.Polyline({
-                path: polyline,
-                strokeColor: '#ff0000',
-                strokeWeight: 2,
-            });
-            
-            this.get('currentMapPolylines').push(line);
-            line.setMap(this.get('map'));
-        }
+        }        
     },
     
     setZoomAndCenter: function() {
         var lines = this.get('currentMapPolylines');
 
-        if(!lines || lines.length === 0) { return; }
+        if(!lines || lines.length === 0) { 
+            return; 
+        }
 
         var bounds = new google.maps.LatLngBounds();
         for(var i = 0; i < lines.length; i++){
@@ -48712,9 +48761,10 @@ App.TourMapView = Ember.View.extend({
             };
             
         this.set('map', new google.maps.Map(this.get('mapRootElement').get(0), mapOptions));
-        this.get('map').setCenter(self.setZoomAndCenter());
+        
         this.setMapSize();
-        this.setPolylinesFromMapPaths();
+        
+        this.parseGeoJson();
         
         redrawMap = function() {
             self.setMapSize();
@@ -48766,85 +48816,34 @@ App.TourEditMapView = Ember.View.extend({
         if(newWidth < 500) { newHeight = 300; }
         this.get('mapRootElement').css({ width: newWidth + 'px', height: newHeight + 'px' });
     },
-
-    setPolylinesFromMapPaths: function() {
-        var mapPaths = this.get('controller.model.mapPaths');
-        if(!mapPaths){ return; }
-        
+ 
+    parseGeoJson: function() {
         var self = this;
         
-        var onPathChanged =  function (polyline){
-            if(!self.get('drawingManager')){ return; }
-            self.get('drawingManager').setDrawingMode(null);
-            self.savePolylinesToController();
-        };
+        var geojson = this.get('controller.model.mapGeoJson');
         
-        for (var i = 0; i < mapPaths.length; i++) {
-            var path = mapPaths[i];
-            var polyline = [];
-
-            for (var j = 0; j < path.length; j++) {
-                var points = path[j];
-                polyline.push(new google.maps.LatLng(points[0], points[1]));
-            }
-            
-            var line = new google.maps.Polyline({
-                path: polyline,
-                strokeColor: '#ff0000',
-                strokeWeight: 2,
-                clickable: true,
-                draggable: true,
-                editable: true,
-                zIndex: 1,
-                geodesic: true
-            });                
-
-            var polylinePath = line.getPath();
-            google.maps.event.addListener(polylinePath, 'set_at', onPathChanged); 
-            google.maps.event.addListener(polylinePath, 'insert_at', onPathChanged); 
-
-            this.get('currentMapPolylines').push(line);
-            line.setMap(this.get('map'));
-        }
-    },
-    
-    savePolylinesToController: function() {
-
-        var rawArray = [];
-        
-        for (var i = 0; i < this.get('currentMapPolylines').length; i++) {
-            var pathArray = this.get('currentMapPolylines')[i].getPath().getArray();
-            rawArray[i] = [];
-            for (var j = 0; j < pathArray.length; j++) {
-                rawArray[i].push([pathArray[j].lat(), pathArray[j].lng()]);
-            }
-        }
-        this.get('controller').send('updatePaths', rawArray);
-    },    
-    
-    parseGeoJson: function() {
-        var geojson = this.get('controller.model.geoJson');
-        if(!geojson){ 
+        if(!geojson || !App.GeoHelper.validateGeoJson(geojson)){ 
             return; 
         }
-        
-        var self = this;
         
         var onPathChanged =  function (polyline){
             if(!self.get('drawingManager')){ 
                 return; 
             }
-            
             self.get('drawingManager').setDrawingMode(null);
             self.saveGeoJson();
         };
-        
+
         for(var i = 0; i < geojson.features.length; i++) {
-            var geometry = geojson.features[i];
-        
+            
+            var geometry = geojson.features[i].geometry;
+            
             if(geometry.type === "LineString"){
+
+                var polylinePath = App.GeoHelper.geoJsonCoordinatesToGoogleLatLngArray(geometry.coordinates);
+                                
                 var polyline = new google.maps.Polyline({
-                    path:  self.swapGeoJsonCoordinates(geometry.coordinates),
+                    path:  polylinePath,
                     strokeColor: '#ff0000',
                     strokeWeight: 2,
                     clickable: true,
@@ -48854,33 +48853,14 @@ App.TourEditMapView = Ember.View.extend({
                     geodesic: true
                 });
                 
-                var polylinePath = polyline.getPath();
-                google.maps.event.addListener(polylinePath, 'set_at', onPathChanged); 
-                google.maps.event.addListener(polylinePath, 'insert_at', onPathChanged); 
+                var path = polyline.getPath();
+                google.maps.event.addListener(path, 'set_at', onPathChanged); 
+                google.maps.event.addListener(path, 'insert_at', onPathChanged); 
 
                 this.get('currentMapPolylines').push(polyline);
                 polyline.setMap(this.get('map'));
             }
         }
-    },
-    
-    // GeoJson use x, y (long, lat) while google object use lat, long. 
-    swapGeoJsonCoordinates: function(coordinates) {
-        var swapped = [];
-        for(var i = 0; i < coordinates.length; i++) {
-            swapped.push([coordinates[i].y, coordinates[i].x]);
-        }
-    
-        return swapped;
-    },
-    
-    swapGoogleCoordinates: function(coordinates) {
-        var swapped = [];
-        for(var i = 0; i < coordinates.length; i++) {
-            swapped.push([coordinates[i].longitude, coordinates[i].latitude]);
-        }
-
-        return swapped;
     },
     
     saveGeoJson: function() {
@@ -48892,13 +48872,13 @@ App.TourEditMapView = Ember.View.extend({
         };
         
         for (var i = 0; i < this.get('currentMapPolylines').length; i++) {
-            var polylinePathArray = this.get('currentMapPolylines')[i].getPath().getArray();
+            var polylinePath = this.get('currentMapPolylines')[i].getPath();
             
             geojson.features.push({
                 type: "Feature",
                 geometry: {
                     type: "LineString",
-                    coordinates: self.swapGoogleCoordinates(polylinePathArray)
+                    coordinates: App.GeoHelper.googleLatLngArrayToGeoJsonCoordinates(polylinePath)
                 }
             });
         }
@@ -48922,7 +48902,7 @@ App.TourEditMapView = Ember.View.extend({
     
     addPolyline: function(polyline) {
         this.get('currentMapPolylines').push(polyline);
-        this.savePolylinesToController();
+        this.saveGeoJson();
     },
     
     initMap: function() {
@@ -48978,7 +48958,7 @@ App.TourEditMapView = Ember.View.extend({
             
         this.get('drawingManager').setMap(this.get('map'));
         this.setMapSize();
-        this.setPolylinesFromMapPaths();
+        this.parseGeoJson();
         
         redrawMap = function() {
             self.setMapSize();
@@ -48988,7 +48968,7 @@ App.TourEditMapView = Ember.View.extend({
  
         var onPathChanged =  function (polyline){
             self.get('drawingManager').setDrawingMode(null);
-            self.savePolylinesToController();
+            self.saveGeoJson();
         };
         
         google.maps.event.addListener(self.get('drawingManager'), 'polylinecomplete', function(polyline){
@@ -49010,131 +48990,6 @@ App.TourEditMapView = Ember.View.extend({
        
         // Hook up to window resize event to do implicit resize on map canvas
         $(window).on('resize', redrawMap);        
-    }
-});
-
-/**
- * View showing the clustered tour map
- */
-App.TourClusterMapView = Ember.View.extend({
-    templateName: 'tourclustermap-view',
-    mapRootElement: null,
-    map: null,
-    markers: [],
-    
-    didInsertElement: function() {
-        this.set('markers', []);
-        if(this.get('controller.toursLoaded')){
-            this.initTours();
-        }
-    },
-    
-    initTours: function() {
-        console.log('initTours');
-        if(!this.get('controller.toursLoaded')){ return; }
-        
-        var self = this;
-        this.get('controller').get('tours').forEach(function(tour){
-            var mapPaths = tour.get('mapPaths');
-            if(!mapPaths) { return; }
-
-            var mapPath = mapPaths[0];
-            if(!mapPath) { return; }
-            
-            var firstLatLng = mapPath[0];
-            if(!firstLatLng){ return; }
-
-            var marker = new google.maps.Marker({title: tour.get('name'), position: new google.maps.LatLng(firstLatLng[0], firstLatLng[1])});
-            
-            google.maps.event.addListener(marker, 'click', function() {
-                var contentString = 
-                    '<div style="background-color:#FFF">'+
-                    '<h4><a style="font-size:0.9em;" href=#!/tours/'+ tour.get('id') + '>' + tour.get('name') + '</a></h4>' +
-                    '<p>' + 
-                    App.Fixtures.resolveNameFromValue('Grades', tour.get('grade'))  + ' | ' +
-                    tour.get('timingMin') + '-' + tour.get('timingMax') + 'h | ' +
-                    tour.get('elevationGain') + 'm &uarr; ' + tour.get('elevationLoss') + 'm &darr;' +
-                    '</p>' +
-                    '</div>';
-                
-                var infowindow = new google.maps.InfoWindow({ content: contentString });
-                infowindow.open(self.get('map'), marker);
-            });
-            
-            self.get('markers').push(marker);
-        });
-
-        this.initMap();
-        $(window).resize();
-    },
-    
-    setMapSize: function() {
-        var newWidth = $('.mapContainer').width();
-        var newHeight = 500;
-        if(newWidth < 600) { newHeight = 400; }
-        if(newWidth < 500) { newHeight = 300; }
-        this.get('mapRootElement').css({ width: newWidth + 'px', height: newHeight + 'px' });
-    },
-    
-    setZoomAndCenter: function() {
-        var markers = this.get('markers');
-
-        if(!markers || markers.length === 0) { return; }
-
-        var bounds = new google.maps.LatLngBounds();
-        for(var i = 0; i < markers.length; i++){
-            bounds.extend(markers[i].position);  
-            this.get('oms').addMarker(markers[i]);
-        }
-        
-        this.get('map').fitBounds(bounds);
-    },
-    
-    initMap: function() {
-        var self = this;
-        this.set('mapRootElement', this.$('#tourMapRootElement'));
-
-        var mapOptions = {
-                mapTypeId: google.maps.MapTypeId.TERRAIN,
-                mapTypeControl: true,
-                mapTypeControlOptions: {
-                    style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
-                },
-                zoomControl: true,
-                zoomControlOptions: {
-                    style: google.maps.ZoomControlStyle.SMALL
-                },
-                scaleControl: true,
-                scaleControlOptions: {
-                    position: google.maps.ControlPosition.TOP_LEFT
-                },
-                scrollwheel: false,
-                panControl: true,
-                streetViewControl:false,
-                overviewMapControl:false,
-                rotateControl:false,
-                center: new google.maps.LatLng(58.0, 13.5),
-                zoom: 3,
-            };
-            
-        this.set('map', new google.maps.Map(this.get('mapRootElement').get(0), mapOptions));
-        var markerCluster = new MarkerClusterer(this.get('map'), this.get('markers'));
-        markerCluster.setMaxZoom(10);
-        this.set('oms', new OverlappingMarkerSpiderfier(this.get('map')));
-        
-        this.setMapSize();
-
-        // Hook up to window resize event to do implicit resize on map canvas
-        redrawMap = function() {
-            self.setMapSize();
-            google.maps.event.trigger(self.get('map'), 'resize');
-            self.setZoomAndCenter();
-        };
-        $(window).on('resize', redrawMap); 
-        
-        redrawMap();
-        
-        this.$('#tourMapRootElement').fadeIn(400);
     }
 });
 ;App.ApplicationView = Ember.View.extend({
