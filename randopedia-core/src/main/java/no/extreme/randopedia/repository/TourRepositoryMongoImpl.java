@@ -13,6 +13,7 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import no.extreme.randopedia.factory.OutputStreamFactory;
 import no.extreme.randopedia.model.area.Area;
 import no.extreme.randopedia.model.tag.TagCloudTag;
 import no.extreme.randopedia.model.tour.Tour;
@@ -20,6 +21,7 @@ import no.extreme.randopedia.model.tour.TourAction;
 import no.extreme.randopedia.model.tour.TourComment;
 import no.extreme.randopedia.model.tour.TourImage;
 import no.extreme.randopedia.model.tour.TourStatus;
+import no.extreme.randopedia.service.FileWriterService;
 import no.extreme.randopedia.utils.ImageUtils;
 import no.extreme.randopedia.utils.RandoNameUtils;
 
@@ -40,6 +42,8 @@ public class TourRepositoryMongoImpl implements TourRepository {
     private String WEBAPP_CLIENT_DIRECTORY;
     @Value("${tourimages.directory}")
     private String TOURIMAGES_DIRECTORY;
+    @Autowired
+    private FileWriterService fileWriterService;
 
 
     private Criteria onlyPublishedCriteria = Criteria.where("status").is(TourStatus.PUBLISHED);
@@ -220,21 +224,13 @@ public class TourRepositoryMongoImpl implements TourRepository {
                 
         String fileName = WEBAPP_CLIENT_DIRECTORY + "/" + TOURIMAGES_DIRECTORY + "/" + tour.getClientId() + "_" + (images.size() + 1) + ".jpg";
         String databaseFileName = TOURIMAGES_DIRECTORY + "/" + tour.getClientId() + "_" + (images.size() + 1) + ".jpg";
-        FileOutputStream fos = new FileOutputStream(fileName);
         
-        try {
-            fos.write(imageBytes);
-            image.setImageFile(databaseFileName);
-            image.set_Id(ObjectId.get());
-            images.add(image);
-            tour.setTourImages(images);
-            saveTour(tour);
-        }
-        finally {
-            fos.close();
-        }
-            
-        
+        fileWriterService.writeFile(fileName, imageBytes);
+        image.setImageFile(databaseFileName);
+        image.set_Id(ObjectId.get());
+        images.add(image);
+        tour.setTourImages(images);
+        saveTour(tour);
     }
 
     @Override

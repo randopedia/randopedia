@@ -13,6 +13,7 @@ import no.extreme.randopedia.model.tour.Tour;
 import no.extreme.randopedia.model.tour.TourComment;
 import no.extreme.randopedia.model.tour.TourImage;
 import no.extreme.randopedia.model.tour.TourStatus;
+import no.extreme.randopedia.service.FileWriterService;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.IOUtils;
@@ -21,11 +22,16 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
+import org.mockito.Spy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.util.ReflectionTestUtils;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:testContext.xml"})
@@ -37,6 +43,8 @@ public class TourRepositoryMongoImplIntegrationTest extends AbstractJUnit4Spring
     @Autowired
     MongoOperations mongoOperations;
     
+    private FileWriterService fileWriterService;
+    
     @BeforeClass
     public static void initializeDB() {
 
@@ -44,7 +52,9 @@ public class TourRepositoryMongoImplIntegrationTest extends AbstractJUnit4Spring
     
     @Before
     public void setUp() {
-
+        MockitoAnnotations.initMocks(this);
+        fileWriterService = Mockito.mock(FileWriterService.class);
+        ReflectionTestUtils.setField(tourRepo, "fileWriterService", fileWriterService);
     }
     
     /**
@@ -483,7 +493,7 @@ public class TourRepositoryMongoImplIntegrationTest extends AbstractJUnit4Spring
 
         TourImage image = createImage(null);
         image.setCaption(caption);
-        
+   
         tourRepo.addImageToTour(tour, image);
     }
     
