@@ -10,6 +10,7 @@ target
 var
 tourimages
 test_data
+bin
 
 randopedia-core/src/main/resources/application.localhost.properties
 randopedia-core/src/main/resources/application.prod.properties
