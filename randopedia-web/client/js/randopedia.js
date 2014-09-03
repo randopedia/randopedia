@@ -46886,13 +46886,6 @@ App.RawTransform = DS.Transform.extend({
         }
         
         this.addTourMarkers(this.get('tours'));
-
-        $(document).foundation('section', {
-            callback: function(){
-                // Hack to make sure content is loaded correctly, solves issue with Google Maps view not being rendered
-                $(window).resize();
-            }
-        });
     },
     
     getFirstLatLng: function(geojson) {
@@ -47027,8 +47020,7 @@ App.Config.facebookAppIdProd = '387025698094707';
 
 App.Config.googleAppIdTest = '';
 App.Config.googleAppIdLocalhost = '991673526883.apps.googleusercontent.com';
-App.Config.googleAppIdProd = '719190645609-c0ogrmvrbtgbl5ohlb81d0lflf31uo51.apps.googleusercontent.com';
-;App.ApplicationController = Ember.ArrayController.extend({
+App.Config.googleAppIdProd = '719190645609-c0ogrmvrbtgbl5ohlb81d0lflf31uo51.apps.googleusercontent.com';;App.ApplicationController = Ember.ArrayController.extend({
     needs: ['login', 'search'],
     
     verifyLogin : function() {
@@ -48685,15 +48677,10 @@ App.TourMapView = Ember.View.extend({
     parseGeoJson: function() {
         var self = this;
         var geojson = self.get('controller.model.mapGeoJson');
-        
-        console.log('geojson ' + geojson);
-        
         if(!geojson || !App.GeoHelper.validateGeoJson(geojson)) {
             return;
         } 
-        
-        console.log('Has geojson');
-        
+ 
         for(var i = 0; i < geojson.features.length; i++) {
             
             var geometry = geojson.features[i].geometry;
@@ -48706,7 +48693,6 @@ App.TourMapView = Ember.View.extend({
                     strokeColor: '#ff0000',
                     strokeWeight: 2
                 });
-                console.log('Pushing path');
                 self.get('currentMapPolylines').push(polyline);
                 polyline.setMap(self.get('map'));
             }
@@ -48995,18 +48981,26 @@ App.TourEditMapView = Ember.View.extend({
 ;App.ApplicationView = Ember.View.extend({
     classNames: ['app-root-view'],
     didInsertElement: function() {
-        $(document).foundation();
-        $(document).foundation('section');
-        $(document).foundation('reveal', {
-            animation: 'fade',
-            closeOnBackgroundClick: false
-        });
-        
+
         // Set the negative margin on the top menu for slide-menu pages (visible for small screens)
-        var $selector1 = $('#topMenu'), events = 'click.fndtn';
-        if ($selector1.length > 0){
-            $selector1.css("margin-top", $selector1.height() * -1);
-        }
+//        var $selector1 = $('#topMenu'), events = 'click.fndtn';
+//        if ($selector1.length > 0){
+//            $selector1.css("margin-top", $selector1.height() * -1);
+//        }
+
+        $(document).foundation({
+            reveal: {
+                animation: 'fade',
+                close_on_background_click: false
+            },    
+            tab: {
+                // Hack to make sure Google Maps is loaded correctly. The map is not rendered until a resize occurs when displayed inside a Foundation tab
+                callback: function() {
+                    $(window).resize();
+                },
+                deep_linking: false
+           } 
+        });
     }
 });
 
@@ -49115,7 +49109,7 @@ App.TourTeaserView = Ember.View.extend({
 App.AboutView = Ember.View.extend({
    templateName: 'about',
    didInsertElement: function() {
-       $(document).foundation('section');
+       $(document).foundation();
    }
 });
 
@@ -49124,7 +49118,7 @@ App.AreaDetailsView = Ember.View.extend({
 });
 
 App.AreaEditView = Ember.View.extend({
-    templateName: 'areaedit-view',   
+    templateName: 'areaedit-view',
     actions: {
         saveArea: function() {
             if(this.get('controller').validate() === true){
@@ -49208,11 +49202,7 @@ App.AreaItemView = Ember.View.extend({
     }.property('controller')
 });
 
-App.BrowseView = Ember.View.extend({
-    didInsertElement : function() {
-        $(document).foundation('section');
-    }
-});
+App.BrowseView = Ember.View.extend();
 
 App.AreaPickerView = Ember.View.extend({
    templateName: "areapicker-view",
@@ -49233,8 +49223,6 @@ App.AreaPickerView = Ember.View.extend({
                });
            }
        });
-       
-     //  console.log('AREA: ' + this.get('controller').get('model').get('area'));
    },
    actions: {
        confirmSelectedArea: function() {
@@ -49299,6 +49287,7 @@ App.TourPublishView = Ember.View.extend({
     didInsertElement: function() {
         var self = this;
         this.get('controller').clearValidationFlags();
+
         $('#publishTourStep1Reveal').bind('opened', function() {
             self.set('haveValidationErrors', !self.get('controller').validateForPublish());
             self.set('haveValidationWarnings', self.get('controller').checkForValidationWarnings() > 0);
@@ -49369,13 +49358,7 @@ App.TourEditView = Ember.View.extend({
     templateName: 'touredit-view',
     showAdvancedOptions: false,
     didInsertElement: function() {
-
-        $(document).foundation('section', {
-            callback: function(){
-                // Hack to make sure content is loaded correctly, solves issue with Google Maps view not being rendered
-                $(window).resize();
-            }
-        });
+        $(document).foundation();
     },
     actions: {
         startPublishTour: function() {

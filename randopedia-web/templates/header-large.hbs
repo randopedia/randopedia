@@ -13,12 +13,16 @@
                 {{!-- <li class="header-link">{{#linkTo "browse"}}Browse{{/linkTo}}</li> --}}
                 
                 {{#if controllers.login.isLoggedIn}}
-                    <li class="header-link right"><a id="toggleUserMenuDropdown" data-dropdown="userMenuDropdown" data-options="align_right:true">Menu</a></li>
+                    <li class="header-link right">
+                        <a id="toggleUserMenuDropdown" data-dropdown="userMenuDropdown" data-options="align_right:true">Menu</a>
+                    </li>
                 {{else}}
                     {{#if controllers.login.isLoggingIn}}
                         <li class="right"><div class="header-login-text">Logging in...</div></li>
                     {{else}}
-                        <li class="header-link right"><a id="toggleLoginDropdown" data-dropdown="loginDropdown" data-options="align_right:true">Login</a></li>
+                        <li class="header-link right">
+                            <a id="toggleLoginDropdown" data-dropdown="loginDropdown">Login</a>
+                        </li>
                     {{/if}}
                 {{/if}}
             </ul>

@@ -20,13 +20,6 @@ App.BrowseTourmapComponent = Ember.Component.extend({
         }
         
         this.addTourMarkers(this.get('tours'));
-
-        $(document).foundation('section', {
-            callback: function(){
-                // Hack to make sure content is loaded correctly, solves issue with Google Maps view not being rendered
-                $(window).resize();
-            }
-        });
     },
     
     getFirstLatLng: function(geojson) {

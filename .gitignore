@@ -9,7 +9,6 @@
 target
 var
 tourimages
-test_data
 
 randopedia-core/src/main/resources/application.localhost.properties
 randopedia-core/src/main/resources/application.prod.properties
@@ -19,3 +18,4 @@ randopedia-core/src/main/resources/application.test.properties
 
 node_modules
 randopedia-web/src/config.js
+.metadata

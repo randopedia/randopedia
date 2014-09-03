@@ -22,15 +22,10 @@ App.TourMapView = Ember.View.extend({
     parseGeoJson: function() {
         var self = this;
         var geojson = self.get('controller.model.mapGeoJson');
-        
-        console.log('geojson ' + geojson);
-        
         if(!geojson || !App.GeoHelper.validateGeoJson(geojson)) {
             return;
         } 
-        
-        console.log('Has geojson');
-        
+ 
         for(var i = 0; i < geojson.features.length; i++) {
             
             var geometry = geojson.features[i].geometry;
@@ -43,7 +38,6 @@ App.TourMapView = Ember.View.extend({
                     strokeColor: '#ff0000',
                     strokeWeight: 2
                 });
-                console.log('Pushing path');
                 self.get('currentMapPolylines').push(polyline);
                 polyline.setMap(self.get('map'));
             }

@@ -1,4 +1,4 @@
-<nav class="top-bar">
+<nav class="top-bar" data-topbar role="navigation">
   
     <ul class="title-area">
       <li class="name">
@@ -25,7 +25,7 @@
         
         <li class="divider"></li>
         {{#if controllers.login.isLoggedIn}}
-            <li><a {{action topbarMenuLink "myTours"}}>View my tours</a></li>
+            <li><a {{action topbarMenuLink "mytours"}}>View my tours</a></li>
         {{else}}
             {{#if controllers.login.isLoggingIn}}
                 <li><div class="header-login-text top-bar-menu-nolink">Logging in...</div></li>
@@ -38,7 +38,7 @@
   
 </nav>
 
-<div id="loginReveal" class="reveal-modal small">
+<div id="loginReveal" class="reveal-modal small" data-reveal>
 	{{view App.LoginView}}
 	<a class="close-reveal-modal" {{action "exitPreview" target="view"}}>&#215;</a>
 </div>

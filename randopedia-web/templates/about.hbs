@@ -1,11 +1,15 @@
 <div class="row">
     <div class="small-12 columns">
     
-		<div class="section-container tabs" data-section="tabs">
+        <dl class="tabs" data-tab>
+            <dd class="active"><a href="#about-panel">About</a></dd>
+            <dd><a href="#grades-panel">Grades</a></dd>
+            <dd><a href="#help-panel">Help</a></dd>
+        </dl>
+
+		<div class="tabs-content">
 		
-			<section class="active">
-			   <p class="title" data-section-title><a href="#about">About</a></p>
-			   <div class="content" data-section-content>
+			<div class="content active" id="about-panel">
 			       <h3>About Randopedia</h3>
 			       <p>
 			       Randopedia is an open-content collaborative encyclopedia where anyone can contribute by adding and update content. Ambition is high; it shall become the most complete and accessible ski tour database in the world. Randopedia isn't a community; it's simply a database containing ski tour descriptions.
@@ -64,19 +68,15 @@
                     <p>
                     Randopedia reserves the right to, without any notice, delete any content that violates anything stated here or is considered irrelevant for the site.
                     </p>
-			   </div>
-			</section>
+			</div>
 		  
-		    <section>
-		        <p class="title" data-section-title><a href="#grades">Grades</a></p>
+		    <div class="content" id="grades-panel">
 		        <div class="content" data-section-content>
 		          {{partial "about-grades"}} 
 		        </div>
-		    </section>  
+		    </div>  
 		
-		    <section>
-                <p class="title" data-section-title><a href="#help">Help</a></p>
-                <div class="content" data-section-content>
+		    <div class="content" id="help-panel">
                 
                   <h3>Adding and updating tours</h3>
                    <p>
@@ -180,8 +180,7 @@
                     publish at a later time.
                    </p>                     
                 
-                </div>
-            </section>
+            </div>
 		
 		</div>
 	    

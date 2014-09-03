@@ -48,7 +48,7 @@
     <button class="left" {{bindAttr disabled="view.haveValidationErrors"}} {{action "continueToStep2" target="view"}}>Continue</button>
 </div>
 
-<div id="publishTourStep2Reveal" class="reveal-modal small">
+<div id="publishTourStep2Reveal" class="reveal-modal small" data-reveal>
     <h5>Publish tour <span class="secondary-text">(Step 2 of 2)</span></h5>
     
     
@@ -66,7 +66,7 @@
     </div>
 </div>
 
-    <div id="publishCommentTip" class="f-dropdown content small" data-dropdown-content>
+<div id="publishCommentTip" class="f-dropdown content small" data-dropdown-content>
     <div>
         Briefly describe what you have changed on the tour. Comments are shown in the history tab on tour edit page.
         <hr />
