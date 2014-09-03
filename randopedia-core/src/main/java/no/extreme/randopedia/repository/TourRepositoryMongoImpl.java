@@ -284,7 +284,7 @@ public class TourRepositoryMongoImpl implements TourRepository {
     
     @Override
     public Tour getTourFromImageId(String imageId) {
-        Criteria criteria = Criteria.where("tourImages._id").is(imageId);
+        Criteria criteria = Criteria.where("tourImages._id").is(new ObjectId(imageId));
         Query query = Query.query(criteria);
         return mongoOperations.findOne(query, Tour.class);
     }

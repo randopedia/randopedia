@@ -1,10 +1,10 @@
 package no.extreme.randopedia.validator;
 
 import java.util.List;
-//import java.util.regex.Matcher;
-//import java.util.regex.Pattern;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
+
+
 
 public abstract class AbstractValidator {
     public static final String illegalCharacters = "[~#@*+%{}<>\\[\\]|\"\\_^]"; 

@@ -1,6 +1,5 @@
 package no.extreme.randopedia.service;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -23,11 +22,9 @@ import no.extreme.randopedia.repository.AreaRepository;
 import no.extreme.randopedia.repository.AuthenticationRepository;
 import no.extreme.randopedia.repository.TourRepository;
 import no.extreme.randopedia.utils.DataWasher;
-import no.extreme.randopedia.utils.ImageUtils;
 import no.extreme.randopedia.validator.TourValidator;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
