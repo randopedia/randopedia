@@ -6169,6 +6169,24 @@ button.close {
   font-family: Aight;
   src: url('../fonts/aaaiight.ttf');
 }
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+.ember-view {
+  height: 100%;
+}
+.full-screen {
+  width: 100%;
+  height: 100%;
+}
+.uppercase {
+  text-transform: uppercase;
+}
+.small {
+  font-size: 0.8em;
+}
 .randopedia-logo-text {
   font-weight: 700;
   font-family: Aight, Helvetica, Arial;
@@ -6184,8 +6202,15 @@ button.close {
 a:hover {
   cursor: pointer;
 }
-.spacer {
+.spacing {
   margin: 10px;
+}
+.tour-item-view .item-panel {
+  margin-bottom: 10px;
+  padding: 5px;
+}
+.tour-item-view .item-props {
+  color: #333333;
 }
 .login-view .login-link {
   text-decoration: none;

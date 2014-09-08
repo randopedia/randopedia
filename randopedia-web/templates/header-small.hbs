@@ -27,9 +27,8 @@
 				    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Menu <span class="caret"></span></a>
 				    <ul class="dropdown-menu" role="menu">
 						{{#if controllers.login.isLoggedIn}}
-						<li class="divider"></li>
 						<li><a {{action topbarMenuLink "tour.new"}}>Add new tour</a></li>
-						<li><a {{action topbarMenuLink "myTours"}}>View my tours</a></li>
+						<li><a {{action topbarMenuLink "mytours"}}>View my tours</a></li>
 						{{else}}
 						    {{#if controllers.login.isLoggingIn}}
 						    <li><div class="header-login-text top-bar-menu-nolink">Logging in...</div></li>   

@@ -1,25 +1,42 @@
-<div class="row">
-    <div class="large-12 columns">   
-        <div class="tour-list-item-panel">
-            <div class="row">
-                 <div class="small-12 large-12 columns ">
-	                 <div class="row">
-	                     <div class="small-12 columns">
-	                         <h5>{{#linkTo "tour" tour}} {{tour.name}} {{/linkTo}} <span class="secondary-text uppercase">{{tour.area.name}}<span></h5>
-	                     </div>
-	                 </div>
-	                 <div class="row">
-	                     <div class="large-12 columns">
-	                         <p class="tour-item-props">
-                                 {{resolveGradeName tour.grade}} | 
-                                 {{tour.timingMin}}-{{tour.timingMax}}h | 
-                                 {{tour.elevationGain}}m &uarr; {{tour.elevationLoss}}m &darr;
-                             </p>
-	                         <p>{{tour.shortDescription}}</p>
-	                     </div>
-	                 </div>
-                </div>                          
+<div class="row tour-item-view">
+    <div class="col-sm-12">   
+	    <div class="item-panel">
+            <div>
+                <h4> {{#linkTo "tour" tour}} {{tour.name}} {{/linkTo}} <span class="small uppercase">{{tour.area.name}}<span></h4>
+				<p class="item-props">
+					{{resolveGradeName tour.grade}} | 
+					{{tour.timingMin}}-{{tour.timingMax}}h | 
+					{{tour.elevationGain}}m &uarr; {{tour.elevationLoss}}m &darr;
+				</p>
+				<p>
+				    {{tour.shortDescription}}
+				</p>
             </div>
         </div>
     </div>
 </div>
+
+
+<!--         <div class="tour-list-item-panel"> -->
+<!--             <div class="row"> -->
+<!--                  <div class="col-sm-12"> -->
+<!-- 	                 <div class="row"> -->
+<!-- 	                     <div class="col-sm-12"> -->
+<!-- 	                         <h5>{{#linkTo "tour" tour}} {{tour.name}} {{/linkTo}} <span class="secondary-text uppercase">{{tour.area.name}}<span></h5> -->
+<!-- 	                     </div> -->
+<!-- 	                 </div> -->
+<!-- 	                 <div class="row"> -->
+<!-- 	                     <div class="col-sm-12"> -->
+<!-- 	                         <p class="tour-item-props"> -->
+<!--                                  {{resolveGradeName tour.grade}} |  -->
+<!--                                  {{tour.timingMin}}-{{tour.timingMax}}h |  -->
+<!--                                  {{tour.elevationGain}}m &uarr; {{tour.elevationLoss}}m &darr; -->
+<!--                              </p> -->
+<!-- 	                         <p>{{tour.shortDescription}}</p> -->
+<!-- 	                     </div> -->
+<!-- 	                 </div> -->
+<!--                 </div>                           -->
+<!--             </div> -->
+<!--         </div> -->
+<!--     </div> -->
+<!-- </div> -->

@@ -46947,10 +46947,10 @@ App.RawTransform = DS.Transform.extend({
     },
     
     setMapSize: function() {
-        var newWidth = $('.mapContainer').width();
-        var newHeight = 1000; // $('.mapContainer').height();
-        console.log('Height: ' + newHeight);
-        this.get('mapRootElement').css({ width: newWidth + 'px', height: newHeight + 'px' });
+//        var newWidth = $('.mapContainer').width();
+//        var newHeight = 1000; // $('.mapContainer').height();
+//        console.log('Height: ' + newHeight);
+//        this.get('mapRootElement').css({ width: newWidth + 'px', height: newHeight + 'px' });
     },
     
     setZoomAndCenter: function() {

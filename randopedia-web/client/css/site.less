@@ -14,6 +14,28 @@
 
 @font-face { font-family: Aight; src: url('../fonts/aaaiight.ttf'); }
 
+html, body {
+    width: 100%;
+    height: 100%;
+}
+
+ .ember-view {
+    height: 100%;
+}   
+
+.full-screen {
+    width: 100%;
+    height: 100%;
+}
+
+.uppercase { 
+    text-transform: uppercase;
+}
+
+.small {
+    font-size: 0.8em;
+}
+
 .randopedia-logo-text {
     font-weight: 700;
     font-family: @logo-font,Helvetica,Arial;
@@ -36,6 +58,19 @@ a:hover {
 .spacing {
     margin: @large-space;
 }
+
+.tour-item-view {
+    .item-panel {
+        margin-bottom: @large-space;
+        padding: @small-space;
+    }
+    .item-props { 
+        color: @gray-dark;
+    }
+}
+
+//.tour-list-item-panel h5, .tour-list-item-panel p { margin-bottom: 0;}
+//.tour-list-item-panel .tour-item-props { color: #818181; }
 
 .login-view {
     .login-link {

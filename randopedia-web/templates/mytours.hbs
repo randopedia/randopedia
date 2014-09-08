@@ -2,11 +2,11 @@
 
 {{#if serverErrors}}
 <div class="row">
-    <div class="small-12 columns">
-        <div data-alert class="alert-box error">
-            An error occurred when getting your drafts, maybe you have been logged out? Try to reload the page and log in again.
-            <a href="#" class="close">&times;</a>
-        </div>
+    <div class="col-sm-12">
+		<div class="alert alert-danger alert-dismissible" role="alert">
+		  <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+		  An error occurred when getting your drafts, maybe you have been logged out? Try to reload the page and log in again.
+		</div>
     </div>
 </div>
 {{else}}
@@ -14,8 +14,8 @@
 	{{#if isLoadingDrafts }}
 	
 	    <div class="row">
-	        <div class="small-12 columnn">
-	            <div class="preloader"></div>
+	        <div class=col-sm-12>
+	            <div>Loading tours...</div>
 	        </div>
 	    </div>
 	
@@ -24,7 +24,7 @@
 	    {{#each tour in drafts}}
 	        {{view App.TourItemView}}
 	    {{else}}
-	        <p>You have no saved tour drafts</p>
+	        <pre>You have no saved tour drafts</pre>
 	    {{/each}}
 	
 	{{/if}}
