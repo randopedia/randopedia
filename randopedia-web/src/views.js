@@ -1,26 +1,18 @@
 App.ApplicationView = Ember.View.extend({
     classNames: ['app-root-view'],
     didInsertElement: function() {
-
+//        $(document).foundation();
+//        $(document).foundation('section');
+//        $(document).foundation('reveal', {
+//            animation: 'fade',
+//            closeOnBackgroundClick: false
+//        });
+        
         // Set the negative margin on the top menu for slide-menu pages (visible for small screens)
-//        var $selector1 = $('#topMenu'), events = 'click.fndtn';
-//        if ($selector1.length > 0){
-//            $selector1.css("margin-top", $selector1.height() * -1);
-//        }
-
-        $(document).foundation({
-            reveal: {
-                animation: 'fade',
-                close_on_background_click: false
-            },    
-            tab: {
-                // Hack to make sure Google Maps is loaded correctly. The map is not rendered until a resize occurs when displayed inside a Foundation tab
-                callback: function() {
-                    $(window).resize();
-                },
-                deep_linking: false
-           } 
-        });
+        var $selector1 = $('#topMenu'), events = 'click.fndtn';
+        if ($selector1.length > 0){
+            $selector1.css("margin-top", $selector1.height() * -1);
+        }
     }
 });
 
@@ -128,9 +120,6 @@ App.TourTeaserView = Ember.View.extend({
 
 App.AboutView = Ember.View.extend({
    templateName: 'about',
-   didInsertElement: function() {
-       $(document).foundation();
-   }
 });
 
 App.AreaDetailsView = Ember.View.extend({
@@ -138,7 +127,7 @@ App.AreaDetailsView = Ember.View.extend({
 });
 
 App.AreaEditView = Ember.View.extend({
-    templateName: 'areaedit-view',
+    templateName: 'areaedit-view',   
     actions: {
         saveArea: function() {
             if(this.get('controller').validate() === true){
@@ -222,7 +211,11 @@ App.AreaItemView = Ember.View.extend({
     }.property('controller')
 });
 
-App.BrowseView = Ember.View.extend();
+App.BrowseView = Ember.View.extend({
+    didInsertElement : function() {
+        $(document).foundation('section');
+    }
+});
 
 App.AreaPickerView = Ember.View.extend({
    templateName: "areapicker-view",
@@ -243,6 +236,8 @@ App.AreaPickerView = Ember.View.extend({
                });
            }
        });
+       
+     //  console.log('AREA: ' + this.get('controller').get('model').get('area'));
    },
    actions: {
        confirmSelectedArea: function() {
@@ -307,7 +302,6 @@ App.TourPublishView = Ember.View.extend({
     didInsertElement: function() {
         var self = this;
         this.get('controller').clearValidationFlags();
-
         $('#publishTourStep1Reveal').bind('opened', function() {
             self.set('haveValidationErrors', !self.get('controller').validateForPublish());
             self.set('haveValidationWarnings', self.get('controller').checkForValidationWarnings() > 0);
@@ -378,7 +372,13 @@ App.TourEditView = Ember.View.extend({
     templateName: 'touredit-view',
     showAdvancedOptions: false,
     didInsertElement: function() {
-        $(document).foundation();
+
+        $(document).foundation('section', {
+            callback: function(){
+                // Hack to make sure content is loaded correctly, solves issue with Google Maps view not being rendered
+                $(window).resize();
+            }
+        });
     },
     actions: {
         startPublishTour: function() {

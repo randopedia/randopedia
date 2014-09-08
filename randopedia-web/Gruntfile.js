@@ -51,6 +51,21 @@ module.exports = function(grunt) {
           }
         }
     },
+    bootstrap: {
+        dest: "out"
+    },
+    less: {
+        development: {
+            files: {
+                "client/css/site.css": "client/css/site.less"
+            }
+        },
+//        production: {
+//            files: {
+//                "client/css/site.css": "client/css/site.less"
+//            }
+//        }
+    },
     qunit: {
         all: ['test/*.html']
     },
@@ -113,11 +128,11 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-connect-proxy');
+  grunt.loadNpmTasks('grunt-contrib-less');
   
-  grunt.registerTask('test', ['jshint', 'concat', 'emberTemplates', 'qunit']);
-
-  grunt.registerTask('localhost', ['jshint', 'concat', 'emberTemplates', 'qunit']);
-  grunt.registerTask('default', ['jshint', 'concat', 'emberTemplates', 'qunit', 'uglify']);
+  grunt.registerTask('test', ['jshint', 'concat', 'emberTemplates', 'less', 'qunit']);
+  grunt.registerTask('localhost', ['jshint', 'concat', 'emberTemplates', 'less', 'qunit']);
+  grunt.registerTask('default', ['jshint', 'concat', 'emberTemplates', 'less', 'qunit', 'uglify']);
   grunt.registerTask('server', ['configureProxies:server', 'connect']);
   
 };

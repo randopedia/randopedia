@@ -1,8 +1,20 @@
+
+{{#if liteTours}}
+    {{browse-tourmap store=store tours=liteTours}}
+{{else}}
+    Loading map...
+{{/if}}
+
+
+
+
+{{!--
 {{#if isSmallScreen}}
     {{view App.IndexSmallView}}
 {{else}}
     {{partial "index-large"}}
 {{/if}}
+--}}
 
 
 

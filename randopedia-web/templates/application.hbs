@@ -2,14 +2,13 @@
     Default application template. Defines the application layout and starts everything off.
 -->     
     
-<div class="hide-for-small">
-    {{partial "header-large"}}
-</div>
+{{partial "header-small"}}
+ 
+{{outlet}}
 
-<div class="show-for-small">
-	{{partial "header-small"}}
-</div>
 
+
+{{!--
 <div class="body-wrapper">
             
     <div class="row">
@@ -31,3 +30,4 @@
 <footer class="footer">
     {{ partial "footer" }}
 </footer>
+--}}

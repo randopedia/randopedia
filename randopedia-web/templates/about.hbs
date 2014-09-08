@@ -1,25 +1,26 @@
 <div class="row">
-    <div class="small-12 columns">
+    <div class="col-sm-12">
     
-        <dl class="tabs" data-tab>
-            <dd class="active"><a href="#about-panel">About</a></dd>
-            <dd><a href="#grades-panel">Grades</a></dd>
-            <dd><a href="#help-panel">Help</a></dd>
-        </dl>
-
-		<div class="tabs-content">
+         <ul class="nav nav-tabs" role="tablist">
+			<li class="active"><a href="#about" role="tab" data-toggle="tab">About</a></li>
+			<li><a href="#grades" role="tab" data-toggle="tab">Grades</a></li>
+			<li><a href="#help" role="tab" data-toggle="tab">Help</a></li>
+	    </ul>
+	    
+		<div class="tab-content">
 		
-			<div class="content active" id="about-panel">
-			       <h3>About Randopedia</h3>
-			       <p>
-			       Randopedia is an open-content collaborative encyclopedia where anyone can contribute by adding and update content. Ambition is high; it shall become the most complete and accessible ski tour database in the world. Randopedia isn't a community; it's simply a database containing ski tour descriptions.
-			       </p>
-			       
-			       <p>
-			       It's really easy to contribute and take part in the Randopedia vision. Just log in and add your tours! Have a look at the help section if you want to learn more about how to contribute with tour data.
-			       </p>
-			       
-			        <h4 class="subheader">The people</h4>
+			<div class="tab-pane active" id="about">
+			     <div>
+                   <h3>About Randopedia</h3>
+                   <p>
+                   Randopedia is an open-content collaborative encyclopedia where anyone can contribute by adding and update content. Ambition is high; it shall become the most complete and accessible ski tour database in the world. Randopedia isn't a community; it's simply a database containing ski tour descriptions.
+                   </p>
+                   
+                   <p>
+                   It's really easy to contribute and take part in the Randopedia vision. Just log in and add your tours! Have a look at the help section if you want to learn more about how to contribute with tour data.
+                   </p>
+                   
+                    <h4 class="subheader">The people</h4>
                     <p>
                     Randopedia is developed and maintained by a bunch of skiers (who also happens to be programmers) who simply thought this was a great idea. All work is done voluntary on our spare time, but we do our best to frequently update and improve the site.
                     </p>
@@ -29,55 +30,54 @@
                     We love to get feedback, so any ideas, suggestions, error reports, questions, criticism or compliments are all very welcomed. Please send an email to <a href="mailto:mail@randopedia.net">mail@randopedia.net</a> or write on the <a target="_blank" href="https://www.facebook.com/randopedia.net">Randopedia Facebook page</a>.
                     </p>
                     
-			       <h4 class="subheader">Privacy, registering and logging in</h4>
-			       <p>
-				   Randopedia doesn't have its own authentication system, instead of creating a new account you can use accounts you already have. Currently you can login with Facebook and Google accounts.
-				   </p>
-				   
-				    <p>
-				    First time you login you have to register the account with Randopedia. This is just a confirmation that you allow your account to be used for authentication by Randopedia.
-					</p>
-					
-					<p>
-				    Randopedia doesn't store or use any sensitive information about your account. The only thing that is saved is the user id and name. There's no logout button on the page, if you for example have logged in using your Facebook account, you'll be logged out from Randopedia when you log out from Facebook.
-					</p>
-					
-					<p>
-				    Note: You only need to login if you want to contribute with ski tour data or write comments on tours. All ski tours and other information on the site is always available regardless if you're logged in or not.
-			        </p>
-			        
-			        <p>
+                   <h4 class="subheader">Privacy, registering and logging in</h4>
+                   <p>
+                   Randopedia doesn't have its own authentication system, instead of creating a new account you can use accounts you already have. Currently you can login with Facebook and Google accounts.
+                   </p>
+                   
+                    <p>
+                    First time you login you have to register the account with Randopedia. This is just a confirmation that you allow your account to be used for authentication by Randopedia.
+                    </p>
+                    
+                    <p>
+                    Randopedia doesn't store or use any sensitive information about your account. The only thing that is saved is the user id and name. There's no logout button on the page, if you for example have logged in using your Facebook account, you'll be logged out from Randopedia when you log out from Facebook.
+                    </p>
+                    
+                    <p>
+                    Note: You only need to login if you want to contribute with ski tour data or write comments on tours. All ski tours and other information on the site is always available regardless if you're logged in or not.
+                    </p>
+                    
+                    <p>
                     Note 2: If you have saved tour drafts when logged in with one account, for example Facebook, those tours will not be available if you log in with Google or vice versa.
                     </p>
-			       
-			        <h4 class="subheader">Licensing</h4>
-			        <p>
-			        All tour data (texts, images, map data) is licensed under a <a target="_blank" rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
-			        </p>
-			       
-			        <h4 class="subheader">Disclaimer</h4>
+                   
+                    <h4 class="subheader">Licensing</h4>
+                    <p>
+                    All tour data (texts, images, map data) is licensed under a <a target="_blank" rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+                    </p>
+                   
+                    <h4 class="subheader">Disclaimer</h4>
                     <p>
                     By publishing any material on Randopedia you assures that the material DO NOT violate ANY copyright law, international or otherwise, nor that the material is deemed illegal by governing authorities.
                     </p>
                     <p>
                     If you suspect that some material available on Randopedia violates any copyright law, please contact us and it will be immediately deleted from the Randopedia database.
-                    </p>			       
+                    </p>                   
                     <p>
                     Randopedia makes no guarantee of the validity of the content. Tour data should always be seen as guidelines and inspiration, not as absolute truth, and be handled as such.
                     </p>
                     <p>
                     Randopedia reserves the right to, without any notice, delete any content that violates anything stated here or is considered irrelevant for the site.
-                    </p>
+                    </p>			     
+			     </div>
 			</div>
-		  
-		    <div class="content" id="grades-panel">
-		        <div class="content" data-section-content>
-		          {{partial "about-grades"}} 
-		        </div>
-		    </div>  
-		
-		    <div class="content" id="help-panel">
-                
+			
+			<div class="tab-pane" id="grades">
+			     {{partial "about-grades"}} 
+			</div>
+			
+			<div class="tab-pane" id="help">
+                <div>
                   <h3>Adding and updating tours</h3>
                    <p>
                    The basic idea of Randopedia is that many people will contribute by adding and improving the tour descriptions. After a new tour has been published, it 
@@ -95,8 +95,8 @@
                    There are two ways to add a new tour. 
                    <br> - Browse into an area, click edit and then the Add tour button. This will create a new tour in the current area.
                    <br> - Click the Add new tour link in the main menu.
-                   <p>See "Edit a tour" section below for more details on editing tours.</p>
                    </p>
+                   <p>See "Edit a tour" section below for more details on editing tours.</p>
                    
                    <h4 class="subheader">Adding a new area</h4>
                    <p>
@@ -178,10 +178,10 @@
                     <p>
                     Drafts are only available for new, unpublished tours. If a tour have been published, it's not possible to make changes and save it as a draft to 
                     publish at a later time.
-                   </p>                     
-                
+                   </p>                    
+                </div>
             </div>
-		
+            
 		</div>
 	    
     </div>
