@@ -1,5 +1,6 @@
 <nav class="navbar navbar-inverse" role="navigation">
     <div class="container-fluid">
+    
 	    <!-- Brand and toggle get grouped for better mobile display -->
 	    <div class="navbar-header">
 			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -10,6 +11,7 @@
 			</button>
 			<a class="navbar-brand randopedia-logo-text" {{action goToIndex}}>Randopedia</a>
 	    </div>
+	    
 	    <!-- Collect the nav links, forms, and other content for toggling -->
 	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			
@@ -28,14 +30,15 @@
 						<li class="divider"></li>
 						<li><a {{action topbarMenuLink "tour.new"}}>Add new tour</a></li>
 						<li><a {{action topbarMenuLink "myTours"}}>View my tours</a></li>
+						{{else}}
+						    {{#if controllers.login.isLoggingIn}}
+						    <li><div class="header-login-text top-bar-menu-nolink">Logging in...</div></li>   
+						    {{else}}
+						    <li><a data-toggle="modal" data-target="#loginViewModalId">Login</a></li>
+						    {{/if}}
 						{{/if}}
-					    {{#if controllers.login.isLoggingIn}}
-					    <li><div class="header-login-text top-bar-menu-nolink">Logging in...</div></li>   
-					    {{else}}
-					    <li><a data-reveal-id="loginReveal" {{action topbarMenuLink}}>Login</a></li>
-					    {{/if}}
 						<li class="divider"></li>
-						<li><a {{action topbarMenuLink "about"}}>About</a></li>
+						<li><a {{action topbarMenuLink "about"}}>About Randopedia</a></li>
 				    </ul>
 				</li>
 			</ul>	       
@@ -44,12 +47,6 @@
     </div>
 </nav>
 
-{{!--
-
-
-<div id="loginReveal" class="reveal-modal small">
-	{{view App.LoginView}}
-	<a class="close-reveal-modal" {{action "exitPreview" target="view"}}>&#215;</a>
+<div class="modal fade" id="loginViewModalId" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    {{view App.LoginModalView}}
 </div>
-
---}}

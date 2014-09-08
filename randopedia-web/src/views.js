@@ -16,25 +16,20 @@ App.ApplicationView = Ember.View.extend({
     }
 });
 
-App.LoginView = Ember.View.extend({
-    templateName: 'login-view',
+App.LoginModalView = Ember.View.extend({
+    templateName: 'login-modal-view',
     actions: {
         loginWithFacebook: function() {
             this.get('controller.controllers.login').send('loginWithFacebook');
-            this.closeLoginDropdown();
+            this.closeModal();
         },
         loginWithGoogle: function() {
             this.get('controller.controllers.login').send('loginWithGoogle');
-            this.closeLoginDropdown();
+            this.closeModal();
         },
     },
-    closeLoginDropdown: function() {
-        if ($('#loginDropdown').hasClass('open')) {
-             $('#toggleLoginDropdown').trigger('click');
-        }
-        if($('#loginReveal')) {
-            $('#loginReveal').foundation('reveal', 'close');
-        }
+    closeModal: function() {
+        $('#loginViewModalId').modal('hide');
     }
 });
 

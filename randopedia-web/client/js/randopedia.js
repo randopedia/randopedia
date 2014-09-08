@@ -46949,9 +46949,6 @@ App.RawTransform = DS.Transform.extend({
     setMapSize: function() {
         var newWidth = $('.mapContainer').width();
         var newHeight = 1000; // $('.mapContainer').height();
-//        var newHeight = 500;
-//        if(newWidth < 600) { newHeight = 400; }
-//        if(newWidth < 500) { newHeight = 300; }
         console.log('Height: ' + newHeight);
         this.get('mapRootElement').css({ width: newWidth + 'px', height: newHeight + 'px' });
     },
@@ -46988,7 +46985,7 @@ App.RawTransform = DS.Transform.extend({
                 scaleControlOptions: {
                     position: google.maps.ControlPosition.TOP_LEFT
                 },
-                scrollwheel: false,
+                scrollwheel: true,
                 panControl: true,
                 streetViewControl:false,
                 overviewMapControl:false,
@@ -47066,6 +47063,14 @@ App.Config.googleAppIdProd = '719190645609-c0ogrmvrbtgbl5ohlb81d0lflf31uo51.apps
                 }
             }
             $('.top-bar, [data-topbar]').css('height', '').removeClass('expanded');
+        },
+        loginWithFacebook: function() {
+            this.get('controller.controllers.login').send('loginWithFacebook');
+//            this.closeLoginDropdown();
+        },
+        loginWithGoogle: function() {
+            this.get('controller.controllers.login').send('loginWithGoogle');
+//            this.closeLoginDropdown();
         },
         goToIndex: function() {
             this.get('controllers.search').clearSearchResult();
@@ -49005,25 +49010,20 @@ App.TourEditMapView = Ember.View.extend({
     }
 });
 
-App.LoginView = Ember.View.extend({
-    templateName: 'login-view',
+App.LoginModalView = Ember.View.extend({
+    templateName: 'login-modal-view',
     actions: {
         loginWithFacebook: function() {
             this.get('controller.controllers.login').send('loginWithFacebook');
-            this.closeLoginDropdown();
+            this.closeModal();
         },
         loginWithGoogle: function() {
             this.get('controller.controllers.login').send('loginWithGoogle');
-            this.closeLoginDropdown();
+            this.closeModal();
         },
     },
-    closeLoginDropdown: function() {
-        if ($('#loginDropdown').hasClass('open')) {
-             $('#toggleLoginDropdown').trigger('click');
-        }
-        if($('#loginReveal')) {
-            $('#loginReveal').foundation('reveal', 'close');
-        }
+    closeModal: function() {
+        $('#loginViewModalId').modal('hide');
     }
 });
 

@@ -83,9 +83,6 @@ App.BrowseTourmapComponent = Ember.Component.extend({
     setMapSize: function() {
         var newWidth = $('.mapContainer').width();
         var newHeight = 1000; // $('.mapContainer').height();
-//        var newHeight = 500;
-//        if(newWidth < 600) { newHeight = 400; }
-//        if(newWidth < 500) { newHeight = 300; }
         console.log('Height: ' + newHeight);
         this.get('mapRootElement').css({ width: newWidth + 'px', height: newHeight + 'px' });
     },
@@ -122,7 +119,7 @@ App.BrowseTourmapComponent = Ember.Component.extend({
                 scaleControlOptions: {
                     position: google.maps.ControlPosition.TOP_LEFT
                 },
-                scrollwheel: false,
+                scrollwheel: true,
                 panControl: true,
                 streetViewControl:false,
                 overviewMapControl:false,

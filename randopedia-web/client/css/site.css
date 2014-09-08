@@ -6178,3 +6178,40 @@ button.close {
   margin-bottom: 0;
   border-radius: 0;
 }
+.tab-content {
+  padding: 0 10px;
+}
+a:hover {
+  cursor: pointer;
+}
+.spacer {
+  margin: 10px;
+}
+.login-view .login-link {
+  text-decoration: none;
+  color: #333333;
+}
+.login-view .login-link :hover {
+  color: #333333;
+  background-color: #eeeeee;
+}
+.login-view .login-link :visited {
+  color: #333333;
+}
+.login-view .login-link div {
+  border: 1px solid #eeeeee;
+  padding: 5px 10px;
+  margin: 5px;
+  width: 225px;
+}
+.login-view .login-link div img {
+  vertical-align: middle;
+  margin: 10px;
+}
+.login-view .login-link div :hover {
+  background-color: #eeeeee;
+  cursor: pointer;
+}
+.login-view .login-link div:hover {
+  background-color: #eeeeee;
+}

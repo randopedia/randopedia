@@ -5,6 +5,11 @@
 @logo-font: Aight;
 @navbar-background: url(../images/header_background.jpg) repeat-x;
 
+@light-border: 1px solid @gray-lighter;
+
+@small-space: 5px;
+@large-space: 10px;
+
 /* END Global variables */
 
 @font-face { font-family: Aight; src: url('../fonts/aaaiight.ttf'); }
@@ -18,4 +23,45 @@
     background: @navbar-background;
     margin-bottom: 0;
     border-radius: 0;
+}
+
+.tab-content {
+    padding: 0 @large-space;
+}
+
+a:hover {
+    cursor: pointer;
+}
+
+.spacing {
+    margin: @large-space;
+}
+
+.login-view {
+    .login-link {
+        text-decoration: none; 
+        color: @text-color;
+        :hover {
+            color:@text-color;
+            background-color: @gray-lighter;
+        }
+        :visited {
+            color:@text-color;
+        }
+        div {
+            border: @light-border;
+            padding: @small-space @large-space;
+            margin: 5px;
+            width: 225px;
+            & img {
+                vertical-align:middle;
+                margin: 10px; 
+            }            
+            :hover { 
+                background-color: @gray-lighter;
+                cursor: pointer;
+            }
+        }
+        div:hover { background-color: @gray-lighter; }
+    }
 }

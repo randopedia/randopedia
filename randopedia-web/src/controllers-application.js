@@ -36,6 +36,14 @@ App.ApplicationController = Ember.ArrayController.extend({
             }
             $('.top-bar, [data-topbar]').css('height', '').removeClass('expanded');
         },
+        loginWithFacebook: function() {
+            this.get('controller.controllers.login').send('loginWithFacebook');
+//            this.closeLoginDropdown();
+        },
+        loginWithGoogle: function() {
+            this.get('controller.controllers.login').send('loginWithGoogle');
+//            this.closeLoginDropdown();
+        },
         goToIndex: function() {
             this.get('controllers.search').clearSearchResult();
             this.transitionToRoute('index');
