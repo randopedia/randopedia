@@ -81,8 +81,8 @@ App.BrowseTourmapComponent = Ember.Component.extend({
     },
     
     setMapSize: function() {
-//        var newWidth = $('.mapContainer').width();
-//        var newHeight = 1000; // $('.mapContainer').height();
+//        var newWidth = $('.ember-application').width();
+//        var newHeight =  $('.ember-application').height() - 50;
 //        console.log('Height: ' + newHeight);
 //        this.get('mapRootElement').css({ width: newWidth + 'px', height: newHeight + 'px' });
     },

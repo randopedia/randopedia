@@ -1361,12 +1361,12 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
 function program1(depth0,data) {
   
   var buffer = '', helper, options;
-  data.buffer.push("\r\n    ");
+  data.buffer.push("\r\n    <div id=\"full-screen-map-container\" class=\"full-screen\">\r\n    ");
   data.buffer.push(escapeExpression((helper = helpers['browse-tourmap'] || (depth0 && depth0['browse-tourmap']),options={hash:{
     'store': ("store"),
     'tours': ("liteTours")
   },hashTypes:{'store': "ID",'tours': "ID"},hashContexts:{'store': depth0,'tours': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "browse-tourmap", options))));
-  data.buffer.push("\r\n");
+  data.buffer.push("\r\n    </div>\r\n");
   return buffer;
   }
 
@@ -1453,51 +1453,52 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
 function program1(depth0,data) {
   
   
-  data.buffer.push("\r\n<div class=\"row\">\r\n    <div class=\"col-sm-12\">\r\n		<div class=\"alert alert-danger alert-dismissible\" role=\"alert\">\r\n		  <button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button>\r\n		  An error occurred when getting your drafts, maybe you have been logged out? Try to reload the page and log in again.\r\n		</div>\r\n    </div>\r\n</div>\r\n");
+  data.buffer.push("\r\n	<div class=\"row\">\r\n	    <div class=\"col-sm-12\">\r\n			<div class=\"alert alert-danger alert-dismissible\" role=\"alert\">\r\n			  <button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button>\r\n			  An error occurred when getting your drafts, maybe you have been logged out? Try to reload the page and log in again.\r\n			</div>\r\n	    </div>\r\n	</div>\r\n	");
   }
 
 function program3(depth0,data) {
   
   var buffer = '', stack1;
-  data.buffer.push("\r\n\r\n	");
+  data.buffer.push("\r\n	\r\n		");
   stack1 = helpers['if'].call(depth0, "isLoadingDrafts", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(6, program6, data),fn:self.program(4, program4, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n\r\n");
+  data.buffer.push("\r\n	\r\n	");
   return buffer;
   }
 function program4(depth0,data) {
   
   
-  data.buffer.push("\r\n	\r\n	    <div class=\"row\">\r\n	        <div class=col-sm-12>\r\n	            <div>Loading tours...</div>\r\n	        </div>\r\n	    </div>\r\n	\r\n	");
+  data.buffer.push("\r\n		\r\n		    <div class=\"row\">\r\n		        <div class=col-sm-12>\r\n		            <div>Loading tours...</div>\r\n		        </div>\r\n		    </div>\r\n		\r\n		");
   }
 
 function program6(depth0,data) {
   
   var buffer = '', stack1;
-  data.buffer.push("\r\n	\r\n	    ");
+  data.buffer.push("\r\n		\r\n		    ");
   stack1 = helpers.each.call(depth0, "tour", "in", "drafts", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(9, program9, data),fn:self.program(7, program7, data),contexts:[depth0,depth0,depth0],types:["ID","ID","ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n	\r\n	");
+  data.buffer.push("\r\n		\r\n		");
   return buffer;
   }
 function program7(depth0,data) {
   
   var buffer = '';
-  data.buffer.push("\r\n	        ");
+  data.buffer.push("\r\n		        ");
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "App.TourItemView", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data})));
-  data.buffer.push("\r\n	    ");
+  data.buffer.push("\r\n		    ");
   return buffer;
   }
 
 function program9(depth0,data) {
   
   
-  data.buffer.push("\r\n	        <pre>You have no saved tour drafts</pre>\r\n	    ");
+  data.buffer.push("\r\n		        <pre>You have no saved tour drafts</pre>\r\n		    ");
   }
 
-  data.buffer.push("<h4>My tours (drafts)</h4>\r\n\r\n");
+  data.buffer.push("<div class=\"full-page-view-container\">\r\n	<h3>My tours (drafts)</h3>\r\n	\r\n	");
   stack1 = helpers['if'].call(depth0, "serverErrors", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(3, program3, data),fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\r\n</div>");
   return buffer;
   
 });
@@ -1682,29 +1683,31 @@ function program7(depth0,data) {
 Ember.TEMPLATES["tour"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
-  var stack1, escapeExpression=this.escapeExpression, self=this;
+  var buffer = '', stack1, escapeExpression=this.escapeExpression, self=this;
 
 function program1(depth0,data) {
   
   var buffer = '';
-  data.buffer.push("\r\n    ");
+  data.buffer.push("\r\n	    ");
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "App.TourEditView", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data})));
-  data.buffer.push("\r\n");
+  data.buffer.push("\r\n	");
   return buffer;
   }
 
 function program3(depth0,data) {
   
   var buffer = '';
-  data.buffer.push("\r\n    ");
+  data.buffer.push("\r\n	    ");
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "App.TourDetailsView", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data})));
-  data.buffer.push("\r\n");
+  data.buffer.push("\r\n	");
   return buffer;
   }
 
+  data.buffer.push("<div class=\"full-page-view-container tour-details-view\">\r\n	");
   stack1 = helpers['if'].call(depth0, "editTourMode", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(3, program3, data),fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  else { data.buffer.push(''); }
+  data.buffer.push("\r\n</div>");
+  return buffer;
   
 });
 
@@ -1725,66 +1728,48 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
 
 function program1(depth0,data) {
   
-  var buffer = '', stack1;
-  data.buffer.push("\r\n");
-  stack1 = helpers.unless.call(depth0, "previewMode", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(2, program2, data),contexts:[depth0],types:["ID"],data:data});
-  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n");
-  return buffer;
-  }
-function program2(depth0,data) {
   
-  
-  data.buffer.push("\r\n<div class=\"row\">\r\n    <div class=\"small-12 columns\">\r\n        <div data-alert class=\"alert-box information\">\r\n            This is a draft, the tour has not yet been published\r\n            <a href=\"#\" class=\"close\">&times;</a>\r\n        </div>\r\n    </div>\r\n</div>\r\n");
+  data.buffer.push("\r\n<div class=\"row\">\r\n    <div class=\"col-sm-12\">\r\n        <div class=\"alert alert-info alert-dismissible\" role=\"alert\">\r\n            <button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button>\r\n            This is a draft, the tour has not yet been published\r\n        </div>\r\n    </div>\r\n</div>\r\n");
   }
 
-function program4(depth0,data) {
+function program3(depth0,data) {
   
   
-  data.buffer.push("\r\n<div class=\"row\">\r\n    <div class=\"small-12 columns\">\r\n        <div data-alert class=\"alert-box warning\">\r\n            TOUR IS DELETED\r\n        </div>\r\n    </div>\r\n</div>\r\n");
+  data.buffer.push("\r\n<div class=\"row\">\r\n    <div class=\"col-sm-12\">\r\n        <div class=\"alert alert-danger alert-dismissible\" role=\"alert\">\r\n            <button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button>\r\n            Tour is marked as deleted and will eventually be permanently deleted from the databse\r\n        </div>\r\n    </div>\r\n</div>\r\n");
   }
 
-function program6(depth0,data) {
+function program5(depth0,data) {
   
   var buffer = '', stack1;
-  data.buffer.push(" <span class=\"secondary-text\">(");
+  data.buffer.push(" <span class=\"small\">(");
   stack1 = helpers._triageMustache.call(depth0, "elevationMax", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("m)</span> ");
   return buffer;
   }
 
-function program8(depth0,data) {
+function program7(depth0,data) {
   
   
   data.buffer.push("\r\n            <button data-dropdown=\"incompleteTip\" class=\"incomplete\"></button>\r\n            ");
   }
 
-function program10(depth0,data) {
-  
-  var buffer = '', stack1;
-  data.buffer.push("\r\n	        ");
-  stack1 = helpers.unless.call(depth0, "previewMode", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(11, program11, data),contexts:[depth0],types:["ID"],data:data});
-  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n	    ");
-  return buffer;
-  }
-function program11(depth0,data) {
+function program9(depth0,data) {
   
   var buffer = '', stack1, helper, options;
-  data.buffer.push("\r\n	            \r\n	            <h3 class=\"right\">");
-  stack1 = (helper = helpers['link-to'] || (depth0 && depth0['link-to']),options={hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(12, program12, data),contexts:[depth0,depth0],types:["STRING","ID"],data:data},helper ? helper.call(depth0, "tour.edit", "model", options) : helperMissing.call(depth0, "link-to", "tour.edit", "model", options));
+  data.buffer.push("\r\n	       <h3 class=\"right\">");
+  stack1 = (helper = helpers['link-to'] || (depth0 && depth0['link-to']),options={hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(10, program10, data),contexts:[depth0,depth0],types:["STRING","ID"],data:data},helper ? helper.call(depth0, "tour.edit", "model", options) : helperMissing.call(depth0, "link-to", "tour.edit", "model", options));
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("</h3>\r\n	        ");
+  data.buffer.push("</h3>\r\n	    ");
   return buffer;
   }
-function program12(depth0,data) {
+function program10(depth0,data) {
   
   
   data.buffer.push("<i class=\"foundicon-edit\"></i>");
   }
 
-function program14(depth0,data) {
+function program12(depth0,data) {
   
   var stack1;
   stack1 = helpers._triageMustache.call(depth0, "timingMin", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
@@ -1792,7 +1777,7 @@ function program14(depth0,data) {
   else { data.buffer.push(''); }
   }
 
-function program16(depth0,data) {
+function program14(depth0,data) {
   
   var buffer = '', stack1;
   data.buffer.push("-");
@@ -1801,7 +1786,7 @@ function program16(depth0,data) {
   return buffer;
   }
 
-function program18(depth0,data) {
+function program16(depth0,data) {
   
   var buffer = '', stack1;
   data.buffer.push(" \r\n			            ");
@@ -1811,7 +1796,7 @@ function program18(depth0,data) {
   return buffer;
   }
 
-function program20(depth0,data) {
+function program18(depth0,data) {
   
   var buffer = '', stack1;
   data.buffer.push("    \r\n			            ");
@@ -1821,56 +1806,38 @@ function program20(depth0,data) {
   return buffer;
   }
 
+function program20(depth0,data) {
+  
+  var buffer = '', helper, options;
+  data.buffer.push("\r\n		<div class=\"row\">\r\n            <div class=\"tourview-info-row\">		\r\n			    <div class=\"col-sm-4 col-lg-3\">\r\n			        <span class=\"tourview-label\">Grade:</span>\r\n			    </div>\r\n			    <div class=\"col-sm-8 col-lg-9\">\r\n			         <a class=\"tourItemPropLink\" data-reveal-id=\"tourDetailsViewGradeGuideReveal\">");
+  data.buffer.push(escapeExpression((helper = helpers.resolveGradeName || (depth0 && depth0.resolveGradeName),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data},helper ? helper.call(depth0, "grade", options) : helperMissing.call(depth0, "resolveGradeName", "grade", options))));
+  data.buffer.push("</a>\r\n			    </div>       \r\n            </div>         \r\n		</div>   \r\n		");
+  return buffer;
+  }
+
 function program22(depth0,data) {
   
   var buffer = '', stack1;
-  data.buffer.push("\r\n		<div class=\"row\">\r\n            <div class=\"tourview-info-row\">		\r\n			    <div class=\"small-4 large-3 columns\">\r\n			        <span class=\"tourview-label\">Grade:</span>\r\n			    </div>\r\n			    <div class=\"small-8 large-9 columns\">\r\n                    ");
-  stack1 = helpers['if'].call(depth0, "previewMode", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(25, program25, data),fn:self.program(23, program23, data),contexts:[depth0],types:["ID"],data:data});
-  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n			    </div>       \r\n            </div>         \r\n		</div>   \r\n		");
-  return buffer;
-  }
-function program23(depth0,data) {
-  
-  var buffer = '', helper, options;
-  data.buffer.push("\r\n			             ");
-  data.buffer.push(escapeExpression((helper = helpers.resolveGradeName || (depth0 && depth0.resolveGradeName),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data},helper ? helper.call(depth0, "grade", options) : helperMissing.call(depth0, "resolveGradeName", "grade", options))));
-  data.buffer.push("\r\n			        ");
-  return buffer;
-  }
-
-function program25(depth0,data) {
-  
-  var buffer = '', helper, options;
-  data.buffer.push("\r\n			             <a class=\"tourItemPropLink\" data-reveal-id=\"tourDetailsViewGradeGuideReveal\">");
-  data.buffer.push(escapeExpression((helper = helpers.resolveGradeName || (depth0 && depth0.resolveGradeName),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data},helper ? helper.call(depth0, "grade", options) : helperMissing.call(depth0, "resolveGradeName", "grade", options))));
-  data.buffer.push("</a>\r\n			        ");
-  return buffer;
-  }
-
-function program27(depth0,data) {
-  
-  var buffer = '', stack1;
-  data.buffer.push(" \r\n		<div class=\"row\">\r\n            <div class=\"tourview-info-row\">     \r\n                <div class=\"small-4 large-3 columns\">\r\n                    <span class=\"tourview-label\">Steepness:</span>\r\n                </div>\r\n                <div class=\"small-8 large-9 columns\">\r\n                    ");
+  data.buffer.push(" \r\n		<div class=\"row\">\r\n            <div class=\"tourview-info-row\">     \r\n                <div class=\"col-sm-4 col-lg-3\">\r\n                    <span class=\"tourview-label\">Steepness:</span>\r\n                </div>\r\n                <div class=\"col-sm-8 col-lg-9\">\r\n                    ");
   stack1 = helpers._triageMustache.call(depth0, "degreesMax", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("&#176;\r\n                </div>\r\n            </div>\r\n        </div>     \r\n         ");
   return buffer;
   }
 
-function program29(depth0,data) {
+function program24(depth0,data) {
   
   var buffer = '', stack1;
   data.buffer.push("\r\n	    ");
-  stack1 = helpers['if'].call(depth0, "timeOfYearTo", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(30, program30, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers['if'].call(depth0, "timeOfYearTo", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(25, program25, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\r\n		");
   return buffer;
   }
-function program30(depth0,data) {
+function program25(depth0,data) {
   
   var buffer = '', helper, options;
-  data.buffer.push("\r\n		<div class=\"row\">\r\n            <div class=\"tourview-info-row\">		\r\n			    <div class=\"small-4 large-3 columns\">\r\n			        <span class=\"tourview-label\">Season:</span>\r\n			    </div>\r\n			    <div class=\"small-8 large-9 columns\">\r\n			        ");
+  data.buffer.push("\r\n		<div class=\"row\">\r\n            <div class=\"tourview-info-row\">		\r\n			    <div class=\"col-sm-4 col-lg-3\">\r\n			        <span class=\"tourview-label\">Season:</span>\r\n			    </div>\r\n			    <div class=\"col-sm-8 col-lg-9\">\r\n			        ");
   data.buffer.push(escapeExpression((helper = helpers.resolveMonthName || (depth0 && depth0.resolveMonthName),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data},helper ? helper.call(depth0, "timeOfYearFrom", options) : helperMissing.call(depth0, "resolveMonthName", "timeOfYearFrom", options))));
   data.buffer.push(" - ");
   data.buffer.push(escapeExpression((helper = helpers.resolveMonthName || (depth0 && depth0.resolveMonthName),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data},helper ? helper.call(depth0, "timeOfYearTo", options) : helperMissing.call(depth0, "resolveMonthName", "timeOfYearTo", options))));
@@ -1878,34 +1845,34 @@ function program30(depth0,data) {
   return buffer;
   }
 
-function program32(depth0,data) {
+function program27(depth0,data) {
   
   var buffer = '', helper, options;
-  data.buffer.push("\r\n		<div class=\"row\">\r\n			<div class=\"tourview-info-row\">\r\n			    <div class=\"small-4 large-3 columns\">\r\n			        <span class=\"tourview-label\">Aspect:</span>\r\n			    </div>\r\n			    <div class=\"small-8 large-9 columns\">\r\n			        ");
+  data.buffer.push("\r\n		<div class=\"row\">\r\n			<div class=\"tourview-info-row\">\r\n			    <div class=\"col-sm-4 col-lg-3\">\r\n			        <span class=\"tourview-label\">Aspect:</span>\r\n			    </div>\r\n			    <div class=\"col-sm-8 col-lg-9\">\r\n			        ");
   data.buffer.push(escapeExpression((helper = helpers.resolveAspectName || (depth0 && depth0.resolveAspectName),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data},helper ? helper.call(depth0, "aspect", options) : helperMissing.call(depth0, "resolveAspectName", "aspect", options))));
   data.buffer.push("\r\n			    </div>                \r\n			</div>\r\n		</div>\r\n        ");
   return buffer;
   }
 
-function program34(depth0,data) {
+function program29(depth0,data) {
   
   var buffer = '', stack1;
   data.buffer.push("\r\n            <span class=\"tourview-label\">Tags:</span>\r\n            ");
-  stack1 = helpers.each.call(depth0, "tag", "in", "tagsArray", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(35, program35, data),contexts:[depth0,depth0,depth0],types:["ID","ID","ID"],data:data});
+  stack1 = helpers.each.call(depth0, "tag", "in", "tagsArray", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(30, program30, data),contexts:[depth0,depth0,depth0],types:["ID","ID","ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\r\n        ");
   return buffer;
   }
-function program35(depth0,data) {
+function program30(depth0,data) {
   
   var buffer = '', stack1, helper, options;
   data.buffer.push("\r\n                ");
-  stack1 = (helper = helpers['link-to'] || (depth0 && depth0['link-to']),options={hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(36, program36, data),contexts:[depth0,depth0],types:["STRING","ID"],data:data},helper ? helper.call(depth0, "tag", "tag", options) : helperMissing.call(depth0, "link-to", "tag", "tag", options));
+  stack1 = (helper = helpers['link-to'] || (depth0 && depth0['link-to']),options={hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(31, program31, data),contexts:[depth0,depth0],types:["STRING","ID"],data:data},helper ? helper.call(depth0, "tag", "tag", options) : helperMissing.call(depth0, "link-to", "tag", "tag", options));
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\r\n            ");
   return buffer;
   }
-function program36(depth0,data) {
+function program31(depth0,data) {
   
   var buffer = '', stack1;
   data.buffer.push(" #");
@@ -1915,54 +1882,39 @@ function program36(depth0,data) {
   return buffer;
   }
 
-function program38(depth0,data) {
+function program33(depth0,data) {
   
   var buffer = '', stack1;
-  data.buffer.push("\r\n        \r\n            <div class=\"small-12 large-6 columns\">\r\n                <div class=\"panel tourview-panel\">\r\n                    <div class=\"row\">\r\n                        <div class=\"small-2 columns\">\r\n                             <i class=\"randicon-warning tourview-panel-icon\"></i>\r\n                        </div>        \r\n                        <div class=\"small-10 columns\">\r\n                            <p>");
+  data.buffer.push("\r\n    <div class=\"col-sm-12 col-sm-6\">\r\n        <div class=\"panel panel-danger\">\r\n            <div class=\"panel-heading\">Hazards</div>\r\n	        <div class=\"panel-body\">\r\n	           ");
   stack1 = helpers._triageMustache.call(depth0, "hazardsDescription", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("</p>\r\n                        </div>        \r\n                    </div>\r\n                </div>\r\n            </div>\r\n        \r\n        ");
+  data.buffer.push("\r\n            </div>  \r\n        </div>\r\n    </div>\r\n    ");
   return buffer;
   }
 
-function program40(depth0,data) {
+function program35(depth0,data) {
   
   var buffer = '', stack1;
-  data.buffer.push("\r\n\r\n            <div class=\"small-12 large-6 columns\">\r\n                <div class=\"panel tourview-panel\">\r\n                    <div class=\"row\">\r\n                        <div class=\"small-2 columns\">\r\n                             <i class=\"randicon-mountaineering tourview-panel-icon\"></i>\r\n                        </div>        \r\n                        <div class=\"small-10 columns\">\r\n                            <p>");
+  data.buffer.push("\r\n    <div class=\"col-sm-12 col-sm-6\">\r\n        <div class=\"panel panel-info\">\r\n            <div class=\"panel-heading\">Mountaineering</div>\r\n            <div class=\"panel-body\">\r\n               ");
   stack1 = helpers._triageMustache.call(depth0, "toolsDescription", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("</p>\r\n                        </div>        \r\n                    </div>\r\n                </div>\r\n            </div>\r\n\r\n        ");
+  data.buffer.push("\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <!--<i class=\"randicon-mountaineering tourview-panel-icon\"></i> -->\r\n    ");
   return buffer;
   }
 
-function program42(depth0,data) {
-  
-  
-  data.buffer.push("\r\n	       <p>Images shown here [Not available in preview]</p>\r\n	    ");
-  }
-
-function program44(depth0,data) {
+function program37(depth0,data) {
   
   var buffer = '', stack1;
-  data.buffer.push("\r\n	       ");
-  stack1 = helpers['if'].call(depth0, "hasImages", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(48, program48, data),fn:self.program(45, program45, data),contexts:[depth0],types:["ID"],data:data});
+  data.buffer.push("\r\n        <div id=\"images-container\">\r\n			<ul class=\"bjqs\">\r\n			    ");
+  stack1 = helpers.each.call(depth0, "image", "in", "images", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(38, program38, data),contexts:[depth0,depth0,depth0],types:["ID","ID","ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n        ");
+  data.buffer.push("\r\n			</ul>\r\n		</div>\r\n        ");
   return buffer;
   }
-function program45(depth0,data) {
-  
-  var buffer = '', stack1;
-  data.buffer.push("\r\n                <div id=\"images-container\">\r\n				     <ul class=\"bjqs\">\r\n					    ");
-  stack1 = helpers.each.call(depth0, "image", "in", "images", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(46, program46, data),contexts:[depth0,depth0,depth0],types:["ID","ID","ID"],data:data});
-  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n				     </ul>\r\n			    </div>\r\n            ");
-  return buffer;
-  }
-function program46(depth0,data) {
+function program38(depth0,data) {
   
   var buffer = '', helper, options;
-  data.buffer.push("\r\n					        <li><img ");
+  data.buffer.push("\r\n			         <li><img ");
   data.buffer.push(escapeExpression((helper = helpers.bindAttr || (depth0 && depth0.bindAttr),options={hash:{
     'src': ("image.imageFile")
   },hashTypes:{'src': "STRING"},hashContexts:{'src': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "bindAttr", options))));
@@ -1970,83 +1922,68 @@ function program46(depth0,data) {
   data.buffer.push(escapeExpression((helper = helpers.bindAttr || (depth0 && depth0.bindAttr),options={hash:{
     'title': ("image.caption")
   },hashTypes:{'title': "STRING"},hashContexts:{'title': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "bindAttr", options))));
-  data.buffer.push("></li>\r\n					    ");
+  data.buffer.push("></li>\r\n			    ");
   return buffer;
   }
 
-function program48(depth0,data) {
+function program40(depth0,data) {
   
   
-  data.buffer.push("\r\n                <p>No images available for this tour</p>	\r\n		    ");
+  data.buffer.push("\r\n            <p>No images available for this tour</p>	\r\n	    ");
   }
 
-function program50(depth0,data) {
-  
-  
-  data.buffer.push("\r\n           <p>Map shown here [Not available in preview]</p>\r\n        ");
-  }
-
-function program52(depth0,data) {
-  
-  var buffer = '', stack1;
-  data.buffer.push("\r\n            ");
-  stack1 = helpers['if'].call(depth0, "hasPaths", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(55, program55, data),fn:self.program(53, program53, data),contexts:[depth0],types:["ID"],data:data});
-  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n		");
-  return buffer;
-  }
-function program53(depth0,data) {
+function program42(depth0,data) {
   
   var buffer = '';
-  data.buffer.push("\r\n			    ");
-  data.buffer.push(escapeExpression(helpers.view.call(depth0, "App.TourMapView", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data})));
   data.buffer.push("\r\n		    ");
+  data.buffer.push(escapeExpression(helpers.view.call(depth0, "App.TourMapView", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data})));
+  data.buffer.push("\r\n	    ");
   return buffer;
   }
 
-function program55(depth0,data) {
+function program44(depth0,data) {
   
   
-  data.buffer.push("\r\n		        <p>No map is available for this tour</p>\r\n		    ");
+  data.buffer.push("\r\n	        <p>No map is available for this tour</p>\r\n	    ");
   }
 
-function program57(depth0,data) {
+function program46(depth0,data) {
   
   var buffer = '', stack1;
-  data.buffer.push("\r\n<div class=\"row\">\r\n    <div class=\"small-12 columns\">\r\n        <div class=\"row\">\r\n            <div class=\"small-7 columns\">\r\n            <h4 class=\"subheader\">Comments<span class=\"secondary-text\">(");
+  data.buffer.push("\r\n<div class=\"row\">\r\n    <div class=\"col-sm-12\">\r\n        <div class=\"row\">\r\n            <div class=\"col-sm-7\">\r\n            <h4 class=\"subheader\">Comments<span class=\"secondary-text\">(");
   stack1 = helpers._triageMustache.call(depth0, "comments.length", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push(")</span></h4>\r\n            ");
-  stack1 = helpers.unless.call(depth0, "controllers.login.isLoggedIn", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(58, program58, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers.unless.call(depth0, "controllers.login.isLoggedIn", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(47, program47, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n            </div>\r\n            <div class=\"small-5 columns\">\r\n                ");
-  stack1 = helpers.unless.call(depth0, "addCommentMode", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(60, program60, data),contexts:[depth0],types:["ID"],data:data});
+  data.buffer.push("\r\n            </div>\r\n            <div class=\"col-sm-5\">\r\n                ");
+  stack1 = helpers.unless.call(depth0, "addCommentMode", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(49, program49, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\r\n            </div>            \r\n        </div>\r\n        \r\n        ");
-  stack1 = helpers['if'].call(depth0, "addCommentMode", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(63, program63, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers['if'].call(depth0, "addCommentMode", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(52, program52, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n\r\n        <div class=\"row\">\r\n            <div class=\"small-12 columns\">\r\n		        ");
-  stack1 = helpers.each.call(depth0, "comments", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(66, program66, data),contexts:[depth0],types:["ID"],data:data});
+  data.buffer.push("\r\n\r\n        <div class=\"row\">\r\n            <div class=\"col-sm-12\">\r\n		        ");
+  stack1 = helpers.each.call(depth0, "comments", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(55, program55, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\r\n		    </div>\r\n        </div>\r\n    </div>    \r\n</div>\r\n");
   return buffer;
   }
-function program58(depth0,data) {
+function program47(depth0,data) {
   
   
   data.buffer.push("\r\n                <div>Sign in if you want to comment</div>\r\n            ");
   }
 
-function program60(depth0,data) {
+function program49(depth0,data) {
   
   var buffer = '', stack1;
   data.buffer.push("\r\n                    ");
-  stack1 = helpers['if'].call(depth0, "controllers.login.isLoggedIn", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(61, program61, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers['if'].call(depth0, "controllers.login.isLoggedIn", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(50, program50, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\r\n                ");
   return buffer;
   }
-function program61(depth0,data) {
+function program50(depth0,data) {
   
   var buffer = '';
   data.buffer.push("\r\n		                <button class=\"comment-add-button right\"  ");
@@ -2055,11 +1992,11 @@ function program61(depth0,data) {
   return buffer;
   }
 
-function program63(depth0,data) {
+function program52(depth0,data) {
   
   var buffer = '', stack1;
-  data.buffer.push("\r\n        <div class=\"row\">\r\n            <div class=\"small-12 columns\">\r\n                ");
-  stack1 = helpers['if'].call(depth0, "commentError", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(64, program64, data),contexts:[depth0],types:["ID"],data:data});
+  data.buffer.push("\r\n        <div class=\"row\">\r\n            <div class=\"col-sm-12\">\r\n                ");
+  stack1 = helpers['if'].call(depth0, "commentError", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(53, program53, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\r\n                <div class=\"comment-container\">\r\n	                ");
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "App.TextArea", {hash:{
@@ -2075,7 +2012,7 @@ function program63(depth0,data) {
   data.buffer.push(" class=\"img-panel-button\">Cancel</button>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        ");
   return buffer;
   }
-function program64(depth0,data) {
+function program53(depth0,data) {
   
   var buffer = '', stack1;
   data.buffer.push(" <p class=\"error\"> ");
@@ -2085,7 +2022,7 @@ function program64(depth0,data) {
   return buffer;
   }
 
-function program66(depth0,data) {
+function program55(depth0,data) {
   
   var buffer = '';
   data.buffer.push("\r\n		            ");
@@ -2101,75 +2038,74 @@ function program66(depth0,data) {
   stack1 = helpers['if'].call(depth0, "isDraft", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\r\n\r\n");
-  stack1 = helpers['if'].call(depth0, "isDeleted", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(4, program4, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers['if'].call(depth0, "isDeleted", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(3, program3, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n\r\n<div class=\"row\">\r\n    <div class=\"small-12 columns\">\r\n	    <ul class=\"area-breadcrumb\">\r\n	       ");
+  data.buffer.push("\r\n\r\n<div class=\"row\">\r\n    <div class=\"col-sm-12\">\r\n	    <ul class=\"area-breadcrumb\">\r\n	       ");
   data.buffer.push(escapeExpression((helper = helpers.control || (depth0 && depth0.control),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0,depth0],types:["STRING","ID"],data:data},helper ? helper.call(depth0, "breadCrumb", "area", options) : helperMissing.call(depth0, "control", "breadCrumb", "area", options))));
-  data.buffer.push("\r\n	    </ul>\r\n    </div>\r\n</div>\r\n\r\n<div class=\"row\">\r\n    <div class=\"small-10 columns\">\r\n        <h3>\r\n            ");
+  data.buffer.push("\r\n	    </ul>\r\n    </div>\r\n</div>\r\n\r\n<div class=\"row\">\r\n    <div class=\"col-sm-10\">\r\n        <h2>\r\n            ");
   stack1 = helpers._triageMustache.call(depth0, "name", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push(" ");
-  stack1 = helpers['if'].call(depth0, "elevationMax", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(6, program6, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers['if'].call(depth0, "elevationMax", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(5, program5, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push(" \r\n            ");
-  stack1 = helpers['if'].call(depth0, "isIncomplete", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(8, program8, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers['if'].call(depth0, "isIncomplete", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(7, program7, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n        </h3>\r\n    </div>\r\n    \r\n    <div class=\"small-2 columns\">    \r\n        ");
-  stack1 = helpers['if'].call(depth0, "controllers.login.isLoggedIn", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(10, program10, data),contexts:[depth0],types:["ID"],data:data});
+  data.buffer.push("\r\n        </h2>\r\n    </div>\r\n    \r\n    <div class=\"col-sm-2\">    \r\n        ");
+  stack1 = helpers['if'].call(depth0, "controllers.login.isLoggedIn", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(9, program9, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n    </div>\r\n</div>\r\n\r\n<div class=\"row\">\r\n    <div class=\"large-12 columns\">\r\n        <p>");
+  data.buffer.push("\r\n    </div>\r\n</div>\r\n\r\n<div class=\"row\">\r\n    <div class=\"col-sm-12\">\r\n        <p>");
   stack1 = helpers._triageMustache.call(depth0, "shortDescription", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("</p>\r\n    </div>\r\n</div>\r\n\r\n<div class=\"row\">\r\n    <div class=\"small-12 large-6 columns\">\r\n	        \r\n		<div class=\"row\">\r\n            <div class=\"tourview-info-row\">		\r\n			    <div class=\"small-4 large-3 columns\">\r\n			        <span class=\"tourview-label\">Time:</span>\r\n			    </div>\r\n			    <div class=\"small-8 large-9 columns\">\r\n			        ");
-  stack1 = helpers['if'].call(depth0, "timingMin", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(14, program14, data),contexts:[depth0],types:["ID"],data:data});
+  data.buffer.push("</p>\r\n    </div>\r\n</div>\r\n\r\n<div class=\"row\">\r\n    <div class=\"col-sm-12 col-lg-6\">\r\n	        \r\n		<div class=\"row\">\r\n            <div class=\"tourview-info-row\">		\r\n			    <div class=\"col-sm-4 col-lg-3\">\r\n			        <span class=\"tourview-label\">Time:</span>\r\n			    </div>\r\n			    <div class=\"col-sm-8 col-lg-9\">\r\n			        ");
+  stack1 = helpers['if'].call(depth0, "timingMin", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(12, program12, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  stack1 = helpers['if'].call(depth0, "timingMax", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(16, program16, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers['if'].call(depth0, "timingMax", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(14, program14, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("h\r\n			    </div>\r\n            </div>			    \r\n		</div>\r\n	\r\n		<div class=\"row\">\r\n            <div class=\"tourview-info-row\">		\r\n			    <div class=\"small-4 large-3 columns\">\r\n			        <span class=\"tourview-label\">Elevation:</span>\r\n			    </div>\r\n			    <div class=\"small-8 large-9 columns\">\r\n                    ");
-  stack1 = helpers['if'].call(depth0, "elevationGain", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(18, program18, data),contexts:[depth0],types:["ID"],data:data});
+  data.buffer.push("h\r\n			    </div>\r\n            </div>			    \r\n		</div>\r\n	\r\n		<div class=\"row\">\r\n            <div class=\"tourview-info-row\">		\r\n			    <div class=\"col-sm-4 col-lg-3\">\r\n			        <span class=\"tourview-label\">Elevation:</span>\r\n			    </div>\r\n			    <div class=\"col-sm-8 col-lg-9\">\r\n                    ");
+  stack1 = helpers['if'].call(depth0, "elevationGain", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(16, program16, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\r\n			        ");
-  stack1 = helpers['if'].call(depth0, "elevationLoss", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(20, program20, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers['if'].call(depth0, "elevationLoss", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(18, program18, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\r\n			    </div>\r\n            </div>\r\n		</div>\r\n			\r\n		");
-  stack1 = helpers['if'].call(depth0, "grade", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(22, program22, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers['if'].call(depth0, "grade", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(20, program20, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\r\n		\r\n		");
-  stack1 = helpers['if'].call(depth0, "degreesMax", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(27, program27, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers['if'].call(depth0, "degreesMax", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(22, program22, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push(" \r\n			   \r\n	    ");
-  stack1 = helpers['if'].call(depth0, "timeOfYearFrom", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(29, program29, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers['if'].call(depth0, "timeOfYearFrom", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(24, program24, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\r\n			\r\n		");
-  stack1 = helpers['if'].call(depth0, "aspect", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(32, program32, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers['if'].call(depth0, "aspect", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(27, program27, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n		\r\n    </div>\r\n    <div class=\"small-12 large-6 columns\">\r\n        ");
-  stack1 = helpers['if'].call(depth0, "tags", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(34, program34, data),contexts:[depth0],types:["ID"],data:data});
+  data.buffer.push("\r\n		\r\n    </div>\r\n    <div class=\"col-sm-12 col-lg-6\">\r\n        ");
+  stack1 = helpers['if'].call(depth0, "tags", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(29, program29, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n    </div>\r\n    \r\n</div>\r\n\r\n<div class=\"row\">\r\n    <div class=\"small-12 columns\">\r\n       <h4 class=\"subheader\">Access point</h4>\r\n       <pre class=\"formatted-desc\">");
+  data.buffer.push("\r\n    </div>\r\n    \r\n</div>\r\n\r\n<div class=\"row\">\r\n    <div class=\"col-sm-12\">\r\n        <div class=\"panel panel-default\">\r\n            <div class=\"panel-heading\">Access point</div>\r\n            <div class=\"panel-body\">\r\n               ");
   stack1 = helpers._triageMustache.call(depth0, "accessPoint", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("</pre>\r\n    </div>\r\n</div>\r\n\r\n<div class=\"row\">\r\n    <div class=\"small-12 columns\">\r\n        <h4 class=\"subheader\">Description</h4>\r\n        <pre class=\"formatted-desc\">");
-  data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "markedItinerary", {hash:{
-    'unescaped': ("true")
-  },hashTypes:{'unescaped': "STRING"},hashContexts:{'unescaped': depth0},contexts:[depth0],types:["ID"],data:data})));
-  data.buffer.push("</pre>\r\n    </div>\r\n</div>\r\n\r\n<div class=\"row\">\r\n    <div class=\"small-12 columns\">\r\n        ");
-  stack1 = helpers['if'].call(depth0, "haveHazards", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(38, program38, data),contexts:[depth0],types:["ID"],data:data});
+  data.buffer.push("\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n\r\n<div class=\"row\">\r\n    <div class=\"col-sm-12\">\r\n        <div class=\"panel panel-default\">\r\n            <div class=\"panel-heading\">Description</div>\r\n            <div class=\"panel-body\">\r\n                <pre class=\"formatted-desc\">\r\n                    ");
+  stack1 = helpers._triageMustache.call(depth0, "markedItinerary", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n         \r\n        ");
-  stack1 = helpers['if'].call(depth0, "requiresTools", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(40, program40, data),contexts:[depth0],types:["ID"],data:data});
+  data.buffer.push("\r\n                </pre>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n\r\n<div class=\"row\">\r\n    ");
+  stack1 = helpers['if'].call(depth0, "haveHazards", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(33, program33, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n    </div>\r\n</div>\r\n\r\n<div class=\"row\">    \r\n    <div class=\"small-12 columns\">\r\n	    <h4 class=\"subheader\">Images<span class=\"secondary-text\">(");
+  data.buffer.push("\r\n     \r\n    ");
+  stack1 = helpers['if'].call(depth0, "requiresTools", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(35, program35, data),contexts:[depth0],types:["ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\r\n</div>\r\n\r\n<div class=\"row\">    \r\n    <div class=\"col-sm-12\">\r\n        <h4 class=\"subheader\">Images<span class=\"secondary-text\">(");
   stack1 = helpers._triageMustache.call(depth0, "images.length", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push(")</span></h4>\r\n\r\n	    ");
-  stack1 = helpers['if'].call(depth0, "previewMode", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(44, program44, data),fn:self.program(42, program42, data),contexts:[depth0],types:["ID"],data:data});
+  data.buffer.push(")</span></h4>\r\n\r\n        ");
+  stack1 = helpers['if'].call(depth0, "hasImages", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(40, program40, data),fn:self.program(37, program37, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n    </div>\r\n</div>\r\n\r\n<div class=\"row\">\r\n    <div class=\"small-12 columns\">\r\n	    <h4 class=\"subheader\">Map</h4>\r\n	    \r\n	    ");
-  stack1 = helpers['if'].call(depth0, "previewMode", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(52, program52, data),fn:self.program(50, program50, data),contexts:[depth0],types:["ID"],data:data});
+  data.buffer.push("\r\n    </div>\r\n</div>\r\n\r\n<div class=\"row\">\r\n    <div class=\"col-sm-12\">\r\n	    <h4 class=\"subheader\">Map</h4>\r\n	    ");
+  stack1 = helpers['if'].call(depth0, "hasPaths", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(44, program44, data),fn:self.program(42, program42, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\r\n    </div>    \r\n</div>\r\n\r\n");
-  stack1 = helpers.unless.call(depth0, "previewMode", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(57, program57, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers.unless.call(depth0, "previewMode", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(46, program46, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\r\n\r\n<div id=\"incompleteTip\" class=\"f-dropdown content medium\" data-dropdown-content>\r\n    <div>\r\n       <p>This tour is marked as incomplete.</p> \r\n       <p>This means that it might lack some data, but it should be enough information available to make the description useful anyway.</p>\r\n       <hr/>\r\n       Please login and update the tour if you have more information about it.\r\n    </div>\r\n</div>\r\n\r\n<div id=\"tourDetailsViewGradeGuideReveal\" class=\"reveal-modal small scrollable\" data-reveal>\r\n    ");
   data.buffer.push(escapeExpression((helper = helpers.partial || (depth0 && depth0.partial),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data},helper ? helper.call(depth0, "about-grades", options) : helperMissing.call(depth0, "partial", "about-grades", options))));

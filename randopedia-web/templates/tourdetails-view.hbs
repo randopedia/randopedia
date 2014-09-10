@@ -1,30 +1,29 @@
 <div class="hidden">{{view.imageLoaded}}</div>
 
 {{#if isDraft}}
-{{#unless previewMode}}
 <div class="row">
-    <div class="small-12 columns">
-        <div data-alert class="alert-box information">
+    <div class="col-sm-12">
+        <div class="alert alert-info alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
             This is a draft, the tour has not yet been published
-            <a href="#" class="close">&times;</a>
         </div>
     </div>
 </div>
-{{/unless}}
 {{/if}}
 
 {{#if isDeleted}}
 <div class="row">
-    <div class="small-12 columns">
-        <div data-alert class="alert-box warning">
-            TOUR IS DELETED
+    <div class="col-sm-12">
+        <div class="alert alert-danger alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            Tour is marked as deleted and will eventually be permanently deleted from the databse
         </div>
     </div>
 </div>
 {{/if}}
 
 <div class="row">
-    <div class="small-12 columns">
+    <div class="col-sm-12">
 	    <ul class="area-breadcrumb">
 	       {{control "breadCrumb" area }}
 	    </ul>
@@ -32,40 +31,37 @@
 </div>
 
 <div class="row">
-    <div class="small-10 columns">
-        <h3>
-            {{name}} {{#if elevationMax }} <span class="secondary-text">({{elevationMax}}m)</span> {{/if}} 
+    <div class="col-sm-10">
+        <h2>
+            {{name}} {{#if elevationMax }} <span class="small">({{elevationMax}}m)</span> {{/if}} 
             {{#if isIncomplete}}
             <button data-dropdown="incompleteTip" class="incomplete"></button>
             {{/if}}
-        </h3>
+        </h2>
     </div>
     
-    <div class="small-2 columns">    
+    <div class="col-sm-2">    
         {{#if controllers.login.isLoggedIn}}
-	        {{#unless previewMode}}
-	            {{!-- <h3><a class="icon-link right" {{action "editTour"}}><i class="foundicon-edit"></i></a></h3> --}}
-	            <h3 class="right">{{#link-to 'tour.edit' model}}<i class="foundicon-edit"></i>{{/link-to}}</h3>
-	        {{/unless}}
+	       <h3 class="right">{{#link-to 'tour.edit' model}}<i class="foundicon-edit"></i>{{/link-to}}</h3>
 	    {{/if}}
     </div>
 </div>
 
 <div class="row">
-    <div class="large-12 columns">
+    <div class="col-sm-12">
         <p>{{shortDescription}}</p>
     </div>
 </div>
 
 <div class="row">
-    <div class="small-12 large-6 columns">
+    <div class="col-sm-12 col-lg-6">
 	        
 		<div class="row">
             <div class="tourview-info-row">		
-			    <div class="small-4 large-3 columns">
+			    <div class="col-sm-4 col-lg-3">
 			        <span class="tourview-label">Time:</span>
 			    </div>
-			    <div class="small-8 large-9 columns">
+			    <div class="col-sm-8 col-lg-9">
 			        {{#if timingMin}}{{timingMin}}{{/if}}{{#if timingMax}}-{{timingMax}}{{/if}}h
 			    </div>
             </div>			    
@@ -73,10 +69,10 @@
 	
 		<div class="row">
             <div class="tourview-info-row">		
-			    <div class="small-4 large-3 columns">
+			    <div class="col-sm-4 col-lg-3">
 			        <span class="tourview-label">Elevation:</span>
 			    </div>
-			    <div class="small-8 large-9 columns">
+			    <div class="col-sm-8 col-lg-9">
                     {{#if elevationGain}} 
 			            {{elevationGain}}m &uarr; 
 			        {{/if}}
@@ -90,15 +86,11 @@
 		{{#if grade}}
 		<div class="row">
             <div class="tourview-info-row">		
-			    <div class="small-4 large-3 columns">
+			    <div class="col-sm-4 col-lg-3">
 			        <span class="tourview-label">Grade:</span>
 			    </div>
-			    <div class="small-8 large-9 columns">
-                    {{#if previewMode}}
-			             {{resolveGradeName grade}}
-			        {{else}}
-			             <a class="tourItemPropLink" data-reveal-id="tourDetailsViewGradeGuideReveal">{{resolveGradeName grade}}</a>
-			        {{/if}}
+			    <div class="col-sm-8 col-lg-9">
+			         <a class="tourItemPropLink" data-reveal-id="tourDetailsViewGradeGuideReveal">{{resolveGradeName grade}}</a>
 			    </div>       
             </div>         
 		</div>   
@@ -107,10 +99,10 @@
 		{{#if degreesMax}} 
 		<div class="row">
             <div class="tourview-info-row">     
-                <div class="small-4 large-3 columns">
+                <div class="col-sm-4 col-lg-3">
                     <span class="tourview-label">Steepness:</span>
                 </div>
-                <div class="small-8 large-9 columns">
+                <div class="col-sm-8 col-lg-9">
                     {{degreesMax}}&#176;
                 </div>
             </div>
@@ -121,10 +113,10 @@
 	    {{#if timeOfYearTo}}
 		<div class="row">
             <div class="tourview-info-row">		
-			    <div class="small-4 large-3 columns">
+			    <div class="col-sm-4 col-lg-3">
 			        <span class="tourview-label">Season:</span>
 			    </div>
-			    <div class="small-8 large-9 columns">
+			    <div class="col-sm-8 col-lg-9">
 			        {{resolveMonthName timeOfYearFrom}} - {{resolveMonthName timeOfYearTo}}
 			    </div>    
 		    </div>            
@@ -135,10 +127,10 @@
 		{{#if aspect}}
 		<div class="row">
 			<div class="tourview-info-row">
-			    <div class="small-4 large-3 columns">
+			    <div class="col-sm-4 col-lg-3">
 			        <span class="tourview-label">Aspect:</span>
 			    </div>
-			    <div class="small-8 large-9 columns">
+			    <div class="col-sm-8 col-lg-9">
 			        {{resolveAspectName aspect}}
 			    </div>                
 			</div>
@@ -146,7 +138,7 @@
         {{/if}}
 		
     </div>
-    <div class="small-12 large-6 columns">
+    <div class="col-sm-12 col-lg-6">
         {{#if tags}}
             <span class="tourview-label">Tags:</span>
             {{#each tag in tagsArray}}
@@ -158,106 +150,94 @@
 </div>
 
 <div class="row">
-    <div class="small-12 columns">
-       <h4 class="subheader">Access point</h4>
-       <pre class="formatted-desc">{{accessPoint}}</pre>
+    <div class="col-sm-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">Access point</div>
+            <div class="panel-body">
+               {{accessPoint}}
+            </div>
+        </div>
     </div>
 </div>
 
 <div class="row">
-    <div class="small-12 columns">
-        <h4 class="subheader">Description</h4>
-        <pre class="formatted-desc">{{{ markedItinerary }}}</pre>
+    <div class="col-sm-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">Description</div>
+            <div class="panel-body">
+                <pre class="formatted-desc">
+                    {{markedItinerary}}
+                </pre>
+            </div>
+        </div>
     </div>
 </div>
 
 <div class="row">
-    <div class="small-12 columns">
-        {{#if haveHazards}}
-        
-            <div class="small-12 large-6 columns">
-                <div class="panel tourview-panel">
-                    <div class="row">
-                        <div class="small-2 columns">
-                             <i class="randicon-warning tourview-panel-icon"></i>
-                        </div>        
-                        <div class="small-10 columns">
-                            <p>{{hazardsDescription}}</p>
-                        </div>        
-                    </div>
-                </div>
-            </div>
-        
-        {{/if}}
-         
-        {{#if requiresTools}}
-
-            <div class="small-12 large-6 columns">
-                <div class="panel tourview-panel">
-                    <div class="row">
-                        <div class="small-2 columns">
-                             <i class="randicon-mountaineering tourview-panel-icon"></i>
-                        </div>        
-                        <div class="small-10 columns">
-                            <p>{{toolsDescription}}</p>
-                        </div>        
-                    </div>
-                </div>
-            </div>
-
-        {{/if}}
+    {{#if haveHazards}}
+    <div class="col-sm-12 col-sm-6">
+        <div class="panel panel-danger">
+            <div class="panel-heading">Hazards</div>
+	        <div class="panel-body">
+	           {{hazardsDescription}}
+            </div>  
+        </div>
     </div>
+    {{/if}}
+     
+    {{#if requiresTools}}
+    <div class="col-sm-12 col-sm-6">
+        <div class="panel panel-info">
+            <div class="panel-heading">Mountaineering</div>
+            <div class="panel-body">
+               {{toolsDescription}}
+            </div>
+        </div>
+    </div>
+    <!--<i class="randicon-mountaineering tourview-panel-icon"></i> -->
+    {{/if}}
 </div>
 
 <div class="row">    
-    <div class="small-12 columns">
-	    <h4 class="subheader">Images<span class="secondary-text">({{images.length}})</span></h4>
+    <div class="col-sm-12">
+        <h4 class="subheader">Images<span class="secondary-text">({{images.length}})</span></h4>
 
-	    {{#if previewMode}}
-	       <p>Images shown here [Not available in preview]</p>
-	    {{else}}
-	       {{#if hasImages}}
-                <div id="images-container">
-				     <ul class="bjqs">
-					    {{#each image in images }}
-					        <li><img {{bindAttr src="image.imageFile"}} {{bindAttr title="image.caption"}}></li>
-					    {{/each}}
-				     </ul>
-			    </div>
-            {{else}}
-                <p>No images available for this tour</p>	
-		    {{/if}}
-        {{/if}}
+        {{#if hasImages}}
+        <div id="images-container">
+			<ul class="bjqs">
+			    {{#each image in images }}
+			         <li><img {{bindAttr src="image.imageFile"}} {{bindAttr title="image.caption"}}></li>
+			    {{/each}}
+			</ul>
+		</div>
+        {{else}}
+            <p>No images available for this tour</p>	
+	    {{/if}}
     </div>
 </div>
 
 <div class="row">
-    <div class="small-12 columns">
+    <div class="col-sm-12">
 	    <h4 class="subheader">Map</h4>
-	    
-	    {{#if previewMode}}
-           <p>Map shown here [Not available in preview]</p>
-        {{else}}
-            {{#if hasPaths}}
-			    {{view App.TourMapView}}
-		    {{else}}
-		        <p>No map is available for this tour</p>
-		    {{/if}}
-		{{/if}}
+	    {{#if hasPaths}}
+		    {{view App.TourMapView}}
+	    {{else}}
+	        <p>No map is available for this tour</p>
+	    {{/if}}
     </div>    
 </div>
 
 {{#unless previewMode}}
 <div class="row">
-    <div class="small-12 columns">
+    <div class="col-sm-12">
         <div class="row">
-            <div class="small-7 columns">
+            <div class="col-sm-7">
             <h4 class="subheader">Comments<span class="secondary-text">({{comments.length}})</span></h4>
             {{#unless controllers.login.isLoggedIn}}
                 <div>Sign in if you want to comment</div>
             {{/unless}}
             </div>
-            <div class="small-5 columns">
+            <div class="col-sm-5">
                 {{#unless addCommentMode}}
                     {{#if controllers.login.isLoggedIn}}
 		                <button class="comment-add-button right"  {{action "startAddComment"}}>Add Comment</button>
@@ -268,7 +248,7 @@
         
         {{#if addCommentMode}}
         <div class="row">
-            <div class="small-12 columns">
+            <div class="col-sm-12">
                 {{#if commentError }} <p class="error"> {{commentError}} </p> {{/if}}
                 <div class="comment-container">
 	                {{view App.TextArea valueBinding="newCommentText" required="true" rows="3" maxlength="500" }}
@@ -280,7 +260,7 @@
         {{/if}}
 
         <div class="row">
-            <div class="small-12 columns">
+            <div class="col-sm-12">
 		        {{#each comments}}
 		            {{view App.CommentView}}
 		        {{/each}}

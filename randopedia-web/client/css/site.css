@@ -6163,23 +6163,26 @@ button.close {
     display: none !important;
   }
 }
-/* Global variables */
-/* END Global variables */
 @font-face {
   font-family: Aight;
   src: url('../fonts/aaaiight.ttf');
 }
 html,
-body {
+body,
+.app-root-view {
   width: 100%;
   height: 100%;
 }
-.ember-view {
+#full-screen-map-container .ember-view {
   height: 100%;
 }
 .full-screen {
   width: 100%;
   height: 100%;
+}
+.full-page-view-container {
+  margin: 0 10px;
+  max-width: 1600px;
 }
 .uppercase {
   text-transform: uppercase;
@@ -6211,6 +6214,10 @@ a:hover {
 }
 .tour-item-view .item-props {
   color: #333333;
+}
+.tour-details-view .panel-heading {
+  font-size: 1.2em;
+  font-weight: 700;
 }
 .login-view .login-link {
   text-decoration: none;

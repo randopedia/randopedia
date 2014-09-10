@@ -1,32 +1,34 @@
-<h4>My tours (drafts)</h4>
-
-{{#if serverErrors}}
-<div class="row">
-    <div class="col-sm-12">
-		<div class="alert alert-danger alert-dismissible" role="alert">
-		  <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-		  An error occurred when getting your drafts, maybe you have been logged out? Try to reload the page and log in again.
-		</div>
-    </div>
-</div>
-{{else}}
-
-	{{#if isLoadingDrafts }}
+<div class="full-page-view-container">
+	<h3>My tours (drafts)</h3>
 	
-	    <div class="row">
-	        <div class=col-sm-12>
-	            <div>Loading tours...</div>
-	        </div>
+	{{#if serverErrors}}
+	<div class="row">
+	    <div class="col-sm-12">
+			<div class="alert alert-danger alert-dismissible" role="alert">
+			  <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+			  An error occurred when getting your drafts, maybe you have been logged out? Try to reload the page and log in again.
+			</div>
 	    </div>
-	
+	</div>
 	{{else}}
 	
-	    {{#each tour in drafts}}
-	        {{view App.TourItemView}}
-	    {{else}}
-	        <pre>You have no saved tour drafts</pre>
-	    {{/each}}
+		{{#if isLoadingDrafts }}
+		
+		    <div class="row">
+		        <div class=col-sm-12>
+		            <div>Loading tours...</div>
+		        </div>
+		    </div>
+		
+		{{else}}
+		
+		    {{#each tour in drafts}}
+		        {{view App.TourItemView}}
+		    {{else}}
+		        <pre>You have no saved tour drafts</pre>
+		    {{/each}}
+		
+		{{/if}}
 	
 	{{/if}}
-
-{{/if}}
+</div>

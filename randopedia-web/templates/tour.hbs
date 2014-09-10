@@ -1,5 +1,7 @@
-{{#if editTourMode}}
-    {{view App.TourEditView}}
-{{else}}
-    {{view App.TourDetailsView}}
-{{/if}}
+<div class="full-page-view-container tour-details-view">
+	{{#if editTourMode}}
+	    {{view App.TourEditView}}
+	{{else}}
+	    {{view App.TourDetailsView}}
+	{{/if}}
+</div>
