@@ -31,14 +31,6 @@ html, body, .app-root-view {
     max-width: 1600px;
 }
 
-.uppercase { 
-    text-transform: uppercase;
-}
-
-.small {
-    font-size: 0.8em;
-}
-
 .randopedia-logo-text {
     font-weight: 700;
     font-family: @logo-font,Helvetica,Arial;
@@ -54,12 +46,53 @@ html, body, .app-root-view {
     padding: 0 @large-space;
 }
 
+.popover-content {
+    font-size: @font-size-base;
+}
+
+.alert {
+    margin: 20px;
+}
+
 a:hover {
     cursor: pointer;
 }
 
 .spacing {
     margin: @large-space;
+}
+
+.spacing-x-large {
+    margin-left: @large-space * 2;
+    margin-right: @large-space * 2;
+}
+
+.spacing-y {
+    margin-top: @large-space;
+    margin-right: @large-space;
+}
+
+.danger {
+    color: @brand-danger;
+}
+
+.uppercase { 
+    text-transform: uppercase;
+}
+
+.small {
+    font-size: 0.8em;
+}
+
+.inline-list { 
+   float: left;
+   list-style: none; 
+   margin: 20px 5px 0 5px;
+   padding: 0;
+   li {
+        margin-right: 15px;
+        float: left;  
+   }
 }
 
 .tour-item-view {
@@ -73,9 +106,25 @@ a:hover {
 }
 
 .tour-details-view {
+    h2 {
+        margin-top: 5px;
+    }
     .panel-heading {
-        font-size: 1.2em;
+        font-size: @font-size-large;
         font-weight: 700;
+    }
+    .tour-props {
+        margin: 15px 0;
+        .row {
+            margin-bottom: 5px;
+        }
+        label {
+            margin-right: 1em; 
+            font-size: 0.9em; 
+            font-weight: normal; 
+            text-transform: uppercase; 
+            color: @gray-light;            
+        }  
     }
 }
 

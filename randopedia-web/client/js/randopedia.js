@@ -49332,6 +49332,9 @@ App.TourPublishView = Ember.View.extend({
 App.TourDetailsView = Ember.View.extend({
     templateName: 'tourdetails-view',
     
+    didInsertElement: function() {
+        $('#incompleteInfoButtonId').popover();
+    },
     imageLoaded: function() {
         Ember.run.once(this, function () {
             $('#images-container').bjqs({
@@ -49362,12 +49365,12 @@ App.TourEditView = Ember.View.extend({
     showAdvancedOptions: false,
     didInsertElement: function() {
 
-        $(document).foundation('section', {
-            callback: function(){
-                // Hack to make sure content is loaded correctly, solves issue with Google Maps view not being rendered
-                $(window).resize();
-            }
-        });
+//        $(document).foundation('section', {
+//            callback: function(){
+//                // Hack to make sure content is loaded correctly, solves issue with Google Maps view not being rendered
+//                $(window).resize();
+//            }
+//        });
     },
     actions: {
         startPublishTour: function() {
