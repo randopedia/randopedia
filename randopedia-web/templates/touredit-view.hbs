@@ -38,7 +38,7 @@
         <div class="col-sm-12">
             <div class="alert alert-danger" role="alert">
                 <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                Couldn't save draft. Area and name must be set.
+                Couldn't save draft, area and name must be set.
             </div>  
         </div>	    
 	</div>
@@ -87,225 +87,244 @@
     {{else}}
 		<div class="row spacing-y">
 		   <div class="col-sm-12">
-				 <div class="btn-group">
-                     {{#unless isPublished}}
-                         <button type="button" class="btn btn-primary" {{bindAttr disabled="isSaveAsDraftDisabled"}} {{action "saveAsDraft"}}>
-                            <span class="glyphicon glyphicon-floppy-save"></span> Save as draft
-                         </button>
-                     {{/unless}}				 
-                     <button type="button" class="btn btn-primary" {{bindAttr disabled="isStartPublishDisabled"}} {{action "startPublishTour" target="view"}}>
-                        <span class="glyphicon glyphicon-cloud-upload"></span> Publish
-                     </button>			 
-				</div>
+                {{#unless isPublished}}
+                    <button type="button" class="btn btn-primary" {{bindAttr disabled="isSaveAsDraftDisabled"}} {{action "saveAsDraft"}}>
+                       <span class="glyphicon glyphicon-floppy-save"></span> Save as draft
+                    </button>
+                {{/unless}}				 
+                <button type="button" class="btn btn-primary" {{bindAttr disabled="isStartPublishDisabled"}} {{action "startPublishTour" target="view"}}>
+                   <span class="glyphicon glyphicon-cloud-upload"></span> Publish
+                </button>			 
 				{{#if hasChanges}}
                     <span class="spacing-x-large"><span class="glyphicon glyphicon-floppy-disk"></span><em> Tour has unsaved changes</em></span>
                 {{/if}}
-				<div class="btn-group pull-right">
-				    <button type="button" class="btn btn-primary" {{action "startCancelingEditTour" target="view"}} class="right">Exit edit</button>
-				</div>
+				<button type="button" class="btn btn-primary pull-right" {{action "startCancelingEditTour" target="view"}} class="right">Exit edit</button>
 		   </div>
 		</div>
 	{{/if}}     
 	
 	<div class="row"> 
 		<div class="col-sm-12">
-		
-		    <dl class="tabs" data-tab>
-	            <dd class="active"><a href="#details-panel"><i class="foundicon-paper-clip"></i> Details</a></dd>
-	            <dd><a href="#itinerary-panel"><i class="foundicon-compass"></i> Description</a></dd>
-	            <dd><a href="#map-panel"><i class="foundicon-globe"></i> Map</a></dd>
-	            <dd><a href="#images-panel"><i class="foundicon-photo"></i> Images</a></dd>
-	            <dd><a href="#history-panel"><i class="foundicon-folder"></i> History</a></dd>
-	        </dl>
+
+			 <ul class="nav nav-tabs" role="tablist">
+			    <li class="active"><a href="#details-panel" role="tab" data-toggle="tab">Details</a></li>
+			    <li><a href="#itinerary-panel" role="tab" data-toggle="tab">Description</a></li>
+			    <li><a href="#map-panel" role="tab" data-toggle="tab">Map</a></li>
+			    <li><a href="#images-panel" role="tab" data-toggle="tab">Images</a></li>
+			    <li><a href="#history-panel" role="tab" data-toggle="tab">History</a></li>
+			</ul>	        
 	        
-			<div class="tabs-content">
-			    <div id="details-panel" class="content active">
-		           <div class="row">
-		                <div class="col-sm-4">
-		                    <label>Area<span class="req-field">*</span></label>
-		                    <button data-dropdown="areaTip" data-options="align_right:true" class="info right"></button>
-		                    <div><a data-reveal-id="areaPickerReveal">{{#unless area}}Select area...{{else}}{{area.name}}{{/unless}}</a></div>
-		                </div>
-		                <div class="col-sm-8">
-		                    <label>Name of tour<span class="req-field">*</span></label>
-		                    <button data-dropdown="tourNameTip" data-options="align_right:true" class="info right"></button>
-		                    {{view App.TextField valueBinding="name" required="true" maxlength="80" pattern="^.{3,80}$"}}
-		                </div>
-		           </div>
-		
-		           <div class="row">
-	                   <div class="col-sm-12 descTextAreaContainer">
-	                       <label>Tour summary<span class="warn-field">*</span></label>
-	                       <button data-dropdown="descTip" data-options="align_right:true" class="info right"></button>
-	                       {{view App.TextField valueBinding="shortDescription" maxlength="300"}}                       
+			<div class="tab-content">
+			    <div class="tab-pane active" id="details-panel">
+				    <form role="form">
+				    
+	                   <div class="row">
+	                        <div class="col-sm-4">			    
+						        <div class="form-group">
+							        <label for="inputArea">Area</label>
+		                            <button data-dropdown="areaTip" class="info pull-right"></button>
+		                            <div><a id="inputArea" data-reveal-id="areaPickerReveal">{{#unless area}}Select area...{{else}}{{area.name}}{{/unless}}</a></div>					        
+						        </div>
+							</div>
+	                        <div class="col-sm-8">  				    
+		                        <div class="form-group">
+		                            <label for="inputName">Name of tour</label>
+		                            <button data-dropdown="areaTip" class="info pull-right"></button>
+		                            {{input placeholder="" pattern="^.{3,80}$" value=name id="inputName" class="form-control"}}
+		                        </div>
+	                        </div>
+	                    </div>
+	                    
+	                   <div class="row">
+	                        <div class="col-sm-12">
+		                        <div class="form-group">
+		                           <label for="inputShortDescription">Tour summary<span class="warn-field">*</span></label>
+		                           <button data-dropdown="descTip" class="info pull-right"></button>
+		                           {{input maxlength="300" value=shortDescription id="inputShortDescription" class="form-control"}}
+		                        </div>
+	                        </div>
+	                    </div>
+	                    
+	                   <div class="row">
+	                       <div class="col-sm-12 descTextAreaContainer">
+	                           <div class="form-group">
+	                                 <label for="inputAccessPoint">Access point<span class="req-field">*</span></label>
+	                                 <button data-dropdown="startingPointTip" class="info pull-right"></button>
+	                                 {{textarea value=accessPoint maxlength="1000" id="inputAccessPoint" class="form-control"}}
+	                           </div>
+	                       </div>
 	                   </div>
-	               </div>		
-		                 
-				   <div class="row">
-				       <div class="col-sm-12 descTextAreaContainer">
-		                         <label>Access point<span class="req-field">*</span></label>
-		                         <button data-dropdown="startingPointTip" data-options="align_right:true" class="info right"></button>
-		                         {{view App.TextArea valueBinding="accessPoint" maxlength="1000"}}
-				       </div>
-				   </div>
-		
-				   <div class="row">
-				       <div class="col-lg-3">
-				           <div class="row collapse">
-				               <label>Elevation loss<span class="req-field">*</span></label>
-				               <button data-dropdown="elevationLossTip" class="info right"></button>
-				               <div class="col-sm-10">
-				                    {{input placeholder="" pattern=App.Validate.numberRegex value=elevationLoss}}
-				               </div>
-				               <div class="scol-sm-2">
-				                   <span class="postfix">m</span>
-				               </div>
-				           </div>
-				       </div>
-				       <div class="col-lg-3">
-				           <div class="row collapse">
-				               <label>Elevation gain<span class="req-field">*</span></label>
-				               <button data-dropdown="elevationGainTip" data-options="align_right:true" class="info right"></button>
-				               <div class="col-sm-10">
-				                    {{input placeholder="" pattern=App.Validate.numberRegex value=elevationGain}}
-				               </div>
-				               <div class="small-2 columns">
-				                   <span class="postfix">m</span>
-				               </div>
-				           </div>
-				       </div>
-				       <div class="col-lg-3">
-		                         <div class="row collapse">
-		                             <label>Highest point<span class="warn-field">*</span></label>
-		                             <button data-dropdown="highestPointTip" data-options="align_right:true" class="info right"></button>
-		                             <div class="col-sm-10">
-		                                 {{input placeholder="" pattern=App.Validate.numberRegex value=elevationMax}}
-		                             </div>
-		                             <div class="col-sm-2">
-		                                 <span class="postfix">m</span>
-		                             </div>
-		                         </div>
-		                     </div>  
-				       <div class="col-lg-3">
-				           <label>Main aspect of slopes</label>
-				           <button data-dropdown="aspectTip" data-options="align_right:true" class="info right"></button>
-				           {{view Ember.Select
-				                  contentBinding="App.Fixtures.Aspects"
-				                  optionValuePath="content.value"
-				                  optionLabelPath="content.name"
-				                  valueBinding="aspect"}}          
-				       </div>          
-				   </div>
-		
-				   <div class="row">
-				       <div class="col-lg-3">
-				           <div class="row collapse">
-				               <label>Time, min<span class="req-field">*</span></label>
-				               <button data-dropdown="timeMinTip" class="info right"></button>
-				               <div class="col-sm-10">
-				                    {{input placeholder="" pattern=App.Validate.numberRegex value=timingMin}}
-				               </div>
-				               <div class="col-sm-2">
-				                   <span class="postfix">h</span>
-				               </div>
-				           </div>
-				       </div>
-				       <div class="col-lg-3">
-				           <div class="row collapse">
-				               <label>Time, max<span class="req-field">*</span></label>
-				               <button data-dropdown="timeMaxTip" data-options="align_right:true" class="info right"></button>
-				               <div class="col-sm-10">
-				                    {{input placeholder="" pattern=App.Validate.numberRegex value=timingMax}}
-				               </div>
-				               <div class="col-lg-2">
-				                   <span class="postfix">h</span>
-				               </div>
-				           </div>
-				       </div>
-				       <div class="col-lg-3">
-				           <label>Season from<span class="warn-field">*</span></label>
-				           <button data-dropdown="seasonFromTip" data-options="align_right:true" class="info right"></button>
-				           {{view Ember.Select
-				                  contentBinding="App.Fixtures.Months"
-				                  optionValuePath="content.value"
-				                  optionLabelPath="content.name"
-				                  valueBinding="timeOfYearFrom"}}           
-				       </div>
-				       <div class="col-lg-3">
-				           <label>Season to<span class="warn-field">*</span></label>
-				           <button data-dropdown="seasonToTip" data-options="align_right:true" class="info right"></button>
-				           {{view Ember.Select
-				                  contentBinding="App.Fixtures.Months"
-				                  optionValuePath="content.value"
-				                  optionLabelPath="content.name"
-				                  valueBinding="timeOfYearTo"}}         
-				       </div>
-				   </div>
-		
-				    <div class="row">
-						<div class="col-lg-3">
-						    <label>Grade<span class="warn-field">*</span></label>
-						    <button data-dropdown="gradeTip" class="info right"></button>
-						    {{view Ember.Select
-						           contentBinding="App.Fixtures.Grades"
-						           optionValuePath="content.value"
-						           optionLabelPath="content.name"
-						           valueBinding="grade"}}
-						</div>
-		                <div class="col-lg-3">
-		                    <div class="row collapse">
-		                     <label>Steepness, max</label>
-		                     <button data-dropdown="degreesMaxTip" data-options="align_right:true" class="info right"></button>
-		                      <div class="col-sm-10">
-		                          {{input placeholder="" pattern=App.Validate.numberRegex value=degreesMax}}
-		                      </div>
-		                      <div class="col-sm-2">
-		                          <span class="postfix">&#176;</span>
-		                      </div>
-		                     </div>
-		                </div>
-				    </div>
-		
-	                <div class="row">
-				        <div class="col-sm-6 descTextAreaContainer">
-		                          <label>Hazards</label> {{view Ember.Checkbox checkedBinding="haveHazards"}}
-		                          <button data-dropdown="hasDangerTip" data-options="align_right:true" class="info right"></button>
-		                          {{view App.TextArea valueBinding="hazardsDescription" disabledBinding="haveNoHazards" maxlength="500"}}
-				        </div>
-				        <div class="col-sm-6 columns descTextAreaContainer">
-		                          <label>Requires mountaineering skills/equipment</label> {{view Ember.Checkbox checkedBinding="requiresTools"}}
-		                          <button data-dropdown="mntSkillsTip" data-options="align_right:true" class="info right"></button>                                
-		                          {{view App.TextArea valueBinding="toolsDescription" disabledBinding="doesNotRequireTools" maxlength="500"}}
-				        </div>
-				    </div>
+	                   
+	                   <div class="row">
+	                       <div class="col-lg-3">
+	                           <div class="form-group">
+	                               <label for="inputElevationLoss">Elevation loss<span class="req-field">*</span></label>
+	                               <button data-dropdown="elevationLossTip" class="info pull-right"></button>
+	                               <div class="input-group">
+	                                    {{input placeholder="" pattern=App.Validate.numberRegex value=elevationLoss id="inputElevationLoss" class="form-control"}}
+	                                    <div class="input-group-addon">m</div>
+	                               </div>
+	                           </div>
+	                       </div>
+	                       <div class="col-lg-3">
+	                           <div class="form-group">
+	                               <label for=inputElevationGain">Elevation gain<span class="req-field">*</span></label>
+<!-- 	                           <button data-dropdown="elevationGainTip" data-options="align_right:true" class="info right"></button> -->
+	                               <div class="input-group">
+	                                    {{input placeholder="" pattern=App.Validate.numberRegex value=elevationGain id="inputElevationGain" class="form-control"}}
+	                                    <div class="input-group-addon">m</div>
+	                               </div>
+	                           </div>
+	                       </div>
+	                       <div class="col-lg-3">
+                               <div class="form-group">
+                                   <label for="inputHighestPoint">Highest point<span class="warn-field">*</span></label>
+                                   <button data-dropdown="highestPointTip" class="info pull-right"></button>
+                                   <div class="input-group">
+                                       {{input placeholder="" pattern=App.Validate.numberRegex value=elevationMax id="inputHighestPoint" class="form-control"}}
+                                       <div class="input-group-addon">m</div>
+                                   </div>
+                               </div>
+                           </div>  
+	                       <div class="col-lg-3">
+	                           <label for="inputAspect">Main aspect of slopes</label>
+	                           <button data-dropdown="aspectTip" data-options="align_right:true" class="info pull-right"></button>
+	                           {{view Ember.Select
+	                                  contentBinding="App.Fixtures.Aspects"
+	                                  optionValuePath="content.value"
+	                                  optionLabelPath="content.name"
+	                                  valueBinding="aspect"
+	                                  id="inputAspect"
+	                                  class="form-control"}}          
+	                       </div>          
+	                   </div>	
+	                                      
+	                   <div class="row">
+	                       <div class="col-lg-3">
+	                           <div class="form-group">
+	                                <label for="inputTimeMin">Time, min<span class="req-field">*</span></label>
+			                         <button data-dropdown="timeMinTip" class="info pull-right"></button>
+                                    <div class="input-group">
+                                        {{input placeholder="" pattern=App.Validate.numberRegex value=timingMin id="inputTimeMin" class="form-control"}}
+                                        <div class="input-group-addon">h</div>
+                                    </div>
+	                           </div>
+	                       </div>
+                           <div class="col-lg-3">
+                               <div class="form-group">
+                                    <label for="inputTimeMax">Time, max<span class="req-field">*</span></label>
+                                    <button data-dropdown="timeMaxTip" class="info pull-right"></button>
+                                    <div class="input-group">
+                                        {{input placeholder="" pattern=App.Validate.numberRegex value=timingMax id="inputTimeMax" class="form-control"}}
+                                        <div class="input-group-addon">h</div>
+                                    </div>
+                               </div>
+                           </div>                      
+                           <div class="col-lg-3">
+                               <div class="form-group">
+                                   <label for="inputSeasonFrom">Season from<span class="req-field">*</span></label>
+                                   <button data-dropdown="timeMaxTip" class="info pull-right"></button>
+                                   {{view Ember.Select
+                                      contentBinding="App.Fixtures.Months"
+                                      optionValuePath="content.value"
+                                      optionLabelPath="content.name"
+                                      valueBinding="timeOfYearFrom" 
+                                      id="inputSeasonFrom"
+                                      class="form-control"}}  
+                              </div>
+                          </div>
+                           <div class="col-lg-3">
+                                <div class="form-group">
+                                   <label for="inputTimeOfYearTo">Season to<span class="req-field">*</span></label>
+                                   <button data-dropdown="timeMinTip" class="info pull-right"></button>
+                                   {{view Ember.Select
+                                          contentBinding="App.Fixtures.Months"
+                                          optionValuePath="content.value"
+                                          optionLabelPath="content.name"
+                                          valueBinding="timeOfYearTo" 
+                                          id="inputTimeOfYearTo"
+                                          class="form-control"}}
+                              </div>
+                          </div>
+                  	    </div>     
+                  	          
+	                    <div class="row">
+	                        <div class="col-lg-3">
+	                            <div class="form-group">
+		                            <label for="inputGrade">Grade<span class="warn-field">*</span></label>
+                                    <button class="info pull-right" data-toggle="modal" data-target="#tourDetailsGradeGuideModal">{{resolveGradeName grade}}</button>
+		                            {{view Ember.Select
+		                                   contentBinding="App.Fixtures.Grades"
+		                                   optionValuePath="content.value"
+		                                   optionLabelPath="content.name"
+		                                   valueBinding="grade"
+		                                   id="inputGrade"
+		                                   class="form-control"}}
+	                            </div>
+	                        </div>
+                        
+	                        <div class="col-lg-3">
+	                            <div class="form-group">
+	                                <label for="inputSteepness">Steepness, max</label>
+	                                <button data-dropdown="degreesMaxTip" class="info pull-right"></button>
+	                                <div class="input-group">
+	                                    {{input pattern=App.Validate.numberRegex value=degreesMax id="inputSteepness" class="form-control"}}
+	                                    <div class="input-group-addon">&#176;</div>
+	                                </div>
+	                             </div>
+	                        </div>
+	                    </div>
+                    
+	                    <div class="row">
+	                        <div class="col-sm-6 descTextAreaContainer">
+	                             <div class="form-group">
+	                                  <label for="inputHazards">Hazards</label> {{view Ember.Checkbox checkedBinding="haveHazards"}}
+	                                  <button data-dropdown="hasDangerTip" class="info pull-right"></button>
+	                                  {{textarea value=hazardsDescription disabledBinding="haveNoHazards" maxlength="500" id="inputHazards" class="form-control"}}
+	                             </div>
+	                        </div>
+	                        <div class="col-sm-6 columns descTextAreaContainer">
+                                <div class="form-group">
+	                                  <label for="inputTools">Requires mountaineering skills/equipment</label> {{view Ember.Checkbox checkedBinding="requiresTools"}}
+	                                  <button data-dropdown="mntSkillsTip" class="info pull-right"></button>                                
+	                                  {{textarea value=toolsDescription disabledBinding="doesNotRequireTools" maxlength="500" id="inputTools" class="form-control"}}
+	                            </div>
+	                        </div>
+	                    </div>
+	                    
+	                    <div class="row">
+	                        <div class="col-sm-12 col-lg-6">
+	                            <label for="inputTags">Tags</label>
+	                            <button data-dropdown="tagsTip" class="info pull-right"></button>
+	                            {{textarea value=tagsString maxlength=500 id="inputTags" class="form-control" id="inputTags" class="form-control"}}
+	                        </div>
+	                    </div>
+                    	                    
+	                </form>
 				   
-					<div class="row">
-						<div class="col-sm-12 col-lg-6">
-						    <label>Tags</label>
-						    <button data-dropdown="tagsTip" data-options="align_right:true" class="info right"></button>
-						    {{view App.TextArea valueBinding="tagsString" maxlength=500}}
-						</div>
-					</div>
-				   
-				    <div class="row">
+				    <div class="row spacing-y-large">
 	                    <div class="col-sm-12 small">
-						    <span class="req-field">*</span> Required field (tour cannot be published if not set) <br />
-						    <span class="warn-field">*</span> Recommended field (tour will be marked as incomplete if not set)
+	                        <div class="form-group">
+							    <span class="req-field">*</span> Required field (tour cannot be published if not set) <br />
+							    <span class="warn-field">*</span> Recommended field (tour will be marked as incomplete if not set)
+						    </div>
 						</div>
 				    </div>
 			    </div>
 			        
-				<div id="itinerary-panel" class="content">
+				<div id="itinerary-panel" class="tab-pane">
 					<div class="row">
-					   <div class="col-sm-12 largeTextAreaContainer">
-					       <label>Description<span class="req-field">*</span></label>
-					       <button data-dropdown="itineraryTip" data-options="align_right:true" class="info right"></button>
-					       {{view App.TextArea valueBinding="itinerary" maxlength="8000"}}
+					   <div class="col-sm-12">
+					       <div class="form-group">
+					           <label for="inputDescription">Description<span class="req-field">*</span></label>
+					           <button data-dropdown="itineraryTip" class="info pull-right"></button>
+					           {{view App.TextArea valueBinding="itinerary" maxlength="8000" id="inputDescription" class="form-control large"}}
+					       </div>
 					   </div>
 					</div>  
 				</div>	  
 				
-				<div id="map-panel" class="content">
+				<div id="map-panel" class="tab-pane">
 		            <div class="row">
 		                {{view App.TourEditMapView}}
 		            </div>  
@@ -317,7 +336,7 @@
 	                </div>
 			    </div>  
 			    
-			    <div id="images-panel" class="content">
+			    <div id="images-panel" class="tab-pane">
 		            <div class="row">
 			            <div class="col-sm-12">
 			                <div class="normal-margin">
@@ -331,7 +350,7 @@
 		            </div>  
 	            </div>                    
 			      
-			    <div id="history-panel" class="content">
+			    <div id="history-panel" class="tab-pane">
 		            <div class="row">
 		                <div class="col-sm-12 normal-margin">
 		                    Tour status: {{displayStatus}}
@@ -366,6 +385,22 @@
 	        
 	    </div>
 	</div>
+	
+	
+	<div class="modal fade" id="tourDetailsGradeGuideModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg login-view">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Grades</h4>
+                </div>
+                <div class="modal-body">
+                    {{partial "about-grades"}}
+                </div>
+            </div>
+        </div>
+    </div>
+    
 	
 	{{!-- <!-- Adv opt and delete/restore tour removed for now. Might be reintroduced for drafts  -->
 	<div class="adv-opt-panel-container">
@@ -460,15 +495,6 @@
 	
 	<div id="publishTourStep1Reveal" class="reveal-modal small" data-reveal>
 	    {{view App.TourPublishView}}
-	</div>
-	
-	<div id="tourPreviewReveal" class="reveal-modal large scrollable" data-reveal>
-	    <h5>Tour preview</h5>
-	    <hr/>
-	    {{view App.TourDetailsView}}
-	    <hr/>
-	    
-	    <a class="close-reveal-modal" {{action "exitPreview" target="view"}}>&#215;</a>
 	</div>
 	
 	<div id="gradeGuideReveal" class="reveal-modal small scrollable" data-reveal>

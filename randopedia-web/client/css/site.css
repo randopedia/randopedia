@@ -6216,6 +6216,10 @@ a:hover {
   margin-top: 10px;
   margin-right: 10px;
 }
+.spacing-y-large {
+  margin-top: 20px;
+  margin-right: 20px;
+}
 .danger {
   color: #d9534f;
 }
@@ -6224,6 +6228,20 @@ a:hover {
 }
 .small {
   font-size: 0.8em;
+}
+.form-group .req-field {
+  color: #d9534f;
+  font-size: 1.5em;
+}
+.form-group .warn-field {
+  color: #f0ad4e;
+  font-size: 1.5em;
+}
+.form-group textarea {
+  height: 7em;
+}
+.form-group textarea.large {
+  height: 25em;
 }
 .inline-list {
   float: left;
@@ -6234,6 +6252,27 @@ a:hover {
 .inline-list li {
   margin-right: 15px;
   float: left;
+}
+button.info:before {
+  content: "?";
+}
+button.info {
+  display: inline;
+  height: 1.5em;
+  width: 1.5em;
+  border-radius: 50%;
+  border: 1px solid #818181;
+  background-color: #818181;
+  color: #FFF;
+  font-size: 0.8em;
+  font-family: Aight;
+  padding: 0;
+  margin-right: 5px;
+}
+button.info:hover {
+  background: none;
+  background-color: #0A89DD;
+  border-color: #0A89DD;
 }
 .tour-item-view .item-panel {
   margin-bottom: 10px;
