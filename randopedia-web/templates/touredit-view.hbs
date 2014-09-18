@@ -123,7 +123,7 @@
 						        <div class="form-group">
 							        <label for="inputArea">Area</label>
 		                            <button data-dropdown="areaTip" class="info pull-right"></button>
-		                            <div><a id="inputArea" data-reveal-id="areaPickerReveal">{{#unless area}}Select area...{{else}}{{area.name}}{{/unless}}</a></div>					        
+		                            <div><a data-toggle="modal" data-target="#areaPickerModal">{{#unless area}}Select area...{{else}}{{area.name}}{{/unless}}</a></div>				        
 						        </div>
 							</div>
 	                        <div class="col-sm-8">  				    
@@ -385,23 +385,7 @@
 	        
 	    </div>
 	</div>
-	
-	
-	<div class="modal fade" id="tourDetailsGradeGuideModal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-lg login-view">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Grades</h4>
-                </div>
-                <div class="modal-body">
-                    {{partial "about-grades"}}
-                </div>
-            </div>
-        </div>
-    </div>
-    
-	
+
 	{{!-- <!-- Adv opt and delete/restore tour removed for now. Might be reintroduced for drafts  -->
 	<div class="adv-opt-panel-container">
 		<div class="row">
@@ -434,75 +418,179 @@
 	</div>
 	--}}
 	
-	<div id="areaPickerReveal" class="reveal-modal scrollable small" data-reveal>
+    <div class="modal fade" id="tourDetailsGradeGuideModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg login-view">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Grades</h4>
+                </div>
+                <div class="modal-body">
+                    {{partial "about-grades"}}
+                </div>
+            </div>
+        </div>
+    </div>
+    	
+    <div class="modal fade" id="areaPickerModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg areapicker-view">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">Select area</h4>
+                </div>
+                <div class="modal-body">
+                    {{view App.AreaPickerView}}
+                </div>
+            </div>
+        </div>    
+    </div>
+    
+    <div class="modal fade" id="discardChangesTourModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-body">
+                    The tour has unsaved changes, do you want to discard them?
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary pull-left" {{action "closeConfirmDiscardChangesDialog" target="view" }}>Cancel</button>                
+                    <button class="btn btn-default pull-right" {{action "confirmDiscardChanges" target="view" }}>Discard changes</button>
+                </div>
+            </div>
+        </div>    
+    </div>
 	
-	    {{view App.AreaPickerView}}
-	    
-	</div>
+    <div class="modal fade" id="confirmDeleteTourModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg areapicker-view">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">Validation failed</h4>
+                </div>
+                <div class="modal-body">
+                    There are validation errors that must be corrected before the tour can be published.
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary pull-right" {{action "closeValidationErrorsDialog" target="view" }}>OK</button>                     
+                </div>
+            </div>
+        </div>    
+    </div>	
 	
-	<div id="discardChangesTourReveal" class="reveal-modal small" data-reveal>
-	    <div class="confirmation-message">
-	        The tour has unsaved changes, do you want to discard them?
-	    </div>
-	    
-	    <hr />
-	    
-	    <div class="confirmation-footer">
-	        <button class="left" {{action "closeConfirmDiscardChangesDialog" target="view" }}>Cancel</button>
-	        <button class="right" {{action "confirmDiscardChanges" target="view" }}>Discard changes</button>
-	    </div>
-	</div>
+    <div class="modal fade" id="confirmDeleteTourModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg areapicker-view">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">Delete tour</h4>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete the tour?
+                </div>
+                <div class="modal-footer">
+		            <button class="btn btn-default pull-left" {{action "closeConfirmDeleteTour" target="view" }}>Cancel</button>
+		            <button class="btn btn-primary pull-right" {{action "confirmDeleteTour" target="view"}}>Delete tour</button>                     
+                </div>
+            </div>
+        </div>    
+    </div>
+    	    	    
+    <div class="modal fade" id="confirmPublishTourModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-body">
+                    Changes will be published, do you want to continue?
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary pull-right" {{action "confirmPublishTour" target="view" }}>Publish</button>
+                    <button class="btn btn-default pull-right" {{action "closeConfirmPublishTourDialog" target="view" }}>Cancel</button>
+                </div>
+            </div>
+        </div>    
+    </div>
 	
-	<div id="validationErrorsTourReveal" class="reveal-modal small" data-reveal>
-	    <div class="confirmation-message">
-	        There are validation errors that must be corrected before the tour can be published.
-	    </div>
-	    
-	    <hr />
-	    
-	    <div class="confirmation-footer">
-	        <button class="right" {{action "closeValidationErrorsDialog" target="view" }}>OK</button>
-	    </div>
-	</div>
+	<div class="modal fade" id="publishTourStep1Modal" tabindex="-1" role="dialog" aria-hidden="true">
+        
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">Publish tour (Step 1 of 2)</h4>
+                </div>
+                <div class="modal-body">
+					{{#if view.haveValidationErrors}}
+					    <div class="alert alert-danger" role="alert">
+					        Tour data is invalid or incomplete
+					    </div>
+					
+					    <div>
+					        <p>The tour lacks to much data to be published. Please add missing data and try again.</p>
+					        <p class="secondary-text">
+					            The following fields are missing or invalid: 
+					            {{#each error in validationErrors}}
+					                <code>{{error}}</code>, 
+					            {{/each}}
+					        </p>
+					            
+					        <p class="secondary-text confirmation-message">
+					        Required fields for publish are: Area, Name, Access point, Description, Time min/max and Elevation gain/loss
+					        </p> 
+					    </div>
+					{{else}}
+					    {{#if view.haveValidationWarnings }}
+					        <div class="alert alert-warning" role="alert">
+					            Tour data is valid but incomplete
+					        </div>
+					        <div>
+					            <p>The tour lacks some important data. It can be published, but it'll be marked as incomplete.</p>
+					            
+					            <p class="secondary-text confirmation-message">
+					            The following fields are missing:
+					            {{#each warning in validationWarnings}}
+					                <code>{{warning}}</code>, 
+					            {{/each}}
+					            </p>
+					        </div>
+					     {{else}}
+					         <div class="alert alert-success" role="alert">
+					            Tour data is valid
+					        </div>
+					        <p>Looks like the tour data is fine, just go on and publish!</p>
+					     {{/if}}
+					{{/if}}
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+                    <button class="btn btn-primary pull-right" {{bindAttr disabled="view.haveValidationErrors"}} {{action "continueToPublishStep2" target="view"}}>Continue</button>
+                </div>
+            </div>
+        </div>        
+    </div>
 	
-	<div id="confirmDeleteTourReveal" class="reveal-modal small" data-reveal>
-	
-	    <div class="confirmation-message">
-	        Are you sure you want to delete the tour?
-	    </div>
+	<div class="modal fade" id="publishTourStep2Modal" tabindex="-1" role="dialog" aria-hidden="true">
 	    
-	    <hr />
-	    
-	    <div class="confirmation-footer">
-			<button class="right" {{action "closeConfirmDeleteTour" target="view" }}>Cancel</button>
-			<button class="left" {{action "confirmDeleteTour" target="view"}}>Delete tour</button>
-	    </div>
-	</div>
-	    
-	<div id="confirmPublishTourReveal" class="reveal-modal small" data-reveal>
-	
-	    <div class="confirmation-message">
-	        Changes will be published, do you want to continue?
-	    </div>
-	    
-	    <hr />
-	    
-	    <div class="confirmation-footer">
-	        <button class="right" {{action "closeConfirmPublishTourDialog" target="view" }}>Cancel</button>
-	        <button class="left" {{action "confirmPublishTour" target="view"}}>Publish</button>
-	    </div>
-	</div>
-	
-	<div id="publishTourStep1Reveal" class="reveal-modal small" data-reveal>
-	    {{view App.TourPublishView}}
-	</div>
-	
-	<div id="gradeGuideReveal" class="reveal-modal small scrollable" data-reveal>
-	    {{partial "about-grades"}}
-	    <a class="close-reveal-modal">&#215;</a>
-	</div>
-	
-	
+	    <div class="modal-dialog modal-lg">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+	                <h4 class="modal-title">Publish tour (Step 2 of 2)</h4>
+	            </div>
+	            <div class="modal-body">
+	                <form role="form">
+	                    <div class="form-group">
+	                        <label for="inputPublishComment">What did you change?</label>
+	                        {{textarea id="inputChangeComment" class="form-control" value=publishComment maxlength="500"}}
+	                    </div>
+	                </form>
+	            </div>
+	            <div class="modal-footer">
+	                <button class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+	                <button class="btn btn-primary pull-right" {{bindAttr disabled="view.isPublishDisabled"}} {{action "completePublish" target="view"}}>Publish</button>  	            
+	            </div>
+	        </div>
+	    </div>        
+	</div>	
+    
 	<!-- Field/Validation tips -->
 	
 	<div id="areaTip" class="f-dropdown content small" data-dropdown-content>
@@ -586,14 +674,6 @@
 	        Degrees on the steepest part of the route.
 	        <hr />
 	        Only digits are allowed.
-	    </div>
-	</div>
-	
-	<div id="gradeTip" class="f-dropdown content small" data-dropdown-content>
-	    <div>
-	        The grade of the tour. Technical difficulties on both the ascent and the descent should be considered.
-	        <hr />
-	        See <a data-reveal-id="gradeGuideReveal">grade guide</a> for more info
 	    </div>
 	</div>
 	

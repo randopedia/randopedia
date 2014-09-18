@@ -1,13 +1,13 @@
 
 {{#if view.isExpanded}}
     {{#if children}}
-        <a href="#" class="icon-link areatree-expand" {{action toggleExpandChildren target="view"}}><i class="foundicon-minus"></i></a>
+        <a href="#" class="icon-link areatree-expand" {{action toggleExpandChildren target="view"}}><span class="glyphicon glyphicon-minus"></span></a>
     {{else}}
         <span class="expand-placeholder"></span>
     {{/if}}
 {{else}}
     {{#if children}}
-        <a href="#" class="icon-link areatree-expand" {{action toggleExpandChildren target="view"}}><i class="foundicon-plus"></i></a>
+        <a href="#" class="icon-link areatree-expand" {{action toggleExpandChildren target="view"}}><span class="glyphicon glyphicon-plus"></span></a>
     {{else}}
         <span class="expand-placeholder"></span>
     {{/if}}

@@ -199,3 +199,32 @@ button.info:hover {
         div:hover { background-color: @gray-lighter; }
     }
 }
+
+.areapicker-view {
+    a.areatree-expand { font-size: 70%; margin-top:0.3em;}
+    .expand-placeholder { margin-left: 0.9em; }
+
+    a.areatree-link {color:#4d4d4d; margin-top: 0; margin-bottom: 0; font-size: 0.9em;}
+    a.areatree-link:hover {text-decoration: none; font-weight: bold;}
+    a.areatree-link:visited {color:#4d4d4d;}
+    
+    button.areatree {
+        color: #4d4d4d;    
+        text-transform: none;
+        font-size: 0.8em;
+        font-weight: 700;
+        background-color: transparent;
+        border-width: 0;
+        padding: 0.25em 2em 0.25em 0.5em;
+        margin: 0;
+    }
+    button.areatree:active, button.areatree:focus {background-color: transparent; color: #4d4d4d; border: 0px dotted #818181;}
+    button.areatree:disabled { background-color: transparent; color: #4d4d4d; opacity: 0.9; }
+    button.areatree:hover:enabled {  background: url(../images/header_background.jpg) repeat-x; color: #E0E0E0;}
+    button.areatree:hover:disabled { background-color: transparent; color: #4d4d4d; }
+    
+    button.areatree.is-selected {
+        background: url(../images/header_background.jpg) repeat-x; 
+        color: #E0E0E0;
+    }    
+}

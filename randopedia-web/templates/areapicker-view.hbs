@@ -2,41 +2,36 @@
 {{#if addSubareaMode}}
 
     <div class="row">
-        <div class="large-12 columns">
-            <h5>Add new area in {{controller.tempSelectedArea.name}}</h5>
+        <div class="col-sm-12">
+            <h4>Add new area in {{controller.tempSelectedArea.name}}</h4>
         </div>
     </div>
 
     <div class="row">
-        <div class="large-12 columns">
-            <label>Name</label>
-            {{view App.FocusTextField valueBinding="newArea.name" required="true" maxlength="80" pattern="^.{3,80}$"}}
+        <div class="col-sm-12">
+            <form role="form">
+                <div class="form-group">
+                    <label for="inputAreaName">Name</label>
+                    {{view App.FocusTextField id="inputAreaName" class="form-control" valueBinding="newArea.name" required="true" maxlength="80" pattern="^.{3,80}$"}}
+                </div>
+                <div class="form-group">
+                    <label for="inputAreaDesc">Description</label>
+                    {{textarea id="inputAreaDesc" value=newArea.description maxlength="300" class="form-control"}}
+                </div>
+                <div class="form-group">
+                    <hr />
+                </div>   
+                <div class="form-group">
+		            <button class="btn btn-default pull-left"{{action "cancelAddSubArea"}}>Cancel</button>
+		            <button class="btn btn-primary pull-right" {{action "addSubArea"}}>Add area</button>                  
+                </div>             
+            </form>
         </div>
-    </div>
-    
-    <div class="row">
-        <div class="large-12 columns descTextAreaContainer">
-            <label>Short description</label>
-            {{view App.TextArea valueBinding="newArea.description" maxlength="300"}}
-        </div>
-    </div>    
-    
-    <hr />
-
-    <div class="row">
-        <div class="confirmation-footer"> 
-    
-            <div class="small-12 columns">
-                <button {{action "addSubArea"}}>Add</button>    
-                <button {{action "cancelAddSubArea"}} class="right">Cancel</button>
-            </div>
-                
-        </div>
-    </div>
+    </div> 
     
 {{else}}
 
-	<h5>Select area {{#if view.loading}}<span class="secondary-text">(Loading...)</span>{{/if}}</h5>
+	{{#if view.loading}}<div>Loading areas...</div>{{/if}}
 
     {{#each toplevel in toplevels}}
 
@@ -51,19 +46,21 @@
         {{/if}}
 
     {{/each}}
-
-    <hr />
-    
-	<div>
-	    Selected: <strong>{{controller.tempSelectedArea.name}}</strong>
-	    <a class="right" {{action "startAddingSubArea"}}>Add new area in {{controller.tempSelectedArea.name}}</a>
+ 
+	<div class="row">
+	   <div class="col-sm-12">
+	       <hr />
+		    Selected: <strong>{{controller.tempSelectedArea.name}}</strong>
+		    <a class="pull-right" {{action "startAddingSubArea"}}>Add new area in {{controller.tempSelectedArea.name}}</a>
+	    </div>
 	</div>
 
-	<hr />
-	
-	<div class="confirmation-footer">
-	    <button class="left" {{action "confirmSelectedArea" target="view" }}>Set area</button>
-	    <button class="right" {{action "closeAreaPickerDialog" target="view" }}>Cancel</button>
+	<div class="row">
+	    <div class="col-sm-12">
+	       <hr />
+	       <button class="btn btn-default pull-left" {{action "closeAreaPickerDialog" target="view" }}>Cancel</button>
+	       <button class="btn btn-primary pull-right" {{action "confirmSelectedArea" target="view" }}>Set area</button>
+	    </div>
 	</div>
 	
 {{/if}}

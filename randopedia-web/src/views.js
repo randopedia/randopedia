@@ -218,21 +218,17 @@ App.AreaPickerView = Ember.View.extend({
        var self = this;
        self.get('controller').set('tempSelectedArea', this.get('controller').get('model').get('area'));
        
-       $('#areaPickerReveal').foundation('reveal', {
-           open: function(){
-               self.get('controller').set('toplevels', null);
-               self.set('loading', true);
-               
-               self.get('controller').store.find('toplevel').then(function(toplevels){
-                   self.get('controller').set('toplevels', toplevels);
-                   self.set('loading', false);
-               }, function(error) {
-                   App.Utils.log('Error when loading areas: ' + error);
-               });
-           }
-       });
-       
-     //  console.log('AREA: ' + this.get('controller').get('model').get('area'));
+       $('#areaPickerModal').on('shown.bs.modal', function (e) {
+           self.get('controller').set('toplevels', null);
+           self.set('loading', true);
+           
+           self.get('controller').store.find('toplevel').then(function(toplevels){
+               self.get('controller').set('toplevels', toplevels);
+               self.set('loading', false);
+           }, function(error) {
+               App.Utils.log('Error when loading areas: ' + error);
+           });
+        });
    },
    actions: {
        confirmSelectedArea: function() {
@@ -289,49 +285,6 @@ App.AreaPickerItemView = Ember.View.extend({
     }.property('controller.tempSelectedArea'),
 });
 
-App.TourPublishView = Ember.View.extend({
-    templateName: 'tourpublish-view',
-    haveValidationErrors: false,
-    haveValidationWarnings: false,
-    
-    didInsertElement: function() {
-        var self = this;
-        this.get('controller').clearValidationFlags();
-        $('#publishTourStep1Reveal').bind('opened', function() {
-            self.set('haveValidationErrors', !self.get('controller').validateForPublish());
-            self.set('haveValidationWarnings', self.get('controller').checkForValidationWarnings() > 0);
-        });
-    },
-    
-    actions: {
-        continueToStep2: function() {
-            if(this.get('controller.model.status') === App.Fixtures.TourStatus.DRAFT || this.get('controller.model.isNew')){
-                this.get('controller').get('model').set('publishComment', 'First published');
-            }
-            $('#publishTourStep2Reveal').foundation('reveal', 'open');
-        },
-        completePublish: function() {
-            this.get('controller').send('publishTour');
-            this.send('closePublishTourStep2Dialog');
-        },
-        closePublishTourStep1Dialog: function() {
-            $('#publishTourStep1Reveal').foundation('reveal', 'close');
-        },
-        closePublishTourStep2Dialog: function() {
-            $('#publishTourStep1Reveal').foundation('reveal', 'close');
-        }
-    },
-    
-    isPublishDisabled: function() {
-// UNCOMMENT TO MAKE PUBLISH COMMENT REQUIRED
-//        if(!App.Validate.isNotNullOrEmpty(this.get('controller').get('model').get('publishComment'))){
-//            return true;
-//        }
-        return false;
-    }.property('controller.model.publishComment')
-    
-});
-
 /**
  * View showing details of a tour
  */
@@ -369,8 +322,16 @@ App.TourItemView = Ember.View.extend({
 App.TourEditView = Ember.View.extend({
     templateName: 'touredit-view',
     showAdvancedOptions: false,
+    haveValidationErrors: false,
+    haveValidationWarnings: false,
+    
     didInsertElement: function() {
-
+        var self = this;
+        $('#publishTourStep1Modal').on('shown.bs.modal', function (e) {
+            self.set('haveValidationErrors', !self.get('controller').validateForPublish());
+            self.set('haveValidationWarnings', self.get('controller').checkForValidationWarnings() > 0);
+        });
+        
 //        $(document).foundation('section', {
 //            callback: function(){
 //                // Hack to make sure content is loaded correctly, solves issue with Google Maps view not being rendered
@@ -380,27 +341,38 @@ App.TourEditView = Ember.View.extend({
     },
     actions: {
         startPublishTour: function() {
-            $('#publishTourStep1Reveal').foundation('reveal', 'open');
+            $('#publishTourStep1Modal').modal('show');
         },
+        continueToPublishStep2: function() {
+            $('#publishTourStep1Modal').modal('hide');
+            $('#publishTourStep2Modal').modal('show');
+        },
+        completePublish: function() {
+            this.get('controller').send('publishTour');
+            $('#publishTourStep2Modal').modal('hide');
+        },        
         startCancelingEditTour: function() {
             if(this.get('controller').get('hasChanges'))  {
-                $('#discardChangesTourReveal').foundation('reveal', 'open');
+                $('#discardChangesTourModal').modal('hide');
             } else {
                 this.get('controller').send('cancelEditTour');
             }
         },
         confirmDiscardChanges: function() {
-            $('#discardChangesTourReveal').foundation('reveal', 'close');
+            $('#discardChangesTourModal').modal('hide');
             this.get('controller').send('cancelEditTour');
         },
         closeConfirmDiscardChangesDialog: function() {
-            $('#discardChangesTourReveal').foundation('reveal', 'close');
+            $('#discardChangesTourModal').modal('hide');
         },        
         toggleAdvancedOption: function() {
             this.set('showAdvancedOptions', !this.get('showAdvancedOptions'));
         },
         closeAreaPickerDialog: function() {
-            $('#areaPickerReveal').foundation('reveal', 'close');
+            $('#areaPickerModal').modal('hide');
+        },
+        confirmAreaPickerDialog: function() {
+            this.send('closeAreaPickerDialog');
         },
         closeValidationErrorsDialog: function() {
             $('#validationErrorsTourReveal').foundation('reveal', 'close');
@@ -410,9 +382,6 @@ App.TourEditView = Ember.View.extend({
         },
         closeConfirmDeleteImage: function() {
             $('#confirmDeleteImageReveal').foundation('reveal', 'close');
-        },
-        confirmAreaPickerDialog: function() {
-            this.send('closeAreaPickerDialog');
         },
         confirmDeleteTour: function() {
             this.get('controller').send('deleteTour');
@@ -433,10 +402,6 @@ App.TourEditView = Ember.View.extend({
         confirmPublishTour: function() {
             this.get('controller').send('publishTour');
             this.send('closeConfirmPublishTourDialog');
-        },
-        exitPreview: function() {
-            $('#tourPreviewReveal').foundation('reveal', 'close');
-            this.get('controller').send('exitPreview');
         }
     }
 });
