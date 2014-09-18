@@ -327,10 +327,18 @@ App.TourEditView = Ember.View.extend({
     
     didInsertElement: function() {
         var self = this;
+        
         $('#publishTourStep1Modal').on('shown.bs.modal', function (e) {
             self.set('haveValidationErrors', !self.get('controller').validateForPublish());
             self.set('haveValidationWarnings', self.get('controller').checkForValidationWarnings() > 0);
         });
+        
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+              // Hack to make sure content is loaded correctly, solves issue with Google Maps view not being rendered
+              $(window).resize();
+        });
+          
+        $('.info').popover({placement: 'bottom'});
         
 //        $(document).foundation('section', {
 //            callback: function(){

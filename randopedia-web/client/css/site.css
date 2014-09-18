@@ -6214,7 +6214,7 @@ a:hover {
 }
 .spacing-y {
   margin-top: 10px;
-  margin-right: 10px;
+  margin-bottom: 10px;
 }
 .spacing-y-large {
   margin-top: 20px;
@@ -6252,6 +6252,9 @@ a:hover {
 .inline-list li {
   margin-right: 15px;
   float: left;
+}
+.inline-list div {
+  display: inline;
 }
 button.info:before {
   content: "?";
@@ -6300,6 +6303,19 @@ button.info:hover {
   font-weight: normal;
   text-transform: uppercase;
   color: #777777;
+}
+.tour-details-view pre {
+  font-family: Helvetica, Arial, sans-serif;
+  line-height: 130%;
+  border-width: 0;
+  background: #fff;
+}
+.image-upload-view .thumbnail-wrapper {
+  display: inline-block;
+}
+.image-upload-view .thumbnail-image {
+  max-width: 130px;
+  max-height: 100px;
 }
 .login-view .login-link {
   text-decoration: none;

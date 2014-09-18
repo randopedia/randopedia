@@ -69,7 +69,7 @@ a:hover {
 
 .spacing-y {
     margin-top: @large-space;
-    margin-right: @large-space;
+    margin-bottom: @large-space;
 }
 
 .spacing-y-large {
@@ -110,6 +110,9 @@ a:hover {
    li {
         margin-right: 15px;
         float: left;  
+   }
+   div {
+       display: inline;
    }
 }
 
@@ -165,6 +168,23 @@ button.info:hover {
             text-transform: uppercase; 
             color: @gray-light;            
         }  
+    }
+    pre {
+        font-family: Helvetica, Arial, sans-serif; 
+        line-height: 130%;
+        border-width: 0;
+        background: #fff;
+    }
+}
+
+.image-upload-view {
+    .thumbnail-wrapper { 
+        display: inline-block;
+    }
+    
+    .thumbnail-image { 
+        max-width: 130px; 
+        max-height: 100px;
     }
 }
 

@@ -1050,7 +1050,7 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
   var buffer = '', helper, options, escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing;
 
 
-  data.buffer.push("<!--  \r\n    View that wraps the javascript file uploader. The original UI is hidden\r\n -->\r\n \r\n<input type=\"file\" id=\"fileInputElement\" class=\"hide\" />\r\n<button ");
+  data.buffer.push("<!--  \r\n    View that wraps the javascript file uploader. The original UI is hidden\r\n -->\r\n \r\n<input type=\"file\" id=\"fileInputElement\" class=\"hide\" />\r\n<button class=\"btn btn-primary\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "openFileDialog", {hash:{
     'target': ("view")
   },hashTypes:{'target': "STRING"},hashContexts:{'target': depth0},contexts:[depth0],types:["STRING"],data:data})));
@@ -1613,7 +1613,7 @@ function program2(depth0,data) {
   return buffer;
   }
 
-  data.buffer.push("<div class=\"row\">\n    <div class=\"small-12 columns\">\n        <h3>\n            Here are the top tags for randopedia.net!\n        </h3>\n    </div>\n</div>\n");
+  data.buffer.push("<div class=\"row\">\n    <div class=\"col-sm-12\">\n        <h3>\n            Here are the top tags for randopedia.net!\n        </h3>\n    </div>\n</div>\n");
   stack1 = helpers.each.call(depth0, "tag", "in", "controller", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0,depth0,depth0],types:["ID","ID","ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n");
@@ -2004,10 +2004,10 @@ function program44(depth0,data) {
   data.buffer.push("\r\n	    </div>\r\n	    \r\n	</div>\r\n	\r\n	<div class=\"row\">\r\n	    <div class=\"col-sm-12\">\r\n	        <div class=\"panel panel-default\">\r\n	            <div class=\"panel-heading\">Access point</div>\r\n	            <div class=\"panel-body\">\r\n	               ");
   stack1 = helpers._triageMustache.call(depth0, "accessPoint", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n	            </div>\r\n	        </div>\r\n	    </div>\r\n	</div>\r\n	\r\n	<div class=\"row\">\r\n	    <div class=\"col-sm-12\">\r\n	        <div class=\"panel panel-default\">\r\n	            <div class=\"panel-heading\">Description</div>\r\n	            <div class=\"panel-body\">\r\n	                <pre class=\"formatted-desc\">\r\n	                    ");
+  data.buffer.push("\r\n	            </div>\r\n	        </div>\r\n	    </div>\r\n	</div>\r\n	\r\n	<div class=\"row\">\r\n	    <div class=\"col-sm-12\">\r\n	        <div class=\"panel panel-default\">\r\n	            <div class=\"panel-heading\">Description</div>\r\n	            <div class=\"panel-body\">\r\n	                <pre>");
   stack1 = helpers._triageMustache.call(depth0, "markedItinerary", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n	                </pre>\r\n	            </div>\r\n	        </div>\r\n	    </div>\r\n	</div>\r\n	\r\n	<div class=\"row\">\r\n	    ");
+  data.buffer.push("</pre>\r\n	            </div>\r\n	        </div>\r\n	    </div>\r\n	</div>\r\n	\r\n	<div class=\"row\">\r\n	    ");
   stack1 = helpers['if'].call(depth0, "haveHazards", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(33, program33, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\r\n	     \r\n	    ");
@@ -2037,57 +2037,59 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
 function program1(depth0,data) {
   
   var buffer = '', helper, options;
-  data.buffer.push("\r\n<div class=\"row\">\r\n   <div class=\"small-12 columns\">\r\n        <div class=\"panel\">\r\n            <div class=\"row\">\r\n                <div class=\"small-12 large-2 columns\">\r\n                    <div class=\"\">\r\n                         <div class=\"thumbnail-wrapper\">\r\n                            <img ");
+  data.buffer.push("\r\n	<div class=\"row\">\r\n	   <div class=\"col-sm-12\">\r\n	        <div class=\"panel\">\r\n	            <div class=\"row\">\r\n	                <div class=\"col-sm-12 col-lg-2\">\r\n                         <div class=\"thumbnail-wrapper\">\r\n                            <img ");
   data.buffer.push(escapeExpression((helper = helpers.bindAttr || (depth0 && depth0.bindAttr),options={hash:{
     'src': ("newImage.imageFile")
   },hashTypes:{'src': "STRING"},hashContexts:{'src': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "bindAttr", options))));
-  data.buffer.push(" class=\"thumbnail-image\" />\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n                <div class=\"small-12 large-10 columns\">\r\n                     <label>Caption</label>\r\n                     <button data-dropdown=\"imageTip\" class=\"info right\"></button>\r\n                     ");
-  data.buffer.push(escapeExpression(helpers.view.call(depth0, "App.TextField", {hash:{
-    'valueBinding': ("newImage.caption"),
-    'maxlength': ("300")
-  },hashTypes:{'valueBinding': "STRING",'maxlength': "STRING"},hashContexts:{'valueBinding': depth0,'maxlength': depth0},contexts:[depth0],types:["ID"],data:data})));
-  data.buffer.push("\r\n                     <button  ");
-  data.buffer.push(escapeExpression(helpers.action.call(depth0, "saveNewImage", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data})));
-  data.buffer.push(" class=\"img-panel-button\">Upload image</button>\r\n                     <button  ");
+  data.buffer.push(" class=\"thumbnail-image\" />\r\n                        </div>\r\n	                </div>\r\n	                <div class=\"col-sm-12 col-lg-10\">\r\n                        <form class=\"form\">\r\n                            <div class=\"form-group\">\r\n                                <label>Caption</label>\r\n                                ");
+  data.buffer.push(escapeExpression((helper = helpers.input || (depth0 && depth0.input),options={hash:{
+    'value': ("image.caption"),
+    'maxlength': ("300"),
+    'class': ("form-control")
+  },hashTypes:{'value': "ID",'maxlength': "STRING",'class': "STRING"},hashContexts:{'value': depth0,'maxlength': depth0,'class': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "input", options))));
+  data.buffer.push("\r\n                            </div>\r\n                         <div class=\"form-group\">\r\n                              <button class=\"btn btn-default pull-right\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "removeNewImage", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data})));
-  data.buffer.push(" class=\"img-panel-button\">Cancel</button>\r\n                </div>\r\n            </div>\r\n        </div>\r\n     </div>\r\n</div>\r\n");
+  data.buffer.push(" class=\"btn btn-default\">Cancel</button>\r\n                              <button class=\"btn btn-primary pull-right\" ");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "saveNewImage", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data})));
+  data.buffer.push(" class=\"btn btn-primary\">Upload image</button>\r\n                            </div>                                            \r\n                        </form>\r\n	                </div>\r\n	            </div>\r\n	        </div>\r\n	     </div>\r\n	</div>\r\n	");
   return buffer;
   }
 
 function program3(depth0,data) {
   
   var buffer = '', stack1;
-  data.buffer.push("\r\n	    ");
+  data.buffer.push("\r\n		    ");
   stack1 = helpers.unless.call(depth0, "image.isNew", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(4, program4, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n	");
+  data.buffer.push("\r\n		");
   return buffer;
   }
 function program4(depth0,data) {
   
   var buffer = '', helper, options;
-  data.buffer.push("\r\n            <div class=\"small-12 columns\">\r\n                <div class=\"panel\">\r\n                    <div class=\"row\">\r\n                        <div class=\"small-12 large-2 columns\">\r\n                            <div class=\"\">\r\n                                 <div class=\"thumbnail-wrapper\">\r\n                                    <img ");
+  data.buffer.push("\r\n	            <div class=\"col-sm-12\">\r\n	                <div class=\"\">\r\n	                    <div class=\"row\">\r\n	                        <div class=\"col-sm-12 col-lg-2\">\r\n	                            <div class=\"\">\r\n	                                 <div class=\"thumbnail-wrapper\">\r\n	                                    <img ");
   data.buffer.push(escapeExpression((helper = helpers.bindAttr || (depth0 && depth0.bindAttr),options={hash:{
     'src': ("image.imageFile")
   },hashTypes:{'src': "STRING"},hashContexts:{'src': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "bindAttr", options))));
-  data.buffer.push(" class=\"thumbnail-image\" />\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"small-12 large-10 columns\">\r\n                             <label>Caption</label>\r\n                             ");
-  data.buffer.push(escapeExpression(helpers.view.call(depth0, "App.TextField", {hash:{
-    'valueBinding': ("image.caption"),
-    'maxlength': ("300")
-  },hashTypes:{'valueBinding': "STRING",'maxlength': "STRING"},hashContexts:{'valueBinding': depth0,'maxlength': depth0},contexts:[depth0],types:["ID"],data:data})));
-  data.buffer.push("\r\n                             ");
+  data.buffer.push(" class=\"thumbnail-image\" />\r\n	                                </div>\r\n	                            </div>\r\n	                        </div>\r\n	                        <div class=\"col-sm-12 col-lg-10\">\r\n	                            <form class=\"form\">\r\n	                                <div class=\"form-group\">\r\n		                                <label>Caption</label>\r\n                                        ");
+  data.buffer.push(escapeExpression((helper = helpers.input || (depth0 && depth0.input),options={hash:{
+    'value': ("image.caption"),
+    'maxlength': ("300"),
+    'class': ("form-control")
+  },hashTypes:{'value': "ID",'maxlength': "STRING",'class': "STRING"},hashContexts:{'value': depth0,'maxlength': depth0,'class': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "input", options))));
+  data.buffer.push("\r\n                                    </div>\r\n                                    <div class=\"form-group\">\r\n                                        <div class=\"checkbox\">\r\n										    <label>\r\n										        ");
   data.buffer.push(escapeExpression((helper = helpers.input || (depth0 && depth0.input),options={hash:{
     'type': ("checkbox"),
     'name': ("isPorfolio"),
     'checked': ("image.isPortfolio")
   },hashTypes:{'type': "STRING",'name': "STRING",'checked': "ID"},hashContexts:{'type': depth0,'name': depth0,'checked': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "input", options))));
-  data.buffer.push(" Is portfolio image\r\n                             <button  ");
+  data.buffer.push(" Is portfolio image\r\n										    </label>\r\n										 </div>\r\n		                                 <button  ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "saveImage", "image", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0,depth0],types:["STRING","ID"],data:data})));
   data.buffer.push(" ");
   data.buffer.push(escapeExpression((helper = helpers.bindAttr || (depth0 && depth0.bindAttr),options={hash:{
     'disabled': ("image.isUpdateDisabled")
   },hashTypes:{'disabled': "STRING"},hashContexts:{'disabled': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "bindAttr", options))));
-  data.buffer.push(" class=\"img-panel-button\">Update</button>\r\n                             <button ");
+  data.buffer.push(" class=\"btn btn-primary pull-right\">Update</button>\r\n		                                 <button ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "startDeleteImage", "image", {hash:{
     'target': ("view")
   },hashTypes:{'target': "STRING"},hashContexts:{'target': depth0},contexts:[depth0,depth0],types:["STRING","ID"],data:data})));
@@ -2095,30 +2097,30 @@ function program4(depth0,data) {
   data.buffer.push(escapeExpression((helper = helpers.bindAttr || (depth0 && depth0.bindAttr),options={hash:{
     'disabled': ("image.isDeleteDisabled")
   },hashTypes:{'disabled': "STRING"},hashContexts:{'disabled': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "bindAttr", options))));
-  data.buffer.push(" class=\"img-panel-button\">Delete image</button>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n	    ");
+  data.buffer.push(" class=\"btn btn-primary pull-right\">Delete image</button>\r\n                                    </div>                                            \r\n                                </form>\r\n	                        </div>\r\n	                    </div>\r\n	                </div>\r\n	            </div>\r\n		    ");
   return buffer;
   }
 
-  data.buffer.push("<!-- \r\n    Template for an image uploader with preview of selected images    \r\n-->\r\n\r\n<div class=\"row\">\r\n    <div class=\"small-12 columns\">\r\n        <h5 class=\"subheader\">Upload new images</h5>\r\n    </div>\r\n</div>\r\n\r\n<div class=\"row\">\r\n    <div class=\"small-12 columns\">\r\n        <div>");
+  data.buffer.push("<!-- \r\n    Template for an image uploader with preview of selected images    \r\n-->\r\n<div class=\"image-upload-view\">\r\n\r\n	<div class=\"row\">\r\n	    <div class=\"col-sm-12\">\r\n	        <h4>Upload new images</h4>\r\n	    </div>\r\n	</div>\r\n	\r\n	<div class=\"row\">\r\n	    <div class=\"col-sm-12\">\r\n	        <div>");
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "App.FileUploadView", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data})));
-  data.buffer.push("</div>\r\n        <p />\r\n    </div>\r\n</div>\r\n\r\n");
+  data.buffer.push("</div>\r\n	    </div>\r\n	</div>\r\n	\r\n	");
   stack1 = helpers['if'].call(depth0, "hasNewImage", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n\r\n<p class=\"small-text\">Images will be scaled down to 1024*768px (Recommended to only upload images in landscape format)</p>\r\n\r\n<div class=\"row\">\r\n    <div class=\"small-12 columns\">\r\n        <hr />\r\n        <h5 class=\"subheader\">Current tour images <span class=\"secondary-text\">(");
+  data.buffer.push("\r\n	\r\n	<div class=\"row\">\r\n	    <div class=\"col-sm-12\">\r\n	        <div class=\"spacing-y\">\r\n	           Images will be scaled down to 1024*768px (Recommended to only upload images in landscape format)\r\n	        </div>\r\n	    </div>\r\n	</div>\r\n	\r\n	<div class=\"row\">\r\n	    <div class=\"col-sm-12\">\r\n	        <hr />\r\n	        <h4>Current tour images <span class=\"secondary-text\">(");
   stack1 = helpers._triageMustache.call(depth0, "images.length", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push(")</span></h5>\r\n    </div>\r\n</div>\r\n\r\n<div class=\"row\">\r\n	<div class=\"small-12 columns\">\r\n	");
+  data.buffer.push(")</span></h4>\r\n	    </div>\r\n	</div>\r\n	\r\n	<div class=\"row\">\r\n		<div class=\"col-sm-12\">\r\n		");
   stack1 = helpers.each.call(depth0, "image", "in", "images", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(3, program3, data),contexts:[depth0,depth0,depth0],types:["ID","ID","ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n    </div>         \r\n</div>\r\n\r\n<div id=\"confirmDeleteImageReveal\" class=\"reveal-modal small\" data-reveal>\r\n\r\n    <div class=\"confirmation-message\">\r\n        <p>Are you sure you want to delete the image? It will not be possible to restore the image.</p> \r\n    </div>\r\n    \r\n    <hr />\r\n    \r\n    <div class=\"confirmation-footer\">\r\n        <button class=\"right\" ");
+  data.buffer.push("\r\n	    </div>         \r\n	</div>\r\n	\r\n	<div class=\"modal fade\" id=\"confirmDeleteImageModal\" tabindex=\"-1\" role=\"dialog\" aria-hidden=\"true\">\r\n	    <div class=\"modal-dialog modal-sm\">\r\n	        <div class=\"modal-content\">\r\n	            <div class=\"modal-body\">\r\n	                Are you sure you want to delete the image? It will not be possible to restore the image.\r\n	            </div>\r\n	            <div class=\"modal-footer\">\r\n	                <button class=\"btn btn-primary pull-left\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "closeConfirmDeleteImage", {hash:{
     'target': ("view")
   },hashTypes:{'target': "STRING"},hashContexts:{'target': depth0},contexts:[depth0],types:["STRING"],data:data})));
-  data.buffer.push(">Cancel</button>\r\n        <button class=\"left\" ");
+  data.buffer.push(">Cancel</button>                \r\n	                <button class=\"btn btn-default pull-right\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "confirmDeleteImage", {hash:{
     'target': ("view")
   },hashTypes:{'target': "STRING"},hashContexts:{'target': depth0},contexts:[depth0],types:["STRING"],data:data})));
-  data.buffer.push(">Delete image</button>\r\n    </div>\r\n</div>\r\n\r\n<div id=\"imageTip\" class=\"f-dropdown content small\" data-dropdown-content>\r\n    <div>\r\n        An image caption.\r\n        <hr />\r\n        Captions can have a maximum of 300 characters.\r\n    </div>\r\n</div>\r\n");
+  data.buffer.push(">Delete image</button>\r\n	            </div>\r\n	        </div>\r\n	    </div>    \r\n	</div>\r\n\r\n</div>\r\n");
   return buffer;
   
 });
@@ -2342,10 +2344,10 @@ function program39(depth0,data) {
   data.buffer.push("\r\n\r\n    ");
   stack1 = helpers['if'].call(depth0, "havePendingOperations", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(17, program17, data),fn:self.program(15, program15, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("     \r\n	\r\n	<div class=\"row\"> \r\n		<div class=\"col-sm-12\">\r\n\r\n			 <ul class=\"nav nav-tabs\" role=\"tablist\">\r\n			    <li class=\"active\"><a href=\"#details-panel\" role=\"tab\" data-toggle=\"tab\">Details</a></li>\r\n			    <li><a href=\"#itinerary-panel\" role=\"tab\" data-toggle=\"tab\">Description</a></li>\r\n			    <li><a href=\"#map-panel\" role=\"tab\" data-toggle=\"tab\">Map</a></li>\r\n			    <li><a href=\"#images-panel\" role=\"tab\" data-toggle=\"tab\">Images</a></li>\r\n			    <li><a href=\"#history-panel\" role=\"tab\" data-toggle=\"tab\">History</a></li>\r\n			</ul>	        \r\n	        \r\n			<div class=\"tab-content\">\r\n			    <div class=\"tab-pane active\" id=\"details-panel\">\r\n				    <form role=\"form\">\r\n				    \r\n	                   <div class=\"row\">\r\n	                        <div class=\"col-sm-4\">			    \r\n						        <div class=\"form-group\">\r\n							        <label for=\"inputArea\">Area</label>\r\n		                            <button data-dropdown=\"areaTip\" class=\"info pull-right\"></button>\r\n		                            <div><a data-toggle=\"modal\" data-target=\"#areaPickerModal\">");
+  data.buffer.push("     \r\n	\r\n	<div class=\"row\"> \r\n		<div class=\"col-sm-12\">\r\n\r\n			 <ul class=\"nav nav-tabs\" role=\"tablist\">\r\n			    <li class=\"active\"><a href=\"#details-panel\" role=\"tab\" data-toggle=\"tab\">Details</a></li>\r\n			    <li><a href=\"#itinerary-panel\" role=\"tab\" data-toggle=\"tab\">Description</a></li>\r\n			    <li><a href=\"#map-panel\" role=\"tab\" data-toggle=\"tab\">Map</a></li>\r\n			    <li><a href=\"#images-panel\" role=\"tab\" data-toggle=\"tab\">Images</a></li>\r\n			    <li><a href=\"#history-panel\" role=\"tab\" data-toggle=\"tab\">History</a></li>\r\n			</ul>	        \r\n	        \r\n			<div class=\"tab-content\">\r\n			    <div class=\"tab-pane active\" id=\"details-panel\">\r\n				    <form role=\"form\">\r\n				    \r\n	                   <div class=\"row\">\r\n	                        <div class=\"col-sm-4\">			    \r\n						        <div class=\"form-group\">\r\n							        <label for=\"inputArea\">Area</label>\r\n		                            <button type=\"button\" class=\"info pull-right\" data-toggle=\"popover\" data-trigger=\"focus\" title=\"Area\" data-content=\"The area where the tour is located.\"></button>\r\n		                            <div><a data-toggle=\"modal\" data-target=\"#areaPickerModal\">");
   stack1 = helpers.unless.call(depth0, "area", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(24, program24, data),fn:self.program(22, program22, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("</a></div>				        \r\n						        </div>\r\n							</div>\r\n	                        <div class=\"col-sm-8\">  				    \r\n		                        <div class=\"form-group\">\r\n		                            <label for=\"inputName\">Name of tour</label>\r\n		                            <button data-dropdown=\"areaTip\" class=\"info pull-right\"></button>\r\n		                            ");
+  data.buffer.push("</a></div>				        \r\n						        </div>\r\n							</div>\r\n	                        <div class=\"col-sm-8\">  				    \r\n		                        <div class=\"form-group\">\r\n		                            <label for=\"inputName\">Name of tour</label>\r\n		                            <button \r\n		                              type=\"button\"\r\n		                              class=\"info pull-right\" data-toggle=\"popover\" data-trigger=\"focus\" title=\"Name\" data-content=\"The name of the tour. Name is required and must be between 3 and 80 characters long.\"></button>\r\n		                            ");
   data.buffer.push(escapeExpression((helper = helpers.input || (depth0 && depth0.input),options={hash:{
     'placeholder': (""),
     'pattern': ("^.{3,80}$"),
@@ -2353,21 +2355,21 @@ function program39(depth0,data) {
     'id': ("inputName"),
     'class': ("form-control")
   },hashTypes:{'placeholder': "STRING",'pattern': "STRING",'value': "ID",'id': "STRING",'class': "STRING"},hashContexts:{'placeholder': depth0,'pattern': depth0,'value': depth0,'id': depth0,'class': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "input", options))));
-  data.buffer.push("\r\n		                        </div>\r\n	                        </div>\r\n	                    </div>\r\n	                    \r\n	                   <div class=\"row\">\r\n	                        <div class=\"col-sm-12\">\r\n		                        <div class=\"form-group\">\r\n		                           <label for=\"inputShortDescription\">Tour summary<span class=\"warn-field\">*</span></label>\r\n		                           <button data-dropdown=\"descTip\" class=\"info pull-right\"></button>\r\n		                           ");
+  data.buffer.push("\r\n		                        </div>\r\n	                        </div>\r\n	                    </div>\r\n	                    \r\n	                   <div class=\"row\">\r\n	                        <div class=\"col-sm-12\">\r\n		                        <div class=\"form-group\">\r\n		                           <label for=\"inputShortDescription\">Tour summary<span class=\"warn-field\">*</span></label>\r\n		                           <button \r\n		                              type=\"button\" class=\"info pull-right\" data-toggle=\"popover\" data-trigger=\"focus\" \r\n		                              title=\"Tour summary\" \r\n		                              data-content=\"A brief description summarizing the highlights of the tour. Description can have a maximum of 300 characters.\">\r\n		                           </button>\r\n		                           ");
   data.buffer.push(escapeExpression((helper = helpers.input || (depth0 && depth0.input),options={hash:{
     'maxlength': ("300"),
     'value': ("shortDescription"),
     'id': ("inputShortDescription"),
     'class': ("form-control")
   },hashTypes:{'maxlength': "STRING",'value': "ID",'id': "STRING",'class': "STRING"},hashContexts:{'maxlength': depth0,'value': depth0,'id': depth0,'class': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "input", options))));
-  data.buffer.push("\r\n		                        </div>\r\n	                        </div>\r\n	                    </div>\r\n	                    \r\n	                   <div class=\"row\">\r\n	                       <div class=\"col-sm-12 descTextAreaContainer\">\r\n	                           <div class=\"form-group\">\r\n	                                 <label for=\"inputAccessPoint\">Access point<span class=\"req-field\">*</span></label>\r\n	                                 <button data-dropdown=\"startingPointTip\" class=\"info pull-right\"></button>\r\n	                                 ");
+  data.buffer.push("\r\n		                        </div>\r\n	                        </div>\r\n	                    </div>\r\n	                    \r\n	                   <div class=\"row\">\r\n	                       <div class=\"col-sm-12 descTextAreaContainer\">\r\n	                           <div class=\"form-group\">\r\n	                                 <label for=\"inputAccessPoint\">Access point<span class=\"req-field\">*</span></label>\r\n	                                 <button \r\n	                                      type=\"button\" class=\"info pull-right\" data-toggle=\"popover\" data-trigger=\"focus\" \r\n                                          title=\"Access point\" \r\n                                          data-content=\"Description of the access point and how to get there. The access point description can have a maximum of 1000 characters.\">\r\n                                     </button>\r\n	                                 ");
   data.buffer.push(escapeExpression((helper = helpers.textarea || (depth0 && depth0.textarea),options={hash:{
     'value': ("accessPoint"),
     'maxlength': ("1000"),
     'id': ("inputAccessPoint"),
     'class': ("form-control")
   },hashTypes:{'value': "ID",'maxlength': "STRING",'id': "STRING",'class': "STRING"},hashContexts:{'value': depth0,'maxlength': depth0,'id': depth0,'class': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "textarea", options))));
-  data.buffer.push("\r\n	                           </div>\r\n	                       </div>\r\n	                   </div>\r\n	                   \r\n	                   <div class=\"row\">\r\n	                       <div class=\"col-lg-3\">\r\n	                           <div class=\"form-group\">\r\n	                               <label for=\"inputElevationLoss\">Elevation loss<span class=\"req-field\">*</span></label>\r\n	                               <button data-dropdown=\"elevationLossTip\" class=\"info pull-right\"></button>\r\n	                               <div class=\"input-group\">\r\n	                                    ");
+  data.buffer.push("\r\n	                           </div>\r\n	                       </div>\r\n	                   </div>\r\n	                   \r\n	                   <div class=\"row\">\r\n	                       <div class=\"col-lg-3\">\r\n	                           <div class=\"form-group\">\r\n	                               <label for=\"inputElevationLoss\">Elevation loss<span class=\"req-field\">*</span></label>\r\n                                   <button \r\n                                        type=\"button\" class=\"info pull-right\" data-toggle=\"popover\" data-trigger=\"focus\" \r\n                                        title=\"Elevation loss\" \r\n                                        data-content=\"Total elevation to descend. Only digits are allowed.\">\r\n                                   </button>	                               \r\n	                               <div class=\"input-group\">\r\n	                                    ");
   data.buffer.push(escapeExpression((helper = helpers.input || (depth0 && depth0.input),options={hash:{
     'placeholder': (""),
     'pattern': ("App.Validate.numberRegex"),
@@ -2375,7 +2377,7 @@ function program39(depth0,data) {
     'id': ("inputElevationLoss"),
     'class': ("form-control")
   },hashTypes:{'placeholder': "STRING",'pattern': "ID",'value': "ID",'id': "STRING",'class': "STRING"},hashContexts:{'placeholder': depth0,'pattern': depth0,'value': depth0,'id': depth0,'class': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "input", options))));
-  data.buffer.push("\r\n	                                    <div class=\"input-group-addon\">m</div>\r\n	                               </div>\r\n	                           </div>\r\n	                       </div>\r\n	                       <div class=\"col-lg-3\">\r\n	                           <div class=\"form-group\">\r\n	                               <label for=inputElevationGain\">Elevation gain<span class=\"req-field\">*</span></label>\r\n<!-- 	                           <button data-dropdown=\"elevationGainTip\" data-options=\"align_right:true\" class=\"info right\"></button> -->\r\n	                               <div class=\"input-group\">\r\n	                                    ");
+  data.buffer.push("\r\n	                                    <div class=\"input-group-addon\">m</div>\r\n	                               </div>\r\n	                           </div>\r\n	                       </div>\r\n	                       <div class=\"col-lg-3\">\r\n	                           <div class=\"form-group\">\r\n	                               <label for=inputElevationGain\">Elevation gain<span class=\"req-field\">*</span></label>\r\n                                   <button \r\n                                        type=\"button\" class=\"info pull-right\" data-toggle=\"popover\" data-trigger=\"focus\" \r\n                                        title=\"Elevation gain\" \r\n                                        data-content=\"Total elevation to climb. Only digits are allowed.\">\r\n                                   </button>    \r\n	                               <div class=\"input-group\">\r\n	                                    ");
   data.buffer.push(escapeExpression((helper = helpers.input || (depth0 && depth0.input),options={hash:{
     'placeholder': (""),
     'pattern': ("App.Validate.numberRegex"),
@@ -2383,7 +2385,7 @@ function program39(depth0,data) {
     'id': ("inputElevationGain"),
     'class': ("form-control")
   },hashTypes:{'placeholder': "STRING",'pattern': "ID",'value': "ID",'id': "STRING",'class': "STRING"},hashContexts:{'placeholder': depth0,'pattern': depth0,'value': depth0,'id': depth0,'class': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "input", options))));
-  data.buffer.push("\r\n	                                    <div class=\"input-group-addon\">m</div>\r\n	                               </div>\r\n	                           </div>\r\n	                       </div>\r\n	                       <div class=\"col-lg-3\">\r\n                               <div class=\"form-group\">\r\n                                   <label for=\"inputHighestPoint\">Highest point<span class=\"warn-field\">*</span></label>\r\n                                   <button data-dropdown=\"highestPointTip\" class=\"info pull-right\"></button>\r\n                                   <div class=\"input-group\">\r\n                                       ");
+  data.buffer.push("\r\n	                                    <div class=\"input-group-addon\">m</div>\r\n	                               </div>\r\n	                           </div>\r\n	                       </div>\r\n	                       <div class=\"col-lg-3\">\r\n                               <div class=\"form-group\">\r\n                                   <label for=\"inputHighestPoint\">Highest point<span class=\"warn-field\">*</span></label>\r\n                                   <button \r\n                                        type=\"button\" class=\"info pull-right\" data-toggle=\"popover\" data-trigger=\"focus\" \r\n                                        title=\"Highest point\" \r\n                                        data-content=\"The highest point of the tour. Only digits are allowed.\">\r\n                                   </button> \r\n                                   <div class=\"input-group\">\r\n                                       ");
   data.buffer.push(escapeExpression((helper = helpers.input || (depth0 && depth0.input),options={hash:{
     'placeholder': (""),
     'pattern': ("App.Validate.numberRegex"),
@@ -2391,7 +2393,7 @@ function program39(depth0,data) {
     'id': ("inputHighestPoint"),
     'class': ("form-control")
   },hashTypes:{'placeholder': "STRING",'pattern': "ID",'value': "ID",'id': "STRING",'class': "STRING"},hashContexts:{'placeholder': depth0,'pattern': depth0,'value': depth0,'id': depth0,'class': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "input", options))));
-  data.buffer.push("\r\n                                       <div class=\"input-group-addon\">m</div>\r\n                                   </div>\r\n                               </div>\r\n                           </div>  \r\n	                       <div class=\"col-lg-3\">\r\n	                           <label for=\"inputAspect\">Main aspect of slopes</label>\r\n	                           <button data-dropdown=\"aspectTip\" data-options=\"align_right:true\" class=\"info pull-right\"></button>\r\n	                           ");
+  data.buffer.push("\r\n                                       <div class=\"input-group-addon\">m</div>\r\n                                   </div>\r\n                               </div>\r\n                           </div>  \r\n	                       <div class=\"col-lg-3\">\r\n	                           <label for=\"inputAspect\">Main aspect of slopes</label>\r\n                               <button \r\n                                    type=\"button\" class=\"info pull-right\" data-toggle=\"popover\" data-trigger=\"focus\" \r\n                                    title=\"Aspect\" \r\n                                    data-content=\"Aspect of the main part of the slopes on the descent route.\">\r\n                               </button> \r\n	                           ");
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "Ember.Select", {hash:{
     'contentBinding': ("App.Fixtures.Aspects"),
     'optionValuePath': ("content.value"),
@@ -2400,7 +2402,7 @@ function program39(depth0,data) {
     'id': ("inputAspect"),
     'class': ("form-control")
   },hashTypes:{'contentBinding': "STRING",'optionValuePath': "STRING",'optionLabelPath': "STRING",'valueBinding': "STRING",'id': "STRING",'class': "STRING"},hashContexts:{'contentBinding': depth0,'optionValuePath': depth0,'optionLabelPath': depth0,'valueBinding': depth0,'id': depth0,'class': depth0},contexts:[depth0],types:["ID"],data:data})));
-  data.buffer.push("          \r\n	                       </div>          \r\n	                   </div>	\r\n	                                      \r\n	                   <div class=\"row\">\r\n	                       <div class=\"col-lg-3\">\r\n	                           <div class=\"form-group\">\r\n	                                <label for=\"inputTimeMin\">Time, min<span class=\"req-field\">*</span></label>\r\n			                         <button data-dropdown=\"timeMinTip\" class=\"info pull-right\"></button>\r\n                                    <div class=\"input-group\">\r\n                                        ");
+  data.buffer.push("          \r\n	                       </div>          \r\n	                   </div>	\r\n	                                      \r\n	                   <div class=\"row\">\r\n	                       <div class=\"col-lg-3\">\r\n	                           <div class=\"form-group\">\r\n	                               <label for=\"inputTimeMin\">Time, min<span class=\"req-field\">*</span></label>\r\n	                               <button \r\n	                                    type=\"button\" class=\"info pull-right\" data-toggle=\"popover\" data-trigger=\"focus\" \r\n	                                    title=\"Time min\" \r\n	                                    data-content=\"The minimum amount of time that can be expected for the tour. Only digits are allowed.\">\r\n	                               </button> \r\n                                    <div class=\"input-group\">\r\n                                        ");
   data.buffer.push(escapeExpression((helper = helpers.input || (depth0 && depth0.input),options={hash:{
     'placeholder': (""),
     'pattern': ("App.Validate.numberRegex"),
@@ -2408,7 +2410,7 @@ function program39(depth0,data) {
     'id': ("inputTimeMin"),
     'class': ("form-control")
   },hashTypes:{'placeholder': "STRING",'pattern': "ID",'value': "ID",'id': "STRING",'class': "STRING"},hashContexts:{'placeholder': depth0,'pattern': depth0,'value': depth0,'id': depth0,'class': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "input", options))));
-  data.buffer.push("\r\n                                        <div class=\"input-group-addon\">h</div>\r\n                                    </div>\r\n	                           </div>\r\n	                       </div>\r\n                           <div class=\"col-lg-3\">\r\n                               <div class=\"form-group\">\r\n                                    <label for=\"inputTimeMax\">Time, max<span class=\"req-field\">*</span></label>\r\n                                    <button data-dropdown=\"timeMaxTip\" class=\"info pull-right\"></button>\r\n                                    <div class=\"input-group\">\r\n                                        ");
+  data.buffer.push("\r\n                                        <div class=\"input-group-addon\">h</div>\r\n                                    </div>\r\n	                           </div>\r\n	                       </div>\r\n                           <div class=\"col-lg-3\">\r\n                               <div class=\"form-group\">\r\n                                   <label for=\"inputTimeMax\">Time, max<span class=\"req-field\">*</span></label>\r\n                                   <button \r\n                                        type=\"button\" class=\"info pull-right\" data-toggle=\"popover\" data-trigger=\"focus\" \r\n                                        title=\"Time max\" \r\n                                        data-content=\"The maximum amount of time that can be expected for the tour. Only digits are allowed.\">\r\n                                   </button> \r\n                                   <div class=\"input-group\">\r\n                                        ");
   data.buffer.push(escapeExpression((helper = helpers.input || (depth0 && depth0.input),options={hash:{
     'placeholder': (""),
     'pattern': ("App.Validate.numberRegex"),
@@ -2416,7 +2418,7 @@ function program39(depth0,data) {
     'id': ("inputTimeMax"),
     'class': ("form-control")
   },hashTypes:{'placeholder': "STRING",'pattern': "ID",'value': "ID",'id': "STRING",'class': "STRING"},hashContexts:{'placeholder': depth0,'pattern': depth0,'value': depth0,'id': depth0,'class': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "input", options))));
-  data.buffer.push("\r\n                                        <div class=\"input-group-addon\">h</div>\r\n                                    </div>\r\n                               </div>\r\n                           </div>                      \r\n                           <div class=\"col-lg-3\">\r\n                               <div class=\"form-group\">\r\n                                   <label for=\"inputSeasonFrom\">Season from<span class=\"req-field\">*</span></label>\r\n                                   <button data-dropdown=\"timeMaxTip\" class=\"info pull-right\"></button>\r\n                                   ");
+  data.buffer.push("\r\n                                        <div class=\"input-group-addon\">h</div>\r\n                                   </div>\r\n                               </div>\r\n                           </div>                      \r\n                           <div class=\"col-lg-3\">\r\n                               <div class=\"form-group\">\r\n                                   <label for=\"inputSeasonFrom\">Season from<span class=\"req-field\">*</span></label>\r\n                                   <button \r\n                                        type=\"button\" class=\"info pull-right\" data-toggle=\"popover\" data-trigger=\"focus\" \r\n                                        title=\"Season from\" \r\n                                        data-content=\"First month of the season when the tour normally is skiable.\">\r\n                                   </button> \r\n                                   ");
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "Ember.Select", {hash:{
     'contentBinding': ("App.Fixtures.Months"),
     'optionValuePath': ("content.value"),
@@ -2425,7 +2427,7 @@ function program39(depth0,data) {
     'id': ("inputSeasonFrom"),
     'class': ("form-control")
   },hashTypes:{'contentBinding': "STRING",'optionValuePath': "STRING",'optionLabelPath': "STRING",'valueBinding': "STRING",'id': "STRING",'class': "STRING"},hashContexts:{'contentBinding': depth0,'optionValuePath': depth0,'optionLabelPath': depth0,'valueBinding': depth0,'id': depth0,'class': depth0},contexts:[depth0],types:["ID"],data:data})));
-  data.buffer.push("  \r\n                              </div>\r\n                          </div>\r\n                           <div class=\"col-lg-3\">\r\n                                <div class=\"form-group\">\r\n                                   <label for=\"inputTimeOfYearTo\">Season to<span class=\"req-field\">*</span></label>\r\n                                   <button data-dropdown=\"timeMinTip\" class=\"info pull-right\"></button>\r\n                                   ");
+  data.buffer.push("  \r\n                              </div>\r\n                          </div>\r\n                           <div class=\"col-lg-3\">\r\n                                <div class=\"form-group\">\r\n                                   <label for=\"inputTimeOfYearTo\">Season to<span class=\"req-field\">*</span></label>\r\n                                   <button \r\n                                        type=\"button\" class=\"info pull-right\" data-toggle=\"popover\" data-trigger=\"focus\" \r\n                                        title=\"Season to\" \r\n                                        data-content=\"Last month of the season when the tour normally is skiable.\">\r\n                                   </button> \r\n                                   ");
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "Ember.Select", {hash:{
     'contentBinding': ("App.Fixtures.Months"),
     'optionValuePath': ("content.value"),
@@ -2445,7 +2447,7 @@ function program39(depth0,data) {
     'id': ("inputGrade"),
     'class': ("form-control")
   },hashTypes:{'contentBinding': "STRING",'optionValuePath': "STRING",'optionLabelPath': "STRING",'valueBinding': "STRING",'id': "STRING",'class': "STRING"},hashContexts:{'contentBinding': depth0,'optionValuePath': depth0,'optionLabelPath': depth0,'valueBinding': depth0,'id': depth0,'class': depth0},contexts:[depth0],types:["ID"],data:data})));
-  data.buffer.push("\r\n	                            </div>\r\n	                        </div>\r\n                        \r\n	                        <div class=\"col-lg-3\">\r\n	                            <div class=\"form-group\">\r\n	                                <label for=\"inputSteepness\">Steepness, max</label>\r\n	                                <button data-dropdown=\"degreesMaxTip\" class=\"info pull-right\"></button>\r\n	                                <div class=\"input-group\">\r\n	                                    ");
+  data.buffer.push("\r\n	                            </div>\r\n	                        </div>\r\n                        \r\n	                        <div class=\"col-lg-3\">\r\n	                            <div class=\"form-group\">\r\n	                                <label for=\"inputSteepness\">Steepness, max</label>\r\n                                   <button \r\n                                        type=\"button\" class=\"info pull-right\" data-toggle=\"popover\" data-trigger=\"focus\" \r\n                                        title=\"Steepness\" \r\n                                        data-content=\"Degrees on the steepest part of the route. Only digits are allowed.\">\r\n                                   </button> \r\n	                                <div class=\"input-group\">\r\n	                                    ");
   data.buffer.push(escapeExpression((helper = helpers.input || (depth0 && depth0.input),options={hash:{
     'pattern': ("App.Validate.numberRegex"),
     'value': ("degreesMax"),
@@ -2456,7 +2458,7 @@ function program39(depth0,data) {
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "Ember.Checkbox", {hash:{
     'checkedBinding': ("haveHazards")
   },hashTypes:{'checkedBinding': "STRING"},hashContexts:{'checkedBinding': depth0},contexts:[depth0],types:["ID"],data:data})));
-  data.buffer.push("\r\n	                                  <button data-dropdown=\"hasDangerTip\" class=\"info pull-right\"></button>\r\n	                                  ");
+  data.buffer.push("\r\n	                                   <button \r\n	                                        type=\"button\" class=\"info pull-right\" data-toggle=\"popover\" data-trigger=\"focus\" \r\n	                                        title=\"Hazards\" \r\n	                                        data-content=\"Description of any special hazards that skiers should be aware of. Description can have a maximum of 300 characters.\">\r\n	                                   </button> \r\n	                                  ");
   data.buffer.push(escapeExpression((helper = helpers.textarea || (depth0 && depth0.textarea),options={hash:{
     'value': ("hazardsDescription"),
     'disabledBinding': ("haveNoHazards"),
@@ -2468,7 +2470,7 @@ function program39(depth0,data) {
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "Ember.Checkbox", {hash:{
     'checkedBinding': ("requiresTools")
   },hashTypes:{'checkedBinding': "STRING"},hashContexts:{'checkedBinding': depth0},contexts:[depth0],types:["ID"],data:data})));
-  data.buffer.push("\r\n	                                  <button data-dropdown=\"mntSkillsTip\" class=\"info pull-right\"></button>                                \r\n	                                  ");
+  data.buffer.push("\r\n                                       <button \r\n                                            type=\"button\" class=\"info pull-right\" data-toggle=\"popover\" data-trigger=\"focus\" \r\n                                            title=\"Skills/Equipment\" \r\n                                            data-content=\"Description of any mountaineering skills or equipment needed. Rappels, glacier safety equipment etc. Description can have a maximum of 300 characters.\">\r\n                                       </button>                            \r\n	                                  ");
   data.buffer.push(escapeExpression((helper = helpers.textarea || (depth0 && depth0.textarea),options={hash:{
     'value': ("toolsDescription"),
     'disabledBinding': ("doesNotRequireTools"),
@@ -2476,7 +2478,7 @@ function program39(depth0,data) {
     'id': ("inputTools"),
     'class': ("form-control")
   },hashTypes:{'value': "ID",'disabledBinding': "STRING",'maxlength': "STRING",'id': "STRING",'class': "STRING"},hashContexts:{'value': depth0,'disabledBinding': depth0,'maxlength': depth0,'id': depth0,'class': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "textarea", options))));
-  data.buffer.push("\r\n	                            </div>\r\n	                        </div>\r\n	                    </div>\r\n	                    \r\n	                    <div class=\"row\">\r\n	                        <div class=\"col-sm-12 col-lg-6\">\r\n	                            <label for=\"inputTags\">Tags</label>\r\n	                            <button data-dropdown=\"tagsTip\" class=\"info pull-right\"></button>\r\n	                            ");
+  data.buffer.push("\r\n	                            </div>\r\n	                        </div>\r\n	                    </div>\r\n	                    \r\n	                    <div class=\"row\">\r\n	                        <div class=\"col-sm-12 col-lg-6\">\r\n	                            <label for=\"inputTags\">Tags</label>\r\n                                <button \r\n                                     type=\"button\" class=\"info pull-right\" data-toggle=\"popover\" data-trigger=\"focus\" \r\n                                     title=\"Tags\" \r\n                                     data-content=\"You can tag your tour with tag words that gives a quick overview of the tour. Separate them with comma. For example: steep, powder, fields\">\r\n                                </button>   \r\n	                            ");
   data.buffer.push(escapeExpression((helper = helpers.textarea || (depth0 && depth0.textarea),options={hash:{
     'value': ("tagsString"),
     'maxlength': (500),
@@ -2485,22 +2487,22 @@ function program39(depth0,data) {
     'id': ("inputTags"),
     'class': ("form-control")
   },hashTypes:{'value': "ID",'maxlength': "INTEGER",'id': "STRING",'class': "STRING",'id': "STRING",'class': "STRING"},hashContexts:{'value': depth0,'maxlength': depth0,'id': depth0,'class': depth0,'id': depth0,'class': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "textarea", options))));
-  data.buffer.push("\r\n	                        </div>\r\n	                    </div>\r\n                    	                    \r\n	                </form>\r\n				   \r\n				    <div class=\"row spacing-y-large\">\r\n	                    <div class=\"col-sm-12 small\">\r\n	                        <div class=\"form-group\">\r\n							    <span class=\"req-field\">*</span> Required field (tour cannot be published if not set) <br />\r\n							    <span class=\"warn-field\">*</span> Recommended field (tour will be marked as incomplete if not set)\r\n						    </div>\r\n						</div>\r\n				    </div>\r\n			    </div>\r\n			        \r\n				<div id=\"itinerary-panel\" class=\"tab-pane\">\r\n					<div class=\"row\">\r\n					   <div class=\"col-sm-12\">\r\n					       <div class=\"form-group\">\r\n					           <label for=\"inputDescription\">Description<span class=\"req-field\">*</span></label>\r\n					           <button data-dropdown=\"itineraryTip\" class=\"info pull-right\"></button>\r\n					           ");
-  data.buffer.push(escapeExpression(helpers.view.call(depth0, "App.TextArea", {hash:{
-    'valueBinding': ("itinerary"),
+  data.buffer.push("\r\n	                        </div>\r\n	                    </div>\r\n                    	                    \r\n	                </form>\r\n				   \r\n				    <div class=\"row spacing-y-large\">\r\n	                    <div class=\"col-sm-12 small\">\r\n	                        <div class=\"form-group\">\r\n							    <span class=\"req-field\">*</span> Required field (tour cannot be published if not set) <br />\r\n							    <span class=\"warn-field\">*</span> Recommended field (tour will be marked as incomplete if not set)\r\n						    </div>\r\n						</div>\r\n				    </div>\r\n			    </div>\r\n			        \r\n				<div id=\"itinerary-panel\" class=\"tab-pane\">\r\n					<div class=\"row\">\r\n					   <div class=\"col-sm-12\">\r\n					       <div class=\"form-group\">\r\n					           <label for=\"inputDescription\">Description<span class=\"req-field\">*</span></label>\r\n                                <button \r\n                                     type=\"button\" class=\"info pull-right\" data-toggle=\"popover\" data-trigger=\"focus\" \r\n                                     title=\"Description\" \r\n                                     data-content=\"Description of the tour itinerary and anything else that could be useful. Description can have a maximum of 8000 characters.\">\r\n                                </button>  \r\n					           ");
+  data.buffer.push(escapeExpression((helper = helpers.textarea || (depth0 && depth0.textarea),options={hash:{
+    'value': ("itinerary"),
     'maxlength': ("8000"),
     'id': ("inputDescription"),
     'class': ("form-control large")
-  },hashTypes:{'valueBinding': "STRING",'maxlength': "STRING",'id': "STRING",'class': "STRING"},hashContexts:{'valueBinding': depth0,'maxlength': depth0,'id': depth0,'class': depth0},contexts:[depth0],types:["ID"],data:data})));
+  },hashTypes:{'value': "ID",'maxlength': "STRING",'id': "STRING",'class': "STRING"},hashContexts:{'value': depth0,'maxlength': depth0,'id': depth0,'class': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "textarea", options))));
   data.buffer.push("\r\n					       </div>\r\n					   </div>\r\n					</div>  \r\n				</div>	  \r\n				\r\n				<div id=\"map-panel\" class=\"tab-pane\">\r\n		            <div class=\"row\">\r\n		                ");
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "App.TourEditMapView", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data})));
-  data.buffer.push("\r\n		            </div>  \r\n		            <div class=\"row\">\r\n		                <div class=\"col-sm-12 small-text\" style=\"margin-top: 1em;\">\r\n		                    Tip: The markers on the browse map on the frontpage are set by the first point added to the tour map above. \r\n		                    Start drawing from the summit point of the tour to make that the point that's marked on the browse map.\r\n		                </div> \r\n	                </div>\r\n			    </div>  \r\n			    \r\n			    <div id=\"images-panel\" class=\"tab-pane\">\r\n		            <div class=\"row\">\r\n			            <div class=\"col-sm-12\">\r\n			                <div class=\"normal-margin\">\r\n			                    ");
+  data.buffer.push("\r\n		            </div>  \r\n		            <div class=\"row\">\r\n		                <div class=\"col-sm-12 spacing-y\">\r\n		                    Tip: The markers on the browse map on the frontpage are set by the first point added to the tour map above. \r\n		                    Start drawing from the summit point of the tour to make that the point that's marked on the browse map.\r\n		                </div> \r\n	                </div>\r\n			    </div>  \r\n			    \r\n			    <div id=\"images-panel\" class=\"tab-pane\">\r\n		            <div class=\"row\">\r\n			            <div class=\"col-sm-12\">\r\n			                <div class=\"spacing\">\r\n			                    ");
   stack1 = helpers['if'].call(depth0, "isNew", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(28, program28, data),fn:self.program(26, program26, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n			                </div>\r\n			            </div>\r\n		            </div>  \r\n	            </div>                    \r\n			      \r\n			    <div id=\"history-panel\" class=\"tab-pane\">\r\n		            <div class=\"row\">\r\n		                <div class=\"col-sm-12 normal-margin\">\r\n		                    Tour status: ");
+  data.buffer.push("\r\n			                </div>\r\n			            </div>\r\n		            </div>  \r\n	            </div>                    \r\n			      \r\n			    <div id=\"history-panel\" class=\"tab-pane\">\r\n		            <div class=\"row\">\r\n		                <div class=\"col-sm-12 spacing\">\r\n		                    Tour status: <em>");
   stack1 = helpers._triageMustache.call(depth0, "displayStatus", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n		                </div>\r\n		            </div>\r\n		            <div class=\"row\">\r\n		                <div class=\"col-sm-12 largeTextAreaContainer\">\r\n		                    <table class=\"no-margin\">\r\n							  <thead>\r\n							      <tr>\r\n								      <th>Time</th>\r\n								      <th>Type</th>\r\n								      <th>User</th>\r\n								      <th>Comment</th>\r\n							      </tr>\r\n							  </thead>\r\n							  <tbody>\r\n							      ");
+  data.buffer.push("</em>\r\n		                </div>\r\n		            </div>\r\n		            <div class=\"row\">\r\n		                <div class=\"col-sm-12 largeTextAreaContainer\">\r\n		                    <table class=\"table table-striped\">\r\n							  <thead>\r\n							      <tr>\r\n								      <th>Time</th>\r\n								      <th>Type</th>\r\n								      <th>User</th>\r\n								      <th>Comment</th>\r\n							      </tr>\r\n							  </thead>\r\n							  <tbody>\r\n							      ");
   stack1 = helpers.each.call(depth0, "action", "in", "actions", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(30, program30, data),contexts:[depth0,depth0,depth0],types:["ID","ID","ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\r\n							  </tbody>\r\n							</table>\r\n		                </div>\r\n		             </div> \r\n		        </div> \r\n	        </div>\r\n	        \r\n	    </div>\r\n	</div>\r\n\r\n	\r\n	\r\n    <div class=\"modal fade\" id=\"tourDetailsGradeGuideModal\" tabindex=\"-1\" role=\"dialog\" aria-hidden=\"true\">\r\n        <div class=\"modal-dialog modal-lg login-view\">\r\n            <div class=\"modal-content\">\r\n                <div class=\"modal-header\">\r\n                    <button type=\"button\" class=\"close\" data-dismiss=\"modal\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button>\r\n                    <h4 class=\"modal-title\" id=\"myModalLabel\">Grades</h4>\r\n                </div>\r\n                <div class=\"modal-body\">\r\n                    ");
@@ -2561,7 +2563,7 @@ function program39(depth0,data) {
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "completePublish", {hash:{
     'target': ("view")
   },hashTypes:{'target': "STRING"},hashContexts:{'target': depth0},contexts:[depth0],types:["STRING"],data:data})));
-  data.buffer.push(">Publish</button>  	            \r\n	            </div>\r\n	        </div>\r\n	    </div>        \r\n	</div>	\r\n    \r\n	<!-- Field/Validation tips -->\r\n	\r\n	<div id=\"areaTip\" class=\"f-dropdown content small\" data-dropdown-content>\r\n	    <div>\r\n	        The area where the tour is located.\r\n	    </div>\r\n	</div>\r\n	\r\n	<div id=\"tourNameTip\" class=\"f-dropdown content small\" data-dropdown-content>\r\n	    <div>\r\n	        The name of the tour.\r\n	        <hr />\r\n	        Name is required and must be between 3 and 80 characters long.\r\n	    </div>\r\n	</div>\r\n	\r\n	<div id=\"startingPointTip\" class=\"f-dropdown content small\" data-dropdown-content>\r\n	    <div>\r\n	        Description of the access point and how to get there.\r\n	        <hr />\r\n	        The access point description can have a maximum of 1000 characters.\r\n	    </div>\r\n	</div>\r\n	\r\n	<div id=\"descTip\" class=\"f-dropdown content small\" data-dropdown-content>\r\n	    <div>\r\n	        A brief description summarizing the highlights of the tour.\r\n	        <hr />\r\n	        Description can have a maximum of 300 characters.\r\n	    </div>\r\n	</div>\r\n	\r\n	<div id=\"elevationGainTip\" class=\"f-dropdown content small\" data-dropdown-content>\r\n	    <div>\r\n	        Total elevation to climb \r\n	        <hr />\r\n	        Only digits are allowed.\r\n	    </div>\r\n	</div>\r\n	\r\n	<div id=\"elevationLossTip\" class=\"f-dropdown content small\" data-dropdown-content>\r\n	    <div>\r\n	        Total elevation to descend\r\n	        <hr />\r\n	        Only digits are allowed.\r\n	    </div>\r\n	</div>\r\n	\r\n	<div id=\"highestPointTip\" class=\"f-dropdown content small\" data-dropdown-content>\r\n	    <div>\r\n	        The highest point of the tour.\r\n	        <hr />\r\n	        Only digits are allowed.\r\n	    </div>\r\n	</div>\r\n	\r\n	<div id=\"aspectTip\" class=\"f-dropdown content small\" data-dropdown-content>\r\n	    <div>\r\n	        Aspect of the main part of the slopes on the descent route.\r\n	    </div>\r\n	</div>\r\n	\r\n	<div id=\"timeMinTip\" class=\"f-dropdown content small\" data-dropdown-content>\r\n	    <div>\r\n	        The minimum amount of time that can be expected for the tour.\r\n	        <hr />\r\n	        Only digits are allowed.\r\n	    </div>\r\n	</div>\r\n	\r\n	<div id=\"timeMaxTip\" class=\"f-dropdown content small\" data-dropdown-content>\r\n	    <div>\r\n	        The maximum amount of time that can be expected for the tour.\r\n		    <hr />\r\n		    Only digits are allowed.\r\n	    </div>\r\n	</div>\r\n	\r\n	<div id=\"degreesMaxTip\" class=\"f-dropdown content small\" data-dropdown-content>\r\n	    <div>\r\n	        Degrees on the steepest part of the route.\r\n	        <hr />\r\n	        Only digits are allowed.\r\n	    </div>\r\n	</div>\r\n	\r\n	<div id=\"seasonFromTip\" class=\"f-dropdown content small\" data-dropdown-content>\r\n	    <div>\r\n	        First month of the season when the tour normally is skiable.\r\n	    </div>\r\n	</div>\r\n	\r\n	<div id=\"seasonToTip\" class=\"f-dropdown content small\" data-dropdown-content>\r\n	    <div> \r\n	        Last month of the season when the tour normally is skiable.\r\n	    </div>\r\n	</div>\r\n	\r\n	<div id=\"hasDangerTip\" class=\"f-dropdown content small\" data-dropdown-content>\r\n	    <div>\r\n	        Description of any special hazards that skiers should be aware of. \r\n	        <hr />\r\n	        Description can have a maximum of 300 characters.\r\n	    </div>\r\n	</div>\r\n	\r\n	<div id=\"mntSkillsTip\" class=\"f-dropdown content small\" data-dropdown-content>\r\n		<div>\r\n		    Description of any mountaineering skills or equipment needed. Rappels, glacier safety equipment etc.\r\n		    <hr />\r\n		    Description can have a maximum of 300 characters.\r\n		</div>\r\n	</div>\r\n	\r\n	<div id=\"itineraryTip\" class=\"f-dropdown content small\" data-dropdown-content>\r\n	    <div>\r\n	        Description of the tour itinerary and anything else that could be useful.\r\n	        <hr />\r\n	        Description can have a maximum of 8000 characters.\r\n	    </div>\r\n	</div>\r\n	\r\n	<div id=\"tagsTip\" class=\"f-dropdown content small\" data-dropdown-content>\r\n	    <div>\r\n	        You can tag your tour with tag words that gives a quick overview of the tour. Separate them with comma.\r\n	        For example: steep, powder, fields\r\n	    </div>\r\n	</div>\r\n\r\n</div>");
+  data.buffer.push(">Publish</button>  	            \r\n	            </div>\r\n	        </div>\r\n	    </div>        \r\n	</div>	\r\n    \r\n</div>");
   return buffer;
   
 });
@@ -2658,15 +2660,15 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
   var buffer = '', escapeExpression=this.escapeExpression;
 
 
-  data.buffer.push("<div class=\"mapToolbar right\">\r\n    <a data-reveal-id=\"confirmDeleteRoutesReveal\">Remove routes</a>\r\n</div>\r\n\r\n<div class=\"mapContainer\">\r\n    <div id=\"tourMapRootElement\"></div>\r\n</div>\r\n\r\n<div id=\"confirmDeleteRoutesReveal\" class=\"reveal-modal small\" data-reveal>\r\n    <div class=\"confirmation-message\">\r\n        Are you sure you want to remove all routes from the map?\r\n    </div>\r\n    \r\n    <hr />\r\n    \r\n    <div class=\"confirmation-footer\">\r\n        <button class=\"right\" ");
+  data.buffer.push("<button class=\"btn btn-default pull-right spacing-y\"  data-toggle=\"modal\" data-target=\"#confirmDeleteRoutesModal\">Remove routes</button>\r\n\r\n<div class=\"mapContainer\">\r\n    <div id=\"tourMapRootElement\"></div>\r\n</div>\r\n\r\n<div class=\"modal fade\" id=\"confirmDeleteRoutesModal\" tabindex=\"-1\" role=\"dialog\" aria-hidden=\"true\">\r\n    <div class=\"modal-dialog modal-sm\">\r\n        <div class=\"modal-content\">\r\n            <div class=\"modal-body\">\r\n                 Are you sure you want to remove all routes from the map?\r\n            </div>\r\n            <div class=\"modal-footer\">\r\n                <button class=\"btn btn-primary pull-left\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "closeDeleteRoutes", {hash:{
     'target': ("view")
   },hashTypes:{'target': "STRING"},hashContexts:{'target': depth0},contexts:[depth0],types:["STRING"],data:data})));
-  data.buffer.push(">Cancel</button>\r\n        <button class=\"left\" ");
+  data.buffer.push(">Cancel</button>\r\n                <button class=\"btn btn-default pull-right\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "deleteRoutes", {hash:{
     'target': ("view")
   },hashTypes:{'target': "STRING"},hashContexts:{'target': depth0},contexts:[depth0],types:["STRING"],data:data})));
-  data.buffer.push(">Remove</button>\r\n    </div>\r\n</div>");
+  data.buffer.push(">Remove</button>\r\n            </div>\r\n        </div>\r\n    </div>    \r\n</div>");
   return buffer;
   
 });
