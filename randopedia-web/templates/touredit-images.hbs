@@ -31,10 +31,12 @@
                                 <label>Caption</label>
                                 {{input value=image.caption maxlength="300" class="form-control"}}
                             </div>
-                         <div class="form-group">
-                              <button class="btn btn-default pull-right" {{action "removeNewImage"}} class="btn btn-default">Cancel</button>
-                              <button class="btn btn-primary pull-right" {{action "saveNewImage"}} class="btn btn-primary">Upload image</button>
-                            </div>                                            
+                            <div class="form-group">
+                                <div class="button-group pull-right">
+                                    <button class="btn btn-default" {{action "removeNewImage"}} class="btn btn-default">Cancel</button>
+                                    <button class="btn btn-primary" {{action "saveNewImage"}} class="btn btn-primary">Upload image</button>
+                                </div>                   
+                            </div>                         
                         </form>
 	                </div>
 	            </div>
@@ -84,8 +86,10 @@
 										        {{input type="checkbox" name="isPorfolio" checked=image.isPortfolio }} Is portfolio image
 										    </label>
 										 </div>
-		                                 <button  {{action "saveImage" image}} {{bindAttr disabled="image.isUpdateDisabled"}} class="btn btn-primary pull-right">Update</button>
-		                                 <button {{action "startDeleteImage" image target="view"}} data-reveal-id="confirmDeleteImageReveal" {{bindAttr disabled="image.isDeleteDisabled"}} class="btn btn-primary pull-right">Delete image</button>
+										 <div class="button-group pull-right">
+		                                      <button {{action "saveImage" image}} {{bindAttr disabled="image.isUpdateDisabled"}} class="btn btn-primary">Update</button>
+		                                      <button {{action "startDeleteImage" image target="view"}} data-toggle="modal" data-target="#confirmDeleteImageModal" {{bindAttr disabled="image.isDeleteDisabled"}} class="btn btn-danger">Delete image</button>
+		                                 </div>
                                     </div>                                            
                                 </form>
 	                        </div>
@@ -98,14 +102,14 @@
 	</div>
 	
 	<div class="modal fade" id="confirmDeleteImageModal" tabindex="-1" role="dialog" aria-hidden="true">
-	    <div class="modal-dialog modal-sm">
+	    <div class="modal-dialog modal-lg">
 	        <div class="modal-content">
 	            <div class="modal-body">
 	                Are you sure you want to delete the image? It will not be possible to restore the image.
 	            </div>
 	            <div class="modal-footer">
-	                <button class="btn btn-primary pull-left" {{action "closeConfirmDeleteImage" target="view" }}>Cancel</button>                
-	                <button class="btn btn-default pull-right" {{action "confirmDeleteImage" target="view"}}>Delete image</button>
+                   <button class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>                
+                   <button class="btn btn-danger pull-right" {{action "confirmDeleteImage" target="view"}}>Delete image</button>
 	            </div>
 	        </div>
 	    </div>    

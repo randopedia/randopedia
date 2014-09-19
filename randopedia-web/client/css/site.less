@@ -42,10 +42,21 @@ html, body, .app-root-view {
     border-radius: 0;
 }
 
+.btn-navbar {
+    width: 150px;
+    height: 150px;
+    background: green;
+    border-color: green;
+    border-radius: 0;
+}
+
 .tab-content {
     padding: 0 @large-space;
 }
 
+.popover {
+    min-width: 250px;
+}
 .popover-content {
     font-size: @font-size-base;
 }
@@ -87,6 +98,12 @@ a:hover {
 
 .small {
     font-size: 0.8em;
+}
+
+.edit-container {
+    background: #efefef;
+    height: 40px;
+    line-height: 40px;
 }
 
 .form-group {
@@ -188,9 +205,6 @@ button.info:hover {
     }
 }
 
-//.tour-list-item-panel h5, .tour-list-item-panel p { margin-bottom: 0;}
-//.tour-list-item-panel .tour-item-props { color: #818181; }
-
 .login-view {
     .login-link {
         text-decoration: none; 
@@ -206,7 +220,7 @@ button.info:hover {
             border: @light-border;
             padding: @small-space @large-space;
             margin: 5px;
-            width: 225px;
+            width: 250px;
             & img {
                 vertical-align:middle;
                 margin: 10px; 

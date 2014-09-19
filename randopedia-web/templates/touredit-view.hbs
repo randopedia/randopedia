@@ -88,17 +88,17 @@
 		<div class="row spacing-y">
 		   <div class="col-sm-12">
                 {{#unless isPublished}}
-                    <button type="button" class="btn btn-primary" {{bindAttr disabled="isSaveAsDraftDisabled"}} {{action "saveAsDraft"}}>
+                    <button class="btn btn-primary" {{bindAttr disabled="isSaveAsDraftDisabled"}} {{action "saveAsDraft"}}>
                        <span class="glyphicon glyphicon-floppy-save"></span> Save as draft
                     </button>
                 {{/unless}}				 
-                <button type="button" class="btn btn-primary" {{bindAttr disabled="isStartPublishDisabled"}} {{action "startPublishTour" target="view"}}>
+                <button class="btn btn-primary" {{bindAttr disabled="isStartPublishDisabled"}} {{action "startPublishTour" target="view"}}>
                    <span class="glyphicon glyphicon-cloud-upload"></span> Publish
                 </button>			 
 				{{#if hasChanges}}
                     <span class="spacing-x-large"><span class="glyphicon glyphicon-floppy-disk"></span><em> Tour has unsaved changes</em></span>
                 {{/if}}
-				<button type="button" class="btn btn-primary pull-right" {{action "startCancelingEditTour" target="view"}} class="right">Exit edit</button>
+				<button class="btn btn-primary pull-right" {{action "startCancelingEditTour" target="view"}} class="right">Exit edit</button>
 		   </div>
 		</div>
 	{{/if}}     
@@ -509,35 +509,18 @@
     </div>
     
     <div class="modal fade" id="discardChangesTourModal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-sm">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-body">
                     The tour has unsaved changes, do you want to discard them?
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-primary pull-left" {{action "closeConfirmDiscardChangesDialog" target="view" }}>Cancel</button>                
-                    <button class="btn btn-default pull-right" {{action "confirmDiscardChanges" target="view" }}>Discard changes</button>
+                    <button class="btn btn-primary pull-left" data-dismiss="modal">Cancel</button>       
+                    <button class="btn btn-danger pull-right" {{action "confirmDiscardChanges" target="view" }}>Discard changes</button>
                 </div>
             </div>
         </div>    
     </div>
-	
-    <div class="modal fade" id="confirmDeleteTourModal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-lg areapicker-view">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <h4 class="modal-title">Validation failed</h4>
-                </div>
-                <div class="modal-body">
-                    There are validation errors that must be corrected before the tour can be published.
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-primary pull-right" {{action "closeValidationErrorsDialog" target="view" }}>OK</button>                     
-                </div>
-            </div>
-        </div>    
-    </div>	
 	
     <div class="modal fade" id="confirmDeleteTourModal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg areapicker-view">
@@ -550,22 +533,8 @@
                     Are you sure you want to delete the tour?
                 </div>
                 <div class="modal-footer">
-		            <button class="btn btn-default pull-left" {{action "closeConfirmDeleteTour" target="view" }}>Cancel</button>
-		            <button class="btn btn-primary pull-right" {{action "confirmDeleteTour" target="view"}}>Delete tour</button>                     
-                </div>
-            </div>
-        </div>    
-    </div>
-    	    	    
-    <div class="modal fade" id="confirmPublishTourModal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content">
-                <div class="modal-body">
-                    Changes will be published, do you want to continue?
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-primary pull-right" {{action "confirmPublishTour" target="view" }}>Publish</button>
-                    <button class="btn btn-default pull-right" {{action "closeConfirmPublishTourDialog" target="view" }}>Cancel</button>
+		            <button class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+		            <button class="btn btn-danger pull-right" {{action "confirmDeleteTour" target="view"}}>Delete tour</button>                     
                 </div>
             </div>
         </div>    
@@ -647,10 +616,24 @@
 	            </div>
 	            <div class="modal-footer">
 	                <button class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-	                <button class="btn btn-primary pull-right" {{bindAttr disabled="view.isPublishDisabled"}} {{action "completePublish" target="view"}}>Publish</button>  	            
+	                <button class="btn btn-primary pull-right" {{bindAttr disabled="view.isPublishDisabled"}} {{action "continueToPublishStep3" target="view"}}>Publish</button>  	            
 	            </div>
 	        </div>
 	    </div>        
-	</div>	
+	</div>
+	
+	<div class="modal fade" id="publishTourStep3Modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-body">
+                    Changes will be published, do you want to continue?
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+                    <button class="btn btn-primary pull-right" {{action "confirmPublishTour" target="view" }}>Publish</button>
+                </div>
+            </div>
+        </div>    
+    </div>	
     
 </div>

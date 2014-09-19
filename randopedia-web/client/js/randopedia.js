@@ -47588,6 +47588,7 @@ App.TourEditController = Ember.ObjectController.extend({
             if(this.get('havePendingOperations')){
                 return;
             }
+            console.log('delete image ' + image);
             var self = this;
             self.set('havePendingOperations', true);
             image.deleteRecord();
@@ -48995,18 +48996,11 @@ App.TourEditMapView = Ember.View.extend({
 ;App.ApplicationView = Ember.View.extend({
     classNames: ['app-root-view'],
     didInsertElement: function() {
-//        $(document).foundation();
-//        $(document).foundation('section');
-//        $(document).foundation('reveal', {
-//            animation: 'fade',
-//            closeOnBackgroundClick: false
-//        });
-        
         // Set the negative margin on the top menu for slide-menu pages (visible for small screens)
-        var $selector1 = $('#topMenu'), events = 'click.fndtn';
-        if ($selector1.length > 0){
-            $selector1.css("margin-top", $selector1.height() * -1);
-        }
+//        var $selector1 = $('#topMenu'), events = 'click.fndtn';
+//        if ($selector1.length > 0){
+//            $selector1.css("margin-top", $selector1.height() * -1);
+//        }
     }
 });
 
@@ -49116,60 +49110,41 @@ App.AreaDetailsView = Ember.View.extend({
 });
 
 App.AreaEditView = Ember.View.extend({
-    templateName: 'areaedit-view',   
+    templateName: 'areaedit-view', 
+    didInsertElement: function() {
+        $('.info').popover({placement: 'bottom'});
+    },
     actions: {
         saveArea: function() {
             if(this.get('controller').validate() === true){
-                $('#confirmPublishAreaReveal').foundation('reveal', 'open');  
+                $('#confirmPublishAreaModal').modal('show');
             }
             else {
-                $('#validationErrorsAreaReveal').foundation('reveal', 'open');
+                $('#validationErrorsAreaModal').modal('show');
             }  
+        },
+        confirmSaveArea: function() {
+            this.get('controller').send('saveArea');
         },
         startCancelingEdit: function() {
             if(this.get('controller').get('isDirty'))  {
-                $('#discardChangesAreaReveal').foundation('reveal', 'open');
+                $('#discardChangesAreaModal').modal('show');
             } else {
                 this.get('controller').send('cancelEdit');
             }
         },
         confirmDiscardChanges: function() {
-            $('#discardChangesAreaReveal').foundation('reveal', 'close');
             this.get('controller').send('cancelEdit');
-        },
-        closeConfirmDiscardChangesDialog: function() {
-            $('#discardChangesAreaReveal').foundation('reveal', 'close');
-        },         
-        confirmSaveArea: function() {
-            this.get('controller').send('saveArea'); 
-            this.send('closeConfirmPublishAreaDialog');
-        },
-        closeConfirmPublishAreaDialog: function() {
-            $('#confirmPublishAreaReveal').foundation('reveal', 'close');
-        },
-        
-        openAddSubAreaDialog: function() {
+        },        
+        startAddSubArea: function() {
             this.get('controller').send('startAddingSubArea');
-            this.openAddSubArea();
         },
         cancelAddSubAreaDialog: function() {
             this.get('controller').send('cancelAddSubArea');
-            this.closeAddSubArea();
         },
         addSubArea: function() {
             this.get('controller').send('addSubArea');
-            this.closeAddSubArea();
-        },
-        
-        closeValidationErrorsDialog: function() {
-            $('#validationErrorsAreaReveal').foundation('reveal', 'close');
-        },
-    },
-    openAddSubArea: function() {
-        $('#addSubAreaReveal').foundation('reveal', 'open');
-    },
-    closeAddSubArea: function() {
-        $('#addSubAreaReveal').foundation('reveal', 'close');
+        }
     }
 });
 
@@ -49200,11 +49175,7 @@ App.AreaItemView = Ember.View.extend({
     }.property('controller')
 });
 
-App.BrowseView = Ember.View.extend({
-    didInsertElement : function() {
-        $(document).foundation('section');
-    }
-});
+App.BrowseView = Ember.View.extend();
 
 App.AreaPickerView = Ember.View.extend({
    templateName: "areapicker-view",
@@ -49349,10 +49320,15 @@ App.TourEditView = Ember.View.extend({
             $('#publishTourStep1Modal').modal('hide');
             $('#publishTourStep2Modal').modal('show');
         },
-        completePublish: function() {
-            this.get('controller').send('publishTour');
+        continueToPublishStep3: function() {
+            //this.get('controller').send('publishTour');
             $('#publishTourStep2Modal').modal('hide');
-        },        
+            $('#publishTourStep3Modal').modal('show');
+        },  
+        confirmPublishTour: function() {
+            this.get('controller').send('publishTour');
+            $('#publishTourStep3Modal').modal('hide');
+        },
         startCancelingEditTour: function() {
             if(this.get('controller').get('hasChanges'))  {
                 $('#discardChangesTourModal').modal('hide');
@@ -49374,66 +49350,39 @@ App.TourEditView = Ember.View.extend({
             $('#areaPickerModal').modal('hide');
         },
         confirmAreaPickerDialog: function() {
-            this.send('closeAreaPickerDialog');
-        },
-        closeValidationErrorsDialog: function() {
-            $('#validationErrorsTourReveal').foundation('reveal', 'close');
-        },
-        closeConfirmDeleteTour: function() {
-            $('#confirmDeleteTourReveal').foundation('reveal', 'close');
-        },
-        closeConfirmDeleteImage: function() {
-            $('#confirmDeleteImageReveal').foundation('reveal', 'close');
+            $('#areaPickerModal').modal('hide');
         },
         confirmDeleteTour: function() {
             this.get('controller').send('deleteTour');
-            this.send('closeConfirmDeleteTour');
+            $('#confirmDeleteImageModal').modal('hide');
         },
         startDeleteImage: function(image) {
-            // Image is lost in the context of the reveal confirmation box, so we temporary store image to delete
             this.set('imageToDelete', image);
         },
         confirmDeleteImage: function() {
             this.get('controller').send('deleteImage', this.get('imageToDelete'));
             this.send('closeConfirmDeleteImage');
             this.set('imageToDelete', null);
-        },
-        closeConfirmPublishTourDialog: function() {
-            $('#confirmDeleteTourReveal').foundation('reveal', 'close');
-        },
-        confirmPublishTour: function() {
-            this.get('controller').send('publishTour');
-            this.send('closeConfirmPublishTourDialog');
         }
     }
-});
-
-App.TextField = Ember.TextField.extend({
-   attributeBindings: 'required',
-   required: null,
 });
 
 /**
  * Text field that is focused when inserted in DOM
  */
-App.FocusTextField = App.TextField.extend({
+App.FocusTextField = Ember.TextField.extend({
     becomeFocused: function() {
         this.$().focus();
     }.on('didInsertElement')
 });
 
-App.SearchTextField = App.TextField.extend({
+App.SearchTextField = Ember.TextField.extend({
     attributeBindings: ['placeholder'],
     placeholder: 'Search ski tours...',
     classNames: ['search-textfield'],
     insertNewline: function() {
         this.get('parentView.controller.controllers.search').send('search');
     }
-});
-
-App.TextArea = Ember.TextArea.extend({
-    attributeBindings: 'maxlength',
-    maxlength: null
 });
 
 /**

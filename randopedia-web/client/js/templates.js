@@ -28,8 +28,8 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
 
 
   data.buffer.push("<!--\r\n    Default application template. Defines the application layout and starts everything off.\r\n-->     \r\n\r\n");
-  data.buffer.push(escapeExpression((helper = helpers.partial || (depth0 && depth0.partial),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data},helper ? helper.call(depth0, "header-small", options) : helperMissing.call(depth0, "partial", "header-small", options))));
-  data.buffer.push("\r\n \r\n ");
+  data.buffer.push(escapeExpression((helper = helpers.partial || (depth0 && depth0.partial),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data},helper ? helper.call(depth0, "header", options) : helperMissing.call(depth0, "partial", "header", options))));
+  data.buffer.push("\r\n \r\n");
   stack1 = helpers._triageMustache.call(depth0, "outlet", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   return buffer;
@@ -211,60 +211,60 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
 function program1(depth0,data) {
   
   
-  data.buffer.push("\r\n<div class=\"row\">\r\n    <div class=\"small-12 columns\">\r\n        <div data-alert class=\"alert-box error\">\r\n            Oh noes, there was some validation errors, please try again!\r\n            <a href=\"#\" class=\"close\">&times;</a>\r\n        </div>\r\n    </div>\r\n</div>\r\n");
+  data.buffer.push("\r\n	<div class=\"row\">\r\n	    <div class=\"col-sm-12\">\r\n	        <div class=\"alert alert-danger\" role=\"alert\">\r\n	            <button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button>\r\n	            Oh noes, there was some validation errors, please try again!\r\n	        </div>          \r\n	    </div>\r\n	</div>\r\n	");
   }
 
 function program3(depth0,data) {
   
   
-  data.buffer.push("\r\n<div class=\"row\">\r\n    <div class=\"small-12 columns\">\r\n        <div data-alert class=\"alert-box error\">\r\n            Oh noes, you have most likely been logged out. Try to log in again!\r\n            <a href=\"#\" class=\"close\">&times;</a>\r\n        </div>\r\n    </div>\r\n</div>\r\n");
+  data.buffer.push("\r\n	<div class=\"row\">\r\n	    <div class=\"col-sm-12\">\r\n	        <div class=\"alert alert-danger\" role=\"alert\">\r\n	            <button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button>\r\n	            Oh noes, you have most likely been logged out. Try to log in again!\r\n	        </div>          \r\n	    </div>\r\n	</div>\r\n	");
   }
 
 function program5(depth0,data) {
   
   
-  data.buffer.push("\r\n<div class=\"row\">\r\n    <div class=\"small-12 columns\">\r\n        <div data-alert class=\"alert-box error\">\r\n            Something went wrong when saving the area, please try again!\r\n            <a href=\"#\" class=\"close\">&times;</a>\r\n        </div>\r\n    </div>\r\n</div>\r\n");
+  data.buffer.push("\r\n	<div class=\"row\">\r\n	    <div class=\"col-sm-12\">\r\n	        <div class=\"alert alert-danger\" role=\"alert\">\r\n	            <button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button>\r\n	           Something went wrong when saving the area, please try again!\r\n	        </div>          \r\n	    </div>\r\n	</div>\r\n	");
   }
 
 function program7(depth0,data) {
   
   
-  data.buffer.push("\r\n<div class=\"row\">\r\n    <div class=\"small-12 columns\">\r\n        <div data-alert class=\"alert-box success\">\r\n            Area was successfully updated!\r\n            <a href=\"#\" class=\"close\">&times;</a>\r\n        </div>\r\n    </div>\r\n</div>\r\n");
+  data.buffer.push("\r\n	<div class=\"row\">\r\n	    <div class=\"col-sm-12\">\r\n	        <div class=\"alert alert-success\" role=\"alert\">\r\n	            <button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button>\r\n	            Area was successfully updated\r\n	        </div>          \r\n	    </div>\r\n	</div>\r\n	");
   }
 
 function program9(depth0,data) {
   
   
-  data.buffer.push("\r\n	        <div class=\"small-12 columns\">\r\n	           <div class=\"preloader\"></div>\r\n        </div>\r\n        ");
+  data.buffer.push("\r\n	    <div class=\"col-sm-12\">\r\n	       <div>Loading area...</div>\r\n	       </div>\r\n	    ");
   }
 
 function program11(depth0,data) {
   
   var buffer = '', stack1;
-  data.buffer.push("\r\n	        <div class=\"small-12 columns\">\r\n	            ");
+  data.buffer.push("\r\n	    <div class=\"col-sm-12\">\r\n	        ");
   stack1 = helpers['if'].call(depth0, "isReadOnlyArea", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(14, program14, data),fn:self.program(12, program12, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n	            <button ");
+  data.buffer.push("\r\n	        <button class=\"btn btn-primary pull-right\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "startCancelingEdit", {hash:{
     'target': ("view")
   },hashTypes:{'target': "STRING"},hashContexts:{'target': depth0},contexts:[depth0],types:["STRING"],data:data})));
-  data.buffer.push(" class=\"right\">Exit edit</button>\r\n	        </div>\r\n        ");
+  data.buffer.push(">Exit edit</button>\r\n	    </div>\r\n	    ");
   return buffer;
   }
 function program12(depth0,data) {
   
   var buffer = '', stack1;
-  data.buffer.push("\r\n	                <span class=\"info label\" class=\"alert\">");
+  data.buffer.push("\r\n	            <span class=\"info label\" class=\"alert\">");
   stack1 = helpers._triageMustache.call(depth0, "name", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push(" is a root area and cannot be edited, but it's possible to add subareas.</span>\r\n	            ");
+  data.buffer.push(" is a root area and cannot be edited, but it's possible to add subareas.</span>\r\n	        ");
   return buffer;
   }
 
 function program14(depth0,data) {
   
   var buffer = '', stack1, helper, options;
-  data.buffer.push("\r\n	                <button ");
+  data.buffer.push("\r\n	            <button class=\"btn btn-primary\" ");
   data.buffer.push(escapeExpression((helper = helpers.bindAttr || (depth0 && depth0.bindAttr),options={hash:{
     'disabled': ("isNotDirty")
   },hashTypes:{'disabled': "STRING"},hashContexts:{'disabled': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "bindAttr", options))));
@@ -272,170 +272,162 @@ function program14(depth0,data) {
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "saveArea", {hash:{
     'target': ("view")
   },hashTypes:{'target': "STRING"},hashContexts:{'target': depth0},contexts:[depth0],types:["STRING"],data:data})));
-  data.buffer.push(">Publish</button>\r\n	                ");
+  data.buffer.push(">Publish</button>\r\n	            ");
   stack1 = helpers.unless.call(depth0, "isNotDirty", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(15, program15, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n	            ");
+  data.buffer.push("\r\n	        ");
   return buffer;
   }
 function program15(depth0,data) {
   
   
-  data.buffer.push("\r\n	                    <span class=\"info label\">Area have unsaved changes!</span>\r\n	                ");
+  data.buffer.push("\r\n	                <span class=\"info label\">Area have unsaved changes!</span>\r\n	            ");
   }
 
 function program17(depth0,data) {
   
   var buffer = '', stack1;
-  data.buffer.push("\r\n            <h3>");
+  data.buffer.push("\r\n	            <h2>");
   stack1 = helpers._triageMustache.call(depth0, "name", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("</h3>\r\n        ");
+  data.buffer.push("</h2>\r\n	        ");
   return buffer;
   }
 
 function program19(depth0,data) {
   
-  var buffer = '';
-  data.buffer.push("\r\n        <form>\r\n            <fieldset>\r\n                <legend>Area details</legend>\r\n                <div class=\"row\">\r\n                    <div class=\"small-12 large-8 columns\">\r\n                        <label>Name</label>\r\n                        <button data-dropdown=\"nameTip\" data-options=\"align_right:true\" class=\"info right\"></button>\r\n                        ");
-  data.buffer.push(escapeExpression(helpers.view.call(depth0, "App.TextField", {hash:{
-    'valueBinding': ("name"),
+  var buffer = '', helper, options;
+  data.buffer.push("\r\n	        <div class=\"panel panel-default\">\r\n	            <div class=\"panel-heading\">\r\n	                Area details\r\n	            </div>\r\n	            <div class=\"panel-body\">\r\n			        <form role=\"form\">              \r\n			            <div class=\"form-group\">\r\n		                    <label for=\"inputAreaName\">Name</label>\r\n		                    <button type=\"button\" class=\"info pull-right\" data-toggle=\"popover\" data-trigger=\"focus\" title=\"Name\" data-content=\"The name of the area. Name is required and can have a maximum of 80 characters.\"></button>\r\n		                    ");
+  data.buffer.push(escapeExpression((helper = helpers.input || (depth0 && depth0.input),options={hash:{
+    'value': ("name"),
     'required': ("true"),
     'maxlength': ("80"),
-    'pattern': ("^.{3,80}$")
-  },hashTypes:{'valueBinding': "STRING",'required': "STRING",'maxlength': "STRING",'pattern': "STRING"},hashContexts:{'valueBinding': depth0,'required': depth0,'maxlength': depth0,'pattern': depth0},contexts:[depth0],types:["ID"],data:data})));
-  data.buffer.push("\r\n                    </div>\r\n                </div>\r\n                <div class=\"row\">\r\n                    <div class=\"large-12 columns descTextAreaContainer\">\r\n                        <label>Description</label>\r\n			            <button data-dropdown=\"descTip\" data-options=\"align_right:true\" class=\"info right\"></button>\r\n			            ");
-  data.buffer.push(escapeExpression(helpers.view.call(depth0, "App.TextArea", {hash:{
-    'valueBinding': ("description"),
-    'maxlength': ("500")
-  },hashTypes:{'valueBinding': "STRING",'maxlength': "STRING"},hashContexts:{'valueBinding': depth0,'maxlength': depth0},contexts:[depth0],types:["ID"],data:data})));
-  data.buffer.push("\r\n                    </div>\r\n                </div>\r\n            </fieldset>\r\n        </form>\r\n        ");
+    'pattern': ("^.{3,80}$"),
+    'class': ("form-control"),
+    'id': ("inputAreaName")
+  },hashTypes:{'value': "ID",'required': "STRING",'maxlength': "STRING",'pattern': "STRING",'class': "STRING",'id': "STRING"},hashContexts:{'value': depth0,'required': depth0,'maxlength': depth0,'pattern': depth0,'class': depth0,'id': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "input", options))));
+  data.buffer.push("            \r\n			            </div>\r\n			            <div class=\"form-group\">\r\n		                    <label for=\"inputAreaDescription\">Description</label>\r\n		                    <button type=\"button\" class=\"info pull-right\" data-toggle=\"popover\" data-trigger=\"focus\" title=\"Description\" data-content=\"A short description of the area. A description can have a maximum of 500 characters.\"></button>\r\n		                    ");
+  data.buffer.push(escapeExpression((helper = helpers.textarea || (depth0 && depth0.textarea),options={hash:{
+    'value': ("description"),
+    'maxlength': ("500"),
+    'class': ("form-control"),
+    'id': ("inputAreaDescription")
+  },hashTypes:{'value': "ID",'maxlength': "STRING",'class': "STRING",'id': "STRING"},hashContexts:{'value': depth0,'maxlength': depth0,'class': depth0,'id': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "textarea", options))));
+  data.buffer.push("\r\n			            </div>\r\n			        </form>\r\n	            </div>\r\n	        </div>\r\n	        ");
   return buffer;
   }
 
 function program21(depth0,data) {
   
   var buffer = '', stack1;
-  data.buffer.push("\r\n		                    <li>");
+  data.buffer.push("\r\n		                  <li>");
   stack1 = helpers._triageMustache.call(depth0, "child.name", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("</li> \r\n		                ");
+  data.buffer.push("</li> \r\n		              ");
   return buffer;
   }
 
 function program23(depth0,data) {
   
   
-  data.buffer.push("\r\n		                    <li>Area has no subareas</li>\r\n		                ");
+  data.buffer.push("\r\n		                  <li>Area has no subareas</li>\r\n		              ");
   }
 
 function program25(depth0,data) {
   
   var buffer = '', stack1;
-  data.buffer.push("\r\n<div class=\"row\">\r\n    <div class=\"small-12 columns\">\r\n        <form>\r\n            <fieldset>\r\n                <legend>Tours</legend>\r\n                <div class=\"row\">\r\n                    <div class=\"large-12 columns\">\r\n                        <button ");
-  data.buffer.push(escapeExpression(helpers.action.call(depth0, "addTour", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data})));
-  data.buffer.push(" class=\"right\">Add new tour</button>\r\n                    </div>\r\n                </div>\r\n                <p/>\r\n                <div class=\"row\">\r\n                    <div class=\"large-12 columns\">\r\n                        ");
+  data.buffer.push("\r\n	    <div class=\"col-sm-12\">\r\n	        <div class=\"panel panel-default\">\r\n	            <div class=\"panel-heading\">\r\n	                Tours\r\n	            </div>\r\n	            <div class=\"panel-body\">\r\n	                <div class=\"row\">\r\n	                    <div class=\"col-sm-12\">\r\n	                        ");
   stack1 = helpers['if'].call(depth0, "tours", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(28, program28, data),fn:self.program(26, program26, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n                    </div>\r\n                </div>\r\n            </fieldset>\r\n        </form>\r\n    </div>\r\n</div>\r\n");
+  data.buffer.push("\r\n	                    </div>\r\n	                </div>\r\n	                <div class=\"row\">\r\n	                    <div class=\"col-sm-12\">\r\n	                        <button class=\"btn btn-primary pull-right\" ");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "addTour", {hash:{
+    'target': ("view")
+  },hashTypes:{'target': "STRING"},hashContexts:{'target': depth0},contexts:[depth0],types:["STRING"],data:data})));
+  data.buffer.push(">Add new tour</button>\r\n	                    </div>\r\n	                </div>\r\n	            </div>\r\n	        </div>\r\n	    </div>\r\n	    ");
   return buffer;
   }
 function program26(depth0,data) {
   
   var buffer = '', stack1;
-  data.buffer.push("\r\n                            ");
+  data.buffer.push("\r\n	                            ");
   stack1 = helpers._triageMustache.call(depth0, "name", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push(" currently have ");
   stack1 = helpers._triageMustache.call(depth0, "tours.length", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push(" tours.\r\n                        ");
+  data.buffer.push(" tours.\r\n	                        ");
   return buffer;
   }
 
 function program28(depth0,data) {
   
   var buffer = '', stack1;
-  data.buffer.push("\r\n                            There are currently no tours in ");
+  data.buffer.push("\r\n	                            There are currently no tours in ");
   stack1 = helpers._triageMustache.call(depth0, "name", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push(".\r\n                        ");
+  data.buffer.push(".\r\n	                        ");
   return buffer;
   }
 
-  data.buffer.push("<!-- \r\n    Template for editing an area\r\n --> \r\n\r\n");
+  data.buffer.push("<!-- \r\n    Template for editing an area\r\n --> \r\n\r\n<div class=\"full-page-view-container\">\r\n\r\n	");
   stack1 = helpers['if'].call(depth0, "validationErrors", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n\r\n");
+  data.buffer.push("\r\n	\r\n	");
   stack1 = helpers['if'].call(depth0, "authenticationErrors", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(3, program3, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n\r\n");
+  data.buffer.push("\r\n	\r\n	");
   stack1 = helpers['if'].call(depth0, "serverErrors", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(5, program5, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n\r\n");
+  data.buffer.push("\r\n	\r\n	");
   stack1 = helpers['if'].call(depth0, "updateSuccessfully", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(7, program7, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n\r\n<div class=\"row\">\r\n    <div class=\"edittools-container\">\r\n         ");
+  data.buffer.push("\r\n	\r\n	<div class=\"row spacing-y\">\r\n	    ");
   stack1 = helpers['if'].call(depth0, "isSaving", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(11, program11, data),fn:self.program(9, program9, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n    </div>\r\n</div>\r\n\r\n<div class=\"row\">\r\n    \r\n    <div class=\"small-12 columns\">\r\n        ");
+  data.buffer.push("\r\n	</div>\r\n	\r\n	<div class=\"row\">\r\n	    \r\n	    <div class=\"col-sm-12\">\r\n	        ");
   stack1 = helpers['if'].call(depth0, "isReadOnlyArea", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(19, program19, data),fn:self.program(17, program17, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n    </div>\r\n    \r\n    <div class=\"small-12 columns\">\r\n        <form>\r\n            <fieldset>\r\n                <legend>Subareas</legend>\r\n                \r\n                <div class=\"row\">\r\n                    <div class=\"large-12 columns\">\r\n                        <button ");
-  data.buffer.push(escapeExpression(helpers.action.call(depth0, "openAddSubAreaDialog", {hash:{
-    'target': ("view")
-  },hashTypes:{'target': "STRING"},hashContexts:{'target': depth0},contexts:[depth0],types:["STRING"],data:data})));
-  data.buffer.push(" class=\"right\">Add new subarea...</button>\r\n                     </div>\r\n                </div>\r\n				<p/>\r\n                <div class=\"row\">\r\n                    <div class=\"large-12 columns\">\r\n                        <ul class=\"inline-list\">\r\n		                ");
+  data.buffer.push("\r\n	    </div>\r\n	    \r\n	    <div class=\"col-sm-12\">\r\n		    <div class=\"panel panel-default\">\r\n		        <div class=\"panel-heading\">\r\n		            Subareas\r\n		        </div>\r\n			    <div class=\"panel-body\">\r\n		            <ul class=\"inline-list\">\r\n		              ");
   stack1 = helpers.each.call(depth0, "child", "in", "children", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(23, program23, data),fn:self.program(21, program21, data),contexts:[depth0,depth0,depth0],types:["ID","ID","ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n		                </ul>\r\n                    </div>\r\n                </div>\r\n            </fieldset>\r\n        </form>\r\n    </div>\r\n</div>\r\n\r\n");
-  stack1 = helpers.unless.call(depth0, "isReadOnlyArea", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(25, program25, data),contexts:[depth0],types:["ID"],data:data});
-  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n\r\n<div id=\"discardChangesAreaReveal\" class=\"reveal-modal small\" data-reveal>\r\n    <div class=\"confirmation-message\">\r\n        The area has unsaved changes, do you want to discard them?\r\n    </div>\r\n    \r\n    <hr />\r\n    \r\n    <div class=\"confirmation-footer\">\r\n        <button class=\"left\" ");
-  data.buffer.push(escapeExpression(helpers.action.call(depth0, "closeConfirmDiscardChangesDialog", {hash:{
+  data.buffer.push("\r\n		            </ul>\r\n		            <div class=\"row\">\r\n	                    <div class=\"col-sm-12\">  \r\n		                   <button class=\"btn btn-primary pull-right\" data-toggle=\"modal\" ");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "startAddSubArea", {hash:{
     'target': ("view")
   },hashTypes:{'target': "STRING"},hashContexts:{'target': depth0},contexts:[depth0],types:["STRING"],data:data})));
-  data.buffer.push(">Cancel</button>\r\n        <button class=\"right\" ");
+  data.buffer.push(" data-target=\"#addSubAreaModal\">Add new subarea</button>\r\n		               </div>\r\n		           </div>\r\n			    </div>\r\n		    </div>\r\n	    </div>\r\n	    \r\n	    ");
+  stack1 = helpers.unless.call(depth0, "isReadOnlyArea", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(25, program25, data),contexts:[depth0],types:["ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\r\n	        \r\n	</div>\r\n	\r\n	<div class=\"modal fade\" id=\"discardChangesAreaModal\" tabindex=\"-1\" role=\"dialog\" aria-hidden=\"true\">\r\n	    <div class=\"modal-dialog modal-lg\">\r\n	        <div class=\"modal-content\">\r\n	            <div class=\"modal-body\">\r\n	                The area has unsaved changes, do you want to discard them?\r\n	            </div>\r\n	            <div class=\"modal-footer\">\r\n	                <button class=\"btn btn-default pull-left\" data-dismiss=\"modal\">Cancel</button>\r\n	                <button class=\"btn btn-danger pull-right\" data-dismiss=\"modal\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "confirmDiscardChanges", {hash:{
     'target': ("view")
   },hashTypes:{'target': "STRING"},hashContexts:{'target': depth0},contexts:[depth0],types:["STRING"],data:data})));
-  data.buffer.push(">Discard changes</button>\r\n    </div>\r\n</div>\r\n\r\n<div id=\"validationErrorsAreaReveal\" class=\"reveal-modal small confirmation\" data-reveal>\r\n    <div class=\"confirmation-message\">\r\n        There are validation errors that must be corrected before the area can be published.\r\n    </div>\r\n    \r\n    <hr />\r\n    \r\n    <div class=\"confirmation-footer\">\r\n        <button class=\"right\" ");
-  data.buffer.push(escapeExpression(helpers.action.call(depth0, "closeValidationErrorsDialog", {hash:{
-    'target': ("view")
-  },hashTypes:{'target': "STRING"},hashContexts:{'target': depth0},contexts:[depth0],types:["STRING"],data:data})));
-  data.buffer.push(">OK</button>\r\n    </div>\r\n</div>\r\n\r\n<div id=\"confirmPublishAreaReveal\" class=\"reveal-modal small confirmation\" data-reveal>\r\n\r\n    <div class=\"confirmation-message\">\r\n        Changes will be published, do you want to continue?\r\n    </div>\r\n    \r\n    <hr />\r\n    \r\n    <div class=\"confirmation-footer\">\r\n        <button class=\"right\" ");
-  data.buffer.push(escapeExpression(helpers.action.call(depth0, "closeConfirmPublishAreaDialog", {hash:{
-    'target': ("view")
-  },hashTypes:{'target': "STRING"},hashContexts:{'target': depth0},contexts:[depth0],types:["STRING"],data:data})));
-  data.buffer.push(">Cancel</button>\r\n        <button class=\"left\" ");
+  data.buffer.push(">Discard changes</button>\r\n	            </div>\r\n	        </div>\r\n	    </div>    \r\n	</div> \r\n	\r\n	<div class=\"modal fade\" id=\"validationErrorsAreaModal\" tabindex=\"-1\" role=\"dialog\" aria-hidden=\"true\">\r\n	    <div class=\"modal-dialog modal-lg\">\r\n	        <div class=\"modal-content\">\r\n	            <div class=\"modal-body\">\r\n	                There are validation errors that must be corrected before the area can be published.\r\n	            </div>\r\n	            <div class=\"modal-footer\">\r\n	                <button class=\"btn btn-primary pull-right\"  data-dismiss=\"modal\">OK</button>\r\n	            </div>\r\n	        </div>\r\n	    </div>    \r\n	</div>  \r\n	\r\n	<div class=\"modal fade\" id=\"confirmPublishAreaModal\" tabindex=\"-1\" role=\"dialog\" aria-hidden=\"true\">\r\n	    <div class=\"modal-dialog modal-lg\">\r\n	        <div class=\"modal-content\">\r\n	            <div class=\"modal-body\">\r\n	                Changes will be published, do you want to continue?\r\n	            </div>\r\n	            <div class=\"modal-footer\">\r\n	                <button class=\"btn btn-default pull-left\" data-dismiss=\"modal\">Cancel</button>\r\n	                <button class=\"btn btn-danger pull-right\" data-dismiss=\"modal\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "confirmSaveArea", {hash:{
     'target': ("view")
   },hashTypes:{'target': "STRING"},hashContexts:{'target': depth0},contexts:[depth0],types:["STRING"],data:data})));
-  data.buffer.push(">Publish</button>\r\n    </div>\r\n</div>\r\n\r\n<div id=\"addSubAreaReveal\" class=\"reveal-modal small\" data-reveal>\r\n\r\n    <div class=\"row\">\r\n        <div class=\"large-12 columns\">\r\n            <h4>Add new subarea</h4>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row\">\r\n        <div class=\"large-12 columns\">\r\n            <label>Name</label>\r\n            ");
+  data.buffer.push(">Publish</button>\r\n	            </div>\r\n	        </div>\r\n	    </div>    \r\n	</div> \r\n	\r\n	<div class=\"modal fade\" id=\"addSubAreaModal\" tabindex=\"-1\" role=\"dialog\" aria-hidden=\"true\">\r\n	    <div class=\"modal-dialog modal-lg\">\r\n	        <div class=\"modal-content\">\r\n	            <div class=\"modal-header\">\r\n	                Add new subarea\r\n	            </div>\r\n	            <div class=\"modal-body\">\r\n				    <form class=\"form\">\r\n				        <div class=\"form-group\">\r\n				            <label>Name</label>\r\n				            ");
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "App.FocusTextField", {hash:{
     'valueBinding': ("newArea.name"),
     'required': ("true"),
     'maxlength': ("80"),
-    'pattern': ("^.{3,80}$")
-  },hashTypes:{'valueBinding': "STRING",'required': "STRING",'maxlength': "STRING",'pattern': "STRING"},hashContexts:{'valueBinding': depth0,'required': depth0,'maxlength': depth0,'pattern': depth0},contexts:[depth0],types:["ID"],data:data})));
-  data.buffer.push("\r\n        </div>\r\n    </div>\r\n    \r\n    <div class=\"row\">\r\n        <div class=\"large-12 columns descTextAreaContainer\">\r\n            <label>Short description</label>\r\n            ");
-  data.buffer.push(escapeExpression(helpers.view.call(depth0, "App.TextArea", {hash:{
-    'valueBinding': ("newArea.description"),
-    'maxlength': ("500")
-  },hashTypes:{'valueBinding': "STRING",'maxlength': "STRING"},hashContexts:{'valueBinding': depth0,'maxlength': depth0},contexts:[depth0],types:["ID"],data:data})));
-  data.buffer.push("\r\n        </div>\r\n    </div>    \r\n    \r\n    <hr />\r\n\r\n    <div class=\"row\">\r\n        <div class=\"confirmation-footer\"> \r\n    \r\n            <div class=\"small-12 columns\">\r\n                <button ");
-  data.buffer.push(escapeExpression((helper = helpers.bindAttr || (depth0 && depth0.bindAttr),options={hash:{
-    'disabled': ("isAddSubareaDisabled")
-  },hashTypes:{'disabled': "STRING"},hashContexts:{'disabled': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "bindAttr", options))));
-  data.buffer.push(" ");
-  data.buffer.push(escapeExpression(helpers.action.call(depth0, "addSubArea", {hash:{
-    'target': ("view")
-  },hashTypes:{'target': "STRING"},hashContexts:{'target': depth0},contexts:[depth0],types:["STRING"],data:data})));
-  data.buffer.push(">Add</button>    \r\n                <button ");
+    'pattern': ("^.{3,80}$"),
+    'class': ("form-control")
+  },hashTypes:{'valueBinding': "STRING",'required': "STRING",'maxlength': "STRING",'pattern': "STRING",'class': "STRING"},hashContexts:{'valueBinding': depth0,'required': depth0,'maxlength': depth0,'pattern': depth0,'class': depth0},contexts:[depth0],types:["ID"],data:data})));
+  data.buffer.push("\r\n				        </div>\r\n				        <div class=\"form-group\">\r\n				            <label>Description</label>\r\n				            ");
+  data.buffer.push(escapeExpression((helper = helpers.textarea || (depth0 && depth0.textarea),options={hash:{
+    'value': ("newArea.description"),
+    'maxlength': ("500"),
+    'class': ("form-control")
+  },hashTypes:{'value': "ID",'maxlength': "STRING",'class': "STRING"},hashContexts:{'value': depth0,'maxlength': depth0,'class': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "textarea", options))));
+  data.buffer.push("\r\n				        </div>\r\n				    </form> \r\n	            </div>\r\n	            <div class=\"modal-footer\">\r\n	                <button class=\"btn btn-default pull-left\" data-dismiss=\"modal\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "cancelAddSubAreaDialog", {hash:{
     'target': ("view")
   },hashTypes:{'target': "STRING"},hashContexts:{'target': depth0},contexts:[depth0],types:["STRING"],data:data})));
-  data.buffer.push(" class=\"right\">Cancel</button>\r\n            </div>\r\n                \r\n        </div>\r\n    </div>\r\n</div>\r\n\r\n\r\n<!-- Field/Validation tips -->\r\n\r\n<div id=\"nameTip\" class=\"f-dropdown content small\" data-dropdown-content>\r\n    <div>\r\n        The name of the area.\r\n        <hr />\r\n        Name is required and can have a maximum of 80 characters.\r\n    </div>\r\n</div>\r\n\r\n<div id=\"descTip\" class=\"f-dropdown content small\" data-dropdown-content>\r\n    <div>\r\n        A short description of the area.\r\n        <hr />\r\n        A description can have a maximum of 500 characters.\r\n    </div>\r\n</div>\r\n\r\n<div id=\"parentTip\" class=\"f-dropdown content small\" data-dropdown-content>\r\n    <div>\r\n        The parent area where the new one is located.\r\n    </div>\r\n</div>\r\n");
+  data.buffer.push(">Cancel</button>\r\n	                <button class=\"btn btn-primary pull-right\" data-dismiss=\"modal\" ");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "addSubArea", {hash:{
+    'target': ("view")
+  },hashTypes:{'target': "STRING"},hashContexts:{'target': depth0},contexts:[depth0],types:["STRING"],data:data})));
+  data.buffer.push(">Add area</button>\r\n	            </div>\r\n	        </div>\r\n	    </div>    \r\n	</div> \r\n\r\n</div>");
   return buffer;
   
 });
@@ -1025,7 +1017,7 @@ function program2(depth0,data) {
   
 });
 
-Ember.TEMPLATES["comment-item-view"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+Ember.TEMPLATES["comment-item-view-OBSOLETE"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
   var buffer = '', stack1, helper, options, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
@@ -1084,7 +1076,7 @@ function program1(depth0,data) {
   
 });
 
-Ember.TEMPLATES["header-large"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+Ember.TEMPLATES["header-large-OBSOLETE"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
   var buffer = '', stack1, helper, options, self=this, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
@@ -1141,7 +1133,7 @@ function program8(depth0,data) {
   
 });
 
-Ember.TEMPLATES["header-small"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+Ember.TEMPLATES["header"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
   var buffer = '', stack1, escapeExpression=this.escapeExpression, self=this;
@@ -1180,7 +1172,7 @@ function program6(depth0,data) {
 
   data.buffer.push("<nav class=\"navbar navbar-inverse\" role=\"navigation\">\r\n    <div class=\"container-fluid\">\r\n    \r\n	    <!-- Brand and toggle get grouped for better mobile display -->\r\n	    <div class=\"navbar-header\">\r\n			<button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#bs-example-navbar-collapse-1\">\r\n				<span class=\"sr-only\">Toggle navigation</span>\r\n				<span class=\"icon-bar\"></span>\r\n				<span class=\"icon-bar\"></span>\r\n				<span class=\"icon-bar\"></span>\r\n			</button>\r\n			<a class=\"navbar-brand randopedia-logo-text\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "goToIndex", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data})));
-  data.buffer.push(">Randopedia</a>\r\n	    </div>\r\n	    \r\n	    <!-- Collect the nav links, forms, and other content for toggling -->\r\n	    <div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">\r\n			\r\n			<form class=\"navbar-form navbar-left\" role=\"search\">\r\n			  <div class=\"form-group\">\r\n			    <input type=\"text\" class=\"form-control\" placeholder=\"Search ski tours\">\r\n			  </div>\r\n			  <button type=\"submit\" class=\"btn btn-default\">Submit</button>\r\n			</form>\r\n			\r\n			<ul class=\"nav navbar-nav navbar-right\">\r\n				<li class=\"dropdown\">\r\n				    <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\">Menu <span class=\"caret\"></span></a>\r\n				    <ul class=\"dropdown-menu\" role=\"menu\">\r\n						");
+  data.buffer.push(">Randopedia</a>\r\n	    </div>\r\n	    \r\n	    <!-- Collect the nav links, forms, and other content for toggling -->\r\n	    <div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">\r\n			\r\n			<form class=\"navbar-form navbar-left\" role=\"search\">\r\n			    <div class=\"form-group\">\r\n			        <input type=\"text\" class=\"form-control\" placeholder=\"Search ski tours\">\r\n			     </div>\r\n			     <button type=\"submit\" class=\"btn btn-default\">Submit</button>\r\n			</form>\r\n			\r\n			<ul class=\"nav navbar-nav navbar-right\">\r\n				<li class=\"dropdown\">\r\n				    <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\">Menu <span class=\"caret\"></span></a>\r\n				    <ul class=\"dropdown-menu\" role=\"menu\">\r\n						");
   stack1 = helpers['if'].call(depth0, "controllers.login.isLoggedIn", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(3, program3, data),fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\r\n						<li class=\"divider\"></li>\r\n						<li><a ");
@@ -1192,7 +1184,7 @@ function program6(depth0,data) {
   
 });
 
-Ember.TEMPLATES["index-large"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+Ember.TEMPLATES["index-large-OBSOLETE"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
   var buffer = '', stack1, helper, options, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, self=this;
@@ -1248,7 +1240,7 @@ function program9(depth0,data) {
   
 });
 
-Ember.TEMPLATES["index-small"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+Ember.TEMPLATES["index-small-OBSOLETE"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
   var buffer = '', stack1, self=this, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
@@ -1742,6 +1734,21 @@ function program3(depth0,data) {
 
 function program5(depth0,data) {
   
+  var buffer = '', stack1, helper, options;
+  data.buffer.push("\r\n	<div class=\"row\">\r\n        <div class=\"col-sm-12 edit-container\">\r\n            <div class=\"pull-right\">");
+  stack1 = (helper = helpers['link-to'] || (depth0 && depth0['link-to']),options={hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(6, program6, data),contexts:[depth0,depth0],types:["STRING","ID"],data:data},helper ? helper.call(depth0, "tour.edit", "model", options) : helperMissing.call(depth0, "link-to", "tour.edit", "model", options));
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("</div>\r\n        </div>\r\n    </div>\r\n    ");
+  return buffer;
+  }
+function program6(depth0,data) {
+  
+  
+  data.buffer.push("Edit tour");
+  }
+
+function program8(depth0,data) {
+  
   var buffer = '', stack1;
   data.buffer.push(" <span class=\"small\">(");
   stack1 = helpers._triageMustache.call(depth0, "elevationMax", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
@@ -1750,25 +1757,10 @@ function program5(depth0,data) {
   return buffer;
   }
 
-function program7(depth0,data) {
-  
-  
-  data.buffer.push("\r\n	            <span class=\"small\">\r\n	                <a id=\"incompleteInfoButtonId\" \r\n			           data-toggle=\"popover\"\r\n			           data-trigger=\"focus\"\r\n			           data-content=\"This tour is marked as incomplete. This means that it might lack some data, but it should be enough information available to make the description useful anyway.\">\r\n	                   <span class=\"glyphicon glyphicon-warning-sign danger\"></span>\r\n	                </a>\r\n	            </span>\r\n	            ");
-  }
-
-function program9(depth0,data) {
-  
-  var buffer = '', stack1, helper, options;
-  data.buffer.push("\r\n		       <h3 class=\"pull-right\">");
-  stack1 = (helper = helpers['link-to'] || (depth0 && depth0['link-to']),options={hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(10, program10, data),contexts:[depth0,depth0],types:["STRING","ID"],data:data},helper ? helper.call(depth0, "tour.edit", "model", options) : helperMissing.call(depth0, "link-to", "tour.edit", "model", options));
-  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("</h3>\r\n		    ");
-  return buffer;
-  }
 function program10(depth0,data) {
   
   
-  data.buffer.push("<span class=\"glyphicon glyphicon-edit\"></span>");
+  data.buffer.push("\r\n	            <span class=\"small\">\r\n	                <a id=\"incompleteInfoButtonId\" \r\n			           data-toggle=\"popover\"\r\n			           data-trigger=\"focus\"\r\n			           data-content=\"This tour is marked as incomplete. This means that it might lack some data, but it should be enough information available to make the description useful anyway.\">\r\n	                   <span class=\"glyphicon glyphicon-warning-sign danger\"></span>\r\n	                </a>\r\n	            </span>\r\n	            ");
   }
 
 function program12(depth0,data) {
@@ -1811,7 +1803,7 @@ function program18(depth0,data) {
 function program20(depth0,data) {
   
   var buffer = '', helper, options;
-  data.buffer.push("\r\n			<div class=\"row\">\r\n			    <div class=\"col-sm-4 col-lg-2\">\r\n			        <label>Grade:</label>\r\n			    </div>\r\n			    <div class=\"col-sm-8 col-lg-10\">\r\n			         <a data-toggle=\"modal\" data-target=\"#tourDetailsGradeGuideModal\">");
+  data.buffer.push("\r\n			<div class=\"row\">\r\n			    <div class=\"col-xs-5 col-sm-3 col-lg-2\">\r\n			        <label>Grade:</label>\r\n			    </div>\r\n			    <div class=\"col-xs-7 col-sm-9 col-lg-10\">\r\n			         <a data-toggle=\"modal\" data-target=\"#tourDetailsGradeGuideModal\">");
   data.buffer.push(escapeExpression((helper = helpers.resolveGradeName || (depth0 && depth0.resolveGradeName),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data},helper ? helper.call(depth0, "grade", options) : helperMissing.call(depth0, "resolveGradeName", "grade", options))));
   data.buffer.push("</a>\r\n			    </div>       \r\n			</div>   \r\n			");
   return buffer;
@@ -1820,7 +1812,7 @@ function program20(depth0,data) {
 function program22(depth0,data) {
   
   var buffer = '', stack1;
-  data.buffer.push(" \r\n			<div class=\"row\">   \r\n		        <div class=\"col-sm-4 col-lg-2\">\r\n		            <label>Steepness:</label>\r\n		        </div>\r\n		        <div class=\"col-sm-8 col-lg-10\">\r\n		            ");
+  data.buffer.push(" \r\n			<div class=\"row\">   \r\n		        <div class=\"col-xs-5 col-sm-3 col-lg-2\">\r\n		            <label>Steepness:</label>\r\n		        </div>\r\n		        <div class=\"col-xs-7 col-sm-9 col-lg-10\">\r\n		            ");
   stack1 = helpers._triageMustache.call(depth0, "degreesMax", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("&#176;\r\n		        </div>\r\n	        </div>\r\n	         ");
@@ -1839,7 +1831,7 @@ function program24(depth0,data) {
 function program25(depth0,data) {
   
   var buffer = '', helper, options;
-  data.buffer.push("\r\n			<div class=\"row\">	\r\n			    <div class=\"col-sm-4 col-lg-2\">\r\n			        <label>Season:</label>\r\n			    </div>\r\n			    <div class=\"col-sm-8 col-lg-10\">\r\n			        ");
+  data.buffer.push("\r\n			<div class=\"row\">	\r\n			    <div class=\"col-xs-5 col-sm-3 col-sm-3 col-lg-2\">\r\n			        <label>Season:</label>\r\n			    </div>\r\n			    <div class=\"col-xs-7 col-sm-9 col-lg-10\">\r\n			        ");
   data.buffer.push(escapeExpression((helper = helpers.resolveMonthName || (depth0 && depth0.resolveMonthName),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data},helper ? helper.call(depth0, "timeOfYearFrom", options) : helperMissing.call(depth0, "resolveMonthName", "timeOfYearFrom", options))));
   data.buffer.push(" - ");
   data.buffer.push(escapeExpression((helper = helpers.resolveMonthName || (depth0 && depth0.resolveMonthName),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data},helper ? helper.call(depth0, "timeOfYearTo", options) : helperMissing.call(depth0, "resolveMonthName", "timeOfYearTo", options))));
@@ -1850,7 +1842,7 @@ function program25(depth0,data) {
 function program27(depth0,data) {
   
   var buffer = '', helper, options;
-  data.buffer.push("\r\n			<div class=\"row\">\r\n			    <div class=\"col-sm-4 col-lg-2\">\r\n			        <label>Aspect:</label>\r\n			    </div>\r\n			    <div class=\"col-sm-8 col-lg-9\">\r\n			        ");
+  data.buffer.push("\r\n			<div class=\"row\">\r\n			    <div class=\"col-xs-5 col-sm-3 col-lg-2\">\r\n			        <label>Aspect:</label>\r\n			    </div>\r\n			    <div class=\"col-xs-7 col-sm-9 col-lg-9\">\r\n			        ");
   data.buffer.push(escapeExpression((helper = helpers.resolveAspectName || (depth0 && depth0.resolveAspectName),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data},helper ? helper.call(depth0, "aspect", options) : helperMissing.call(depth0, "resolveAspectName", "aspect", options))));
   data.buffer.push("\r\n			    </div>\r\n			</div>\r\n	        ");
   return buffer;
@@ -1958,29 +1950,29 @@ function program44(depth0,data) {
   data.buffer.push("\r\n	\r\n	");
   stack1 = helpers['if'].call(depth0, "isDeleted", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(3, program3, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\r\n	\r\n	");
+  stack1 = helpers['if'].call(depth0, "controllers.login.isLoggedIn", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(5, program5, data),contexts:[depth0],types:["ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\r\n	\r\n	<div class=\"row\">\r\n	    <div class=\"col-sm-12\">\r\n		    <ul class=\"inline-list\">\r\n		       ");
   data.buffer.push(escapeExpression((helper = helpers.control || (depth0 && depth0.control),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0,depth0],types:["STRING","ID"],data:data},helper ? helper.call(depth0, "breadCrumb", "area", options) : helperMissing.call(depth0, "control", "breadCrumb", "area", options))));
-  data.buffer.push("\r\n		    </ul>\r\n	    </div>\r\n	</div>\r\n	\r\n	<div class=\"row\">\r\n	    <div class=\"col-sm-10\">\r\n	        <h2>\r\n	            ");
+  data.buffer.push("\r\n		    </ul>\r\n	    </div>\r\n	</div>\r\n	\r\n	<div class=\"row\">\r\n	    <div class=\"col-sm-12\">\r\n	        <h2>\r\n	            ");
   stack1 = helpers._triageMustache.call(depth0, "name", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push(" ");
-  stack1 = helpers['if'].call(depth0, "elevationMax", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(5, program5, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers['if'].call(depth0, "elevationMax", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(8, program8, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push(" \r\n	            ");
-  stack1 = helpers['if'].call(depth0, "isIncomplete", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(7, program7, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers['if'].call(depth0, "isIncomplete", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(10, program10, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n	        </h2>\r\n	    </div>\r\n	    \r\n	    <div class=\"col-sm-2\">    \r\n	        ");
-  stack1 = helpers['if'].call(depth0, "controllers.login.isLoggedIn", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(9, program9, data),contexts:[depth0],types:["ID"],data:data});
-  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n	    </div>\r\n	</div>\r\n	\r\n	<div class=\"row\">\r\n	    <div class=\"col-sm-12\">\r\n	        <em>");
+  data.buffer.push("\r\n	        </h2>\r\n	    </div>\r\n	    \r\n	    <div class=\"col-sm-2\">    \r\n\r\n	    </div>\r\n	</div>\r\n	\r\n	<div class=\"row\">\r\n	    <div class=\"col-sm-12\">\r\n	        <em>");
   stack1 = helpers._triageMustache.call(depth0, "shortDescription", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("</em>\r\n	    </div>\r\n	</div>\r\n	\r\n	<div class=\"row tour-props\">\r\n	    <div class=\"col-sm-12 col-lg-6\">\r\n		        \r\n			<div class=\"row\">\r\n			    <div class=\"col-sm-4 col-lg-2\">\r\n			        <label>Time:</label>\r\n			    </div>\r\n			    <div class=\"col-sm-8 col-lg-10\">\r\n			        ");
+  data.buffer.push("</em>\r\n	    </div>\r\n	</div>\r\n	\r\n	<div class=\"row tour-props\">\r\n	    <div class=\"col-sm-12 col-lg-6\">\r\n		        \r\n			<div class=\"row\">\r\n			    <div class=\"col-xs-5 col-sm-3 col-lg-2\">\r\n			        <label>Time:</label>\r\n			    </div>\r\n			    <div class=\"col-xs-7 col-sm-9 col-lg-10\">\r\n			        ");
   stack1 = helpers['if'].call(depth0, "timingMin", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(12, program12, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   stack1 = helpers['if'].call(depth0, "timingMax", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(14, program14, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("h\r\n			    </div>\r\n			</div>\r\n		\r\n			<div class=\"row\">\r\n			    <div class=\"col-sm-4 col-lg-2\">\r\n			        <label>Elevation:</label>\r\n			    </div>\r\n			    <div class=\"col-sm-8 col-lg-10\">\r\n	                   ");
+  data.buffer.push("h\r\n			    </div>\r\n			</div>\r\n		\r\n			<div class=\"row\">\r\n			    <div class=\"col-xs-5 col-sm-3 col-lg-2\">\r\n			        <label>Elevation:</label>\r\n			    </div>\r\n			    <div class=\"col-xs-7 col-sm-9 col-lg-10\">\r\n	                   ");
   stack1 = helpers['if'].call(depth0, "elevationGain", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(16, program16, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\r\n			        ");
@@ -2047,11 +2039,11 @@ function program1(depth0,data) {
     'maxlength': ("300"),
     'class': ("form-control")
   },hashTypes:{'value': "ID",'maxlength': "STRING",'class': "STRING"},hashContexts:{'value': depth0,'maxlength': depth0,'class': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "input", options))));
-  data.buffer.push("\r\n                            </div>\r\n                         <div class=\"form-group\">\r\n                              <button class=\"btn btn-default pull-right\" ");
+  data.buffer.push("\r\n                            </div>\r\n                            <div class=\"form-group\">\r\n                                <div class=\"button-group pull-right\">\r\n                                    <button class=\"btn btn-default\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "removeNewImage", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data})));
-  data.buffer.push(" class=\"btn btn-default\">Cancel</button>\r\n                              <button class=\"btn btn-primary pull-right\" ");
+  data.buffer.push(" class=\"btn btn-default\">Cancel</button>\r\n                                    <button class=\"btn btn-primary\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "saveNewImage", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data})));
-  data.buffer.push(" class=\"btn btn-primary\">Upload image</button>\r\n                            </div>                                            \r\n                        </form>\r\n	                </div>\r\n	            </div>\r\n	        </div>\r\n	     </div>\r\n	</div>\r\n	");
+  data.buffer.push(" class=\"btn btn-primary\">Upload image</button>\r\n                                </div>                   \r\n                            </div>                         \r\n                        </form>\r\n	                </div>\r\n	            </div>\r\n	        </div>\r\n	     </div>\r\n	</div>\r\n	");
   return buffer;
   }
 
@@ -2083,21 +2075,21 @@ function program4(depth0,data) {
     'name': ("isPorfolio"),
     'checked': ("image.isPortfolio")
   },hashTypes:{'type': "STRING",'name': "STRING",'checked': "ID"},hashContexts:{'type': depth0,'name': depth0,'checked': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "input", options))));
-  data.buffer.push(" Is portfolio image\r\n										    </label>\r\n										 </div>\r\n		                                 <button  ");
+  data.buffer.push(" Is portfolio image\r\n										    </label>\r\n										 </div>\r\n										 <div class=\"button-group pull-right\">\r\n		                                      <button ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "saveImage", "image", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0,depth0],types:["STRING","ID"],data:data})));
   data.buffer.push(" ");
   data.buffer.push(escapeExpression((helper = helpers.bindAttr || (depth0 && depth0.bindAttr),options={hash:{
     'disabled': ("image.isUpdateDisabled")
   },hashTypes:{'disabled': "STRING"},hashContexts:{'disabled': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "bindAttr", options))));
-  data.buffer.push(" class=\"btn btn-primary pull-right\">Update</button>\r\n		                                 <button ");
+  data.buffer.push(" class=\"btn btn-primary\">Update</button>\r\n		                                      <button ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "startDeleteImage", "image", {hash:{
     'target': ("view")
   },hashTypes:{'target': "STRING"},hashContexts:{'target': depth0},contexts:[depth0,depth0],types:["STRING","ID"],data:data})));
-  data.buffer.push(" data-reveal-id=\"confirmDeleteImageReveal\" ");
+  data.buffer.push(" data-toggle=\"modal\" data-target=\"#confirmDeleteImageModal\" ");
   data.buffer.push(escapeExpression((helper = helpers.bindAttr || (depth0 && depth0.bindAttr),options={hash:{
     'disabled': ("image.isDeleteDisabled")
   },hashTypes:{'disabled': "STRING"},hashContexts:{'disabled': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "bindAttr", options))));
-  data.buffer.push(" class=\"btn btn-primary pull-right\">Delete image</button>\r\n                                    </div>                                            \r\n                                </form>\r\n	                        </div>\r\n	                    </div>\r\n	                </div>\r\n	            </div>\r\n		    ");
+  data.buffer.push(" class=\"btn btn-danger\">Delete image</button>\r\n		                                 </div>\r\n                                    </div>                                            \r\n                                </form>\r\n	                        </div>\r\n	                    </div>\r\n	                </div>\r\n	            </div>\r\n		    ");
   return buffer;
   }
 
@@ -2112,11 +2104,7 @@ function program4(depth0,data) {
   data.buffer.push(")</span></h4>\r\n	    </div>\r\n	</div>\r\n	\r\n	<div class=\"row\">\r\n		<div class=\"col-sm-12\">\r\n		");
   stack1 = helpers.each.call(depth0, "image", "in", "images", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(3, program3, data),contexts:[depth0,depth0,depth0],types:["ID","ID","ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n	    </div>         \r\n	</div>\r\n	\r\n	<div class=\"modal fade\" id=\"confirmDeleteImageModal\" tabindex=\"-1\" role=\"dialog\" aria-hidden=\"true\">\r\n	    <div class=\"modal-dialog modal-sm\">\r\n	        <div class=\"modal-content\">\r\n	            <div class=\"modal-body\">\r\n	                Are you sure you want to delete the image? It will not be possible to restore the image.\r\n	            </div>\r\n	            <div class=\"modal-footer\">\r\n	                <button class=\"btn btn-primary pull-left\" ");
-  data.buffer.push(escapeExpression(helpers.action.call(depth0, "closeConfirmDeleteImage", {hash:{
-    'target': ("view")
-  },hashTypes:{'target': "STRING"},hashContexts:{'target': depth0},contexts:[depth0],types:["STRING"],data:data})));
-  data.buffer.push(">Cancel</button>                \r\n	                <button class=\"btn btn-default pull-right\" ");
+  data.buffer.push("\r\n	    </div>         \r\n	</div>\r\n	\r\n	<div class=\"modal fade\" id=\"confirmDeleteImageModal\" tabindex=\"-1\" role=\"dialog\" aria-hidden=\"true\">\r\n	    <div class=\"modal-dialog modal-lg\">\r\n	        <div class=\"modal-content\">\r\n	            <div class=\"modal-body\">\r\n	                Are you sure you want to delete the image? It will not be possible to restore the image.\r\n	            </div>\r\n	            <div class=\"modal-footer\">\r\n                   <button class=\"btn btn-default pull-left\" data-dismiss=\"modal\">Cancel</button>                \r\n                   <button class=\"btn btn-danger pull-right\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "confirmDeleteImage", {hash:{
     'target': ("view")
   },hashTypes:{'target': "STRING"},hashContexts:{'target': depth0},contexts:[depth0],types:["STRING"],data:data})));
@@ -2184,7 +2172,7 @@ function program17(depth0,data) {
   data.buffer.push("\r\n		<div class=\"row spacing-y\">\r\n		   <div class=\"col-sm-12\">\r\n                ");
   stack1 = helpers.unless.call(depth0, "isPublished", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(18, program18, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("				 \r\n                <button type=\"button\" class=\"btn btn-primary\" ");
+  data.buffer.push("				 \r\n                <button class=\"btn btn-primary\" ");
   data.buffer.push(escapeExpression((helper = helpers.bindAttr || (depth0 && depth0.bindAttr),options={hash:{
     'disabled': ("isStartPublishDisabled")
   },hashTypes:{'disabled': "STRING"},hashContexts:{'disabled': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "bindAttr", options))));
@@ -2195,7 +2183,7 @@ function program17(depth0,data) {
   data.buffer.push(">\r\n                   <span class=\"glyphicon glyphicon-cloud-upload\"></span> Publish\r\n                </button>			 \r\n				");
   stack1 = helpers['if'].call(depth0, "hasChanges", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(20, program20, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n				<button type=\"button\" class=\"btn btn-primary pull-right\" ");
+  data.buffer.push("\r\n				<button class=\"btn btn-primary pull-right\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "startCancelingEditTour", {hash:{
     'target': ("view")
   },hashTypes:{'target': "STRING"},hashContexts:{'target': depth0},contexts:[depth0],types:["STRING"],data:data})));
@@ -2205,7 +2193,7 @@ function program17(depth0,data) {
 function program18(depth0,data) {
   
   var buffer = '', helper, options;
-  data.buffer.push("\r\n                    <button type=\"button\" class=\"btn btn-primary\" ");
+  data.buffer.push("\r\n                    <button class=\"btn btn-primary\" ");
   data.buffer.push(escapeExpression((helper = helpers.bindAttr || (depth0 && depth0.bindAttr),options={hash:{
     'disabled': ("isSaveAsDraftDisabled")
   },hashTypes:{'disabled': "STRING"},hashContexts:{'disabled': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "bindAttr", options))));
@@ -2509,35 +2497,15 @@ function program39(depth0,data) {
   data.buffer.push(escapeExpression((helper = helpers.partial || (depth0 && depth0.partial),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data},helper ? helper.call(depth0, "about-grades", options) : helperMissing.call(depth0, "partial", "about-grades", options))));
   data.buffer.push("\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    	\r\n    <div class=\"modal fade\" id=\"areaPickerModal\" tabindex=\"-1\" role=\"dialog\" aria-hidden=\"true\">\r\n        <div class=\"modal-dialog modal-lg areapicker-view\">\r\n            <div class=\"modal-content\">\r\n                <div class=\"modal-header\">\r\n                    <button type=\"button\" class=\"close\" data-dismiss=\"modal\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button>\r\n                    <h4 class=\"modal-title\">Select area</h4>\r\n                </div>\r\n                <div class=\"modal-body\">\r\n                    ");
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "App.AreaPickerView", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data})));
-  data.buffer.push("\r\n                </div>\r\n            </div>\r\n        </div>    \r\n    </div>\r\n    \r\n    <div class=\"modal fade\" id=\"discardChangesTourModal\" tabindex=\"-1\" role=\"dialog\" aria-hidden=\"true\">\r\n        <div class=\"modal-dialog modal-sm\">\r\n            <div class=\"modal-content\">\r\n                <div class=\"modal-body\">\r\n                    The tour has unsaved changes, do you want to discard them?\r\n                </div>\r\n                <div class=\"modal-footer\">\r\n                    <button class=\"btn btn-primary pull-left\" ");
-  data.buffer.push(escapeExpression(helpers.action.call(depth0, "closeConfirmDiscardChangesDialog", {hash:{
-    'target': ("view")
-  },hashTypes:{'target': "STRING"},hashContexts:{'target': depth0},contexts:[depth0],types:["STRING"],data:data})));
-  data.buffer.push(">Cancel</button>                \r\n                    <button class=\"btn btn-default pull-right\" ");
+  data.buffer.push("\r\n                </div>\r\n            </div>\r\n        </div>    \r\n    </div>\r\n    \r\n    <div class=\"modal fade\" id=\"discardChangesTourModal\" tabindex=\"-1\" role=\"dialog\" aria-hidden=\"true\">\r\n        <div class=\"modal-dialog modal-lg\">\r\n            <div class=\"modal-content\">\r\n                <div class=\"modal-body\">\r\n                    The tour has unsaved changes, do you want to discard them?\r\n                </div>\r\n                <div class=\"modal-footer\">\r\n                    <button class=\"btn btn-primary pull-left\" data-dismiss=\"modal\">Cancel</button>       \r\n                    <button class=\"btn btn-danger pull-right\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "confirmDiscardChanges", {hash:{
     'target': ("view")
   },hashTypes:{'target': "STRING"},hashContexts:{'target': depth0},contexts:[depth0],types:["STRING"],data:data})));
-  data.buffer.push(">Discard changes</button>\r\n                </div>\r\n            </div>\r\n        </div>    \r\n    </div>\r\n	\r\n    <div class=\"modal fade\" id=\"confirmDeleteTourModal\" tabindex=\"-1\" role=\"dialog\" aria-hidden=\"true\">\r\n        <div class=\"modal-dialog modal-lg areapicker-view\">\r\n            <div class=\"modal-content\">\r\n                <div class=\"modal-header\">\r\n                    <button type=\"button\" class=\"close\" data-dismiss=\"modal\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button>\r\n                    <h4 class=\"modal-title\">Validation failed</h4>\r\n                </div>\r\n                <div class=\"modal-body\">\r\n                    There are validation errors that must be corrected before the tour can be published.\r\n                </div>\r\n                <div class=\"modal-footer\">\r\n                    <button class=\"btn btn-primary pull-right\" ");
-  data.buffer.push(escapeExpression(helpers.action.call(depth0, "closeValidationErrorsDialog", {hash:{
-    'target': ("view")
-  },hashTypes:{'target': "STRING"},hashContexts:{'target': depth0},contexts:[depth0],types:["STRING"],data:data})));
-  data.buffer.push(">OK</button>                     \r\n                </div>\r\n            </div>\r\n        </div>    \r\n    </div>	\r\n	\r\n    <div class=\"modal fade\" id=\"confirmDeleteTourModal\" tabindex=\"-1\" role=\"dialog\" aria-hidden=\"true\">\r\n        <div class=\"modal-dialog modal-lg areapicker-view\">\r\n            <div class=\"modal-content\">\r\n                <div class=\"modal-header\">\r\n                    <button type=\"button\" class=\"close\" data-dismiss=\"modal\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button>\r\n                    <h4 class=\"modal-title\">Delete tour</h4>\r\n                </div>\r\n                <div class=\"modal-body\">\r\n                    Are you sure you want to delete the tour?\r\n                </div>\r\n                <div class=\"modal-footer\">\r\n		            <button class=\"btn btn-default pull-left\" ");
-  data.buffer.push(escapeExpression(helpers.action.call(depth0, "closeConfirmDeleteTour", {hash:{
-    'target': ("view")
-  },hashTypes:{'target': "STRING"},hashContexts:{'target': depth0},contexts:[depth0],types:["STRING"],data:data})));
-  data.buffer.push(">Cancel</button>\r\n		            <button class=\"btn btn-primary pull-right\" ");
+  data.buffer.push(">Discard changes</button>\r\n                </div>\r\n            </div>\r\n        </div>    \r\n    </div>\r\n	\r\n    <div class=\"modal fade\" id=\"confirmDeleteTourModal\" tabindex=\"-1\" role=\"dialog\" aria-hidden=\"true\">\r\n        <div class=\"modal-dialog modal-lg areapicker-view\">\r\n            <div class=\"modal-content\">\r\n                <div class=\"modal-header\">\r\n                    <button type=\"button\" class=\"close\" data-dismiss=\"modal\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button>\r\n                    <h4 class=\"modal-title\">Delete tour</h4>\r\n                </div>\r\n                <div class=\"modal-body\">\r\n                    Are you sure you want to delete the tour?\r\n                </div>\r\n                <div class=\"modal-footer\">\r\n		            <button class=\"btn btn-default pull-left\" data-dismiss=\"modal\">Cancel</button>\r\n		            <button class=\"btn btn-danger pull-right\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "confirmDeleteTour", {hash:{
     'target': ("view")
   },hashTypes:{'target': "STRING"},hashContexts:{'target': depth0},contexts:[depth0],types:["STRING"],data:data})));
-  data.buffer.push(">Delete tour</button>                     \r\n                </div>\r\n            </div>\r\n        </div>    \r\n    </div>\r\n    	    	    \r\n    <div class=\"modal fade\" id=\"confirmPublishTourModal\" tabindex=\"-1\" role=\"dialog\" aria-hidden=\"true\">\r\n        <div class=\"modal-dialog modal-sm\">\r\n            <div class=\"modal-content\">\r\n                <div class=\"modal-body\">\r\n                    Changes will be published, do you want to continue?\r\n                </div>\r\n                <div class=\"modal-footer\">\r\n                    <button class=\"btn btn-primary pull-right\" ");
-  data.buffer.push(escapeExpression(helpers.action.call(depth0, "confirmPublishTour", {hash:{
-    'target': ("view")
-  },hashTypes:{'target': "STRING"},hashContexts:{'target': depth0},contexts:[depth0],types:["STRING"],data:data})));
-  data.buffer.push(">Publish</button>\r\n                    <button class=\"btn btn-default pull-right\" ");
-  data.buffer.push(escapeExpression(helpers.action.call(depth0, "closeConfirmPublishTourDialog", {hash:{
-    'target': ("view")
-  },hashTypes:{'target': "STRING"},hashContexts:{'target': depth0},contexts:[depth0],types:["STRING"],data:data})));
-  data.buffer.push(">Cancel</button>\r\n                </div>\r\n            </div>\r\n        </div>    \r\n    </div>\r\n	\r\n	<div class=\"modal fade\" id=\"publishTourStep1Modal\" tabindex=\"-1\" role=\"dialog\" aria-hidden=\"true\">\r\n        \r\n        <div class=\"modal-dialog modal-lg\">\r\n            <div class=\"modal-content\">\r\n                <div class=\"modal-header\">\r\n                    <button type=\"button\" class=\"close\" data-dismiss=\"modal\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button>\r\n                    <h4 class=\"modal-title\">Publish tour (Step 1 of 2)</h4>\r\n                </div>\r\n                <div class=\"modal-body\">\r\n					");
+  data.buffer.push(">Delete tour</button>                     \r\n                </div>\r\n            </div>\r\n        </div>    \r\n    </div>\r\n	\r\n	<div class=\"modal fade\" id=\"publishTourStep1Modal\" tabindex=\"-1\" role=\"dialog\" aria-hidden=\"true\">\r\n        \r\n        <div class=\"modal-dialog modal-lg\">\r\n            <div class=\"modal-content\">\r\n                <div class=\"modal-header\">\r\n                    <button type=\"button\" class=\"close\" data-dismiss=\"modal\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button>\r\n                    <h4 class=\"modal-title\">Publish tour (Step 1 of 2)</h4>\r\n                </div>\r\n                <div class=\"modal-body\">\r\n					");
   stack1 = helpers['if'].call(depth0, "view.haveValidationErrors", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(35, program35, data),fn:self.program(32, program32, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\r\n                </div>\r\n                <div class=\"modal-footer\">\r\n                    <button class=\"btn btn-default pull-left\" data-dismiss=\"modal\">Cancel</button>\r\n                    <button class=\"btn btn-primary pull-right\" ");
@@ -2560,10 +2528,14 @@ function program39(depth0,data) {
     'disabled': ("view.isPublishDisabled")
   },hashTypes:{'disabled': "STRING"},hashContexts:{'disabled': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "bindAttr", options))));
   data.buffer.push(" ");
-  data.buffer.push(escapeExpression(helpers.action.call(depth0, "completePublish", {hash:{
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "continueToPublishStep3", {hash:{
     'target': ("view")
   },hashTypes:{'target': "STRING"},hashContexts:{'target': depth0},contexts:[depth0],types:["STRING"],data:data})));
-  data.buffer.push(">Publish</button>  	            \r\n	            </div>\r\n	        </div>\r\n	    </div>        \r\n	</div>	\r\n    \r\n</div>");
+  data.buffer.push(">Publish</button>  	            \r\n	            </div>\r\n	        </div>\r\n	    </div>        \r\n	</div>\r\n	\r\n	<div class=\"modal fade\" id=\"publishTourStep3Modal\" tabindex=\"-1\" role=\"dialog\" aria-hidden=\"true\">\r\n        <div class=\"modal-dialog modal-lg\">\r\n            <div class=\"modal-content\">\r\n                <div class=\"modal-body\">\r\n                    Changes will be published, do you want to continue?\r\n                </div>\r\n                <div class=\"modal-footer\">\r\n                    <button class=\"btn btn-default pull-left\" data-dismiss=\"modal\">Cancel</button>\r\n                    <button class=\"btn btn-primary pull-right\" ");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "confirmPublishTour", {hash:{
+    'target': ("view")
+  },hashTypes:{'target': "STRING"},hashContexts:{'target': depth0},contexts:[depth0],types:["STRING"],data:data})));
+  data.buffer.push(">Publish</button>\r\n                </div>\r\n            </div>\r\n        </div>    \r\n    </div>	\r\n    \r\n</div>");
   return buffer;
   
 });

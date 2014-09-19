@@ -250,6 +250,7 @@ App.TourEditController = Ember.ObjectController.extend({
             if(this.get('havePendingOperations')){
                 return;
             }
+            console.log('delete image ' + image);
             var self = this;
             self.set('havePendingOperations', true);
             image.deleteRecord();
