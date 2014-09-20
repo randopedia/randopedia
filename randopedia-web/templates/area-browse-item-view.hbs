@@ -1,0 +1,49 @@
+<div>
+	{{#if controllers.areaBrowse.onlyShowWithTours}}
+	
+	    {{#if hasTours}}
+			{{#if isExpanded}}
+			    {{#if children}}
+			        <a href="#" class="icon-link areatree-expand" {{ action toggleArea }}><<span class="glyphicon glyphicon-minus"></a>
+		        {{else}}
+		            <span class="expand-placeholder"></span>		        
+			    {{/if}}
+			{{else}}
+			    {{#if children}}
+			        <a href="#" class="icon-link areatree-expand" {{ action toggleArea }}><span class="glyphicon glyphicon-plus"></i></a>
+	            {{else}}
+	                <span class="expand-placeholder"></span>
+			    {{/if}}
+	        {{/if}}
+	    
+	        <a class="areatree-link" {{action "routeToArea" target="view"}}>{{view.areaTitle}}</a>
+	
+	    {{/if}}
+	
+	{{else}}
+	
+	    {{#if isExpanded}}
+	        {{#if children}}
+	            <a href="#" class="icon-link areatree-expand" {{ action toggleArea }}><span class="glyphicon glyphicon-minus"></a>
+	        {{else}}
+	            <span class="expand-placeholder"></span>
+	        {{/if}}
+	    {{else}}
+	        {{#if children}}
+	            <a href="#" class="icon-link areatree-expand" {{ action toggleArea }}><span class="glyphicon glyphicon-plus"></a>
+	        {{else}}
+	            <span class="expand-placeholder"></span>
+	        {{/if}}
+	    {{/if}}
+	    
+	    <a class="areatree-link" {{action "routeToArea" target="view"}}>{{view.areaTitle}}</a>
+	
+	{{/if}}
+	
+	{{#if children }}
+	    {{#if isExpanded}}
+	        <div class="intent-child">{{control "areaBrowseItems" content}}</div>
+	    {{/if}}
+	{{/if}}
+	
+</div>

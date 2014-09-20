@@ -25,7 +25,7 @@ Find tours on the map or by browsing the area tree.
 	               <div class="content" data-section-content>
 	                   {{#each toplevel in controller}}
 				           {{#if toplevel.area.children}} 
-				               {{control "areaItems" toplevel.area}}
+				               {{control "areaBrowseItems" toplevel.area}}
 				           {{/if}}
 				       {{/each}}    
 	               </div>

@@ -153,16 +153,12 @@ App.AreaEditView = Ember.View.extend({
     }
 });
 
-App.AreaItemsView = Ember.View.extend({
-    templateName: 'browse-items-view',
-    tagName: 'ul',
-    classNames: ['areas']
+App.AreaBrowseItemsView = Ember.View.extend({
+    templateName: 'area-browse-items-view'
 });
 
-App.AreaItemView = Ember.View.extend({
-    templateName: 'browse-item-view',
-    tagName: 'li',
-    classNames: ['area'],
+App.AreaBrowseItemView = Ember.View.extend({
+    templateName: 'area-browse-item-view',
     actions: {
         routeToArea: function() {
             this.get('controller').transitionToRoute('area', this.get('controller').get('model'));
@@ -180,7 +176,7 @@ App.AreaItemView = Ember.View.extend({
     }.property('controller')
 });
 
-App.BrowseView = Ember.View.extend();
+App.AreaBrowseView = Ember.View.extend();
 
 App.AreaPickerView = Ember.View.extend({
    templateName: "areapicker-view",

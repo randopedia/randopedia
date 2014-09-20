@@ -40,6 +40,16 @@ html, body, .app-root-view {
     background: @navbar-background;
     margin-bottom: 0;
     border-radius: 0;
+    
+    .searchbox {
+        margin: 5px 5px 5px 5px;
+        line-height: 34px;
+        font-size: 20px;
+        font-weight: 650;
+        padding-left: 5px;
+        width: 300px;
+        opacity: 0.9;
+    }
 }
 
 .btn-navbar {
@@ -100,6 +110,14 @@ a:hover {
     font-size: 0.8em;
 }
 
+.navbar-collapse {
+    a {
+        color: #fff;
+        display: block;
+        padding: 5px;
+    }
+}
+
 .edit-container {
     background: #efefef;
     height: 40px;
@@ -112,7 +130,6 @@ a:hover {
     
     textarea {
         height: 7em;
-        
         &.large {
             height: 25em;
         }
@@ -234,7 +251,7 @@ button.info:hover {
     }
 }
 
-.areapicker-view {
+.browse-tree-view {
     a.areatree-expand { font-size: 70%; margin-top:0.3em;}
     .expand-placeholder { margin-left: 0.9em; }
 
@@ -261,4 +278,7 @@ button.info:hover {
         background: url(../images/header_background.jpg) repeat-x; 
         color: #E0E0E0;
     }    
+    .intent-child {
+        margin-left: @large-space * 2;
+    }
 }

@@ -47060,31 +47060,34 @@ App.Config.googleAppIdProd = '719190645609-c0ogrmvrbtgbl5ohlb81d0lflf31uo51.apps
                     this.send('goToIndex');
                 } else {
                     this.transitionToRoute(route);	
+                    this.send('collapseNavbar');
                 }
             }
-            $('.top-bar, [data-topbar]').css('height', '').removeClass('expanded');
         },
         loginWithFacebook: function() {
             this.get('controller.controllers.login').send('loginWithFacebook');
-//            this.closeLoginDropdown();
         },
         loginWithGoogle: function() {
             this.get('controller.controllers.login').send('loginWithGoogle');
-//            this.closeLoginDropdown();
         },
         goToIndex: function() {
             this.get('controllers.search').clearSearchResult();
             this.transitionToRoute('index');
         },
+        collapseNavbar: function() {
+            if($('.navbar-toggle').css('display') !='none'){
+                $(".navbar-toggle").trigger( "click" );
+            }  
+        }
     }
 });
-;App.AreaItemsController = Ember.ObjectController.extend();
-App.register('controller:areaItems', App.AreaItemsController, {
+;App.AreaBrowseItemsController = Ember.ObjectController.extend();
+App.register('controller:areaBrowseItems', App.AreaBrowseItemsController, {
     singleton : false
 });
 
-App.AreaItemController = Ember.ObjectController.extend({
-    needs : ['browse'],   
+App.AreaBrowseItemController = Ember.ObjectController.extend({
+    needs : [ 'areaBrowse' ],
     isExpanded : true,
     actions : {
         transitToArea : function(area) {
@@ -47102,70 +47105,79 @@ App.AreaItemController = Ember.ObjectController.extend({
         }
     },
 });
-App.register('controller:areaItem', App.AreaItemController, {
+App.register('controller:areaBrowseItem', App.AreaBrowseItemController, {
     singleton : false
 });
 
+App.AreaBrowseController = Ember.ArrayController.extend({
+    init : function() {
+        var self = this;
+        this.set('isLoadingAreas', true);
+        this.store.find('toplevel').then(function(toplevels) {
+            self.set('content', toplevels);
+            self.set('isLoadingAreas', false);
+        });
+    }
+});
+
 App.AreaController = Ember.ObjectController.extend({
-    needs : ['login'],
-    
+
+    needs : [ 'login' ],
+
     // Computed properties
-    isNotDirty: function() {
+    isNotDirty : function() {
         return !this.get('isDirty');
     }.property('isDirty'),
-    
-    isAddSubareaDisabled: function() {
+
+    isAddSubareaDisabled : function() {
         // TODO: Why doesn't this get called on property changed?!
         return false;
-        //return !this.validateNewSubarea();
+        // return !this.validateNewSubarea();
     }.property('newArea.name', 'newArea.description'),
-    
-    markedDescription: function() {
-        if(!this.get('description')){ return null; }
+
+    markedDescription : function() {
+        if (!this.get('description')) {
+            return null;
+        }
         return marked(this.get('description'));
     }.property('description'),
-    
+
     // Actions
-    actions: {
+    actions : {
         editArea : function() {
             this.clearErrorFlags();
             this.set('editAreaMode', true);
         },
         saveArea : function() {
-            if(this.get('havePendingOperations')){
+            if (this.get('havePendingOperations')) {
                 return;
             }
-            
+
             this.set('havePendingOperations', true);
             var area = this.get('model');
             var self = this;
             self.clearErrorFlags();
             this.replaceHtmlChars();
-            area.save().then(
-                function() {
-                    self.set('editAreaMode', false);
-                    self.set('havePendingOperations', false);
-                },
-                function(error) {
-                    var status = error.status;
-                    if(status === 421) {
-                        self.set('validationErrors', true);
-                        
-                    }
-                    else if(status === 403) {
-                        self.set('authenticationErrors', true);
-                        var loginController = self.get('controllers.login');
-                        loginController.send('removeToken');
-                    }
-                    else {
-                        self.set('serverErrors', true);
-                    }
-                    self.set('havePendingOperations', false);
+            area.save().then(function() {
+                self.set('editAreaMode', false);
+                self.set('havePendingOperations', false);
+            }, function(error) {
+                var status = error.status;
+                if (status === 421) {
+                    self.set('validationErrors', true);
+
+                } else if (status === 403) {
+                    self.set('authenticationErrors', true);
+                    var loginController = self.get('controllers.login');
+                    loginController.send('removeToken');
+                } else {
+                    self.set('serverErrors', true);
                 }
-            );            
+                self.set('havePendingOperations', false);
+            });
         },
         startAddingSubArea : function() {
-            if(this.get('havePendingOperations')){
+            if (this.get('havePendingOperations')) {
                 return;
             }
             var newArea = this.store.createRecord('area');
@@ -47174,7 +47186,7 @@ App.AreaController = Ember.ObjectController.extend({
             this.set('newArea', newArea);
         },
         addSubArea : function() {
-            if(this.get('havePendingOperations')){
+            if (this.get('havePendingOperations')) {
                 return;
             }
             this.set('havePendingOperations', true);
@@ -47182,95 +47194,93 @@ App.AreaController = Ember.ObjectController.extend({
             var self = this;
             self.clearErrorFlags();
             this.replaceHtmlChars();
-            newArea.save().then(
-                function() {
-                    self.set('havePendingOperations', false);
-                    self.send('showUpdateSuccessMsg');
-                    // Reload area to get proper children list
-                    self.get('model').reload();
-                }, 
-                function(error) {
-                    var status = error.status;
-                    if(status === 421) {
-                        self.set('validationErrors', true);
-                    }
-                    else if(status === 403) {
-                        self.set('authenticationErrors', true);
-                        var loginController = self.get('controllers.login');
-                        loginController.send('removeToken');
-                    }
-                    else {
-                        self.set('serverErrors', true);
-                    }
-                    self.set('havePendingOperations', false);                    
+            newArea.save().then(function() {
+                self.set('havePendingOperations', false);
+                self.send('showUpdateSuccessMsg');
+                // Reload area to get proper children list
+                self.get('model').reload();
+            }, function(error) {
+                var status = error.status;
+                if (status === 421) {
+                    self.set('validationErrors', true);
+                } else if (status === 403) {
+                    self.set('authenticationErrors', true);
+                    var loginController = self.get('controllers.login');
+                    loginController.send('removeToken');
+                } else {
+                    self.set('serverErrors', true);
                 }
-            );
+                self.set('havePendingOperations', false);
+            });
         },
-        cancelEdit: function() {
+        cancelEdit : function() {
             var area = this.get('model');
             var newArea = this.get('newArea');
-            if(area !== null && typeof area !== 'undefined') {
+            if (area !== null && typeof area !== 'undefined') {
                 area.rollback();
             }
-            if(newArea !== null && typeof newArea !== 'undefined' ) {
+            if (newArea !== null && typeof newArea !== 'undefined') {
                 newArea.rollback();
             }
-            
+
             this.set('editAreaMode', false);
             area.reload();
             this.set('model', area);
         },
-        cancelAddSubArea: function() {
+        cancelAddSubArea : function() {
             var newArea = this.get('newArea');
-            if(newArea !== null && typeof newArea !== 'undefined' ) {
+            if (newArea !== null && typeof newArea !== 'undefined') {
                 newArea.rollback();
             }
         },
         addTour : function() {
-            // TODO: How to pass current area to route? Now area is not pre-set on the new tour 
+            // TODO: How to pass current area to route? Now area is not pre-set
+            // on the new tour
             this.transitionToRoute('tour.new');
         },
-        showUpdateSuccessMsg: function() {
+        showUpdateSuccessMsg : function() {
             var self = this;
             this.set('updateSuccessfully', true);
-            setTimeout(function(){
+            setTimeout(function() {
                 self.set('updateSuccessfully', false);
             }, 4000);
         }
     },
-    
-    clearErrorFlags: function() {
+
+    clearErrorFlags : function() {
         this.set('validationErrors', false);
         this.set('serverErrors', false);
         this.set('authenticationErrors', false);
         this.set('updateSuccessfully', false);
     },
-        
-    validate: function() {
-        if(!App.Validate.name(this.get('name')) ||
-           !App.Validate.mediumDesc(this.get('description'), true)){
+
+    validate : function() {
+        if (!App.Validate.name(this.get('name')) || !App.Validate.mediumDesc(this.get('description'), true)) {
             return false;
         }
         return true;
     },
-    
-    validateNewSubarea: function() {
-        if(!this.get('newArea')) {
+
+    validateNewSubarea : function() {
+        if (!this.get('newArea')) {
             return false;
         }
-        if(!App.Validate.name(this.get('newArea').get('name')) ||
-           !App.Validate.mediumDesc(this.get('newArea').get('description'), true)){
+        if (!App.Validate.name(this.get('newArea').get('name')) || !App.Validate.mediumDesc(this.get('newArea').get('description'), true)) {
             return false;
         }
         return true;
     },
-    
-    replaceHtmlChars: function() {
-        if(!this.get('description')){ return; }
-        var str = this.get('description').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+    replaceHtmlChars : function() {
+        if (!this.get('description')) {
+            return;
+        }
+        var str = this.get('description').replace(/</g, '&lt;').replace(/>/g,
+                '&gt;');
         this.set('description', str);
     }
-});;App.LoginController = Ember.ObjectController.extend({
+});
+;App.LoginController = Ember.ObjectController.extend({
     currentUser: null,
     isLoggingIn: false,
     
@@ -47968,7 +47978,7 @@ App.MytoursController = Ember.ObjectController.extend({
     }
 });
 ;App.IndexController = Ember.ObjectController.extend({
-    needs: ['search', 'login', 'browse'],
+    needs: ['search', 'login'],
     showBrowseMap: true,
     isSmallScreen: true,
     currentTabSelection: 1,
@@ -47990,12 +48000,12 @@ App.MytoursController = Ember.ObjectController.extend({
         onWindowResize();
     },
     actions: {
-        showBrowseMap: function(){
-            this.set('showBrowseMap', true);
-        },
-        showAreaTree: function(){
-            this.set('showBrowseMap', false);
-        },
+//        showBrowseMap: function(){
+//            this.set('showBrowseMap', true);
+//        },
+//        showAreaTree: function(){
+//            this.set('showBrowseMap', false);
+//        },
     },
     // Load lite tours first, then teaser tour. Due to racing condition issue, lite tours should be loaded first.
     loadLiteToursAndTeaser: function() {
@@ -48015,17 +48025,6 @@ App.MytoursController = Ember.ObjectController.extend({
             App.Util.log('ERROR when loading random tour');
         });
     },
-});
-
-App.BrowseController = Ember.ArrayController.extend({
-    init: function() {
-        var self = this;
-        this.set('isLoadingAreas', true);
-        this.store.find('toplevel').then(function(toplevels) {
-            self.set('content', toplevels);
-            self.set('isLoadingAreas', false);
-        });
-    }
 });
 
 App.AboutController = Ember.ObjectController.extend();
@@ -48509,7 +48508,7 @@ App.Tour = DS.Model.extend({
 	this.resource('toplevels', function(){
         this.resource('toplevel', {path:':toplevel_id'});
 	});
-	this.resource('browse');
+	this.resource('area-browse');
 	this.resource('area', {path:'/areas/:area_id'});
 	
 	this.resource('tours');
@@ -48565,12 +48564,6 @@ App.SearchRoute = Ember.Route.extend({
     },
 });
 
-App.BrowseRoute = Ember.Route.extend({ 
-	model : function() {
-        return this.store.find('toplevel');
-	}
-});
-
 App.TagsRoute = App.BaseRoute.extend({
     model : function() {
         return this.store.find('tag');
@@ -48611,6 +48604,12 @@ App.AreaRoute = App.BaseRoute.extend({
             }
         }
     }	
+});
+
+App.AreaBrowseRoute = App.BaseRoute.extend({    
+    model : function() {
+        return this.store.find('toplevel');
+    }
 });
 
 App.ToursRoute = App.BaseRoute.extend({
@@ -49148,16 +49147,12 @@ App.AreaEditView = Ember.View.extend({
     }
 });
 
-App.AreaItemsView = Ember.View.extend({
-    templateName: 'browse-items-view',
-    tagName: 'ul',
-    classNames: ['areas']
+App.AreaBrowseItemsView = Ember.View.extend({
+    templateName: 'area-browse-items-view'
 });
 
-App.AreaItemView = Ember.View.extend({
-    templateName: 'browse-item-view',
-    tagName: 'li',
-    classNames: ['area'],
+App.AreaBrowseItemView = Ember.View.extend({
+    templateName: 'area-browse-item-view',
     actions: {
         routeToArea: function() {
             this.get('controller').transitionToRoute('area', this.get('controller').get('model'));
@@ -49175,7 +49170,7 @@ App.AreaItemView = Ember.View.extend({
     }.property('controller')
 });
 
-App.BrowseView = Ember.View.extend();
+App.AreaBrowseView = Ember.View.extend();
 
 App.AreaPickerView = Ember.View.extend({
    templateName: "areapicker-view",

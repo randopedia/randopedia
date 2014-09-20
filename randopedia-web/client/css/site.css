@@ -6193,6 +6193,15 @@ body,
   margin-bottom: 0;
   border-radius: 0;
 }
+.navbar .searchbox {
+  margin: 5px 5px 5px 5px;
+  line-height: 34px;
+  font-size: 20px;
+  font-weight: 650;
+  padding-left: 5px;
+  width: 300px;
+  opacity: 0.9;
+}
 .btn-navbar {
   width: 150px;
   height: 150px;
@@ -6238,6 +6247,11 @@ a:hover {
 }
 .small {
   font-size: 0.8em;
+}
+.navbar-collapse a {
+  color: #fff;
+  display: block;
+  padding: 5px;
 }
 .edit-container {
   background: #efefef;
@@ -6360,27 +6374,27 @@ button.info:hover {
 .login-view .login-link div:hover {
   background-color: #eeeeee;
 }
-.areapicker-view a.areatree-expand {
+.browse-tree-view a.areatree-expand {
   font-size: 70%;
   margin-top: 0.3em;
 }
-.areapicker-view .expand-placeholder {
+.browse-tree-view .expand-placeholder {
   margin-left: 0.9em;
 }
-.areapicker-view a.areatree-link {
+.browse-tree-view a.areatree-link {
   color: #4d4d4d;
   margin-top: 0;
   margin-bottom: 0;
   font-size: 0.9em;
 }
-.areapicker-view a.areatree-link:hover {
+.browse-tree-view a.areatree-link:hover {
   text-decoration: none;
   font-weight: bold;
 }
-.areapicker-view a.areatree-link:visited {
+.browse-tree-view a.areatree-link:visited {
   color: #4d4d4d;
 }
-.areapicker-view button.areatree {
+.browse-tree-view button.areatree {
   color: #4d4d4d;
   text-transform: none;
   font-size: 0.8em;
@@ -6390,26 +6404,29 @@ button.info:hover {
   padding: 0.25em 2em 0.25em 0.5em;
   margin: 0;
 }
-.areapicker-view button.areatree:active,
-.areapicker-view button.areatree:focus {
+.browse-tree-view button.areatree:active,
+.browse-tree-view button.areatree:focus {
   background-color: transparent;
   color: #4d4d4d;
   border: 0px dotted #818181;
 }
-.areapicker-view button.areatree:disabled {
+.browse-tree-view button.areatree:disabled {
   background-color: transparent;
   color: #4d4d4d;
   opacity: 0.9;
 }
-.areapicker-view button.areatree:hover:enabled {
+.browse-tree-view button.areatree:hover:enabled {
   background: url(../images/header_background.jpg) repeat-x;
   color: #E0E0E0;
 }
-.areapicker-view button.areatree:hover:disabled {
+.browse-tree-view button.areatree:hover:disabled {
   background-color: transparent;
   color: #4d4d4d;
 }
-.areapicker-view button.areatree.is-selected {
+.browse-tree-view button.areatree.is-selected {
   background: url(../images/header_background.jpg) repeat-x;
   color: #E0E0E0;
+}
+.browse-tree-view .intent-child {
+  margin-left: 20px;
 }

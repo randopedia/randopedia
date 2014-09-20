@@ -1,5 +1,5 @@
 App.IndexController = Ember.ObjectController.extend({
-    needs: ['search', 'login', 'browse'],
+    needs: ['search', 'login'],
     showBrowseMap: true,
     isSmallScreen: true,
     currentTabSelection: 1,
@@ -21,12 +21,12 @@ App.IndexController = Ember.ObjectController.extend({
         onWindowResize();
     },
     actions: {
-        showBrowseMap: function(){
-            this.set('showBrowseMap', true);
-        },
-        showAreaTree: function(){
-            this.set('showBrowseMap', false);
-        },
+//        showBrowseMap: function(){
+//            this.set('showBrowseMap', true);
+//        },
+//        showAreaTree: function(){
+//            this.set('showBrowseMap', false);
+//        },
     },
     // Load lite tours first, then teaser tour. Due to racing condition issue, lite tours should be loaded first.
     loadLiteToursAndTeaser: function() {
@@ -46,17 +46,6 @@ App.IndexController = Ember.ObjectController.extend({
             App.Util.log('ERROR when loading random tour');
         });
     },
-});
-
-App.BrowseController = Ember.ArrayController.extend({
-    init: function() {
-        var self = this;
-        this.set('isLoadingAreas', true);
-        this.store.find('toplevel').then(function(toplevels) {
-            self.set('content', toplevels);
-            self.set('isLoadingAreas', false);
-        });
-    }
 });
 
 App.AboutController = Ember.ObjectController.extend();

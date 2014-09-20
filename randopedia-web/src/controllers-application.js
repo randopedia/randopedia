@@ -32,21 +32,24 @@ App.ApplicationController = Ember.ArrayController.extend({
                     this.send('goToIndex');
                 } else {
                     this.transitionToRoute(route);	
+                    this.send('collapseNavbar');
                 }
             }
-            $('.top-bar, [data-topbar]').css('height', '').removeClass('expanded');
         },
         loginWithFacebook: function() {
             this.get('controller.controllers.login').send('loginWithFacebook');
-//            this.closeLoginDropdown();
         },
         loginWithGoogle: function() {
             this.get('controller.controllers.login').send('loginWithGoogle');
-//            this.closeLoginDropdown();
         },
         goToIndex: function() {
             this.get('controllers.search').clearSearchResult();
             this.transitionToRoute('index');
         },
+        collapseNavbar: function() {
+            if($('.navbar-toggle').css('display') !='none'){
+                $(".navbar-toggle").trigger( "click" );
+            }  
+        }
     }
 });

@@ -2,7 +2,7 @@ App.Router.map(function() {
 	this.resource('toplevels', function(){
         this.resource('toplevel', {path:':toplevel_id'});
 	});
-	this.resource('browse');
+	this.resource('area-browse');
 	this.resource('area', {path:'/areas/:area_id'});
 	
 	this.resource('tours');
@@ -58,12 +58,6 @@ App.SearchRoute = Ember.Route.extend({
     },
 });
 
-App.BrowseRoute = Ember.Route.extend({ 
-	model : function() {
-        return this.store.find('toplevel');
-	}
-});
-
 App.TagsRoute = App.BaseRoute.extend({
     model : function() {
         return this.store.find('tag');
@@ -104,6 +98,12 @@ App.AreaRoute = App.BaseRoute.extend({
             }
         }
     }	
+});
+
+App.AreaBrowseRoute = App.BaseRoute.extend({    
+    model : function() {
+        return this.store.find('toplevel');
+    }
 });
 
 App.ToursRoute = App.BaseRoute.extend({
