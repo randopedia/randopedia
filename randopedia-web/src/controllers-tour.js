@@ -186,6 +186,7 @@ App.TourEditController = Ember.ObjectController.extend({
         },
 
         saveNewImage: function() {
+            console.log('saveNewImage ' + this.get('newImage'));
             if(this.get('havePendingOperations')){
                 return;
             }
@@ -250,7 +251,6 @@ App.TourEditController = Ember.ObjectController.extend({
             if(this.get('havePendingOperations')){
                 return;
             }
-            console.log('delete image ' + image);
             var self = this;
             self.set('havePendingOperations', true);
             image.deleteRecord();
@@ -299,7 +299,7 @@ App.TourEditController = Ember.ObjectController.extend({
             var self = this;
             newArea.save().then(
                 function() {
-                    console.log('WHY DONT WE GET HERE? Area is created OK on server, but save method seems to never return...');
+                    //console.log('WHY DONT WE GET HERE? Area is created OK on server, but save method seems to never return...');
                     self.store.find('area').then(
                             function(areas){
                                 self.set('allAreas', areas);
@@ -403,10 +403,12 @@ App.TourEditController = Ember.ObjectController.extend({
     },
 
     addImageForUpload: function(imageData) {
+        console.log('upload ' + imageData);
         var image = this.store.createRecord('image');
         image.set('imageData', imageData);
         image.set('tour', this.get('model'));
         this.set('newImage', image);
+        console.log('set new image ' + imageData);
     },
     
     // Required fields when saving as draft are: name

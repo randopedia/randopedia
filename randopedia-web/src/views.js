@@ -332,7 +332,7 @@ App.TourEditView = Ember.View.extend({
         },
         startCancelingEditTour: function() {
             if(this.get('controller').get('hasChanges'))  {
-                $('#discardChangesTourModal').modal('hide');
+                $('#discardChangesTourModal').modal('show');
             } else {
                 this.get('controller').send('cancelEditTour');
             }

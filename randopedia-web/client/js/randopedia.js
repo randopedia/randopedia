@@ -46864,158 +46864,6 @@ App.RawTransform = DS.Transform.extend({
       return deserialized;
     }
 });
-;App.BrowseTourmapComponent = Ember.Component.extend({
-    mapRootElement: null,
-    map: null,
-    markers: [],
-    mapInitialzed: false,
-    tours: null,
-    toursLoaded: false,
-    store: null,
-    root: null,
-    
-    didInsertElement: function() {
-        if(!this.get('store')) {
-            App.Utils.log('BrowseTourMap component needs a store, inject store=store');
-            return;
-        }
-        
-        if(!this.get('tours')) {
-            App.Utils.log('BrowseTourMap component needs tours, inject tours=tours');
-            return;
-        }
-        
-        this.addTourMarkers(this.get('tours'));
-
-//        $(document).foundation('section', {
-//            callback: function(){
-//                // Hack to make sure content is loaded correctly, solves issue with Google Maps view not being rendered
-//                $(window).resize();
-//            }
-//        });
-    },
-    
-    getFirstLatLng: function(geojson) {
-        if(!geojson || !geojson.features) {
-            return null;
-        }
-        
-        for(var i = 0; i < geojson.features.length; i++) {
-            
-            var geometry = geojson.features[i].geometry;
-            
-            if(geometry.type === "LineString"){
-                var array = App.GeoHelper.geoJsonCoordinatesToGoogleLatLngArray(geometry.coordinates);
-                return array[0];
-            }
-        }
-        return null;
-    },
-    
-    addTourMarkers: function(tours) {
-        var self = this;
-        self.set('markers', []);
-        tours.forEach(function(tour){
-
-            var firstLatLng = self.getFirstLatLng(tour.get('mapGeoJson'));
-            if(!firstLatLng){
-                return;
-            }
-
-            var marker = new google.maps.Marker({ title: tour.get('name'), position: firstLatLng });
-            
-            google.maps.event.addListener(marker, 'click', function() {
-                var contentString = 
-                    '<div style="background-color:#FFF">'+
-                    '<h4><a style="font-size:0.9em;" href=#!/tours/'+ tour.get('id') + '>' + tour.get('name') + '</a></h4>' +
-                    '<p>' + 
-                    App.Fixtures.resolveNameFromValue('Grades', tour.get('grade'))  + ' | ' +
-                    tour.get('timingMin') + '-' + tour.get('timingMax') + 'h | ' +
-                    tour.get('elevationGain') + 'm &uarr; ' + tour.get('elevationLoss') + 'm &darr;' +
-                    '</p>' +
-                    '</div>';
-                
-                var infowindow = new google.maps.InfoWindow({ content: contentString });
-                infowindow.open(self.get('map'), marker);
-            });
-            
-            self.get('markers').push(marker);
-        });
-
-        this.initMap();
-        $(window).resize();
-    },
-    
-    setMapSize: function() {
-//        var newWidth = $('.ember-application').width();
-//        var newHeight =  $('.ember-application').height() - 50;
-//        console.log('Height: ' + newHeight);
-//        this.get('mapRootElement').css({ width: newWidth + 'px', height: newHeight + 'px' });
-    },
-    
-    setZoomAndCenter: function() {
-        var markers = this.get('markers');
-
-        if(!markers || markers.length === 0) { return; }
-
-        var bounds = new google.maps.LatLngBounds();
-        for(var i = 0; i < markers.length; i++){
-            bounds.extend(markers[i].position);  
-            this.get('oms').addMarker(markers[i]);
-        }
-        
-        this.get('map').fitBounds(bounds);
-    },
-    
-    initMap: function() {
-        var self = this;
-        this.set('mapRootElement', this.$('#tourMapRootElement'));
-
-        var mapOptions = {
-                mapTypeId: google.maps.MapTypeId.TERRAIN,
-                mapTypeControl: true,
-                mapTypeControlOptions: {
-                    style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
-                },
-                zoomControl: true,
-                zoomControlOptions: {
-                    style: google.maps.ZoomControlStyle.SMALL
-                },
-                scaleControl: true,
-                scaleControlOptions: {
-                    position: google.maps.ControlPosition.TOP_LEFT
-                },
-                scrollwheel: true,
-                panControl: true,
-                streetViewControl:false,
-                overviewMapControl:false,
-                rotateControl:false,
-                center: new google.maps.LatLng(58.0, 13.5),
-                zoom: 3,
-            };
-            
-        this.set('map', new google.maps.Map(this.get('mapRootElement').get(0), mapOptions));
-        var markerCluster = new MarkerClusterer(this.get('map'), this.get('markers'));
-        markerCluster.setMaxZoom(10);
-        this.set('oms', new OverlappingMarkerSpiderfier(this.get('map')));
-        
-        this.setMapSize();
-
-        // Hook up to window resize event to do implicit resize on map canvas
-        redrawMap = function() {
-            self.setMapSize();
-            google.maps.event.trigger(self.get('map'), 'resize');
-            self.setZoomAndCenter();
-        };
-        $(window).on('resize', redrawMap); 
-        
-        redrawMap();
-        
-        this.$('#tourMapRootElement').fadeIn(400);
-        
-        this.set('mapInitialzed', true);
-    }
-});
 ;App.Config = Ember.Object.create();
 
 
@@ -47534,6 +47382,7 @@ App.TourEditController = Ember.ObjectController.extend({
         },
 
         saveNewImage: function() {
+            console.log('saveNewImage ' + this.get('newImage'));
             if(this.get('havePendingOperations')){
                 return;
             }
@@ -47598,7 +47447,6 @@ App.TourEditController = Ember.ObjectController.extend({
             if(this.get('havePendingOperations')){
                 return;
             }
-            console.log('delete image ' + image);
             var self = this;
             self.set('havePendingOperations', true);
             image.deleteRecord();
@@ -47647,7 +47495,7 @@ App.TourEditController = Ember.ObjectController.extend({
             var self = this;
             newArea.save().then(
                 function() {
-                    console.log('WHY DONT WE GET HERE? Area is created OK on server, but save method seems to never return...');
+                    //console.log('WHY DONT WE GET HERE? Area is created OK on server, but save method seems to never return...');
                     self.store.find('area').then(
                             function(areas){
                                 self.set('allAreas', areas);
@@ -47751,10 +47599,12 @@ App.TourEditController = Ember.ObjectController.extend({
     },
 
     addImageForUpload: function(imageData) {
+        console.log('upload ' + imageData);
         var image = this.store.createRecord('image');
         image.set('imageData', imageData);
         image.set('tour', this.get('model'));
         this.set('newImage', image);
+        console.log('set new image ' + imageData);
     },
     
     // Required fields when saving as draft are: name
@@ -48354,7 +48204,158 @@ Ember.Handlebars.registerBoundHelper('maxString', function(string, maxLength) {
     if(!string){ return ''; }
     if(string.length > maxLength) { return string.substring(0, maxLength - 3) + "..."; }
     return string;
-});;// Models
+});;App.BrowseTourmapComponent = Ember.Component.extend({
+    mapRootElement: null,
+    map: null,
+    markers: [],
+    mapInitialzed: false,
+    tours: null,
+    toursLoaded: false,
+    store: null,
+    root: null,
+    
+    didInsertElement: function() {
+        if(!this.get('store')) {
+            App.Utils.log('BrowseTourMap component needs a store, inject store=store');
+            return;
+        }
+        
+        if(!this.get('tours')) {
+            App.Utils.log('BrowseTourMap component needs tours, inject tours=tours');
+            return;
+        }
+        
+        this.addTourMarkers(this.get('tours'));
+    },
+    
+    getFirstLatLng: function(geojson) {
+        if(!geojson || !geojson.features) {
+            return null;
+        }
+        
+        for(var i = 0; i < geojson.features.length; i++) {
+            
+            var geometry = geojson.features[i].geometry;
+            
+            if(geometry.type === "LineString"){
+                var array = App.GeoHelper.geoJsonCoordinatesToGoogleLatLngArray(geometry.coordinates);
+                return array[0];
+            }
+        }
+        return null;
+    },
+    
+    addTourMarkers: function(tours) {
+        var self = this;
+        self.set('markers', []);
+        tours.forEach(function(tour){
+
+            var tourCenterLatLng = self.getFirstLatLng(tour.get('mapGeoJson'));
+            if(!tourCenterLatLng){
+                return;
+            }
+
+            var marker = new google.maps.Marker({ title: tour.get('name'), position: tourCenterLatLng });
+            
+            google.maps.event.addListener(marker, 'click', function() {
+                var map = self.get('map');
+                var html = 
+                    '<div style="background-color:#fff;width:250px;height:100px">'+
+                    '<h4><a style="font-size:0.9em;" href=#!/tours/'+ tour.get('id') + '>' + tour.get('name') + '</a></h4>' +
+                    '<p style="font-size:1.1em;">' + 
+                    App.Fixtures.resolveNameFromValue('Grades', tour.get('grade'))  + ' | ' +
+                    tour.get('timingMin') + '-' + tour.get('timingMax') + 'h | ' +
+                    tour.get('elevationGain') + 'm &uarr; ' + tour.get('elevationLoss') + 'm &darr;' +
+                    '</p>' +
+                    '<div style="margin-top:15px">' +
+                    '<a id="zoomToTourLink" style="font-size:1.3em;">View on map</a>' +
+                    '<a href=#!/tours/'+ tour.get('id') + ' style="font-size:1.3em;float:right">View tour details</a>' +
+                    '</div>' +
+                    '</div>';
+                
+                var infowindow = new google.maps.InfoWindow({ content: html, maxWidth: 600 });
+                infowindow.open(map, marker);
+                
+                google.maps.event.addListener(infowindow,'domready',function(){
+                    $('#zoomToTourLink').click(function() {
+                        var bounds = new google.maps.LatLngBounds();
+                        bounds.extend(marker.position);  
+                        self.get('oms').addMarker(marker);
+                        self.get('map').fitBounds(bounds);
+                    });
+                });
+            });
+            
+            self.get('markers').push(marker);
+        });
+
+        this.initMap();
+        $(window).resize();
+    },
+    
+    setZoomAndCenter: function() {
+        var markers = this.get('markers');
+
+        if(!markers || markers.length === 0) { 
+            return;
+        }
+
+        var bounds = new google.maps.LatLngBounds();
+        for(var i = 0; i < markers.length; i++){
+            bounds.extend(markers[i].position);  
+            this.get('oms').addMarker(markers[i]);
+        }
+        
+        this.get('map').fitBounds(bounds);
+    },
+    
+    initMap: function() {
+        var self = this;
+        this.set('mapRootElement', this.$('#tourMapRootElement'));
+
+        var mapOptions = {
+                mapTypeId: google.maps.MapTypeId.TERRAIN,
+                mapTypeControl: true,
+                mapTypeControlOptions: {
+                    style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
+                },
+                zoomControl: true,
+                zoomControlOptions: {
+                    style: google.maps.ZoomControlStyle.SMALL
+                },
+                scaleControl: true,
+                scaleControlOptions: {
+                    position: google.maps.ControlPosition.TOP_LEFT
+                },
+                scrollwheel: true,
+                panControl: true,
+                streetViewControl:false,
+                overviewMapControl:false,
+                rotateControl:false,
+                center: new google.maps.LatLng(58.0, 13.5),
+                zoom: 3,
+            };
+            
+        this.set('map', new google.maps.Map(this.get('mapRootElement').get(0), mapOptions));
+        var markerCluster = new MarkerClusterer(this.get('map'), this.get('markers'));
+        markerCluster.setMaxZoom(10);
+        this.set('oms', new OverlappingMarkerSpiderfier(this.get('map')));
+
+        // Hook up to window resize event to do implicit resize on map canvas
+        redrawMap = function() {
+            google.maps.event.trigger(self.get('map'), 'resize');
+            self.setZoomAndCenter();
+        };
+        $(window).on('resize', redrawMap); 
+        
+        redrawMap();
+        
+        this.$('#tourMapRootElement').fadeIn(400);
+        
+        this.set('mapInitialzed', true);
+    }
+});
+;// Models
 
 App.Stats = DS.Model.extend({
     publishedTours : DS.attr('number'),
@@ -49326,7 +49327,7 @@ App.TourEditView = Ember.View.extend({
         },
         startCancelingEditTour: function() {
             if(this.get('controller').get('hasChanges'))  {
-                $('#discardChangesTourModal').modal('hide');
+                $('#discardChangesTourModal').modal('show');
             } else {
                 this.get('controller').send('cancelEditTour');
             }

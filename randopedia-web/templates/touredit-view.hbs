@@ -511,11 +511,14 @@
     <div class="modal fade" id="discardChangesTourModal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
+                <div class="modal-header">
+                    <h4>Unsaved changes</h4>
+                </div>
                 <div class="modal-body">
                     The tour has unsaved changes, do you want to discard them?
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-primary pull-left" data-dismiss="modal">Cancel</button>       
+                    <button class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>       
                     <button class="btn btn-danger pull-right" {{action "confirmDiscardChanges" target="view" }}>Discard changes</button>
                 </div>
             </div>

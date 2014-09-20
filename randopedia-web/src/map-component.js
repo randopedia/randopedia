@@ -20,13 +20,6 @@ App.BrowseTourmapComponent = Ember.Component.extend({
         }
         
         this.addTourMarkers(this.get('tours'));
-
-//        $(document).foundation('section', {
-//            callback: function(){
-//                // Hack to make sure content is loaded correctly, solves issue with Google Maps view not being rendered
-//                $(window).resize();
-//            }
-//        });
     },
     
     getFirstLatLng: function(geojson) {
@@ -51,26 +44,40 @@ App.BrowseTourmapComponent = Ember.Component.extend({
         self.set('markers', []);
         tours.forEach(function(tour){
 
-            var firstLatLng = self.getFirstLatLng(tour.get('mapGeoJson'));
-            if(!firstLatLng){
+            var tourCenterLatLng = self.getFirstLatLng(tour.get('mapGeoJson'));
+            if(!tourCenterLatLng){
                 return;
             }
 
-            var marker = new google.maps.Marker({ title: tour.get('name'), position: firstLatLng });
+            var marker = new google.maps.Marker({ title: tour.get('name'), position: tourCenterLatLng });
             
             google.maps.event.addListener(marker, 'click', function() {
-                var contentString = 
-                    '<div style="background-color:#FFF">'+
+                var map = self.get('map');
+                var html = 
+                    '<div style="background-color:#fff;width:250px;height:100px">'+
                     '<h4><a style="font-size:0.9em;" href=#!/tours/'+ tour.get('id') + '>' + tour.get('name') + '</a></h4>' +
-                    '<p>' + 
+                    '<p style="font-size:1.1em;">' + 
                     App.Fixtures.resolveNameFromValue('Grades', tour.get('grade'))  + ' | ' +
                     tour.get('timingMin') + '-' + tour.get('timingMax') + 'h | ' +
                     tour.get('elevationGain') + 'm &uarr; ' + tour.get('elevationLoss') + 'm &darr;' +
                     '</p>' +
+                    '<div style="margin-top:15px">' +
+                    '<a id="zoomToTourLink" style="font-size:1.3em;">View on map</a>' +
+                    '<a href=#!/tours/'+ tour.get('id') + ' style="font-size:1.3em;float:right">View tour details</a>' +
+                    '</div>' +
                     '</div>';
                 
-                var infowindow = new google.maps.InfoWindow({ content: contentString });
-                infowindow.open(self.get('map'), marker);
+                var infowindow = new google.maps.InfoWindow({ content: html, maxWidth: 600 });
+                infowindow.open(map, marker);
+                
+                google.maps.event.addListener(infowindow,'domready',function(){
+                    $('#zoomToTourLink').click(function() {
+                        var bounds = new google.maps.LatLngBounds();
+                        bounds.extend(marker.position);  
+                        self.get('oms').addMarker(marker);
+                        self.get('map').fitBounds(bounds);
+                    });
+                });
             });
             
             self.get('markers').push(marker);
@@ -80,17 +87,12 @@ App.BrowseTourmapComponent = Ember.Component.extend({
         $(window).resize();
     },
     
-    setMapSize: function() {
-//        var newWidth = $('.ember-application').width();
-//        var newHeight =  $('.ember-application').height() - 50;
-//        console.log('Height: ' + newHeight);
-//        this.get('mapRootElement').css({ width: newWidth + 'px', height: newHeight + 'px' });
-    },
-    
     setZoomAndCenter: function() {
         var markers = this.get('markers');
 
-        if(!markers || markers.length === 0) { return; }
+        if(!markers || markers.length === 0) { 
+            return;
+        }
 
         var bounds = new google.maps.LatLngBounds();
         for(var i = 0; i < markers.length; i++){
@@ -132,12 +134,9 @@ App.BrowseTourmapComponent = Ember.Component.extend({
         var markerCluster = new MarkerClusterer(this.get('map'), this.get('markers'));
         markerCluster.setMaxZoom(10);
         this.set('oms', new OverlappingMarkerSpiderfier(this.get('map')));
-        
-        this.setMapSize();
 
         // Hook up to window resize event to do implicit resize on map canvas
         redrawMap = function() {
-            self.setMapSize();
             google.maps.event.trigger(self.get('map'), 'resize');
             self.setZoomAndCenter();
         };
