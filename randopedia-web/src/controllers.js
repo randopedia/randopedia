@@ -2,8 +2,9 @@ App.IndexController = Ember.ObjectController.extend({
     needs: ['search', 'login'],
     isSmallScreen: true,
     liteTours: null,
-    currentMapZoomLevel: 3,
+    currentMapZoomLevel: null,
     currentMapCenter: null,
+    tourForMapView: null,
     
     init: function() {
         this._super();
@@ -24,6 +25,10 @@ App.IndexController = Ember.ObjectController.extend({
         },
         mapCenterChanged: function(centerLatLng) {
             this.set('currentMapCenter', centerLatLng);
+        },
+        viewTourOnMap: function(tour){
+            this.set('tourForMapView', tour);
+            this.transitionToRoute('index');
         }
     },
     loadLiteTour: function() {

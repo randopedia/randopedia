@@ -56,10 +56,6 @@
 	            {{/if}}
 	        </h2>
 	    </div>
-	    
-	    <div class="col-sm-2">    
-
-	    </div>
 	</div>
 	
 	<div class="row">
@@ -154,6 +150,16 @@
 	</div>
 	
 	<div class="row">
+        <div class="col-sm-12">
+            {{#if hasPaths}}
+                <button class="btn btn-primary btn-view-on-map" {{action "viewTourOnMap"}}>
+                   <span class="glyphicon glyphicon-globe"></span><span class="spacing-x">View tour on map</span>
+                </button>    
+            {{else}}
+                <div>No map is available for this tour</div>
+            {{/if}}    
+        </div>
+                
 	    <div class="col-sm-12">
 	        <div class="panel panel-default">
 	            <div class="panel-heading">Access point</div>

@@ -6173,11 +6173,11 @@ body,
   width: 100%;
   height: 100%;
 }
-#full-screen-map-container .ember-view {
-  height: 100%;
-}
 .full-screen {
   width: 100%;
+  height: 100%;
+}
+.full-screen#full-screen-map-container .ember-view {
   height: 100%;
 }
 .full-page-view-container {
@@ -6246,6 +6246,10 @@ a:hover {
 }
 .spacing {
   margin: 10px;
+}
+.spacing-x {
+  margin-left: 10px;
+  margin-right: 10px;
 }
 .spacing-x-large {
   margin-left: 20px;
@@ -6326,6 +6330,11 @@ button.info:hover {
   background-color: #0A89DD;
   border-color: #0A89DD;
 }
+.browse-map-view .btn-my-position {
+  position: absolute;
+  top: 95%;
+  left: 20px;
+}
 .tour-item-view .item-panel {
   margin-bottom: 10px;
   padding: 5px;
@@ -6352,6 +6361,10 @@ button.info:hover {
   font-weight: normal;
   text-transform: uppercase;
   color: #777777;
+}
+.tour-details-view .btn-view-on-map {
+  margin-bottom: 22px;
+  margin-right: 20px;
 }
 .tour-details-view pre {
   font-family: Helvetica, Arial, sans-serif;

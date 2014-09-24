@@ -24,12 +24,10 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
 Ember.TEMPLATES["application"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
-  var buffer = '', stack1, helper, options, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
+  var buffer = '', stack1;
 
 
-  data.buffer.push("<!--\r\n    Default application template. Defines the application layout and starts everything off.\r\n-->     \r\n\r\n");
-  data.buffer.push(escapeExpression((helper = helpers.partial || (depth0 && depth0.partial),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data},helper ? helper.call(depth0, "header", options) : helperMissing.call(depth0, "partial", "header", options))));
-  data.buffer.push("\r\n \r\n");
+  data.buffer.push("<!--\r\n    Default application template. Defines the application layout and starts everything off.\r\n-->     \r\n\r\n\r\n \r\n");
   stack1 = helpers._triageMustache.call(depth0, "outlet", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   return buffer;
@@ -976,7 +974,7 @@ function program2(depth0,data) {
   
 });
 
-Ember.TEMPLATES["browse-map"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+Ember.TEMPLATES["browse-map-OBSOLETE"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
   var buffer = '', stack1, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, self=this;
@@ -1010,10 +1008,13 @@ function program3(depth0,data) {
 Ember.TEMPLATES["components/browse-tourmap"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
-  
+  var buffer = '', escapeExpression=this.escapeExpression;
 
 
-  data.buffer.push("<div id=\"tourMapRootElement\" class=\"full-screen\"></div>");
+  data.buffer.push("<div class=\"browse-map-view full-screen\">\r\n	<div id=\"tourMapRootElement\" class=\"full-screen\"></div>\r\n	<button class=\"btn btn-primary btn-my-position\" ");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "toggleMyPosition", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data})));
+  data.buffer.push(">\r\n	    Show my position\r\n	</button>   \r\n</div>");
+  return buffer;
   
 });
 
@@ -1364,15 +1365,16 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
 function program1(depth0,data) {
   
   var buffer = '', helper, options;
-  data.buffer.push("\r\n    <div id=\"full-screen-map-container\" class=\"full-screen\">\r\n    ");
+  data.buffer.push("\r\n    <div id=\"full-screen-map-container\" class=\"full-screen\">\r\n        ");
   data.buffer.push(escapeExpression((helper = helpers['browse-tourmap'] || (depth0 && depth0['browse-tourmap']),options={hash:{
     'store': ("store"),
     'tours': ("liteTours"),
     'zoomLevel': ("currentMapZoomLevel"),
     'mapCenter': ("currentMapCenter"),
+    'tour': ("tourForMapView"),
     'zoomChanged': ("mapZoomChanged"),
     'centerChanged': ("mapCenterChanged")
-  },hashTypes:{'store': "ID",'tours': "ID",'zoomLevel': "ID",'mapCenter': "ID",'zoomChanged': "STRING",'centerChanged': "STRING"},hashContexts:{'store': depth0,'tours': depth0,'zoomLevel': depth0,'mapCenter': depth0,'zoomChanged': depth0,'centerChanged': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "browse-tourmap", options))));
+  },hashTypes:{'store': "ID",'tours': "ID",'zoomLevel': "ID",'mapCenter': "ID",'tour': "ID",'zoomChanged': "STRING",'centerChanged': "STRING"},hashContexts:{'store': depth0,'tours': depth0,'zoomLevel': depth0,'mapCenter': depth0,'tour': depth0,'zoomChanged': depth0,'centerChanged': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "browse-tourmap", options))));
   data.buffer.push("\r\n    </div>\r\n");
   return buffer;
   }
@@ -1380,7 +1382,7 @@ function program1(depth0,data) {
 function program3(depth0,data) {
   
   
-  data.buffer.push("\r\n    Loading map...\r\n");
+  data.buffer.push("\r\n    <div class=\"loader\">Loading map...</div>\r\n");
   }
 
   data.buffer.push("\r\n");
@@ -1397,7 +1399,7 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
   
 
 
-  data.buffer.push("<div class=\"preloader\"></div>");
+  data.buffer.push("<div class=\"loader\">Loading Randopedia...</div>");
   
 });
 
@@ -1716,7 +1718,7 @@ function program3(depth0,data) {
   
 });
 
-Ember.TEMPLATES["tourclustermap-view"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+Ember.TEMPLATES["tourclustermap-view-OBSOLETE"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
   
@@ -1889,6 +1891,21 @@ function program31(depth0,data) {
 
 function program33(depth0,data) {
   
+  var buffer = '';
+  data.buffer.push("\r\n                <button class=\"btn btn-primary btn-view-on-map\" ");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "viewTourOnMap", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data})));
+  data.buffer.push(">\r\n                   <span class=\"glyphicon glyphicon-globe\"></span><span class=\"spacing-x\">View tour on map</span>\r\n                </button>    \r\n            ");
+  return buffer;
+  }
+
+function program35(depth0,data) {
+  
+  
+  data.buffer.push("\r\n                <div>No map is available for this tour</div>\r\n            ");
+  }
+
+function program37(depth0,data) {
+  
   var buffer = '', stack1;
   data.buffer.push("\r\n	    <div class=\"col-sm-12 col-sm-6\">\r\n	        <div class=\"panel panel-danger\">\r\n	            <div class=\"panel-heading\">Hazards</div>\r\n		        <div class=\"panel-body\">\r\n		           ");
   stack1 = helpers._triageMustache.call(depth0, "hazardsDescription", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
@@ -1897,7 +1914,7 @@ function program33(depth0,data) {
   return buffer;
   }
 
-function program35(depth0,data) {
+function program39(depth0,data) {
   
   var buffer = '', stack1;
   data.buffer.push("\r\n	    <div class=\"col-sm-12 col-sm-6\">\r\n	        <div class=\"panel panel-info\">\r\n	            <div class=\"panel-heading\">Mountaineering</div>\r\n	            <div class=\"panel-body\">\r\n	               ");
@@ -1907,16 +1924,16 @@ function program35(depth0,data) {
   return buffer;
   }
 
-function program37(depth0,data) {
+function program41(depth0,data) {
   
   var buffer = '', stack1;
   data.buffer.push("\r\n	        <div id=\"images-container\">\r\n				<ul class=\"bjqs\">\r\n				    ");
-  stack1 = helpers.each.call(depth0, "image", "in", "images", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(38, program38, data),contexts:[depth0,depth0,depth0],types:["ID","ID","ID"],data:data});
+  stack1 = helpers.each.call(depth0, "image", "in", "images", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(42, program42, data),contexts:[depth0,depth0,depth0],types:["ID","ID","ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\r\n				</ul>\r\n			</div>\r\n	        ");
   return buffer;
   }
-function program38(depth0,data) {
+function program42(depth0,data) {
   
   var buffer = '', helper, options;
   data.buffer.push("\r\n				         <li><img ");
@@ -1931,13 +1948,13 @@ function program38(depth0,data) {
   return buffer;
   }
 
-function program40(depth0,data) {
+function program44(depth0,data) {
   
   
   data.buffer.push("\r\n	            <p>No images available for this tour</p>	\r\n		    ");
   }
 
-function program42(depth0,data) {
+function program46(depth0,data) {
   
   var buffer = '';
   data.buffer.push("\r\n			    ");
@@ -1946,7 +1963,7 @@ function program42(depth0,data) {
   return buffer;
   }
 
-function program44(depth0,data) {
+function program48(depth0,data) {
   
   
   data.buffer.push("\r\n		        <p>No map is available for this tour</p>\r\n		    ");
@@ -1975,7 +1992,7 @@ function program44(depth0,data) {
   data.buffer.push(" \r\n	            ");
   stack1 = helpers['if'].call(depth0, "isIncomplete", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(10, program10, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n	        </h2>\r\n	    </div>\r\n	    \r\n	    <div class=\"col-sm-2\">    \r\n\r\n	    </div>\r\n	</div>\r\n	\r\n	<div class=\"row\">\r\n	    <div class=\"col-sm-12\">\r\n	        <em>");
+  data.buffer.push("\r\n	        </h2>\r\n	    </div>\r\n	</div>\r\n	\r\n	<div class=\"row\">\r\n	    <div class=\"col-sm-12\">\r\n	        <em>");
   stack1 = helpers._triageMustache.call(depth0, "shortDescription", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("</em>\r\n	    </div>\r\n	</div>\r\n	\r\n	<div class=\"row tour-props\">\r\n	    <div class=\"col-sm-12 col-lg-6\">\r\n		        \r\n			<div class=\"row\">\r\n			    <div class=\"col-xs-5 col-sm-3 col-lg-2\">\r\n			        <label>Time:</label>\r\n			    </div>\r\n			    <div class=\"col-xs-7 col-sm-9 col-lg-10\">\r\n			        ");
@@ -2004,7 +2021,10 @@ function program44(depth0,data) {
   data.buffer.push("\r\n			\r\n	    </div>\r\n	    \r\n	    <div class=\"col-sm-12 col-lg-6\">\r\n	        ");
   stack1 = helpers['if'].call(depth0, "tags", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(29, program29, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n	    </div>\r\n	    \r\n	</div>\r\n	\r\n	<div class=\"row\">\r\n	    <div class=\"col-sm-12\">\r\n	        <div class=\"panel panel-default\">\r\n	            <div class=\"panel-heading\">Access point</div>\r\n	            <div class=\"panel-body\">\r\n	               ");
+  data.buffer.push("\r\n	    </div>\r\n	    \r\n	</div>\r\n	\r\n	<div class=\"row\">\r\n        <div class=\"col-sm-12\">\r\n            ");
+  stack1 = helpers['if'].call(depth0, "hasPaths", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(35, program35, data),fn:self.program(33, program33, data),contexts:[depth0],types:["ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("    \r\n        </div>\r\n                \r\n	    <div class=\"col-sm-12\">\r\n	        <div class=\"panel panel-default\">\r\n	            <div class=\"panel-heading\">Access point</div>\r\n	            <div class=\"panel-body\">\r\n	               ");
   stack1 = helpers._triageMustache.call(depth0, "accessPoint", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\r\n	            </div>\r\n	        </div>\r\n	    </div>\r\n	</div>\r\n	\r\n	<div class=\"row\">\r\n	    <div class=\"col-sm-12\">\r\n	        <div class=\"panel panel-default\">\r\n	            <div class=\"panel-heading\">Description</div>\r\n	            <div class=\"panel-body\">\r\n	                <div>");
@@ -2012,19 +2032,19 @@ function program44(depth0,data) {
     'unescaped': ("true")
   },hashTypes:{'unescaped': "STRING"},hashContexts:{'unescaped': depth0},contexts:[depth0],types:["ID"],data:data})));
   data.buffer.push("</div>\r\n	            </div>\r\n	        </div>\r\n	    </div>\r\n	</div>\r\n	\r\n	<div class=\"row\">\r\n	    ");
-  stack1 = helpers['if'].call(depth0, "haveHazards", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(33, program33, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers['if'].call(depth0, "haveHazards", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(37, program37, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\r\n	     \r\n	    ");
-  stack1 = helpers['if'].call(depth0, "requiresTools", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(35, program35, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers['if'].call(depth0, "requiresTools", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(39, program39, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\r\n	</div>\r\n	\r\n	<div class=\"row\">    \r\n	    <div class=\"col-sm-12\">\r\n	        <h4>Images<span class=\"small\">(");
   stack1 = helpers._triageMustache.call(depth0, "images.length", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push(")</span></h4>\r\n	\r\n	        ");
-  stack1 = helpers['if'].call(depth0, "hasImages", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(40, program40, data),fn:self.program(37, program37, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers['if'].call(depth0, "hasImages", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(44, program44, data),fn:self.program(41, program41, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\r\n	    </div>\r\n	</div>\r\n	\r\n	<div class=\"row\">\r\n	    <div class=\"col-sm-12\">\r\n		    <h4>Map</h4>\r\n		    ");
-  stack1 = helpers['if'].call(depth0, "hasPaths", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(44, program44, data),fn:self.program(42, program42, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers['if'].call(depth0, "hasPaths", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(48, program48, data),fn:self.program(46, program46, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\r\n	    </div>    \r\n	</div>\r\n	\r\n	<div class=\"row\">\r\n	    <div class=\"col-sm-12\">\r\n	    \r\n	        <!--  TODO: Add Disqus here -->\r\n	        \r\n	    </div>    \r\n	</div>\r\n	\r\n	<div class=\"modal fade\" id=\"tourDetailsGradeGuideModal\" tabindex=\"-1\" role=\"dialog\" aria-hidden=\"true\">\r\n		<div class=\"modal-dialog modal-lg login-view\">\r\n		    <div class=\"modal-content\">\r\n		        <div class=\"modal-header\">\r\n		            <button type=\"button\" class=\"close\" data-dismiss=\"modal\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button>\r\n		            <h4 class=\"modal-title\" id=\"myModalLabel\">Grades</h4>\r\n		        </div>\r\n		        <div class=\"modal-body\">\r\n	                ");
   data.buffer.push(escapeExpression((helper = helpers.partial || (depth0 && depth0.partial),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data},helper ? helper.call(depth0, "about-grades", options) : helperMissing.call(depth0, "partial", "about-grades", options))));
@@ -2577,53 +2597,30 @@ function program1(depth0,data) {
   return buffer;
   }
 
-  data.buffer.push("<div class=\"row tour-item-view\">\n    <div class=\"col-sm-12\">   \n	    <div class=\"item-panel\">\n            <div>\n                <h4> ");
+  data.buffer.push("<div class=\"row tour-item-view\">\n    <div class=\"col-sm-12\">   \n	    <div class=\"item-panel\">\n            <h4> ");
   stack1 = (helper = helpers.linkTo || (depth0 && depth0.linkTo),options={hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0,depth0],types:["STRING","ID"],data:data},helper ? helper.call(depth0, "tour", "tour", options) : helperMissing.call(depth0, "linkTo", "tour", "tour", options));
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push(" <span class=\"small uppercase\">");
   stack1 = helpers._triageMustache.call(depth0, "tour.area.name", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("<span></h4>\n				<p class=\"item-props\">\n					");
+  data.buffer.push("<span></h4>\n			<div class=\"item-props\">\n				");
   data.buffer.push(escapeExpression((helper = helpers.resolveGradeName || (depth0 && depth0.resolveGradeName),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data},helper ? helper.call(depth0, "tour.grade", options) : helperMissing.call(depth0, "resolveGradeName", "tour.grade", options))));
-  data.buffer.push(" | \n					");
+  data.buffer.push(" | \n				");
   stack1 = helpers._triageMustache.call(depth0, "tour.timingMin", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("-");
   stack1 = helpers._triageMustache.call(depth0, "tour.timingMax", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("h | \n					");
+  data.buffer.push("h | \n				");
   stack1 = helpers._triageMustache.call(depth0, "tour.elevationGain", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("m &uarr; ");
   stack1 = helpers._triageMustache.call(depth0, "tour.elevationLoss", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("m &darr;\n				</p>\n				<p>\n				    ");
+  data.buffer.push("m &darr;\n			</div>\n			<div>\n			    <em>");
   stack1 = helpers._triageMustache.call(depth0, "tour.shortDescription", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n				</p>\n            </div>\n        </div>\n    </div>\n</div>\n\n\n<!--         <div class=\"tour-list-item-panel\"> -->\n<!--             <div class=\"row\"> -->\n<!--                  <div class=\"col-sm-12\"> -->\n<!-- 	                 <div class=\"row\"> -->\n<!-- 	                     <div class=\"col-sm-12\"> -->\r\n<!-- 	                         <h5>");
-  stack1 = (helper = helpers.linkTo || (depth0 && depth0.linkTo),options={hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0,depth0],types:["STRING","ID"],data:data},helper ? helper.call(depth0, "tour", "tour", options) : helperMissing.call(depth0, "linkTo", "tour", "tour", options));
-  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push(" <span class=\"secondary-text uppercase\">");
-  stack1 = helpers._triageMustache.call(depth0, "tour.area.name", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
-  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("<span></h5> -->\r\n<!-- 	                     </div> -->\n<!-- 	                 </div> -->\n<!-- 	                 <div class=\"row\"> -->\n<!-- 	                     <div class=\"col-sm-12\"> -->\n<!-- 	                         <p class=\"tour-item-props\"> -->\n<!--                                  ");
-  data.buffer.push(escapeExpression((helper = helpers.resolveGradeName || (depth0 && depth0.resolveGradeName),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data},helper ? helper.call(depth0, "tour.grade", options) : helperMissing.call(depth0, "resolveGradeName", "tour.grade", options))));
-  data.buffer.push(" |  -->\n<!--                                  ");
-  stack1 = helpers._triageMustache.call(depth0, "tour.timingMin", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
-  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("-");
-  stack1 = helpers._triageMustache.call(depth0, "tour.timingMax", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
-  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("h |  -->\n<!--                                  ");
-  stack1 = helpers._triageMustache.call(depth0, "tour.elevationGain", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
-  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("m &uarr; ");
-  stack1 = helpers._triageMustache.call(depth0, "tour.elevationLoss", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
-  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("m &darr; -->\n<!--                              </p> -->\n<!-- 	                         <p>");
-  stack1 = helpers._triageMustache.call(depth0, "tour.shortDescription", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
-  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("</p> -->\n<!-- 	                     </div> -->\n<!-- 	                 </div> -->\n<!--                 </div>                           -->\n<!--             </div> -->\n<!--         </div> -->\n<!--     </div> -->\n<!-- </div> -->");
+  data.buffer.push("</em>\n			</div>\n        </div>\n    </div>\n</div>");
   return buffer;
   
 });

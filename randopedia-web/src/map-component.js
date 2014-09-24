@@ -2,13 +2,9 @@ App.BrowseTourmapComponent = Ember.Component.extend({
     mapRootElement: null,
     map: null,
     markers: [],
-    mapInitialzed: false,
     tours: null,
     toursLoaded: false,
     store: null,
-    root: null,
-    mapCenter: null,
-    zoomLevel: null,
     
     didInsertElement: function() {
         if(!this.get('store')) {
@@ -20,9 +16,15 @@ App.BrowseTourmapComponent = Ember.Component.extend({
             App.Utils.log('BrowseTourMap component needs tours, inject tours=tours');
             return;
         }
+
+        if(this.get('tour')) {
+            console.log('tour set');
+            this.set('zoomLevel', 13);
+            this.set('mapCenter', this.getTourCenterLatLng(this.get('tour').get('mapGeoJson')));
+        }
         
         if(!this.get('zoomLevel')) {
-            this.set('zoomLevel', 5);
+            this.set('zoomLevel', 4);
         }
         
         if(!this.get('mapCenter')) {
@@ -32,7 +34,9 @@ App.BrowseTourmapComponent = Ember.Component.extend({
         this.addTourMarkers(this.get('tours'));
     },
     
-    getFirstLatLng: function(geojson) {
+    getTourCenterLatLng: function(geojson) {
+        // TODO: This should get the tour centre/summit point (if not exits, do what we do now)
+        
         if(!geojson || !geojson.features) {
             return null;
         }
@@ -48,13 +52,30 @@ App.BrowseTourmapComponent = Ember.Component.extend({
         }
         return null;
     },
-    
+
+    showCurrentPosition: function() {
+        var self = this;
+        if(navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                var marker = new google.maps.Marker({
+                    title: 'My position', 
+                    position: pos,
+                    map: self.get('map'),
+                });
+                self.get('map').setCenter(pos);
+          }, function(){});
+        } else {
+            // Browser doesn't support Geolocation
+        }        
+    },
+
     addTourMarkers: function(tours) {
         var self = this;
         self.set('markers', []);
         tours.forEach(function(tour){
 
-            var tourCenterLatLng = self.getFirstLatLng(tour.get('mapGeoJson'));
+            var tourCenterLatLng = self.getTourCenterLatLng(tour.get('mapGeoJson'));
             if(!tourCenterLatLng){
                 return;
             }
@@ -117,7 +138,6 @@ App.BrowseTourmapComponent = Ember.Component.extend({
     },
     
     initMap: function() {
-        console.log('init map');
         var self = this;
         this.set('mapRootElement', this.$('#tourMapRootElement'));
 
@@ -165,9 +185,11 @@ App.BrowseTourmapComponent = Ember.Component.extend({
         $(window).on('resize', redrawMap); 
         
         redrawMap();
-        
-        self.$('#tourMapRootElement').fadeIn(400);
-        
-        self.set('mapInitialzed', true);
+    },
+    
+    actions: {
+        toggleMyPosition: function() {
+            this.showCurrentPosition();
+        }
     }
 });

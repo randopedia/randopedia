@@ -3,64 +3,11 @@
 App.ToursController = Ember.ArrayController.extend();
 
 App.TourController = Ember.ObjectController.extend({
-    needs : ['login'],
+    needs : ['login', 'index'],
 
     actions: {
-        startAddComment: function() {
-            var comment = this.store.createRecord('comment');
-            var loginController = this.get('controllers.login');
-            var userId = loginController.get('currentUser').get('userId');
-            var userName = loginController.get('currentUser').get('userName');
-            comment.set('tour', this.get('model'));
-            comment.set('userId', userId);
-            comment.set('userName', userName);
-            this.set('newComment', comment);
-            this.set('addCommentMode', true);
-        },
-        
-        cancelSaveComment: function() {
-            this.set('addCommentMode', false);
-            this.set('newComment', null);
-            this.set('newCommentText', null);
-            this.set('commentError', null);
-        },
-        
-        saveComment: function() {
-            if(this.get('havePendingOperations')){
-                return;
-            }
-            
-            if(!App.Validate.isNotNullOrEmpty(this.get('newCommentText'))){
-                return;
-            }
-            
-            var self = this;
-            self.set('havePendingOperations', true);
-            
-            var newComment = self.get('newComment');
-            newComment.set('comment', self.get('newCommentText'));
-            
-            newComment.save().then(
-                function() {
-                    self.get('model').reload();
-                    self.set('addCommentMode', false);
-                    self.set('newComment', null);
-                    self.set('newCommentText', null);
-                    self.set('commentError', null);
-                    self.set('havePendingOperations', false);
-                }, 
-                function(error) {
-                    var status = error.status;
-                    if(status === 403) {
-                        self.set('commentError', 'Oh noes, you have most likely been logged out. Try to log in again!');
-                        self.get('controllers.login').send('removeToken');
-                    }
-                    else {
-                        self.set('commentError', 'An error occured when saving comment, please try again');
-                    }
-                    self.set('havePendingOperations', false);
-                }
-            );
+        viewTourOnMap: function() {
+            this.get('controllers.index').send('viewTourOnMap', this.get('model'));
         }
     },
     

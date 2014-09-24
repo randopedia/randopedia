@@ -1,10 +1,10 @@
 
 {{#if liteTours}}
     <div id="full-screen-map-container" class="full-screen">
-    {{browse-tourmap store=store tours=liteTours zoomLevel=currentMapZoomLevel mapCenter=currentMapCenter zoomChanged="mapZoomChanged" centerChanged="mapCenterChanged"}}
+        {{browse-tourmap store=store tours=liteTours zoomLevel=currentMapZoomLevel mapCenter=currentMapCenter tour=tourForMapView zoomChanged="mapZoomChanged" centerChanged="mapCenterChanged"}}
     </div>
 {{else}}
-    Loading map...
+    <div class="loader">Loading map...</div>
 {{/if}}
 
 

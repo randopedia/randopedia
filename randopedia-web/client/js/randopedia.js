@@ -47199,64 +47199,11 @@ App.AreaController = Ember.ObjectController.extend({
 App.ToursController = Ember.ArrayController.extend();
 
 App.TourController = Ember.ObjectController.extend({
-    needs : ['login'],
+    needs : ['login', 'index'],
 
     actions: {
-        startAddComment: function() {
-            var comment = this.store.createRecord('comment');
-            var loginController = this.get('controllers.login');
-            var userId = loginController.get('currentUser').get('userId');
-            var userName = loginController.get('currentUser').get('userName');
-            comment.set('tour', this.get('model'));
-            comment.set('userId', userId);
-            comment.set('userName', userName);
-            this.set('newComment', comment);
-            this.set('addCommentMode', true);
-        },
-        
-        cancelSaveComment: function() {
-            this.set('addCommentMode', false);
-            this.set('newComment', null);
-            this.set('newCommentText', null);
-            this.set('commentError', null);
-        },
-        
-        saveComment: function() {
-            if(this.get('havePendingOperations')){
-                return;
-            }
-            
-            if(!App.Validate.isNotNullOrEmpty(this.get('newCommentText'))){
-                return;
-            }
-            
-            var self = this;
-            self.set('havePendingOperations', true);
-            
-            var newComment = self.get('newComment');
-            newComment.set('comment', self.get('newCommentText'));
-            
-            newComment.save().then(
-                function() {
-                    self.get('model').reload();
-                    self.set('addCommentMode', false);
-                    self.set('newComment', null);
-                    self.set('newCommentText', null);
-                    self.set('commentError', null);
-                    self.set('havePendingOperations', false);
-                }, 
-                function(error) {
-                    var status = error.status;
-                    if(status === 403) {
-                        self.set('commentError', 'Oh noes, you have most likely been logged out. Try to log in again!');
-                        self.get('controllers.login').send('removeToken');
-                    }
-                    else {
-                        self.set('commentError', 'An error occured when saving comment, please try again');
-                    }
-                    self.set('havePendingOperations', false);
-                }
-            );
+        viewTourOnMap: function() {
+            this.get('controllers.index').send('viewTourOnMap', this.get('model'));
         }
     },
     
@@ -47831,8 +47778,9 @@ App.MytoursController = Ember.ObjectController.extend({
     needs: ['search', 'login'],
     isSmallScreen: true,
     liteTours: null,
-    currentMapZoomLevel: 3,
+    currentMapZoomLevel: null,
     currentMapCenter: null,
+    tourForMapView: null,
     
     init: function() {
         this._super();
@@ -47853,6 +47801,10 @@ App.MytoursController = Ember.ObjectController.extend({
         },
         mapCenterChanged: function(centerLatLng) {
             this.set('currentMapCenter', centerLatLng);
+        },
+        viewTourOnMap: function(tour){
+            this.set('tourForMapView', tour);
+            this.transitionToRoute('index');
         }
     },
     loadLiteTour: function() {
@@ -48198,13 +48150,9 @@ Ember.Handlebars.registerBoundHelper('maxString', function(string, maxLength) {
     mapRootElement: null,
     map: null,
     markers: [],
-    mapInitialzed: false,
     tours: null,
     toursLoaded: false,
     store: null,
-    root: null,
-    mapCenter: null,
-    zoomLevel: null,
     
     didInsertElement: function() {
         if(!this.get('store')) {
@@ -48216,9 +48164,15 @@ Ember.Handlebars.registerBoundHelper('maxString', function(string, maxLength) {
             App.Utils.log('BrowseTourMap component needs tours, inject tours=tours');
             return;
         }
+
+        if(this.get('tour')) {
+            console.log('tour set');
+            this.set('zoomLevel', 13);
+            this.set('mapCenter', this.getTourCenterLatLng(this.get('tour').get('mapGeoJson')));
+        }
         
         if(!this.get('zoomLevel')) {
-            this.set('zoomLevel', 5);
+            this.set('zoomLevel', 4);
         }
         
         if(!this.get('mapCenter')) {
@@ -48228,7 +48182,9 @@ Ember.Handlebars.registerBoundHelper('maxString', function(string, maxLength) {
         this.addTourMarkers(this.get('tours'));
     },
     
-    getFirstLatLng: function(geojson) {
+    getTourCenterLatLng: function(geojson) {
+        // TODO: This should get the tour centre/summit point (if not exits, do what we do now)
+        
         if(!geojson || !geojson.features) {
             return null;
         }
@@ -48244,13 +48200,30 @@ Ember.Handlebars.registerBoundHelper('maxString', function(string, maxLength) {
         }
         return null;
     },
-    
+
+    showCurrentPosition: function() {
+        var self = this;
+        if(navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                var marker = new google.maps.Marker({
+                    title: 'My position', 
+                    position: pos,
+                    map: self.get('map'),
+                });
+                self.get('map').setCenter(pos);
+          }, function(){});
+        } else {
+            // Browser doesn't support Geolocation
+        }        
+    },
+
     addTourMarkers: function(tours) {
         var self = this;
         self.set('markers', []);
         tours.forEach(function(tour){
 
-            var tourCenterLatLng = self.getFirstLatLng(tour.get('mapGeoJson'));
+            var tourCenterLatLng = self.getTourCenterLatLng(tour.get('mapGeoJson'));
             if(!tourCenterLatLng){
                 return;
             }
@@ -48313,7 +48286,6 @@ Ember.Handlebars.registerBoundHelper('maxString', function(string, maxLength) {
     },
     
     initMap: function() {
-        console.log('init map');
         var self = this;
         this.set('mapRootElement', this.$('#tourMapRootElement'));
 
@@ -48361,10 +48333,12 @@ Ember.Handlebars.registerBoundHelper('maxString', function(string, maxLength) {
         $(window).on('resize', redrawMap); 
         
         redrawMap();
-        
-        self.$('#tourMapRootElement').fadeIn(400);
-        
-        self.set('mapInitialzed', true);
+    },
+    
+    actions: {
+        toggleMyPosition: function() {
+            this.showCurrentPosition();
+        }
     }
 });
 ;// Models
@@ -49006,14 +48980,7 @@ App.TourEditMapView = Ember.View.extend({
     }
 });
 ;App.ApplicationView = Ember.View.extend({
-    classNames: ['app-root-view'],
-    didInsertElement: function() {
-        // Set the negative margin on the top menu for slide-menu pages (visible for small screens)
-//        var $selector1 = $('#topMenu'), events = 'click.fndtn';
-//        if ($selector1.length > 0){
-//            $selector1.css("margin-top", $selector1.height() * -1);
-//        }
-    }
+    classNames: ['app-root-view']
 });
 
 App.LoginModalView = Ember.View.extend({
@@ -49033,85 +49000,85 @@ App.LoginModalView = Ember.View.extend({
     }
 });
 
-App.UserMenuView = Ember.View.extend({
-    templateName: 'usermenu-view',
-    actions: {
-        goToAddNewTour: function(){
-            this.get('controller').transitionToRoute('tour.new');
-            this.closeUserMenuDropdown();
-        },
-        goToMyTours: function() {
-            this.get('controller').transitionToRoute('mytours');
-            this.closeUserMenuDropdown();
-        }
-    },
-    closeUserMenuDropdown: function() {
-        if ($('#userMenuDropdown').hasClass('open')) {
-             $('#toggleUserMenuDropdown').trigger('click');
-        }
-    }
-});
+//App.UserMenuView = Ember.View.extend({
+//    templateName: 'usermenu-view',
+//    actions: {
+//        goToAddNewTour: function(){
+//            this.get('controller').transitionToRoute('tour.new');
+//            this.closeUserMenuDropdown();
+//        },
+//        goToMyTours: function() {
+//            this.get('controller').transitionToRoute('mytours');
+//            this.closeUserMenuDropdown();
+//        }
+//    },
+//    closeUserMenuDropdown: function() {
+//        if ($('#userMenuDropdown').hasClass('open')) {
+//             $('#toggleUserMenuDropdown').trigger('click');
+//        }
+//    }
+//});
 
-App.IndexSmallView = Ember.View.extend({
-   templateName: 'index-small',
+//App.IndexSmallView = Ember.View.extend({
+//   templateName: 'index-small',
+//
+//   didInsertElement: function() {
+//       if(this.get('controller.currentTabSelection') === 2){
+//           this.send('goToMap');
+//        }
+//       else if(this.get('controller.currentTabSelection') === 3){
+//          this.send('goToAreas');
+//       }
+//       else {
+//           this.send('goToHome');
+//       }
+//   },
+//
+//   actions: {
+//       goToHome: function() { this.setActiveTab(1); },
+//       goToMap: function() { this.setActiveTab(2); },
+//       goToAreas: function() { this.setActiveTab(3); }
+//   },
+//   
+//   showHome: function() {
+//       return this.get('controller.currentTabSelection') === 1;
+//   }.property('controller.currentTabSelection'),
+//   
+//   showMap: function() {
+//       return this.get('controller.currentTabSelection') === 2;
+//   }.property('controller.currentTabSelection'),
+//   
+//   showAreas: function() {
+//       return this.get('controller.currentTabSelection') === 3;
+//   }.property('controller.currentTabSelection'),   
+//   
+//   setActiveTab: function(tabId) {
+//       this.set('controller.currentTabSelection', tabId);
+//       
+//       this.$('#index-tab-1').removeClass('selected');
+//       this.$('#index-tab-2').removeClass('selected');
+//       this.$('#index-tab-3').removeClass('selected');
+//
+//        if(tabId === 1){
+//            this.$('#index-tab-1').addClass('selected');
+//        }
+//        else if(tabId === 2){
+//            this.$('#index-tab-2').addClass('selected');
+//        }
+//        else if(tabId === 3){
+//            this.$('#index-tab-3').addClass('selected');
+//        }
+//   }
+//});
 
-   didInsertElement: function() {
-       if(this.get('controller.currentTabSelection') === 2){
-           this.send('goToMap');
-        }
-       else if(this.get('controller.currentTabSelection') === 3){
-          this.send('goToAreas');
-       }
-       else {
-           this.send('goToHome');
-       }
-   },
-
-   actions: {
-       goToHome: function() { this.setActiveTab(1); },
-       goToMap: function() { this.setActiveTab(2); },
-       goToAreas: function() { this.setActiveTab(3); }
-   },
-   
-   showHome: function() {
-       return this.get('controller.currentTabSelection') === 1;
-   }.property('controller.currentTabSelection'),
-   
-   showMap: function() {
-       return this.get('controller.currentTabSelection') === 2;
-   }.property('controller.currentTabSelection'),
-   
-   showAreas: function() {
-       return this.get('controller.currentTabSelection') === 3;
-   }.property('controller.currentTabSelection'),   
-   
-   setActiveTab: function(tabId) {
-       this.set('controller.currentTabSelection', tabId);
-       
-       this.$('#index-tab-1').removeClass('selected');
-       this.$('#index-tab-2').removeClass('selected');
-       this.$('#index-tab-3').removeClass('selected');
-
-        if(tabId === 1){
-            this.$('#index-tab-1').addClass('selected');
-        }
-        else if(tabId === 2){
-            this.$('#index-tab-2').addClass('selected');
-        }
-        else if(tabId === 3){
-            this.$('#index-tab-3').addClass('selected');
-        }
-   }
-});
-
-App.TourTeaserView = Ember.View.extend({
-    templateName: 'tour-teaser-view',
-    actions: {
-        reloadTour: function() {
-            this.get('controller').send('loadTeaserTour');
-        }
-    }
-});
+//App.TourTeaserView = Ember.View.extend({
+//    templateName: 'tour-teaser-view',
+//    actions: {
+//        reloadTour: function() {
+//            this.get('controller').send('loadTeaserTour');
+//        }
+//    }
+//});
 
 App.AboutView = Ember.View.extend({
    templateName: 'about',

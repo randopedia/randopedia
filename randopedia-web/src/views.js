@@ -1,12 +1,5 @@
 App.ApplicationView = Ember.View.extend({
-    classNames: ['app-root-view'],
-    didInsertElement: function() {
-        // Set the negative margin on the top menu for slide-menu pages (visible for small screens)
-//        var $selector1 = $('#topMenu'), events = 'click.fndtn';
-//        if ($selector1.length > 0){
-//            $selector1.css("margin-top", $selector1.height() * -1);
-//        }
-    }
+    classNames: ['app-root-view']
 });
 
 App.LoginModalView = Ember.View.extend({
@@ -26,85 +19,85 @@ App.LoginModalView = Ember.View.extend({
     }
 });
 
-App.UserMenuView = Ember.View.extend({
-    templateName: 'usermenu-view',
-    actions: {
-        goToAddNewTour: function(){
-            this.get('controller').transitionToRoute('tour.new');
-            this.closeUserMenuDropdown();
-        },
-        goToMyTours: function() {
-            this.get('controller').transitionToRoute('mytours');
-            this.closeUserMenuDropdown();
-        }
-    },
-    closeUserMenuDropdown: function() {
-        if ($('#userMenuDropdown').hasClass('open')) {
-             $('#toggleUserMenuDropdown').trigger('click');
-        }
-    }
-});
+//App.UserMenuView = Ember.View.extend({
+//    templateName: 'usermenu-view',
+//    actions: {
+//        goToAddNewTour: function(){
+//            this.get('controller').transitionToRoute('tour.new');
+//            this.closeUserMenuDropdown();
+//        },
+//        goToMyTours: function() {
+//            this.get('controller').transitionToRoute('mytours');
+//            this.closeUserMenuDropdown();
+//        }
+//    },
+//    closeUserMenuDropdown: function() {
+//        if ($('#userMenuDropdown').hasClass('open')) {
+//             $('#toggleUserMenuDropdown').trigger('click');
+//        }
+//    }
+//});
 
-App.IndexSmallView = Ember.View.extend({
-   templateName: 'index-small',
+//App.IndexSmallView = Ember.View.extend({
+//   templateName: 'index-small',
+//
+//   didInsertElement: function() {
+//       if(this.get('controller.currentTabSelection') === 2){
+//           this.send('goToMap');
+//        }
+//       else if(this.get('controller.currentTabSelection') === 3){
+//          this.send('goToAreas');
+//       }
+//       else {
+//           this.send('goToHome');
+//       }
+//   },
+//
+//   actions: {
+//       goToHome: function() { this.setActiveTab(1); },
+//       goToMap: function() { this.setActiveTab(2); },
+//       goToAreas: function() { this.setActiveTab(3); }
+//   },
+//   
+//   showHome: function() {
+//       return this.get('controller.currentTabSelection') === 1;
+//   }.property('controller.currentTabSelection'),
+//   
+//   showMap: function() {
+//       return this.get('controller.currentTabSelection') === 2;
+//   }.property('controller.currentTabSelection'),
+//   
+//   showAreas: function() {
+//       return this.get('controller.currentTabSelection') === 3;
+//   }.property('controller.currentTabSelection'),   
+//   
+//   setActiveTab: function(tabId) {
+//       this.set('controller.currentTabSelection', tabId);
+//       
+//       this.$('#index-tab-1').removeClass('selected');
+//       this.$('#index-tab-2').removeClass('selected');
+//       this.$('#index-tab-3').removeClass('selected');
+//
+//        if(tabId === 1){
+//            this.$('#index-tab-1').addClass('selected');
+//        }
+//        else if(tabId === 2){
+//            this.$('#index-tab-2').addClass('selected');
+//        }
+//        else if(tabId === 3){
+//            this.$('#index-tab-3').addClass('selected');
+//        }
+//   }
+//});
 
-   didInsertElement: function() {
-       if(this.get('controller.currentTabSelection') === 2){
-           this.send('goToMap');
-        }
-       else if(this.get('controller.currentTabSelection') === 3){
-          this.send('goToAreas');
-       }
-       else {
-           this.send('goToHome');
-       }
-   },
-
-   actions: {
-       goToHome: function() { this.setActiveTab(1); },
-       goToMap: function() { this.setActiveTab(2); },
-       goToAreas: function() { this.setActiveTab(3); }
-   },
-   
-   showHome: function() {
-       return this.get('controller.currentTabSelection') === 1;
-   }.property('controller.currentTabSelection'),
-   
-   showMap: function() {
-       return this.get('controller.currentTabSelection') === 2;
-   }.property('controller.currentTabSelection'),
-   
-   showAreas: function() {
-       return this.get('controller.currentTabSelection') === 3;
-   }.property('controller.currentTabSelection'),   
-   
-   setActiveTab: function(tabId) {
-       this.set('controller.currentTabSelection', tabId);
-       
-       this.$('#index-tab-1').removeClass('selected');
-       this.$('#index-tab-2').removeClass('selected');
-       this.$('#index-tab-3').removeClass('selected');
-
-        if(tabId === 1){
-            this.$('#index-tab-1').addClass('selected');
-        }
-        else if(tabId === 2){
-            this.$('#index-tab-2').addClass('selected');
-        }
-        else if(tabId === 3){
-            this.$('#index-tab-3').addClass('selected');
-        }
-   }
-});
-
-App.TourTeaserView = Ember.View.extend({
-    templateName: 'tour-teaser-view',
-    actions: {
-        reloadTour: function() {
-            this.get('controller').send('loadTeaserTour');
-        }
-    }
-});
+//App.TourTeaserView = Ember.View.extend({
+//    templateName: 'tour-teaser-view',
+//    actions: {
+//        reloadTour: function() {
+//            this.get('controller').send('loadTeaserTour');
+//        }
+//    }
+//});
 
 App.AboutView = Ember.View.extend({
    templateName: 'about',
