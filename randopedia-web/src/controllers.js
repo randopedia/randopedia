@@ -1,49 +1,37 @@
 App.IndexController = Ember.ObjectController.extend({
     needs: ['search', 'login'],
-    showBrowseMap: true,
     isSmallScreen: true,
-    currentTabSelection: 1,
     liteTours: null,
-    teaserTour: null,
+    currentMapZoomLevel: 3,
+    currentMapCenter: null,
     
     init: function() {
         this._super();
         
-        this.loadLiteToursAndTeaser();
-        
         var self = this;
+        self.loadLiteTour();
+        
         onWindowResize = function() {
-            if(window.innerWidth < 768) { self.set('isSmallScreen', true); }
-            else { self.set('isSmallScreen', false); }
+            self.set('isSmallScreen', window.innerWidth < 768);
         };
         
         $(window).on('resize', onWindowResize);
         onWindowResize();
     },
     actions: {
-//        showBrowseMap: function(){
-//            this.set('showBrowseMap', true);
-//        },
-//        showAreaTree: function(){
-//            this.set('showBrowseMap', false);
-//        },
+        mapZoomChanged: function(zoomLevel) {
+            this.set('currentMapZoomLevel', zoomLevel);
+        },
+        mapCenterChanged: function(centerLatLng) {
+            this.set('currentMapCenter', centerLatLng);
+        }
     },
-    // Load lite tours first, then teaser tour. Due to racing condition issue, lite tours should be loaded first.
-    loadLiteToursAndTeaser: function() {
+    loadLiteTour: function() {
         var self = this;
         this.get('store').findQuery('tour', {liteTours: true}).then(function(tours) {
             self.set('liteTours', tours);
-            self.loadTeaserTour();
         }, function(error) {
             App.Utils.log('ERROR when loading tours for browse map');
-        });
-    },
-    loadTeaserTour: function() {
-        var self = this;            
-        this.store.findQuery('tour', {randomTour : true}).then(function(tours) {
-            self.set('teaserTour', tours.get('firstObject'));
-        }, function(error) {
-            App.Util.log('ERROR when loading random tour');
         });
     },
 });
@@ -78,7 +66,9 @@ App.SearchController = Ember.ArrayController.extend({
             self.set('isSearching', false);
         });
         
-        if (!this.get('controllers.index.isSmallScreen') && App.get('currentPath') !== 'search'){
+        // !this.get('controllers.index.isSmallScreen') &&
+        
+        if (App.get('currentPath') !== 'search'){
             this.transitionToRoute('search');
         }
     },

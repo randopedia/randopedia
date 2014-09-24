@@ -6193,21 +6193,41 @@ body,
   margin-bottom: 0;
   border-radius: 0;
 }
+.navbar .navbar-toggle {
+  float: left;
+}
+.navbar .navbar .navbar-collapse {
+  text-align: center;
+}
+.navbar .main-menu-container a {
+  margin: 5px 0px;
+  padding: 10px;
+}
+.navbar .main-menu-container a:hover {
+  text-decoration: none;
+  background: #eeeeee;
+  color: #222222;
+}
+@media (min-width: 768px) {
+  .navbar .main-menu-container a {
+    max-width: 200px;
+  }
+}
 .navbar .searchbox {
-  margin: 5px 5px 5px 5px;
   line-height: 34px;
   font-size: 20px;
   font-weight: 650;
-  padding-left: 5px;
-  width: 300px;
   opacity: 0.9;
+  padding-left: 5px;
+  width: 96%;
+  margin: 5px 12px;
 }
-.btn-navbar {
-  width: 150px;
-  height: 150px;
-  background: green;
-  border-color: green;
-  border-radius: 0;
+@media (min-width: 768px) {
+  .navbar .searchbox {
+    margin: 5px 5px;
+    width: 350px;
+    float: right;
+  }
 }
 .tab-content {
   padding: 0 10px;

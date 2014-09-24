@@ -47829,50 +47829,38 @@ App.MytoursController = Ember.ObjectController.extend({
 });
 ;App.IndexController = Ember.ObjectController.extend({
     needs: ['search', 'login'],
-    showBrowseMap: true,
     isSmallScreen: true,
-    currentTabSelection: 1,
     liteTours: null,
-    teaserTour: null,
+    currentMapZoomLevel: 3,
+    currentMapCenter: null,
     
     init: function() {
         this._super();
         
-        this.loadLiteToursAndTeaser();
-        
         var self = this;
+        self.loadLiteTour();
+        
         onWindowResize = function() {
-            if(window.innerWidth < 768) { self.set('isSmallScreen', true); }
-            else { self.set('isSmallScreen', false); }
+            self.set('isSmallScreen', window.innerWidth < 768);
         };
         
         $(window).on('resize', onWindowResize);
         onWindowResize();
     },
     actions: {
-//        showBrowseMap: function(){
-//            this.set('showBrowseMap', true);
-//        },
-//        showAreaTree: function(){
-//            this.set('showBrowseMap', false);
-//        },
+        mapZoomChanged: function(zoomLevel) {
+            this.set('currentMapZoomLevel', zoomLevel);
+        },
+        mapCenterChanged: function(centerLatLng) {
+            this.set('currentMapCenter', centerLatLng);
+        }
     },
-    // Load lite tours first, then teaser tour. Due to racing condition issue, lite tours should be loaded first.
-    loadLiteToursAndTeaser: function() {
+    loadLiteTour: function() {
         var self = this;
         this.get('store').findQuery('tour', {liteTours: true}).then(function(tours) {
             self.set('liteTours', tours);
-            self.loadTeaserTour();
         }, function(error) {
             App.Utils.log('ERROR when loading tours for browse map');
-        });
-    },
-    loadTeaserTour: function() {
-        var self = this;            
-        this.store.findQuery('tour', {randomTour : true}).then(function(tours) {
-            self.set('teaserTour', tours.get('firstObject'));
-        }, function(error) {
-            App.Util.log('ERROR when loading random tour');
         });
     },
 });
@@ -47907,7 +47895,9 @@ App.SearchController = Ember.ArrayController.extend({
             self.set('isSearching', false);
         });
         
-        if (!this.get('controllers.index.isSmallScreen') && App.get('currentPath') !== 'search'){
+        // !this.get('controllers.index.isSmallScreen') &&
+        
+        if (App.get('currentPath') !== 'search'){
             this.transitionToRoute('search');
         }
     },
@@ -48213,6 +48203,8 @@ Ember.Handlebars.registerBoundHelper('maxString', function(string, maxLength) {
     toursLoaded: false,
     store: null,
     root: null,
+    mapCenter: null,
+    zoomLevel: null,
     
     didInsertElement: function() {
         if(!this.get('store')) {
@@ -48223,6 +48215,14 @@ Ember.Handlebars.registerBoundHelper('maxString', function(string, maxLength) {
         if(!this.get('tours')) {
             App.Utils.log('BrowseTourMap component needs tours, inject tours=tours');
             return;
+        }
+        
+        if(!this.get('zoomLevel')) {
+            this.set('zoomLevel', 5);
+        }
+        
+        if(!this.get('mapCenter')) {
+            this.set('mapCenter', new google.maps.LatLng(58.0, 13.5));
         }
         
         this.addTourMarkers(this.get('tours'));
@@ -48294,22 +48294,26 @@ Ember.Handlebars.registerBoundHelper('maxString', function(string, maxLength) {
     },
     
     setZoomAndCenter: function() {
-        var markers = this.get('markers');
-
-        if(!markers || markers.length === 0) { 
-            return;
-        }
-
-        var bounds = new google.maps.LatLngBounds();
-        for(var i = 0; i < markers.length; i++){
-            bounds.extend(markers[i].position);  
-            this.get('oms').addMarker(markers[i]);
-        }
+//        var self = this;
+//        self.get('map').setZoom(self.get('currentZoomLevel'));
         
-        this.get('map').fitBounds(bounds);
+//        var markers = this.get('markers');
+//
+//        if(!markers || markers.length === 0) { 
+//            return;
+//        }
+//
+//        var bounds = new google.maps.LatLngBounds();
+//        for(var i = 0; i < markers.length; i++){
+//            bounds.extend(markers[i].position);  
+//            this.get('oms').addMarker(markers[i]);
+//        }
+//        
+//        this.get('map').fitBounds(bounds);
     },
     
     initMap: function() {
+        console.log('init map');
         var self = this;
         this.set('mapRootElement', this.$('#tourMapRootElement'));
 
@@ -48332,14 +48336,22 @@ Ember.Handlebars.registerBoundHelper('maxString', function(string, maxLength) {
                 streetViewControl:false,
                 overviewMapControl:false,
                 rotateControl:false,
-                center: new google.maps.LatLng(58.0, 13.5),
-                zoom: 3,
+                center: self.get('mapCenter'),
+                zoom: self.get('zoomLevel'),
             };
             
         this.set('map', new google.maps.Map(this.get('mapRootElement').get(0), mapOptions));
         var markerCluster = new MarkerClusterer(this.get('map'), this.get('markers'));
         markerCluster.setMaxZoom(10);
         this.set('oms', new OverlappingMarkerSpiderfier(this.get('map')));
+
+        google.maps.event.addListener(self.get('map'), 'zoom_changed', function() {
+            self.sendAction('zoomChanged', self.get('map').getZoom());
+        });
+        
+        google.maps.event.addListener(self.get('map'), 'center_changed', function() {
+            self.sendAction('centerChanged', self.get('map').getCenter());
+        });
 
         // Hook up to window resize event to do implicit resize on map canvas
         redrawMap = function() {
@@ -48350,9 +48362,9 @@ Ember.Handlebars.registerBoundHelper('maxString', function(string, maxLength) {
         
         redrawMap();
         
-        this.$('#tourMapRootElement').fadeIn(400);
+        self.$('#tourMapRootElement').fadeIn(400);
         
-        this.set('mapInitialzed', true);
+        self.set('mapInitialzed', true);
     }
 });
 ;// Models

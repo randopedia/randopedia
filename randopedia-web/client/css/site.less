@@ -2,7 +2,7 @@
 
 @logo-font: Aight;
 @navbar-background: url(../images/header_background.jpg) repeat-x;
-
+@hover-background: @gray-lighter;
 @light-border: 1px solid @gray-lighter;
 
 @small-space: 5px;
@@ -41,23 +41,45 @@ html, body, .app-root-view {
     margin-bottom: 0;
     border-radius: 0;
     
+    .navbar-toggle {
+        float: left;
+    }
+    .navbar .navbar-collapse {
+            text-align: center;
+     }
+    
+    .main-menu-container {
+        a {
+            margin: 5px 0px;
+            padding: 10px;
+            &:hover {
+                text-decoration: none;
+                background: @hover-background;
+                color: @gray-darker;
+            }
+        }
+        @media (min-width: 768px) {
+            a {
+                max-width: 200px;
+            }
+        }
+    }
     .searchbox {
-        margin: 5px 5px 5px 5px;
         line-height: 34px;
         font-size: 20px;
         font-weight: 650;
-        padding-left: 5px;
-        width: 300px;
         opacity: 0.9;
+        padding-left: 5px;
+        width: 96%;
+        margin: 5px 12px;
     }
-}
-
-.btn-navbar {
-    width: 150px;
-    height: 150px;
-    background: green;
-    border-color: green;
-    border-radius: 0;
+    @media (min-width: 768px) {
+        .searchbox {
+            margin: 5px 5px;
+            width: 350px;
+            float: right;
+        }  
+    }
 }
 
 .tab-content {

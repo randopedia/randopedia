@@ -1,12 +1,16 @@
-<div class="row">
-    <div class="col-sm-12">
-        <span class="pull-right"><a {{action "clearResult"}}>Clear</a></span>
-		<h3>
-		    Tour search<span class="small"> ({{length}} tours found)</span>
-		</h3>
-    </div>
-</div> 
+<div class="full-page-view-container">
 
-{{#each tour in controller}}
-    {{view App.TourItemView}}
-{{/each}}
+	<div class="row">
+	    <div class="col-sm-12">
+	        <span class="pull-right spacing"><a {{action "clearResult"}}>Clear</a></span>
+			<h3>
+			    Tour search<span class="small"> ({{length}} tours found)</span>
+			</h3>
+	    </div>
+	</div> 
+	
+	{{#each tour in controller}}
+	    {{view App.TourItemView}}
+	{{/each}}
+
+</div>

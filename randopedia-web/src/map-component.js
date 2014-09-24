@@ -7,6 +7,8 @@ App.BrowseTourmapComponent = Ember.Component.extend({
     toursLoaded: false,
     store: null,
     root: null,
+    mapCenter: null,
+    zoomLevel: null,
     
     didInsertElement: function() {
         if(!this.get('store')) {
@@ -17,6 +19,14 @@ App.BrowseTourmapComponent = Ember.Component.extend({
         if(!this.get('tours')) {
             App.Utils.log('BrowseTourMap component needs tours, inject tours=tours');
             return;
+        }
+        
+        if(!this.get('zoomLevel')) {
+            this.set('zoomLevel', 5);
+        }
+        
+        if(!this.get('mapCenter')) {
+            this.set('mapCenter', new google.maps.LatLng(58.0, 13.5));
         }
         
         this.addTourMarkers(this.get('tours'));
@@ -88,22 +98,26 @@ App.BrowseTourmapComponent = Ember.Component.extend({
     },
     
     setZoomAndCenter: function() {
-        var markers = this.get('markers');
-
-        if(!markers || markers.length === 0) { 
-            return;
-        }
-
-        var bounds = new google.maps.LatLngBounds();
-        for(var i = 0; i < markers.length; i++){
-            bounds.extend(markers[i].position);  
-            this.get('oms').addMarker(markers[i]);
-        }
+//        var self = this;
+//        self.get('map').setZoom(self.get('currentZoomLevel'));
         
-        this.get('map').fitBounds(bounds);
+//        var markers = this.get('markers');
+//
+//        if(!markers || markers.length === 0) { 
+//            return;
+//        }
+//
+//        var bounds = new google.maps.LatLngBounds();
+//        for(var i = 0; i < markers.length; i++){
+//            bounds.extend(markers[i].position);  
+//            this.get('oms').addMarker(markers[i]);
+//        }
+//        
+//        this.get('map').fitBounds(bounds);
     },
     
     initMap: function() {
+        console.log('init map');
         var self = this;
         this.set('mapRootElement', this.$('#tourMapRootElement'));
 
@@ -126,14 +140,22 @@ App.BrowseTourmapComponent = Ember.Component.extend({
                 streetViewControl:false,
                 overviewMapControl:false,
                 rotateControl:false,
-                center: new google.maps.LatLng(58.0, 13.5),
-                zoom: 3,
+                center: self.get('mapCenter'),
+                zoom: self.get('zoomLevel'),
             };
             
         this.set('map', new google.maps.Map(this.get('mapRootElement').get(0), mapOptions));
         var markerCluster = new MarkerClusterer(this.get('map'), this.get('markers'));
         markerCluster.setMaxZoom(10);
         this.set('oms', new OverlappingMarkerSpiderfier(this.get('map')));
+
+        google.maps.event.addListener(self.get('map'), 'zoom_changed', function() {
+            self.sendAction('zoomChanged', self.get('map').getZoom());
+        });
+        
+        google.maps.event.addListener(self.get('map'), 'center_changed', function() {
+            self.sendAction('centerChanged', self.get('map').getCenter());
+        });
 
         // Hook up to window resize event to do implicit resize on map canvas
         redrawMap = function() {
@@ -144,8 +166,8 @@ App.BrowseTourmapComponent = Ember.Component.extend({
         
         redrawMap();
         
-        this.$('#tourMapRootElement').fadeIn(400);
+        self.$('#tourMapRootElement').fadeIn(400);
         
-        this.set('mapInitialzed', true);
+        self.set('mapInitialzed', true);
     }
 });

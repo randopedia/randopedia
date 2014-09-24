@@ -1177,7 +1177,7 @@ function program6(depth0,data) {
     'valueBinding': ("controllers.search.query"),
     'class': ("searchbox")
   },hashTypes:{'valueBinding': "STRING",'class': "STRING"},hashContexts:{'valueBinding': depth0,'class': depth0},contexts:[depth0],types:["ID"],data:data})));
-  data.buffer.push("\r\n	    </div>\r\n	    \r\n	    <!-- Collect the nav links, forms, and other content for toggling -->\r\n	    <div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">\r\n			\r\n           ");
+  data.buffer.push("\r\n	    </div>\r\n	    \r\n	    <!-- Collect the nav links, forms, and other content for toggling -->\r\n	    <div class=\"collapse navbar-collapse main-menu-container\" id=\"bs-example-navbar-collapse-1\">\r\n			\r\n           ");
   stack1 = helpers['if'].call(depth0, "controllers.login.isLoggedIn", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(3, program3, data),fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\r\n           \r\n           <a ");
@@ -1367,8 +1367,12 @@ function program1(depth0,data) {
   data.buffer.push("\r\n    <div id=\"full-screen-map-container\" class=\"full-screen\">\r\n    ");
   data.buffer.push(escapeExpression((helper = helpers['browse-tourmap'] || (depth0 && depth0['browse-tourmap']),options={hash:{
     'store': ("store"),
-    'tours': ("liteTours")
-  },hashTypes:{'store': "ID",'tours': "ID"},hashContexts:{'store': depth0,'tours': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "browse-tourmap", options))));
+    'tours': ("liteTours"),
+    'zoomLevel': ("currentMapZoomLevel"),
+    'mapCenter': ("currentMapCenter"),
+    'zoomChanged': ("mapZoomChanged"),
+    'centerChanged': ("mapCenterChanged")
+  },hashTypes:{'store': "ID",'tours': "ID",'zoomLevel': "ID",'mapCenter': "ID",'zoomChanged': "STRING",'centerChanged': "STRING"},hashContexts:{'store': depth0,'tours': depth0,'zoomLevel': depth0,'mapCenter': depth0,'zoomChanged': depth0,'centerChanged': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "browse-tourmap", options))));
   data.buffer.push("\r\n    </div>\r\n");
   return buffer;
   }
@@ -1514,21 +1518,21 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
 function program1(depth0,data) {
   
   var buffer = '';
-  data.buffer.push("\n    ");
+  data.buffer.push("\n	    ");
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "App.TourItemView", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data})));
-  data.buffer.push("\n");
+  data.buffer.push("\n	");
   return buffer;
   }
 
-  data.buffer.push("<div class=\"row\">\n    <div class=\"col-sm-12\">\n        <span class=\"pull-right\"><a ");
+  data.buffer.push("<div class=\"full-page-view-container\">\n\n	<div class=\"row\">\n	    <div class=\"col-sm-12\">\n	        <span class=\"pull-right spacing\"><a ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "clearResult", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data})));
-  data.buffer.push(">Clear</a></span>\n		<h3>\n		    Tour search<span class=\"small\"> (");
+  data.buffer.push(">Clear</a></span>\n			<h3>\n			    Tour search<span class=\"small\"> (");
   stack1 = helpers._triageMustache.call(depth0, "length", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push(" tours found)</span>\n		</h3>\n    </div>\n</div> \n\n");
+  data.buffer.push(" tours found)</span>\n			</h3>\n	    </div>\n	</div> \n	\n	");
   stack1 = helpers.each.call(depth0, "tour", "in", "controller", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0,depth0,depth0],types:["ID","ID","ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n");
+  data.buffer.push("\n\n</div>\n");
   return buffer;
   
 });
