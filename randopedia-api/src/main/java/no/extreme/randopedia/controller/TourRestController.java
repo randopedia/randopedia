@@ -91,6 +91,20 @@ public class TourRestController {
         return tourContainer;
     }
     
+    @RequestMapping(method=RequestMethod.GET, value="/toursByCoordinate/", produces="application/json")
+    public @ResponseBody ToursContainer getToursByCoordinate(
+            @RequestParam(value="mapCenterLat", required = true) Long mapCenterLat,
+            @RequestParam(value="mapCenterLong", required = true) Long mapCenterLong,
+            @RequestParam(value="zoomLevel", required = true) Long zoomLevel) {
+        
+        ToursContainer toursContainer = new ToursContainer();
+        List<Tour> tours = new ArrayList<Tour>();
+        
+        tours = tourService.findToursByCoordinate(mapCenterLat, mapCenterLong, zoomLevel);
+        
+        return toursContainer;
+    }
+    
     @RequestMapping(method=RequestMethod.GET, value="/tours", produces="application/json")
     public @ResponseBody ToursContainer getTours(
             @RequestHeader(value = "X-Header-Token", required = false) String token,

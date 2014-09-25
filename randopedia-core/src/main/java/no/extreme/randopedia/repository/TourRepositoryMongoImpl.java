@@ -455,6 +455,12 @@ public class TourRepositoryMongoImpl implements TourRepository {
         
         return tags;
     }
+
+    @Override
+    public List<Tour> findToursByCoordinate(Long mapCenterLat, Long mapCenterLong, Long zoomLevel) {
+        // TODO Auto-generated method stub
+        return null;
+    }
     
 }
 

@@ -357,5 +357,9 @@ public class TourService {
         return tags;
     }
 
+    public List<Tour> findToursByCoordinate(Long mapCenterLat, Long mapCenterLong, Long zoomLevel) {
+        return tourRepository.findToursByCoordinate(mapCenterLat, mapCenterLong, zoomLevel);
+    }
+
     
 }
