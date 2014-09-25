@@ -24,12 +24,15 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
 Ember.TEMPLATES["application"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
-  var buffer = '', stack1;
+  var buffer = '', stack1, helper, options, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
 
 
-  data.buffer.push("<!--\r\n    Default application template. Defines the application layout and starts everything off.\r\n-->     \r\n\r\n\r\n \r\n");
+  data.buffer.push("<!--\r\n    Default application template. Defines the application layout and starts everything off.\r\n-->     \r\n\r\n");
+  data.buffer.push(escapeExpression((helper = helpers.partial || (depth0 && depth0.partial),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data},helper ? helper.call(depth0, "header", options) : helperMissing.call(depth0, "partial", "header", options))));
+  data.buffer.push("\r\n \r\n <div class=\"full-screen\">\r\n    ");
   stack1 = helpers._triageMustache.call(depth0, "outlet", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\r\n </div>");
   return buffer;
   
 });
@@ -1171,7 +1174,7 @@ function program6(depth0,data) {
   data.buffer.push("\r\n                    <a data-toggle=\"modal\" data-target=\"#loginViewModalId\">Login</a>\r\n               ");
   }
 
-  data.buffer.push("<nav class=\"navbar navbar-inverse\" role=\"navigation\">\r\n    <div class=\"container-fluid\">\r\n    \r\n	    <!-- Brand and toggle get grouped for better mobile display -->\r\n	    <div class=\"navbar-header\">\r\n			<button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#bs-example-navbar-collapse-1\">\r\n				<span class=\"sr-only\">Toggle navigation</span>\r\n				<span class=\"icon-bar\"></span>\r\n				<span class=\"icon-bar\"></span>\r\n				<span class=\"icon-bar\"></span>\r\n			</button>\r\n			<a class=\"navbar-brand randopedia-logo-text\" ");
+  data.buffer.push("<nav class=\"navbar navbar-inverse navbar-fixed-top\" role=\"navigation\">\r\n    <div class=\"container-fluid\">\r\n    \r\n	    <!-- Brand and toggle get grouped for better mobile display -->\r\n	    <div class=\"navbar-header\">\r\n			<button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#bs-example-navbar-collapse-1\">\r\n				<span class=\"sr-only\">Toggle navigation</span>\r\n				<span class=\"icon-bar\"></span>\r\n				<span class=\"icon-bar\"></span>\r\n				<span class=\"icon-bar\"></span>\r\n			</button>\r\n			<a class=\"navbar-brand randopedia-logo-text\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "goToIndex", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data})));
   data.buffer.push(">Randopedia</a>\r\n			");
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "App.SearchTextField", {hash:{

@@ -23,6 +23,22 @@ html, body, .app-root-view {
         .ember-view {
             height: 100%;
         }
+        
+        #tourMapRootElement {
+            display:block;
+            position:absolute;
+            height:auto;
+            bottom:0;
+            top:0;
+            left:0;
+            right:0;
+            margin-top:100px; /* Set margin to your navbar height */
+        }  
+        @media (min-width: 768px) {
+            #tourMapRootElement {
+                margin-top: 50px;
+            }  
+        }
     }
 }
 
