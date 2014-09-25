@@ -1,7 +1,15 @@
-<div class="full-page-view-container tour-details-view">
+<div class="main-view-container tour-details-view">
 
 	<div class="hidden">{{view.imageLoaded}}</div>
 	
+	{{#if controllers.login.isLoggedIn}}
+    <div class="row">
+        <div class="col-sm-12 edit-container">
+            <div class="pull-right">{{#link-to 'tour.edit' model}}Edit tour{{/link-to}}</div>
+        </div>
+    </div>
+    {{/if}}
+    
 	{{#if isDraft}}
 	<div class="row">
 	    <div class="col-sm-12">
@@ -23,14 +31,6 @@
 	    </div>
 	</div>
 	{{/if}}
-	
-	{{#if controllers.login.isLoggedIn}}
-	<div class="row">
-        <div class="col-sm-12 edit-container">
-            <div class="pull-right">{{#link-to 'tour.edit' model}}Edit tour{{/link-to}}</div>
-        </div>
-    </div>
-    {{/if}}
 	
 	<div class="row">
 	    <div class="col-sm-12">

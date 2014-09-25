@@ -48151,8 +48151,10 @@ Ember.Handlebars.registerBoundHelper('maxString', function(string, maxLength) {
     map: null,
     markers: [],
     tours: null,
-    toursLoaded: false,
     store: null,
+    currentMapObjects: [],
+    detailedZoomLevel: 13,
+    showRoutesOnZoomLevel: 12,
     
     didInsertElement: function() {
         if(!this.get('store')) {
@@ -48167,7 +48169,7 @@ Ember.Handlebars.registerBoundHelper('maxString', function(string, maxLength) {
 
         if(this.get('tour')) {
             console.log('tour set');
-            this.set('zoomLevel', 13);
+            this.set('zoomLevel', this.get('detailedZoomLevel'));
             this.set('mapCenter', this.getTourCenterLatLng(this.get('tour').get('mapGeoJson')));
         }
         
@@ -48200,9 +48202,66 @@ Ember.Handlebars.registerBoundHelper('maxString', function(string, maxLength) {
         }
         return null;
     },
+    
+    addGoogleObjectsToMapFromTourGeoJson: function(geojson, map) {
+        var addedMapObjects = [];
+        if(!geojson || !App.GeoHelper.validateGeoJson(geojson)) {
+            return addedMapObjects;
+        } 
+ 
+        for(var i = 0; i < geojson.features.length; i++) {
+            
+            var geometry = geojson.features[i].geometry;
+            
+            if(geometry.type === "LineString"){
+
+                var polylinePath = App.GeoHelper.geoJsonCoordinatesToGoogleLatLngArray(geometry.coordinates);        
+                var polyline = new google.maps.Polyline({
+                    path:  polylinePath,
+                    strokeColor: '#ff0000',
+                    strokeWeight: 2
+                });
+                polyline.setMap(map);
+                addedMapObjects.push(polyline);
+            }
+        }      
+        return addedMapObjects;
+    },
+    
+    showTourRoutes: function() {
+        var self = this;
+        
+        if(self.get('tourRoutesAreShown') === true){
+            return;
+        }
+
+        self.get('tours').forEach(function(tour) {
+            var addedMapObjects = self.addGoogleObjectsToMapFromTourGeoJson(tour.get('mapGeoJson'), self.get('map'));
+            addedMapObjects.forEach(function(mapObject) {
+                self.get('currentMapObjects').push(mapObject);
+            });
+        });
+        
+        self.set('tourRoutesAreShown', true);
+    },
+    
+    hideTourRoutes: function() {
+        var self = this;
+        
+        if(!self.get('tourRoutesAreShown')){
+            return;
+        }
+        
+        self.get('currentMapObjects').forEach(function(mapObject) {
+            mapObject.setMap(null);
+        });
+        self.set('currentMapObjects', []);
+        self.set('tourRoutesAreShown', false);
+    },
 
     showCurrentPosition: function() {
         var self = this;
+        
         if(navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function(position) {
                 var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
@@ -48212,6 +48271,7 @@ Ember.Handlebars.registerBoundHelper('maxString', function(string, maxLength) {
                     map: self.get('map'),
                 });
                 self.get('map').setCenter(pos);
+                self.get('map').setZoom(self.get('detailedZoomLevel'));
           }, function(){});
         } else {
             // Browser doesn't support Geolocation
@@ -48266,23 +48326,22 @@ Ember.Handlebars.registerBoundHelper('maxString', function(string, maxLength) {
         $(window).resize();
     },
     
-    setZoomAndCenter: function() {
-//        var self = this;
-//        self.get('map').setZoom(self.get('currentZoomLevel'));
+    zoomToTour: function() {
+        // TODO: How to implement this?
+        var lines = this.get('currentMapPolylines');
+
+        if(!lines || lines.length === 0) { 
+            return; 
+        }
+
+        var bounds = new google.maps.LatLngBounds();
+        for(var i = 0; i < lines.length; i++){
+            for(j = 0; j < lines[i].getPath().length; j++){
+                bounds.extend(lines[i].getPath().getArray()[j]);
+            }     
+        }
         
-//        var markers = this.get('markers');
-//
-//        if(!markers || markers.length === 0) { 
-//            return;
-//        }
-//
-//        var bounds = new google.maps.LatLngBounds();
-//        for(var i = 0; i < markers.length; i++){
-//            bounds.extend(markers[i].position);  
-//            this.get('oms').addMarker(markers[i]);
-//        }
-//        
-//        this.get('map').fitBounds(bounds);
+        this.get('map').fitBounds(bounds);
     },
     
     initMap: function() {
@@ -48318,7 +48377,13 @@ Ember.Handlebars.registerBoundHelper('maxString', function(string, maxLength) {
         this.set('oms', new OverlappingMarkerSpiderfier(this.get('map')));
 
         google.maps.event.addListener(self.get('map'), 'zoom_changed', function() {
-            self.sendAction('zoomChanged', self.get('map').getZoom());
+            var newZoomLevel = self.get('map').getZoom();
+            self.sendAction('zoomChanged', newZoomLevel);
+            if(newZoomLevel >= self.get('showRoutesOnZoomLevel')) {
+                self.showTourRoutes();
+            } else {
+                self.hideTourRoutes();
+            }
         });
         
         google.maps.event.addListener(self.get('map'), 'center_changed', function() {
@@ -48328,7 +48393,6 @@ Ember.Handlebars.registerBoundHelper('maxString', function(string, maxLength) {
         // Hook up to window resize event to do implicit resize on map canvas
         redrawMap = function() {
             google.maps.event.trigger(self.get('map'), 'resize');
-            self.setZoomAndCenter();
         };
         $(window).on('resize', redrawMap); 
         
@@ -48980,7 +49044,7 @@ App.TourEditMapView = Ember.View.extend({
     }
 });
 ;App.ApplicationView = Ember.View.extend({
-    classNames: ['app-root-view']
+   // classNames: ['app-root-view']
 });
 
 App.LoginModalView = Ember.View.extend({

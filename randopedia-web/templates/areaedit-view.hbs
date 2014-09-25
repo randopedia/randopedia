@@ -2,215 +2,213 @@
     Template for editing an area
  --> 
 
-<div class="full-page-view-container">
+{{#if validationErrors}}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="alert alert-danger" role="alert">
+            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            Oh noes, there was some validation errors, please try again!
+        </div>          
+    </div>
+</div>
+{{/if}}
 
-	{{#if validationErrors}}
-	<div class="row">
-	    <div class="col-sm-12">
-	        <div class="alert alert-danger" role="alert">
-	            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-	            Oh noes, there was some validation errors, please try again!
-	        </div>          
-	    </div>
-	</div>
-	{{/if}}
+{{#if authenticationErrors}}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="alert alert-danger" role="alert">
+            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            Oh noes, you have most likely been logged out. Try to log in again!
+        </div>          
+    </div>
+</div>
+{{/if}}
+
+{{#if serverErrors}}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="alert alert-danger" role="alert">
+            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+           Something went wrong when saving the area, please try again!
+        </div>          
+    </div>
+</div>
+{{/if}}
+
+{{#if updateSuccessfully}}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="alert alert-success" role="alert">
+            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            Area was successfully updated
+        </div>          
+    </div>
+</div>
+{{/if}}
 	
-	{{#if authenticationErrors}}
-	<div class="row">
-	    <div class="col-sm-12">
-	        <div class="alert alert-danger" role="alert">
-	            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-	            Oh noes, you have most likely been logged out. Try to log in again!
-	        </div>          
-	    </div>
-	</div>
-	{{/if}}
+<div class="row spacing-y">
+    {{#if isSaving}}
+    <div class="col-sm-12">
+       <div>Loading area...</div>
+    </div>
+    {{else}}
+    <div class="col-sm-12">
+        {{#if isReadOnlyArea}}
+            <span class="info label" class="alert">{{name}} is a root area and cannot be edited, but it's possible to add subareas.</span>
+        {{else}}
+            <button class="btn btn-primary" {{bindAttr disabled="isNotDirty"}} {{action "saveArea" target="view"}}>
+               <span class="glyphicon glyphicon-cloud-upload"></span> Publish
+            </button>
+            {{#unless isNotDirty}}
+                <span class="info label">Area have unsaved changes!</span>
+            {{/unless}}
+        {{/if}}
+        <button class="btn btn-primary pull-right" {{action "startCancelingEdit" target="view"}}>Exit edit</button>
+    </div>
+    {{/if}}
+</div>
 	
-	{{#if serverErrors}}
-	<div class="row">
-	    <div class="col-sm-12">
-	        <div class="alert alert-danger" role="alert">
-	            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-	           Something went wrong when saving the area, please try again!
-	        </div>          
-	    </div>
-	</div>
-	{{/if}}
-	
-	{{#if updateSuccessfully}}
-	<div class="row">
-	    <div class="col-sm-12">
-	        <div class="alert alert-success" role="alert">
-	            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-	            Area was successfully updated
-	        </div>          
-	    </div>
-	</div>
-	{{/if}}
-	
-	<div class="row spacing-y">
-	    {{#if isSaving}}
-	    <div class="col-sm-12">
-	       <div>Loading area...</div>
-	       </div>
-	    {{else}}
-	    <div class="col-sm-12">
-	        {{#if isReadOnlyArea}}
-	            <span class="info label" class="alert">{{name}} is a root area and cannot be edited, but it's possible to add subareas.</span>
-	        {{else}}
-	            <button class="btn btn-primary" {{bindAttr disabled="isNotDirty"}} {{action "saveArea" target="view"}}>Publish</button>
-	            {{#unless isNotDirty}}
-	                <span class="info label">Area have unsaved changes!</span>
-	            {{/unless}}
-	        {{/if}}
-	        <button class="btn btn-primary pull-right" {{action "startCancelingEdit" target="view"}}>Exit edit</button>
-	    </div>
-	    {{/if}}
-	</div>
-	
-	<div class="row">
+<div class="row">
+    
+    <div class="col-sm-12">
+        {{#if isReadOnlyArea}}
+            <h2>{{name}}</h2>
+        {{else}}
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Area details
+            </div>
+            <div class="panel-body">
+		        <form role="form">              
+		            <div class="form-group">
+	                    <label for="inputAreaName">Name</label>
+	                    <button type="button" class="info pull-right" data-toggle="popover" data-trigger="focus" title="Name" data-content="The name of the area. Name is required and can have a maximum of 80 characters."></button>
+	                    {{input value=name required="true" maxlength="80" pattern="^.{3,80}$" class="form-control" id="inputAreaName"}}            
+		            </div>
+		            <div class="form-group">
+	                    <label for="inputAreaDescription">Description</label>
+	                    <button type="button" class="info pull-right" data-toggle="popover" data-trigger="focus" title="Description" data-content="A short description of the area. A description can have a maximum of 500 characters."></button>
+	                    {{textarea value=description maxlength="500" class="form-control" id="inputAreaDescription"}}
+		            </div>
+		        </form>
+            </div>
+        </div>
+        {{/if}}
+    </div>
 	    
-	    <div class="col-sm-12">
-	        {{#if isReadOnlyArea}}
-	            <h2>{{name}}</h2>
-	        {{else}}
-	        <div class="panel panel-default">
-	            <div class="panel-heading">
-	                Area details
-	            </div>
-	            <div class="panel-body">
-			        <form role="form">              
-			            <div class="form-group">
-		                    <label for="inputAreaName">Name</label>
-		                    <button type="button" class="info pull-right" data-toggle="popover" data-trigger="focus" title="Name" data-content="The name of the area. Name is required and can have a maximum of 80 characters."></button>
-		                    {{input value=name required="true" maxlength="80" pattern="^.{3,80}$" class="form-control" id="inputAreaName"}}            
-			            </div>
-			            <div class="form-group">
-		                    <label for="inputAreaDescription">Description</label>
-		                    <button type="button" class="info pull-right" data-toggle="popover" data-trigger="focus" title="Description" data-content="A short description of the area. A description can have a maximum of 500 characters."></button>
-		                    {{textarea value=description maxlength="500" class="form-control" id="inputAreaDescription"}}
-			            </div>
-			        </form>
-	            </div>
+    <div class="col-sm-12">
+	    <div class="panel panel-default">
+	        <div class="panel-heading">
+	            Subareas
 	        </div>
-	        {{/if}}
-	    </div>
-	    
-	    <div class="col-sm-12">
-		    <div class="panel panel-default">
-		        <div class="panel-heading">
-		            Subareas
-		        </div>
-			    <div class="panel-body">
-		            <ul class="inline-list">
-		              {{#each child in children}}
-		                  <li>{{child.name}}</li> 
-		              {{else}}
-		                  <li>Area has no subareas</li>
-		              {{/each}}
-		            </ul>
-		            <div class="row">
-	                    <div class="col-sm-12">  
-		                   <button class="btn btn-primary pull-right" data-toggle="modal" {{action "startAddSubArea" target="view"}} data-target="#addSubAreaModal">Add new subarea</button>
-		               </div>
-		           </div>
-			    </div>
+		    <div class="panel-body">
+	            <ul class="inline-list">
+	              {{#each child in children}}
+	                  <li>{{child.name}}</li> 
+	              {{else}}
+	                  <li>Area has no subareas</li>
+	              {{/each}}
+	            </ul>
+	            <div class="row">
+                    <div class="col-sm-12">  
+	                   <button class="btn btn-primary pull-right" data-toggle="modal" {{action "startAddSubArea" target="view"}} data-target="#addSubAreaModal">Add new subarea</button>
+	               </div>
+	           </div>
 		    </div>
 	    </div>
+    </div>
 	    
-	    {{#unless isReadOnlyArea}}
-	    <div class="col-sm-12">
-	        <div class="panel panel-default">
-	            <div class="panel-heading">
-	                Tours
-	            </div>
-	            <div class="panel-body">
-	                <div class="row">
-	                    <div class="col-sm-12">
-	                        {{#if tours}}
-	                            {{name}} currently have {{tours.length}} tours.
-	                        {{else}}
-	                            There are currently no tours in {{name}}.
-	                        {{/if}}
-	                    </div>
-	                </div>
-	                <div class="row">
-	                    <div class="col-sm-12">
-	                        <button class="btn btn-primary pull-right" {{action "addTour" target="view"}}>Add new tour</button>
-	                    </div>
-	                </div>
-	            </div>
-	        </div>
-	    </div>
-	    {{/unless}}
-	        
-	</div>
-	
-	<div class="modal fade" id="discardChangesAreaModal" tabindex="-1" role="dialog" aria-hidden="true">
-	    <div class="modal-dialog modal-lg">
-	        <div class="modal-content">
-	            <div class="modal-body">
-	                The area has unsaved changes, do you want to discard them?
-	            </div>
-	            <div class="modal-footer">
-	                <button class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-	                <button class="btn btn-danger pull-right" data-dismiss="modal" {{action "confirmDiscardChanges" target="view" }}>Discard changes</button>
-	            </div>
-	        </div>
-	    </div>    
-	</div> 
-	
-	<div class="modal fade" id="validationErrorsAreaModal" tabindex="-1" role="dialog" aria-hidden="true">
-	    <div class="modal-dialog modal-lg">
-	        <div class="modal-content">
-	            <div class="modal-body">
-	                There are validation errors that must be corrected before the area can be published.
-	            </div>
-	            <div class="modal-footer">
-	                <button class="btn btn-primary pull-right"  data-dismiss="modal">OK</button>
-	            </div>
-	        </div>
-	    </div>    
-	</div>  
-	
-	<div class="modal fade" id="confirmPublishAreaModal" tabindex="-1" role="dialog" aria-hidden="true">
-	    <div class="modal-dialog modal-lg">
-	        <div class="modal-content">
-	            <div class="modal-body">
-	                Changes will be published, do you want to continue?
-	            </div>
-	            <div class="modal-footer">
-	                <button class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-	                <button class="btn btn-danger pull-right" data-dismiss="modal" {{action "confirmSaveArea" target="view" }}>Publish</button>
-	            </div>
-	        </div>
-	    </div>    
-	</div> 
-	
-	<div class="modal fade" id="addSubAreaModal" tabindex="-1" role="dialog" aria-hidden="true">
-	    <div class="modal-dialog modal-lg">
-	        <div class="modal-content">
-	            <div class="modal-header">
-	                Add new subarea
-	            </div>
-	            <div class="modal-body">
-				    <form class="form">
-				        <div class="form-group">
-				            <label>Name</label>
-				            {{view App.FocusTextField valueBinding="newArea.name" required="true" maxlength="80" pattern="^.{3,80}$" class="form-control"}}
-				        </div>
-				        <div class="form-group">
-				            <label>Description</label>
-				            {{textarea value=newArea.description maxlength="500" class="form-control"}}
-				        </div>
-				    </form> 
-	            </div>
-	            <div class="modal-footer">
-	                <button class="btn btn-default pull-left" data-dismiss="modal" {{action "cancelAddSubAreaDialog" target="view"}}>Cancel</button>
-	                <button class="btn btn-primary pull-right" data-dismiss="modal" {{action "addSubArea" target="view" }}>Add area</button>
-	            </div>
-	        </div>
-	    </div>    
-	</div> 
-
+    {{#unless isReadOnlyArea}}
+    <div class="col-sm-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Tours
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        {{#if tours}}
+                            {{name}} currently have {{tours.length}} tours.
+                        {{else}}
+                            There are currently no tours in {{name}}.
+                        {{/if}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <button class="btn btn-primary pull-right" {{action "addTour" target="view"}}>Add new tour</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/unless}}
+        
 </div>
+	
+<div class="modal fade" id="discardChangesAreaModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-body">
+                The area has unsaved changes, do you want to discard them?
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+                <button class="btn btn-danger pull-right" data-dismiss="modal" {{action "confirmDiscardChanges" target="view" }}>Discard changes</button>
+            </div>
+        </div>
+    </div>    
+</div> 
+	
+<div class="modal fade" id="validationErrorsAreaModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-body">
+                There are validation errors that must be corrected before the area can be published.
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary pull-right"  data-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>    
+</div>  
+	
+<div class="modal fade" id="confirmPublishAreaModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-body">
+                Changes will be published, do you want to continue?
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+                <button class="btn btn-danger pull-right" data-dismiss="modal" {{action "confirmSaveArea" target="view" }}>Publish</button>
+            </div>
+        </div>
+    </div>    
+</div> 
+	
+<div class="modal fade" id="addSubAreaModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                Add new subarea
+            </div>
+            <div class="modal-body">
+			    <form class="form">
+			        <div class="form-group">
+			            <label>Name</label>
+			            {{view App.FocusTextField valueBinding="newArea.name" required="true" maxlength="80" pattern="^.{3,80}$" class="form-control"}}
+			        </div>
+			        <div class="form-group">
+			            <label>Description</label>
+			            {{textarea value=newArea.description maxlength="500" class="form-control"}}
+			        </div>
+			    </form> 
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default pull-left" data-dismiss="modal" {{action "cancelAddSubAreaDialog" target="view"}}>Cancel</button>
+                <button class="btn btn-primary pull-right" data-dismiss="modal" {{action "addSubArea" target="view" }}>Add area</button>
+            </div>
+        </div>
+    </div>    
+</div> 

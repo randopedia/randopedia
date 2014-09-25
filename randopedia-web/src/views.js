@@ -1,5 +1,5 @@
 App.ApplicationView = Ember.View.extend({
-    classNames: ['app-root-view']
+   // classNames: ['app-root-view']
 });
 
 App.LoginModalView = Ember.View.extend({

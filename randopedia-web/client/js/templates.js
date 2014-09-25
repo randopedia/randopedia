@@ -14,7 +14,7 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
   var buffer = '', helper, options, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
 
 
-  data.buffer.push("<div class=\"row full-page-view-container\">\r\n    <div class=\"col-sm-12\">\r\n    \r\n         <ul class=\"nav nav-tabs\" role=\"tablist\">\r\n			<li class=\"active\"><a href=\"#about\" role=\"tab\" data-toggle=\"tab\">About</a></li>\r\n			<li><a href=\"#grades\" role=\"tab\" data-toggle=\"tab\">Grades</a></li>\r\n			<li><a href=\"#help\" role=\"tab\" data-toggle=\"tab\">Help</a></li>\r\n	    </ul>\r\n	    \r\n		<div class=\"tab-content\">\r\n		\r\n			<div class=\"tab-pane active\" id=\"about\">\r\n			     <div>\r\n                   <h3>About Randopedia</h3>\r\n                   <p>\r\n                   Randopedia is an open-content collaborative encyclopedia where anyone can contribute by adding and update content. Ambition is high; it shall become the most complete and accessible ski tour database in the world. Randopedia isn't a community; it's simply a database containing ski tour descriptions.\r\n                   </p>\r\n                   \r\n                   <p>\r\n                   It's really easy to contribute and take part in the Randopedia vision. Just log in and add your tours! Have a look at the help section if you want to learn more about how to contribute with tour data.\r\n                   </p>\r\n                   \r\n                    <h4 class=\"subheader\">The people</h4>\r\n                    <p>\r\n                    Randopedia is developed and maintained by a bunch of skiers (who also happens to be programmers) who simply thought this was a great idea. All work is done voluntary on our spare time, but we do our best to frequently update and improve the site.\r\n                    </p>\r\n                   \r\n                    <h4 class=\"subheader\">Contact</h4>\r\n                    <p>\r\n                    We love to get feedback, so any ideas, suggestions, error reports, questions, criticism or compliments are all very welcomed. Please send an email to <a href=\"mailto:mail@randopedia.net\">mail@randopedia.net</a> or write on the <a target=\"_blank\" href=\"https://www.facebook.com/randopedia.net\">Randopedia Facebook page</a>.\r\n                    </p>\r\n                    \r\n                   <h4 class=\"subheader\">Privacy, registering and logging in</h4>\r\n                   <p>\r\n                   Randopedia doesn't have its own authentication system, instead of creating a new account you can use accounts you already have. Currently you can login with Facebook and Google accounts.\r\n                   </p>\r\n                   \r\n                    <p>\r\n                    First time you login you have to register the account with Randopedia. This is just a confirmation that you allow your account to be used for authentication by Randopedia.\r\n                    </p>\r\n                    \r\n                    <p>\r\n                    Randopedia doesn't store or use any sensitive information about your account. The only thing that is saved is the user id and name. There's no logout button on the page, if you for example have logged in using your Facebook account, you'll be logged out from Randopedia when you log out from Facebook.\r\n                    </p>\r\n                    \r\n                    <p>\r\n                    Note: You only need to login if you want to contribute with ski tour data or write comments on tours. All ski tours and other information on the site is always available regardless if you're logged in or not.\r\n                    </p>\r\n                    \r\n                    <p>\r\n                    Note 2: If you have saved tour drafts when logged in with one account, for example Facebook, those tours will not be available if you log in with Google or vice versa.\r\n                    </p>\r\n                   \r\n                    <h4 class=\"subheader\">Licensing</h4>\r\n                    <p>\r\n                    All tour data (texts, images, map data) is licensed under a <a target=\"_blank\" rel=\"license\" href=\"http://creativecommons.org/licenses/by/4.0/\">Creative Commons Attribution 4.0 International License</a>.\r\n                    </p>\r\n                   \r\n                    <h4 class=\"subheader\">Disclaimer</h4>\r\n                    <p>\r\n                    By publishing any material on Randopedia you assures that the material DO NOT violate ANY copyright law, international or otherwise, nor that the material is deemed illegal by governing authorities.\r\n                    </p>\r\n                    <p>\r\n                    If you suspect that some material available on Randopedia violates any copyright law, please contact us and it will be immediately deleted from the Randopedia database.\r\n                    </p>                   \r\n                    <p>\r\n                    Randopedia makes no guarantee of the validity of the content. Tour data should always be seen as guidelines and inspiration, not as absolute truth, and be handled as such.\r\n                    </p>\r\n                    <p>\r\n                    Randopedia reserves the right to, without any notice, delete any content that violates anything stated here or is considered irrelevant for the site.\r\n                    </p>			     \r\n			     </div>\r\n			</div>\r\n			\r\n			<div class=\"tab-pane\" id=\"grades\">\r\n			     <h3>Grades</h3>\r\n			     ");
+  data.buffer.push("<div class=\"row main-view-container\">\r\n    <div class=\"col-sm-12\">\r\n    \r\n         <ul class=\"nav nav-tabs\" role=\"tablist\">\r\n			<li class=\"active\"><a href=\"#about\" role=\"tab\" data-toggle=\"tab\">About</a></li>\r\n			<li><a href=\"#grades\" role=\"tab\" data-toggle=\"tab\">Grades</a></li>\r\n			<li><a href=\"#help\" role=\"tab\" data-toggle=\"tab\">Help</a></li>\r\n	    </ul>\r\n	    \r\n		<div class=\"tab-content\">\r\n		\r\n			<div class=\"tab-pane active\" id=\"about\">\r\n			     <div>\r\n                   <h3>About Randopedia</h3>\r\n                   <p>\r\n                   Randopedia is an open-content collaborative encyclopedia where anyone can contribute by adding and update content. Ambition is high; it shall become the most complete and accessible ski tour database in the world. Randopedia isn't a community; it's simply a database containing ski tour descriptions.\r\n                   </p>\r\n                   \r\n                   <p>\r\n                   It's really easy to contribute and take part in the Randopedia vision. Just log in and add your tours! Have a look at the help section if you want to learn more about how to contribute with tour data.\r\n                   </p>\r\n                   \r\n                    <h4 class=\"subheader\">The people</h4>\r\n                    <p>\r\n                    Randopedia is developed and maintained by a bunch of skiers (who also happens to be programmers) who simply thought this was a great idea. All work is done voluntary on our spare time, but we do our best to frequently update and improve the site.\r\n                    </p>\r\n                   \r\n                    <h4 class=\"subheader\">Contact</h4>\r\n                    <p>\r\n                    We love to get feedback, so any ideas, suggestions, error reports, questions, criticism or compliments are all very welcomed. Please send an email to <a href=\"mailto:mail@randopedia.net\">mail@randopedia.net</a> or write on the <a target=\"_blank\" href=\"https://www.facebook.com/randopedia.net\">Randopedia Facebook page</a>.\r\n                    </p>\r\n                    \r\n                   <h4 class=\"subheader\">Privacy, registering and logging in</h4>\r\n                   <p>\r\n                   Randopedia doesn't have its own authentication system, instead of creating a new account you can use accounts you already have. Currently you can login with Facebook and Google accounts.\r\n                   </p>\r\n                   \r\n                    <p>\r\n                    First time you login you have to register the account with Randopedia. This is just a confirmation that you allow your account to be used for authentication by Randopedia.\r\n                    </p>\r\n                    \r\n                    <p>\r\n                    Randopedia doesn't store or use any sensitive information about your account. The only thing that is saved is the user id and name. There's no logout button on the page, if you for example have logged in using your Facebook account, you'll be logged out from Randopedia when you log out from Facebook.\r\n                    </p>\r\n                    \r\n                    <p>\r\n                    Note: You only need to login if you want to contribute with ski tour data or write comments on tours. All ski tours and other information on the site is always available regardless if you're logged in or not.\r\n                    </p>\r\n                    \r\n                    <p>\r\n                    Note 2: If you have saved tour drafts when logged in with one account, for example Facebook, those tours will not be available if you log in with Google or vice versa.\r\n                    </p>\r\n                   \r\n                    <h4 class=\"subheader\">Licensing</h4>\r\n                    <p>\r\n                    All tour data (texts, images, map data) is licensed under a <a target=\"_blank\" rel=\"license\" href=\"http://creativecommons.org/licenses/by/4.0/\">Creative Commons Attribution 4.0 International License</a>.\r\n                    </p>\r\n                   \r\n                    <h4 class=\"subheader\">Disclaimer</h4>\r\n                    <p>\r\n                    By publishing any material on Randopedia you assures that the material DO NOT violate ANY copyright law, international or otherwise, nor that the material is deemed illegal by governing authorities.\r\n                    </p>\r\n                    <p>\r\n                    If you suspect that some material available on Randopedia violates any copyright law, please contact us and it will be immediately deleted from the Randopedia database.\r\n                    </p>                   \r\n                    <p>\r\n                    Randopedia makes no guarantee of the validity of the content. Tour data should always be seen as guidelines and inspiration, not as absolute truth, and be handled as such.\r\n                    </p>\r\n                    <p>\r\n                    Randopedia reserves the right to, without any notice, delete any content that violates anything stated here or is considered irrelevant for the site.\r\n                    </p>			     \r\n			     </div>\r\n			</div>\r\n			\r\n			<div class=\"tab-pane\" id=\"grades\">\r\n			     <h3>Grades</h3>\r\n			     ");
   data.buffer.push(escapeExpression((helper = helpers.partial || (depth0 && depth0.partial),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data},helper ? helper.call(depth0, "about-grades", options) : helperMissing.call(depth0, "partial", "about-grades", options))));
   data.buffer.push(" \r\n			</div>\r\n			\r\n			<div class=\"tab-pane\" id=\"help\">\r\n                <div>\r\n                  <h3>Adding and updating tours</h3>\r\n                   <p>\r\n                   The basic idea of Randopedia is that many people will contribute by adding and improving the tour descriptions. After a new tour has been published, it \r\n                   will be possible for anyone to make updates on that tour.\r\n                   </p>\r\n                   \r\n                   <p>\r\n                   To add or update a tour you need to be logged in. An edit button is available in the top right corners of \r\n                   the tour and area pages. This button leads you to an edit view for the tour/area. There's also an \"Add new tour\"\r\n                   link on the front page. \r\n                   </p>\r\n                   \r\n                   <h4 class=\"subheader\">Adding a new tour</h4>\r\n                   <p>\r\n                   There are two ways to add a new tour. \r\n                   <br> - Browse into an area, click edit and then the Add tour button. This will create a new tour in the current area.\r\n                   <br> - Click the Add new tour link in the main menu.\r\n                   </p>\r\n                   <p>See \"Edit a tour\" section below for more details on editing tours.</p>\r\n                   \r\n                   <h4 class=\"subheader\">Adding a new area</h4>\r\n                   <p>\r\n                   A new area can be added in two ways. \r\n                   <br> - From the area page: Browse to the \"parent\" area, click edit button and add a new area in the \"Subareas\" section.\r\n                   <br> - From the tour page: In tour edit page, click the area name and an area picker appears, here you'll find a \"create new area\"\r\n                   option. Select the parent area and click \"Create new are in...\".                     \r\n                   </p>\r\n                   \r\n                   <h4 class=\"subheader\">Edit a tour</h4>\r\n                   <p>\r\n                    The edit tour page contains five sections.                   \r\n                   </p>\r\n                   \r\n                   <h5 class=\"subheader\">Details</h5>\r\n                   <p>Here you found a set of predefined fields where basic tour data is easily set.</p>\r\n                   \r\n                   <h5 class=\"subheader\">Description</h5>\r\n                   <p>Describe the itinerary and add any other information that could be useful</p>\r\n                   \r\n                   <h5 class=\"subheader\">Map</h5>\r\n                   <p> \r\n                    The map tab offers some simple map edit functionality. A new route is added by clicking the \"path\" button in the toolbar. When the drawing \r\n                    tool is selected, just click on the starting point and then draw the line as wanted. Double click to exit the drawing mode.\r\n                   </p>\r\n                                        \r\n                   <h5 class=\"subheader\">Images</h5>\r\n                   <p>\r\n                   Images are published a little bit differently than other data.\r\n                   </p>\r\n                   <p>\r\n                    When an image is selected for upload a preview is shown and a caption can be added before publishing. Images can only be uploaded and published \r\n                    one at the time. The image is published immediately (no need to do save/publish on the tour afterwards)\r\n                    </p>\r\n                    <p>\r\n                    Below the upload section, current images are listed and captions can be updated.\r\n                    <p>\r\n                    Only upload images of good quality with motives that are helpful for route finding and gives an impression of what the tour's like.\r\n                    </p>\r\n                    <p>\r\n                    All images will be scaled down to 1024*768 pixels. Currently images in portrait format isn't supported (will look kind of bad). \r\n                    </p>\r\n                    <p>\r\n                    There's a max limit of 20 images per tour. \r\n                   </p>                \r\n                   <h5 class=\"subheader\">History</h5>\r\n                   <p>\r\n                   All updates on a tour are logged and can be viewed here.\r\n                   </p>\r\n                   <h5 class=\"subheader\">Adding links in descriptions</h5>\r\n                   <p>\r\n                   Randopedia supports something called \"markdown\". This means that some codes can be added in a text field and these will be translated \r\n                   into links in view mode. This is supported in the area and tour description fields. Note that the full address must be added (included the http stuff).\r\n                   <p>\r\n                   <strong>Syntax: </strong> [Name](address)\r\n                   </p>\r\n                   <p>\r\n                   <p><strong>Example (in the edit text boxes): </strong></p>\r\n                   <pre><code>Visit us on our [facebook page](http://www.facebook.com/randopedia.net)</code></pre>\r\n                   <p><strong>...will look like this:</strong></p>\r\n                   <pre>Visit us on our <a href=\"http://www.facebook.com/randopedia.net\">facebook page</a></pre>\r\n                   </p>\r\n                   \r\n                   <h4 class=\"subheader\">Publishing</h4>\r\n                   <p>\r\n                   Changes can be published at any time as long as the data is valid. There might be some warnings showing, try to fill out as much data as possible \r\n                   before publishing. A brief comment describing the change is also mandatory.                   \r\n                   </p>\r\n                   \r\n                   <h4 class=\"subheader\">Drafts</h4>\r\n                   <p>\r\n                    A new tour can be saved as a draft. That means it is saved, but not published. A draft is only available for the user that created it, you \r\n                    can work with a tour for some time and once you're happy with it, it can be published.\r\n                    </p>\r\n                    <p>\r\n                    Drafts can be found on the \"My tours\" page which is available from the main menu.\r\n                    </p>\r\n                    <p>\r\n                    Drafts are only available for new, unpublished tours. If a tour have been published, it's not possible to make changes and save it as a draft to \r\n                    publish at a later time.\r\n                   </p>                    \r\n                </div>\r\n            </div>\r\n            \r\n		</div>\r\n	    \r\n    </div>\r\n</div>");
   return buffer;
@@ -29,10 +29,9 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
 
   data.buffer.push("<!--\r\n    Default application template. Defines the application layout and starts everything off.\r\n-->     \r\n\r\n");
   data.buffer.push(escapeExpression((helper = helpers.partial || (depth0 && depth0.partial),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data},helper ? helper.call(depth0, "header", options) : helperMissing.call(depth0, "partial", "header", options))));
-  data.buffer.push("\r\n \r\n <div class=\"full-screen\">\r\n    ");
+  data.buffer.push("\r\n \r\n");
   stack1 = helpers._triageMustache.call(depth0, "outlet", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n </div>");
   return buffer;
   
 });
@@ -263,7 +262,7 @@ function program5(depth0,data) {
   return buffer;
   }
 
-  data.buffer.push("<div class=\"row full-page-view-container browse-tree-view\">\n	<div class=\"panel panel-default spacing-y\">\n	    <div class=\"panel-heading\">\n	        Browse areas\n	    </div>\n	    <div class=\"panel-body\">\n	        <div class=\"col-sm-12\">\n                ");
+  data.buffer.push("<div class=\"row main-view-container browse-tree-view\">\n	<div class=\"panel panel-default spacing-y\">\n	    <div class=\"panel-heading\">\n	        Browse areas\n	    </div>\n	    <div class=\"panel-body\">\n	        <div class=\"col-sm-12\">\n                ");
   stack1 = helpers['if'].call(depth0, "controller.isLoadingAreas", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(3, program3, data),fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n	        </div>     \n	    </div>\n	</div>\n</div>\n\n\n");
@@ -274,7 +273,7 @@ function program5(depth0,data) {
 Ember.TEMPLATES["area"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
-  var stack1, escapeExpression=this.escapeExpression, self=this;
+  var buffer = '', stack1, escapeExpression=this.escapeExpression, self=this;
 
 function program1(depth0,data) {
   
@@ -294,25 +293,45 @@ function program3(depth0,data) {
   return buffer;
   }
 
+  data.buffer.push("<div class=\"main-view-container\">\r\n");
   stack1 = helpers['if'].call(depth0, "editAreaMode", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(3, program3, data),fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  else { data.buffer.push(''); }
+  data.buffer.push("\r\n</div>");
+  return buffer;
   
 });
 
 Ember.TEMPLATES["areadetails-view"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
-  var buffer = '', stack1, self=this, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
+  var buffer = '', stack1, escapeExpression=this.escapeExpression, self=this, helperMissing=helpers.helperMissing;
 
 function program1(depth0,data) {
   
+  var buffer = '', stack1;
+  data.buffer.push("  \r\n");
+  stack1 = helpers.unless.call(depth0, "isRootArea", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(2, program2, data),contexts:[depth0],types:["ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\r\n");
+  return buffer;
+  }
+function program2(depth0,data) {
+  
+  var buffer = '';
+  data.buffer.push("\r\n<div class=\"row\">\r\n    <div class=\"col-sm-12 edit-container\">\r\n        <div class=\"pull-right\"><a ");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "editArea", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data})));
+  data.buffer.push(">Edit area</a></div>\r\n    </div>       \r\n</div>\r\n");
+  return buffer;
+  }
+
+function program4(depth0,data) {
+  
   var stack1, helper, options;
-  stack1 = (helper = helpers.linkTo || (depth0 && depth0.linkTo),options={hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(2, program2, data),contexts:[depth0,depth0],types:["STRING","ID"],data:data},helper ? helper.call(depth0, "area", "parent", options) : helperMissing.call(depth0, "linkTo", "area", "parent", options));
+  stack1 = (helper = helpers.linkTo || (depth0 && depth0.linkTo),options={hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(5, program5, data),contexts:[depth0,depth0],types:["STRING","ID"],data:data},helper ? helper.call(depth0, "area", "parent", options) : helperMissing.call(depth0, "linkTo", "area", "parent", options));
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   else { data.buffer.push(''); }
   }
-function program2(depth0,data) {
+function program5(depth0,data) {
   
   var buffer = '', stack1;
   data.buffer.push("<span class=\"small uppercase\">");
@@ -322,51 +341,33 @@ function program2(depth0,data) {
   return buffer;
   }
 
-function program4(depth0,data) {
-  
-  var buffer = '', stack1;
-  data.buffer.push("  \r\n	        ");
-  stack1 = helpers.unless.call(depth0, "isRootArea", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(5, program5, data),contexts:[depth0],types:["ID"],data:data});
-  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n	        ");
-  return buffer;
-  }
-function program5(depth0,data) {
-  
-  var buffer = '';
-  data.buffer.push("\r\n	        	<h3><a class=\"pull-right\" ");
-  data.buffer.push(escapeExpression(helpers.action.call(depth0, "editArea", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data})));
-  data.buffer.push("><span class=\"glyphicon glyphicon-edit\"></span></a></h3>\r\n	        ");
-  return buffer;
-  }
-
 function program7(depth0,data) {
   
   var buffer = '';
-  data.buffer.push("\r\n	<div class=\"row\">\r\n	    <div class=\"col-sm-12 col-lg-10\">\r\n            <div class=\"panel panel-default\">\r\n                <div class=\"panel-body\">\r\n                    <div>");
+  data.buffer.push("\r\n<div class=\"row\">\r\n    <div class=\"col-sm-12 col-lg-10\">\r\n        <div>");
   data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "markedDescription", {hash:{
     'unescaped': ("true")
   },hashTypes:{'unescaped': "STRING"},hashContexts:{'unescaped': depth0},contexts:[depth0],types:["ID"],data:data})));
-  data.buffer.push("</div>\r\n                </div>\r\n            </div>	        \r\n	    </div>\r\n	</div>\r\n	");
+  data.buffer.push("</div>\r\n    </div>\r\n</div>\r\n");
   return buffer;
   }
 
 function program9(depth0,data) {
   
   var buffer = '', stack1;
-  data.buffer.push("\r\n	<div class=\"row\">\r\n		<div class=\"col-sm-12\">\r\n		    <h3>Areas</h3>\r\n		    <ul class=\"inline-list\">\r\n		     ");
+  data.buffer.push("\r\n<div class=\"row\">\r\n	<div class=\"col-sm-12\">\r\n	    <h3>Areas</h3>\r\n	    <ul class=\"inline-list\">\r\n	     ");
   stack1 = helpers.each.call(depth0, "child", "in", "children", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(10, program10, data),contexts:[depth0,depth0,depth0],types:["ID","ID","ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n		     </ul>\r\n		</div>\r\n	</div>\r\n	");
+  data.buffer.push("\r\n	     </ul>\r\n	</div>\r\n</div>\r\n");
   return buffer;
   }
 function program10(depth0,data) {
   
   var buffer = '', stack1, helper, options;
-  data.buffer.push("\r\n		         <li>\r\n			         ");
+  data.buffer.push("\r\n	         <li>\r\n		         ");
   stack1 = (helper = helpers.linkTo || (depth0 && depth0.linkTo),options={hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(11, program11, data),contexts:[depth0,depth0],types:["STRING","ID"],data:data},helper ? helper.call(depth0, "area", "child", options) : helperMissing.call(depth0, "linkTo", "area", "child", options));
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push(" \r\n			         \r\n		         </li>\r\n		     ");
+  data.buffer.push(" \r\n		         \r\n	         </li>\r\n	     ");
   return buffer;
   }
 function program11(depth0,data) {
@@ -382,58 +383,58 @@ function program11(depth0,data) {
 function program13(depth0,data) {
   
   var buffer = '', stack1;
-  data.buffer.push("\r\n		");
+  data.buffer.push("\r\n	");
   stack1 = helpers['if'].call(depth0, "hasTours", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(14, program14, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n	");
+  data.buffer.push("\r\n");
   return buffer;
   }
 function program14(depth0,data) {
   
   var buffer = '', stack1;
-  data.buffer.push("\r\n			<div class=\"row\">\r\n			    <div class=\"col-sm-12\">\r\n			        <h4>Tours</h4>\r\n			        ");
+  data.buffer.push("\r\n		<div class=\"row\">\r\n		    <div class=\"col-sm-12\">\r\n		        <h3>Tours</h3>\r\n		        ");
   stack1 = helpers['if'].call(depth0, "content.isUpdating", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(15, program15, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n			        ");
+  data.buffer.push("\r\n		        ");
   stack1 = helpers.each.call(depth0, "tour", "in", "tours", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(17, program17, data),contexts:[depth0,depth0,depth0],types:["ID","ID","ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("  \r\n			    </div>\r\n			</div>\r\n		");
+  data.buffer.push("  \r\n		    </div>\r\n		</div>\r\n	");
   return buffer;
   }
 function program15(depth0,data) {
   
   
-  data.buffer.push("\r\n			            <div>Loading...</div>\r\n			        ");
+  data.buffer.push("\r\n		            <div>Loading...</div>\r\n		        ");
   }
 
 function program17(depth0,data) {
   
   var buffer = '';
-  data.buffer.push("\r\n			            ");
+  data.buffer.push("\r\n		            ");
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "App.TourItemView", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data})));
-  data.buffer.push("\r\n			        ");
+  data.buffer.push("\r\n		        ");
   return buffer;
   }
 
-  data.buffer.push("<div class=\"full-page-view-container\">\r\n\r\n	<div class=\"row\">\r\n	    <div class=\"col-sm-10\">\r\n	        <h2>");
+  data.buffer.push("\r\n");
+  stack1 = helpers['if'].call(depth0, "controllers.login.isLoggedIn", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\r\n   \r\n<div class=\"row\">\r\n    <div class=\"col-sm-10\">\r\n        <h2>");
   stack1 = helpers._triageMustache.call(depth0, "name", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push(" ");
-  stack1 = helpers['if'].call(depth0, "parent", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers['if'].call(depth0, "parent", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(4, program4, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("</h2>\r\n	    </div>\r\n	    \r\n	    <div class=\"col-sm-2\">\r\n	        ");
-  stack1 = helpers['if'].call(depth0, "controllers.login.isLoggedIn", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(4, program4, data),contexts:[depth0],types:["ID"],data:data});
-  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n	    </div>\r\n	</div>\r\n	\r\n	");
+  data.buffer.push("</h2>\r\n    </div>\r\n</div>\r\n\r\n");
   stack1 = helpers['if'].call(depth0, "description", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(7, program7, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n	\r\n	");
+  data.buffer.push("\r\n\r\n");
   stack1 = helpers['if'].call(depth0, "children", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(9, program9, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n	\r\n	");
+  data.buffer.push("\r\n\r\n");
   stack1 = helpers.unless.call(depth0, "isReadOnlyArea", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(13, program13, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n\r\n</div>\r\n\r\n\r\n\r\n");
+  data.buffer.push("\r\n\r\n\r\n\r\n");
   return buffer;
   
 });
@@ -446,60 +447,60 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
 function program1(depth0,data) {
   
   
-  data.buffer.push("\r\n	<div class=\"row\">\r\n	    <div class=\"col-sm-12\">\r\n	        <div class=\"alert alert-danger\" role=\"alert\">\r\n	            <button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button>\r\n	            Oh noes, there was some validation errors, please try again!\r\n	        </div>          \r\n	    </div>\r\n	</div>\r\n	");
+  data.buffer.push("\r\n<div class=\"row\">\r\n    <div class=\"col-sm-12\">\r\n        <div class=\"alert alert-danger\" role=\"alert\">\r\n            <button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button>\r\n            Oh noes, there was some validation errors, please try again!\r\n        </div>          \r\n    </div>\r\n</div>\r\n");
   }
 
 function program3(depth0,data) {
   
   
-  data.buffer.push("\r\n	<div class=\"row\">\r\n	    <div class=\"col-sm-12\">\r\n	        <div class=\"alert alert-danger\" role=\"alert\">\r\n	            <button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button>\r\n	            Oh noes, you have most likely been logged out. Try to log in again!\r\n	        </div>          \r\n	    </div>\r\n	</div>\r\n	");
+  data.buffer.push("\r\n<div class=\"row\">\r\n    <div class=\"col-sm-12\">\r\n        <div class=\"alert alert-danger\" role=\"alert\">\r\n            <button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button>\r\n            Oh noes, you have most likely been logged out. Try to log in again!\r\n        </div>          \r\n    </div>\r\n</div>\r\n");
   }
 
 function program5(depth0,data) {
   
   
-  data.buffer.push("\r\n	<div class=\"row\">\r\n	    <div class=\"col-sm-12\">\r\n	        <div class=\"alert alert-danger\" role=\"alert\">\r\n	            <button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button>\r\n	           Something went wrong when saving the area, please try again!\r\n	        </div>          \r\n	    </div>\r\n	</div>\r\n	");
+  data.buffer.push("\r\n<div class=\"row\">\r\n    <div class=\"col-sm-12\">\r\n        <div class=\"alert alert-danger\" role=\"alert\">\r\n            <button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button>\r\n           Something went wrong when saving the area, please try again!\r\n        </div>          \r\n    </div>\r\n</div>\r\n");
   }
 
 function program7(depth0,data) {
   
   
-  data.buffer.push("\r\n	<div class=\"row\">\r\n	    <div class=\"col-sm-12\">\r\n	        <div class=\"alert alert-success\" role=\"alert\">\r\n	            <button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button>\r\n	            Area was successfully updated\r\n	        </div>          \r\n	    </div>\r\n	</div>\r\n	");
+  data.buffer.push("\r\n<div class=\"row\">\r\n    <div class=\"col-sm-12\">\r\n        <div class=\"alert alert-success\" role=\"alert\">\r\n            <button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button>\r\n            Area was successfully updated\r\n        </div>          \r\n    </div>\r\n</div>\r\n");
   }
 
 function program9(depth0,data) {
   
   
-  data.buffer.push("\r\n	    <div class=\"col-sm-12\">\r\n	       <div>Loading area...</div>\r\n	       </div>\r\n	    ");
+  data.buffer.push("\r\n    <div class=\"col-sm-12\">\r\n       <div>Loading area...</div>\r\n    </div>\r\n    ");
   }
 
 function program11(depth0,data) {
   
   var buffer = '', stack1;
-  data.buffer.push("\r\n	    <div class=\"col-sm-12\">\r\n	        ");
+  data.buffer.push("\r\n    <div class=\"col-sm-12\">\r\n        ");
   stack1 = helpers['if'].call(depth0, "isReadOnlyArea", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(14, program14, data),fn:self.program(12, program12, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n	        <button class=\"btn btn-primary pull-right\" ");
+  data.buffer.push("\r\n        <button class=\"btn btn-primary pull-right\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "startCancelingEdit", {hash:{
     'target': ("view")
   },hashTypes:{'target': "STRING"},hashContexts:{'target': depth0},contexts:[depth0],types:["STRING"],data:data})));
-  data.buffer.push(">Exit edit</button>\r\n	    </div>\r\n	    ");
+  data.buffer.push(">Exit edit</button>\r\n    </div>\r\n    ");
   return buffer;
   }
 function program12(depth0,data) {
   
   var buffer = '', stack1;
-  data.buffer.push("\r\n	            <span class=\"info label\" class=\"alert\">");
+  data.buffer.push("\r\n            <span class=\"info label\" class=\"alert\">");
   stack1 = helpers._triageMustache.call(depth0, "name", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push(" is a root area and cannot be edited, but it's possible to add subareas.</span>\r\n	        ");
+  data.buffer.push(" is a root area and cannot be edited, but it's possible to add subareas.</span>\r\n        ");
   return buffer;
   }
 
 function program14(depth0,data) {
   
   var buffer = '', stack1, helper, options;
-  data.buffer.push("\r\n	            <button class=\"btn btn-primary\" ");
+  data.buffer.push("\r\n            <button class=\"btn btn-primary\" ");
   data.buffer.push(escapeExpression((helper = helpers.bindAttr || (depth0 && depth0.bindAttr),options={hash:{
     'disabled': ("isNotDirty")
   },hashTypes:{'disabled': "STRING"},hashContexts:{'disabled': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "bindAttr", options))));
@@ -507,32 +508,32 @@ function program14(depth0,data) {
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "saveArea", {hash:{
     'target': ("view")
   },hashTypes:{'target': "STRING"},hashContexts:{'target': depth0},contexts:[depth0],types:["STRING"],data:data})));
-  data.buffer.push(">Publish</button>\r\n	            ");
+  data.buffer.push(">\r\n               <span class=\"glyphicon glyphicon-cloud-upload\"></span> Publish\r\n            </button>\r\n            ");
   stack1 = helpers.unless.call(depth0, "isNotDirty", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(15, program15, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n	        ");
+  data.buffer.push("\r\n        ");
   return buffer;
   }
 function program15(depth0,data) {
   
   
-  data.buffer.push("\r\n	                <span class=\"info label\">Area have unsaved changes!</span>\r\n	            ");
+  data.buffer.push("\r\n                <span class=\"info label\">Area have unsaved changes!</span>\r\n            ");
   }
 
 function program17(depth0,data) {
   
   var buffer = '', stack1;
-  data.buffer.push("\r\n	            <h2>");
+  data.buffer.push("\r\n            <h2>");
   stack1 = helpers._triageMustache.call(depth0, "name", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("</h2>\r\n	        ");
+  data.buffer.push("</h2>\r\n        ");
   return buffer;
   }
 
 function program19(depth0,data) {
   
   var buffer = '', helper, options;
-  data.buffer.push("\r\n	        <div class=\"panel panel-default\">\r\n	            <div class=\"panel-heading\">\r\n	                Area details\r\n	            </div>\r\n	            <div class=\"panel-body\">\r\n			        <form role=\"form\">              \r\n			            <div class=\"form-group\">\r\n		                    <label for=\"inputAreaName\">Name</label>\r\n		                    <button type=\"button\" class=\"info pull-right\" data-toggle=\"popover\" data-trigger=\"focus\" title=\"Name\" data-content=\"The name of the area. Name is required and can have a maximum of 80 characters.\"></button>\r\n		                    ");
+  data.buffer.push("\r\n        <div class=\"panel panel-default\">\r\n            <div class=\"panel-heading\">\r\n                Area details\r\n            </div>\r\n            <div class=\"panel-body\">\r\n		        <form role=\"form\">              \r\n		            <div class=\"form-group\">\r\n	                    <label for=\"inputAreaName\">Name</label>\r\n	                    <button type=\"button\" class=\"info pull-right\" data-toggle=\"popover\" data-trigger=\"focus\" title=\"Name\" data-content=\"The name of the area. Name is required and can have a maximum of 80 characters.\"></button>\r\n	                    ");
   data.buffer.push(escapeExpression((helper = helpers.input || (depth0 && depth0.input),options={hash:{
     'value': ("name"),
     'required': ("true"),
@@ -541,106 +542,106 @@ function program19(depth0,data) {
     'class': ("form-control"),
     'id': ("inputAreaName")
   },hashTypes:{'value': "ID",'required': "STRING",'maxlength': "STRING",'pattern': "STRING",'class': "STRING",'id': "STRING"},hashContexts:{'value': depth0,'required': depth0,'maxlength': depth0,'pattern': depth0,'class': depth0,'id': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "input", options))));
-  data.buffer.push("            \r\n			            </div>\r\n			            <div class=\"form-group\">\r\n		                    <label for=\"inputAreaDescription\">Description</label>\r\n		                    <button type=\"button\" class=\"info pull-right\" data-toggle=\"popover\" data-trigger=\"focus\" title=\"Description\" data-content=\"A short description of the area. A description can have a maximum of 500 characters.\"></button>\r\n		                    ");
+  data.buffer.push("            \r\n		            </div>\r\n		            <div class=\"form-group\">\r\n	                    <label for=\"inputAreaDescription\">Description</label>\r\n	                    <button type=\"button\" class=\"info pull-right\" data-toggle=\"popover\" data-trigger=\"focus\" title=\"Description\" data-content=\"A short description of the area. A description can have a maximum of 500 characters.\"></button>\r\n	                    ");
   data.buffer.push(escapeExpression((helper = helpers.textarea || (depth0 && depth0.textarea),options={hash:{
     'value': ("description"),
     'maxlength': ("500"),
     'class': ("form-control"),
     'id': ("inputAreaDescription")
   },hashTypes:{'value': "ID",'maxlength': "STRING",'class': "STRING",'id': "STRING"},hashContexts:{'value': depth0,'maxlength': depth0,'class': depth0,'id': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "textarea", options))));
-  data.buffer.push("\r\n			            </div>\r\n			        </form>\r\n	            </div>\r\n	        </div>\r\n	        ");
+  data.buffer.push("\r\n		            </div>\r\n		        </form>\r\n            </div>\r\n        </div>\r\n        ");
   return buffer;
   }
 
 function program21(depth0,data) {
   
   var buffer = '', stack1;
-  data.buffer.push("\r\n		                  <li>");
+  data.buffer.push("\r\n	                  <li>");
   stack1 = helpers._triageMustache.call(depth0, "child.name", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("</li> \r\n		              ");
+  data.buffer.push("</li> \r\n	              ");
   return buffer;
   }
 
 function program23(depth0,data) {
   
   
-  data.buffer.push("\r\n		                  <li>Area has no subareas</li>\r\n		              ");
+  data.buffer.push("\r\n	                  <li>Area has no subareas</li>\r\n	              ");
   }
 
 function program25(depth0,data) {
   
   var buffer = '', stack1;
-  data.buffer.push("\r\n	    <div class=\"col-sm-12\">\r\n	        <div class=\"panel panel-default\">\r\n	            <div class=\"panel-heading\">\r\n	                Tours\r\n	            </div>\r\n	            <div class=\"panel-body\">\r\n	                <div class=\"row\">\r\n	                    <div class=\"col-sm-12\">\r\n	                        ");
+  data.buffer.push("\r\n    <div class=\"col-sm-12\">\r\n        <div class=\"panel panel-default\">\r\n            <div class=\"panel-heading\">\r\n                Tours\r\n            </div>\r\n            <div class=\"panel-body\">\r\n                <div class=\"row\">\r\n                    <div class=\"col-sm-12\">\r\n                        ");
   stack1 = helpers['if'].call(depth0, "tours", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(28, program28, data),fn:self.program(26, program26, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n	                    </div>\r\n	                </div>\r\n	                <div class=\"row\">\r\n	                    <div class=\"col-sm-12\">\r\n	                        <button class=\"btn btn-primary pull-right\" ");
+  data.buffer.push("\r\n                    </div>\r\n                </div>\r\n                <div class=\"row\">\r\n                    <div class=\"col-sm-12\">\r\n                        <button class=\"btn btn-primary pull-right\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "addTour", {hash:{
     'target': ("view")
   },hashTypes:{'target': "STRING"},hashContexts:{'target': depth0},contexts:[depth0],types:["STRING"],data:data})));
-  data.buffer.push(">Add new tour</button>\r\n	                    </div>\r\n	                </div>\r\n	            </div>\r\n	        </div>\r\n	    </div>\r\n	    ");
+  data.buffer.push(">Add new tour</button>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    ");
   return buffer;
   }
 function program26(depth0,data) {
   
   var buffer = '', stack1;
-  data.buffer.push("\r\n	                            ");
+  data.buffer.push("\r\n                            ");
   stack1 = helpers._triageMustache.call(depth0, "name", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push(" currently have ");
   stack1 = helpers._triageMustache.call(depth0, "tours.length", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push(" tours.\r\n	                        ");
+  data.buffer.push(" tours.\r\n                        ");
   return buffer;
   }
 
 function program28(depth0,data) {
   
   var buffer = '', stack1;
-  data.buffer.push("\r\n	                            There are currently no tours in ");
+  data.buffer.push("\r\n                            There are currently no tours in ");
   stack1 = helpers._triageMustache.call(depth0, "name", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push(".\r\n	                        ");
+  data.buffer.push(".\r\n                        ");
   return buffer;
   }
 
-  data.buffer.push("<!-- \r\n    Template for editing an area\r\n --> \r\n\r\n<div class=\"full-page-view-container\">\r\n\r\n	");
+  data.buffer.push("<!-- \r\n    Template for editing an area\r\n --> \r\n\r\n");
   stack1 = helpers['if'].call(depth0, "validationErrors", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n	\r\n	");
+  data.buffer.push("\r\n\r\n");
   stack1 = helpers['if'].call(depth0, "authenticationErrors", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(3, program3, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n	\r\n	");
+  data.buffer.push("\r\n\r\n");
   stack1 = helpers['if'].call(depth0, "serverErrors", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(5, program5, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n	\r\n	");
+  data.buffer.push("\r\n\r\n");
   stack1 = helpers['if'].call(depth0, "updateSuccessfully", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(7, program7, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n	\r\n	<div class=\"row spacing-y\">\r\n	    ");
+  data.buffer.push("\r\n	\r\n<div class=\"row spacing-y\">\r\n    ");
   stack1 = helpers['if'].call(depth0, "isSaving", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(11, program11, data),fn:self.program(9, program9, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n	</div>\r\n	\r\n	<div class=\"row\">\r\n	    \r\n	    <div class=\"col-sm-12\">\r\n	        ");
+  data.buffer.push("\r\n</div>\r\n	\r\n<div class=\"row\">\r\n    \r\n    <div class=\"col-sm-12\">\r\n        ");
   stack1 = helpers['if'].call(depth0, "isReadOnlyArea", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(19, program19, data),fn:self.program(17, program17, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n	    </div>\r\n	    \r\n	    <div class=\"col-sm-12\">\r\n		    <div class=\"panel panel-default\">\r\n		        <div class=\"panel-heading\">\r\n		            Subareas\r\n		        </div>\r\n			    <div class=\"panel-body\">\r\n		            <ul class=\"inline-list\">\r\n		              ");
+  data.buffer.push("\r\n    </div>\r\n	    \r\n    <div class=\"col-sm-12\">\r\n	    <div class=\"panel panel-default\">\r\n	        <div class=\"panel-heading\">\r\n	            Subareas\r\n	        </div>\r\n		    <div class=\"panel-body\">\r\n	            <ul class=\"inline-list\">\r\n	              ");
   stack1 = helpers.each.call(depth0, "child", "in", "children", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(23, program23, data),fn:self.program(21, program21, data),contexts:[depth0,depth0,depth0],types:["ID","ID","ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n		            </ul>\r\n		            <div class=\"row\">\r\n	                    <div class=\"col-sm-12\">  \r\n		                   <button class=\"btn btn-primary pull-right\" data-toggle=\"modal\" ");
+  data.buffer.push("\r\n	            </ul>\r\n	            <div class=\"row\">\r\n                    <div class=\"col-sm-12\">  \r\n	                   <button class=\"btn btn-primary pull-right\" data-toggle=\"modal\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "startAddSubArea", {hash:{
     'target': ("view")
   },hashTypes:{'target': "STRING"},hashContexts:{'target': depth0},contexts:[depth0],types:["STRING"],data:data})));
-  data.buffer.push(" data-target=\"#addSubAreaModal\">Add new subarea</button>\r\n		               </div>\r\n		           </div>\r\n			    </div>\r\n		    </div>\r\n	    </div>\r\n	    \r\n	    ");
+  data.buffer.push(" data-target=\"#addSubAreaModal\">Add new subarea</button>\r\n	               </div>\r\n	           </div>\r\n		    </div>\r\n	    </div>\r\n    </div>\r\n	    \r\n    ");
   stack1 = helpers.unless.call(depth0, "isReadOnlyArea", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(25, program25, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n	        \r\n	</div>\r\n	\r\n	<div class=\"modal fade\" id=\"discardChangesAreaModal\" tabindex=\"-1\" role=\"dialog\" aria-hidden=\"true\">\r\n	    <div class=\"modal-dialog modal-lg\">\r\n	        <div class=\"modal-content\">\r\n	            <div class=\"modal-body\">\r\n	                The area has unsaved changes, do you want to discard them?\r\n	            </div>\r\n	            <div class=\"modal-footer\">\r\n	                <button class=\"btn btn-default pull-left\" data-dismiss=\"modal\">Cancel</button>\r\n	                <button class=\"btn btn-danger pull-right\" data-dismiss=\"modal\" ");
+  data.buffer.push("\r\n        \r\n</div>\r\n	\r\n<div class=\"modal fade\" id=\"discardChangesAreaModal\" tabindex=\"-1\" role=\"dialog\" aria-hidden=\"true\">\r\n    <div class=\"modal-dialog modal-lg\">\r\n        <div class=\"modal-content\">\r\n            <div class=\"modal-body\">\r\n                The area has unsaved changes, do you want to discard them?\r\n            </div>\r\n            <div class=\"modal-footer\">\r\n                <button class=\"btn btn-default pull-left\" data-dismiss=\"modal\">Cancel</button>\r\n                <button class=\"btn btn-danger pull-right\" data-dismiss=\"modal\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "confirmDiscardChanges", {hash:{
     'target': ("view")
   },hashTypes:{'target': "STRING"},hashContexts:{'target': depth0},contexts:[depth0],types:["STRING"],data:data})));
-  data.buffer.push(">Discard changes</button>\r\n	            </div>\r\n	        </div>\r\n	    </div>    \r\n	</div> \r\n	\r\n	<div class=\"modal fade\" id=\"validationErrorsAreaModal\" tabindex=\"-1\" role=\"dialog\" aria-hidden=\"true\">\r\n	    <div class=\"modal-dialog modal-lg\">\r\n	        <div class=\"modal-content\">\r\n	            <div class=\"modal-body\">\r\n	                There are validation errors that must be corrected before the area can be published.\r\n	            </div>\r\n	            <div class=\"modal-footer\">\r\n	                <button class=\"btn btn-primary pull-right\"  data-dismiss=\"modal\">OK</button>\r\n	            </div>\r\n	        </div>\r\n	    </div>    \r\n	</div>  \r\n	\r\n	<div class=\"modal fade\" id=\"confirmPublishAreaModal\" tabindex=\"-1\" role=\"dialog\" aria-hidden=\"true\">\r\n	    <div class=\"modal-dialog modal-lg\">\r\n	        <div class=\"modal-content\">\r\n	            <div class=\"modal-body\">\r\n	                Changes will be published, do you want to continue?\r\n	            </div>\r\n	            <div class=\"modal-footer\">\r\n	                <button class=\"btn btn-default pull-left\" data-dismiss=\"modal\">Cancel</button>\r\n	                <button class=\"btn btn-danger pull-right\" data-dismiss=\"modal\" ");
+  data.buffer.push(">Discard changes</button>\r\n            </div>\r\n        </div>\r\n    </div>    \r\n</div> \r\n	\r\n<div class=\"modal fade\" id=\"validationErrorsAreaModal\" tabindex=\"-1\" role=\"dialog\" aria-hidden=\"true\">\r\n    <div class=\"modal-dialog modal-lg\">\r\n        <div class=\"modal-content\">\r\n            <div class=\"modal-body\">\r\n                There are validation errors that must be corrected before the area can be published.\r\n            </div>\r\n            <div class=\"modal-footer\">\r\n                <button class=\"btn btn-primary pull-right\"  data-dismiss=\"modal\">OK</button>\r\n            </div>\r\n        </div>\r\n    </div>    \r\n</div>  \r\n	\r\n<div class=\"modal fade\" id=\"confirmPublishAreaModal\" tabindex=\"-1\" role=\"dialog\" aria-hidden=\"true\">\r\n    <div class=\"modal-dialog modal-lg\">\r\n        <div class=\"modal-content\">\r\n            <div class=\"modal-body\">\r\n                Changes will be published, do you want to continue?\r\n            </div>\r\n            <div class=\"modal-footer\">\r\n                <button class=\"btn btn-default pull-left\" data-dismiss=\"modal\">Cancel</button>\r\n                <button class=\"btn btn-danger pull-right\" data-dismiss=\"modal\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "confirmSaveArea", {hash:{
     'target': ("view")
   },hashTypes:{'target': "STRING"},hashContexts:{'target': depth0},contexts:[depth0],types:["STRING"],data:data})));
-  data.buffer.push(">Publish</button>\r\n	            </div>\r\n	        </div>\r\n	    </div>    \r\n	</div> \r\n	\r\n	<div class=\"modal fade\" id=\"addSubAreaModal\" tabindex=\"-1\" role=\"dialog\" aria-hidden=\"true\">\r\n	    <div class=\"modal-dialog modal-lg\">\r\n	        <div class=\"modal-content\">\r\n	            <div class=\"modal-header\">\r\n	                Add new subarea\r\n	            </div>\r\n	            <div class=\"modal-body\">\r\n				    <form class=\"form\">\r\n				        <div class=\"form-group\">\r\n				            <label>Name</label>\r\n				            ");
+  data.buffer.push(">Publish</button>\r\n            </div>\r\n        </div>\r\n    </div>    \r\n</div> \r\n	\r\n<div class=\"modal fade\" id=\"addSubAreaModal\" tabindex=\"-1\" role=\"dialog\" aria-hidden=\"true\">\r\n    <div class=\"modal-dialog modal-lg\">\r\n        <div class=\"modal-content\">\r\n            <div class=\"modal-header\">\r\n                Add new subarea\r\n            </div>\r\n            <div class=\"modal-body\">\r\n			    <form class=\"form\">\r\n			        <div class=\"form-group\">\r\n			            <label>Name</label>\r\n			            ");
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "App.FocusTextField", {hash:{
     'valueBinding': ("newArea.name"),
     'required': ("true"),
@@ -648,21 +649,21 @@ function program28(depth0,data) {
     'pattern': ("^.{3,80}$"),
     'class': ("form-control")
   },hashTypes:{'valueBinding': "STRING",'required': "STRING",'maxlength': "STRING",'pattern': "STRING",'class': "STRING"},hashContexts:{'valueBinding': depth0,'required': depth0,'maxlength': depth0,'pattern': depth0,'class': depth0},contexts:[depth0],types:["ID"],data:data})));
-  data.buffer.push("\r\n				        </div>\r\n				        <div class=\"form-group\">\r\n				            <label>Description</label>\r\n				            ");
+  data.buffer.push("\r\n			        </div>\r\n			        <div class=\"form-group\">\r\n			            <label>Description</label>\r\n			            ");
   data.buffer.push(escapeExpression((helper = helpers.textarea || (depth0 && depth0.textarea),options={hash:{
     'value': ("newArea.description"),
     'maxlength': ("500"),
     'class': ("form-control")
   },hashTypes:{'value': "ID",'maxlength': "STRING",'class': "STRING"},hashContexts:{'value': depth0,'maxlength': depth0,'class': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "textarea", options))));
-  data.buffer.push("\r\n				        </div>\r\n				    </form> \r\n	            </div>\r\n	            <div class=\"modal-footer\">\r\n	                <button class=\"btn btn-default pull-left\" data-dismiss=\"modal\" ");
+  data.buffer.push("\r\n			        </div>\r\n			    </form> \r\n            </div>\r\n            <div class=\"modal-footer\">\r\n                <button class=\"btn btn-default pull-left\" data-dismiss=\"modal\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "cancelAddSubAreaDialog", {hash:{
     'target': ("view")
   },hashTypes:{'target': "STRING"},hashContexts:{'target': depth0},contexts:[depth0],types:["STRING"],data:data})));
-  data.buffer.push(">Cancel</button>\r\n	                <button class=\"btn btn-primary pull-right\" data-dismiss=\"modal\" ");
+  data.buffer.push(">Cancel</button>\r\n                <button class=\"btn btn-primary pull-right\" data-dismiss=\"modal\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "addSubArea", {hash:{
     'target': ("view")
   },hashTypes:{'target': "STRING"},hashContexts:{'target': depth0},contexts:[depth0],types:["STRING"],data:data})));
-  data.buffer.push(">Add area</button>\r\n	            </div>\r\n	        </div>\r\n	    </div>    \r\n	</div> \r\n\r\n</div>");
+  data.buffer.push(">Add area</button>\r\n            </div>\r\n        </div>\r\n    </div>    \r\n</div> \r\n");
   return buffer;
   
 });
@@ -1016,7 +1017,7 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
 
   data.buffer.push("<div class=\"browse-map-view full-screen\">\r\n	<div id=\"tourMapRootElement\" class=\"full-screen\"></div>\r\n	<button class=\"btn btn-primary btn-my-position\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "toggleMyPosition", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data})));
-  data.buffer.push(">\r\n	    Show my position\r\n	</button>   \r\n</div>");
+  data.buffer.push(">\r\n	    <span class=\"glyphicon glyphicon-screenshot\"></span>\r\n	</button>   \r\n</div>");
   return buffer;
   
 });
@@ -1507,7 +1508,7 @@ function program9(depth0,data) {
   data.buffer.push("\r\n		        <pre>You have no saved tour drafts</pre>\r\n		    ");
   }
 
-  data.buffer.push("<div class=\"full-page-view-container\">\r\n	<h3>My tours (drafts)</h3>\r\n	\r\n	");
+  data.buffer.push("<div class=\"main-view-container\">\r\n	<h3>My tours (drafts)</h3>\r\n	\r\n	");
   stack1 = helpers['if'].call(depth0, "serverErrors", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(3, program3, data),fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\r\n</div>");
@@ -1529,7 +1530,7 @@ function program1(depth0,data) {
   return buffer;
   }
 
-  data.buffer.push("<div class=\"full-page-view-container\">\n\n	<div class=\"row\">\n	    <div class=\"col-sm-12\">\n	        <span class=\"pull-right spacing\"><a ");
+  data.buffer.push("<div class=\"main-view-container\">\n\n	<div class=\"row\">\n	    <div class=\"col-sm-12\">\n	        <span class=\"pull-right spacing\"><a ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "clearResult", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data})));
   data.buffer.push(">Clear</a></span>\n			<h3>\n			    Tour search<span class=\"small\"> (");
   stack1 = helpers._triageMustache.call(depth0, "length", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
@@ -1548,7 +1549,7 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
   var buffer = '', stack1;
 
 
-  data.buffer.push("<div class=\"row full-page-view-container\">\r\n    <div class=\"col-sm-12\">\r\n    \r\n        <table class=\"table table-striped\">\r\n          <thead>\r\n            <tr>\r\n              <th width=\"250\">Stat</th>\r\n              <th>Value</th>\r\n            </tr>\r\n          </thead>\r\n          <tbody>\r\n            <tr>\r\n                <td>Published tours</td>\r\n                <td>");
+  data.buffer.push("<div class=\"row main-view-container\">\r\n    <div class=\"col-sm-12\">\r\n    \r\n        <table class=\"table table-striped\">\r\n          <thead>\r\n            <tr>\r\n              <th width=\"250\">Stat</th>\r\n              <th>Value</th>\r\n            </tr>\r\n          </thead>\r\n          <tbody>\r\n            <tr>\r\n                <td>Published tours</td>\r\n                <td>");
   stack1 = helpers._triageMustache.call(depth0, "publishedTours", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("</td>\r\n            </tr>\r\n            <tr>\r\n                <td>Published areas</td>\r\n                <td>");
@@ -1738,29 +1739,29 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
 
 function program1(depth0,data) {
   
-  
-  data.buffer.push("\r\n	<div class=\"row\">\r\n	    <div class=\"col-sm-12\">\r\n	        <div class=\"alert alert-info alert-dismissible\" role=\"alert\">\r\n	            <button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button>\r\n	            This is a draft, the tour has not yet been published\r\n	        </div>\r\n	    </div>\r\n	</div>\r\n	");
-  }
-
-function program3(depth0,data) {
-  
-  
-  data.buffer.push("\r\n	<div class=\"row\">\r\n	    <div class=\"col-sm-12\">\r\n	        <div class=\"alert alert-danger\" role=\"alert\">\r\n	            <button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button>\r\n	            Tour is marked as deleted and will eventually be permanently deleted from the databse\r\n	        </div>\r\n	    </div>\r\n	</div>\r\n	");
-  }
-
-function program5(depth0,data) {
-  
   var buffer = '', stack1, helper, options;
-  data.buffer.push("\r\n	<div class=\"row\">\r\n        <div class=\"col-sm-12 edit-container\">\r\n            <div class=\"pull-right\">");
-  stack1 = (helper = helpers['link-to'] || (depth0 && depth0['link-to']),options={hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(6, program6, data),contexts:[depth0,depth0],types:["STRING","ID"],data:data},helper ? helper.call(depth0, "tour.edit", "model", options) : helperMissing.call(depth0, "link-to", "tour.edit", "model", options));
+  data.buffer.push("\r\n    <div class=\"row\">\r\n        <div class=\"col-sm-12 edit-container\">\r\n            <div class=\"pull-right\">");
+  stack1 = (helper = helpers['link-to'] || (depth0 && depth0['link-to']),options={hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(2, program2, data),contexts:[depth0,depth0],types:["STRING","ID"],data:data},helper ? helper.call(depth0, "tour.edit", "model", options) : helperMissing.call(depth0, "link-to", "tour.edit", "model", options));
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("</div>\r\n        </div>\r\n    </div>\r\n    ");
   return buffer;
   }
-function program6(depth0,data) {
+function program2(depth0,data) {
   
   
   data.buffer.push("Edit tour");
+  }
+
+function program4(depth0,data) {
+  
+  
+  data.buffer.push("\r\n	<div class=\"row\">\r\n	    <div class=\"col-sm-12\">\r\n	        <div class=\"alert alert-info alert-dismissible\" role=\"alert\">\r\n	            <button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button>\r\n	            This is a draft, the tour has not yet been published\r\n	        </div>\r\n	    </div>\r\n	</div>\r\n	");
+  }
+
+function program6(depth0,data) {
+  
+  
+  data.buffer.push("\r\n	<div class=\"row\">\r\n	    <div class=\"col-sm-12\">\r\n	        <div class=\"alert alert-danger\" role=\"alert\">\r\n	            <button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button>\r\n	            Tour is marked as deleted and will eventually be permanently deleted from the databse\r\n	        </div>\r\n	    </div>\r\n	</div>\r\n	");
   }
 
 function program8(depth0,data) {
@@ -1972,17 +1973,17 @@ function program48(depth0,data) {
   data.buffer.push("\r\n		        <p>No map is available for this tour</p>\r\n		    ");
   }
 
-  data.buffer.push("<div class=\"full-page-view-container tour-details-view\">\r\n\r\n	<div class=\"hidden\">");
+  data.buffer.push("<div class=\"main-view-container tour-details-view\">\r\n\r\n	<div class=\"hidden\">");
   stack1 = helpers._triageMustache.call(depth0, "view.imageLoaded", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("</div>\r\n	\r\n	");
-  stack1 = helpers['if'].call(depth0, "isDraft", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers['if'].call(depth0, "controllers.login.isLoggedIn", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\r\n    \r\n	");
+  stack1 = helpers['if'].call(depth0, "isDraft", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(4, program4, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\r\n	\r\n	");
-  stack1 = helpers['if'].call(depth0, "isDeleted", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(3, program3, data),contexts:[depth0],types:["ID"],data:data});
-  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n	\r\n	");
-  stack1 = helpers['if'].call(depth0, "controllers.login.isLoggedIn", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(5, program5, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers['if'].call(depth0, "isDeleted", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(6, program6, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\r\n	\r\n	<div class=\"row\">\r\n	    <div class=\"col-sm-12\">\r\n		    <ul class=\"inline-list\">\r\n		       ");
   data.buffer.push(escapeExpression((helper = helpers.control || (depth0 && depth0.control),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0,depth0],types:["STRING","ID"],data:data},helper ? helper.call(depth0, "breadCrumb", "area", options) : helperMissing.call(depth0, "control", "breadCrumb", "area", options))));
@@ -2343,7 +2344,7 @@ function program39(depth0,data) {
   data.buffer.push("\r\n					         <div class=\"alert alert-success\" role=\"alert\">\r\n					            Tour data is valid\r\n					        </div>\r\n					        <p>Looks like the tour data is fine, just go on and publish!</p>\r\n					     ");
   }
 
-  data.buffer.push("<div class=\"full-page-view-container\">\r\n \r\n	");
+  data.buffer.push("<div class=\"main-view-container\">\r\n \r\n	");
   stack1 = helpers['if'].call(depth0, "authenticationErrors", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\r\n	\r\n	");
@@ -2620,10 +2621,10 @@ function program1(depth0,data) {
   data.buffer.push("m &uarr; ");
   stack1 = helpers._triageMustache.call(depth0, "tour.elevationLoss", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("m &darr;\n			</div>\n			<div>\n			    <em>");
+  data.buffer.push("m &darr;\n			</div>\n			<div>\n			    ");
   stack1 = helpers._triageMustache.call(depth0, "tour.shortDescription", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("</em>\n			</div>\n        </div>\n    </div>\n</div>");
+  data.buffer.push("\n			</div>\n        </div>\n    </div>\n</div>");
   return buffer;
   
 });

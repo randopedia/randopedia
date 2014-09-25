@@ -10,92 +10,49 @@
 
 @font-face { font-family: Aight; src: url('../fonts/aaaiight.ttf'); }
 
-html, body, .app-root-view {
-    width: 100%;
-    height: 100%;
+body {
+//    width: 100%;
+//    height: 100%;
+//    background-image: url(../images/background.jpg);
+//    background-attachment: fixed;
+//    background-size: cover;
 }
-
-.full-screen {
-    width: 100%;
-    height: 100%;
     
-    &#full-screen-map-container {
-        .ember-view {
-            height: 100%;
-        }
-        
-        #tourMapRootElement {
-            display:block;
-            position:absolute;
-            height:auto;
-            bottom:0;
-            top:0;
-            left:0;
-            right:0;
-            margin-top:100px; /* Set margin to your navbar height */
-        }  
-        @media (min-width: 768px) {
-            #tourMapRootElement {
-                margin-top: 50px;
-            }  
-        }
+&#full-screen-map-container {
+    .ember-view {
+        height: 100%;
     }
+    
+    #tourMapRootElement {
+        display:block;
+        position:absolute;
+        height:auto;
+        bottom:0;
+        top:0;
+        left:0;
+        right:0;
+        margin-top:100px;
+        
+        @media (min-width: 768px) {
+            margin-top: 50px;
+        }
+    }  
 }
 
-.full-page-view-container {
-    margin: 0 10px;
+.main-view-container {
     max-width: 1600px;
+    margin-top: 100px;
+    padding: 5px;
+    
+    @media (min-width: 768px) {
+        margin-top: 50px;
+        padding: 5px 10px;
+    }    
 }
 
 .randopedia-logo-text {
     font-weight: 700;
     font-family: @logo-font,Helvetica,Arial;
-}
-
-.navbar {
-    background: @navbar-background;
-    margin-bottom: 0;
-    border-radius: 0;
-    
-    .navbar-toggle {
-        float: left;
-    }
-    .navbar .navbar-collapse {
-            text-align: center;
-     }
-    
-    .main-menu-container {
-        a {
-            margin: 5px 0px;
-            padding: 10px;
-            &:hover {
-                text-decoration: none;
-                background: @hover-background;
-                color: @gray-darker;
-            }
-        }
-        @media (min-width: 768px) {
-            a {
-                max-width: 200px;
-            }
-        }
-    }
-    .searchbox {
-        line-height: 34px;
-        font-size: 20px;
-        font-weight: 650;
-        opacity: 0.9;
-        padding-left: 5px;
-        width: 96%;
-        margin: 5px 12px;
-    }
-    @media (min-width: 768px) {
-        .searchbox {
-            margin: 5px 5px;
-            width: 350px;
-            float: right;
-        }  
-    }
 }
 
 .tab-content {
@@ -162,9 +119,18 @@ a:hover {
 }
 
 .edit-container {
-    background: #efefef;
+    background: #F0F0F0;
     height: 40px;
     line-height: 40px;
+    margin-top: -1px;
+    
+    a {
+        padding: 10px;
+        &:hover {
+            background: @gray-light;
+            color: #fff;
+        }
+    }
 }
 
 .form-group {
@@ -213,11 +179,72 @@ button.info:hover {
     border-color: #0A89DD;
 }
 
+.navbar {
+    background: @navbar-background;
+    margin-bottom: 0;
+    border-radius: 0;
+    
+    .navbar-toggle {
+        float: left;
+    }
+    .navbar .navbar-collapse {
+            text-align: center;
+     }
+    
+    .main-menu-container {
+        a {
+            margin: 5px 0px;
+            padding: 10px;
+            &:hover {
+                text-decoration: none;
+                background: @hover-background;
+                color: @gray-darker;
+            }
+        }
+        @media (min-width: 768px) {
+            a {
+                max-width: 200px;
+            }
+        }
+    }
+    .searchbox {
+        line-height: 34px;
+        font-size: 20px;
+        font-weight: 650;
+        opacity: 0.9;
+        padding-left: 5px;
+        width: 96%;
+        margin: 5px 12px;
+    }
+    @media (min-width: 768px) {
+        .searchbox {
+            margin: 5px 5px;
+            width: 350px;
+            float: right;
+        }  
+    }
+}
+
 .browse-map-view {
     .btn-my-position {
         position: absolute;
-        top: 95%;
-        left: 20px;
+        top: 200px;
+        left: 25px;
+        width: 40px;
+        height: 40px;
+        background: #fff;
+        border-color: #D3D3D3;
+        box-shadow: 0 0 5px #D3D3D3;
+        color: rgb(75, 129, 215);
+        font-size: 22px;
+        
+        &:hover {
+            background: @gray-lighter;
+        }
+        
+        span {
+            left: -3px;
+        }
     }
 }
 
@@ -227,7 +254,7 @@ button.info:hover {
         padding: @small-space;
     }
     .item-props { 
-        color: @gray-dark;
+        color: @gray-light;
     }
 }
 
@@ -281,6 +308,7 @@ button.info:hover {
     .login-link {
         text-decoration: none; 
         color: @text-color;
+            
         :hover {
             color:@text-color;
             background-color: @gray-lighter;
@@ -291,7 +319,8 @@ button.info:hover {
         div {
             border: @light-border;
             padding: @small-space @large-space;
-            margin: 5px;
+            margin: 5px auto;
+            text-align: center;
             width: 250px;
             & img {
                 vertical-align:middle;
