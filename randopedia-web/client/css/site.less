@@ -11,6 +11,7 @@
 @font-face { font-family: Aight; src: url('../fonts/aaaiight.ttf'); }
 
 body {
+    padding-top: 50px;
 //    width: 100%;
 //    height: 100%;
 //    background-image: url(../images/background.jpg);
@@ -31,21 +32,15 @@ body {
         top:0;
         left:0;
         right:0;
-        margin-top:100px;
-        
-        @media (min-width: 768px) {
-            margin-top: 50px;
-        }
+        margin-top:50px;
     }  
 }
 
 .main-view-container {
     max-width: 1600px;
-    margin-top: 100px;
     padding: 5px;
     
     @media (min-width: 768px) {
-        margin-top: 50px;
         padding: 5px 10px;
     }    
 }
@@ -183,14 +178,39 @@ button.info:hover {
     background: @navbar-background;
     margin-bottom: 0;
     border-radius: 0;
-    
-    .navbar-toggle {
-        float: left;
-    }
+
     .navbar .navbar-collapse {
-            text-align: center;
+        text-align: center;
+     }
+     
+     .navbar-toggle-button {
+         float: right;
+         margin-right: @navbar-padding-horizontal;
+         padding: 9px 10px;
+         .navbar-vertical-align(34px);
+         background-color: transparent;
+         background-image: none;
+         border: 1px solid transparent;
+         border-radius: @border-radius-base;   
+         color: #fff;
+         &:focus {
+            outline: 0;
+         }   
+         &:hover {
+             background: @gray-dark;
+         }             
+     }
+     
+     hr {
+         margin: 0;
+         border-top: 1px solid #101010;
      }
     
+     p {
+         margin-left: 10px;
+         font-style: italic;
+     }
+        
     .main-menu-container {
         a {
             margin: 5px 0px;
@@ -201,35 +221,25 @@ button.info:hover {
                 color: @gray-darker;
             }
         }
-        @media (min-width: 768px) {
-            a {
-                max-width: 200px;
-            }
-        }
     }
+
     .searchbox {
+        display: block;
         line-height: 34px;
         font-size: 20px;
         font-weight: 650;
         opacity: 0.9;
         padding-left: 5px;
-        width: 96%;
-        margin: 5px 12px;
-    }
-    @media (min-width: 768px) {
-        .searchbox {
-            margin: 5px 5px;
-            width: 350px;
-            float: right;
-        }  
+        width: calc(~'100% - 20px');
+        margin: 5px 10px;
     }
 }
 
 .browse-map-view {
     .btn-my-position {
         position: absolute;
-        top: 200px;
-        left: 25px;
+        top: calc(~'100% - 65px');
+        left: calc(~'100% - 65px');
         width: 40px;
         height: 40px;
         background: #fff;
@@ -237,7 +247,9 @@ button.info:hover {
         box-shadow: 0 0 5px #D3D3D3;
         color: rgb(75, 129, 215);
         font-size: 22px;
-        
+        &:focus {
+            outline: 0;
+        }  
         &:hover {
             background: @gray-lighter;
         }

@@ -20,7 +20,6 @@ App.BrowseTourmapComponent = Ember.Component.extend({
         }
 
         if(this.get('tour')) {
-            console.log('tour set');
             this.set('zoomLevel', this.get('detailedZoomLevel'));
             this.set('mapCenter', this.getTourCenterLatLng(this.get('tour').get('mapGeoJson')));
         }
@@ -243,7 +242,7 @@ App.BrowseTourmapComponent = Ember.Component.extend({
         google.maps.event.addListener(self.get('map'), 'center_changed', function() {
             self.sendAction('centerChanged', self.get('map').getCenter());
         });
-
+        
         // Hook up to window resize event to do implicit resize on map canvas
         redrawMap = function() {
             google.maps.event.trigger(self.get('map'), 'resize');

@@ -1141,55 +1141,74 @@ function program8(depth0,data) {
 Ember.TEMPLATES["header"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
-  var buffer = '', stack1, escapeExpression=this.escapeExpression, self=this;
+  var buffer = '', stack1, escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing, self=this;
 
 function program1(depth0,data) {
   
   var buffer = '';
-  data.buffer.push("\r\n	           <a ");
-  data.buffer.push(escapeExpression(helpers.action.call(depth0, "topbarMenuLink", "tour.new", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0,depth0],types:["ID","STRING"],data:data})));
-  data.buffer.push(">Add new tour</a>\r\n	           <a ");
-  data.buffer.push(escapeExpression(helpers.action.call(depth0, "topbarMenuLink", "mytours", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0,depth0],types:["ID","STRING"],data:data})));
-  data.buffer.push(">View my tours</a>\r\n           ");
+  data.buffer.push("\r\n			    ");
+  data.buffer.push(escapeExpression(helpers.view.call(depth0, "App.SearchTextField", {hash:{
+    'valueBinding': ("controllers.search.query"),
+    'class': ("searchbox")
+  },hashTypes:{'valueBinding': "STRING",'class': "STRING"},hashContexts:{'valueBinding': depth0,'class': depth0},contexts:[depth0],types:["ID"],data:data})));
+  data.buffer.push("\r\n			");
   return buffer;
   }
 
 function program3(depth0,data) {
   
+  var buffer = '', helper, options;
+  data.buffer.push("\r\n               <hr />\r\n	           <a ");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "topbarMenuLink", "tour.new", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0,depth0],types:["ID","STRING"],data:data})));
+  data.buffer.push(">Add new tour</a>\r\n	           <a ");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "topbarMenuLink", "mytours", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0,depth0],types:["ID","STRING"],data:data})));
+  data.buffer.push(">View my tours</a>\r\n	           <hr />\r\n	           <p class=\"navbar-text\">Logged in as ");
+  data.buffer.push(escapeExpression((helper = helpers.maxString || (depth0 && depth0.maxString),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0,depth0],types:["ID","INTEGER"],data:data},helper ? helper.call(depth0, "controllers.login.currentUser.userName", 50, options) : helperMissing.call(depth0, "maxString", "controllers.login.currentUser.userName", 50, options))));
+  data.buffer.push("</p>\r\n           ");
+  return buffer;
+  }
+
+function program5(depth0,data) {
+  
   var buffer = '', stack1;
   data.buffer.push("\r\n               ");
-  stack1 = helpers['if'].call(depth0, "controllers.login.isLoggingIn", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(6, program6, data),fn:self.program(4, program4, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers['if'].call(depth0, "controllers.login.isLoggingIn", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(8, program8, data),fn:self.program(6, program6, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\r\n           ");
   return buffer;
   }
-function program4(depth0,data) {
-  
-  
-  data.buffer.push("\r\n                    <div class=\"header-login-text top-bar-menu-nolink\">Logging in...</div>   \r\n               ");
-  }
-
 function program6(depth0,data) {
   
   
-  data.buffer.push("\r\n                    <a data-toggle=\"modal\" data-target=\"#loginViewModalId\">Login</a>\r\n               ");
+  data.buffer.push("\r\n                    <hr />\r\n                    <em>Logging in...</em>   \r\n               ");
   }
 
-  data.buffer.push("<nav class=\"navbar navbar-inverse navbar-fixed-top\" role=\"navigation\">\r\n    <div class=\"container-fluid\">\r\n    \r\n	    <!-- Brand and toggle get grouped for better mobile display -->\r\n	    <div class=\"navbar-header\">\r\n			<button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#bs-example-navbar-collapse-1\">\r\n				<span class=\"sr-only\">Toggle navigation</span>\r\n				<span class=\"icon-bar\"></span>\r\n				<span class=\"icon-bar\"></span>\r\n				<span class=\"icon-bar\"></span>\r\n			</button>\r\n			<a class=\"navbar-brand randopedia-logo-text\" ");
+function program8(depth0,data) {
+  
+  var buffer = '';
+  data.buffer.push("\r\n                    <hr />\r\n                    <a ");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "topbarMenuLink", "collapseNavbar", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0,depth0],types:["ID","STRING"],data:data})));
+  data.buffer.push(" data-toggle=\"modal\" data-target=\"#loginViewModalId\">Login</a>\r\n               ");
+  return buffer;
+  }
+
+  data.buffer.push("<nav class=\"navbar navbar-inverse navbar-fixed-top\" role=\"navigation\">\r\n    <div class=\"container-fluid\">\r\n    \r\n	    <div class=\"navbar-header\">\r\n			<button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#bs-example-navbar-collapse-1\">\r\n				<span class=\"sr-only\">Toggle navigation</span>\r\n				<span class=\"icon-bar\"></span>\r\n				<span class=\"icon-bar\"></span>\r\n				<span class=\"icon-bar\"></span>\r\n			</button>\r\n			<a class=\"navbar-brand randopedia-logo-text\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "goToIndex", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data})));
-  data.buffer.push(">Randopedia</a>\r\n			");
-  data.buffer.push(escapeExpression(helpers.view.call(depth0, "App.SearchTextField", {hash:{
-    'valueBinding': ("controllers.search.query"),
-    'class': ("searchbox")
-  },hashTypes:{'valueBinding': "STRING",'class': "STRING"},hashContexts:{'valueBinding': depth0,'class': depth0},contexts:[depth0],types:["ID"],data:data})));
-  data.buffer.push("\r\n	    </div>\r\n	    \r\n	    <!-- Collect the nav links, forms, and other content for toggling -->\r\n	    <div class=\"collapse navbar-collapse main-menu-container\" id=\"bs-example-navbar-collapse-1\">\r\n			\r\n           ");
-  stack1 = helpers['if'].call(depth0, "controllers.login.isLoggedIn", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(3, program3, data),fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
+  data.buffer.push(">Randopedia</a>\r\n			<button type=\"button\" class=\"navbar-toggle-button\" ");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "toggleNavbarSearchBox", {hash:{
+    'target': ("view")
+  },hashTypes:{'target': "STRING"},hashContexts:{'target': depth0},contexts:[depth0],types:["ID"],data:data})));
+  data.buffer.push("\">\r\n                <span class=\"glyphicon glyphicon-search\"></span>\r\n            </button>\r\n			");
+  stack1 = helpers['if'].call(depth0, "view.showNavbarSearch", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n           \r\n           <a ");
+  data.buffer.push("\r\n	    </div>\r\n	    \r\n	    <div class=\"collapse navbar-collapse main-menu-container\" id=\"bs-example-navbar-collapse-1\">\r\n			\r\n           <a ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "topbarMenuLink", "area-browse", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0,depth0],types:["ID","STRING"],data:data})));
-  data.buffer.push(">Browse areas</a>\r\n           <a ");
+  data.buffer.push(">Areas</a>\r\n           <a ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "topbarMenuLink", "about", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0,depth0],types:["ID","STRING"],data:data})));
-  data.buffer.push(" data-toggle=\"collapse\" data-target=\".nav-collapse\">About Randopedia</a>\r\n       \r\n	    </div>\r\n\r\n    </div>\r\n</nav>\r\n\r\n<div class=\"modal fade\" id=\"loginViewModalId\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\" aria-hidden=\"true\">\r\n    ");
+  data.buffer.push(" data-toggle=\"collapse\" data-target=\".nav-collapse\">About</a>\r\n           \r\n           ");
+  stack1 = helpers['if'].call(depth0, "controllers.login.isLoggedIn", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(5, program5, data),fn:self.program(3, program3, data),contexts:[depth0],types:["ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\r\n       \r\n	    </div>\r\n\r\n    </div>\r\n</nav>\r\n\r\n<div class=\"modal fade\" id=\"loginViewModalId\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\" aria-hidden=\"true\">\r\n    ");
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "App.LoginModalView", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data})));
   data.buffer.push("\r\n</div>");
   return buffer;
@@ -1410,13 +1429,8 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
 Ember.TEMPLATES["login-modal-view"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
-  var buffer = '', stack1, helper, options, escapeExpression=this.escapeExpression, self=this, helperMissing=helpers.helperMissing;
+  var buffer = '', escapeExpression=this.escapeExpression;
 
-function program1(depth0,data) {
-  
-  
-  data.buffer.push("here");
-  }
 
   data.buffer.push("<div class=\"modal-dialog login-view\">\n    <div class=\"modal-content\">\n        <div class=\"modal-header\">\n            <button type=\"button\" class=\"close\" data-dismiss=\"modal\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button>\n            <h4 class=\"modal-title\" id=\"myModalLabel\">Select account to login with</h4>\n        </div>\n        <div class=\"modal-body\">\n            <a class=\"login-link\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "loginWithFacebook", {hash:{
@@ -1426,10 +1440,11 @@ function program1(depth0,data) {
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "loginWithGoogle", {hash:{
     'target': ("view")
   },hashTypes:{'target': "STRING"},hashContexts:{'target': depth0},contexts:[depth0],types:["ID"],data:data})));
-  data.buffer.push(">\n                <div>\n                Login with <img src=\"images/google_logo.png\" width=\"100\">\n                </div>\n            </a>\n        </div>\n        <hr />\n        <div class=\"spacing\">\n	        <small>\n	            Randopedia doesn't use or store any sensitive information about the account being used. Read more about privacy ");
-  stack1 = (helper = helpers.linkTo || (depth0 && depth0.linkTo),options={hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["STRING"],data:data},helper ? helper.call(depth0, "about", options) : helperMissing.call(depth0, "linkTo", "about", options));
-  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push(".\n	        </small>\n        </div>\n    </div>\n</div>");
+  data.buffer.push(">\n                <div>\n                Login with <img src=\"images/google_logo.png\" width=\"100\">\n                </div>\n            </a>\n        </div>\n        <hr />\n        <div class=\"spacing\">\n	        <small>\n	            Randopedia doesn't use or store any sensitive information about the account being used. Read more about privacy <a data-dismiss=\"modal\" ");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "goToAbout", {hash:{
+    'target': ("view")
+  },hashTypes:{'target': "STRING"},hashContexts:{'target': depth0},contexts:[depth0],types:["ID"],data:data})));
+  data.buffer.push(">here</a>.\n	        </small>\n        </div>\n    </div>\n</div>");
   return buffer;
   
 });
