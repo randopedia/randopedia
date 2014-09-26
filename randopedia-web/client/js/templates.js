@@ -44,159 +44,159 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
 function program1(depth0,data) {
   
   var buffer = '', stack1;
-  data.buffer.push("\r\n	\r\n	    ");
+  data.buffer.push("\r\n\r\n    ");
   stack1 = helpers['if'].call(depth0, "hasTours", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(2, program2, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n	\r\n	");
+  data.buffer.push("\r\n\r\n");
   return buffer;
   }
 function program2(depth0,data) {
   
   var buffer = '', stack1;
-  data.buffer.push("\r\n			");
+  data.buffer.push("\r\n		");
   stack1 = helpers['if'].call(depth0, "isExpanded", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(8, program8, data),fn:self.program(3, program3, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n	    \r\n	        <a class=\"areatree-link\" ");
+  data.buffer.push("\r\n    \r\n        <a class=\"areatree-link\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "routeToArea", {hash:{
     'target': ("view")
   },hashTypes:{'target': "STRING"},hashContexts:{'target': depth0},contexts:[depth0],types:["STRING"],data:data})));
   data.buffer.push(">");
   stack1 = helpers._triageMustache.call(depth0, "view.areaTitle", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("</a>\r\n	\r\n	    ");
+  data.buffer.push("</a>\r\n\r\n    ");
   return buffer;
   }
 function program3(depth0,data) {
   
   var buffer = '', stack1;
-  data.buffer.push("\r\n			    ");
+  data.buffer.push("\r\n		    ");
   stack1 = helpers['if'].call(depth0, "children", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(6, program6, data),fn:self.program(4, program4, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n			");
+  data.buffer.push("\r\n		");
   return buffer;
   }
 function program4(depth0,data) {
   
   var buffer = '';
-  data.buffer.push("\r\n			        <a href=\"#\" class=\"icon-link areatree-expand\" ");
+  data.buffer.push("\r\n		        <a href=\"#\" class=\"areatree-expand\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "toggleArea", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data})));
-  data.buffer.push("><<span class=\"glyphicon glyphicon-minus\"></a>\r\n		        ");
+  data.buffer.push("><<span class=\"glyphicon glyphicon-minus\"></a>\r\n	        ");
   return buffer;
   }
 
 function program6(depth0,data) {
   
   
-  data.buffer.push("\r\n		            <span class=\"expand-placeholder\"></span>		        \r\n			    ");
+  data.buffer.push("\r\n	            <span class=\"intent\" class=\"intent\"></span>		        \r\n		    ");
   }
 
 function program8(depth0,data) {
   
   var buffer = '', stack1;
-  data.buffer.push("\r\n			    ");
+  data.buffer.push("\r\n		    ");
   stack1 = helpers['if'].call(depth0, "children", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(11, program11, data),fn:self.program(9, program9, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n	        ");
+  data.buffer.push("\r\n        ");
   return buffer;
   }
 function program9(depth0,data) {
   
   var buffer = '';
-  data.buffer.push("\r\n			        <a href=\"#\" class=\"icon-link areatree-expand\" ");
+  data.buffer.push("\r\n		        <a href=\"#\" class=\"areatree-expand\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "toggleArea", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data})));
-  data.buffer.push("><span class=\"glyphicon glyphicon-plus\"></i></a>\r\n	            ");
+  data.buffer.push("><span class=\"glyphicon glyphicon-plus\"></i></a>\r\n            ");
   return buffer;
   }
 
 function program11(depth0,data) {
   
   
-  data.buffer.push("\r\n	                <span class=\"expand-placeholder\"></span>\r\n			    ");
+  data.buffer.push("\r\n                <span class=\"intent\"></span>\r\n		    ");
   }
 
 function program13(depth0,data) {
   
   var buffer = '', stack1;
-  data.buffer.push("\r\n	\r\n	    ");
+  data.buffer.push("\r\n\r\n    ");
   stack1 = helpers['if'].call(depth0, "isExpanded", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(19, program19, data),fn:self.program(14, program14, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n	    \r\n	    <a class=\"areatree-link\" ");
+  data.buffer.push("\r\n    \r\n    <a ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "routeToArea", {hash:{
     'target': ("view")
   },hashTypes:{'target': "STRING"},hashContexts:{'target': depth0},contexts:[depth0],types:["STRING"],data:data})));
   data.buffer.push(">");
   stack1 = helpers._triageMustache.call(depth0, "view.areaTitle", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("</a>\r\n	\r\n	");
+  data.buffer.push("</a>\r\n\r\n");
   return buffer;
   }
 function program14(depth0,data) {
   
   var buffer = '', stack1;
-  data.buffer.push("\r\n	        ");
+  data.buffer.push("\r\n        ");
   stack1 = helpers['if'].call(depth0, "children", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(17, program17, data),fn:self.program(15, program15, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n	    ");
+  data.buffer.push("\r\n    ");
   return buffer;
   }
 function program15(depth0,data) {
   
   var buffer = '';
-  data.buffer.push("\r\n	            <a href=\"#\" class=\"icon-link areatree-expand\" ");
+  data.buffer.push("\r\n            <a href=\"#\" class=\"areatree-expand\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "toggleArea", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data})));
-  data.buffer.push("><span class=\"glyphicon glyphicon-minus\"></a>\r\n	        ");
+  data.buffer.push("><span class=\"glyphicon glyphicon-minus\"></a>\r\n        ");
   return buffer;
   }
 
 function program17(depth0,data) {
   
   
-  data.buffer.push("\r\n	            <span class=\"expand-placeholder\"></span>\r\n	        ");
+  data.buffer.push("\r\n            <span class=\"intent\"></span>\r\n        ");
   }
 
 function program19(depth0,data) {
   
   var buffer = '', stack1;
-  data.buffer.push("\r\n	        ");
+  data.buffer.push("\r\n        ");
   stack1 = helpers['if'].call(depth0, "children", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(17, program17, data),fn:self.program(20, program20, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n	    ");
+  data.buffer.push("\r\n    ");
   return buffer;
   }
 function program20(depth0,data) {
   
   var buffer = '';
-  data.buffer.push("\r\n	            <a href=\"#\" class=\"icon-link areatree-expand\" ");
+  data.buffer.push("\r\n            <a href=\"#\" class=\"areatree-expand\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "toggleArea", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data})));
-  data.buffer.push("><span class=\"glyphicon glyphicon-plus\"></a>\r\n	        ");
+  data.buffer.push("><span class=\"glyphicon glyphicon-plus\"></a>\r\n        ");
   return buffer;
   }
 
 function program22(depth0,data) {
   
   var buffer = '', stack1;
-  data.buffer.push("\r\n	    ");
+  data.buffer.push("\r\n    ");
   stack1 = helpers['if'].call(depth0, "isExpanded", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(23, program23, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n	");
+  data.buffer.push("\r\n");
   return buffer;
   }
 function program23(depth0,data) {
   
   var buffer = '', helper, options;
-  data.buffer.push("\r\n	        <div class=\"intent-child\">");
+  data.buffer.push("\r\n        <div class=\"intent-child\">");
   data.buffer.push(escapeExpression((helper = helpers.control || (depth0 && depth0.control),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0,depth0],types:["STRING","ID"],data:data},helper ? helper.call(depth0, "areaBrowseItems", "content", options) : helperMissing.call(depth0, "control", "areaBrowseItems", "content", options))));
-  data.buffer.push("</div>\r\n	    ");
+  data.buffer.push("</div>\r\n    ");
   return buffer;
   }
 
-  data.buffer.push("<div>\r\n	");
+  data.buffer.push("\r\n");
   stack1 = helpers['if'].call(depth0, "controllers.areaBrowse.onlyShowWithTours", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(13, program13, data),fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n	\r\n	");
+  data.buffer.push("\r\n\r\n");
   stack1 = helpers['if'].call(depth0, "children", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(22, program22, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n	\r\n</div>");
+  data.buffer.push("\r\n");
   return buffer;
   
 });
@@ -204,7 +204,7 @@ function program23(depth0,data) {
 Ember.TEMPLATES["area-browse-items-view"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
-  var stack1, escapeExpression=this.escapeExpression, self=this;
+  var buffer = '', stack1, escapeExpression=this.escapeExpression, self=this;
 
 function program1(depth0,data) {
   
@@ -218,9 +218,11 @@ function program1(depth0,data) {
   return buffer;
   }
 
+  data.buffer.push("<div class=\"browse-tree-view\">\n");
   stack1 = helpers['if'].call(depth0, "children", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  else { data.buffer.push(''); }
+  data.buffer.push("\n</div>");
+  return buffer;
   
 });
 
@@ -685,7 +687,7 @@ function program1(depth0,data) {
 function program2(depth0,data) {
   
   var buffer = '';
-  data.buffer.push("\r\n        <a href=\"#\" class=\"icon-link areatree-expand\" ");
+  data.buffer.push("\r\n        <a href=\"#\" class=\"areatree-expand\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "toggleExpandChildren", {hash:{
     'target': ("view")
   },hashTypes:{'target': "STRING"},hashContexts:{'target': depth0},contexts:[depth0],types:["ID"],data:data})));
@@ -696,7 +698,7 @@ function program2(depth0,data) {
 function program4(depth0,data) {
   
   
-  data.buffer.push("\r\n        <span class=\"expand-placeholder\"></span>\r\n    ");
+  data.buffer.push("\r\n        <span class=\"intent\"></span>\r\n    ");
   }
 
 function program6(depth0,data) {
@@ -711,7 +713,7 @@ function program6(depth0,data) {
 function program7(depth0,data) {
   
   var buffer = '';
-  data.buffer.push("\r\n        <a href=\"#\" class=\"icon-link areatree-expand\" ");
+  data.buffer.push("\r\n        <a href=\"#\" class=\"areatree-expand\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "toggleExpandChildren", {hash:{
     'target': ("view")
   },hashTypes:{'target': "STRING"},hashContexts:{'target': depth0},contexts:[depth0],types:["ID"],data:data})));

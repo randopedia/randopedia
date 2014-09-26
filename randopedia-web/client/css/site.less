@@ -167,11 +167,14 @@ button.info {
     font-family: Aight;
     padding: 0;
     margin-right: 5px;
-}
-button.info:hover { 
-    background: none; 
-    background-color: #0A89DD;
-    border-color: #0A89DD;
+    &:focus {
+        outline: 0;
+    } 
+    &:hover { 
+        background: none; 
+        background-color: #0A89DD;
+        border-color: #0A89DD;
+    }
 }
 
 .navbar {
@@ -343,22 +346,34 @@ button.info:hover {
                 cursor: pointer;
             }
         }
-        div:hover { background-color: @gray-lighter; }
     }
 }
 
 .browse-tree-view {
-    a.areatree-expand { font-size: 70%; margin-top:0.3em;}
-    .expand-placeholder { margin-left: 0.9em; }
+    span.intent { 
+        margin-left: 15px;
+    }
 
-    a.areatree-link {color:#4d4d4d; margin-top: 0; margin-bottom: 0; font-size: 0.9em;}
-    a.areatree-link:hover {text-decoration: none; font-weight: bold;}
-    a.areatree-link:visited {color:#4d4d4d;}
+    a {
+        color:#4d4d4d; 
+        margin: 5px 0;
+        &:hover {
+            text-decoration: none; 
+            font-weight: 700;
+        }
+        &:visited {
+            color:#4d4d4d;
+        }
+    }
     
+    a.areatree-expand { 
+        font-size: 70%; 
+        margin-top:0.3em;
+    }    
+
     button.areatree {
-        color: #4d4d4d;    
+        color: #4d4d4d;
         text-transform: none;
-        font-size: 0.8em;
         font-weight: 700;
         background-color: transparent;
         border-width: 0;
@@ -373,7 +388,8 @@ button.info:hover {
     button.areatree.is-selected {
         background: url(../images/header_background.jpg) repeat-x; 
         color: #E0E0E0;
-    }    
+    }  
+      
     .intent-child {
         margin-left: @large-space * 2;
     }

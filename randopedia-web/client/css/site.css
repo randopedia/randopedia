@@ -6167,6 +6167,9 @@ button.close {
   font-family: Aight;
   src: url('../fonts/aaaiight.ttf');
 }
+body {
+  padding-top: 50px;
+}
 #full-screen-map-container .ember-view {
   height: 100%;
 }
@@ -6178,21 +6181,14 @@ button.close {
   top: 0;
   left: 0;
   right: 0;
-  margin-top: 100px;
-}
-@media (min-width: 768px) {
-  #full-screen-map-container #tourMapRootElement {
-    margin-top: 50px;
-  }
+  margin-top: 50px;
 }
 .main-view-container {
   max-width: 1600px;
-  margin-top: 100px;
   padding: 5px;
 }
 @media (min-width: 768px) {
   .main-view-container {
-    margin-top: 50px;
     padding: 5px 10px;
   }
 }
@@ -6304,6 +6300,9 @@ button.info {
   padding: 0;
   margin-right: 5px;
 }
+button.info:focus {
+  outline: 0;
+}
 button.info:hover {
   background: none;
   background-color: #0A89DD;
@@ -6314,11 +6313,34 @@ button.info:hover {
   margin-bottom: 0;
   border-radius: 0;
 }
-.navbar .navbar-toggle {
-  float: left;
-}
 .navbar .navbar .navbar-collapse {
   text-align: center;
+}
+.navbar .navbar-toggle-button {
+  float: right;
+  margin-right: 15px;
+  padding: 9px 10px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  background-color: transparent;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: #fff;
+}
+.navbar .navbar-toggle-button:focus {
+  outline: 0;
+}
+.navbar .navbar-toggle-button:hover {
+  background: #333333;
+}
+.navbar hr {
+  margin: 0;
+  border-top: 1px solid #101010;
+}
+.navbar p {
+  margin-left: 10px;
+  font-style: italic;
 }
 .navbar .main-menu-container a {
   margin: 5px 0px;
@@ -6329,31 +6351,20 @@ button.info:hover {
   background: #eeeeee;
   color: #222222;
 }
-@media (min-width: 768px) {
-  .navbar .main-menu-container a {
-    max-width: 200px;
-  }
-}
 .navbar .searchbox {
+  display: block;
   line-height: 34px;
   font-size: 20px;
   font-weight: 650;
   opacity: 0.9;
   padding-left: 5px;
-  width: 96%;
-  margin: 5px 12px;
-}
-@media (min-width: 768px) {
-  .navbar .searchbox {
-    margin: 5px 5px;
-    width: 350px;
-    float: right;
-  }
+  width: calc(100% - 20px);
+  margin: 5px 10px;
 }
 .browse-map-view .btn-my-position {
   position: absolute;
-  top: 200px;
-  left: 25px;
+  top: calc(100% - 65px);
+  left: calc(100% - 65px);
   width: 40px;
   height: 40px;
   background: #fff;
@@ -6361,6 +6372,9 @@ button.info:hover {
   box-shadow: 0 0 5px #D3D3D3;
   color: #4b81d7;
   font-size: 22px;
+}
+.browse-map-view .btn-my-position:focus {
+  outline: 0;
 }
 .browse-map-view .btn-my-position:hover {
   background: #eeeeee;
@@ -6438,33 +6452,27 @@ button.info:hover {
   background-color: #eeeeee;
   cursor: pointer;
 }
-.login-view .login-link div:hover {
-  background-color: #eeeeee;
+.browse-tree-view span.intent {
+  margin-left: 15px;
+}
+.browse-tree-view a {
+  color: #4d4d4d;
+  margin: 5px 0;
+}
+.browse-tree-view a:hover {
+  text-decoration: none;
+  font-weight: 700;
+}
+.browse-tree-view a:visited {
+  color: #4d4d4d;
 }
 .browse-tree-view a.areatree-expand {
   font-size: 70%;
   margin-top: 0.3em;
 }
-.browse-tree-view .expand-placeholder {
-  margin-left: 0.9em;
-}
-.browse-tree-view a.areatree-link {
-  color: #4d4d4d;
-  margin-top: 0;
-  margin-bottom: 0;
-  font-size: 0.9em;
-}
-.browse-tree-view a.areatree-link:hover {
-  text-decoration: none;
-  font-weight: bold;
-}
-.browse-tree-view a.areatree-link:visited {
-  color: #4d4d4d;
-}
 .browse-tree-view button.areatree {
   color: #4d4d4d;
   text-transform: none;
-  font-size: 0.8em;
   font-weight: 700;
   background-color: transparent;
   border-width: 0;

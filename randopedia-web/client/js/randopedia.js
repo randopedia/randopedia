@@ -48137,6 +48137,30 @@ Ember.Handlebars.registerBoundHelper('resolveTourAction', function (value) {
         });
         return coordinates;
     },
+
+    getGoogleObjectsFromTourGeoJson: function(geojson) {
+        var mapObjects = [];
+        if(!geojson || !App.GeoHelper.validateGeoJson(geojson)) {
+            return mapObjects;
+        } 
+ 
+        for(var i = 0; i < geojson.features.length; i++) {
+            
+            var geometry = geojson.features[i].geometry;
+            
+            if(geometry.type === "LineString"){
+
+                var polylinePath = App.GeoHelper.geoJsonCoordinatesToGoogleLatLngArray(geometry.coordinates);        
+                var polyline = new google.maps.Polyline({
+                    path:  polylinePath,
+                    strokeColor: '#ff0000',
+                    strokeWeight: 2
+                });
+                mapObjects.push(polyline);
+            }
+        }
+        return mapObjects;
+    },
 });;/**
  * Displaying a Unix time stamp as a readable date string
  */
@@ -48173,8 +48197,8 @@ Ember.Handlebars.registerBoundHelper('maxString', function(string, maxLength) {
         }
 
         if(this.get('tour')) {
-            this.set('zoomLevel', this.get('detailedZoomLevel'));
-            this.set('mapCenter', this.getTourCenterLatLng(this.get('tour').get('mapGeoJson')));
+//            this.set('zoomLevel', this.get('detailedZoomLevel'));
+//            this.set('mapCenter', this.getTourCenterLatLng(this.get('tour').get('mapGeoJson')));
         }
         
         if(!this.get('zoomLevel')) {
@@ -48188,20 +48212,29 @@ Ember.Handlebars.registerBoundHelper('maxString', function(string, maxLength) {
         this.addTourMarkers(this.get('tours'));
     },
     
-    zoomToTour: function() {
-        // TODO: How to implement this?
-        var lines = this.get('currentMapPolylines');
+    zoomToTour: function(tour) {
 
-        if(!lines || lines.length === 0) { 
+        var lines = this.get('currentMapPolylines');
+        
+        var tourMapObjects = App.GeoHelper.getGoogleObjectsFromTourGeoJson(tour.get('mapGeoJson'));
+
+        if(!tourMapObjects || tourMapObjects.length === 0) { 
             return; 
         }
 
         var bounds = new google.maps.LatLngBounds();
-        for(var i = 0; i < lines.length; i++){
-            for(j = 0; j < lines[i].getPath().length; j++){
-                bounds.extend(lines[i].getPath().getArray()[j]);
-            }     
-        }
+        
+        tourMapObjects.forEach(function(mapObject) {
+            for(j = 0; j < mapObject.getPath().length; j++){
+                bounds.extend(mapObject.getPath().getArray()[j]);
+            } 
+        });
+        
+//        for(var i = 0; i < lines.length; i++){
+//            for(j = 0; j < lines[i].getPath().length; j++){
+//                bounds.extend(lines[i].getPath().getArray()[j]);
+//            }     
+//        }
         
         this.get('map').fitBounds(bounds);
     },
@@ -48224,44 +48257,26 @@ Ember.Handlebars.registerBoundHelper('maxString', function(string, maxLength) {
         }
         return null;
     },
-    
-    addGoogleObjectsToMapFromTourGeoJson: function(geojson, map) {
-        // TODO: Move this function to helper
-        
-        var addedMapObjects = [];
-        if(!geojson || !App.GeoHelper.validateGeoJson(geojson)) {
-            return addedMapObjects;
-        } 
- 
-        for(var i = 0; i < geojson.features.length; i++) {
-            
-            var geometry = geojson.features[i].geometry;
-            
-            if(geometry.type === "LineString"){
 
-                var polylinePath = App.GeoHelper.geoJsonCoordinatesToGoogleLatLngArray(geometry.coordinates);        
-                var polyline = new google.maps.Polyline({
-                    path:  polylinePath,
-                    strokeColor: '#ff0000',
-                    strokeWeight: 2
-                });
-                polyline.setMap(map);
-                addedMapObjects.push(polyline);
-            }
-        }      
-        return addedMapObjects;
+    showTourRoutesIfZoomed: function(zoom) {
+        if(zoom >= this.get('showRoutesOnZoomLevel')) {
+            this.showTourRoutes();
+        } else {
+            this.hideTourRoutes();
+        }
     },
     
     showTourRoutes: function() {
         var self = this;
         
-        if(self.get('tourRoutesAreShown') === true){
+        if(self.get('tourRoutesAreShown') === true) {
             return;
         }
-
+        
         self.get('tours').forEach(function(tour) {
-            var addedMapObjects = self.addGoogleObjectsToMapFromTourGeoJson(tour.get('mapGeoJson'), self.get('map'));
-            addedMapObjects.forEach(function(mapObject) {
+            var mapObjects = App.GeoHelper.getGoogleObjectsFromTourGeoJson(tour.get('mapGeoJson'));
+            mapObjects.forEach(function(mapObject) {
+                mapObject.setMap(self.get('map'));
                 self.get('currentMapObjects').push(mapObject);
             });
         });
@@ -48271,8 +48286,8 @@ Ember.Handlebars.registerBoundHelper('maxString', function(string, maxLength) {
     
     hideTourRoutes: function() {
         var self = this;
-        
-        if(!self.get('tourRoutesAreShown')){
+
+        if(!self.get('tourRoutesAreShown')) {
             return;
         }
         
@@ -48335,10 +48350,7 @@ Ember.Handlebars.registerBoundHelper('maxString', function(string, maxLength) {
                 
                 google.maps.event.addListener(infowindow,'domready',function(){
                     $('#zoomToTourLink').click(function() {
-                        var bounds = new google.maps.LatLngBounds();
-                        bounds.extend(marker.position);  
-                        self.get('oms').addMarker(marker);
-                        self.get('map').fitBounds(bounds);
+                        self.zoomToTour(tour);
                     });
                 });
             });
@@ -48377,19 +48389,20 @@ Ember.Handlebars.registerBoundHelper('maxString', function(string, maxLength) {
                 zoom: self.get('zoomLevel'),
             };
             
-        this.set('map', new google.maps.Map(this.get('mapRootElement').get(0), mapOptions));
+        self.set('map', new google.maps.Map(this.get('mapRootElement').get(0), mapOptions));
+        
         var markerCluster = new MarkerClusterer(this.get('map'), this.get('markers'));
-        markerCluster.setMaxZoom(10);
-        this.set('oms', new OverlappingMarkerSpiderfier(this.get('map')));
+        markerCluster.setMaxZoom(14);
+        self.set('oms', new OverlappingMarkerSpiderfier(this.get('map')));
 
         google.maps.event.addListener(self.get('map'), 'zoom_changed', function() {
             var newZoomLevel = self.get('map').getZoom();
+            
+            self.showTourRoutesIfZoomed(newZoomLevel);
+            
             self.sendAction('zoomChanged', newZoomLevel);
-            if(newZoomLevel >= self.get('showRoutesOnZoomLevel')) {
-                self.showTourRoutes();
-            } else {
-                self.hideTourRoutes();
-            }
+            
+            console.log('Zoom level: ' + newZoomLevel);
         });
         
         google.maps.event.addListener(self.get('map'), 'center_changed', function() {
@@ -48400,9 +48413,15 @@ Ember.Handlebars.registerBoundHelper('maxString', function(string, maxLength) {
         redrawMap = function() {
             google.maps.event.trigger(self.get('map'), 'resize');
         };
+        
         $(window).on('resize', redrawMap); 
         
-        redrawMap();
+        if(this.get('tour')) {
+            self.zoomToTour(this.get('tour'));
+        }
+        
+        self.showTourRoutesIfZoomed(self.get('map').getZoom());
+        
     },
     
     actions: {
