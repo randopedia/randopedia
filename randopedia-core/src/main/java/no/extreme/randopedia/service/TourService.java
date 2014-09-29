@@ -361,5 +361,13 @@ public class TourService {
         return tourRepository.findToursByCoordinate(mapCenterLat, mapCenterLong, zoomLevel);
     }
 
+    public List<Tour> findToursByCoordinate(
+            Double topLeftLatitude,
+            Double topLeftLongitude,
+            Double bottomRightLatitude,
+            Double bottomRightLongitude) {
+        return tourRepository.findToursByCoordinate(topLeftLatitude, topLeftLongitude, bottomRightLatitude, bottomRightLongitude);
+    }
+
     
 }

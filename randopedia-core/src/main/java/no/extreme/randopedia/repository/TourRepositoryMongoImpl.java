@@ -461,6 +461,25 @@ public class TourRepositoryMongoImpl implements TourRepository {
         // TODO Auto-generated method stub
         return null;
     }
+
+    @Override
+    public List<Tour> findToursByCoordinate(
+            Double topLeftLatitude,
+            Double topLeftLongitude,
+            Double bottomRightLatitude,
+            Double bottomRightLongitude) {
+        
+        Criteria criteria = Criteria.where("mapGeoJson").exists(true)
+                .andOperator(
+                        Criteria.where("centerLatitude").lte(topLeftLatitude),
+                        Criteria.where("centerLongitude").gte(topLeftLongitude),
+                        Criteria.where("centerLatitude").gte(bottomRightLatitude),
+                        Criteria.where("centerLongitude").lte(bottomRightLongitude));
+        Query query = new Query();
+        query.addCriteria(criteria);
+        
+        return mongoOperations.find(query, Tour.class);
+    }
     
 }
 

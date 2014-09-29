@@ -91,7 +91,7 @@ public class TourRestController {
         return tourContainer;
     }
     
-    @RequestMapping(method=RequestMethod.GET, value="/toursByCoordinate/", produces="application/json")
+    /*@RequestMapping(method=RequestMethod.GET, value="/toursByCoordinate/", produces="application/json")
     public @ResponseBody ToursContainer getToursByCoordinate(
             @RequestParam(value="mapCenterLat", required = true) Long mapCenterLat,
             @RequestParam(value="mapCenterLong", required = true) Long mapCenterLong,
@@ -101,6 +101,21 @@ public class TourRestController {
         List<Tour> tours = new ArrayList<Tour>();
         
         tours = tourService.findToursByCoordinate(mapCenterLat, mapCenterLong, zoomLevel);
+        
+        return toursContainer;
+    }*/
+    
+    @RequestMapping(method=RequestMethod.GET, value="/toursByCoordinate", produces="application/json")
+    public @ResponseBody ToursContainer getToursByCoordinate(
+            @RequestParam(value="topLeftLatitude", required = true) Double topLeftLatitude,
+            @RequestParam(value="topLeftLongitude", required = true) Double topLeftLongitude,
+            @RequestParam(value="bottomRightLatitude", required = true) Double bottomRightLatitude,
+            @RequestParam(value="bottomRightLongitude", required = true) Double bottomRightLongitude) {
+        
+        ToursContainer toursContainer = new ToursContainer();
+        List<Tour> tours = tourService.findToursByCoordinate(topLeftLatitude, topLeftLongitude, bottomRightLatitude, bottomRightLongitude);
+        List<ClientTour> clientTours = Mapper.mapToursToClientsTour(tours);
+        toursContainer.setTours(clientTours);
         
         return toursContainer;
     }

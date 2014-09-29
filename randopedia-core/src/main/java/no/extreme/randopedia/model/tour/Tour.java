@@ -38,6 +38,8 @@ public class Tour implements Comparable<Tour>{
     private List<String> tags;
     private String portfolioImage;
     private String clientId;
+    private Double centerLatitude;
+    private Double centerLongitude;
     
     private List<String> actions;
     private Integer status;
@@ -366,5 +368,21 @@ public class Tour implements Comparable<Tour>{
 
     public void setTags(List<String> tags) {
         this.tags = tags;
+    }
+
+    public Double getCenterLatitude() {
+        return centerLatitude;
+    }
+
+    public void setCenterLatitude(Double centerLatitude) {
+        this.centerLatitude = centerLatitude;
+    }
+
+    public Double getCenterLongitude() {
+        return centerLongitude;
+    }
+
+    public void setCenterLongitude(Double centerLongitude) {
+        this.centerLongitude = centerLongitude;
     }
 }
