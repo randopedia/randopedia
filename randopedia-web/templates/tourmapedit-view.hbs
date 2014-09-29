@@ -1,18 +1,27 @@
-<button class="btn btn-default pull-right spacing-y"  data-toggle="modal" data-target="#confirmDeleteRoutesModal">Remove routes</button>
+
+<button class="btn btn-default pull-right spacing-y"  data-toggle="modal" data-target="#confirmDeleteRoutesModal" {{bindAttr disabled="view.isDeletePathsDisabled"}}>
+    Delete paths
+</button>
+
+
 
 <div class="mapContainer">
-    <div id="tourMapRootElement"></div>
+    <div id="tourEditMapRootElement"></div>
 </div>
 
 <div class="modal fade" id="confirmDeleteRoutesModal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-sm">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
+             <div class="modal-header">
+                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                 <h4 class="modal-title">Delete paths</h4>
+             </div>        
             <div class="modal-body">
-                 Are you sure you want to remove all routes from the map?
+                 Are you sure you want to delete the selected paths from the tour?
             </div>
             <div class="modal-footer">
-                <button class="btn btn-primary pull-left" {{action "closeDeleteRoutes" target="view" }}>Cancel</button>
-                <button class="btn btn-default pull-right" {{action "deleteRoutes" target="view"}}>Remove</button>
+                <button class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+                <button class="btn btn-danger pull-right" data-dismiss="modal" {{action "deleteRoutes" target="view"}}>Delete</button>
             </div>
         </div>
     </div>    

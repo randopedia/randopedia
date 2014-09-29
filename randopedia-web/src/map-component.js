@@ -18,11 +18,6 @@ App.BrowseTourmapComponent = Ember.Component.extend({
             App.Utils.log('BrowseTourMap component needs tours, inject tours=tours');
             return;
         }
-
-        if(this.get('tour')) {
-//            this.set('zoomLevel', this.get('detailedZoomLevel'));
-//            this.set('mapCenter', this.getTourCenterLatLng(this.get('tour').get('mapGeoJson')));
-        }
         
         if(!this.get('zoomLevel')) {
             this.set('zoomLevel', 4);
@@ -41,7 +36,7 @@ App.BrowseTourmapComponent = Ember.Component.extend({
         
         var tourMapObjects = App.GeoHelper.getGoogleObjectsFromTourGeoJson(tour.get('mapGeoJson'));
 
-        if(!tourMapObjects || tourMapObjects.length === 0) { 
+        if(!tourMapObjects) { 
             return; 
         }
 
@@ -52,12 +47,6 @@ App.BrowseTourmapComponent = Ember.Component.extend({
                 bounds.extend(mapObject.getPath().getArray()[j]);
             } 
         });
-        
-//        for(var i = 0; i < lines.length; i++){
-//            for(j = 0; j < lines[i].getPath().length; j++){
-//                bounds.extend(lines[i].getPath().getArray()[j]);
-//            }     
-//        }
         
         this.get('map').fitBounds(bounds);
     },
@@ -127,17 +116,19 @@ App.BrowseTourmapComponent = Ember.Component.extend({
         if(navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function(position) {
                 var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                var image = 'images/my_position_marker.png';
                 var marker = new google.maps.Marker({
                     title: 'My position', 
                     position: pos,
                     map: self.get('map'),
+                    //icon: image
                 });
                 self.get('map').setCenter(pos);
                 self.get('map').setZoom(self.get('detailedZoomLevel'));
           }, function(){});
         } else {
             // Browser doesn't support Geolocation
-        }        
+        }
     },
 
     addTourMarkers: function(tours) {

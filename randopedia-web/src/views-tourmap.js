@@ -1,117 +1,4 @@
 /**
- * View showing the tour map.
- */
-App.TourMapView = Ember.View.extend({
-    templateName: 'tourmap-view',
-    mapRootElement: null,
-    map: null,
-    currentMapPolylines: null,
-    
-    didInsertElement: function() {
-        this.initMap();
-    },
-
-    setMapSize: function() {
-        var newWidth = $('.mapContainer').width();
-        var newHeight = 500;
-        if(newWidth < 600) { newHeight = 400; }
-        if(newWidth < 500) { newHeight = 300; }
-        this.get('mapRootElement').css({ width: newWidth + 'px', height: newHeight + 'px' });
-    },
-    
-    parseGeoJson: function() {
-        var self = this;
-        var geojson = self.get('controller.model.mapGeoJson');
-        if(!geojson || !App.GeoHelper.validateGeoJson(geojson)) {
-            return;
-        } 
- 
-        for(var i = 0; i < geojson.features.length; i++) {
-            
-            var geometry = geojson.features[i].geometry;
-            
-            if(geometry.type === "LineString"){
-
-                var polylinePath = App.GeoHelper.geoJsonCoordinatesToGoogleLatLngArray(geometry.coordinates);        
-                var polyline = new google.maps.Polyline({
-                    path:  polylinePath,
-                    strokeColor: '#ff0000',
-                    strokeWeight: 2
-                });
-                self.get('currentMapPolylines').push(polyline);
-                polyline.setMap(self.get('map'));
-            }
-        }        
-    },
-    
-    setZoomAndCenter: function() {
-        var lines = this.get('currentMapPolylines');
-
-        if(!lines || lines.length === 0) { 
-            return; 
-        }
-
-        var bounds = new google.maps.LatLngBounds();
-        for(var i = 0; i < lines.length; i++){
-            for(j = 0; j < lines[i].getPath().length; j++){
-                bounds.extend(lines[i].getPath().getArray()[j]);
-            }     
-        }
-        
-        this.get('map').fitBounds(bounds);
-    },
-    
-    initMap: function() {
-        var controller = this.get('controller');
-        var self = this;
-
-        this.set('currentMapPolylines', []);
-        this.set('mapRootElement', this.$('#tourMapRootElement'));
-
-        var mapOptions = {
-                mapTypeId: google.maps.MapTypeId.TERRAIN,
-                mapTypeControl: true,
-                mapTypeControlOptions: {
-                    style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
-                },
-                zoomControl: true,
-                zoomControlOptions: {
-                    style: google.maps.ZoomControlStyle.SMALL
-                },
-                scaleControl: true,
-                scaleControlOptions: {
-                    position: google.maps.ControlPosition.TOP_LEFT
-                },
-                scrollwheel: false,
-                panControl: true,
-                streetViewControl:false,
-                overviewMapControl:false,
-                rotateControl:false,
-                center: new google.maps.LatLng(30.0, 13.5),
-                zoom: 2,
-            };
-            
-        this.set('map', new google.maps.Map(this.get('mapRootElement').get(0), mapOptions));
-        
-        this.setMapSize();
-        
-        this.parseGeoJson();
-        
-        redrawMap = function() {
-            self.setMapSize();
-            google.maps.event.trigger(self.get('map'), 'resize');
-            self.setZoomAndCenter();
-        };
-
-        // Fix for redraw map issue. Map is not drawn correctly after a transition
-        redrawMap();
-        
-        // Hook up to window resize event to do implicit resize on map canvas
-        $(window).on('resize', redrawMap);        
-    }
-});
-
-/**
  * View showing an editable version of the tour map
  */
 App.TourEditMapView = Ember.View.extend({
@@ -120,21 +7,31 @@ App.TourEditMapView = Ember.View.extend({
     map: null,
     currentMapPolylines: [],
     drawingManager: null,
+    selectedPolylines: [],
+    selectedStrokeColor: 'blue',
     
     actions: {
         deleteRoutes: function() {
-            this.get('controller').send('deletePaths');
-            this.get('currentMapPolylines').forEach(function(line){
+            var self = this;
+            self.get('selectedPolylines').forEach(function(line){
                 line.setMap(null);
+                var index = self.get('currentMapPolylines').indexOf(line);
+                self.get('currentMapPolylines').splice(index, 1);
             });
-            this.set('currentMapPolylines', []);
-            this.send('closeDeleteRoutes');
-        },
-        
-        closeDeleteRoutes: function() {
-            $('#confirmDeleteRoutesReveal').foundation('reveal', 'close');
+            
+            self.get('selectedPolylines').clear();
+            
+            self.saveGeoJson();
         }
     },
+    
+    isDeletePathsDisabled: function() {
+        return !this.get('haveSelectedPaths');
+    }.property('selectedPolylines.[]'),
+    
+    haveSelectedPaths: function() {
+        return this.get('selectedPolylines').length > 0;
+    }.property('selectedPolylines.[]'),
     
     didInsertElement: function() {
         this.initMap();
@@ -142,56 +39,65 @@ App.TourEditMapView = Ember.View.extend({
 
     setMapSize: function() {
         var newWidth = $('.mapContainer').width();
-        var newHeight = 500;
-        if(newWidth < 600) { newHeight = 400; }
-        if(newWidth < 500) { newHeight = 300; }
+        var newHeight;
+        
+        if(newWidth >= 1170) {
+            newHeigth = 800;
+        }
+        else if(newWidth >= 750) { 
+            newHeight = 800;
+        }
+        else { 
+            newHeight = 800; 
+        }
+        
         this.get('mapRootElement').css({ width: newWidth + 'px', height: newHeight + 'px' });
     },
+    
+    onPolylinePathChanged: function (){
+        var self = this;
+        if(!self.get('drawingManager')){ 
+            return; 
+        }
+        self.get('drawingManager').setDrawingMode(null);
+        self.saveGeoJson();
+    },
+    
+    onPolylineClick: function (polyline){
+        var self = this;
+        if(polyline.strokeColor === self.get('selectedStrokeColor')) {
+            polyline.setOptions({strokeColor: '#ff0000', strokeWeight: 2});
+            self.get('selectedPolylines').removeObject(polyline);
+        } else {
+            polyline.setOptions({strokeColor: self.get('selectedStrokeColor'), strokeWeight: 4}); 
+            self.get('selectedPolylines').insertAt(0, polyline);
+        }
+    },
  
+    setupPolylineListeners: function(polyline) {
+        var self = this;
+        var path = polyline.getPath();
+        google.maps.event.addListener(path, 'set_at', function() {
+            self.onPolylinePathChanged();
+        }); 
+        google.maps.event.addListener(path, 'insert_at', function() {
+            self.onPolylinePathChanged();
+        }); 
+        google.maps.event.addListener(polyline, 'click', function() {
+            self.onPolylineClick(this);
+        });
+    },
+    
     parseGeoJson: function() {
         var self = this;
         
-        var geojson = this.get('controller.model.mapGeoJson');
-        
-        if(!geojson || !App.GeoHelper.validateGeoJson(geojson)){ 
-            return; 
-        }
-        
-        var onPathChanged =  function (polyline){
-            if(!self.get('drawingManager')){ 
-                return; 
-            }
-            self.get('drawingManager').setDrawingMode(null);
-            self.saveGeoJson();
-        };
+        var tourMapObjects = App.GeoHelper.getEditableGoogleObjectsFromTourGeoJson(self.get('controller.model.mapGeoJson'));
 
-        for(var i = 0; i < geojson.features.length; i++) {
-            
-            var geometry = geojson.features[i].geometry;
-            
-            if(geometry.type === "LineString"){
-
-                var polylinePath = App.GeoHelper.geoJsonCoordinatesToGoogleLatLngArray(geometry.coordinates);
-                                
-                var polyline = new google.maps.Polyline({
-                    path:  polylinePath,
-                    strokeColor: '#ff0000',
-                    strokeWeight: 2,
-                    clickable: true,
-                    draggable: true,
-                    editable: true,
-                    zIndex: 1,
-                    geodesic: true
-                });
-                
-                var path = polyline.getPath();
-                google.maps.event.addListener(path, 'set_at', onPathChanged); 
-                google.maps.event.addListener(path, 'insert_at', onPathChanged); 
-
-                this.get('currentMapPolylines').push(polyline);
-                polyline.setMap(this.get('map'));
-            }
-        }
+        tourMapObjects.forEach(function(mapObject) {
+            self.setupPolylineListeners(mapObject);
+            self.get('currentMapPolylines').push(mapObject);
+            mapObject.setMap(self.get('map'));
+        });
     },
     
     saveGeoJson: function() {
@@ -201,9 +107,9 @@ App.TourEditMapView = Ember.View.extend({
             type: "FeatureCollection",
             features: []
         };
-        
-        for (var i = 0; i < this.get('currentMapPolylines').length; i++) {
-            var polylinePath = this.get('currentMapPolylines')[i].getPath();
+
+        for (var i = 0; i < self.get('currentMapPolylines').length; i++) {
+            var polylinePath = self.get('currentMapPolylines')[i].getPath();
             
             geojson.features.push({
                 type: "Feature",
@@ -213,7 +119,8 @@ App.TourEditMapView = Ember.View.extend({
                 }
             });
         }
-        this.get('controller').send('updateGeoJson', geojson);
+        
+        self.get('controller').send('updateGeoJson', geojson);
     },
     
     setZoomAndCenter: function() {
@@ -242,7 +149,7 @@ App.TourEditMapView = Ember.View.extend({
         var self = this;
 
         this.set('currentMapPolylines', []);
-        this.set('mapRootElement', this.$('#tourMapRootElement'));
+        this.set('mapRootElement', this.$('#tourEditMapRootElement'));
 
         var mapOptions = {
                 mapTypeId: google.maps.MapTypeId.TERRAIN,
@@ -296,20 +203,16 @@ App.TourEditMapView = Ember.View.extend({
             google.maps.event.trigger(self.get('map'), 'resize');
             self.setZoomAndCenter();
         };
- 
-        var onPathChanged =  function (polyline){
-            self.get('drawingManager').setDrawingMode(null);
-            self.saveGeoJson();
-        };
         
         google.maps.event.addListener(self.get('drawingManager'), 'polylinecomplete', function(polyline){
             self.get('drawingManager').setDrawingMode(null);
             self.addPolyline(polyline);
-            
-            var path = polyline.getPath();
-            google.maps.event.addListener(path, 'set_at', onPathChanged);
-            google.maps.event.addListener(path, 'insert_at', onPathChanged);
+            self.setupPolylineListeners(polyline);
         });
+        
+//        google.maps.event.addListener(self.get('map'), 'mouseover', function(event){
+//            console.log(event);
+//        });
 
         // Fix for making sure the map is redrawn after the section panel containing the map has been activated by a click
         $("a[href='#mapPanel']").bind('click', function(){

@@ -50,4 +50,33 @@ App.GeoHelper = Ember.Object.create({
         }
         return mapObjects;
     },
+    
+    getEditableGoogleObjectsFromTourGeoJson: function(geojson) {
+        var mapObjects = [];
+        if(!geojson || !App.GeoHelper.validateGeoJson(geojson)) {
+            return mapObjects;
+        } 
+ 
+        for(var i = 0; i < geojson.features.length; i++) {
+            
+            var geometry = geojson.features[i].geometry;
+            
+            if(geometry.type === "LineString"){
+
+                var polylinePath = App.GeoHelper.geoJsonCoordinatesToGoogleLatLngArray(geometry.coordinates);        
+                var polyline = new google.maps.Polyline({
+                    path:  polylinePath,
+                    strokeColor: '#ff0000',
+                    strokeWeight: 2,
+                    clickable: true,
+                    draggable: true,
+                    editable: true,
+                    zIndex: 1,
+                    geodesic: true
+                });
+                mapObjects.push(polyline);
+            }
+        }
+        return mapObjects;
+    },    
 });

@@ -1,22 +1,25 @@
-<div class="row main-view-container browse-tree-view">
-	<div class="panel panel-default spacing-y">
-	    <div class="panel-heading">
-	        Browse areas
-	    </div>
-	    <div class="panel-body">
-	        <div class="col-sm-12">
-                {{#if controller.isLoadingAreas}}
-                    <div>Loading areas...</div>
-                {{else}}
-                   {{#each toplevel in controller}}
-                       {{#if toplevel.area.children}} 
-                           {{control "areaBrowseItems" toplevel.area}}
-                       {{/if}}
-                   {{/each}}  
-                {{/if}}
-	        </div>     
-	    </div>
-	</div>
+<div class="main-view-container">
+
+    <div class="row">
+       <div class="col-sm-12">
+            <h3>Browse areas</h3>
+        </div>
+    </div>
+
+    <div class="row">
+       <div class="col-sm-12 browse-tree-view">
+            {{#if controller.isLoadingAreas}}
+                <div>Loading areas...</div>
+            {{else}}
+               {{#each toplevel in controller}}
+                   {{#if toplevel.area.children}} 
+                       {{control "areaBrowseItems" toplevel.area}}
+                   {{/if}}
+               {{/each}}  
+            {{/if}}
+        </div> 
+    </div>
+    
 </div>
 
 

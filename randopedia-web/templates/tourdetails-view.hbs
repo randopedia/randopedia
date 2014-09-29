@@ -1,14 +1,14 @@
+{{#if controllers.login.isLoggedIn}}
+<div class="row">
+    <div class="col-sm-12 edit-container">
+        <div class="pull-right">{{#link-to 'tour.edit' model}}Edit tour{{/link-to}}</div>
+    </div>
+</div>
+{{/if}}
+    
 <div class="main-view-container tour-details-view">
 
 	<div class="hidden">{{view.imageLoaded}}</div>
-	
-	{{#if controllers.login.isLoggedIn}}
-    <div class="row">
-        <div class="col-sm-12 edit-container">
-            <div class="pull-right">{{#link-to 'tour.edit' model}}Edit tour{{/link-to}}</div>
-        </div>
-    </div>
-    {{/if}}
     
 	{{#if isDraft}}
 	<div class="row">
@@ -222,17 +222,6 @@
 	            <p>No images available for this tour</p>	
 		    {{/if}}
 	    </div>
-	</div>
-	
-	<div class="row">
-	    <div class="col-sm-12">
-		    <h4>Map</h4>
-		    {{#if hasPaths}}
-			    {{view App.TourMapView}}
-		    {{else}}
-		        <p>No map is available for this tour</p>
-		    {{/if}}
-	    </div>    
 	</div>
 	
 	<div class="row">

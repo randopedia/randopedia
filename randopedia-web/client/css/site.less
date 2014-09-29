@@ -3,12 +3,50 @@
 @logo-font: Aight;
 @navbar-background: url(../images/header_background.jpg) repeat-x;
 @hover-background: @gray-lighter;
+
+@normal-border: 1px solid @gray-light;
 @light-border: 1px solid @gray-lighter;
 
 @small-space: 5px;
 @large-space: 10px;
 
 @font-face { font-family: Aight; src: url('../fonts/aaaiight.ttf'); }
+
+.spacing {
+    margin: @large-space;
+}
+
+.spacing-x {
+    margin-left: @large-space;
+    margin-right: @large-space;
+}
+
+.spacing-x-large {
+    margin-left: @large-space * 2;
+    margin-right: @large-space * 2;
+}
+
+.spacing-y {
+    margin-top: @large-space;
+    margin-bottom: @large-space;
+}
+
+.spacing-y-large {
+    margin-top: @large-space * 2;
+    margin-right: @large-space * 2;
+}
+
+.danger {
+    color: @brand-danger;
+}
+
+.uppercase { 
+    text-transform: uppercase;
+}
+
+.small {
+    font-size: 0.8em;
+}
 
 body {
     padding-top: 50px;
@@ -51,61 +89,31 @@ body {
 }
 
 .tab-content {
-    padding: 0 @large-space;
+    padding: @large-space;
 }
 
 .popover {
     min-width: 250px;
-}
-.popover-content {
-    font-size: @font-size-base;
+    
+    .popover-content {
+        font-size: @font-size-base;
+    }
 }
 
 .alert {
     margin: 20px;
 }
 
-a:hover {
-    cursor: pointer;
-}
+a {
+    text-decoration: none;
+    &:hover {
+        cursor: pointer;
+        text-decoration: none;    
+    }
+}   
 
-.spacing {
-    margin: @large-space;
-}
-
-.spacing-x {
-    margin-left: @large-space;
-    margin-right: @large-space;
-}
-
-.spacing-x-large {
-    margin-left: @large-space * 2;
-    margin-right: @large-space * 2;
-}
-
-.spacing-y {
-    margin-top: @large-space;
-    margin-bottom: @large-space;
-}
-
-.spacing-y-large {
-    margin-top: @large-space * 2;
-    margin-right: @large-space * 2;
-}
-
-.danger {
-    color: @brand-danger;
-}
-
-.uppercase { 
-    text-transform: uppercase;
-}
-
-.small {
-    font-size: 0.8em;
-}
-
-.navbar-collapse {
+.navbar-fixed-top .navbar-collapse, .navbar-fixed-bottom .navbar-collapse {
+    max-height: 400px;
     a {
         color: #fff;
         display: block;
@@ -114,16 +122,17 @@ a:hover {
 }
 
 .edit-container {
-    background: #F0F0F0;
-    height: 40px;
-    line-height: 40px;
+    line-height: 30px;
+    margin: 0 10px;
     margin-top: -1px;
+    margin-bottom: -15px;
+    padding-top: 2px;
+    border-bottom: @light-border;
     
     a {
-        padding: 10px;
+        padding: 5px;
         &:hover {
-            background: @gray-light;
-            color: #fff;
+            background: @hover-background;
         }
     }
 }
