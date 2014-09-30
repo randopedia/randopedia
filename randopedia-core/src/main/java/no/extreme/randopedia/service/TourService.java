@@ -357,5 +357,17 @@ public class TourService {
         return tags;
     }
 
+    public List<Tour> findToursByCoordinate(Long mapCenterLat, Long mapCenterLong, Long zoomLevel) {
+        return tourRepository.findToursByCoordinate(mapCenterLat, mapCenterLong, zoomLevel);
+    }
+
+    public List<Tour> findToursByCoordinate(
+            Double topLeftLatitude,
+            Double topLeftLongitude,
+            Double bottomRightLatitude,
+            Double bottomRightLongitude) {
+        return tourRepository.findToursByCoordinate(topLeftLatitude, topLeftLongitude, bottomRightLatitude, bottomRightLongitude);
+    }
+
     
 }

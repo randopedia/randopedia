@@ -5,7 +5,9 @@
 .project
 .settings
 *~
-
+.tar.gz
+.tar
+.gz
 target
 var
 tourimages

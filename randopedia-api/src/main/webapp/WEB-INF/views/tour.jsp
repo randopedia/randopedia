@@ -179,7 +179,7 @@
             <h4 class="subheader">Images</h4>
             <div id="images-container">
                     <c:forEach items="${images}" var="image">
-                        <img src="${image.imageData}"><br/>
+                        <img src="${image.imageFile}"><br/>
                     </c:forEach>
             </div>
 

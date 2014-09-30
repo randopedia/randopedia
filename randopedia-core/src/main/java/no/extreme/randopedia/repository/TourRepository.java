@@ -31,4 +31,6 @@ public interface TourRepository {
     Tour findTourByClientId(String id);
     List<Tour> findToursByTag(String tagId);
     List<TagCloudTag> findAllTags();
+    List<Tour> findToursByCoordinate(Long mapCenterLat, Long mapCenterLong, Long zoomLevel);
+    List<Tour> findToursByCoordinate(Double topLeftLatitude, Double topLeftLongitude, Double bottomRightLatitude, Double bottomRightLongitude);
 }

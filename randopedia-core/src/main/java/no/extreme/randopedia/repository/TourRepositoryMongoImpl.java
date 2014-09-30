@@ -3,6 +3,7 @@ package no.extreme.randopedia.repository;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -182,10 +183,8 @@ public class TourRepositoryMongoImpl implements TourRepository {
     }
 
     @Override
-    public TourImage getTourImage(String imageId){
-        Criteria criteria = Criteria.where("tourImages._id").in(imageId);
-        Query query = Query.query(criteria);
-        Tour tour = mongoOperations.findOne(query, Tour.class);
+    public TourImage getTourImage(String imageId) {
+        Tour tour = getTourFromImageId(imageId);
         
         if(tour == null){
             return null;
@@ -201,8 +200,13 @@ public class TourRepositoryMongoImpl implements TourRepository {
     }
     
     @Override
-    public List<TourImage> getTourImages(Object[] ids){
-        Criteria criteria = Criteria.where("tourImages._id").in(ids);
+    public List<TourImage> getTourImages(Object[] ids) {
+        List<ObjectId> objectIds = new ArrayList<ObjectId>();
+        for(Object id : ids) {
+            ObjectId objectId = new ObjectId((String)id);
+            objectIds.add(objectId);
+        }
+        Criteria criteria = Criteria.where("tourImages._id").in(objectIds);
         Query query = Query.query(criteria);
         Tour tour = mongoOperations.findOne(query, Tour.class);
         
@@ -450,6 +454,31 @@ public class TourRepositoryMongoImpl implements TourRepository {
         });
         
         return tags;
+    }
+
+    @Override
+    public List<Tour> findToursByCoordinate(Long mapCenterLat, Long mapCenterLong, Long zoomLevel) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public List<Tour> findToursByCoordinate(
+            Double topLeftLatitude,
+            Double topLeftLongitude,
+            Double bottomRightLatitude,
+            Double bottomRightLongitude) {
+        
+        Criteria criteria = Criteria.where("mapGeoJson").exists(true)
+                .andOperator(
+                        Criteria.where("centerLatitude").lte(topLeftLatitude),
+                        Criteria.where("centerLongitude").gte(topLeftLongitude),
+                        Criteria.where("centerLatitude").gte(bottomRightLatitude),
+                        Criteria.where("centerLongitude").lte(bottomRightLongitude));
+        Query query = new Query();
+        query.addCriteria(criteria);
+        
+        return mongoOperations.find(query, Tour.class);
     }
     
 }
