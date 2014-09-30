@@ -350,12 +350,10 @@ App.TourEditController = Ember.ObjectController.extend({
     },
 
     addImageForUpload: function(imageData) {
-        console.log('upload ' + imageData);
         var image = this.store.createRecord('image');
         image.set('imageData', imageData);
         image.set('tour', this.get('model'));
         this.set('newImage', image);
-        console.log('set new image ' + imageData);
     },
     
     // Required fields when saving as draft are: name
