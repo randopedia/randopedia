@@ -59,11 +59,11 @@
             <button class="btn btn-primary" {{bindAttr disabled="isNotDirty"}} {{action "saveArea" target="view"}}>
                <span class="glyphicon glyphicon-cloud-upload"></span> Publish
             </button>
+            <button class="btn btn-primary" {{action "startCancelingEdit" target="view"}}>Exit edit</button>
             {{#unless isNotDirty}}
-                <span class="info label">Area have unsaved changes!</span>
+                <span class="spacing-x-large"><span class="glyphicon glyphicon-floppy-disk"></span><em> Area has unsaved changes</em></span>
             {{/unless}}
         {{/if}}
-        <button class="btn btn-primary pull-right" {{action "startCancelingEdit" target="view"}}>Exit edit</button>
     </div>
     {{/if}}
 </div>
@@ -136,7 +136,7 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-12">
-                        <button class="btn btn-primary pull-right" {{action "addTour" target="view"}}>Add new tour</button>
+                        <button class="btn btn-primary pull-right" {{action "addTour"}}>Add new tour</button>
                     </div>
                 </div>
             </div>
@@ -181,7 +181,7 @@
             </div>
             <div class="modal-footer">
                 <button class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-                <button class="btn btn-danger pull-right" data-dismiss="modal" {{action "confirmSaveArea" target="view" }}>Publish</button>
+                <button class="btn btn-primary pull-right" data-dismiss="modal" {{action "confirmSaveArea" target="view" }}>Publish</button>
             </div>
         </div>
     </div>    
@@ -191,6 +191,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 Add new subarea
             </div>
             <div class="modal-body">

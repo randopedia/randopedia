@@ -46902,6 +46902,7 @@ App.Config.googleAppIdProd = '719190645609-c0ogrmvrbtgbl5ohlb81d0lflf31uo51.apps
     },
     
     actions: {
+        // TODO: Move to view
         topbarMenuLink: function(route) {
             if(route){
                 if(route === 'index'){
@@ -46928,9 +46929,7 @@ App.Config.googleAppIdProd = '719190645609-c0ogrmvrbtgbl5ohlb81d0lflf31uo51.apps
             this.transitionToRoute('index');
         },
         collapseNavbar: function() {
-            if($('.navbar-toggle').css('display') !='none'){
-                $(".navbar-toggle").trigger( "click" );
-            }  
+            $('.navbar-collapse').collapse('hide');
         }
     }
 });
@@ -47087,8 +47086,7 @@ App.AreaController = Ember.ObjectController.extend({
             }
         },
         addTour : function() {
-            // TODO: How to pass current area to route? Now area is not pre-set
-            // on the new tour
+            // TODO: How to pass current area to route? Now area is not pre-set on the new tour
             this.transitionToRoute('tour.new');
         },
         showUpdateSuccessMsg : function() {
@@ -48630,7 +48628,7 @@ App.BaseRoute = Ember.Route.extend({
 
 App.ApplicationRoute = Ember.Route.extend({
 	setupController: function(controller, model){
-        this.controllerFor('application').send('verifyLogin');
+        this.controllerFor('application').verifyLogin();
         this._super(controller, model);
     },
 });
@@ -48804,18 +48802,7 @@ App.TourEditMapView = Ember.View.extend({
 
     setMapSize: function() {
         var newWidth = $('.mapContainer').width();
-        var newHeight;
-        
-        if(newWidth >= 1170) {
-            newHeigth = 800;
-        }
-        else if(newWidth >= 750) { 
-            newHeight = 800;
-        }
-        else { 
-            newHeight = 800; 
-        }
-        
+        var newHeight = 800;
         this.get('mapRootElement').css({ width: newWidth + 'px', height: newHeight + 'px' });
     },
     
@@ -48857,10 +48844,6 @@ App.TourEditMapView = Ember.View.extend({
         var self = this;
         
         var tourMapObjects = App.GeoHelper.getEditableGoogleObjectsFromTourGeoJson(self.get('controller.model.mapGeoJson'));
-
-        if(!tourMapObjects) { 
-            return; 
-        }
 
         tourMapObjects.forEach(function(mapObject) {
             self.setupPolylineListeners(mapObject);
@@ -48979,17 +48962,9 @@ App.TourEditMapView = Ember.View.extend({
             self.setupPolylineListeners(polyline);
         });
         
-        google.maps.event.addListener(self.get('map'), 'mouseover', function(event){
-            console.log(event);
-        });
-
-        // Fix for making sure the map is redrawn after the section panel containing the map has been activated by a click
-        $("a[href='#mapPanel']").bind('click', function(){
-            window.setTimeout(redrawMap, 10);
-        });
-        
-        // Fix for redraw map issue. Map is not drawn correctly after a transition or when viewed in, for example, a Foundation section element.
-        redrawMap();
+//        google.maps.event.addListener(self.get('map'), 'mouseover', function(event){
+//            console.log(event);
+//        });
        
         // Hook up to window resize event to do implicit resize on map canvas
         $(window).on('resize', redrawMap);        
@@ -49003,6 +48978,7 @@ App.TourEditMapView = Ember.View.extend({
             if(this.get('showNavbarSearch')) {
                 $("body").css('padding-top', '100px');
                 $("#tourMapRootElement").css('margin-top', '97px');
+                //this.get('controller').send('collapseNavbar');
             } else {
                 $("body").css('padding-top', '50px');
                 $("#tourMapRootElement").css('margin-top', '50px');
@@ -49229,14 +49205,7 @@ App.TourEditView = Ember.View.extend({
               $(window).resize();
         });
           
-        $('.info').popover({placement: 'bottom'});
-        
-//        $(document).foundation('section', {
-//            callback: function(){
-//                // Hack to make sure content is loaded correctly, solves issue with Google Maps view not being rendered
-//                $(window).resize();
-//            }
-//        });
+        $('.info').popover({placement: 'left right auto'});
     },
     actions: {
         startPublishTour: function() {
@@ -49246,14 +49215,9 @@ App.TourEditView = Ember.View.extend({
             $('#publishTourStep1Modal').modal('hide');
             $('#publishTourStep2Modal').modal('show');
         },
-        continueToPublishStep3: function() {
-            //this.get('controller').send('publishTour');
-            $('#publishTourStep2Modal').modal('hide');
-            $('#publishTourStep3Modal').modal('show');
-        },  
         confirmPublishTour: function() {
             this.get('controller').send('publishTour');
-            $('#publishTourStep3Modal').modal('hide');
+            $('#publishTourStep2Modal').modal('hide');
         },
         startCancelingEditTour: function() {
             if(this.get('controller').get('hasChanges'))  {
@@ -49377,6 +49341,7 @@ App.FileUploadView = Ember.View.extend({
                     ctx.drawImage(this, 0, 0, tempW, tempH);
                     var dataURL = canvas.toDataURL("image/jpeg");
 
+                    console.log('IMAGE DATA IN VIEW: ' + dataURL);
                     controller.addImageForUpload(dataURL);
                 };
             };

@@ -1,13 +1,8 @@
-<div class="main-view-container">
+<div class="container-fluid">
 
-    <div class="row">
-       <div class="col-sm-12">
+    <div class="row">    
+        <div class="col-sm-12 browse-tree-view">
             <h3>Browse areas</h3>
-        </div>
-    </div>
-
-    <div class="row">
-       <div class="col-sm-12 browse-tree-view">
             {{#if controller.isLoadingAreas}}
                 <div>Loading areas...</div>
             {{else}}
@@ -19,7 +14,6 @@
             {{/if}}
         </div> 
     </div>
-    
 </div>
 
 

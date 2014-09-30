@@ -26,6 +26,7 @@ App.ApplicationController = Ember.ArrayController.extend({
     },
     
     actions: {
+        // TODO: Move to view
         topbarMenuLink: function(route) {
             if(route){
                 if(route === 'index'){
@@ -52,9 +53,7 @@ App.ApplicationController = Ember.ArrayController.extend({
             this.transitionToRoute('index');
         },
         collapseNavbar: function() {
-            if($('.navbar-toggle').css('display') !='none'){
-                $(".navbar-toggle").trigger( "click" );
-            }  
+            $('.navbar-collapse').collapse('hide');
         }
     }
 });

@@ -28,7 +28,7 @@ App.BaseRoute = Ember.Route.extend({
 
 App.ApplicationRoute = Ember.Route.extend({
 	setupController: function(controller, model){
-        this.controllerFor('application').send('verifyLogin');
+        this.controllerFor('application').verifyLogin();
         this._super(controller, model);
     },
 });

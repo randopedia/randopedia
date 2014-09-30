@@ -1,4 +1,4 @@
-<div class="main-view-container">
+<div class="container-fluid tour-edit-view">
  
 	{{#if authenticationErrors}}
 	<div class="row">
@@ -95,10 +95,10 @@
                 <button class="btn btn-primary" {{bindAttr disabled="isStartPublishDisabled"}} {{action "startPublishTour" target="view"}}>
                    <span class="glyphicon glyphicon-cloud-upload"></span> Publish
                 </button>			 
+				<button class="btn btn-primary" {{action "startCancelingEditTour" target="view"}} class="right">Exit edit</button>
 				{{#if hasChanges}}
                     <span class="spacing-x-large"><span class="glyphicon glyphicon-floppy-disk"></span><em> Tour has unsaved changes</em></span>
                 {{/if}}
-				<button class="btn btn-primary pull-right" {{action "startCancelingEditTour" target="view"}} class="right">Exit edit</button>
 		   </div>
 		</div>
 	{{/if}}     
@@ -619,24 +619,10 @@
 	            </div>
 	            <div class="modal-footer">
 	                <button class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-	                <button class="btn btn-primary pull-right" {{bindAttr disabled="view.isPublishDisabled"}} {{action "continueToPublishStep3" target="view"}}>Publish</button>  	            
+	                <button class="btn btn-primary pull-right" {{bindAttr disabled="view.isPublishDisabled"}} {{action "confirmPublishTour" target="view"}}>Publish</button>  	            
 	            </div>
 	        </div>
 	    </div>        
 	</div>
-	
-	<div class="modal fade" id="publishTourStep3Modal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-body">
-                    Changes will be published, do you want to continue?
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-                    <button class="btn btn-primary pull-right" {{action "confirmPublishTour" target="view" }}>Publish</button>
-                </div>
-            </div>
-        </div>    
-    </div>	
     
 </div>

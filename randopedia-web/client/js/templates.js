@@ -14,9 +14,9 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
   var buffer = '', helper, options, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
 
 
-  data.buffer.push("<div class=\"row\">\r\n    <div class=\"col-sm-12 main-view-container\">\r\n    \r\n         <ul class=\"nav nav-tabs\" role=\"tablist\">\r\n			<li class=\"active\"><a href=\"#about\" role=\"tab\" data-toggle=\"tab\">About</a></li>\r\n			<li><a href=\"#grades\" role=\"tab\" data-toggle=\"tab\">Grades</a></li>\r\n			<li><a href=\"#help\" role=\"tab\" data-toggle=\"tab\">Help</a></li>\r\n	    </ul>\r\n	    \r\n		<div class=\"tab-content\">\r\n		\r\n			<div class=\"tab-pane active\" id=\"about\">\r\n			     <div>\r\n                   <h3>About Randopedia</h3>\r\n                   <p>\r\n                   Randopedia is an open-content collaborative encyclopedia where anyone can contribute by adding and update content. Ambition is high; it shall become the most complete and accessible ski tour database in the world. Randopedia isn't a community; it's simply a database containing ski tour descriptions.\r\n                   </p>\r\n                   \r\n                   <p>\r\n                   It's really easy to contribute and take part in the Randopedia vision. Just log in and add your tours! Have a look at the help section if you want to learn more about how to contribute with tour data.\r\n                   </p>\r\n                   \r\n                    <h4 class=\"subheader\">The people</h4>\r\n                    <p>\r\n                    Randopedia is developed and maintained by a bunch of skiers (who also happens to be programmers) who simply thought this was a great idea. All work is done voluntary on our spare time, but we do our best to frequently update and improve the site.\r\n                    </p>\r\n                   \r\n                    <h4 class=\"subheader\">Contact</h4>\r\n                    <p>\r\n                    We love to get feedback, so any ideas, suggestions, error reports, questions, criticism or compliments are all very welcomed. Please send an email to <a href=\"mailto:mail@randopedia.net\">mail@randopedia.net</a> or write on the <a target=\"_blank\" href=\"https://www.facebook.com/randopedia.net\">Randopedia Facebook page</a>.\r\n                    </p>\r\n                    \r\n                   <h4 class=\"subheader\">Privacy, registering and logging in</h4>\r\n                   <p>\r\n                   Randopedia doesn't have its own authentication system, instead of creating a new account you can use accounts you already have. Currently you can login with Facebook and Google accounts.\r\n                   </p>\r\n                   \r\n                    <p>\r\n                    First time you login you have to register the account with Randopedia. This is just a confirmation that you allow your account to be used for authentication by Randopedia.\r\n                    </p>\r\n                    \r\n                    <p>\r\n                    Randopedia doesn't store or use any sensitive information about your account. The only thing that is saved is the user id and name. There's no logout button on the page, if you for example have logged in using your Facebook account, you'll be logged out from Randopedia when you log out from Facebook.\r\n                    </p>\r\n                    \r\n                    <p>\r\n                    Note: You only need to login if you want to contribute with ski tour data or write comments on tours. All ski tours and other information on the site is always available regardless if you're logged in or not.\r\n                    </p>\r\n                    \r\n                    <p>\r\n                    Note 2: If you have saved tour drafts when logged in with one account, for example Facebook, those tours will not be available if you log in with Google or vice versa.\r\n                    </p>\r\n                   \r\n                    <h4 class=\"subheader\">Licensing</h4>\r\n                    <p>\r\n                    All tour data (texts, images, map data) is licensed under a <a target=\"_blank\" rel=\"license\" href=\"http://creativecommons.org/licenses/by/4.0/\">Creative Commons Attribution 4.0 International License</a>.\r\n                    </p>\r\n                   \r\n                    <h4 class=\"subheader\">Disclaimer</h4>\r\n                    <p>\r\n                    By publishing any material on Randopedia you assures that the material DO NOT violate ANY copyright law, international or otherwise, nor that the material is deemed illegal by governing authorities.\r\n                    </p>\r\n                    <p>\r\n                    If you suspect that some material available on Randopedia violates any copyright law, please contact us and it will be immediately deleted from the Randopedia database.\r\n                    </p>                   \r\n                    <p>\r\n                    Randopedia makes no guarantee of the validity of the content. Tour data should always be seen as guidelines and inspiration, not as absolute truth, and be handled as such.\r\n                    </p>\r\n                    <p>\r\n                    Randopedia reserves the right to, without any notice, delete any content that violates anything stated here or is considered irrelevant for the site.\r\n                    </p>			     \r\n			     </div>\r\n			</div>\r\n			\r\n			<div class=\"tab-pane\" id=\"grades\">\r\n			     <h3>Grades</h3>\r\n			     ");
+  data.buffer.push("<div class=\"container-fluid\">\r\n	<div class=\"row\">\r\n	    <div class=\"col-sm-12\">\r\n	    \r\n	         <ul class=\"nav nav-tabs\" role=\"tablist\">\r\n				<li class=\"active\"><a href=\"#about\" role=\"tab\" data-toggle=\"tab\">About</a></li>\r\n				<li><a href=\"#grades\" role=\"tab\" data-toggle=\"tab\">Grades</a></li>\r\n				<li><a href=\"#help\" role=\"tab\" data-toggle=\"tab\">Help</a></li>\r\n		    </ul>\r\n		    \r\n			<div class=\"tab-content\">\r\n			\r\n				<div class=\"tab-pane active\" id=\"about\">\r\n				     <div>\r\n	                   <h3>About Randopedia</h3>\r\n	                   <p>\r\n	                   Randopedia is an open-content collaborative encyclopedia where anyone can contribute by adding and update content. Ambition is high; it shall become the most complete and accessible ski tour database in the world. Randopedia isn't a community; it's simply a database containing ski tour descriptions.\r\n	                   </p>\r\n	                   \r\n	                   <p>\r\n	                   It's really easy to contribute and take part in the Randopedia vision. Just log in and add your tours! Have a look at the help section if you want to learn more about how to contribute with tour data.\r\n	                   </p>\r\n	                   \r\n	                    <h4 class=\"subheader\">The people</h4>\r\n	                    <p>\r\n	                    Randopedia is developed and maintained by a bunch of skiers (who also happens to be programmers) who simply thought this was a great idea. All work is done voluntary on our spare time, but we do our best to frequently update and improve the site.\r\n	                    </p>\r\n	                   \r\n	                    <h4 class=\"subheader\">Contact</h4>\r\n	                    <p>\r\n	                    We love to get feedback, so any ideas, suggestions, error reports, questions, criticism or compliments are all very welcomed. Please send an email to <a href=\"mailto:mail@randopedia.net\">mail@randopedia.net</a> or write on the <a target=\"_blank\" href=\"https://www.facebook.com/randopedia.net\">Randopedia Facebook page</a>.\r\n	                    </p>\r\n	                    \r\n	                   <h4 class=\"subheader\">Privacy, registering and logging in</h4>\r\n	                   <p>\r\n	                   Randopedia doesn't have its own authentication system, instead of creating a new account you can use accounts you already have. Currently you can login with Facebook and Google accounts.\r\n	                   </p>\r\n	                   \r\n	                    <p>\r\n	                    First time you login you have to register the account with Randopedia. This is just a confirmation that you allow your account to be used for authentication by Randopedia.\r\n	                    </p>\r\n	                    \r\n	                    <p>\r\n	                    Randopedia doesn't store or use any sensitive information about your account. The only thing that is saved is the user id and name. There's no logout button on the page, if you for example have logged in using your Facebook account, you'll be logged out from Randopedia when you log out from Facebook.\r\n	                    </p>\r\n	                    \r\n	                    <p>\r\n	                    Note: You only need to login if you want to contribute with ski tour data or write comments on tours. All ski tours and other information on the site is always available regardless if you're logged in or not.\r\n	                    </p>\r\n	                    \r\n	                    <p>\r\n	                    Note 2: If you have saved tour drafts when logged in with one account, for example Facebook, those tours will not be available if you log in with Google or vice versa.\r\n	                    </p>\r\n	                   \r\n	                    <h4 class=\"subheader\">Licensing</h4>\r\n	                    <p>\r\n	                    All tour data (texts, images, map data) is licensed under a <a target=\"_blank\" rel=\"license\" href=\"http://creativecommons.org/licenses/by/4.0/\">Creative Commons Attribution 4.0 International License</a>.\r\n	                    </p>\r\n	                   \r\n	                    <h4 class=\"subheader\">Disclaimer</h4>\r\n	                    <p>\r\n	                    By publishing any material on Randopedia you assures that the material DO NOT violate ANY copyright law, international or otherwise, nor that the material is deemed illegal by governing authorities.\r\n	                    </p>\r\n	                    <p>\r\n	                    If you suspect that some material available on Randopedia violates any copyright law, please contact us and it will be immediately deleted from the Randopedia database.\r\n	                    </p>                   \r\n	                    <p>\r\n	                    Randopedia makes no guarantee of the validity of the content. Tour data should always be seen as guidelines and inspiration, not as absolute truth, and be handled as such.\r\n	                    </p>\r\n	                    <p>\r\n	                    Randopedia reserves the right to, without any notice, delete any content that violates anything stated here or is considered irrelevant for the site.\r\n	                    </p>			     \r\n				     </div>\r\n				</div>\r\n				\r\n				<div class=\"tab-pane\" id=\"grades\">\r\n				     <h3>Grades</h3>\r\n				     ");
   data.buffer.push(escapeExpression((helper = helpers.partial || (depth0 && depth0.partial),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data},helper ? helper.call(depth0, "about-grades", options) : helperMissing.call(depth0, "partial", "about-grades", options))));
-  data.buffer.push(" \r\n			</div>\r\n			\r\n			<div class=\"tab-pane\" id=\"help\">\r\n                <div>\r\n                  <h3>Adding and updating tours</h3>\r\n                   <p>\r\n                   The basic idea of Randopedia is that many people will contribute by adding and improving the tour descriptions. After a new tour has been published, it \r\n                   will be possible for anyone to make updates on that tour.\r\n                   </p>\r\n                   \r\n                   <p>\r\n                   To add or update a tour you need to be logged in. An edit button is available in the top right corners of \r\n                   the tour and area pages. This button leads you to an edit view for the tour/area. There's also an \"Add new tour\"\r\n                   link on the front page. \r\n                   </p>\r\n                   \r\n                   <h4 class=\"subheader\">Adding a new tour</h4>\r\n                   <p>\r\n                   There are two ways to add a new tour. \r\n                   <br> - Browse into an area, click edit and then the Add tour button. This will create a new tour in the current area.\r\n                   <br> - Click the Add new tour link in the main menu.\r\n                   </p>\r\n                   <p>See \"Edit a tour\" section below for more details on editing tours.</p>\r\n                   \r\n                   <h4 class=\"subheader\">Adding a new area</h4>\r\n                   <p>\r\n                   A new area can be added in two ways. \r\n                   <br> - From the area page: Browse to the \"parent\" area, click edit button and add a new area in the \"Subareas\" section.\r\n                   <br> - From the tour page: In tour edit page, click the area name and an area picker appears, here you'll find a \"create new area\"\r\n                   option. Select the parent area and click \"Create new are in...\".                     \r\n                   </p>\r\n                   \r\n                   <h4 class=\"subheader\">Edit a tour</h4>\r\n                   <p>\r\n                    The edit tour page contains five sections.                   \r\n                   </p>\r\n                   \r\n                   <h5 class=\"subheader\">Details</h5>\r\n                   <p>Here you found a set of predefined fields where basic tour data is easily set.</p>\r\n                   \r\n                   <h5 class=\"subheader\">Description</h5>\r\n                   <p>Describe the itinerary and add any other information that could be useful</p>\r\n                   \r\n                   <h5 class=\"subheader\">Map</h5>\r\n                   <p> \r\n                    The map tab offers some simple map edit functionality. A new route is added by clicking the \"path\" button in the toolbar. When the drawing \r\n                    tool is selected, just click on the starting point and then draw the line as wanted. Double click to exit the drawing mode.\r\n                   </p>\r\n                                        \r\n                   <h5 class=\"subheader\">Images</h5>\r\n                   <p>\r\n                   Images are published a little bit differently than other data.\r\n                   </p>\r\n                   <p>\r\n                    When an image is selected for upload a preview is shown and a caption can be added before publishing. Images can only be uploaded and published \r\n                    one at the time. The image is published immediately (no need to do save/publish on the tour afterwards)\r\n                    </p>\r\n                    <p>\r\n                    Below the upload section, current images are listed and captions can be updated.\r\n                    <p>\r\n                    Only upload images of good quality with motives that are helpful for route finding and gives an impression of what the tour's like.\r\n                    </p>\r\n                    <p>\r\n                    All images will be scaled down to 1024*768 pixels. Currently images in portrait format isn't supported (will look kind of bad). \r\n                    </p>\r\n                    <p>\r\n                    There's a max limit of 20 images per tour. \r\n                   </p>                \r\n                   <h5 class=\"subheader\">History</h5>\r\n                   <p>\r\n                   All updates on a tour are logged and can be viewed here.\r\n                   </p>\r\n                   <h5 class=\"subheader\">Adding links in descriptions</h5>\r\n                   <p>\r\n                   Randopedia supports something called \"markdown\". This means that some codes can be added in a text field and these will be translated \r\n                   into links in view mode. This is supported in the area and tour description fields. Note that the full address must be added (included the http stuff).\r\n                   <p>\r\n                   <strong>Syntax: </strong> [Name](address)\r\n                   </p>\r\n                   <p>\r\n                   <p><strong>Example (in the edit text boxes): </strong></p>\r\n                   <pre><code>Visit us on our [facebook page](http://www.facebook.com/randopedia.net)</code></pre>\r\n                   <p><strong>...will look like this:</strong></p>\r\n                   <pre>Visit us on our <a href=\"http://www.facebook.com/randopedia.net\">facebook page</a></pre>\r\n                   </p>\r\n                   \r\n                   <h4 class=\"subheader\">Publishing</h4>\r\n                   <p>\r\n                   Changes can be published at any time as long as the data is valid. There might be some warnings showing, try to fill out as much data as possible \r\n                   before publishing. A brief comment describing the change is also mandatory.                   \r\n                   </p>\r\n                   \r\n                   <h4 class=\"subheader\">Drafts</h4>\r\n                   <p>\r\n                    A new tour can be saved as a draft. That means it is saved, but not published. A draft is only available for the user that created it, you \r\n                    can work with a tour for some time and once you're happy with it, it can be published.\r\n                    </p>\r\n                    <p>\r\n                    Drafts can be found on the \"My tours\" page which is available from the main menu.\r\n                    </p>\r\n                    <p>\r\n                    Drafts are only available for new, unpublished tours. If a tour have been published, it's not possible to make changes and save it as a draft to \r\n                    publish at a later time.\r\n                   </p>                    \r\n                </div>\r\n            </div>\r\n            \r\n		</div>\r\n	    \r\n    </div>\r\n</div>");
+  data.buffer.push(" \r\n				</div>\r\n				\r\n				<div class=\"tab-pane\" id=\"help\">\r\n	                <div>\r\n	                  <h3>Adding and updating tours</h3>\r\n	                   <p>\r\n	                   The basic idea of Randopedia is that many people will contribute by adding and improving the tour descriptions. After a new tour has been published, it \r\n	                   will be possible for anyone to make updates on that tour.\r\n	                   </p>\r\n	                   \r\n	                   <p>\r\n	                   To add or update a tour you need to be logged in. An edit button is available in the top right corners of \r\n	                   the tour and area pages. This button leads you to an edit view for the tour/area. There's also an \"Add new tour\"\r\n	                   link on the front page. \r\n	                   </p>\r\n	                   \r\n	                   <h4 class=\"subheader\">Adding a new tour</h4>\r\n	                   <p>\r\n	                   There are two ways to add a new tour. \r\n	                   <br> - Browse into an area, click edit and then the Add tour button. This will create a new tour in the current area.\r\n	                   <br> - Click the Add new tour link in the main menu.\r\n	                   </p>\r\n	                   <p>See \"Edit a tour\" section below for more details on editing tours.</p>\r\n	                   \r\n	                   <h4 class=\"subheader\">Adding a new area</h4>\r\n	                   <p>\r\n	                   A new area can be added in two ways. \r\n	                   <br> - From the area page: Browse to the \"parent\" area, click edit button and add a new area in the \"Subareas\" section.\r\n	                   <br> - From the tour page: In tour edit page, click the area name and an area picker appears, here you'll find a \"create new area\"\r\n	                   option. Select the parent area and click \"Create new are in...\".                     \r\n	                   </p>\r\n	                   \r\n	                   <h4 class=\"subheader\">Edit a tour</h4>\r\n	                   <p>\r\n	                    The edit tour page contains five sections.                   \r\n	                   </p>\r\n	                   \r\n	                   <h5 class=\"subheader\">Details</h5>\r\n	                   <p>Here you found a set of predefined fields where basic tour data is easily set.</p>\r\n	                   \r\n	                   <h5 class=\"subheader\">Description</h5>\r\n	                   <p>Describe the itinerary and add any other information that could be useful</p>\r\n	                   \r\n	                   <h5 class=\"subheader\">Map</h5>\r\n	                   <p> \r\n	                    The map tab offers some simple map edit functionality. A new route is added by clicking the \"path\" button in the toolbar. When the drawing \r\n	                    tool is selected, just click on the starting point and then draw the line as wanted. Double click to exit the drawing mode.\r\n	                   </p>\r\n	                                        \r\n	                   <h5 class=\"subheader\">Images</h5>\r\n	                   <p>\r\n	                   Images are published a little bit differently than other data.\r\n	                   </p>\r\n	                   <p>\r\n	                    When an image is selected for upload a preview is shown and a caption can be added before publishing. Images can only be uploaded and published \r\n	                    one at the time. The image is published immediately (no need to do save/publish on the tour afterwards)\r\n	                    </p>\r\n	                    <p>\r\n	                    Below the upload section, current images are listed and captions can be updated.\r\n	                    <p>\r\n	                    Only upload images of good quality with motives that are helpful for route finding and gives an impression of what the tour's like.\r\n	                    </p>\r\n	                    <p>\r\n	                    All images will be scaled down to 1024*768 pixels. Currently images in portrait format isn't supported (will look kind of bad). \r\n	                    </p>\r\n	                    <p>\r\n	                    There's a max limit of 20 images per tour. \r\n	                   </p>                \r\n	                   <h5 class=\"subheader\">History</h5>\r\n	                   <p>\r\n	                   All updates on a tour are logged and can be viewed here.\r\n	                   </p>\r\n	                   <h5 class=\"subheader\">Adding links in descriptions</h5>\r\n	                   <p>\r\n	                   Randopedia supports something called \"markdown\". This means that some codes can be added in a text field and these will be translated \r\n	                   into links in view mode. This is supported in the area and tour description fields. Note that the full address must be added (included the http stuff).\r\n	                   <p>\r\n	                   <strong>Syntax: </strong> [Name](address)\r\n	                   </p>\r\n	                   <p>\r\n	                   <p><strong>Example (in the edit text boxes): </strong></p>\r\n	                   <pre><code>Visit us on our [facebook page](http://www.facebook.com/randopedia.net)</code></pre>\r\n	                   <p><strong>...will look like this:</strong></p>\r\n	                   <pre>Visit us on our <a href=\"http://www.facebook.com/randopedia.net\">facebook page</a></pre>\r\n	                   </p>\r\n	                   \r\n	                   <h4 class=\"subheader\">Publishing</h4>\r\n	                   <p>\r\n	                   Changes can be published at any time as long as the data is valid. There might be some warnings showing, try to fill out as much data as possible \r\n	                   before publishing. A brief comment describing the change is also mandatory.                   \r\n	                   </p>\r\n	                   \r\n	                   <h4 class=\"subheader\">Drafts</h4>\r\n	                   <p>\r\n	                    A new tour can be saved as a draft. That means it is saved, but not published. A draft is only available for the user that created it, you \r\n	                    can work with a tour for some time and once you're happy with it, it can be published.\r\n	                    </p>\r\n	                    <p>\r\n	                    Drafts can be found on the \"My tours\" page which is available from the main menu.\r\n	                    </p>\r\n	                    <p>\r\n	                    Drafts are only available for new, unpublished tours. If a tour have been published, it's not possible to make changes and save it as a draft to \r\n	                    publish at a later time.\r\n	                   </p>                    \r\n	                </div>\r\n	            </div>\r\n	            \r\n			</div>\r\n		    \r\n	    </div>\r\n	</div>\r\n</div>");
   return buffer;
   
 });
@@ -264,10 +264,10 @@ function program5(depth0,data) {
   return buffer;
   }
 
-  data.buffer.push("<div class=\"main-view-container\">\n\n    <div class=\"row\">\n       <div class=\"col-sm-12\">\n            <h3>Browse areas</h3>\n        </div>\n    </div>\n\n    <div class=\"row\">\n       <div class=\"col-sm-12 browse-tree-view\">\n            ");
+  data.buffer.push("<div class=\"container-fluid\">\n\n    <div class=\"row\">    \n        <div class=\"col-sm-12 browse-tree-view\">\n            <h3>Browse areas</h3>\n            ");
   stack1 = helpers['if'].call(depth0, "controller.isLoadingAreas", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(3, program3, data),fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n        </div> \n    </div>\n    \n</div>\n\n\n");
+  data.buffer.push("\n        </div> \n    </div>\n</div>\n\n\n");
   return buffer;
   
 });
@@ -295,7 +295,7 @@ function program3(depth0,data) {
   return buffer;
   }
 
-  data.buffer.push("<div class=\"main-view-container\">\r\n");
+  data.buffer.push("<div class=\"container-fluid\">\r\n");
   stack1 = helpers['if'].call(depth0, "editAreaMode", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(3, program3, data),fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\r\n</div>");
@@ -306,34 +306,16 @@ function program3(depth0,data) {
 Ember.TEMPLATES["areadetails-view"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
-  var buffer = '', stack1, escapeExpression=this.escapeExpression, self=this, helperMissing=helpers.helperMissing;
+  var buffer = '', stack1, self=this, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
 
 function program1(depth0,data) {
   
-  var buffer = '', stack1;
-  data.buffer.push("  \r\n");
-  stack1 = helpers.unless.call(depth0, "isRootArea", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(2, program2, data),contexts:[depth0],types:["ID"],data:data});
-  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n");
-  return buffer;
-  }
-function program2(depth0,data) {
-  
-  var buffer = '';
-  data.buffer.push("\r\n<div class=\"row\">\r\n    <div class=\"col-sm-12 edit-container\">\r\n        <div class=\"pull-right\"><a ");
-  data.buffer.push(escapeExpression(helpers.action.call(depth0, "editArea", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data})));
-  data.buffer.push(">Edit area</a></div>\r\n    </div>       \r\n</div>\r\n");
-  return buffer;
-  }
-
-function program4(depth0,data) {
-  
   var stack1, helper, options;
-  stack1 = (helper = helpers.linkTo || (depth0 && depth0.linkTo),options={hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(5, program5, data),contexts:[depth0,depth0],types:["STRING","ID"],data:data},helper ? helper.call(depth0, "area", "parent", options) : helperMissing.call(depth0, "linkTo", "area", "parent", options));
+  stack1 = (helper = helpers.linkTo || (depth0 && depth0.linkTo),options={hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(2, program2, data),contexts:[depth0,depth0],types:["STRING","ID"],data:data},helper ? helper.call(depth0, "area", "parent", options) : helperMissing.call(depth0, "linkTo", "area", "parent", options));
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   else { data.buffer.push(''); }
   }
-function program5(depth0,data) {
+function program2(depth0,data) {
   
   var buffer = '', stack1;
   data.buffer.push("<span class=\"small uppercase\">");
@@ -343,7 +325,7 @@ function program5(depth0,data) {
   return buffer;
   }
 
-function program7(depth0,data) {
+function program4(depth0,data) {
   
   var buffer = '';
   data.buffer.push("\r\n<div class=\"row\">\r\n    <div class=\"col-sm-12 col-lg-10\">\r\n        <div>");
@@ -354,25 +336,25 @@ function program7(depth0,data) {
   return buffer;
   }
 
-function program9(depth0,data) {
+function program6(depth0,data) {
   
   var buffer = '', stack1;
   data.buffer.push("\r\n<div class=\"row\">\r\n	<div class=\"col-sm-12\">\r\n	    <h3>Areas</h3>\r\n	    <ul class=\"inline-list\">\r\n	     ");
-  stack1 = helpers.each.call(depth0, "child", "in", "children", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(10, program10, data),contexts:[depth0,depth0,depth0],types:["ID","ID","ID"],data:data});
+  stack1 = helpers.each.call(depth0, "child", "in", "children", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(7, program7, data),contexts:[depth0,depth0,depth0],types:["ID","ID","ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\r\n	     </ul>\r\n	</div>\r\n</div>\r\n");
   return buffer;
   }
-function program10(depth0,data) {
+function program7(depth0,data) {
   
   var buffer = '', stack1, helper, options;
   data.buffer.push("\r\n	         <li>\r\n		         ");
-  stack1 = (helper = helpers.linkTo || (depth0 && depth0.linkTo),options={hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(11, program11, data),contexts:[depth0,depth0],types:["STRING","ID"],data:data},helper ? helper.call(depth0, "area", "child", options) : helperMissing.call(depth0, "linkTo", "area", "child", options));
+  stack1 = (helper = helpers.linkTo || (depth0 && depth0.linkTo),options={hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(8, program8, data),contexts:[depth0,depth0],types:["STRING","ID"],data:data},helper ? helper.call(depth0, "area", "child", options) : helperMissing.call(depth0, "linkTo", "area", "child", options));
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push(" \r\n		         \r\n	         </li>\r\n	     ");
   return buffer;
   }
-function program11(depth0,data) {
+function program8(depth0,data) {
   
   var buffer = '', stack1;
   data.buffer.push(" ");
@@ -382,34 +364,34 @@ function program11(depth0,data) {
   return buffer;
   }
 
-function program13(depth0,data) {
+function program10(depth0,data) {
   
   var buffer = '', stack1;
   data.buffer.push("\r\n	");
-  stack1 = helpers['if'].call(depth0, "hasTours", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(14, program14, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers['if'].call(depth0, "hasTours", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(11, program11, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\r\n");
   return buffer;
   }
-function program14(depth0,data) {
+function program11(depth0,data) {
   
   var buffer = '', stack1;
   data.buffer.push("\r\n		<div class=\"row\">\r\n		    <div class=\"col-sm-12\">\r\n		        <h3>Tours</h3>\r\n		        ");
-  stack1 = helpers['if'].call(depth0, "content.isUpdating", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(15, program15, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers['if'].call(depth0, "content.isUpdating", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(12, program12, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\r\n		        ");
-  stack1 = helpers.each.call(depth0, "tour", "in", "tours", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(17, program17, data),contexts:[depth0,depth0,depth0],types:["ID","ID","ID"],data:data});
+  stack1 = helpers.each.call(depth0, "tour", "in", "tours", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(14, program14, data),contexts:[depth0,depth0,depth0],types:["ID","ID","ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("  \r\n		    </div>\r\n		</div>\r\n	");
   return buffer;
   }
-function program15(depth0,data) {
+function program12(depth0,data) {
   
   
   data.buffer.push("\r\n		            <div>Loading...</div>\r\n		        ");
   }
 
-function program17(depth0,data) {
+function program14(depth0,data) {
   
   var buffer = '';
   data.buffer.push("\r\n		            ");
@@ -418,25 +400,43 @@ function program17(depth0,data) {
   return buffer;
   }
 
-  data.buffer.push("\r\n");
-  stack1 = helpers['if'].call(depth0, "controllers.login.isLoggedIn", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
+function program16(depth0,data) {
+  
+  var buffer = '', stack1;
+  data.buffer.push("  \r\n");
+  stack1 = helpers.unless.call(depth0, "isRootArea", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(17, program17, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n   \r\n<div class=\"row\">\r\n    <div class=\"col-sm-10\">\r\n        <h2>");
+  data.buffer.push("\r\n");
+  return buffer;
+  }
+function program17(depth0,data) {
+  
+  var buffer = '';
+  data.buffer.push("\r\n<div class=\"row\">\r\n    <div class=\"col-sm-12 edit-container\">\r\n        <a ");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "editArea", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data})));
+  data.buffer.push("><span class=\"glyphicon glyphicon-edit\"></span> Edit area</a>\r\n    </div>       \r\n</div>\r\n");
+  return buffer;
+  }
+
+  data.buffer.push("<div class=\"row\">\r\n    <div class=\"col-sm-10\">\r\n        <h2>");
   stack1 = helpers._triageMustache.call(depth0, "name", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push(" ");
-  stack1 = helpers['if'].call(depth0, "parent", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(4, program4, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers['if'].call(depth0, "parent", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("</h2>\r\n    </div>\r\n</div>\r\n\r\n");
-  stack1 = helpers['if'].call(depth0, "description", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(7, program7, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers['if'].call(depth0, "description", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(4, program4, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\r\n\r\n");
-  stack1 = helpers['if'].call(depth0, "children", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(9, program9, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers['if'].call(depth0, "children", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(6, program6, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\r\n\r\n");
-  stack1 = helpers.unless.call(depth0, "isReadOnlyArea", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(13, program13, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers.unless.call(depth0, "isReadOnlyArea", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(10, program10, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n\r\n\r\n\r\n");
+  data.buffer.push("\r\n\r\n");
+  stack1 = helpers['if'].call(depth0, "controllers.login.isLoggedIn", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(16, program16, data),contexts:[depth0],types:["ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\r\n\r\n\r\n");
   return buffer;
   
 });
@@ -482,11 +482,7 @@ function program11(depth0,data) {
   data.buffer.push("\r\n    <div class=\"col-sm-12\">\r\n        ");
   stack1 = helpers['if'].call(depth0, "isReadOnlyArea", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(14, program14, data),fn:self.program(12, program12, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n        <button class=\"btn btn-primary pull-right\" ");
-  data.buffer.push(escapeExpression(helpers.action.call(depth0, "startCancelingEdit", {hash:{
-    'target': ("view")
-  },hashTypes:{'target': "STRING"},hashContexts:{'target': depth0},contexts:[depth0],types:["STRING"],data:data})));
-  data.buffer.push(">Exit edit</button>\r\n    </div>\r\n    ");
+  data.buffer.push("\r\n    </div>\r\n    ");
   return buffer;
   }
 function program12(depth0,data) {
@@ -510,7 +506,11 @@ function program14(depth0,data) {
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "saveArea", {hash:{
     'target': ("view")
   },hashTypes:{'target': "STRING"},hashContexts:{'target': depth0},contexts:[depth0],types:["STRING"],data:data})));
-  data.buffer.push(">\r\n               <span class=\"glyphicon glyphicon-cloud-upload\"></span> Publish\r\n            </button>\r\n            ");
+  data.buffer.push(">\r\n               <span class=\"glyphicon glyphicon-cloud-upload\"></span> Publish\r\n            </button>\r\n            <button class=\"btn btn-primary\" ");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "startCancelingEdit", {hash:{
+    'target': ("view")
+  },hashTypes:{'target': "STRING"},hashContexts:{'target': depth0},contexts:[depth0],types:["STRING"],data:data})));
+  data.buffer.push(">Exit edit</button>\r\n            ");
   stack1 = helpers.unless.call(depth0, "isNotDirty", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(15, program15, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\r\n        ");
@@ -519,7 +519,7 @@ function program14(depth0,data) {
 function program15(depth0,data) {
   
   
-  data.buffer.push("\r\n                <span class=\"info label\">Area have unsaved changes!</span>\r\n            ");
+  data.buffer.push("\r\n                <span class=\"spacing-x-large\"><span class=\"glyphicon glyphicon-floppy-disk\"></span><em> Area has unsaved changes</em></span>\r\n            ");
   }
 
 function program17(depth0,data) {
@@ -578,9 +578,7 @@ function program25(depth0,data) {
   stack1 = helpers['if'].call(depth0, "tours", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(28, program28, data),fn:self.program(26, program26, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\r\n                    </div>\r\n                </div>\r\n                <div class=\"row\">\r\n                    <div class=\"col-sm-12\">\r\n                        <button class=\"btn btn-primary pull-right\" ");
-  data.buffer.push(escapeExpression(helpers.action.call(depth0, "addTour", {hash:{
-    'target': ("view")
-  },hashTypes:{'target': "STRING"},hashContexts:{'target': depth0},contexts:[depth0],types:["STRING"],data:data})));
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "addTour", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data})));
   data.buffer.push(">Add new tour</button>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    ");
   return buffer;
   }
@@ -639,11 +637,11 @@ function program28(depth0,data) {
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "confirmDiscardChanges", {hash:{
     'target': ("view")
   },hashTypes:{'target': "STRING"},hashContexts:{'target': depth0},contexts:[depth0],types:["STRING"],data:data})));
-  data.buffer.push(">Discard changes</button>\r\n            </div>\r\n        </div>\r\n    </div>    \r\n</div> \r\n	\r\n<div class=\"modal fade\" id=\"validationErrorsAreaModal\" tabindex=\"-1\" role=\"dialog\" aria-hidden=\"true\">\r\n    <div class=\"modal-dialog modal-lg\">\r\n        <div class=\"modal-content\">\r\n            <div class=\"modal-body\">\r\n                There are validation errors that must be corrected before the area can be published.\r\n            </div>\r\n            <div class=\"modal-footer\">\r\n                <button class=\"btn btn-primary pull-right\"  data-dismiss=\"modal\">OK</button>\r\n            </div>\r\n        </div>\r\n    </div>    \r\n</div>  \r\n	\r\n<div class=\"modal fade\" id=\"confirmPublishAreaModal\" tabindex=\"-1\" role=\"dialog\" aria-hidden=\"true\">\r\n    <div class=\"modal-dialog modal-lg\">\r\n        <div class=\"modal-content\">\r\n            <div class=\"modal-body\">\r\n                Changes will be published, do you want to continue?\r\n            </div>\r\n            <div class=\"modal-footer\">\r\n                <button class=\"btn btn-default pull-left\" data-dismiss=\"modal\">Cancel</button>\r\n                <button class=\"btn btn-danger pull-right\" data-dismiss=\"modal\" ");
+  data.buffer.push(">Discard changes</button>\r\n            </div>\r\n        </div>\r\n    </div>    \r\n</div> \r\n	\r\n<div class=\"modal fade\" id=\"validationErrorsAreaModal\" tabindex=\"-1\" role=\"dialog\" aria-hidden=\"true\">\r\n    <div class=\"modal-dialog modal-lg\">\r\n        <div class=\"modal-content\">\r\n            <div class=\"modal-body\">\r\n                There are validation errors that must be corrected before the area can be published.\r\n            </div>\r\n            <div class=\"modal-footer\">\r\n                <button class=\"btn btn-primary pull-right\"  data-dismiss=\"modal\">OK</button>\r\n            </div>\r\n        </div>\r\n    </div>    \r\n</div>  \r\n	\r\n<div class=\"modal fade\" id=\"confirmPublishAreaModal\" tabindex=\"-1\" role=\"dialog\" aria-hidden=\"true\">\r\n    <div class=\"modal-dialog modal-lg\">\r\n        <div class=\"modal-content\">\r\n            <div class=\"modal-body\">\r\n                Changes will be published, do you want to continue?\r\n            </div>\r\n            <div class=\"modal-footer\">\r\n                <button class=\"btn btn-default pull-left\" data-dismiss=\"modal\">Cancel</button>\r\n                <button class=\"btn btn-primary pull-right\" data-dismiss=\"modal\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "confirmSaveArea", {hash:{
     'target': ("view")
   },hashTypes:{'target': "STRING"},hashContexts:{'target': depth0},contexts:[depth0],types:["STRING"],data:data})));
-  data.buffer.push(">Publish</button>\r\n            </div>\r\n        </div>\r\n    </div>    \r\n</div> \r\n	\r\n<div class=\"modal fade\" id=\"addSubAreaModal\" tabindex=\"-1\" role=\"dialog\" aria-hidden=\"true\">\r\n    <div class=\"modal-dialog modal-lg\">\r\n        <div class=\"modal-content\">\r\n            <div class=\"modal-header\">\r\n                Add new subarea\r\n            </div>\r\n            <div class=\"modal-body\">\r\n			    <form class=\"form\">\r\n			        <div class=\"form-group\">\r\n			            <label>Name</label>\r\n			            ");
+  data.buffer.push(">Publish</button>\r\n            </div>\r\n        </div>\r\n    </div>    \r\n</div> \r\n	\r\n<div class=\"modal fade\" id=\"addSubAreaModal\" tabindex=\"-1\" role=\"dialog\" aria-hidden=\"true\">\r\n    <div class=\"modal-dialog modal-lg\">\r\n        <div class=\"modal-content\">\r\n            <div class=\"modal-header\">\r\n                <button type=\"button\" class=\"close\" data-dismiss=\"modal\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button>\r\n                Add new subarea\r\n            </div>\r\n            <div class=\"modal-body\">\r\n			    <form class=\"form\">\r\n			        <div class=\"form-group\">\r\n			            <label>Name</label>\r\n			            ");
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "App.FocusTextField", {hash:{
     'valueBinding': ("newArea.name"),
     'required': ("true"),
@@ -1485,52 +1483,52 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
 function program1(depth0,data) {
   
   
-  data.buffer.push("\r\n	<div class=\"row\">\r\n	    <div class=\"col-sm-12\">\r\n			<div class=\"alert alert-danger alert-dismissible\" role=\"alert\">\r\n			  <button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button>\r\n			  An error occurred when getting your drafts, maybe you have been logged out? Try to reload the page and log in again.\r\n			</div>\r\n	    </div>\r\n	</div>\r\n	");
+  data.buffer.push("\r\n		    <div class=\"row\">\r\n		        <div class=\"col-sm-12\">\r\n		            <div class=\"alert alert-danger alert-dismissible\" role=\"alert\">\r\n		              <button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button>\r\n		              An error occurred when getting your drafts, maybe you have been logged out? Try to reload the page and log in again.\r\n		            </div>\r\n		        </div>\r\n		    </div>\r\n		    ");
   }
 
 function program3(depth0,data) {
   
   var buffer = '', stack1;
-  data.buffer.push("\r\n	\r\n		");
+  data.buffer.push("\r\n		    \r\n		        ");
   stack1 = helpers['if'].call(depth0, "isLoadingDrafts", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(6, program6, data),fn:self.program(4, program4, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n	\r\n	");
+  data.buffer.push("\r\n		    \r\n		    ");
   return buffer;
   }
 function program4(depth0,data) {
   
   
-  data.buffer.push("\r\n		\r\n		    <div class=\"row\">\r\n		        <div class=col-sm-12>\r\n		            <div>Loading tours...</div>\r\n		        </div>\r\n		    </div>\r\n		\r\n		");
+  data.buffer.push("\r\n		        \r\n		            <div class=\"row\">\r\n		                <div class=col-sm-12>\r\n		                    <div>Loading tours...</div>\r\n		                </div>\r\n		            </div>\r\n		        \r\n		        ");
   }
 
 function program6(depth0,data) {
   
   var buffer = '', stack1;
-  data.buffer.push("\r\n		\r\n		    ");
+  data.buffer.push("\r\n		        \r\n		            ");
   stack1 = helpers.each.call(depth0, "tour", "in", "drafts", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(9, program9, data),fn:self.program(7, program7, data),contexts:[depth0,depth0,depth0],types:["ID","ID","ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n		\r\n		");
+  data.buffer.push("\r\n		        \r\n		        ");
   return buffer;
   }
 function program7(depth0,data) {
   
   var buffer = '';
-  data.buffer.push("\r\n		        ");
+  data.buffer.push("\r\n		                ");
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "App.TourItemView", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data})));
-  data.buffer.push("\r\n		    ");
+  data.buffer.push("\r\n		            ");
   return buffer;
   }
 
 function program9(depth0,data) {
   
   
-  data.buffer.push("\r\n		        <pre>You have no saved tour drafts</pre>\r\n		    ");
+  data.buffer.push("\r\n		                <pre>You have no saved tour drafts</pre>\r\n		            ");
   }
 
-  data.buffer.push("<div class=\"main-view-container\">\r\n	<h3>My tours (drafts)</h3>\r\n	\r\n	");
+  data.buffer.push("<div class=\"container-fluid\">\r\n\r\n	<ul class=\"nav nav-tabs\" role=\"tablist\">\r\n        <li class=\"active\"><a href=\"#drafts\" role=\"tab\" data-toggle=\"tab\">Drafts</a></li>\r\n    </ul>\r\n        \r\n    <div class=\"tab-content\">    \r\n         <div class=\"tab-pane active\" id=\"drafts\">\r\n         \r\n		    ");
   stack1 = helpers['if'].call(depth0, "serverErrors", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(3, program3, data),fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n</div>");
+  data.buffer.push("         \r\n		    \r\n         </div>\r\n    </div>\r\n</div>");
   return buffer;
   
 });
@@ -1549,7 +1547,7 @@ function program1(depth0,data) {
   return buffer;
   }
 
-  data.buffer.push("<div class=\"main-view-container\">\n\n	<div class=\"row\">\n	    <div class=\"col-sm-12\">\n	        <span class=\"pull-right spacing\"><a ");
+  data.buffer.push("<div class=\"container-fluid\">\n\n	<div class=\"row\">\n	    <div class=\"col-sm-12\">\n	        <span class=\"pull-right spacing\"><a ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "clearResult", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data})));
   data.buffer.push(">Clear</a></span>\n			<h3>\n			    Tour search<span class=\"small\"> (");
   stack1 = helpers._triageMustache.call(depth0, "length", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
@@ -1649,7 +1647,7 @@ function program2(depth0,data) {
   
 });
 
-Ember.TEMPLATES["tour-teaser-view"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+Ember.TEMPLATES["tour-teaser-view-OBSOLETE"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
   var stack1, self=this, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
@@ -1754,36 +1752,21 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
 Ember.TEMPLATES["tourdetails-view"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
-  var buffer = '', stack1, helper, options, self=this, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
+  var buffer = '', stack1, helper, options, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, self=this;
 
 function program1(depth0,data) {
-  
-  var buffer = '', stack1, helper, options;
-  data.buffer.push("\r\n<div class=\"row\">\r\n    <div class=\"col-sm-12 edit-container\">\r\n        <div class=\"pull-right\">");
-  stack1 = (helper = helpers['link-to'] || (depth0 && depth0['link-to']),options={hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(2, program2, data),contexts:[depth0,depth0],types:["STRING","ID"],data:data},helper ? helper.call(depth0, "tour.edit", "model", options) : helperMissing.call(depth0, "link-to", "tour.edit", "model", options));
-  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("</div>\r\n    </div>\r\n</div>\r\n");
-  return buffer;
-  }
-function program2(depth0,data) {
-  
-  
-  data.buffer.push("Edit tour");
-  }
-
-function program4(depth0,data) {
   
   
   data.buffer.push("\r\n	<div class=\"row\">\r\n	    <div class=\"col-sm-12\">\r\n	        <div class=\"alert alert-info alert-dismissible\" role=\"alert\">\r\n	            <button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button>\r\n	            This is a draft, the tour has not yet been published\r\n	        </div>\r\n	    </div>\r\n	</div>\r\n	");
   }
 
-function program6(depth0,data) {
+function program3(depth0,data) {
   
   
   data.buffer.push("\r\n	<div class=\"row\">\r\n	    <div class=\"col-sm-12\">\r\n	        <div class=\"alert alert-danger\" role=\"alert\">\r\n	            <button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button>\r\n	            Tour is marked as deleted and will eventually be permanently deleted from the databse\r\n	        </div>\r\n	    </div>\r\n	</div>\r\n	");
   }
 
-function program8(depth0,data) {
+function program5(depth0,data) {
   
   var buffer = '', stack1;
   data.buffer.push(" <span class=\"small\">(");
@@ -1793,13 +1776,13 @@ function program8(depth0,data) {
   return buffer;
   }
 
-function program10(depth0,data) {
+function program7(depth0,data) {
   
   
   data.buffer.push("\r\n	            <span class=\"small\">\r\n	                <a id=\"incompleteInfoButtonId\" \r\n			           data-toggle=\"popover\"\r\n			           data-trigger=\"focus\"\r\n			           data-content=\"This tour is marked as incomplete. This means that it might lack some data, but it should be enough information available to make the description useful anyway.\">\r\n	                   <span class=\"glyphicon glyphicon-warning-sign danger\"></span>\r\n	                </a>\r\n	            </span>\r\n	            ");
   }
 
-function program12(depth0,data) {
+function program9(depth0,data) {
   
   var stack1;
   stack1 = helpers._triageMustache.call(depth0, "timingMin", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
@@ -1807,7 +1790,7 @@ function program12(depth0,data) {
   else { data.buffer.push(''); }
   }
 
-function program14(depth0,data) {
+function program11(depth0,data) {
   
   var buffer = '', stack1;
   data.buffer.push("-");
@@ -1816,7 +1799,7 @@ function program14(depth0,data) {
   return buffer;
   }
 
-function program16(depth0,data) {
+function program13(depth0,data) {
   
   var buffer = '', stack1;
   data.buffer.push(" \r\n			            ");
@@ -1826,7 +1809,7 @@ function program16(depth0,data) {
   return buffer;
   }
 
-function program18(depth0,data) {
+function program15(depth0,data) {
   
   var buffer = '', stack1;
   data.buffer.push("    \r\n			            ");
@@ -1836,7 +1819,7 @@ function program18(depth0,data) {
   return buffer;
   }
 
-function program20(depth0,data) {
+function program17(depth0,data) {
   
   var buffer = '', helper, options;
   data.buffer.push("\r\n			<div class=\"row\">\r\n			    <div class=\"col-xs-5 col-sm-3 col-lg-2\">\r\n			        <label>Grade:</label>\r\n			    </div>\r\n			    <div class=\"col-xs-7 col-sm-9 col-lg-10\">\r\n			         <a data-toggle=\"modal\" data-target=\"#tourDetailsGradeGuideModal\">");
@@ -1845,7 +1828,7 @@ function program20(depth0,data) {
   return buffer;
   }
 
-function program22(depth0,data) {
+function program19(depth0,data) {
   
   var buffer = '', stack1;
   data.buffer.push(" \r\n			<div class=\"row\">   \r\n		        <div class=\"col-xs-5 col-sm-3 col-lg-2\">\r\n		            <label>Steepness:</label>\r\n		        </div>\r\n		        <div class=\"col-xs-7 col-sm-9 col-lg-10\">\r\n		            ");
@@ -1855,16 +1838,16 @@ function program22(depth0,data) {
   return buffer;
   }
 
-function program24(depth0,data) {
+function program21(depth0,data) {
   
   var buffer = '', stack1;
   data.buffer.push("\r\n		    ");
-  stack1 = helpers['if'].call(depth0, "timeOfYearTo", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(25, program25, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers['if'].call(depth0, "timeOfYearTo", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(22, program22, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\r\n			");
   return buffer;
   }
-function program25(depth0,data) {
+function program22(depth0,data) {
   
   var buffer = '', helper, options;
   data.buffer.push("\r\n			<div class=\"row\">	\r\n			    <div class=\"col-xs-5 col-sm-3 col-sm-3 col-lg-2\">\r\n			        <label>Season:</label>\r\n			    </div>\r\n			    <div class=\"col-xs-7 col-sm-9 col-lg-10\">\r\n			        ");
@@ -1875,7 +1858,7 @@ function program25(depth0,data) {
   return buffer;
   }
 
-function program27(depth0,data) {
+function program24(depth0,data) {
   
   var buffer = '', helper, options;
   data.buffer.push("\r\n			<div class=\"row\">\r\n			    <div class=\"col-xs-5 col-sm-3 col-lg-2\">\r\n			        <label>Aspect:</label>\r\n			    </div>\r\n			    <div class=\"col-xs-7 col-sm-9 col-lg-9\">\r\n			        ");
@@ -1884,25 +1867,25 @@ function program27(depth0,data) {
   return buffer;
   }
 
-function program29(depth0,data) {
+function program26(depth0,data) {
   
   var buffer = '', stack1;
   data.buffer.push("\r\n	            <label>Tags:</label>\r\n	            ");
-  stack1 = helpers.each.call(depth0, "tag", "in", "tagsArray", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(30, program30, data),contexts:[depth0,depth0,depth0],types:["ID","ID","ID"],data:data});
+  stack1 = helpers.each.call(depth0, "tag", "in", "tagsArray", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(27, program27, data),contexts:[depth0,depth0,depth0],types:["ID","ID","ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\r\n	        ");
   return buffer;
   }
-function program30(depth0,data) {
+function program27(depth0,data) {
   
   var buffer = '', stack1, helper, options;
   data.buffer.push("\r\n	                ");
-  stack1 = (helper = helpers['link-to'] || (depth0 && depth0['link-to']),options={hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(31, program31, data),contexts:[depth0,depth0],types:["STRING","ID"],data:data},helper ? helper.call(depth0, "tag", "tag", options) : helperMissing.call(depth0, "link-to", "tag", "tag", options));
+  stack1 = (helper = helpers['link-to'] || (depth0 && depth0['link-to']),options={hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(28, program28, data),contexts:[depth0,depth0],types:["STRING","ID"],data:data},helper ? helper.call(depth0, "tag", "tag", options) : helperMissing.call(depth0, "link-to", "tag", "tag", options));
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\r\n	            ");
   return buffer;
   }
-function program31(depth0,data) {
+function program28(depth0,data) {
   
   var buffer = '', stack1;
   data.buffer.push(" #");
@@ -1912,7 +1895,7 @@ function program31(depth0,data) {
   return buffer;
   }
 
-function program33(depth0,data) {
+function program30(depth0,data) {
   
   var buffer = '';
   data.buffer.push("\r\n                <button class=\"btn btn-primary btn-view-on-map\" ");
@@ -1921,13 +1904,13 @@ function program33(depth0,data) {
   return buffer;
   }
 
-function program35(depth0,data) {
+function program32(depth0,data) {
   
   
   data.buffer.push("\r\n                <div>No map is available for this tour</div>\r\n            ");
   }
 
-function program37(depth0,data) {
+function program34(depth0,data) {
   
   var buffer = '', stack1;
   data.buffer.push("\r\n	    <div class=\"col-sm-12 col-sm-6\">\r\n	        <div class=\"panel panel-danger\">\r\n	            <div class=\"panel-heading\">Hazards</div>\r\n		        <div class=\"panel-body\">\r\n		           ");
@@ -1937,7 +1920,7 @@ function program37(depth0,data) {
   return buffer;
   }
 
-function program39(depth0,data) {
+function program36(depth0,data) {
   
   var buffer = '', stack1;
   data.buffer.push("\r\n	    <div class=\"col-sm-12 col-sm-6\">\r\n	        <div class=\"panel panel-info\">\r\n	            <div class=\"panel-heading\">Mountaineering</div>\r\n	            <div class=\"panel-body\">\r\n	               ");
@@ -1947,16 +1930,16 @@ function program39(depth0,data) {
   return buffer;
   }
 
-function program41(depth0,data) {
+function program38(depth0,data) {
   
   var buffer = '', stack1;
   data.buffer.push("\r\n	        <div id=\"images-container\">\r\n				<ul class=\"bjqs\">\r\n				    ");
-  stack1 = helpers.each.call(depth0, "image", "in", "images", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(42, program42, data),contexts:[depth0,depth0,depth0],types:["ID","ID","ID"],data:data});
+  stack1 = helpers.each.call(depth0, "image", "in", "images", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(39, program39, data),contexts:[depth0,depth0,depth0],types:["ID","ID","ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\r\n				</ul>\r\n			</div>\r\n	        ");
   return buffer;
   }
-function program42(depth0,data) {
+function program39(depth0,data) {
   
   var buffer = '', helper, options;
   data.buffer.push("\r\n				         <li><img ");
@@ -1971,22 +1954,35 @@ function program42(depth0,data) {
   return buffer;
   }
 
-function program44(depth0,data) {
+function program41(depth0,data) {
   
   
   data.buffer.push("\r\n	            <p>No images available for this tour</p>	\r\n		    ");
   }
 
-  stack1 = helpers['if'].call(depth0, "controllers.login.isLoggedIn", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
+function program43(depth0,data) {
+  
+  var buffer = '', stack1, helper, options;
+  data.buffer.push("\r\n    <div class=\"row\">\r\n        <div class=\"col-sm-12 edit-container\">\r\n            ");
+  stack1 = (helper = helpers['link-to'] || (depth0 && depth0['link-to']),options={hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(44, program44, data),contexts:[depth0,depth0],types:["STRING","ID"],data:data},helper ? helper.call(depth0, "tour.edit", "model", options) : helperMissing.call(depth0, "link-to", "tour.edit", "model", options));
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n    \r\n<div class=\"main-view-container tour-details-view\">\r\n\r\n	<div class=\"hidden\">");
+  data.buffer.push("\r\n        </div>\r\n    </div>\r\n    ");
+  return buffer;
+  }
+function program44(depth0,data) {
+  
+  
+  data.buffer.push("<span class=\"glyphicon glyphicon-edit\"></span> Edit tour");
+  }
+
+  data.buffer.push("<div class=\"container-fluid tour-details-view\">\r\n\r\n	<div class=\"hidden\">");
   stack1 = helpers._triageMustache.call(depth0, "view.imageLoaded", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("</div>\r\n    \r\n	");
-  stack1 = helpers['if'].call(depth0, "isDraft", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(4, program4, data),contexts:[depth0],types:["ID"],data:data});
+  data.buffer.push("</div>\r\n\r\n	");
+  stack1 = helpers['if'].call(depth0, "isDraft", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\r\n	\r\n	");
-  stack1 = helpers['if'].call(depth0, "isDeleted", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(6, program6, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers['if'].call(depth0, "isDeleted", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(3, program3, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\r\n	\r\n	<div class=\"row\">\r\n	    <div class=\"col-sm-12\">\r\n		    <ul class=\"inline-list\">\r\n		       ");
   data.buffer.push(escapeExpression((helper = helpers.control || (depth0 && depth0.control),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0,depth0],types:["STRING","ID"],data:data},helper ? helper.call(depth0, "breadCrumb", "area", options) : helperMissing.call(depth0, "control", "breadCrumb", "area", options))));
@@ -1994,42 +1990,42 @@ function program44(depth0,data) {
   stack1 = helpers._triageMustache.call(depth0, "name", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push(" ");
-  stack1 = helpers['if'].call(depth0, "elevationMax", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(8, program8, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers['if'].call(depth0, "elevationMax", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(5, program5, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push(" \r\n	            ");
-  stack1 = helpers['if'].call(depth0, "isIncomplete", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(10, program10, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers['if'].call(depth0, "isIncomplete", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(7, program7, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\r\n	        </h2>\r\n	    </div>\r\n	</div>\r\n	\r\n	<div class=\"row\">\r\n	    <div class=\"col-sm-12\">\r\n	        <em>");
   stack1 = helpers._triageMustache.call(depth0, "shortDescription", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("</em>\r\n	    </div>\r\n	</div>\r\n	\r\n	<div class=\"row tour-props\">\r\n	    <div class=\"col-sm-12 col-lg-6\">\r\n		        \r\n			<div class=\"row\">\r\n			    <div class=\"col-xs-5 col-sm-3 col-lg-2\">\r\n			        <label>Time:</label>\r\n			    </div>\r\n			    <div class=\"col-xs-7 col-sm-9 col-lg-10\">\r\n			        ");
-  stack1 = helpers['if'].call(depth0, "timingMin", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(12, program12, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers['if'].call(depth0, "timingMin", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(9, program9, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  stack1 = helpers['if'].call(depth0, "timingMax", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(14, program14, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers['if'].call(depth0, "timingMax", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(11, program11, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("h\r\n			    </div>\r\n			</div>\r\n		\r\n			<div class=\"row\">\r\n			    <div class=\"col-xs-5 col-sm-3 col-lg-2\">\r\n			        <label>Elevation:</label>\r\n			    </div>\r\n			    <div class=\"col-xs-7 col-sm-9 col-lg-10\">\r\n	                   ");
-  stack1 = helpers['if'].call(depth0, "elevationGain", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(16, program16, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers['if'].call(depth0, "elevationGain", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(13, program13, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\r\n			        ");
-  stack1 = helpers['if'].call(depth0, "elevationLoss", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(18, program18, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers['if'].call(depth0, "elevationLoss", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(15, program15, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\r\n			    </div>\r\n			</div>\r\n				\r\n			");
-  stack1 = helpers['if'].call(depth0, "grade", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(20, program20, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers['if'].call(depth0, "grade", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(17, program17, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\r\n			\r\n			");
-  stack1 = helpers['if'].call(depth0, "degreesMax", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(22, program22, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers['if'].call(depth0, "degreesMax", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(19, program19, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push(" \r\n				   \r\n		    ");
-  stack1 = helpers['if'].call(depth0, "timeOfYearFrom", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(24, program24, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers['if'].call(depth0, "timeOfYearFrom", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(21, program21, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\r\n				\r\n			");
-  stack1 = helpers['if'].call(depth0, "aspect", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(27, program27, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers['if'].call(depth0, "aspect", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(24, program24, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\r\n			\r\n	    </div>\r\n	    \r\n	    <div class=\"col-sm-12 col-lg-6\">\r\n	        ");
-  stack1 = helpers['if'].call(depth0, "tags", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(29, program29, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers['if'].call(depth0, "tags", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(26, program26, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\r\n	    </div>\r\n	    \r\n	</div>\r\n	\r\n	<div class=\"row\">\r\n        <div class=\"col-sm-12\">\r\n            ");
-  stack1 = helpers['if'].call(depth0, "hasPaths", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(35, program35, data),fn:self.program(33, program33, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers['if'].call(depth0, "hasPaths", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(32, program32, data),fn:self.program(30, program30, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("    \r\n        </div>\r\n                \r\n	    <div class=\"col-sm-12\">\r\n	        <div class=\"panel panel-default\">\r\n	            <div class=\"panel-heading\">Access point</div>\r\n	            <div class=\"panel-body\">\r\n	               ");
   stack1 = helpers._triageMustache.call(depth0, "accessPoint", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
@@ -2039,18 +2035,21 @@ function program44(depth0,data) {
     'unescaped': ("true")
   },hashTypes:{'unescaped': "STRING"},hashContexts:{'unescaped': depth0},contexts:[depth0],types:["ID"],data:data})));
   data.buffer.push("</div>\r\n	            </div>\r\n	        </div>\r\n	    </div>\r\n	</div>\r\n	\r\n	<div class=\"row\">\r\n	    ");
-  stack1 = helpers['if'].call(depth0, "haveHazards", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(37, program37, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers['if'].call(depth0, "haveHazards", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(34, program34, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\r\n	     \r\n	    ");
-  stack1 = helpers['if'].call(depth0, "requiresTools", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(39, program39, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers['if'].call(depth0, "requiresTools", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(36, program36, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\r\n	</div>\r\n	\r\n	<div class=\"row\">    \r\n	    <div class=\"col-sm-12\">\r\n	        <h4>Images<span class=\"small\">(");
   stack1 = helpers._triageMustache.call(depth0, "images.length", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push(")</span></h4>\r\n	\r\n	        ");
-  stack1 = helpers['if'].call(depth0, "hasImages", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(44, program44, data),fn:self.program(41, program41, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers['if'].call(depth0, "hasImages", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(41, program41, data),fn:self.program(38, program38, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n	    </div>\r\n	</div>\r\n	\r\n	<div class=\"row\">\r\n	    <div class=\"col-sm-12\">\r\n	    \r\n	        <!--  TODO: Add Disqus here -->\r\n	        \r\n	    </div>    \r\n	</div>\r\n	\r\n	<div class=\"modal fade\" id=\"tourDetailsGradeGuideModal\" tabindex=\"-1\" role=\"dialog\" aria-hidden=\"true\">\r\n		<div class=\"modal-dialog modal-lg login-view\">\r\n		    <div class=\"modal-content\">\r\n		        <div class=\"modal-header\">\r\n		            <button type=\"button\" class=\"close\" data-dismiss=\"modal\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button>\r\n		            <h4 class=\"modal-title\" id=\"myModalLabel\">Grades</h4>\r\n		        </div>\r\n		        <div class=\"modal-body\">\r\n	                ");
+  data.buffer.push("\r\n	    </div>\r\n	</div>\r\n	\r\n	<div class=\"row\">\r\n	    <div class=\"col-sm-12\">\r\n	    \r\n	        <!--  TODO: Add Disqus here -->\r\n	        \r\n	    </div>    \r\n	</div>\r\n	\r\n	");
+  stack1 = helpers['if'].call(depth0, "controllers.login.isLoggedIn", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(43, program43, data),contexts:[depth0],types:["ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\r\n    \r\n	<div class=\"modal fade\" id=\"tourDetailsGradeGuideModal\" tabindex=\"-1\" role=\"dialog\" aria-hidden=\"true\">\r\n		<div class=\"modal-dialog modal-lg login-view\">\r\n		    <div class=\"modal-content\">\r\n		        <div class=\"modal-header\">\r\n		            <button type=\"button\" class=\"close\" data-dismiss=\"modal\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button>\r\n		            <h4 class=\"modal-title\" id=\"myModalLabel\">Grades</h4>\r\n		        </div>\r\n		        <div class=\"modal-body\">\r\n	                ");
   data.buffer.push(escapeExpression((helper = helpers.partial || (depth0 && depth0.partial),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data},helper ? helper.call(depth0, "about-grades", options) : helperMissing.call(depth0, "partial", "about-grades", options))));
   data.buffer.push("\r\n		        </div>\r\n		    </div>\r\n		</div>\r\n	</div>\r\n\r\n</div>");
   return buffer;
@@ -2216,14 +2215,14 @@ function program17(depth0,data) {
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "startPublishTour", {hash:{
     'target': ("view")
   },hashTypes:{'target': "STRING"},hashContexts:{'target': depth0},contexts:[depth0],types:["STRING"],data:data})));
-  data.buffer.push(">\r\n                   <span class=\"glyphicon glyphicon-cloud-upload\"></span> Publish\r\n                </button>			 \r\n				");
-  stack1 = helpers['if'].call(depth0, "hasChanges", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(20, program20, data),contexts:[depth0],types:["ID"],data:data});
-  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r\n				<button class=\"btn btn-primary pull-right\" ");
+  data.buffer.push(">\r\n                   <span class=\"glyphicon glyphicon-cloud-upload\"></span> Publish\r\n                </button>			 \r\n				<button class=\"btn btn-primary\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "startCancelingEditTour", {hash:{
     'target': ("view")
   },hashTypes:{'target': "STRING"},hashContexts:{'target': depth0},contexts:[depth0],types:["STRING"],data:data})));
-  data.buffer.push(" class=\"right\">Exit edit</button>\r\n		   </div>\r\n		</div>\r\n	");
+  data.buffer.push(" class=\"right\">Exit edit</button>\r\n				");
+  stack1 = helpers['if'].call(depth0, "hasChanges", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(20, program20, data),contexts:[depth0],types:["ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\r\n		   </div>\r\n		</div>\r\n	");
   return buffer;
   }
 function program18(depth0,data) {
@@ -2344,7 +2343,7 @@ function program39(depth0,data) {
   data.buffer.push("\r\n					         <div class=\"alert alert-success\" role=\"alert\">\r\n					            Tour data is valid\r\n					        </div>\r\n					        <p>Looks like the tour data is fine, just go on and publish!</p>\r\n					     ");
   }
 
-  data.buffer.push("<div class=\"main-view-container\">\r\n \r\n	");
+  data.buffer.push("<div class=\"container-fluid tour-edit-view\">\r\n \r\n	");
   stack1 = helpers['if'].call(depth0, "authenticationErrors", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\r\n	\r\n	");
@@ -2564,14 +2563,10 @@ function program39(depth0,data) {
     'disabled': ("view.isPublishDisabled")
   },hashTypes:{'disabled': "STRING"},hashContexts:{'disabled': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "bindAttr", options))));
   data.buffer.push(" ");
-  data.buffer.push(escapeExpression(helpers.action.call(depth0, "continueToPublishStep3", {hash:{
-    'target': ("view")
-  },hashTypes:{'target': "STRING"},hashContexts:{'target': depth0},contexts:[depth0],types:["STRING"],data:data})));
-  data.buffer.push(">Publish</button>  	            \r\n	            </div>\r\n	        </div>\r\n	    </div>        \r\n	</div>\r\n	\r\n	<div class=\"modal fade\" id=\"publishTourStep3Modal\" tabindex=\"-1\" role=\"dialog\" aria-hidden=\"true\">\r\n        <div class=\"modal-dialog modal-lg\">\r\n            <div class=\"modal-content\">\r\n                <div class=\"modal-body\">\r\n                    Changes will be published, do you want to continue?\r\n                </div>\r\n                <div class=\"modal-footer\">\r\n                    <button class=\"btn btn-default pull-left\" data-dismiss=\"modal\">Cancel</button>\r\n                    <button class=\"btn btn-primary pull-right\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "confirmPublishTour", {hash:{
     'target': ("view")
   },hashTypes:{'target': "STRING"},hashContexts:{'target': depth0},contexts:[depth0],types:["STRING"],data:data})));
-  data.buffer.push(">Publish</button>\r\n                </div>\r\n            </div>\r\n        </div>    \r\n    </div>	\r\n    \r\n</div>");
+  data.buffer.push(">Publish</button>  	            \r\n	            </div>\r\n	        </div>\r\n	    </div>        \r\n	</div>\r\n    \r\n</div>");
   return buffer;
   
 });
@@ -2668,7 +2663,7 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
   
 });
 
-Ember.TEMPLATES["tours"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+Ember.TEMPLATES["tours-OBSOLETE"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
   var buffer = '', stack1, escapeExpression=this.escapeExpression, self=this;
@@ -2698,7 +2693,7 @@ function program3(depth0,data) {
   
 });
 
-Ember.TEMPLATES["usermenu-view"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+Ember.TEMPLATES["usermenu-view-OBSOLETE"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
   var buffer = '', helper, options, escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing;

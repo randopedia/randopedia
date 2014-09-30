@@ -6,6 +6,7 @@ App.ApplicationView = Ember.View.extend({
             if(this.get('showNavbarSearch')) {
                 $("body").css('padding-top', '100px');
                 $("#tourMapRootElement").css('margin-top', '97px');
+                //this.get('controller').send('collapseNavbar');
             } else {
                 $("body").css('padding-top', '50px');
                 $("#tourMapRootElement").css('margin-top', '50px');
@@ -232,14 +233,7 @@ App.TourEditView = Ember.View.extend({
               $(window).resize();
         });
           
-        $('.info').popover({placement: 'bottom'});
-        
-//        $(document).foundation('section', {
-//            callback: function(){
-//                // Hack to make sure content is loaded correctly, solves issue with Google Maps view not being rendered
-//                $(window).resize();
-//            }
-//        });
+        $('.info').popover({placement: 'left right auto'});
     },
     actions: {
         startPublishTour: function() {
@@ -249,14 +243,9 @@ App.TourEditView = Ember.View.extend({
             $('#publishTourStep1Modal').modal('hide');
             $('#publishTourStep2Modal').modal('show');
         },
-        continueToPublishStep3: function() {
-            //this.get('controller').send('publishTour');
-            $('#publishTourStep2Modal').modal('hide');
-            $('#publishTourStep3Modal').modal('show');
-        },  
         confirmPublishTour: function() {
             this.get('controller').send('publishTour');
-            $('#publishTourStep3Modal').modal('hide');
+            $('#publishTourStep2Modal').modal('hide');
         },
         startCancelingEditTour: function() {
             if(this.get('controller').get('hasChanges'))  {
@@ -380,6 +369,7 @@ App.FileUploadView = Ember.View.extend({
                     ctx.drawImage(this, 0, 0, tempW, tempH);
                     var dataURL = canvas.toDataURL("image/jpeg");
 
+                    console.log('IMAGE DATA IN VIEW: ' + dataURL);
                     controller.addImageForUpload(dataURL);
                 };
             };

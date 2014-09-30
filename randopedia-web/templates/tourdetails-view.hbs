@@ -1,15 +1,7 @@
-{{#if controllers.login.isLoggedIn}}
-<div class="row">
-    <div class="col-sm-12 edit-container">
-        <div class="pull-right">{{#link-to 'tour.edit' model}}Edit tour{{/link-to}}</div>
-    </div>
-</div>
-{{/if}}
-    
-<div class="main-view-container tour-details-view">
+<div class="container-fluid tour-details-view">
 
 	<div class="hidden">{{view.imageLoaded}}</div>
-    
+
 	{{#if isDraft}}
 	<div class="row">
 	    <div class="col-sm-12">
@@ -232,6 +224,14 @@
 	    </div>    
 	</div>
 	
+	{{#if controllers.login.isLoggedIn}}
+    <div class="row">
+        <div class="col-sm-12 edit-container">
+            {{#link-to 'tour.edit' model}}<span class="glyphicon glyphicon-edit"></span> Edit tour{{/link-to}}
+        </div>
+    </div>
+    {{/if}}
+    
 	<div class="modal fade" id="tourDetailsGradeGuideModal" tabindex="-1" role="dialog" aria-hidden="true">
 		<div class="modal-dialog modal-lg login-view">
 		    <div class="modal-content">

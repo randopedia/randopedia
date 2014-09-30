@@ -151,8 +151,7 @@ App.AreaController = Ember.ObjectController.extend({
             }
         },
         addTour : function() {
-            // TODO: How to pass current area to route? Now area is not pre-set
-            // on the new tour
+            // TODO: How to pass current area to route? Now area is not pre-set on the new tour
             this.transitionToRoute('tour.new');
         },
         showUpdateSuccessMsg : function() {

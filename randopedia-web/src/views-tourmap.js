@@ -39,18 +39,7 @@ App.TourEditMapView = Ember.View.extend({
 
     setMapSize: function() {
         var newWidth = $('.mapContainer').width();
-        var newHeight;
-        
-        if(newWidth >= 1170) {
-            newHeigth = 800;
-        }
-        else if(newWidth >= 750) { 
-            newHeight = 800;
-        }
-        else { 
-            newHeight = 800; 
-        }
-        
+        var newHeight = 800;
         this.get('mapRootElement').css({ width: newWidth + 'px', height: newHeight + 'px' });
     },
     
@@ -213,14 +202,6 @@ App.TourEditMapView = Ember.View.extend({
 //        google.maps.event.addListener(self.get('map'), 'mouseover', function(event){
 //            console.log(event);
 //        });
-
-        // Fix for making sure the map is redrawn after the section panel containing the map has been activated by a click
-        $("a[href='#mapPanel']").bind('click', function(){
-            window.setTimeout(redrawMap, 10);
-        });
-        
-        // Fix for redraw map issue. Map is not drawn correctly after a transition or when viewed in, for example, a Foundation section element.
-        redrawMap();
        
         // Hook up to window resize event to do implicit resize on map canvas
         $(window).on('resize', redrawMap);        
