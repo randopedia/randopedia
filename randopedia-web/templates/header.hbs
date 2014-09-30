@@ -20,7 +20,7 @@
 	    <div class="collapse navbar-collapse main-menu-container" id="bs-example-navbar-collapse-1">
 			
 		   <a {{action topbarMenuLink "index"}}>Map</a>
-           <a {{action topbarMenuLink "area-browse"}}>Areas</a>
+           {{!-- <a {{action topbarMenuLink "area-browse"}}>Areas</a> --}}
            <a {{action topbarMenuLink "about"}} data-toggle="collapse" data-target=".nav-collapse">About</a>
            
            {{#if controllers.login.isLoggedIn}}

@@ -3,7 +3,9 @@ App.Router.map(function() {
         this.resource('toplevel', {path:':toplevel_id'});
 	});
 	this.resource('area-browse');
+	
 	this.resource('area', {path:'/areas/:area_id'});
+	this.resource('area.edit', {path:'/areas/:area_id/edit'});
 	
 	this.resource('tours');
 	this.resource('tour', {path:'/tours/:tour_id'});
@@ -78,26 +80,35 @@ App.TagRoute = App.BaseRoute.extend({
 App.AreaRoute = App.BaseRoute.extend({
 	model: function(params) {
         return this.store.find('area', params.area_id);
-	},
+	}
+});
+
+App.AreaEditRoute = App.BaseRoute.extend({
+    renderTemplate: function() {
+        this.render('areaedit');
+    },
+    model: function(params) {
+        return this.store.find('area', params.area_id);
+    },
+    beforeModel: function(transition) {
+        //TODO: Prevent route if user not logged in  
+    },
     actions: {
         willTransition: function(transition) {
             var controller = this.get('controller');
-            if(controller.get('isDirty')) {
-                if(confirm('The area has unsaved changes, do you want to discard them?')){
-                    controller.send('cancelEdit');
-                    return true;
-                } else {
-                    transition.abort();   
-                }
+            if(controller.get('hasChanges')) {
+                  if(confirm("The area has unsaved changes, do you want to discard them?")){
+                      controller.send('cancelEdit');
+                      return true;
+                  } else { 
+                      transition.abort(); 
+                  }
             }
-            else {
-                if(controller.get('editAreaMode')){
-                    controller.send('cancelEdit');
-                }
-                return true;
+            else { 
+                return true; 
             }
         }
-    }	
+    }
 });
 
 App.AreaBrowseRoute = App.BaseRoute.extend({    
@@ -140,9 +151,13 @@ App.TourEditRoute = App.BaseRoute.extend({
                   if(confirm("The tour has unsaved changes, do you want to discard them?")){
                       controller.send('cancelEditTour');
                       return true;
-                  } else { transition.abort(); }
+                  } else { 
+                      transition.abort(); 
+                  }
             }
-            else { return true; }
+            else { 
+                return true; 
+            }
         }
     }
 });

@@ -1,61 +1,63 @@
-<div class="row">
-    <div class="col-sm-10">
-        <h2>{{name}} {{#if parent}}{{#linkTo "area" parent}}<span class="small uppercase">{{parent.name}}</span>{{/linkTo}}{{/if}}</h2>
-    </div>
-</div>
-
-{{#if description}}
-<div class="row">
-    <div class="col-sm-12 col-lg-10">
-        <div>{{{ markedDescription }}}</div>
-    </div>
-</div>
-{{/if}}
-
-{{#if children}}
-<div class="row">
-	<div class="col-sm-12">
-	    <h3>Areas</h3>
-	    <ul class="inline-list">
-	     {{#each child in children}}
-	         <li>
-		         {{#linkTo "area" child}} {{child.name}} {{/linkTo}} 
-		         {{!--
-		         {{#if child.hasTours }}
-		             ({{ child.nbrTours }} tours) 
-		         {{/if}}
-		         --}}
-	         </li>
-	     {{/each}}
-	     </ul>
+<div class="container-fluid">
+	<div class="row">
+	    <div class="col-sm-10">
+	        <h2>{{name}} {{#if parent}}{{#linkTo "area" parent}}<span class="small uppercase">{{parent.name}}</span>{{/linkTo}}{{/if}}</h2>
+	    </div>
 	</div>
-</div>
-{{/if}}
-
-{{#unless isReadOnlyArea}}
-	{{#if hasTours}}
-		<div class="row">
-		    <div class="col-sm-12">
-		        <h3>Tours</h3>
-		        {{#if content.isUpdating}}
-		            <div>Loading...</div>
-		        {{/if}}
-		        {{#each tour in tours}}
-		            {{view App.TourItemView}}
-		        {{/each}}  
-		    </div>
-		</div>
+	
+	{{#if description}}
+	<div class="row">
+	    <div class="col-sm-12 col-lg-10">
+	        <div>{{{ markedDescription }}}</div>
+	    </div>
+	</div>
 	{{/if}}
-{{/unless}}
-
-{{#if controllers.login.isLoggedIn}}  
-{{#unless isRootArea}}
-<div class="row">
-    <div class="col-sm-12 edit-container">
-        <a {{action "editArea"}}><span class="glyphicon glyphicon-edit"></span> Edit area</a>
-    </div>       
+	
+	{{#if children}}
+	<div class="row">
+		<div class="col-sm-12">
+		    <h3>Areas</h3>
+		    <ul class="inline-list">
+		     {{#each child in children}}
+		         <li>
+			         {{#linkTo "area" child}} {{child.name}} {{/linkTo}} 
+			         {{!--
+			         {{#if child.hasTours }}
+			             ({{ child.nbrTours }} tours) 
+			         {{/if}}
+			         --}}
+		         </li>
+		     {{/each}}
+		     </ul>
+		</div>
+	</div>
+	{{/if}}
+	
+	{{#unless isReadOnlyArea}}
+		{{#if hasTours}}
+			<div class="row">
+			    <div class="col-sm-12">
+			        <h3>Tours</h3>
+			        {{#if content.isUpdating}}
+			            <div>Loading...</div>
+			        {{/if}}
+			        {{#each tour in tours}}
+			            {{view App.TourItemView}}
+			        {{/each}}  
+			    </div>
+			</div>
+		{{/if}}
+	{{/unless}}
+	
+	{{#if controllers.login.isLoggedIn}}  
+	{{#unless isRootArea}}
+	<div class="row">
+	    <div class="col-sm-12 edit-container">
+	        {{#link-to 'area.edit' model}}<span class="glyphicon glyphicon-edit"></span> Edit area{{/link-to}}
+	    </div>       
+	</div>
+	{{/unless}}
+	{{/if}}
+	
 </div>
-{{/unless}}
-{{/if}}
-
 

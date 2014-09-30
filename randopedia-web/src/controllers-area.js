@@ -38,10 +38,12 @@ App.AreaBrowseController = Ember.ArrayController.extend({
 });
 
 App.AreaController = Ember.ObjectController.extend({
+    needs : ['login'],
+});
 
-    needs : [ 'login' ],
+App.AreaEditController = Ember.ObjectController.extend({
+    needs : ['login'],
 
-    // Computed properties
     isNotDirty : function() {
         return !this.get('isDirty');
     }.property('isDirty'),
@@ -78,6 +80,7 @@ App.AreaController = Ember.ObjectController.extend({
             area.save().then(function() {
                 self.set('editAreaMode', false);
                 self.set('havePendingOperations', false);
+                self.transitionToRoute('area', self.get('model'));
             }, function(error) {
                 var status = error.status;
                 if (status === 421) {
@@ -85,8 +88,7 @@ App.AreaController = Ember.ObjectController.extend({
 
                 } else if (status === 403) {
                     self.set('authenticationErrors', true);
-                    var loginController = self.get('controllers.login');
-                    loginController.send('removeToken');
+                    self.get('controllers.login').send('removeToken');
                 } else {
                     self.set('serverErrors', true);
                 }
@@ -131,18 +133,17 @@ App.AreaController = Ember.ObjectController.extend({
             });
         },
         cancelEdit : function() {
-            var area = this.get('model');
-            var newArea = this.get('newArea');
-            if (area !== null && typeof area !== 'undefined') {
-                area.rollback();
-            }
-            if (newArea !== null && typeof newArea !== 'undefined') {
-                newArea.rollback();
+            this.get('model').rollback();
+
+            if (this.get('newArea')) {
+                this.get('newArea').rollback();
             }
 
             this.set('editAreaMode', false);
-            area.reload();
-            this.set('model', area);
+            
+            this.get('model').reload();
+            
+            this.transitionTo('area', this.get('model'));
         },
         cancelAddSubArea : function() {
             var newArea = this.get('newArea');

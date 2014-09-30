@@ -78,21 +78,18 @@ App.TourEditController = Ember.ObjectController.extend({
             }
             else {
                 this.get('model').rollback();
+                
                 if(this.get('model').get('area') !== null){
                     this.get('model').get('area').rollback();
                 }
+
+                this.set('newImage', null);
+                
                 this.set('areaIsUpdated', false);
                 this.get('model').reload();
+                
                 this.transitionToRoute('tour', this.get('model'));
             }
-        },
-    
-        goToPreview: function() {
-            this.set('previewMode', true);
-        },
-        
-        exitPreview: function() {
-            this.set('previewMode', false);
         },
     
         publishTour: function() {
@@ -133,7 +130,6 @@ App.TourEditController = Ember.ObjectController.extend({
         },
 
         saveNewImage: function() {
-            console.log('saveNewImage ' + this.get('newImage'));
             if(this.get('havePendingOperations')){
                 return;
             }

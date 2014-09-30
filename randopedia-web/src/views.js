@@ -57,18 +57,12 @@ App.AreaEditView = Ember.View.extend({
                 $('#validationErrorsAreaModal').modal('show');
             }  
         },
-        confirmSaveArea: function() {
-            this.get('controller').send('saveArea');
-        },
         startCancelingEdit: function() {
             if(this.get('controller').get('isDirty'))  {
                 $('#discardChangesAreaModal').modal('show');
             } else {
                 this.get('controller').send('cancelEdit');
             }
-        },
-        confirmDiscardChanges: function() {
-            this.get('controller').send('cancelEdit');
         },        
         startAddSubArea: function() {
             this.get('controller').send('startAddingSubArea');
@@ -346,31 +340,31 @@ App.FileUploadView = Ember.View.extend({
                 
                 tempImg.onload = function() {
              
-                    var MAX_WIDTH = 1920;
-                    var MAX_HEIGHT = 1080;
-                    var width = tempImg.width;
-                    var height = tempImg.height;
+//                    var MAX_WIDTH = 1920;
+//                    var MAX_HEIGHT = 1080;
+//                    var width = tempImg.width;
+//                    var height = tempImg.height;
                      
-                    if (width > height) {
-                        if (width > MAX_WIDTH) {
-                            height *= MAX_WIDTH / width;
-                            width = MAX_WIDTH;
-                        }
-                    } else {
-                        if (height > MAX_HEIGHT) {
-                            width *= MAX_HEIGHT / height;
-                            height = MAX_HEIGHT;
-                        }
-                    }
+//                    if (width > height) {
+//                        if (width > MAX_WIDTH) {
+//                            height *= MAX_WIDTH / width;
+//                            width = MAX_WIDTH;
+//                        }
+//                    } else {
+//                        if (height > MAX_HEIGHT) {
+//                            width *= MAX_HEIGHT / height;
+//                            height = MAX_HEIGHT;
+//                        }
+//                    }
                     
-                    var canvas = document.createElement('canvas');
-                    canvas.width = width;
-                    canvas.height = height;
-                    var ctx = canvas.getContext("2d");
-                    ctx.drawImage(tempImg, 0, 0, width, height);
-                    var dataURL = canvas.toDataURL("image/jpeg");
+//                    var canvas = document.createElement('canvas');
+//                    canvas.width = width;
+//                    canvas.height = height;
+//                    var ctx = canvas.getContext("2d");
+//                    ctx.drawImage(tempImg, 0, 0, width, height);
+//                    var dataURL = canvas.toDataURL("image/jpeg");
 
-                    controller.addImageForUpload(dataURL);
+                    controller.addImageForUpload(tempImg.src); //dataURL);
                 };
             };
             

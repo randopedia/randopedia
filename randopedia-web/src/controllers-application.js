@@ -41,11 +41,11 @@ App.ApplicationController = Ember.ArrayController.extend({
             }
         },
         loginWithFacebook: function() {
-            this.get('controller.controllers.login').send('loginWithFacebook');
+            this.get('controller.controllers.login').loginWithFacebook();
             this.send('collapseNavbar');
         },
         loginWithGoogle: function() {
-            this.get('controller.controllers.login').send('loginWithGoogle');
+            this.get('controller.controllers.login').loginWithGoogle();
             this.send('collapseNavbar');
         },
         goToIndex: function() {
