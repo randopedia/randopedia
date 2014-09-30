@@ -225,15 +225,16 @@ public class TourRepositoryMongoImpl implements TourRepository {
         }
         
         byte[] imageBytes = ImageUtils.getImageBytesFromBase64(image.getImageData());
-                
-        String fileName = WEBAPP_CLIENT_DIRECTORY + "/" + TOURIMAGES_DIRECTORY + "/" + tour.getClientId() + "_" + (images.size() + 1) + ".jpg";
-        String databaseFileName = TOURIMAGES_DIRECTORY + "/" + tour.getClientId() + "_" + (images.size() + 1) + ".jpg";
         
+        ObjectId imageId = ObjectId.get();
+        image.set_Id(imageId);
+        String fileName = WEBAPP_CLIENT_DIRECTORY + "/" + TOURIMAGES_DIRECTORY + "/" + tour.getClientId() + "_" + imageId.toString() + ".jpg";
+        String databaseFileName = TOURIMAGES_DIRECTORY + "/" + tour.getClientId() + "_" + imageId.toString() + ".jpg";
         fileWriterService.writeFile(fileName, imageBytes);
         image.setImageFile(databaseFileName);
-        image.set_Id(ObjectId.get());
         images.add(image);
-        tour.setTourImages(images);
+        tour.setTourImages(images);  
+        
         saveTour(tour);
     }
 
@@ -277,6 +278,9 @@ public class TourRepositoryMongoImpl implements TourRepository {
         List<TourImage> images = tour.getTourImages();
         int index = getIndexOfImage(images, imageId);
         if(index != -1){
+            TourImage image = images.get(index);
+            String fileName = WEBAPP_CLIENT_DIRECTORY + "/" + image.getImageFile();
+            fileWriterService.deleteFile(fileName);
             images.remove(index);
             if(images.size() == 0){
                 images = null;

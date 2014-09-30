@@ -1,5 +1,6 @@
 package no.extreme.randopedia.service;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -21,6 +22,11 @@ public class FileWriterService {
         } finally {
             fos.close();
         }
+    }
+
+    public void deleteFile(String fileName) {
+        File file = new File(fileName);
+        file.delete();
     }
 
 }
