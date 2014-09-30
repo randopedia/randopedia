@@ -346,30 +346,30 @@ App.FileUploadView = Ember.View.extend({
                 
                 tempImg.onload = function() {
              
-                    var MAX_WIDTH = 1024;
-                    var MAX_HEIGHT = 768;
-                    var tempW = tempImg.width;
-                    var tempH = tempImg.height;
-                    if (tempW > tempH) {
-                        if (tempW > MAX_WIDTH) {
-                           tempH *= MAX_WIDTH / tempW;
-                           tempW = MAX_WIDTH;
+                    var MAX_WIDTH = 1920;
+                    var MAX_HEIGHT = 1080;
+                    var width = tempImg.width;
+                    var height = tempImg.height;
+                     
+                    if (width > height) {
+                        if (width > MAX_WIDTH) {
+                            height *= MAX_WIDTH / width;
+                            width = MAX_WIDTH;
                         }
                     } else {
-                        if (tempH > MAX_HEIGHT) {
-                           tempW *= MAX_HEIGHT / tempH;
-                           tempH = MAX_HEIGHT;
+                        if (height > MAX_HEIGHT) {
+                            width *= MAX_HEIGHT / height;
+                            height = MAX_HEIGHT;
                         }
                     }
-             
+                    
                     var canvas = document.createElement('canvas');
-                    canvas.width = tempW;
-                    canvas.height = tempH;
+                    canvas.width = width;
+                    canvas.height = height;
                     var ctx = canvas.getContext("2d");
-                    ctx.drawImage(this, 0, 0, tempW, tempH);
+                    ctx.drawImage(tempImg, 0, 0, width, height);
                     var dataURL = canvas.toDataURL("image/jpeg");
 
-                    console.log('IMAGE DATA IN VIEW: ' + dataURL);
                     controller.addImageForUpload(dataURL);
                 };
             };
