@@ -15,22 +15,35 @@ p.bjqs-caption{display:block;width:96%;margin:0;padding:2%;position:absolute;bot
 
 /* Randopedia Customization */
 
-ul.bjqs-controls.v-centered li a{
-    display:block;
-    padding:10px;
-    background:#FFF;
-    color:#343434;
-/*     opacity: 0.5; */
+ul.bjqs-controls.v-centered li a {
+    color:rgba(255,255,255,0.8);
     text-decoration: none;
+    padding: 40px 10px;
+    background: rgba(255,255,255,0.4);
+    text-adlign: center;
 }
 
-ul.bjqs-controls.v-centered li a:hover{
-    background:#343434;
-    color: #E0E0E0;
+ul.bjqs-controls.v-centered li a:hover {
+    background: rgba(255,255,255,0.8);
+    color:#343434;
 }
 
-p.bjqs-caption{
+p.bjqs-caption {
     background: rgba(255,255,255,0.6);
     width: 100%;
     padding: 1%;
+}
+
+img.slider-image {
+	display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+ul.bjqs-controls.v-centered li.bjqs-prev a {
+	border-radius: 0px 50px 50px 0px;
+}
+
+ul.bjqs-controls.v-centered li.bjqs-next a {
+    border-radius: 50px 0px 0px 50px;
 }

@@ -273,11 +273,6 @@ App.SearchTextField = Ember.TextField.extend({
     }
 });
 
-// TODO: Is this in use? Remove if not
-App.BreadCrumbView = Ember.View.extend({
-    templateName: 'breadcrumb-view'
-});
-
 // TODO: Rename to ImageUploadView
 App.FileUploadView = Ember.View.extend({
     templateName: 'fileupload-view',
