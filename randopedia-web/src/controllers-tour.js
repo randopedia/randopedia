@@ -60,7 +60,9 @@ App.TourController = Ember.ObjectController.extend({
     }.property('requiresTools'),
     
     markedItinerary: function() {
-        if(!this.get('itinerary')){ return null; }
+        if(!this.get('itinerary')){ 
+            return null;
+        }
         return marked(this.get('itinerary'));
     }.property('itinerary'),
 });

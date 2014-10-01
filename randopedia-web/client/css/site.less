@@ -332,6 +332,17 @@ button.info {
         border-width: 0;
         background: #fff;
     }
+    
+    .image-container {
+        margin-left: -15px;
+        margin-right: -15px;
+        
+        @media (min-width: 750px) {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;            
+        }
+    }
 }
 
 .tour-edit-view {
@@ -343,11 +354,10 @@ button.info {
 .image-upload-view {
     .thumbnail-wrapper { 
         display: inline-block;
-    }
-    
-    .thumbnail-image { 
-        max-width: 130px; 
-        max-height: 100px;
+        img {
+            max-width: 130px;
+            margin: 0 auto;
+        }
     }
 }
 

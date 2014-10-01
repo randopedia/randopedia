@@ -194,7 +194,6 @@
 	            </div>
 	        </div>
 	    </div>
-	    <!--<i class="randicon-mountaineering tourview-panel-icon"></i> -->
 	    {{/if}}
 	</div>
 	
@@ -203,10 +202,10 @@
 	        <h4>Images<span class="small">({{images.length}})</span></h4>
 	
 	        {{#if hasImages}}
-	        <div id="images-container">
+	        <div id="images-container" class="image-container">
 				<ul class="bjqs">
 				    {{#each image in images }}
-				         <li><img {{bindAttr src="image.imageFile"}} {{bindAttr title="image.caption"}}></li>
+				         <li><img class="slider-image" {{bindAttr src="image.imageFile"}} {{bindAttr title="image.caption"}}></li>
 				    {{/each}}
 				</ul>
 			</div>

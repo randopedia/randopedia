@@ -1,14 +1,14 @@
 <div class="container-fluid">
 	<div class="row">
-	    <div class="col-sm-10">
+	    <div class="col-sm-12">
 	        <h2>{{name}} {{#if parent}}{{#linkTo "area" parent}}<span class="small uppercase">{{parent.name}}</span>{{/linkTo}}{{/if}}</h2>
 	    </div>
 	</div>
 	
 	{{#if description}}
 	<div class="row">
-	    <div class="col-sm-12 col-lg-10">
-	        <div>{{{ markedDescription }}}</div>
+	    <div class="col-sm-12">
+	        <div>{{{markedDescription}}}</div>
 	    </div>
 	</div>
 	{{/if}}

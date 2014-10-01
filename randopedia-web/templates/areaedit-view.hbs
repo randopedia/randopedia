@@ -61,9 +61,9 @@
 	               <span class="glyphicon glyphicon-cloud-upload"></span> Publish
 	            </button>
 	            <button class="btn btn-primary" {{action "startCancelingEdit" target="view"}}>Exit edit</button>
-	            {{#unless isNotDirty}}
+	            {{#if isDirty}}
 	                <span class="spacing-x-large"><span class="glyphicon glyphicon-floppy-disk"></span><em> Area has unsaved changes</em></span>
-	            {{/unless}}
+	            {{/if}}
 	        {{/if}}
 	    </div>
 	    {{/if}}

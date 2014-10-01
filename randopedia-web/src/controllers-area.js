@@ -54,15 +54,14 @@ App.AreaEditController = Ember.ObjectController.extend({
         // return !this.validateNewSubarea();
     }.property('newArea.name', 'newArea.description'),
 
-    markedDescription : function() {
+    markedDescription: function() {
         if (!this.get('description')) {
             return null;
         }
         return marked(this.get('description'));
     }.property('description'),
 
-    // Actions
-    actions : {
+    actions: {
         editArea : function() {
             this.clearErrorFlags();
             this.set('editAreaMode', true);
@@ -192,8 +191,7 @@ App.AreaEditController = Ember.ObjectController.extend({
         if (!this.get('description')) {
             return;
         }
-        var str = this.get('description').replace(/</g, '&lt;').replace(/>/g,
-                '&gt;');
+        var str = this.get('description').replace(/</g, '&lt;').replace(/>/g,'&gt;');
         this.set('description', str);
     }
 });
