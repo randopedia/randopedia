@@ -140,14 +140,6 @@ App.AreaPickerView = Ember.View.extend({
 App.AreaPickerItemView = Ember.View.extend({
     templateName: "areapicker-item-view",
     isExpanded: false,
-    didInsertElement : function() {
-//        if(this.get('isSelected')){
-//            this.send('expandAncestorTree');
-//        }
-//        else {
-//            this.set('isExpanded', false);  
-//        }
-    },
     actions: {
         selectArea: function() {
             this.get('controller').set('tempSelectedArea', this.get('item'));
@@ -155,11 +147,6 @@ App.AreaPickerItemView = Ember.View.extend({
         toggleExpandChildren: function() {
             this.set('isExpanded', !this.get('isExpanded'));
         },
-//        expandAncestorTree: function() {
-//            console.log('expanding ' + this.get('item').get('name'));
-//            this.set('isExpanded', true);
-//            this.get('parentView').send('expandAncestorTree');
-//        }
     },
     isSelected: function() {
         if(!this.get('controller').get('tempSelectedArea')){
@@ -174,40 +161,68 @@ App.AreaPickerItemView = Ember.View.extend({
     }.property('controller.tempSelectedArea'),
 });
 
-/**
- * View showing details of a tour
- */
+App.BreadCrumbView = Ember.View.extend({
+    templateName: 'breadcrumb-view'
+});
+
+App.ImageCarouselView = Ember.View.extend({    
+    templateName: 'image-carousel-view',
+    classNames: ['carousel', 'slide'],
+    init: function() { 
+        this._super.apply(this, arguments);
+        // disable the data api from boostrap
+        $('#image-carousel-container').off('.data-api');      
+        // at least one item must have the active class, so we set the first here, and the class will be added by class binding
+        var obj = this.get('content.firstObject');
+        Ember.set(obj, 'isActive', true);
+    },
+    previousSlide: function() {
+        this.$().carousel('prev');
+    },
+    nextSlide: function() {
+        this.$().carousel('next');
+    },
+    didInsertElement: function() {
+        this.$().carousel({
+            interval: false
+        });
+    },
+    indicatorsView: Ember.CollectionView.extend({
+        tagName: 'ol',
+        classNames: ['carousel-indicators'],        
+        contentBinding: 'parentView.content',
+        itemViewClass: Ember.View.extend({
+            click: function() {
+                var $elem = this.get("parentView.parentView").$();
+                $elem.carousel(this.get("contentIndex"));
+            },
+            template: Ember.Handlebars.compile(''),
+            classNameBindings: ['content.isActive:active']            
+        })
+    }),
+    itemsView: Ember.CollectionView.extend({        
+        classNames: ['carousel-inner'],
+        contentBinding: 'parentView.content',
+        itemViewClass: Ember.View.extend({
+            classNames: ['item'],
+            classNameBindings: ['content.isActive:active'],
+            template: Ember.Handlebars.compile('<img {{bindAttr src="view.content.imageFile"}} alt=""/><div class="carousel-caption"><p>{{view.content.caption}}</p></div>')
+        })
+    })
+});
+
 App.TourDetailsView = Ember.View.extend({
     templateName: 'tourdetails-view',
     
     didInsertElement: function() {
         $('#incompleteInfoButtonId').popover();
     },
-    imageLoaded: function() {
-        Ember.run.once(this, function () {
-            $('#images-container').bjqs({
-                'height': 671,
-                'width': 1000,
-                'responsive': true,
-                'automatic': false,
-                'usecaptions': true,
-                'showmarkers': false,
-            });
-        });
-        return true;
-    }.property('controller.model.images.length'),
 });
 
-/**
- * View showing one tour in search result list
- */
 App.TourItemView = Ember.View.extend({
     templateName: 'touritem-view'
 });
 
-/**
- * View for creating and editing a tour
- */
 App.TourEditView = Ember.View.extend({
     templateName: 'touredit-view',
     showAdvancedOptions: false,
@@ -279,9 +294,7 @@ App.TourEditView = Ember.View.extend({
     }
 });
 
-/**
- * Text field that is focused when inserted in DOM
- */
+// TODO: Is this in use? Delete if not
 App.FocusTextField = Ember.TextField.extend({
     becomeFocused: function() {
         this.$().focus();
@@ -297,23 +310,7 @@ App.SearchTextField = Ember.TextField.extend({
     }
 });
 
-/**
- * View creating a bread crumb
- */
-App.BreadCrumbView = Ember.View.extend({
-    templateName: 'breadcrumb-view'
-});
-
-/**
- * View showing one comment
- */
-App.CommentView = Ember.View.extend({
-    templateName: 'comment-item-view'
-});
-
-/**
- * View for uploading files (Current version will only work with 'TourimagesController')
- */
+// TODO: Rename to ImageUploadView
 App.FileUploadView = Ember.View.extend({
     templateName: 'fileupload-view',
     change: function(evt) {
@@ -340,31 +337,31 @@ App.FileUploadView = Ember.View.extend({
                 
                 tempImg.onload = function() {
              
-//                    var MAX_WIDTH = 1920;
-//                    var MAX_HEIGHT = 1080;
-//                    var width = tempImg.width;
-//                    var height = tempImg.height;
+                    var MAX_WIDTH = 1920;
+                    var MAX_HEIGHT = 1080;
+                    var width = tempImg.width;
+                    var height = tempImg.height;
                      
-//                    if (width > height) {
-//                        if (width > MAX_WIDTH) {
-//                            height *= MAX_WIDTH / width;
-//                            width = MAX_WIDTH;
-//                        }
-//                    } else {
-//                        if (height > MAX_HEIGHT) {
-//                            width *= MAX_HEIGHT / height;
-//                            height = MAX_HEIGHT;
-//                        }
-//                    }
+                    if (width > height) {
+                        if (width > MAX_WIDTH) {
+                            height *= MAX_WIDTH / width;
+                            width = MAX_WIDTH;
+                        }
+                    } else {
+                        if (height > MAX_HEIGHT) {
+                            width *= MAX_HEIGHT / height;
+                            height = MAX_HEIGHT;
+                        }
+                    }
                     
-//                    var canvas = document.createElement('canvas');
-//                    canvas.width = width;
-//                    canvas.height = height;
-//                    var ctx = canvas.getContext("2d");
-//                    ctx.drawImage(tempImg, 0, 0, width, height);
-//                    var dataURL = canvas.toDataURL("image/jpeg");
+                    var canvas = document.createElement('canvas');
+                    canvas.width = width;
+                    canvas.height = height;
+                    var ctx = canvas.getContext("2d");
+                    ctx.drawImage(tempImg, 0, 0, width, height);
+                    var dataURL = canvas.toDataURL("image/jpeg");
 
-                    controller.addImageForUpload(tempImg.src); //dataURL);
+                    controller.addImageForUpload(dataURL);
                 };
             };
             

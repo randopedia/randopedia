@@ -194,27 +194,23 @@
 	            </div>
 	        </div>
 	    </div>
-	    <!--<i class="randicon-mountaineering tourview-panel-icon"></i> -->
 	    {{/if}}
 	</div>
 	
-	<div class="row">    
-	    <div class="col-sm-12">
-	        <h4>Images<span class="small">({{images.length}})</span></h4>
-	
-	        {{#if hasImages}}
-	        <div id="images-container">
-				<ul class="bjqs">
-				    {{#each image in images }}
-				         <li><img {{bindAttr src="image.imageFile"}} {{bindAttr title="image.caption"}}></li>
-				    {{/each}}
-				</ul>
-			</div>
-	        {{else}}
-	            <p>No images available for this tour</p>	
-		    {{/if}}
-	    </div>
-	</div>
+    <div class="row">
+        <div id="image-carousel-container" class="image-carousel-container col-sm-12">
+             
+            <h4>Images<span class="small">({{images.length}})</span></h4>
+
+            {{#if hasImages}}
+                {{view App.ImageCarouselView contentBinding="images"}}
+            {{else}}
+                <div>No images available for this tour</div> 
+            {{/if}}
+            
+
+        </div>
+    </div>
 	
 	<div class="row">
 	    <div class="col-sm-12">
