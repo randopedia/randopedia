@@ -187,19 +187,6 @@ App.ImageCarouselView = Ember.View.extend({
             interval: false
         });
     },
-    indicatorsView: Ember.CollectionView.extend({
-        tagName: 'ol',
-        classNames: ['carousel-indicators'],        
-        contentBinding: 'parentView.content',
-        itemViewClass: Ember.View.extend({
-            click: function() {
-                var $elem = this.get("parentView.parentView").$();
-                $elem.carousel(this.get("contentIndex"));
-            },
-            template: Ember.Handlebars.compile(''),
-            classNameBindings: ['content.isActive:active']            
-        })
-    }),
     itemsView: Ember.CollectionView.extend({        
         classNames: ['carousel-inner'],
         contentBinding: 'parentView.content',
@@ -208,7 +195,10 @@ App.ImageCarouselView = Ember.View.extend({
             classNameBindings: ['content.isActive:active'],
             template: Ember.Handlebars.compile('<img {{bindAttr src="view.content.imageFile"}} alt=""/><div class="carousel-caption"><p>{{view.content.caption}}</p></div>')
         })
-    })
+    }),
+    haveMoreThanOneImage: function() {
+        return this.get('content.length') > 1;
+    }.property('content'),
 });
 
 App.TourDetailsView = Ember.View.extend({
