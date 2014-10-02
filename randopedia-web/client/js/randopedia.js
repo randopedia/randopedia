@@ -46918,11 +46918,11 @@ App.Config.googleAppIdProd = '719190645609-c0ogrmvrbtgbl5ohlb81d0lflf31uo51.apps
             }
         },
         loginWithFacebook: function() {
-            this.get('controller.controllers.login').send('loginWithFacebook');
+            this.get('controller.controllers.login').loginWithFacebook();
             this.send('collapseNavbar');
         },
         loginWithGoogle: function() {
-            this.get('controller.controllers.login').send('loginWithGoogle');
+            this.get('controller.controllers.login').loginWithGoogle();
             this.send('collapseNavbar');
         },
         goToIndex: function() {
@@ -46974,10 +46974,12 @@ App.AreaBrowseController = Ember.ArrayController.extend({
 });
 
 App.AreaController = Ember.ObjectController.extend({
+    needs : ['login'],
+});
 
-    needs : [ 'login' ],
+App.AreaEditController = Ember.ObjectController.extend({
+    needs : ['login'],
 
-    // Computed properties
     isNotDirty : function() {
         return !this.get('isDirty');
     }.property('isDirty'),
@@ -47014,6 +47016,7 @@ App.AreaController = Ember.ObjectController.extend({
             area.save().then(function() {
                 self.set('editAreaMode', false);
                 self.set('havePendingOperations', false);
+                self.transitionToRoute('area', self.get('model'));
             }, function(error) {
                 var status = error.status;
                 if (status === 421) {
@@ -47021,8 +47024,7 @@ App.AreaController = Ember.ObjectController.extend({
 
                 } else if (status === 403) {
                     self.set('authenticationErrors', true);
-                    var loginController = self.get('controllers.login');
-                    loginController.send('removeToken');
+                    self.get('controllers.login').send('removeToken');
                 } else {
                     self.set('serverErrors', true);
                 }
@@ -47067,18 +47069,17 @@ App.AreaController = Ember.ObjectController.extend({
             });
         },
         cancelEdit : function() {
-            var area = this.get('model');
-            var newArea = this.get('newArea');
-            if (area !== null && typeof area !== 'undefined') {
-                area.rollback();
-            }
-            if (newArea !== null && typeof newArea !== 'undefined') {
-                newArea.rollback();
+            this.get('model').rollback();
+
+            if (this.get('newArea')) {
+                this.get('newArea').rollback();
             }
 
             this.set('editAreaMode', false);
-            area.reload();
-            this.set('model', area);
+            
+            this.get('model').reload();
+            
+            this.transitionTo('area', this.get('model'));
         },
         cancelAddSubArea : function() {
             var newArea = this.get('newArea');
@@ -47278,21 +47279,18 @@ App.TourEditController = Ember.ObjectController.extend({
             }
             else {
                 this.get('model').rollback();
+                
                 if(this.get('model').get('area') !== null){
                     this.get('model').get('area').rollback();
                 }
+
+                this.set('newImage', null);
+                
                 this.set('areaIsUpdated', false);
                 this.get('model').reload();
+                
                 this.transitionToRoute('tour', this.get('model'));
             }
-        },
-    
-        goToPreview: function() {
-            this.set('previewMode', true);
-        },
-        
-        exitPreview: function() {
-            this.set('previewMode', false);
         },
     
         publishTour: function() {
@@ -47333,7 +47331,6 @@ App.TourEditController = Ember.ObjectController.extend({
         },
 
         saveNewImage: function() {
-            console.log('saveNewImage ' + this.get('newImage'));
             if(this.get('havePendingOperations')){
                 return;
             }
@@ -47550,12 +47547,10 @@ App.TourEditController = Ember.ObjectController.extend({
     },
 
     addImageForUpload: function(imageData) {
-        console.log('upload ' + imageData);
         var image = this.store.createRecord('image');
         image.set('imageData', imageData);
         image.set('tour', this.get('model'));
         this.set('newImage', image);
-        console.log('set new image ' + imageData);
     },
     
     // Required fields when saving as draft are: name
@@ -48604,7 +48599,9 @@ App.Tour = DS.Model.extend({
         this.resource('toplevel', {path:':toplevel_id'});
 	});
 	this.resource('area-browse');
+	
 	this.resource('area', {path:'/areas/:area_id'});
+	this.resource('area.edit', {path:'/areas/:area_id/edit'});
 	
 	this.resource('tours');
 	this.resource('tour', {path:'/tours/:tour_id'});
@@ -48679,26 +48676,35 @@ App.TagRoute = App.BaseRoute.extend({
 App.AreaRoute = App.BaseRoute.extend({
 	model: function(params) {
         return this.store.find('area', params.area_id);
-	},
+	}
+});
+
+App.AreaEditRoute = App.BaseRoute.extend({
+    renderTemplate: function() {
+        this.render('areaedit');
+    },
+    model: function(params) {
+        return this.store.find('area', params.area_id);
+    },
+    beforeModel: function(transition) {
+        //TODO: Prevent route if user not logged in  
+    },
     actions: {
         willTransition: function(transition) {
             var controller = this.get('controller');
-            if(controller.get('isDirty')) {
-                if(confirm('The area has unsaved changes, do you want to discard them?')){
-                    controller.send('cancelEdit');
-                    return true;
-                } else {
-                    transition.abort();   
-                }
+            if(controller.get('hasChanges')) {
+                  if(confirm("The area has unsaved changes, do you want to discard them?")){
+                      controller.send('cancelEdit');
+                      return true;
+                  } else { 
+                      transition.abort(); 
+                  }
             }
-            else {
-                if(controller.get('editAreaMode')){
-                    controller.send('cancelEdit');
-                }
-                return true;
+            else { 
+                return true; 
             }
         }
-    }	
+    }
 });
 
 App.AreaBrowseRoute = App.BaseRoute.extend({    
@@ -48741,9 +48747,13 @@ App.TourEditRoute = App.BaseRoute.extend({
                   if(confirm("The tour has unsaved changes, do you want to discard them?")){
                       controller.send('cancelEditTour');
                       return true;
-                  } else { transition.abort(); }
+                  } else { 
+                      transition.abort(); 
+                  }
             }
-            else { return true; }
+            else { 
+                return true; 
+            }
         }
     }
 });
@@ -49030,18 +49040,12 @@ App.AreaEditView = Ember.View.extend({
                 $('#validationErrorsAreaModal').modal('show');
             }  
         },
-        confirmSaveArea: function() {
-            this.get('controller').send('saveArea');
-        },
         startCancelingEdit: function() {
             if(this.get('controller').get('isDirty'))  {
                 $('#discardChangesAreaModal').modal('show');
             } else {
                 this.get('controller').send('cancelEdit');
             }
-        },
-        confirmDiscardChanges: function() {
-            this.get('controller').send('cancelEdit');
         },        
         startAddSubArea: function() {
             this.get('controller').send('startAddingSubArea');
@@ -49319,31 +49323,31 @@ App.FileUploadView = Ember.View.extend({
                 
                 tempImg.onload = function() {
              
-                    var MAX_WIDTH = 1024;
-                    var MAX_HEIGHT = 768;
-                    var tempW = tempImg.width;
-                    var tempH = tempImg.height;
-                    if (tempW > tempH) {
-                        if (tempW > MAX_WIDTH) {
-                           tempH *= MAX_WIDTH / tempW;
-                           tempW = MAX_WIDTH;
-                        }
-                    } else {
-                        if (tempH > MAX_HEIGHT) {
-                           tempW *= MAX_HEIGHT / tempH;
-                           tempH = MAX_HEIGHT;
-                        }
-                    }
-             
-                    var canvas = document.createElement('canvas');
-                    canvas.width = tempW;
-                    canvas.height = tempH;
-                    var ctx = canvas.getContext("2d");
-                    ctx.drawImage(this, 0, 0, tempW, tempH);
-                    var dataURL = canvas.toDataURL("image/jpeg");
+//                    var MAX_WIDTH = 1920;
+//                    var MAX_HEIGHT = 1080;
+//                    var width = tempImg.width;
+//                    var height = tempImg.height;
+                     
+//                    if (width > height) {
+//                        if (width > MAX_WIDTH) {
+//                            height *= MAX_WIDTH / width;
+//                            width = MAX_WIDTH;
+//                        }
+//                    } else {
+//                        if (height > MAX_HEIGHT) {
+//                            width *= MAX_HEIGHT / height;
+//                            height = MAX_HEIGHT;
+//                        }
+//                    }
+                    
+//                    var canvas = document.createElement('canvas');
+//                    canvas.width = width;
+//                    canvas.height = height;
+//                    var ctx = canvas.getContext("2d");
+//                    ctx.drawImage(tempImg, 0, 0, width, height);
+//                    var dataURL = canvas.toDataURL("image/jpeg");
 
-                    console.log('IMAGE DATA IN VIEW: ' + dataURL);
-                    controller.addImageForUpload(dataURL);
+                    controller.addImageForUpload(tempImg.src); //dataURL);
                 };
             };
             
