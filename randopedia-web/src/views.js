@@ -161,25 +161,62 @@ App.AreaPickerItemView = Ember.View.extend({
     }.property('controller.tempSelectedArea'),
 });
 
+App.BreadCrumbView = Ember.View.extend({
+    templateName: 'breadcrumb-view'
+});
+
+App.ImageCarouselView = Ember.View.extend({    
+    templateName: 'image-carousel-view',
+    classNames: ['carousel', 'slide'],
+    init: function() { 
+        this._super.apply(this, arguments);
+        // disable the data api from boostrap
+        $('#image-carousel-container').off('.data-api');      
+        // at least one item must have the active class, so we set the first here, and the class will be added by class binding
+        var obj = this.get('content.firstObject');
+        Ember.set(obj, 'isActive', true);
+    },
+    previousSlide: function() {
+        this.$().carousel('prev');
+    },
+    nextSlide: function() {
+        this.$().carousel('next');
+    },
+    didInsertElement: function() {
+        this.$().carousel({
+            interval: false
+        });
+    },
+    indicatorsView: Ember.CollectionView.extend({
+        tagName: 'ol',
+        classNames: ['carousel-indicators'],        
+        contentBinding: 'parentView.content',
+        itemViewClass: Ember.View.extend({
+            click: function() {
+                var $elem = this.get("parentView.parentView").$();
+                $elem.carousel(this.get("contentIndex"));
+            },
+            template: Ember.Handlebars.compile(''),
+            classNameBindings: ['content.isActive:active']            
+        })
+    }),
+    itemsView: Ember.CollectionView.extend({        
+        classNames: ['carousel-inner'],
+        contentBinding: 'parentView.content',
+        itemViewClass: Ember.View.extend({
+            classNames: ['item'],
+            classNameBindings: ['content.isActive:active'],
+            template: Ember.Handlebars.compile('<img {{bindAttr src="view.content.imageFile"}} alt=""/><div class="carousel-caption"><p>{{view.content.caption}}</p></div>')
+        })
+    })
+});
+
 App.TourDetailsView = Ember.View.extend({
     templateName: 'tourdetails-view',
     
     didInsertElement: function() {
         $('#incompleteInfoButtonId').popover();
     },
-    imageLoaded: function() {
-        Ember.run.once(this, function () {
-            $('#images-container').bjqs({
-                'width': 1200,
-                'height': 720,
-                'responsive': true,
-                'automatic': false,
-                'usecaptions': true,
-                'showmarkers': false,
-            });
-        });
-        return true;
-    }.property('controller.model.images.length'),
 });
 
 App.TourItemView = Ember.View.extend({
