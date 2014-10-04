@@ -20,9 +20,10 @@
 	   <div class="col-sm-12">
 	        <div class="panel">
 	            <div class="row">
+                    <hr />
 	                <div class="col-sm-12 col-lg-2">
-                         <div class="thumbnail">
-                            <img {{bindAttr src="newImage.imageData"}} />
+                        <div class="thumbnail-wrapper">
+                            <img {{bindAttr src="newImage.imageData" }} />
                         </div>
 	                </div>
 	                <div class="col-sm-12 col-lg-10">
@@ -57,34 +58,31 @@
 		{{#each image in images}}
 		    {{#unless image.isNew}}
 	            <div class="col-sm-12">
-	                <div class="">
-	                    <div class="row">
-	                        <div class="col-sm-12 col-lg-2">
-	                            <div class="">
-	                                 <div class="thumbnail-wrapper">
-	                                    <img {{bindAttr src="image.imageFile"}} class="thumbnail-image" />
-	                                </div>
-	                            </div>
+                    <hr />
+	                <div class="row">
+	                    <div class="col-sm-12 col-lg-2">
+	                            <div class="thumbnail-wrapper">
+	                            <img {{bindAttr src="image.imageFile"}} class="thumbnail-image" />
 	                        </div>
-	                        <div class="col-sm-12 col-lg-10">
-	                            <form class="form">
-	                                <div class="form-group">
-		                                <label>Caption</label>
-                                        {{input value=image.caption maxlength="300" class="form-control"}}
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="checkbox">
-										    <label>
-										        {{input type="checkbox" name="isPorfolio" checked=image.isPortfolio }} Is portfolio image
-										    </label>
-										 </div>
-										 <div class="button-group pull-right">
-		                                      <button {{action "saveImage" image}} {{bindAttr disabled="image.isUpdateDisabled"}} class="btn btn-primary">Update</button>
-		                                      <button {{action "startDeleteImage" image target="view"}} data-toggle="modal" data-target="#confirmDeleteImageModal" {{bindAttr disabled="image.isDeleteDisabled"}} class="btn btn-danger">Delete image</button>
-		                                 </div>
-                                    </div>                                            
-                                </form>
-	                        </div>
+	                    </div>
+	                    <div class="col-sm-12 col-lg-10">
+	                        <form class="form">
+	                            <div class="form-group">
+		                            <label>Caption</label>
+                                    {{input value=image.caption maxlength="300" class="form-control"}}
+                                </div>
+                                <div class="form-group">
+                                    <div class="checkbox">
+										<label>
+										    {{input type="checkbox" name="isPorfolio" checked=image.isPortfolio }} Is portfolio image
+										</label>
+										</div>
+										<div class="button-group pull-right">
+		                                    <button {{action "saveImage" image}} {{bindAttr disabled="image.isUpdateDisabled"}} class="btn btn-primary">Update</button>
+		                                    <button {{action "startDeleteImage" image target="view"}} data-toggle="modal" data-target="#confirmDeleteImageModal" {{bindAttr disabled="image.isDeleteDisabled"}} class="btn btn-danger">Delete image</button>
+		                                </div>
+                                </div>                                            
+                            </form>
 	                    </div>
 	                </div>
 	            </div>
