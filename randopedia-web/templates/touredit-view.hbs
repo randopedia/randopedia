@@ -103,375 +103,320 @@
 	{{/if}}     
 	
 	<div class="row"> 
-		<div class="col-sm-12">
+        <div class="col-sm-12">
 
-			 <ul class="nav nav-tabs" role="tablist">
-			    <li class="active"><a href="#details-panel" role="tab" data-toggle="tab">Details</a></li>
-			    <li><a href="#itinerary-panel" role="tab" data-toggle="tab">Description</a></li>
-			    <li><a href="#map-panel" role="tab" data-toggle="tab">Map</a></li>
-			    <li><a href="#images-panel" role="tab" data-toggle="tab">Images</a></li>
-			    <li><a href="#history-panel" role="tab" data-toggle="tab">History</a></li>
-			</ul>	        
-	        
-			<div class="tab-content">
-			    <div class="tab-pane active" id="details-panel">
-				    <form role="form">
-				    
-	                   <div class="row">
-	                        <div class="col-sm-4">			    
-						        <div class="form-group">
-							        <label for="inputArea">Area</label>
-		                            <button type="button" class="info pull-right" data-toggle="popover" data-trigger="focus" title="Area" data-content="The area where the tour is located."></button>
-		                            <div><a data-toggle="modal" data-target="#areaPickerModal">{{#unless area}}Select area...{{else}}{{area.name}}{{/unless}}</a></div>				        
-						        </div>
-							</div>
-	                        <div class="col-sm-8">  				    
-		                        <div class="form-group">
-		                            <label for="inputName">Name of tour</label>
-		                            <button 
-		                              type="button"
-		                              class="info pull-right" data-toggle="popover" data-trigger="focus" title="Name" data-content="The name of the tour. Name is required and must be between 3 and 80 characters long."></button>
-		                            {{input placeholder="" pattern="^.{3,80}$" value=name id="inputName" class="form-control"}}
-		                        </div>
-	                        </div>
-	                    </div>
-	                    
-	                   <div class="row">
-	                        <div class="col-sm-12">
-		                        <div class="form-group">
-		                           <label for="inputShortDescription">Tour summary<span class="warn-field">*</span></label>
-		                           <button 
-		                              type="button" class="info pull-right" data-toggle="popover" data-trigger="focus" 
-		                              title="Tour summary" 
-		                              data-content="A brief description summarizing the highlights of the tour. Description can have a maximum of 300 characters.">
-		                           </button>
-		                           {{input maxlength="300" value=shortDescription id="inputShortDescription" class="form-control"}}
-		                        </div>
-	                        </div>
-	                    </div>
-	                    
-	                   <div class="row">
-	                       <div class="col-sm-12 descTextAreaContainer">
-	                           <div class="form-group">
-	                                 <label for="inputAccessPoint">Access point<span class="req-field">*</span></label>
-	                                 <button 
-	                                      type="button" class="info pull-right" data-toggle="popover" data-trigger="focus" 
-                                          title="Access point" 
-                                          data-content="Description of the access point and how to get there. The access point description can have a maximum of 1000 characters.">
-                                     </button>
-	                                 {{textarea value=accessPoint maxlength="1000" id="inputAccessPoint" class="form-control"}}
-	                           </div>
-	                       </div>
-	                   </div>
-	                   
-	                   <div class="row">
-	                       <div class="col-lg-3">
-	                           <div class="form-group">
-	                               <label for="inputElevationLoss">Elevation loss<span class="req-field">*</span></label>
-                                   <button 
-                                        type="button" class="info pull-right" data-toggle="popover" data-trigger="focus" 
-                                        title="Elevation loss" 
-                                        data-content="Total elevation to descend. Only digits are allowed.">
-                                   </button>	                               
-	                               <div class="input-group">
-	                                    {{input placeholder="" pattern=App.Validate.numberRegex value=elevationLoss id="inputElevationLoss" class="form-control"}}
-	                                    <div class="input-group-addon">m</div>
-	                               </div>
-	                           </div>
-	                       </div>
-	                       <div class="col-lg-3">
-	                           <div class="form-group">
-	                               <label for=inputElevationGain">Elevation gain<span class="req-field">*</span></label>
-                                   <button 
-                                        type="button" class="info pull-right" data-toggle="popover" data-trigger="focus" 
-                                        title="Elevation gain" 
-                                        data-content="Total elevation to climb. Only digits are allowed.">
-                                   </button>    
-	                               <div class="input-group">
-	                                    {{input placeholder="" pattern=App.Validate.numberRegex value=elevationGain id="inputElevationGain" class="form-control"}}
-	                                    <div class="input-group-addon">m</div>
-	                               </div>
-	                           </div>
-	                       </div>
-	                       <div class="col-lg-3">
-                               <div class="form-group">
-                                   <label for="inputHighestPoint">Highest point<span class="warn-field">*</span></label>
-                                   <button 
-                                        type="button" class="info pull-right" data-toggle="popover" data-trigger="focus" 
-                                        title="Highest point" 
-                                        data-content="The highest point of the tour. Only digits are allowed.">
-                                   </button> 
-                                   <div class="input-group">
-                                       {{input placeholder="" pattern=App.Validate.numberRegex value=elevationMax id="inputHighestPoint" class="form-control"}}
-                                       <div class="input-group-addon">m</div>
-                                   </div>
-                               </div>
-                           </div>  
-	                       <div class="col-lg-3">
-	                           <label for="inputAspect">Main aspect of slopes</label>
-                               <button 
-                                    type="button" class="info pull-right" data-toggle="popover" data-trigger="focus" 
-                                    title="Aspect" 
-                                    data-content="Aspect of the main part of the slopes on the descent route.">
-                               </button> 
-	                           {{view Ember.Select
-	                                  contentBinding="App.Fixtures.Aspects"
-	                                  optionValuePath="content.value"
-	                                  optionLabelPath="content.name"
-	                                  valueBinding="aspect"
-	                                  id="inputAspect"
-	                                  class="form-control"}}          
-	                       </div>          
-	                   </div>	
-	                                      
-	                   <div class="row">
-	                       <div class="col-lg-3">
-	                           <div class="form-group">
-	                               <label for="inputTimeMin">Time, min<span class="req-field">*</span></label>
-	                               <button 
-	                                    type="button" class="info pull-right" data-toggle="popover" data-trigger="focus" 
-	                                    title="Time min" 
-	                                    data-content="The minimum amount of time that can be expected for the tour. Only digits are allowed.">
-	                               </button> 
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="active"><a href="#details-panel" role="tab" data-toggle="tab">Details</a></li>
+                <li><a href="#itinerary-panel" role="tab" data-toggle="tab">Description</a></li>
+                <li><a href="#map-panel" role="tab" data-toggle="tab">Map</a></li>
+                <li><a href="#images-panel" role="tab" data-toggle="tab">Images</a></li>
+                <li><a href="#history-panel" role="tab" data-toggle="tab">History</a></li>
+            </ul>
+
+            <div class="tab-content">
+                <div class="tab-pane active" id="details-panel">
+                    <form role="form">
+
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="inputArea">Area<span class="asterisk required"></span></label>
+                                    <button type="button" class="info pull-right" data-toggle="popover" data-trigger="focus" title="Area" data-content="The area where the tour is located."></button>
+                                    <div><a data-toggle="modal" data-target="#areaPickerModal">{{#unless area}}Select area...{{else}}{{area.name}}{{/unless}}</a></div>
+                                </div>
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="form-group">
+                                    <label for="inputName">Name of tour<span class="asterisk required"></span></label>
+                                    <button type="button"
+                                            class="info pull-right" data-toggle="popover" data-trigger="focus" title="Name" data-content="The name of the tour. Name is required and must be between 3 and 80 characters long."></button>
+                                    {{input placeholder="" pattern="^.{3,80}$" value=name id="inputName" class="form-control"}}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="inputShortDescription">Tour summary<span class="asterisk recommended"></span></label>
+                                    <button type="button" class="info pull-right" data-toggle="popover" data-trigger="focus"
+                                            title="Tour summary"
+                                            data-content="A brief description summarizing the highlights of the tour. Description can have a maximum of 300 characters."></button>
+                                    {{input maxlength="300" value=shortDescription id="inputShortDescription" class="form-control"}}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-12 descTextAreaContainer">
+                                <div class="form-group">
+                                    <label for="inputAccessPoint">Access point<span class="asterisk required"></span></label>
+                                    <button type="button" class="info pull-right" data-toggle="popover" data-trigger="focus"
+                                            title="Access point"
+                                            data-content="Description of the access point and how to get there. The access point description can have a maximum of 1000 characters."></button>
+                                    {{textarea value=accessPoint maxlength="1000" id="inputAccessPoint" class="form-control"}}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label for="inputElevationLoss">Elevation loss<span class="asterisk required"></span></label>
+                                    <button type="button" class="info pull-right" data-toggle="popover" data-trigger="focus"
+                                            title="Elevation loss"
+                                            data-content="Total elevation to descend. Only digits are allowed."></button>
+                                    <div class="input-group">
+                                        {{input placeholder="" pattern=App.Validate.numberRegex value=elevationLoss id="inputElevationLoss" class="form-control"}}
+                                        <div class="input-group-addon">m</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label for=inputElevationGain">Elevation gain<span class="asterisk required"></span></label>
+                                    <button type="button" class="info pull-right" data-toggle="popover" data-trigger="focus"
+                                            title="Elevation gain"
+                                            data-content="Total elevation to climb. Only digits are allowed."></button>
+                                    <div class="input-group">
+                                        {{input placeholder="" pattern=App.Validate.numberRegex value=elevationGain id="inputElevationGain" class="form-control"}}
+                                        <div class="input-group-addon">m</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label for="inputHighestPoint">Highest point<span class="asterisk recommended"></span></label>
+                                    <button type="button" class="info pull-right" data-toggle="popover" data-trigger="focus"
+                                            title="Highest point"
+                                            data-content="The highest point of the tour. Only digits are allowed."></button>
+                                    <div class="input-group">
+                                        {{input placeholder="" pattern=App.Validate.numberRegex value=elevationMax id="inputHighestPoint" class="form-control"}}
+                                        <div class="input-group-addon">m</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <label for="inputAspect">Main aspect of slopes</label>
+                                <button type="button" class="info pull-right" data-toggle="popover" data-trigger="focus"
+                                        title="Aspect"
+                                        data-content="Aspect of the main part of the slopes on the descent route."></button>
+                                {{view Ember.Select
+                                contentBinding="App.Fixtures.Aspects"
+                                optionValuePath="content.value"
+                                optionLabelPath="content.name"
+                                valueBinding="aspect"
+                                id="inputAspect"
+                                class="form-control"}}
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label for="inputTimeMin">Time, min<span class="asterisk required"></span></label>
+                                    <button type="button" class="info pull-right" data-toggle="popover" data-trigger="focus"
+                                            title="Time min"
+                                            data-content="The minimum amount of time that can be expected for the tour. Only digits are allowed."></button>
                                     <div class="input-group">
                                         {{input placeholder="" pattern=App.Validate.numberRegex value=timingMin id="inputTimeMin" class="form-control"}}
                                         <div class="input-group-addon">h</div>
                                     </div>
-	                           </div>
-	                       </div>
-                           <div class="col-lg-3">
-                               <div class="form-group">
-                                   <label for="inputTimeMax">Time, max<span class="req-field">*</span></label>
-                                   <button 
-                                        type="button" class="info pull-right" data-toggle="popover" data-trigger="focus" 
-                                        title="Time max" 
-                                        data-content="The maximum amount of time that can be expected for the tour. Only digits are allowed.">
-                                   </button> 
-                                   <div class="input-group">
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label for="inputTimeMax">Time, max<span class="asterisk required"></span></label>
+                                    <button type="button" class="info pull-right" data-toggle="popover" data-trigger="focus"
+                                            title="Time max"
+                                            data-content="The maximum amount of time that can be expected for the tour. Only digits are allowed."></button>
+                                    <div class="input-group">
                                         {{input placeholder="" pattern=App.Validate.numberRegex value=timingMax id="inputTimeMax" class="form-control"}}
                                         <div class="input-group-addon">h</div>
-                                   </div>
-                               </div>
-                           </div>                      
-                           <div class="col-lg-3">
-                               <div class="form-group">
-                                   <label for="inputSeasonFrom">Season from<span class="req-field">*</span></label>
-                                   <button 
-                                        type="button" class="info pull-right" data-toggle="popover" data-trigger="focus" 
-                                        title="Season from" 
-                                        data-content="First month of the season when the tour normally is skiable.">
-                                   </button> 
-                                   {{view Ember.Select
-                                      contentBinding="App.Fixtures.Months"
-                                      optionValuePath="content.value"
-                                      optionLabelPath="content.name"
-                                      valueBinding="timeOfYearFrom" 
-                                      id="inputSeasonFrom"
-                                      class="form-control"}}  
-                              </div>
-                          </div>
-                           <div class="col-lg-3">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
                                 <div class="form-group">
-                                   <label for="inputTimeOfYearTo">Season to<span class="req-field">*</span></label>
-                                   <button 
-                                        type="button" class="info pull-right" data-toggle="popover" data-trigger="focus" 
-                                        title="Season to" 
-                                        data-content="Last month of the season when the tour normally is skiable.">
-                                   </button> 
-                                   {{view Ember.Select
-                                          contentBinding="App.Fixtures.Months"
-                                          optionValuePath="content.value"
-                                          optionLabelPath="content.name"
-                                          valueBinding="timeOfYearTo" 
-                                          id="inputTimeOfYearTo"
-                                          class="form-control"}}
-                              </div>
-                          </div>
-                  	    </div>     
-                  	          
-	                    <div class="row">
-	                        <div class="col-lg-3">
-	                            <div class="form-group">
-		                            <label for="inputGrade">Grade<span class="warn-field">*</span></label>
-                                    <button class="info pull-right" data-toggle="modal" data-target="#tourDetailsGradeGuideModal">{{resolveGradeName grade}}</button>
-		                            {{view Ember.Select
-		                                   contentBinding="App.Fixtures.Grades"
-		                                   optionValuePath="content.value"
-		                                   optionLabelPath="content.name"
-		                                   valueBinding="grade"
-		                                   id="inputGrade"
-		                                   class="form-control"}}
-	                            </div>
-	                        </div>
-                        
-	                        <div class="col-lg-3">
-	                            <div class="form-group">
-	                                <label for="inputSteepness">Steepness, max</label>
-                                   <button 
-                                        type="button" class="info pull-right" data-toggle="popover" data-trigger="focus" 
-                                        title="Steepness" 
-                                        data-content="Degrees on the steepest part of the route. Only digits are allowed.">
-                                   </button> 
-	                                <div class="input-group">
-	                                    {{input pattern=App.Validate.numberRegex value=degreesMax id="inputSteepness" class="form-control"}}
-	                                    <div class="input-group-addon">&#176;</div>
-	                                </div>
-	                             </div>
-	                        </div>
-	                    </div>
-                    
-	                    <div class="row">
-	                        <div class="col-sm-6 descTextAreaContainer">
-	                             <div class="form-group">
-	                                  <label for="inputHazards">Hazards</label> {{view Ember.Checkbox checkedBinding="haveHazards"}}
-	                                   <button 
-	                                        type="button" class="info pull-right" data-toggle="popover" data-trigger="focus" 
-	                                        title="Hazards" 
-	                                        data-content="Description of any special hazards that skiers should be aware of. Description can have a maximum of 300 characters.">
-	                                   </button> 
-	                                  {{textarea value=hazardsDescription disabledBinding="haveNoHazards" maxlength="500" id="inputHazards" class="form-control"}}
-	                             </div>
-	                        </div>
-	                        <div class="col-sm-6 columns descTextAreaContainer">
+                                    <label for="inputSeasonFrom">Season from<span class="asterisk required"></span></label>
+                                    <button type="button" class="info pull-right" data-toggle="popover" data-trigger="focus"
+                                            title="Season from"
+                                            data-content="First month of the season when the tour normally is skiable."></button>
+                                    {{view Ember.Select
+                                    contentBinding="App.Fixtures.Months"
+                                    optionValuePath="content.value"
+                                    optionLabelPath="content.name"
+                                    valueBinding="timeOfYearFrom"
+                                    id="inputSeasonFrom"
+                                    class="form-control"}}
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
                                 <div class="form-group">
-	                                  <label for="inputTools">Requires mountaineering skills/equipment</label> {{view Ember.Checkbox checkedBinding="requiresTools"}}
-                                       <button 
-                                            type="button" class="info pull-right" data-toggle="popover" data-trigger="focus" 
-                                            title="Skills/Equipment" 
-                                            data-content="Description of any mountaineering skills or equipment needed. Rappels, glacier safety equipment etc. Description can have a maximum of 300 characters.">
-                                       </button>                            
-	                                  {{textarea value=toolsDescription disabledBinding="doesNotRequireTools" maxlength="500" id="inputTools" class="form-control"}}
-	                            </div>
-	                        </div>
-	                    </div>
-	                    
-	                    <div class="row">
-	                        <div class="col-sm-12 col-lg-6">
-	                            <label for="inputTags">Tags</label>
-                                <button 
-                                     type="button" class="info pull-right" data-toggle="popover" data-trigger="focus" 
-                                     title="Tags" 
-                                     data-content="You can tag your tour with tag words that gives a quick overview of the tour. Separate them with comma. For example: steep, powder, fields">
-                                </button>   
-	                            {{textarea value=tagsString maxlength=500 id="inputTags" class="form-control" id="inputTags" class="form-control"}}
-	                        </div>
-	                    </div>
-                    	                    
-	                </form>
-				   
-				    <div class="row spacing-y-large">
-	                    <div class="col-sm-12 small">
-	                        <div class="form-group">
-							    <span class="req-field">*</span> Required field (tour cannot be published if not set) <br />
-							    <span class="warn-field">*</span> Recommended field (tour will be marked as incomplete if not set)
-						    </div>
-						</div>
-				    </div>
-			    </div>
-			        
-				<div id="itinerary-panel" class="tab-pane">
-					<div class="row">
-					   <div class="col-sm-12">
-					       <div class="form-group">
-					           <label for="inputDescription">Description<span class="req-field">*</span></label>
-                                <button 
-                                     type="button" class="info pull-right" data-toggle="popover" data-trigger="focus" 
-                                     title="Description" 
-                                     data-content="Description of the tour itinerary and anything else that could be useful. Description can have a maximum of 8000 characters.">
-                                </button>  
-					           {{textarea value=itinerary maxlength="8000" id="inputDescription" class="form-control large"}}
-					       </div>
-					   </div>
-					</div>  
-				</div>	  
-				
-				<div id="map-panel" class="tab-pane">
-		            <div class="row">
-		                {{view App.TourEditMapView}}
-		            </div>
-			    </div>  
-			    
-			    <div id="images-panel" class="tab-pane">
-		            <div class="row">
-			            <div class="col-sm-12">
-			                <div class="spacing">
-			                    {{#if isNew}}
-			                        <p>Images cannot be uploaded until tour is saved. Please save tour and then come back!</p>
-			                    {{else}}
-			                        {{partial "touredit-images" }}
-			                    {{/if}}
-			                </div>
-			            </div>
-		            </div>  
-	            </div>                    
-			      
-			    <div id="history-panel" class="tab-pane">
-		            <div class="row">
-		                <div class="col-sm-12 spacing">
-		                    Tour status: <em>{{displayStatus}}</em>
-		                </div>
-		            </div>
-		            <div class="row">
-		                <div class="col-sm-12">
-		                    <table class="table table-striped">
-							  <thead>
-							      <tr>
-								      <th>Time</th>
-								      <th>Type</th>
-								      <th>User</th>
-								      <th>Comment</th>
-							      </tr>
-							  </thead>
-							  <tbody>
-							      {{#each action in actions}}
-							      <tr>
-								      <td>{{displayTimestamp action.time}}</td>
-								      <td>{{resolveTourAction action.type}}</td>
-								      <td>{{action.userName}}</td>
-								      <td>{{action.comment}}</td>
-							      </tr>
-							      {{/each}}
-							  </tbody>
-							</table>
-		                </div>
-		             </div> 
-		        </div> 
-	        </div>
-	        
-	    </div>
-	</div>
+                                    <label for="inputTimeOfYearTo">Season to<span class="asterisk required"></span></label>
+                                    <button type="button" class="info pull-right" data-toggle="popover" data-trigger="focus"
+                                            title="Season to"
+                                            data-content="Last month of the season when the tour normally is skiable."></button>
+                                    {{view Ember.Select
+                                    contentBinding="App.Fixtures.Months"
+                                    optionValuePath="content.value"
+                                    optionLabelPath="content.name"
+                                    valueBinding="timeOfYearTo"
+                                    id="inputTimeOfYearTo"
+                                    class="form-control"}}
+                                </div>
+                            </div>
+                        </div>
 
-	{{!-- <!-- Adv opt and delete/restore tour removed for now. Might be reintroduced for drafts  -->
-	<div class="adv-opt-panel-container">
-		<div class="row">
-		    <div class="col-sm-12"> 
-		        <div class="row">
-			        <div class="col-sm-12 adv-opt-panel-heading">
-			            {{#if view.showAdvancedOptions}}
-			                <a class="icon-link adv-opt-panel-icon-link" {{action "toggleAdvancedOption" target="view"}}><i class="foundicon-minus"></i></a>
-			            {{else}}
-			                <a class="icon-link adv-opt-panel-icon-link" {{action "toggleAdvancedOption" target="view"}}><i class="foundicon-plus"></i></a>
-			            {{/if}}
-			            More options
-			        </div>   
-		        </div>
-		        <div class="row">
-				    <div class="col-sm-12">   
-				        {{#if view.showAdvancedOptions}}
-					         <div class="adv-opt-links-container">
-					            {{#if isDeleted}}
-					                <a {{action "restoreTour"}}>Restore tour</a>
-					            {{else}}
-					                <a data-reveal-id="confirmDeleteTourReveal">Delete tour</a>
-					            {{/if}}
-					        </div>
-				        {{/if}}
-				    </div>
-		        </div>
-		    </div>
-		</div>
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label for="inputGrade">Grade<span class="asterisk recommended"></span></label>
+                                    <button class="info pull-right" data-toggle="modal" data-target="#tourDetailsGradeGuideModal">{{resolveGradeName grade}}</button>
+                                    {{view Ember.Select
+                                    contentBinding="App.Fixtures.Grades"
+                                    optionValuePath="content.value"
+                                    optionLabelPath="content.name"
+                                    valueBinding="grade"
+                                    id="inputGrade"
+                                    class="form-control"}}
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label for="inputSteepness">Steepness, max</label>
+                                    <button type="button" class="info pull-right" data-toggle="popover" data-trigger="focus"
+                                            title="Steepness"
+                                            data-content="Degrees on the steepest part of the route. Only digits are allowed."></button>
+                                    <div class="input-group">
+                                        {{input pattern=App.Validate.numberRegex value=degreesMax id="inputSteepness" class="form-control"}}
+                                        <div class="input-group-addon">&#176;</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="checkbox">
+                                        <label>
+                                            {{view Ember.Checkbox checkedBinding="haveHazards"}}Hazards
+                                        </label>
+                                    </div>
+                                    <button type="button" class="info pull-right" data-toggle="popover" data-trigger="focus"
+                                            title="Hazards"
+                                            data-content="Description of any special hazards that skiers should be aware of. Description can have a maximum of 300 characters."></button>
+                                    {{textarea value=hazardsDescription disabledBinding="haveNoHazards" maxlength="500" id="inputHazards" class="form-control"}}
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="checkbox">
+                                        <label>
+                                            {{view Ember.Checkbox checkedBinding="requiresTools"}}Mountaineering skills/equipment
+                                        </label>
+                                    </div>
+                                    <button type="button" class="info pull-right" data-toggle="popover" data-trigger="focus"
+                                            title="Skills/Equipment"
+                                            data-content="Description of any mountaineering skills or equipment needed. Rappels, glacier safety equipment etc. Description can have a maximum of 300 characters."></button>
+                                    {{textarea value=toolsDescription disabledBinding="doesNotRequireTools" maxlength="500" id="inputTools" class="form-control"}}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-12 col-lg-6">
+                                <label for="inputTags">Tags</label>
+                                <button type="button" class="info pull-right" data-toggle="popover" data-trigger="focus"
+                                        title="Tags"
+                                        data-content="You can tag your tour with tag words that gives a quick overview of the tour. Separate them with comma. For example: 'steep, powder, fields'"></button>
+                                {{textarea value=tagsString maxlength=500 id="inputTags" class="form-control" id="inputTags" class="form-control"}}
+                            </div>
+                        </div>
+
+                    </form>
+
+                    <div class="row spacing-y-large">
+                        <div class="col-sm-12 small">
+                            <div class="form-group">
+                                <span class="asterisk required"></span> Required field (tour cannot be published if not set) <br />
+                                <span class="asterisk recommended"></span> Recommended field (tour will be marked as incomplete if not set)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="itinerary-panel" class="tab-pane">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label for="inputDescription">Description<span class="asterisk required"></span></label>
+                                <button type="button" class="info pull-right" data-toggle="popover" data-trigger="focus"
+                                        title="Description"
+                                        data-content="Description of the tour itinerary and anything else that could be useful. Description can have a maximum of 8000 characters."></button>
+                                {{textarea value=itinerary maxlength="8000" id="inputDescription" class="form-control large"}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="map-panel" class="tab-pane">
+                    <div class="row">
+                        {{view App.TourEditMapView}}
+                    </div>
+                </div>
+
+                <div id="images-panel" class="tab-pane">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="spacing">
+                                {{#if isNew}}
+                                <p>Images cannot be uploaded until tour is saved. Please save tour and then come back!</p>
+                                {{else}}
+                                {{partial "touredit-images" }}
+                                {{/if}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="history-panel" class="tab-pane">
+                    <div class="row">
+                        <div class="col-sm-12 spacing">
+                            Tour status: <em>{{displayStatus}}</em>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Time</th>
+                                        <th>Type</th>
+                                        <th>User</th>
+                                        <th>Comment</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{#each action in actions}}
+                                    <tr>
+                                        <td>{{displayTimestamp action.time}}</td>
+                                        <td>{{resolveTourAction action.type}}</td>
+                                        <td>{{action.userName}}</td>
+                                        <td>{{action.comment}}</td>
+                                    </tr>
+                                    {{/each}}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
 	</div>
-	--}}
 	
     <div class="modal fade" id="tourDetailsGradeGuideModal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg login-view">

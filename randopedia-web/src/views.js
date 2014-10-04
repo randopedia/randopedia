@@ -226,13 +226,13 @@ App.TourEditView = Ember.View.extend({
             self.set('haveValidationErrors', !self.get('controller').validateForPublish());
             self.set('haveValidationWarnings', self.get('controller').checkForValidationWarnings() > 0);
         });
-        
+
         $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-              // Hack to make sure content is loaded correctly, solves issue with Google Maps view not being rendered
-              $(window).resize();
+            // Hack to make sure content is loaded correctly, solves issue with Google Maps view not being rendered
+            $(window).resize();
         });
           
-        $('.info').popover({placement: 'left right auto'});
+        $('.info').popover({placement: 'auto'});
     },
     actions: {
         startPublishTour: function() {

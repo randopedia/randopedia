@@ -61,6 +61,24 @@
     font-size: 0.8em;
 }
 
+.asterisk {
+    .glyphicon();
+    .glyphicon-asterisk();
+    color: @brand-danger;
+    font-size: 0.7em;
+    margin-left: 5px;
+    margin-right: 5px;
+    top: -4px;
+
+    &.required {
+        color: @brand-danger;
+    }
+
+    &.recommended {
+        color: @brand-warning;
+    }
+}
+
 body {
     padding-top: 50px;
 //    width: 100%;
@@ -100,10 +118,6 @@ body {
     font-family: @logo-font,Helvetica,Arial;
 }
 
-.tab-content {
-    padding: @large-space;
-}
-
 .popover {
     min-width: 250px;
     
@@ -129,6 +143,9 @@ a {
     border-bottom: @nav-tab-border;
     border-top: none;
     color: @navbar-background;
+
+    .adjust-margin-for-small();
+
     li > a {
         color: #000;
         margin-left: -1px; 
@@ -146,6 +163,12 @@ a {
            background: @tab-color;
         }
     }
+}
+
+.tab-content {
+    padding: @large-space;
+
+    .adjust-margin-for-small();
 }
 
 .navbar {
@@ -229,6 +252,10 @@ a {
         .btn();
         .btn-primary();
         float: right;
+
+        @media (max-width: 749px) { 
+            margin-bottom: 10px;      
+        }
     }
 }
 
@@ -430,6 +457,14 @@ button.info {
         padding: 5px;
         border-radius: 5px;
     }
+
+    .checkbox {
+        display: inline;
+        label {
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+     }
 }
 
 .image-upload-view {
@@ -518,16 +553,6 @@ button.info {
         margin-left: @large-space * 2;
     }
 } 
-
-.about-view {
-    .nav-tabs {
-        .adjust-margin-for-small();
-    }
-
-    .tab-content {
-        .adjust-margin-for-small();
-    }
-}
 
 .about-grades-view {
     dt {

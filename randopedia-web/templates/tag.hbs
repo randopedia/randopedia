@@ -1,13 +1,19 @@
-<div class="row">
-    <div class="small-12 columns">
-        <h3>
-            #{{name}}
-        </h3>
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <h3>
+                #{{name}}
+            </h3>
+        </div>
     </div>
+
+    {{#if content.isUpdating}}
+        <div class="loading"></div>
+    {{/if}}
+
+    {{#each tour in tours}}
+        {{view App.TourItemView}}
+    {{/each}}
+
 </div>
-{{#if content.isUpdating}}
-    <img src="images/ajax-loader.gif"/>
-{{/if}}
-{{#each tour in tours}}
-    {{view App.TourItemView}}
-{{/each}}

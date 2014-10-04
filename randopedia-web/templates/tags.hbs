@@ -1,10 +1,16 @@
-<div class="row">
-    <div class="col-sm-12">
-        <h3>
-            Here are the top tags for randopedia.net!
-        </h3>
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <h3>
+                Here are the top tags for randopedia.net
+            </h3>
+        </div>
     </div>
+
+    {{#each tag in controller}}
+        {{#link-to 'tag' tag}}#{{tag.name}}{{/link-to}}
+    {{/each}}
+
 </div>
-{{#each tag in controller}}
-  {{#link-to 'tag' tag}}#{{tag.name}}{{/link-to}}
-{{/each}}
+
