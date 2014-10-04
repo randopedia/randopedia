@@ -55,10 +55,10 @@ App.TourEditMapView = Ember.View.extend({
     onPolylineClick: function (polyline){
         var self = this;
         if(polyline.strokeColor === self.get('selectedStrokeColor')) {
-            polyline.setOptions({strokeColor: '#ff0000', strokeWeight: 2});
+            polyline.setOptions({strokeColor: '#ff0000', strokeWeight: 3});
             self.get('selectedPolylines').removeObject(polyline);
         } else {
-            polyline.setOptions({strokeColor: self.get('selectedStrokeColor'), strokeWeight: 4}); 
+            polyline.setOptions({strokeColor: self.get('selectedStrokeColor'), strokeWeight: 5}); 
             self.get('selectedPolylines').insertAt(0, polyline);
         }
     },

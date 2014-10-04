@@ -27,6 +27,10 @@ App.GeoHelper = Ember.Object.create({
         return coordinates;
     },
 
+    roundCoordinate: function(latOrLng) {
+        return Math.round(latOrLng * 1000000) / 1000000;
+    },
+
     getGoogleObjectsFromTourGeoJson: function(geojson) {
         var mapObjects = [];
         if(!geojson || !App.GeoHelper.validateGeoJson(geojson)) {
@@ -43,7 +47,7 @@ App.GeoHelper = Ember.Object.create({
                 var polyline = new google.maps.Polyline({
                     path:  polylinePath,
                     strokeColor: '#ff0000',
-                    strokeWeight: 2
+                    strokeWeight: 3
                 });
                 mapObjects.push(polyline);
             }
@@ -67,7 +71,7 @@ App.GeoHelper = Ember.Object.create({
                 var polyline = new google.maps.Polyline({
                     path:  polylinePath,
                     strokeColor: '#ff0000',
-                    strokeWeight: 2,
+                    strokeWeight: 3,
                     clickable: true,
                     draggable: true,
                     editable: true,

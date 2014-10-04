@@ -36,7 +36,7 @@ App.IndexController = Ember.ObjectController.extend({
         this.get('store').findQuery('tour', {liteTours: true}).then(function(tours) {
             self.set('liteTours', tours);
         }, function(error) {
-            App.Utils.log('ERROR when loading tours for browse map');
+            App.Utils.log('Error when loading tours for browse map');
         });
     },
 });

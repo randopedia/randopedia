@@ -117,12 +117,35 @@ App.BrowseTourmapComponent = Ember.Component.extend({
             navigator.geolocation.getCurrentPosition(function(position) {
                 var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
                 var image = 'images/my_position_marker.png';
+                var pinIcon = new google.maps.MarkerImage(
+                    'images/my_position_marker.png',
+                    null, /* size is determined at runtime */
+                    null, /* origin is 0,0 */
+                    null, /* anchor is bottom center of the scaled image */
+                    new google.maps.Size(40, 40));
+
                 var marker = new google.maps.Marker({
                     title: 'My position', 
                     position: pos,
                     map: self.get('map'),
-                    //icon: image
+                    icon: pinIcon
                 });
+
+                var html =
+                    '<div style="background-color:#fff;width:200px;height:100px">' +
+                    '<h4>My position</h4>' +
+                    '<p style="font-size:1.1em;">' +
+                    'Lat: ' + App.GeoHelper.roundCoordinate(pos.lat()) + '<br>' +
+                    'Lng: ' + App.GeoHelper.roundCoordinate(pos.lng()) +
+                    '</p>' +
+                    '</div>';
+
+                var infowindow = new google.maps.InfoWindow({ content: html, maxWidth: 600 });
+
+                google.maps.event.addListener(marker, 'click', function () {
+                    infowindow.open(self.get('map'), marker);
+                });
+
                 self.get('map').setCenter(pos);
                 self.get('map').setZoom(self.get('detailedZoomLevel'));
           }, function(){});
@@ -142,26 +165,24 @@ App.BrowseTourmapComponent = Ember.Component.extend({
             }
 
             var marker = new google.maps.Marker({ title: tour.get('name'), position: tourCenterLatLng });
-            
+            var html =
+                '<div style="background-color:#fff;width:260px;height:100px">' +
+                '<h4><a style="font-size:0.9em;" href=#!/tours/' + tour.get('id') + '>' + tour.get('name') + '</a></h4>' +
+                '<p style="font-size:1.1em;">' +
+                App.Fixtures.resolveNameFromValue('Grades', tour.get('grade')) + ' | ' +
+                tour.get('timingMin') + '-' + tour.get('timingMax') + 'h | ' +
+                tour.get('elevationGain') + 'm &uarr; ' + tour.get('elevationLoss') + 'm &darr;' +
+                '</p>' +
+                '<div style="margin-top:15px">' +
+                '<a id="zoomToTourLink" style="font-size:1.3em;">View on map</a>' +
+                '<a href=#!/tours/' + tour.get('id') + ' style="font-size:1.3em;float:right">View tour details</a>' +
+                '</div>' +
+                '</div>';
+
+            var infowindow = new google.maps.InfoWindow({ content: html, maxWidth: 600 });
+
             google.maps.event.addListener(marker, 'click', function() {
-                var map = self.get('map');
-                var html = 
-                    '<div style="background-color:#fff;width:250px;height:100px">'+
-                    '<h4><a style="font-size:0.9em;" href=#!/tours/'+ tour.get('id') + '>' + tour.get('name') + '</a></h4>' +
-                    '<p style="font-size:1.1em;">' + 
-                    App.Fixtures.resolveNameFromValue('Grades', tour.get('grade'))  + ' | ' +
-                    tour.get('timingMin') + '-' + tour.get('timingMax') + 'h | ' +
-                    tour.get('elevationGain') + 'm &uarr; ' + tour.get('elevationLoss') + 'm &darr;' +
-                    '</p>' +
-                    '<div style="margin-top:15px">' +
-                    '<a id="zoomToTourLink" style="font-size:1.3em;">View on map</a>' +
-                    '<a href=#!/tours/'+ tour.get('id') + ' style="font-size:1.3em;float:right">View tour details</a>' +
-                    '</div>' +
-                    '</div>';
-                
-                var infowindow = new google.maps.InfoWindow({ content: html, maxWidth: 600 });
-                infowindow.open(map, marker);
-                
+                infowindow.open(self.get('map'), marker);
                 google.maps.event.addListener(infowindow,'domready',function(){
                     $('#zoomToTourLink').click(function() {
                         self.zoomToTour(tour);
@@ -215,8 +236,6 @@ App.BrowseTourmapComponent = Ember.Component.extend({
             self.showTourRoutesIfZoomed(newZoomLevel);
             
             self.sendAction('zoomChanged', newZoomLevel);
-            
-            console.log('Zoom level: ' + newZoomLevel);
         });
         
         google.maps.event.addListener(self.get('map'), 'center_changed', function() {
