@@ -2,9 +2,9 @@ App.AreaBrowseItemsController = Ember.ObjectController.extend();
 App.register('controller:areaBrowseItems', App.AreaBrowseItemsController, {
     singleton : false
 });
-
+    
 App.AreaBrowseItemController = Ember.ObjectController.extend({
-    needs : [ 'areaBrowse' ],
+    needs : ['areaBrowse'],
     isExpanded : true,
     actions : {
         transitToArea : function(area) {

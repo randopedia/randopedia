@@ -205,7 +205,7 @@
             {{#if hasImages}}
                 {{view App.ImageCarouselView contentBinding="images"}}
             {{else}}
-                <div>No images available for this tour</div> 
+                <div class="spacing-x-large spacing-y">No images available for this tour</div> 
             {{/if}}
             
 
@@ -228,6 +228,8 @@
     </div>
     {{/if}}
     
+    {{partial "footer"}}
+
 	<div class="modal fade" id="tourDetailsGradeGuideModal" tabindex="-1" role="dialog" aria-hidden="true">
 		<div class="modal-dialog modal-lg login-view">
 		    <div class="modal-content">

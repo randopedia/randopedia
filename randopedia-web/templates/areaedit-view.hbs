@@ -19,7 +19,7 @@
 	    <div class="col-sm-12">
 	        <div class="alert alert-danger" role="alert">
 	            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-	            Oh noes, you have most likely been logged out. Try to log in again!
+	            Oh noes, you have most likely been logged out. Try to log in again.
 	        </div>          
 	    </div>
 	</div>
@@ -30,7 +30,7 @@
 	    <div class="col-sm-12">
 	        <div class="alert alert-danger" role="alert">
 	            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-	           Something went wrong when saving the area, please try again!
+	           Something went wrong when saving the area, please try again.
 	        </div>          
 	    </div>
 	</div>
@@ -41,7 +41,7 @@
 	    <div class="col-sm-12">
 	        <div class="alert alert-success" role="alert">
 	            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-	            Area was successfully updated
+	            Area was successfully updated.
 	        </div>          
 	    </div>
 	</div>
@@ -164,6 +164,10 @@
 	<div class="modal fade" id="validationErrorsAreaModal" tabindex="-1" role="dialog" aria-hidden="true">
 	    <div class="modal-dialog modal-lg">
 	        <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">Validation failed</h4>
+                </div>
 	            <div class="modal-body">
 	                There are validation errors that must be corrected before the area can be published.
 	            </div>
@@ -177,8 +181,12 @@
 	<div class="modal fade" id="confirmPublishAreaModal" tabindex="-1" role="dialog" aria-hidden="true">
 	    <div class="modal-dialog modal-lg">
 	        <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">Publish area</h4>
+                </div>
 	            <div class="modal-body">
-	                Changes will be published, do you want to continue?
+	                Area is ready to be be published.
 	            </div>
 	            <div class="modal-footer">
 	                <button class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>

@@ -1,17 +1,17 @@
 @import "bootstrapoverride/bootstrap.less";
 
-@logo-font:             Aight;
-@navbar-background:     @gray-dark;
-@hover-background:      @gray-lighter;
+@logo-font:                     Aight;
+@navbar-background:             @gray-dark;
+@hover-background-on-dark:      @gray-lighter;
 
-@tab-color:             @gray-lighter;
+@tab-color:                     @gray-lighter;
 
-@normal-border:         1px solid @gray-light;
-@light-border:          1px solid @gray-lighter;
-@nav-tab-border:        5px solid @tab-color;
+@normal-border:                 1px solid @gray-light;
+@light-border:                  1px solid @gray-lighter;
+@nav-tab-border:                5px solid @tab-color;
 
-@small-space:           5px;
-@large-space:           10px;
+@small-space:                   5px;
+@large-space:                   10px;
 
 @font-face { font-family: Aight; src: url('../fonts/aaaiight.ttf'); }
 
@@ -173,7 +173,7 @@ a {
             padding: 10px;
             &:hover {
                 text-decoration: none;
-                background: @hover-background;
+                background: @hover-background-on-dark;
                 color: @gray-darker;
             }
         }
@@ -492,5 +492,38 @@ button.info {
       
     .intent-child {
         margin-left: @large-space * 2;
+    }
+} 
+
+.footer-view {
+    background: @navbar-background;
+    color: @gray-lighter;
+    font-size: 0.8em;
+    padding: 20px;
+    margin: 0 -15px;
+
+    a:hover {
+        color: @gray-lighter;
+        text-decoration: underline;
+    }
+
+    .cc-img {
+        margin-bottom: 5px;
+    }
+
+    .randopedia-logo-text {
+        margin: 15px 0 0 0;
+        font-size: 25px;
+    }
+
+    .inline-list { 
+	    font-family: "Lucida console", Monospace; 
+	    font-size: 1.1em;
+        margin-left: -3px;
+
+        .green { color: #96AC92;}
+        .blue { color: #A1B3BE;}
+        .red { color: #F6C0C0;}
+        .brown { color: #DAD0A9;}
     }
 }
