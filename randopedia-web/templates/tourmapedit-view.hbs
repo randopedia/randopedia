@@ -1,25 +1,41 @@
-<button class="btn btn-default pull-right spacing-y"  data-toggle="modal" data-target="#confirmDeleteRoutesModal" {{bindAttr disabled="view.isDeletePathsDisabled"}}>
-    Delete paths
-</button>
+<div class="row">
+    <div class="col-sm-12">
+        <button class="btn btn-default pull-right spacing-y" data-toggle="modal" data-target="#confirmDeleteRoutesModal" {{bindAttr disabled="view.isDeletePathsDisabled" }}>
+            Delete paths
+        </button>
+    </div>
+</div>
 
 <div class="mapContainer">
     <div id="tourEditMapRootElement"></div>
 </div>
 
+<div class="mouse-position-container">
+    <div>{{view.mousePositionLat}}</div>
+    <div>{{view.mousePositionLng}}</div>
+</div>
+
+<!--<div class="row">
+    <div class="col-sm-12 spacing-y">
+        Tip: The markers on the browse map on the frontpage are set by the first point added to the tour map above.
+        Start drawing from the summit point of the tour to make that the point that's marked on the browse map.
+    </div>
+</div>-->
+
 <div class="modal fade" id="confirmDeleteRoutesModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-             <div class="modal-header">
-                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                 <h4 class="modal-title">Delete paths</h4>
-             </div>        
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">Delete paths</h4>
+            </div>
             <div class="modal-body">
-                 Are you sure you want to delete the selected paths from the tour?
+                Are you sure you want to delete the selected paths from the tour?
             </div>
             <div class="modal-footer">
                 <button class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-                <button class="btn btn-danger pull-right" data-dismiss="modal" {{action "deleteRoutes" target="view"}}>Delete</button>
+                <button class="btn btn-danger pull-right" data-dismiss="modal" {{action "deleteRoutes" target="view" }}>Delete</button>
             </div>
         </div>
-    </div>    
+    </div>
 </div>

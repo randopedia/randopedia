@@ -243,7 +243,7 @@ App.BrowseTourmapComponent = Ember.Component.extend({
         });
         
         // Hook up to window resize event to do implicit resize on map canvas
-        redrawMap = function() {
+        var redrawMap = function() {
             google.maps.event.trigger(self.get('map'), 'resize');
         };
         

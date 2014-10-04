@@ -9,6 +9,8 @@ App.TourEditMapView = Ember.View.extend({
     drawingManager: null,
     selectedPolylines: [],
     selectedStrokeColor: 'blue',
+    mousePositionLat: null,
+    mousePositionLng: null,
     
     actions: {
         deleteRoutes: function() {
@@ -187,7 +189,7 @@ App.TourEditMapView = Ember.View.extend({
         this.setMapSize();
         this.parseGeoJson();
         
-        redrawMap = function() {
+        var redrawMap = function() {
             self.setMapSize();
             google.maps.event.trigger(self.get('map'), 'resize');
             self.setZoomAndCenter();
@@ -199,9 +201,10 @@ App.TourEditMapView = Ember.View.extend({
             self.setupPolylineListeners(polyline);
         });
         
-//        google.maps.event.addListener(self.get('map'), 'mouseover', function(event){
-//            console.log(event);
-//        });
+        google.maps.event.addListener(self.get('map'), 'mousemove', function(event){
+            self.set('mousePositionLat', App.GeoHelper.roundCoordinate(event.latLng.lat()));
+            self.set('mousePositionLng', App.GeoHelper.roundCoordinate(event.latLng.lng()));
+        });
        
         // Hook up to window resize event to do implicit resize on map canvas
         $(window).on('resize', redrawMap);        
