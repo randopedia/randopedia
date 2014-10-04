@@ -38,7 +38,13 @@ App.AreaBrowseController = Ember.ArrayController.extend({
 });
 
 App.AreaController = Ember.ObjectController.extend({
-    needs : ['login'],
+    needs: ['login'],
+    markedDescription: function() {
+        if (!this.get('description')) {
+            return null;
+        }
+        return marked(this.get('description'));
+    }.property('description'),
 });
 
 App.AreaEditController = Ember.ObjectController.extend({
@@ -53,13 +59,6 @@ App.AreaEditController = Ember.ObjectController.extend({
         return false;
         // return !this.validateNewSubarea();
     }.property('newArea.name', 'newArea.description'),
-
-    markedDescription: function() {
-        if (!this.get('description')) {
-            return null;
-        }
-        return marked(this.get('description'));
-    }.property('description'),
 
     actions: {
         editArea : function() {
