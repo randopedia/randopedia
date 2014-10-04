@@ -15,6 +15,16 @@
 
 @font-face { font-family: Aight; src: url('../fonts/aaaiight.ttf'); }
 
+// Mixins
+.adjust-margin-for-small {
+    @media (max-width: 749px) { 
+        margin-left: -10px;
+        margin-right: -10px;        
+    }
+}
+
+
+
 .spacing {
     margin: @large-space;
 }
@@ -75,6 +85,10 @@ body {
         right:0;
         margin-top:50px;
     }  
+}
+
+.panel {
+    .adjust-margin-for-small();
 }
 
 .randopedia-logo-text {
@@ -300,6 +314,7 @@ button.info {
 }
 
 .tour-details-view {
+
     h2 {
         margin-top: 5px;
     }
@@ -495,11 +510,22 @@ button.info {
     }
 } 
 
+.about-view {
+    .nav-tabs {
+        .adjust-margin-for-small();
+    }
+
+    .tab-content {
+        .adjust-margin-for-small();
+    }
+}
+
 .about-grades-view {
     dt {
         margin-top: 10px;
     }
 }
+
 .footer-view {
     background: @navbar-background;
     color: @gray-lighter;

@@ -1,247 +1,249 @@
-<div class="container-fluid tour-details-view">
+<div class="container-fluid">
+    <div class="tour-details-view">
 
-	<div class="hidden">{{view.imageLoaded}}</div>
+        <div class="hidden">{{view.imageLoaded}}</div>
 
-	{{#if isDraft}}
-	<div class="row">
-	    <div class="col-sm-12">
-	        <div class="alert alert-info alert-dismissible" role="alert">
-	            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-	            This is a draft, the tour has not yet been published
-	        </div>
-	    </div>
-	</div>
-	{{/if}}
-	
-	{{#if isDeleted}}
-	<div class="row">
-	    <div class="col-sm-12">
-	        <div class="alert alert-danger" role="alert">
-	            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-	            Tour is marked as deleted and will eventually be permanently deleted from the databse
-	        </div>
-	    </div>
-	</div>
-	{{/if}}
-	
-	<div class="row">
-	    <div class="col-sm-12">
-		    <ul class="inline-list">
-		       {{control "breadCrumb" area }}
-		    </ul>
-	    </div>
-	</div>
-	
-	<div class="row">
-	    <div class="col-sm-12">
-	        <h2>
-	            {{name}} {{#if elevationMax }} <span class="small">({{elevationMax}}m)</span> {{/if}} 
-	            {{#if isIncomplete}}
-	            <span class="small">
-	                <a id="incompleteInfoButtonId" 
-			           data-toggle="popover"
-			           data-trigger="focus"
-			           data-content="This tour is marked as incomplete. This means that it might lack some data, but it should be enough information available to make the description useful anyway.">
-	                   <span class="glyphicon glyphicon-warning-sign danger"></span>
-	                </a>
-	            </span>
-	            {{/if}}
-	        </h2>
-	    </div>
-	</div>
-	
-	<div class="row">
-	    <div class="col-sm-12">
-	        <em>{{shortDescription}}</em>
-	    </div>
-	</div>
-	
-	<div class="row tour-props">
-	    <div class="col-sm-12 col-lg-6">
-		        
-			<div class="row">
-			    <div class="col-xs-5 col-sm-3 col-lg-2">
-			        <label>Time:</label>
-			    </div>
-			    <div class="col-xs-7 col-sm-9 col-lg-10">
-			        {{#if timingMin}}{{timingMin}}{{/if}}{{#if timingMax}}-{{timingMax}}{{/if}}h
-			    </div>
-			</div>
-		
-			<div class="row">
-			    <div class="col-xs-5 col-sm-3 col-lg-2">
-			        <label>Elevation:</label>
-			    </div>
-			    <div class="col-xs-7 col-sm-9 col-lg-10">
-	                   {{#if elevationGain}} 
-			            {{elevationGain}}m &uarr; 
-			        {{/if}}
-			        {{#if elevationLoss}}    
-			            {{elevationLoss}}m &darr;
-			        {{/if}}
-			    </div>
-			</div>
-				
-			{{#if grade}}
-			<div class="row">
-			    <div class="col-xs-5 col-sm-3 col-lg-2">
-			        <label>Grade:</label>
-			    </div>
-			    <div class="col-xs-7 col-sm-9 col-lg-10">
-			         <a data-toggle="modal" data-target="#tourDetailsGradeGuideModal">{{resolveGradeName grade}}</a>
-			    </div>       
-			</div>   
-			{{/if}}
-			
-			{{#if degreesMax}} 
-			<div class="row">   
-		        <div class="col-xs-5 col-sm-3 col-lg-2">
-		            <label>Steepness:</label>
-		        </div>
-		        <div class="col-xs-7 col-sm-9 col-lg-10">
-		            {{degreesMax}}&#176;
-		        </div>
-	        </div>
-	         {{/if}} 
-				   
-		    {{#if timeOfYearFrom}}
-		    {{#if timeOfYearTo}}
-			<div class="row">	
-			    <div class="col-xs-5 col-sm-3 col-sm-3 col-lg-2">
-			        <label>Season:</label>
-			    </div>
-			    <div class="col-xs-7 col-sm-9 col-lg-10">
-			        {{resolveMonthName timeOfYearFrom}} - {{resolveMonthName timeOfYearTo}}
-			    </div>            
-			</div>
-			{{/if}}
-			{{/if}}
-				
-			{{#if aspect}}
-			<div class="row">
-			    <div class="col-xs-5 col-sm-3 col-lg-2">
-			        <label>Aspect:</label>
-			    </div>
-			    <div class="col-xs-7 col-sm-9 col-lg-9">
-			        {{resolveAspectName aspect}}
-			    </div>
-			</div>
-	        {{/if}}
-			
-	    </div>
-	    
-	    <div class="col-sm-12 col-lg-6">
-	        {{#if tags}}
-	            <label>Tags:</label>
-	            {{#each tag in tagsArray}}
-	                {{#link-to 'tag' tag}} #{{tag}} {{/link-to}}
-	            {{/each}}
-	        {{/if}}
-	    </div>
-	    
-	</div>
-	
-	<div class="row">
-        <div class="col-sm-12">
-            {{#if hasPaths}}
-                <button class="btn btn-primary btn-view-on-map" {{action "viewTourOnMap"}}>
-                   <span class="glyphicon glyphicon-globe"></span><span class="spacing-x">View tour on map</span>
-                </button>    
-            {{else}}
+        {{#if isDraft}}
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="alert alert-info alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    This is a draft, the tour has not yet been published
+                </div>
+            </div>
+        </div>
+        {{/if}}
+
+        {{#if isDeleted}}
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="alert alert-danger" role="alert">
+                    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    Tour is marked as deleted and will eventually be permanently deleted from the databse
+                </div>
+            </div>
+        </div>
+        {{/if}}
+
+        <div class="row">
+            <div class="col-sm-12">
+                <ul class="inline-list">
+                    {{control "breadCrumb" area }}
+                </ul>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <h2>
+                    {{name}} {{#if elevationMax }} <span class="small">({{elevationMax}}m)</span> {{/if}}
+                    {{#if isIncomplete}}
+                    <span class="small">
+                        <a id="incompleteInfoButtonId"
+                           data-toggle="popover"
+                           data-trigger="focus"
+                           data-content="This tour is marked as incomplete. This means that it might lack some data, but it should be enough information available to make the description useful anyway.">
+                            <span class="glyphicon glyphicon-warning-sign danger"></span>
+                        </a>
+                    </span>
+                    {{/if}}
+                </h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <em>{{shortDescription}}</em>
+            </div>
+        </div>
+
+        <div class="row tour-props">
+            <div class="col-sm-12 col-lg-6">
+
+                <div class="row">
+                    <div class="col-xs-5 col-sm-3 col-lg-2">
+                        <label>Time:</label>
+                    </div>
+                    <div class="col-xs-7 col-sm-9 col-lg-10">
+                        {{#if timingMin}}{{timingMin}}{{/if}}{{#if timingMax}}-{{timingMax}}{{/if}}h
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-5 col-sm-3 col-lg-2">
+                        <label>Elevation:</label>
+                    </div>
+                    <div class="col-xs-7 col-sm-9 col-lg-10">
+                        {{#if elevationGain}}
+                        {{elevationGain}}m &uarr;
+                        {{/if}}
+                        {{#if elevationLoss}}
+                        {{elevationLoss}}m &darr;
+                        {{/if}}
+                    </div>
+                </div>
+
+                {{#if grade}}
+                <div class="row">
+                    <div class="col-xs-5 col-sm-3 col-lg-2">
+                        <label>Grade:</label>
+                    </div>
+                    <div class="col-xs-7 col-sm-9 col-lg-10">
+                        <a data-toggle="modal" data-target="#tourDetailsGradeGuideModal">{{resolveGradeName grade}}</a>
+                    </div>
+                </div>
+                {{/if}}
+
+                {{#if degreesMax}}
+                <div class="row">
+                    <div class="col-xs-5 col-sm-3 col-lg-2">
+                        <label>Steepness:</label>
+                    </div>
+                    <div class="col-xs-7 col-sm-9 col-lg-10">
+                        {{degreesMax}}&#176;
+                    </div>
+                </div>
+                {{/if}}
+
+                {{#if timeOfYearFrom}}
+                {{#if timeOfYearTo}}
+                <div class="row">
+                    <div class="col-xs-5 col-sm-3 col-sm-3 col-lg-2">
+                        <label>Season:</label>
+                    </div>
+                    <div class="col-xs-7 col-sm-9 col-lg-10">
+                        {{resolveMonthName timeOfYearFrom}} - {{resolveMonthName timeOfYearTo}}
+                    </div>
+                </div>
+                {{/if}}
+                {{/if}}
+
+                {{#if aspect}}
+                <div class="row">
+                    <div class="col-xs-5 col-sm-3 col-lg-2">
+                        <label>Aspect:</label>
+                    </div>
+                    <div class="col-xs-7 col-sm-9 col-lg-9">
+                        {{resolveAspectName aspect}}
+                    </div>
+                </div>
+                {{/if}}
+
+            </div>
+
+            <div class="col-sm-12 col-lg-6">
+                {{#if tags}}
+                <label>Tags:</label>
+                {{#each tag in tagsArray}}
+                {{#link-to 'tag' tag}} #{{tag}} {{/link-to}}
+                {{/each}}
+                {{/if}}
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                {{#if hasPaths}}
+                <button class="btn btn-primary btn-view-on-map" {{action "viewTourOnMap" }}>
+                    <span class="glyphicon glyphicon-globe"></span><span class="spacing-x">View tour on map</span>
+                </button>
+                {{else}}
                 <div>No map is available for this tour</div>
-            {{/if}}    
-        </div>
-                
-	    <div class="col-sm-12">
-	        <div class="panel panel-default">
-	            <div class="panel-heading">Access point</div>
-	            <div class="panel-body">
-	               {{accessPoint}}
-	            </div>
-	        </div>
-	    </div>
-	</div>
-	
-	<div class="row">
-	    <div class="col-sm-12">
-	        <div class="panel panel-default">
-	            <div class="panel-heading">Description</div>
-	            <div class="panel-body">
-	                <div>{{{markedItinerary}}}</div>
-	            </div>
-	        </div>
-	    </div>
-	</div>
-	
-	<div class="row">
-	    {{#if haveHazards}}
-	    <div class="col-sm-12 col-sm-6">
-	        <div class="panel panel-danger">
-	            <div class="panel-heading">Hazards</div>
-		        <div class="panel-body">
-		           {{hazardsDescription}}
-	            </div>  
-	        </div>
-	    </div>
-	    {{/if}}
-	     
-	    {{#if requiresTools}}
-	    <div class="col-sm-12 col-sm-6">
-	        <div class="panel panel-info">
-	            <div class="panel-heading">Mountaineering</div>
-	            <div class="panel-body">
-	               {{toolsDescription}}
-	            </div>
-	        </div>
-	    </div>
-	    {{/if}}
-	</div>
-	
-    <div class="row">
-        <div id="image-carousel-container" class="image-carousel-container col-sm-12">
-             
-            <h4>Images<span class="small"> ({{images.length}})</span></h4>
+                {{/if}}
+            </div>
 
-            {{#if hasImages}}
-                {{view App.ImageCarouselView contentBinding="images"}}
-            {{else}}
-                <div class="spacing-x-large spacing-y">No images available for this tour</div> 
+            <div class="col-sm-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Access point</div>
+                    <div class="panel-body">
+                        {{accessPoint}}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Description</div>
+                    <div class="panel-body">
+                        <div>{{{markedItinerary}}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            {{#if haveHazards}}
+            <div class="col-sm-12 col-sm-6">
+                <div class="panel panel-danger">
+                    <div class="panel-heading">Hazards</div>
+                    <div class="panel-body">
+                        {{hazardsDescription}}
+                    </div>
+                </div>
+            </div>
             {{/if}}
-            
 
+            {{#if requiresTools}}
+            <div class="col-sm-12 col-sm-6">
+                <div class="panel panel-info">
+                    <div class="panel-heading">Mountaineering</div>
+                    <div class="panel-body">
+                        {{toolsDescription}}
+                    </div>
+                </div>
+            </div>
+            {{/if}}
         </div>
-    </div>
-	
-	<div class="row">
-	    <div class="col-sm-12">
-	    
-	        <!--  TODO: Add Disqus here -->
-	        
-	    </div>    
-	</div>
-	
-	{{#if controllers.login.isLoggedIn}}
-    <div class="row">
-        <div class="col-sm-12 edit-container">
-            {{#link-to 'tour.edit' model}}<span class="glyphicon glyphicon-edit"></span> Edit tour{{/link-to}}
+
+        <div class="row">
+            <div id="image-carousel-container" class="image-carousel-container col-sm-12">
+
+                <h4>Images<span class="small"> ({{images.length}})</span></h4>
+
+                {{#if hasImages}}
+                {{view App.ImageCarouselView contentBinding="images"}}
+                {{else}}
+                <div class="spacing-x-large spacing-y">No images available for this tour</div>
+                {{/if}}
+
+
+            </div>
         </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+
+                <!--  TODO: Add Disqus here -->
+
+            </div>
+        </div>
+
+        {{#if controllers.login.isLoggedIn}}
+        <div class="row">
+            <div class="col-sm-12 edit-container">
+                {{#link-to 'tour.edit' model}}<span class="glyphicon glyphicon-edit"></span> Edit tour{{/link-to}}
+            </div>
+        </div>
+        {{/if}}
+
+        {{partial "footer"}}
+
+        <div class="modal fade" id="tourDetailsGradeGuideModal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-lg login-view">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Grades</h4>
+                    </div>
+                    <div class="modal-body">
+                        {{partial "about-grades"}}
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
-    {{/if}}
-    
-    {{partial "footer"}}
-
-	<div class="modal fade" id="tourDetailsGradeGuideModal" tabindex="-1" role="dialog" aria-hidden="true">
-		<div class="modal-dialog modal-lg login-view">
-		    <div class="modal-content">
-		        <div class="modal-header">
-		            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-		            <h4 class="modal-title" id="myModalLabel">Grades</h4>
-		        </div>
-		        <div class="modal-body">
-	                {{partial "about-grades"}}
-		        </div>
-		    </div>
-		</div>
-	</div>
-
 </div>
