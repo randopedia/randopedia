@@ -27,6 +27,34 @@
     }
 }
 
+@font-size-h1:            floor((@font-size-base * 2.6)); // ~36px
+@font-size-h2:            floor((@font-size-base * 2.15)); // ~30px
+@font-size-h3:            ceil((@font-size-base * 1.7)); // ~24px
+@font-size-h4:            ceil((@font-size-base * 1.25)); // ~18px
+@font-size-h5:            @font-size-base;
+@font-size-h6:            ceil((@font-size-base * 0.85)); // ~12px
+
+@media (max-width: 749px) {  
+    body {
+        font-size: 12px !important;
+    }
+    h1 {
+        font-size: 30px !important;
+    }  
+    h2 {
+        font-size: 26px !important;
+    }  
+    h3 {
+        font-size: 20px !important;
+    }  
+    h4 {
+        font-size: 16px !important;
+    } 
+     
+    .panel-heading {
+        font-size: 16px !important;
+    }
+}
 
 
 .spacing {
@@ -128,10 +156,6 @@ body {
     .popover-content {
         font-size: @font-size-base;
     }
-}
-
-.alert {
-    margin: 20px;
 }
 
 a {
@@ -248,18 +272,44 @@ a {
     margin-top: 100px;
 }
 
+.edit-navbar {
+    .navbar();
+    .navbar-inverse();
+    .navbar-fixed-bottom();
+    height: 75px;
+
+    color: #fff;
+
+    .btn-toolbar {
+        padding: 20px;
+    }
+
+    .saving-info-container {
+        margin: 10px;
+    }
+}
+
 .edit-container {
-    margin: 10px 0;
-    padding: 10px;
+    padding: 20px;
     border-top: @light-border;
+    border-bottom: @light-border;
+    
+    @media (max-width: 749px) {  
+        border-bottom: none;  
+    }
+
     a {
         .btn();
-        .btn-primary();
+        .btn-default();
         float: right;
 
         @media (max-width: 749px) { 
-            margin-bottom: 10px;      
+            margin-bottom: 10px;    
         }
+    }
+
+    &.area {
+        background: #fff;
     }
 }
 
@@ -448,6 +498,8 @@ button.info {
 }
 
 .tour-edit-view {
+    margin-bottom: 75px;
+
     #tourEditMapRootElement {
         height: 700px;
     }

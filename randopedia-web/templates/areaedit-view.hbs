@@ -47,28 +47,6 @@
 	</div>
 	{{/if}}
 		
-	<div class="row spacing-y">
-	    {{#if havePendingOperations}}
-	    <div class="col-sm-12">
-	       <div>Saving...</div>
-	    </div>
-	    {{else}}
-	    <div class="col-sm-12">
-	        {{#if isReadOnlyArea}}
-	            <span class="info label" class="alert">{{name}} is a root area and cannot be edited, but it's possible to add subareas.</span>
-	        {{else}}
-	            <button class="btn btn-primary" {{bindAttr disabled="isNotDirty"}} {{action "saveArea" target="view"}}>
-	               <span class="glyphicon glyphicon-cloud-upload"></span> Publish
-	            </button>
-	            <button class="btn btn-primary" {{action "startCancelingEdit" target="view"}}>Exit edit</button>
-	            {{#if isDirty}}
-	                <span class="spacing-x-large"><span class="glyphicon glyphicon-floppy-disk"></span><em> Area has unsaved changes</em></span>
-	            {{/if}}
-	        {{/if}}
-	    </div>
-	    {{/if}}
-	</div>
-		
 	<div class="row">
 	    
 	    <div class="col-sm-12">
@@ -223,3 +201,40 @@
 	    </div>    
 	</div> 
 </div>
+
+<nav class="edit-navbar" role="toolbar">
+    <div class="container-fluid">
+
+        <div class="navbar-header">
+            <div class="btn-toolbar">
+                {{#if isReadOnlyArea}}
+                <span class="info label" class="alert">{{name}} is a root area and cannot be edited, but it's possible to add subareas.</span>
+                {{else}}
+
+                <div class="btn-group">
+                    <button class="btn btn-default" {{bindAttr disabled="isNotDirty" }} {{action "saveArea" target="view" }}>
+                        <span class="glyphicon glyphicon-cloud-upload"></span> Publish
+                    </button>
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn btn-default" {{action "startCancelingEdit" target="view" }}>
+                        <span class="glyphicon glyphicon-share"></span> Exit edit
+                    </button>
+                </div>
+
+                <div class="saving-info-container">
+                    {{#if isDirty}}
+                        {{#if havePendingOperations}}
+                        <span class="spacing-x-large"><span class="glyphicon glyphicon-floppy-disk"></span><em> Saving...</em></span>
+                        {{else}}
+                        <span class="spacing-x-large"><span class="glyphicon glyphicon-floppy-disk"></span><em class="hidden-xs"> Area has unsaved changes</em></span>
+                        {{/if}}
+                    {{/if}}
+                </div>
+                {{/if}}
+            </div>
+        </div>
+
+    </div>
+</nav>

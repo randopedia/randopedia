@@ -1,108 +1,83 @@
 <div class="container-fluid tour-edit-view">
- 
-	{{#if authenticationErrors}}
-	<div class="row">
-	    <div class="col-sm-12">
+
+    {{#if authenticationErrors}}
+    <div class="row">
+        <div class="col-sm-12">
             <div class="alert alert-danger" role="alert">
                 <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 Looks like you have been logged out, try to log in again.
-            </div>	        
-	    </div>
-	</div>
-	{{/if}}
-	
-	{{#if serverErrors}}
-	<div class="row">
-	    <div class="col-sm-12">
+            </div>
+        </div>
+    </div>
+    {{/if}}
+
+    {{#if serverErrors}}
+    <div class="row">
+        <div class="col-sm-12">
             <div class="alert alert-danger" role="alert">
                 <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 Something went wrong when saving the tour, please try again.
-            </div>  	        
-	    </div>
-	</div>
-	{{/if}}
-	
-	{{#if validationErrors}}
-	<div class="row">
-	    <div class="col-sm-12">
-	        <div class="alert alert-danger" role="alert">
+            </div>
+        </div>
+    </div>
+    {{/if}}
+
+    {{#if validationErrors}}
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="alert alert-danger" role="alert">
                 <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 Oh noes, there was some validation errors, please try again.
-            </div>  
-	    </div>
-	</div>
-	{{/if}}
-	
-	{{#if draftValidationErrors}}
-	<div class="row">
+            </div>
+        </div>
+    </div>
+    {{/if}}
+
+    {{#if draftValidationErrors}}
+    <div class="row">
         <div class="col-sm-12">
             <div class="alert alert-danger" role="alert">
                 <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 Couldn't save draft, area and name must be set.
-            </div>  
-        </div>	    
-	</div>
-	{{/if}}
-	
-	{{#if isDraft}}
-	<div class="row">
+            </div>
+        </div>
+    </div>
+    {{/if}}
+
+    {{#if isDraft}}
+    <div class="row">
         <div class="col-sm-12">
             <div class="alert alert-info alert-dismissible" role="alert">
                 <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 This is a draft, the tour has not yet been published.
-            </div>  
-        </div>   	    
-	</div>
-	{{/if}}
-	
-	{{#if isDeleted}}
-	<div class="row">
+            </div>
+        </div>
+    </div>
+    {{/if}}
+
+    {{#if isDeleted}}
+    <div class="row">
         <div class="col-sm-12">
             <div class="alert alert-danger" role="alert">
                 <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 Tour is marked as deleted and will eventually be permanently deleted from the databse.
-            </div> 
-        </div>   
-	</div>
-	{{/if}}
-	
-	{{#if updateSuccessfully}}
-	<div class="row">
-	    <div class="col-sm-12">
+            </div>
+        </div>
+    </div>
+    {{/if}}
+
+    {{#if updateSuccessfully}}
+    <div class="row">
+        <div class="col-sm-12">
             <div class="alert alert-success alert-dismissible" role="alert">
                 <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 Tour was successfully updated.
-            </div>	        
-	    </div>
-	</div>
-	{{/if}}
+            </div>
+        </div>
+    </div>
+    {{/if}}
 
-    {{#if havePendingOperations}}
-	    <div class="row">
-	       <div class="col-sm-12">
-	           Saving...
-	       </div>
-	    </div>
-    {{else}}
-		<div class="row spacing-y">
-		   <div class="col-sm-12">
-                {{#unless isPublished}}
-                    <button class="btn btn-primary" {{bindAttr disabled="isSaveAsDraftDisabled"}} {{action "saveAsDraft"}}>
-                       <span class="glyphicon glyphicon-floppy-save"></span> Save as draft
-                    </button>
-                {{/unless}}				 
-                <button class="btn btn-primary" {{bindAttr disabled="isStartPublishDisabled"}} {{action "startPublishTour" target="view"}}>
-                   <span class="glyphicon glyphicon-cloud-upload"></span> Publish
-                </button>			 
-				<button class="btn btn-primary" {{action "startCancelingEditTour" target="view"}} class="right">Exit edit</button>
-				{{#if hasChanges}}
-                    <span class="spacing-x-large"><span class="glyphicon glyphicon-floppy-disk"></span><em> Tour has unsaved changes</em></span>
-                {{/if}}
-		   </div>
-		</div>
-	{{/if}}     
-	
-	<div class="row"> 
+    <div class="row">
         <div class="col-sm-12">
 
             <ul class="nav nav-tabs" role="tablist">
@@ -416,8 +391,8 @@
             </div>
 
         </div>
-	</div>
-	
+    </div>
+
     <div class="modal fade" id="tourDetailsGradeGuideModal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg login-view">
             <div class="modal-content">
@@ -431,7 +406,7 @@
             </div>
         </div>
     </div>
-    	
+
     <div class="modal fade" id="areaPickerModal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -443,9 +418,9 @@
                     {{view App.AreaPickerView}}
                 </div>
             </div>
-        </div>    
+        </div>
     </div>
-    
+
     <div class="modal fade" id="discardChangesTourModal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -456,13 +431,13 @@
                     The tour has unsaved changes, do you want to discard them?
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>       
+                    <button class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
                     <button class="btn btn-danger pull-right" {{action "confirmDiscardChanges" target="view" }}>Discard changes</button>
                 </div>
             </div>
-        </div>    
+        </div>
     </div>
-	
+
     <div class="modal fade" id="confirmDeleteTourModal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg areapicker-view">
             <div class="modal-content">
@@ -474,15 +449,15 @@
                     Are you sure you want to delete the tour?
                 </div>
                 <div class="modal-footer">
-		            <button class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-		            <button class="btn btn-danger pull-right" {{action "confirmDeleteTour" target="view"}}>Delete tour</button>                     
+                    <button class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+                    <button class="btn btn-danger pull-right" {{action "confirmDeleteTour" target="view" }}>Delete tour</button>
                 </div>
             </div>
-        </div>    
+        </div>
     </div>
-	
-	<div class="modal fade" id="publishTourStep1Modal" tabindex="-1" role="dialog" aria-hidden="true">
-        
+
+    <div class="modal fade" id="publishTourStep1Modal" tabindex="-1" role="dialog" aria-hidden="true">
+
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -490,77 +465,118 @@
                     <h4 class="modal-title">Publish tour (Step 1 of 2)</h4>
                 </div>
                 <div class="modal-body">
-					{{#if view.haveValidationErrors}}
-					    <div class="alert alert-danger" role="alert">
-					        Tour data is invalid or incomplete
-					    </div>
-					
-					    <div>
-					        <p>The tour lacks to much data to be published. Please add missing data and try again.</p>
-					        <p class="secondary-text">
-					            The following fields are missing or invalid: 
-					            {{#each error in validationErrors}}
-					                <code>{{error}}</code>, 
-					            {{/each}}
-					        </p>
-					            
-					        <p class="secondary-text confirmation-message">
-					        Required fields for publish are: Area, Name, Access point, Description, Time min/max and Elevation gain/loss
-					        </p> 
-					    </div>
-					{{else}}
-					    {{#if view.haveValidationWarnings }}
-					        <div class="alert alert-warning" role="alert">
-					            Tour data is valid but incomplete
-					        </div>
-					        <div>
-					            <p>The tour lacks some important data. It can be published, but it'll be marked as incomplete.</p>
-					            
-					            <p class="secondary-text confirmation-message">
-					            The following fields are missing:
-					            {{#each warning in validationWarnings}}
-					                <code>{{warning}}</code>, 
-					            {{/each}}
-					            </p>
-					        </div>
-					     {{else}}
-					         <div class="alert alert-success" role="alert">
-					            Tour data is valid
-					        </div>
-					        <p>Tour is ready to be published.</p>
-					     {{/if}}
-					{{/if}}
+                    {{#if view.haveValidationErrors}}
+                    <div class="alert alert-danger" role="alert">
+                        Tour data is invalid or incomplete
+                    </div>
+
+                    <div>
+                        <p>The tour lacks to much data to be published. Please add missing data and try again.</p>
+                        <p class="secondary-text">
+                            The following fields are missing or invalid:
+                            {{#each error in validationErrors}}
+                            <code>{{error}}</code>,
+                            {{/each}}
+                        </p>
+
+                        <p class="secondary-text confirmation-message">
+                            Required fields for publish are: Area, Name, Access point, Description, Time min/max and Elevation gain/loss
+                        </p>
+                    </div>
+                    {{else}}
+                    {{#if view.haveValidationWarnings }}
+                    <div class="alert alert-warning" role="alert">
+                        Tour data is valid but incomplete
+                    </div>
+                    <div>
+                        <p>The tour lacks some important data. It can be published, but it'll be marked as incomplete.</p>
+
+                        <p class="secondary-text confirmation-message">
+                            The following fields are missing:
+                            {{#each warning in validationWarnings}}
+                            <code>{{warning}}</code>,
+                            {{/each}}
+                        </p>
+                    </div>
+                    {{else}}
+                    <div class="alert alert-success" role="alert">
+                        Tour data is valid
+                    </div>
+                    <p>Tour is ready to be published.</p>
+                    {{/if}}
+                    {{/if}}
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-                    <button class="btn btn-primary pull-right" {{bindAttr disabled="view.haveValidationErrors"}} {{action "continueToPublishStep2" target="view"}}>Continue</button>
+                    <button class="btn btn-primary pull-right" {{bindAttr disabled="view.haveValidationErrors" }} {{action "continueToPublishStep2" target="view" }}>Continue</button>
                 </div>
             </div>
-        </div>        
+        </div>
     </div>
-	
-	<div class="modal fade" id="publishTourStep2Modal" tabindex="-1" role="dialog" aria-hidden="true">
-	    
-	    <div class="modal-dialog modal-lg">
-	        <div class="modal-content">
-	            <div class="modal-header">
-	                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-	                <h4 class="modal-title">Publish tour (Step 2 of 2)</h4>
-	            </div>
-	            <div class="modal-body">
-	                <form role="form">
-	                    <div class="form-group">
-	                        <label for="inputPublishComment">What did you change?</label>
-	                        {{textarea id="inputChangeComment" class="form-control" value=publishComment maxlength="500"}}
-	                    </div>
-	                </form>
-	            </div>
-	            <div class="modal-footer">
-	                <button class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-	                <button class="btn btn-primary pull-right" {{bindAttr disabled="view.isPublishDisabled"}} {{action "confirmPublishTour" target="view"}}>Publish</button>  	            
-	            </div>
-	        </div>
-	    </div>        
-	</div>
-    
+
+    <div class="modal fade" id="publishTourStep2Modal" tabindex="-1" role="dialog" aria-hidden="true">
+
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">Publish tour (Step 2 of 2)</h4>
+                </div>
+                <div class="modal-body">
+                    <form role="form">
+                        <div class="form-group">
+                            <label for="inputPublishComment">What did you change?</label>
+                            {{textarea id="inputChangeComment" class="form-control" value=publishComment maxlength="500"}}
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+                    <button class="btn btn-primary pull-right" {{bindAttr disabled="view.isPublishDisabled" }} {{action "confirmPublishTour" target="view" }}>Publish</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
+
+<nav class="edit-navbar" role="toolbar">
+    <div class="container-fluid">
+
+        <div class="navbar-header">
+            <div class="btn-toolbar">
+                {{#unless isPublished}}
+                <div class="btn-group">
+                    <button class="btn btn-default" {{bindAttr disabled="isSaveAsDraftDisabled" }} {{action "saveAsDraft" }}>
+                        <span class="glyphicon glyphicon-floppy-save"></span> Save as draft
+                    </button>
+               </div>
+                {{/unless}}
+
+                <div class="btn-group">
+                    <button class="btn btn-default" {{bindAttr disabled="isStartPublishDisabled" }} {{action "startPublishTour" target="view" }}>
+                        <span class="glyphicon glyphicon-cloud-upload"></span> Publish
+                    </button>
+                </div>
+                    
+                <div class="btn-group">
+                    <button class="btn btn-default" {{action "startCancelingEditTour" target="view" }}>
+                        <span class="glyphicon glyphicon-share"></span> Exit edit
+                    </button>
+                </div>
+
+                <div class="saving-info-container">
+                    {{#if hasChanges}}
+                        {{#if havePendingOperations}}
+                        <span class="spacing-x-large"><span class="glyphicon glyphicon-floppy-disk"></span><em> Saving...</em></span>
+                        {{else}}
+                        <span class="spacing-x-large"><span class="glyphicon glyphicon-floppy-disk"></span><em class="hidden-xs"> Tour has unsaved changes</em></span>
+                        {{/if}}
+                    {{/if}}
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</nav>
