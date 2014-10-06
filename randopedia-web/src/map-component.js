@@ -31,11 +31,7 @@ App.BrowseTourmapComponent = Ember.Component.extend({
     },
     
     zoomToTour: function(tour) {
-
-        var lines = this.get('currentMapPolylines');
-        
         var tourMapObjects = App.GeoHelper.getGoogleObjectsFromTourGeoJson(tour.get('mapGeoJson'));
-
         if(!tourMapObjects) { 
             return; 
         }
@@ -43,7 +39,7 @@ App.BrowseTourmapComponent = Ember.Component.extend({
         var bounds = new google.maps.LatLngBounds();
         
         tourMapObjects.forEach(function(mapObject) {
-            for(j = 0; j < mapObject.getPath().length; j++){
+            for(var j = 0; j < mapObject.getPath().length; j++){
                 bounds.extend(mapObject.getPath().getArray()[j]);
             } 
         });
@@ -116,7 +112,6 @@ App.BrowseTourmapComponent = Ember.Component.extend({
         if(navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function(position) {
                 var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-                var image = 'images/my_position_marker.png';
                 var pinIcon = new google.maps.MarkerImage(
                     'images/my_position_marker.png',
                     null, /* size is determined at runtime */
@@ -193,7 +188,7 @@ App.BrowseTourmapComponent = Ember.Component.extend({
             self.get('markers').push(marker);
         });
 
-        this.initMap();
+        self.initMap();
         $(window).resize();
     },
     

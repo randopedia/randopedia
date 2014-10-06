@@ -13,6 +13,10 @@
 @small-space:                   5px;
 @large-space:                   10px;
 
+@map-path-default-color:        #990000;
+@map-path-up-color:             #343434;
+@map-path-down-color:           #EE0000;
+
 @font-face { font-family: Aight; src: url('../fonts/aaaiight.ttf'); }
 
 // Mixins
@@ -448,16 +452,6 @@ button.info {
         height: 700px;
     }
 
-    .mouse-position-container {
-        position: absolute;
-        top: calc(~'100% - 100px');
-        left: 20px;
-        color: @gray-dark;
-        background-color: rgba(255, 255, 255, 0.5);
-        padding: 5px;
-        border-radius: 5px;
-    }
-
     .checkbox {
         display: inline;
         label {
@@ -465,6 +459,40 @@ button.info {
             margin-bottom: 5px;
         }
      }
+     
+    .map-edit-view {
+        .btn-toolbar {
+            margin-bottom: 5px;
+        }
+
+        .mouse-position-container {
+            position: absolute;
+            top: calc(~'100% - 100px');
+            left: calc(~'100% - 100px');
+            color: @gray-dark;
+            background-color: rgba(255, 255, 255, 0.5);
+            padding: 5px;
+            border-radius: 5px;
+        }
+
+        .glyphicon-sort {
+            color: @map-path-default-color;
+        }
+
+        .glyphicon-arrow-up {
+            color: @map-path-up-color;
+        }
+
+        .glyphicon-arrow-down {
+            color: @map-path-down-color;
+        }
+
+        .glyphicon-trash {
+            margin-top: 3px;
+            margin-bottom: 4px;
+        }
+
+    }
 }
 
 .image-upload-view {
