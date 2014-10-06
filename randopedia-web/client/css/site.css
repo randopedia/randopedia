@@ -6167,6 +6167,12 @@ button.close {
   font-family: Aight;
   src: url('../fonts/aaaiight.ttf');
 }
+@media (max-width: 749px) {
+  .adjust-margin-for-small {
+    margin-left: -10px;
+    margin-right: -10px;
+  }
+}
 .spacing {
   margin: 10px;
 }
@@ -6195,6 +6201,31 @@ button.close {
 .small {
   font-size: 0.8em;
 }
+.asterisk {
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #d9534f;
+  font-size: 0.7em;
+  margin-left: 5px;
+  margin-right: 5px;
+  top: -4px;
+}
+.asterisk:before {
+  content: "\2a";
+}
+.asterisk.required {
+  color: #d9534f;
+}
+.asterisk.recommended {
+  color: #f0ad4e;
+}
 body {
   padding-top: 50px;
 }
@@ -6211,12 +6242,18 @@ body {
   right: 0;
   margin-top: 50px;
 }
+@media (max-width: 749px) {
+  .panel {
+    margin-left: -10px;
+    margin-right: -10px;
+  }
+}
+.loading {
+  margin: 20px;
+}
 .randopedia-logo-text {
   font-weight: 700;
   font-family: Aight, Helvetica, Arial;
-}
-.tab-content {
-  padding: 10px;
 }
 .popover {
   min-width: 250px;
@@ -6240,6 +6277,12 @@ a:hover {
   border-top: none;
   color: #333333;
 }
+@media (max-width: 749px) {
+  .nav-tabs {
+    margin-left: -10px;
+    margin-right: -10px;
+  }
+}
 .nav-tabs li > a {
   color: #000;
   margin-left: -1px;
@@ -6256,6 +6299,15 @@ a:hover {
 }
 .nav-tabs li.active > a:hover {
   background: #eeeeee;
+}
+.tab-content {
+  padding: 10px;
+}
+@media (max-width: 749px) {
+  .tab-content {
+    margin-left: -10px;
+    margin-right: -10px;
+  }
 }
 .navbar {
   background: #333333;
@@ -6416,6 +6468,11 @@ fieldset[disabled] .edit-container a.active {
   color: #428bca;
   background-color: #ffffff;
 }
+@media (max-width: 749px) {
+  .edit-container a {
+    margin-bottom: 10px;
+  }
+}
 .form-group .req-field {
   color: #d9534f;
   font-size: 1.5em;
@@ -6471,8 +6528,6 @@ button.info:hover {
   position: absolute;
   top: calc(100% - 65px);
   left: calc(100% - 65px);
-  width: 40px;
-  height: 40px;
   background: #fff;
   border-color: #D3D3D3;
   box-shadow: 0 0 5px #D3D3D3;
@@ -6484,9 +6539,6 @@ button.info:hover {
 }
 .browse-map-view .btn-my-position:hover {
   background: #eeeeee;
-}
-.browse-map-view .btn-my-position span {
-  left: -3px;
 }
 .tour-item-view .item-panel {
   margin-bottom: 10px;
@@ -6525,15 +6577,104 @@ button.info:hover {
   border-width: 0;
   background: #fff;
 }
+.tour-details-view .image-carousel-container {
+  background: #eeeeee;
+}
+.tour-details-view .image-carousel-container h4 {
+  font-size: 20px;
+  font-weight: 700;
+  margin-left: 20px;
+  padding-top: 10px;
+}
+.tour-details-view .carousel {
+  max-width: 1570px;
+  height: 340px;
+  margin-left: -15px;
+  margin-right: -15px;
+}
+@media (min-width: 370px) {
+  .tour-details-view .carousel {
+    height: 400px;
+  }
+}
+@media (min-width: 750px) {
+  .tour-details-view .carousel {
+    height: 600px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+@media (min-width: 970px) {
+  .tour-details-view .carousel {
+    height: 720px;
+  }
+}
+@media (min-width: 1570px) {
+  .tour-details-view .carousel {
+    height: 970px;
+  }
+}
+.tour-details-view .carousel img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-height: 340px;
+  padding-bottom: 20px;
+}
+@media (min-width: 370px) {
+  .tour-details-view .carousel img {
+    max-height: 400px;
+  }
+}
+@media (min-width: 750px) {
+  .tour-details-view .carousel img {
+    max-height: 600px;
+  }
+}
+@media (min-width: 970px) {
+  .tour-details-view .carousel img {
+    max-height: 720px;
+  }
+}
+@media (min-width: 1570px) {
+  .tour-details-view .carousel img {
+    max-height: 970px;
+  }
+}
+.tour-details-view .carousel .carousel-control {
+  background: none;
+  opacity: 0.5;
+}
+.tour-details-view .carousel .carousel-control:hover {
+  opacity: 1.0;
+}
 .tour-edit-view #tourEditMapRootElement {
-  height: 800px;
+  height: 700px;
+}
+.tour-edit-view .mouse-position-container {
+  position: absolute;
+  top: calc(100% - 100px);
+  left: 20px;
+  color: #333333;
+  background-color: rgba(255, 255, 255, 0.5);
+  padding: 5px;
+  border-radius: 5px;
+}
+.tour-edit-view .checkbox {
+  display: inline;
+}
+.tour-edit-view .checkbox label {
+  font-weight: 700;
+  margin-bottom: 5px;
 }
 .image-upload-view .thumbnail-wrapper {
   display: inline-block;
+  margin-bottom: 10px;
 }
-.image-upload-view .thumbnail-image {
+.image-upload-view .thumbnail-wrapper img {
   max-width: 130px;
-  max-height: 100px;
+  margin: 0 auto;
 }
 .login-view .login-link {
   text-decoration: none;
@@ -6613,4 +6754,42 @@ button.info:hover {
 }
 .browse-tree-view .intent-child {
   margin-left: 20px;
+}
+.about-grades-view dt {
+  margin-top: 10px;
+}
+.footer-view {
+  background: #333333;
+  color: #eeeeee;
+  font-size: 0.8em;
+  padding: 20px;
+  margin: 0 -15px;
+}
+.footer-view a:hover {
+  color: #eeeeee;
+  text-decoration: underline;
+}
+.footer-view .cc-img {
+  margin-bottom: 5px;
+}
+.footer-view .randopedia-logo-text {
+  margin: 15px 0 0 0;
+  font-size: 25px;
+}
+.footer-view .inline-list {
+  font-family: "Lucida console", Monospace;
+  font-size: 1.1em;
+  margin-left: -3px;
+}
+.footer-view .inline-list .green {
+  color: #96AC92;
+}
+.footer-view .inline-list .blue {
+  color: #A1B3BE;
+}
+.footer-view .inline-list .red {
+  color: #F6C0C0;
+}
+.footer-view .inline-list .brown {
+  color: #DAD0A9;
 }

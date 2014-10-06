@@ -25,4 +25,5 @@ node_modules
 randopedia-web/src/config.js
 .metadata
 randopedia.js
+randopedia.min.js
 templates.js

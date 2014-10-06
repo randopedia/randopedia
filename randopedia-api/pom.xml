@@ -9,7 +9,6 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  	<jetty.version>9.0.5.v20130815</jetty.version>
   </properties>
 
   <parent>  
