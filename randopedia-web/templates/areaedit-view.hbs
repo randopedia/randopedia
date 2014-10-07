@@ -53,7 +53,7 @@
 	        {{#if isReadOnlyArea}}
 	            <h2>{{name}}</h2>
 	        {{else}}
-	        <div class="panel panel-default">
+	        <div class="panel panel-default spacing-top">
 	            <div class="panel-heading">
 	                Area details
 	            </div>
@@ -90,7 +90,7 @@
 		            </ul>
 		            <div class="row">
 	                    <div class="col-sm-12">  
-		                   <button class="btn btn-primary pull-right" data-toggle="modal" {{action "startAddSubArea" target="view"}} data-target="#addSubAreaModal">Add new subarea</button>
+		                   <button class="btn btn-primary pull-right" data-toggle="modal" {{action "startAddSubArea" target="view"}} data-target="#addSubAreaModal"><span class="glyphicon glyphicon-plus"></span> Add new subarea</button>
 		               </div>
 		           </div>
 			    </div>
@@ -115,7 +115,7 @@
 	                </div>
 	                <div class="row">
 	                    <div class="col-sm-12">
-	                        <button class="btn btn-primary pull-right" {{action "addTour"}}>Add new tour</button>
+	                        <button class="btn btn-primary pull-right" {{action "addTour"}}><span class="glyphicon glyphicon-plus"></span> Add new tour</button>
 	                    </div>
 	                </div>
 	            </div>
@@ -125,81 +125,81 @@
 	        
 	</div>
 		
-	<div class="modal fade" id="discardChangesAreaModal" tabindex="-1" role="dialog" aria-hidden="true">
-	    <div class="modal-dialog modal-lg">
-	        <div class="modal-content">
-	            <div class="modal-body">
-	                The area has unsaved changes, do you want to discard them?
-	            </div>
-	            <div class="modal-footer">
-	                <button class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-	                <button class="btn btn-danger pull-right" data-dismiss="modal" {{action "cancelEdit"}}>Discard changes</button>
-	            </div>
-	        </div>
-	    </div>    
-	</div> 
+    <div class="modal fade" id="discardChangesAreaModal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-body">
+                    The area has unsaved changes, do you want to discard them?
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+                    <button class="btn btn-danger pull-right" data-dismiss="modal" {{action "cancelEdit" }}>Discard changes</button>
+                </div>
+            </div>
+        </div>
+    </div> 
 		
-	<div class="modal fade" id="validationErrorsAreaModal" tabindex="-1" role="dialog" aria-hidden="true">
-	    <div class="modal-dialog modal-lg">
-	        <div class="modal-content">
+    <div class="modal fade" id="validationErrorsAreaModal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                     <h4 class="modal-title">Validation failed</h4>
                 </div>
-	            <div class="modal-body">
-	                There are validation errors that must be corrected before the area can be published.
-	            </div>
-	            <div class="modal-footer">
-	                <button class="btn btn-primary pull-right" data-dismiss="modal">OK</button>
-	            </div>
-	        </div>
-	    </div>    
-	</div>  
+                <div class="modal-body">
+                    There are validation errors that must be corrected before the area can be published.
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary pull-right" data-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>  
 		
-	<div class="modal fade" id="confirmPublishAreaModal" tabindex="-1" role="dialog" aria-hidden="true">
-	    <div class="modal-dialog modal-lg">
-	        <div class="modal-content">
+    <div class="modal fade" id="confirmPublishAreaModal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                     <h4 class="modal-title">Publish area</h4>
                 </div>
-	            <div class="modal-body">
-	                Area is ready to be be published.
-	            </div>
-	            <div class="modal-footer">
-	                <button class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-	                <button class="btn btn-primary pull-right" data-dismiss="modal" {{action "saveArea"}}>Publish</button>
-	            </div>
-	        </div>
-	    </div>    
-	</div> 
+                <div class="modal-body">
+                    Area is ready to be be published.
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+                    <button class="btn btn-primary pull-right" data-dismiss="modal" {{action "saveArea" }}><span class="glyphicon glyphicon-cloud-upload"></span> Publish</button>
+                </div>
+            </div>
+        </div>
+    </div> 
 		
-	<div class="modal fade" id="addSubAreaModal" tabindex="-1" role="dialog" aria-hidden="true">
-	    <div class="modal-dialog modal-lg">
-	        <div class="modal-content">
-	            <div class="modal-header">
-	                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-	                Add new subarea
-	            </div>
-	            <div class="modal-body">
-				    <form class="form">
-				        <div class="form-group">
-				            <label>Name</label>
-				            {{view App.FocusTextField valueBinding="newArea.name" required="true" maxlength="80" pattern="^.{3,80}$" class="form-control"}}
-				        </div>
-				        <div class="form-group">
-				            <label>Description</label>
-				            {{textarea value=newArea.description maxlength="500" class="form-control"}}
-				        </div>
-				    </form> 
-	            </div>
-	            <div class="modal-footer">
-	                <button class="btn btn-default pull-left" data-dismiss="modal" {{action "cancelAddSubAreaDialog" target="view"}}>Cancel</button>
-	                <button class="btn btn-primary pull-right" data-dismiss="modal" {{action "addSubArea" target="view" }}>Add area</button>
-	            </div>
-	        </div>
-	    </div>    
-	</div> 
+    <div class="modal fade" id="addSubAreaModal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    Add new subarea
+                </div>
+                <div class="modal-body">
+                    <form class="form">
+                        <div class="form-group">
+                            <label>Name</label>
+                            {{view App.FocusTextField valueBinding="newArea.name" required="true" maxlength="80" pattern="^.{3,80}$" class="form-control"}}
+                        </div>
+                        <div class="form-group">
+                            <label>Description</label>
+                            {{textarea value=newArea.description maxlength="500" class="form-control"}}
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-default pull-left" data-dismiss="modal" {{action "cancelAddSubAreaDialog" target="view" }}>Cancel</button>
+                    <button class="btn btn-primary pull-right" data-dismiss="modal" {{action "addSubArea" target="view" }}>Add area</button>
+                </div>
+            </div>
+        </div>
+    </div> 
 </div>
 
 <nav class="edit-navbar" role="toolbar">

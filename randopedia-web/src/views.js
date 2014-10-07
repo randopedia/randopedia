@@ -205,7 +205,8 @@ App.TourDetailsView = Ember.View.extend({
     templateName: 'tourdetails-view',
     
     didInsertElement: function() {
-        $('#incompleteInfoButtonId').popover();
+        $('.popover-link').popover({ placement: 'auto' });
+        console.log('popover');
     },
 });
 
@@ -220,13 +221,6 @@ App.TourEditView = Ember.View.extend({
     haveValidationWarnings: false,
     
     didInsertElement: function() {
-        var self = this;
-        
-        $('#publishTourStep1Modal').on('shown.bs.modal', function (e) {
-            self.set('haveValidationErrors', !self.get('controller').validateForPublish());
-            self.set('haveValidationWarnings', self.get('controller').checkForValidationWarnings() > 0);
-        });
-
         $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
             // Hack to make sure content is loaded correctly, solves issue with Google Maps view not being rendered
             $(window).resize();
@@ -235,7 +229,9 @@ App.TourEditView = Ember.View.extend({
         $('.info').popover({placement: 'auto'});
     },
     actions: {
-        startPublishTour: function() {
+        startPublishTour: function () {
+            this.set('haveValidationErrors', !this.get('controller').validateForPublish());
+            this.set('haveValidationWarnings', this.get('controller').checkForValidationWarnings() > 0);
             $('#publishTourStep1Modal').modal('show');
         },
         continueToPublishStep2: function() {

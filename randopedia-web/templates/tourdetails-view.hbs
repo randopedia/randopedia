@@ -39,12 +39,13 @@
                     {{name}} {{#if elevationMax }} <span class="small">({{elevationMax}}m)</span> {{/if}}
                     {{#if isIncomplete}}
                     <span class="small">
-                        <a id="incompleteInfoButtonId"
+                        <button class="popover-link"
                            data-toggle="popover"
                            data-trigger="focus"
+                           title="Incomplete"
                            data-content="This tour is marked as incomplete. This means that it might lack some data, but it should be enough information available to make the description useful anyway.">
                             <span class="glyphicon glyphicon-warning-sign danger"></span>
-                        </a>
+                        </button>
                     </span>
                     {{/if}}
                 </h2>
