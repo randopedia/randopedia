@@ -12,6 +12,7 @@ import no.extreme.randopedia.model.area.Area;
 import no.extreme.randopedia.model.stats.Stats;
 import no.extreme.randopedia.model.tour.Tour;
 import no.extreme.randopedia.model.tour.TourStatus;
+import no.extreme.randopedia.model.user.User;
 
 @Repository
 public class StatsRepositoryMongoImpl implements StatsRepository {
@@ -31,6 +32,7 @@ public class StatsRepositoryMongoImpl implements StatsRepository {
 		stats.setPublishedAreas(mongoOperations.count(new Query(), Area.class));
 		stats.setTourDrafts(mongoOperations.count(new Query(onlyDraftsCriteria), Tour.class));
 		stats.setDeadAreas(getDeadAreasCount());
+		stats.setRegisteredUsers(mongoOperations.count(new Query(), User.class));
 		
 		return stats;
 	}

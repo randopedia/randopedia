@@ -6,6 +6,7 @@ public class Stats {
 	private long publishedAreas;
 	private long deadAreas;
 	private long tourDrafts;
+	private long registeredUsers;
 	
 	public String getId() {
 		return id;
@@ -46,4 +47,12 @@ public class Stats {
 	public void setTourDrafts(long tourDrafts) {
 		this.tourDrafts = tourDrafts;
 	}
+
+    public long getRegisteredUsers() {
+        return registeredUsers;
+    }
+
+    public void setRegisteredUsers(long registeredUsers) {
+        this.registeredUsers = registeredUsers;
+    }
 }

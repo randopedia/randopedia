@@ -365,26 +365,28 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Time</th>
-                                        <th>Type</th>
-                                        <th>User</th>
-                                        <th>Comment</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {{#each action in actions}}
-                                    <tr>
-                                        <td>{{displayTimestamp action.time}}</td>
-                                        <td>{{resolveTourAction action.type}}</td>
-                                        <td>{{action.userName}}</td>
-                                        <td>{{action.comment}}</td>
-                                    </tr>
-                                    {{/each}}
-                                </tbody>
-                            </table>
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Time</th>
+                                            <th>Type</th>
+                                            <th>User</th>
+                                            <th>Comment</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {{#each action in actions}}
+                                        <tr>
+                                            <td>{{displayTimestamp action.time}}</td>
+                                            <td>{{resolveTourAction action.type}}</td>
+                                            <td>{{action.userName}}</td>
+                                            <td>{{action.comment}}</td>
+                                        </tr>
+                                        {{/each}}
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
