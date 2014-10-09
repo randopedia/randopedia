@@ -7,6 +7,8 @@ App.BrowseTourmapComponent = Ember.Component.extend({
     currentMapObjects: [],
     detailedZoomLevel: 13,
     showRoutesOnZoomLevel: 12,
+    myPositionMarker: null,
+    myPositionWatchId: null,
     
     didInsertElement: function() {
         if(!this.get('store')) {
@@ -30,7 +32,7 @@ App.BrowseTourmapComponent = Ember.Component.extend({
         this.addTourMarkers(this.get('tours'));
     },
     
-    zoomToTour: function(tour) {
+    zoomToTour: function (tour) {
         var tourMapObjects = App.GeoHelper.getGoogleObjectsFromTourGeoJson(tour.get('mapGeoJson'));
         if(!tourMapObjects) { 
             return; 
@@ -108,7 +110,13 @@ App.BrowseTourmapComponent = Ember.Component.extend({
 
     showCurrentPosition: function() {
         var self = this;
-        
+
+        if (self.get('myPositionWatchId')) {
+            self.get('map').setCenter(self.get('myPositionMarker').get('position'));
+            self.get('map').setZoom(self.get('detailedZoomLevel'));
+            return;
+        }
+
         if(navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function(position) {
                 var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
@@ -119,12 +127,12 @@ App.BrowseTourmapComponent = Ember.Component.extend({
                     null, /* anchor is bottom center of the scaled image */
                     new google.maps.Size(40, 40));
 
-                var marker = new google.maps.Marker({
+                self.set('myPositionMarker', new google.maps.Marker({
                     title: 'My position', 
                     position: pos,
                     map: self.get('map'),
                     icon: pinIcon
-                });
+                }));
 
                 var html =
                     '<div style="background-color:#fff;width:200px;height:100px">' +
@@ -137,15 +145,30 @@ App.BrowseTourmapComponent = Ember.Component.extend({
 
                 var infowindow = new google.maps.InfoWindow({ content: html, maxWidth: 600 });
 
-                google.maps.event.addListener(marker, 'click', function () {
-                    infowindow.open(self.get('map'), marker);
+                google.maps.event.addListener(self.get('myPositionMarker'), 'click', function () {
+                    infowindow.open(self.get('map'), self.get('myPositionMarker'));
                 });
 
                 self.get('map').setCenter(pos);
                 self.get('map').setZoom(self.get('detailedZoomLevel'));
+
+                function updatePosition(newPosition) {
+                    self.get('myPositionMarker').set('position', new google.maps.LatLng(newPosition.coords.latitude, newPosition.coords.longitude));
+                }
+
+                var watchOptions = {
+                    enableHighAccuracy: false,
+                    timeout: 5000,
+                    maximumAge: 1000
+                };
+
+                var id = navigator.geolocation.watchPosition(updatePosition, null, watchOptions);
+                self.set('myPositionWatchId', id);
+
           }, function(){});
         } else {
             // Browser doesn't support Geolocation
+            return;
         }
     },
 
