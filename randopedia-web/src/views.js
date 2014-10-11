@@ -205,7 +205,8 @@ App.TourDetailsView = Ember.View.extend({
     templateName: 'tourdetails-view',
     
     didInsertElement: function() {
-        $('#incompleteInfoButtonId').popover();
+        $('.popover-link').popover({ placement: 'auto' });
+        console.log('popover');
     },
 });
 
@@ -220,13 +221,6 @@ App.TourEditView = Ember.View.extend({
     haveValidationWarnings: false,
     
     didInsertElement: function() {
-        var self = this;
-        
-        $('#publishTourStep1Modal').on('shown.bs.modal', function (e) {
-            self.set('haveValidationErrors', !self.get('controller').validateForPublish());
-            self.set('haveValidationWarnings', self.get('controller').checkForValidationWarnings() > 0);
-        });
-
         $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
             // Hack to make sure content is loaded correctly, solves issue with Google Maps view not being rendered
             $(window).resize();
@@ -235,7 +229,9 @@ App.TourEditView = Ember.View.extend({
         $('.info').popover({placement: 'auto'});
     },
     actions: {
-        startPublishTour: function() {
+        startPublishTour: function () {
+            this.set('haveValidationErrors', !this.get('controller').validateForPublish());
+            this.set('haveValidationWarnings', this.get('controller').checkForValidationWarnings() > 0);
             $('#publishTourStep1Modal').modal('show');
         },
         continueToPublishStep2: function() {
@@ -303,6 +299,7 @@ App.SearchTextField = Ember.TextField.extend({
 // TODO: Rename to ImageUploadView
 App.FileUploadView = Ember.View.extend({
     templateName: 'fileupload-view',
+
     change: function(evt) {
         if (window.File && window.FileReader && window.FileList && window.Blob) {
             var self = this;
@@ -316,51 +313,57 @@ App.FileUploadView = Ember.View.extend({
             App.Util.log('The File APIs are not fully supported in this browser.');
         }
     },
-    readFile: function(file){
-        if(file){
-            var controller = this.get('controller');
+
+    readFile: function (file) {
+        var self = this;
+
+        if (file) {
             var reader = new FileReader();
-
             reader.onloadend = function() {
-                var tempImg = new Image();
-                tempImg.src = reader.result;
-                
-                tempImg.onload = function() {
-             
-                    var MAX_WIDTH = 1920;
-                    var MAX_HEIGHT = 1080;
-                    var width = tempImg.width;
-                    var height = tempImg.height;
-                     
-                    if (width > height) {
-                        if (width > MAX_WIDTH) {
-                            height *= MAX_WIDTH / width;
-                            width = MAX_WIDTH;
-                        }
-                    } else {
-                        if (height > MAX_HEIGHT) {
-                            width *= MAX_HEIGHT / height;
-                            height = MAX_HEIGHT;
-                        }
-                    }
-                    
-                    var canvas = document.createElement('canvas');
-                    canvas.width = width;
-                    canvas.height = height;
-                    var ctx = canvas.getContext("2d");
-                    ctx.drawImage(tempImg, 0, 0, width, height);
-                    var dataURL = canvas.toDataURL("image/jpeg");
-
-                    controller.addImageForUpload(dataURL);
-                };
+                self.saveImage(reader);
             };
-            
             reader.readAsDataURL(file);
         }
     },
+
+    saveImage: function (reader) {
+        var maxWidth = 1920;
+        var maxHeight = 1080;
+
+        var controller = this.get('controller');
+
+        var tempImg = new Image();
+        tempImg.src = reader.result;
+
+        tempImg.onload = function () {
+            var width = tempImg.width;
+            var height = tempImg.height;
+
+            if (width > height) {
+                if (width > maxWidth) {
+                    height *= maxWidth / width;
+                    width = maxWidth;
+                }
+            } else {
+                if (height > maxHeight) {
+                    width *= maxHeight / height;
+                    height = maxHeight;
+                }
+            }
+
+            var canvas = document.createElement('canvas');
+            canvas.width = width;
+            canvas.height = height;
+            var ctx = canvas.getContext("2d");
+            ctx.drawImage(tempImg, 0, 0, width, height);
+            var dataUrl = canvas.toDataURL("image/jpeg");
+            controller.addImageForUpload(dataUrl);
+        };
+    },
+
     actions: {
         openFileDialog: function(){
-            $(fileInputElement).click();
+            $('#fileInputElement').click();
         }
     }
 });

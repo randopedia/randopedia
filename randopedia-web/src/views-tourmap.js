@@ -1,3 +1,47 @@
+App.GpxFileUploadView = Ember.View.extend({
+    templateName: 'gpx-file-upload-view',
+
+    change: function (evt) {
+        if (window.File && window.FileReader && window.FileList && window.Blob) {
+            var self = this;
+            var input = evt.target;
+            if (input.files) {
+                for (var i = 0; i < input.files.length; i++) {
+                    self.readFile(input.files[i]);
+                }
+            }
+        } else {
+            App.Util.log('The File APIs are not fully supported in this browser.');
+        }
+    },
+
+    readFile: function (data) {
+        var self = this;
+
+        if (data) {
+            var reader = new FileReader();
+            reader.onloadend = function () {
+                self.saveGpxFile(reader);
+            };
+            reader.readAsText(data);
+        }
+    },
+
+    saveGpxFile: function (reader) {
+        var self = this;
+        var parser = new DOMParser();
+        var xmlDoc = parser.parseFromString(reader.result, "application/xml");
+        var geojson = toGeoJSON.gpx(xmlDoc);
+        self.get('parentView').importGeoJson(geojson);
+    },
+
+    actions: {
+        openFileDialog: function () {
+            $('#gpxFileInputElement').click();
+        }
+    }
+});
+
 App.TourEditMapView = Ember.View.extend({
     templateName: 'tourmapedit-view',
     mapRootElement: null,
@@ -7,6 +51,9 @@ App.TourEditMapView = Ember.View.extend({
     selectedPolylines: [],
     mousePositionLat: null,
     mousePositionLng: null,
+    loadingGpxData: false,
+    gpxDataWasLoaded: false,
+    gpxDataIsInvalid: false,
     
     didInsertElement: function() {
         this.initMap();
@@ -28,6 +75,67 @@ App.TourEditMapView = Ember.View.extend({
         var self = this;
         var geojson = App.GeoHelper.getGeoJsonFromGoogleObjects(self.get('currentMapPolylines'));
         self.get('controller').send('updateGeoJson', geojson);
+    },
+
+    importGeoJson: function(geojson) {
+        var self = this;
+
+        if (!App.GeoHelper.validateGeoJson(geojson)) {
+            self.set('gpxDataIsInvalid', true);
+            return;
+        }
+        
+        // TODO: Refactor out to helper method(s)
+        var minDistanceBetweenPoints = 40;
+        geojson.features.forEach(function(feature) {
+            var geometry = feature.geometry;
+
+            if (geometry.type === "LineString") {
+                var coordinatesToBeDeleted = [];
+                var prevCoord = null;
+               // console.log('BEFORE: ' + geometry.coordinates.length);
+                for (var i = 0; i < geometry.coordinates.length; i++) {
+
+                    var currentCoord = geometry.coordinates[i];
+
+                    if (!prevCoord) {
+                        prevCoord = currentCoord;
+                        continue;
+                    }
+
+                    var pt1 = { type: 'Point', coordinates: [prevCoord[0], prevCoord[1]] };
+                    var pt2 = { type: 'Point', coordinates: [currentCoord[0], currentCoord[1]] };
+
+                    var distance = gju.pointDistance(pt1, pt2);
+
+                    if (distance < minDistanceBetweenPoints && (geometry.coordinates.length - 1)) {
+                        coordinatesToBeDeleted.push(currentCoord);
+                    } else {
+                        prevCoord = geometry.coordinates[i];
+                    }
+                }
+
+                coordinatesToBeDeleted.forEach(function(coord) {
+                    var index = geometry.coordinates.indexOf(coord);
+                    if (index != -1) {
+                        geometry.coordinates.splice(index, 1);
+                    }
+                });
+
+              //  console.log('AFTER: ' + geometry.coordinates.length);
+            }
+        });
+
+        self.set('loadingGpxData', true);
+        self.get('controller').send('updateGeoJson', geojson);
+
+        setTimeout(function () {
+            self.parseGeoJson();
+            self.setZoomAndCenter();
+            self.set('loadingGpxData', false);
+            self.set('gpxDataWasLoaded', true);
+            self.set('gpxDataIsInvalid', false);
+        }, 500);
     },
 
     setZoomAndCenter: function () {
@@ -156,6 +264,9 @@ App.TourEditMapView = Ember.View.extend({
             self.get('selectedPolylines').clear();
             
             self.saveGeoJson();
+        },
+        closeGpxImportModal: function() {
+            this.set('gpxDataWasLoaded', false);
         }
     },
 

@@ -56,9 +56,12 @@
     }
 }
 
-
 .spacing {
     margin: @large-space;
+}
+
+.spacing-top {
+    margin-top: @large-space;
 }
 
 .spacing-x {
@@ -139,6 +142,16 @@ body {
 
 .panel {
     .adjust-margin-for-small();
+}
+
+.alert {
+    margin-top: 5px;
+    margin-bottom: 5px;
+
+    @media (min-width: 750px) { 
+        margin-top: 15px;
+        margin-bottom: 15px;        
+    }
 }
 
 .loading {
@@ -341,7 +354,6 @@ a {
 
 button.info:before { content: "?"; }
 button.info {
-    
     display: inline;
     height: 1.5em;
     width: 1.5em;
@@ -418,6 +430,14 @@ button.info {
     .btn-view-on-map {
         margin-bottom: 22px;
         margin-right: 20px;
+    }
+
+    .popover-link {
+        background: #fff;
+        border: none;
+         &:focus {
+            outline: 0;
+        } 
     }
     
     pre {

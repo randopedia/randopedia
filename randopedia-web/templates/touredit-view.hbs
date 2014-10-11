@@ -247,7 +247,7 @@
                             <div class="col-lg-3">
                                 <div class="form-group">
                                     <label for="inputGrade">Grade<span class="asterisk recommended"></span></label>
-                                    <button class="info pull-right" data-toggle="modal" data-target="#tourDetailsGradeGuideModal">{{resolveGradeName grade}}</button>
+                                    <button class="info pull-right" data-toggle="modal" data-target="#tourDetailsGradeGuideModal"></button>
                                     {{view Ember.Select
                                     contentBinding="App.Fixtures.Grades"
                                     optionValuePath="content.value"
@@ -365,26 +365,28 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Time</th>
-                                        <th>Type</th>
-                                        <th>User</th>
-                                        <th>Comment</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {{#each action in actions}}
-                                    <tr>
-                                        <td>{{displayTimestamp action.time}}</td>
-                                        <td>{{resolveTourAction action.type}}</td>
-                                        <td>{{action.userName}}</td>
-                                        <td>{{action.comment}}</td>
-                                    </tr>
-                                    {{/each}}
-                                </tbody>
-                            </table>
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Time</th>
+                                            <th>Type</th>
+                                            <th>User</th>
+                                            <th>Comment</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {{#each action in actions}}
+                                        <tr>
+                                            <td>{{displayTimestamp action.time}}</td>
+                                            <td>{{resolveTourAction action.type}}</td>
+                                            <td>{{action.userName}}</td>
+                                            <td>{{action.comment}}</td>
+                                        </tr>
+                                        {{/each}}
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -407,7 +409,7 @@
         </div>
     </div>
 
-    <div class="modal fade" id="areaPickerModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal fade" id="areaPickerModal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -438,7 +440,7 @@
         </div>
     </div>
 
-    <div class="modal fade" id="confirmDeleteTourModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal fade" id="confirmDeleteTourModal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
         <div class="modal-dialog modal-lg areapicker-view">
             <div class="modal-content">
                 <div class="modal-header">
@@ -456,7 +458,7 @@
         </div>
     </div>
 
-    <div class="modal fade" id="publishTourStep1Modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal fade" id="publishTourStep1Modal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
 
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -514,7 +516,7 @@
         </div>
     </div>
 
-    <div class="modal fade" id="publishTourStep2Modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal fade" id="publishTourStep2Modal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
 
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -532,7 +534,7 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-                    <button class="btn btn-primary pull-right" {{bindAttr disabled="view.isPublishDisabled" }} {{action "confirmPublishTour" target="view" }}>Publish</button>
+                    <button class="btn btn-primary pull-right" {{bindAttr disabled="view.isPublishDisabled" }} {{action "confirmPublishTour" target="view" }}><span class="glyphicon glyphicon-cloud-upload"></span> Publish</button>
                 </div>
             </div>
         </div>

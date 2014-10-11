@@ -243,7 +243,7 @@ public class TourService {
         Tour tour = tourRepository.getTourFromImageId(imageId);
         tourRepository.deleteImageFromTour(imageId);
         
-        Tour updatedTour = tourRepository.findTourByClientId(tour.getId());
+        Tour updatedTour = tourRepository.findTourById(tour.getId());
         saveTourAction(user, updatedTour, TourActionType.IMAGE_DELETE);
     }
     

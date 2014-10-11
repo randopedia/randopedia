@@ -4,7 +4,8 @@ App.Stats = DS.Model.extend({
     publishedTours : DS.attr('number'),
     publishedAreas : DS.attr('number'),
     deadAreas: DS.attr('number'),
-    tourDrafts:  DS.attr('number')
+    tourDrafts: DS.attr('number'),
+    registeredUsers: DS.attr('number')
 });
 
 App.Toplevel = DS.Model.extend({
