@@ -9,7 +9,12 @@ import org.springframework.data.mongodb.core.MongoOperations;
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
 
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
+import org.springframework.data.mongodb.core.aggregation.AggregationOperation;
+import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.data.mongodb.core.aggregation.GroupOperation;
+import org.springframework.data.mongodb.core.aggregation.GroupOperation.GroupOperationBuilder;
+import org.springframework.data.mongodb.core.aggregation.MatchOperation;
+import org.springframework.data.mongodb.core.aggregation.UnwindOperation;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,8 +24,11 @@ public class UpdateTagCloudService {
     MongoOperations mongoOperations;
     
     public void updateTagCloud() {
-        GroupOperation group = Aggregation.group("tags");
-        Aggregation aggregation = newAggregation(group);
-        mongoOperations.aggregate(aggregation, "tour", Tag.class);
+        AggregationOperation sum = Aggregation.group("tags").sum("_id").as("tag_count");
+
+        Aggregation aggregation = newAggregation(sum);
+        AggregationResults<Tag> aggregate = mongoOperations.aggregate(aggregation, "tour", Tag.class);
+    
     }
+    
 }
