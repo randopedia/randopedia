@@ -6199,6 +6199,9 @@ button.close {
 .spacing {
   margin: 10px;
 }
+.spacing-top {
+  margin-top: 10px;
+}
 .spacing-x {
   margin-left: 10px;
   margin-right: 10px;
@@ -6269,6 +6272,16 @@ body {
   .panel {
     margin-left: -10px;
     margin-right: -10px;
+  }
+}
+.alert {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+@media (min-width: 750px) {
+  .alert {
+    margin-top: 15px;
+    margin-bottom: 15px;
   }
 }
 .loading {
@@ -6789,6 +6802,13 @@ button.info:hover {
 .tour-details-view .btn-view-on-map {
   margin-bottom: 22px;
   margin-right: 20px;
+}
+.tour-details-view .popover-link {
+  background: #fff;
+  border: none;
+}
+.tour-details-view .popover-link:focus {
+  outline: 0;
 }
 .tour-details-view pre {
   font-family: Helvetica, Arial, sans-serif;
