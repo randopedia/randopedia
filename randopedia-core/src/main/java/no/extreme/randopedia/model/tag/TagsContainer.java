@@ -4,13 +4,13 @@ import java.util.List;
 
 public class TagsContainer {
 
-    private List<TagCloudTag> tags;
+    private List<Tag> tags;
 
-    public List<TagCloudTag> getTags() {
+    public List<Tag> getTags() {
         return tags;
     }
 
-    public void setTags(List<TagCloudTag> tags) {
+    public void setTags(List<Tag> tags) {
         this.tags = tags;
     }
     
