@@ -26,6 +26,14 @@ App.BaseRoute = Ember.Route.extend({
         window.scrollTo(0, 0);
         this._super.apply(this, arguments);
     },
+    afterModel : function(model) {
+        if(typeof model !== 'undefined' && model !== null) {
+            var tourName = model.get('name');
+            $(document).attr('title', tourName + ' - Randopedia, the ski tour encyclopedia');
+        } else {
+            $(document).attr('title', 'Randopedia, the ski tour encyclopedia');
+        }
+    }
 });
 
 App.ApplicationRoute = Ember.Route.extend({
@@ -79,7 +87,7 @@ App.TagRoute = App.BaseRoute.extend({
 
 App.AreaRoute = App.BaseRoute.extend({
 	model: function(params) {
-        return this.store.find('area', params.area_id);
+            return this.store.find('area', params.area_id);
 	}
 });
 

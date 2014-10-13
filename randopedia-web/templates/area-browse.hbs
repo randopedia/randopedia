@@ -2,16 +2,24 @@
 
     <div class="row">    
         <div class="col-sm-12 browse-tree-view">
-            <h3>Browse areas</h3>
-            {{#if controller.isLoadingAreas}}
-                <div>Loading areas...</div>
-            {{else}}
-               {{#each toplevel in controller}}
-                   {{#if toplevel.area.children}} 
-                       {{control "areaBrowseItems" toplevel.area}}
-                   {{/if}}
-               {{/each}}  
-            {{/if}}
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Browse areas
+                </div>
+                <div class="panel-body">
+                    {{#if controller.isLoadingAreas}}
+                        <div class="loading">Loading areas...</div>
+                    {{else}}
+                        {{#each toplevel in controller}}
+                            {{#if toplevel.area.children}}
+                                {{control "areaBrowseItems" toplevel.area}}
+                            {{/if}}
+                        {{/each}}
+                    {{/if}}
+                </div>
+            </div>
+
         </div> 
     </div>
 </div>
