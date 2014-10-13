@@ -98,13 +98,7 @@ App.BrowseTourmapComponent = Ember.Component.extend({
         self.highlightTour(tour);
     },
     
-    getTourCenterLatLng: function(geojson) {
-        // TODO: This should get the tour centre/summit point (if not exits, do what we do now)
-        
-        if(!geojson || !geojson.features) {
-            return null;
-        }
-        
+    getDefaultTourCenterLatLng: function(geojson) {
         for(var i = 0; i < geojson.features.length; i++) {
             
             var geometry = geojson.features[i].geometry;
@@ -238,14 +232,12 @@ App.BrowseTourmapComponent = Ember.Component.extend({
     addTourMarkers: function(tours) {
         var self = this;
         self.set('markers', []);
-        tours.forEach(function(tour){
+        tours.forEach(function (tour) {
 
-            var tourCenterLatLng = self.getTourCenterLatLng(tour.get('mapGeoJson'));
-            if(!tourCenterLatLng){
+            if (!App.GeoHelper.validateGeoJson(tour.get('mapGeoJson'))) {
                 return;
             }
 
-            var marker = new google.maps.Marker({ title: tour.get('name'), position: tourCenterLatLng });
             var html =
                 '<div style="background-color:#fff;width:260px;height:100px">' +
                 '<h4><a style="font-size:0.9em;" href=#!/tours/' + tour.get('id') + '>' + tour.get('name') + '</a></h4>' +
@@ -263,11 +255,23 @@ App.BrowseTourmapComponent = Ember.Component.extend({
             var infowindow = new google.maps.InfoWindow({ content: html, maxWidth: 600 });
 
             var tourPaths = [];
+            var tourCenterLatLng = null;
             var mapObjects = App.GeoHelper.getGoogleObjectsFromTourGeoJson(tour.get('mapGeoJson'));
             mapObjects.forEach(function (mapObject) {
-                // TODO: Only polylines
-                tourPaths.push(mapObject);
+                if (mapObject.get('rando_type') === App.Fixtures.MapSymbolTypes.SUMMIT_POINT) {
+                    tourCenterLatLng = mapObject.position;
+                } else {
+                    // Assume paths
+                    tourPaths.push(mapObject);
+                }
             });
+
+            
+            if (!tourCenterLatLng) {
+                tourCenterLatLng = self.getDefaultTourCenterLatLng(tour.get('mapGeoJson'));
+            }
+
+            var marker = new google.maps.Marker({ title: tour.get('name'), position: tourCenterLatLng });
 
             google.maps.event.addListener(marker, 'click', function() {
                 infowindow.open(self.get('map'), marker);
@@ -317,7 +321,7 @@ App.BrowseTourmapComponent = Ember.Component.extend({
         self.set('map', new google.maps.Map(this.get('mapRootElement').get(0), mapOptions));
         
         var markerCluster = new MarkerClusterer(this.get('map'), this.get('markers'));
-        markerCluster.setMaxZoom(self.get('showRoutesOnZoomLevel') - 1);
+        markerCluster.setMaxZoom(self.get('showRoutesOnZoomLevel') - 4);
         self.set('oms', new OverlappingMarkerSpiderfier(this.get('map')));
 
         google.maps.event.addListener(self.get('map'), 'zoom_changed', function() {

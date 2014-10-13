@@ -49,26 +49,34 @@ App.GeoHelper = Ember.Object.create({
     
     getGeoJsonFromGoogleObjects: function (googleMapObjects) {
 
-        // TODO: Currently only supporting polylines
-
         var geojson = {
             type: "FeatureCollection",
             features: []
         };
 
-        for (var i = 0; i < googleMapObjects.length; i++) {
-            var polyline = googleMapObjects[i];
-            var polylinePath = polyline.getPath();
-
-            geojson.features.push({
-                type: "Feature",
-                rando_type: polyline.get('rando_type'),
-                geometry: {
-                    type: "LineString",
-                    coordinates: App.GeoHelper.googleLatLngArrayToGeoJsonCoordinates(polylinePath),
-                }
-            });
-        }
+        googleMapObjects.forEach(function(googleMapObject) {
+            if (googleMapObject.get('rando_type') === App.Fixtures.MapSymbolTypes.SUMMIT_POINT) {
+                geojson.features.push({
+                    type: "Feature",
+                    rando_type: googleMapObject.get('rando_type'),
+                    geometry: {
+                        type: "Point",
+                        coordinates: [googleMapObject.position.lng(), googleMapObject.position.lat()],
+                    }
+                });
+            } else {
+                // Assume polyline type
+                var polylinePath = googleMapObject.getPath();
+                geojson.features.push({
+                    type: "Feature",
+                    rando_type: googleMapObject.get('rando_type'),
+                    geometry: {
+                        type: "LineString",
+                        coordinates: App.GeoHelper.googleLatLngArrayToGeoJsonCoordinates(polylinePath),
+                    }
+                });
+            }
+        });
 
         return geojson;
     },
@@ -86,13 +94,32 @@ App.GeoHelper = Ember.Object.create({
             var feature = geojson.features[i];
             var geometry = feature.geometry;
 
-            if(geometry.type === "LineString"){
+            if(geometry.type === "LineString") {
                 var polylinePath = App.GeoHelper.geoJsonCoordinatesToGoogleLatLngArray(geometry.coordinates);
                 var polyline = self.getGooglePolyline(polylinePath, feature.rando_type, makeEditable);
                 mapObjects.push(polyline);
+            } else if (geometry.type === "Point") {
+                var marker = self.getGoogleMarker(geometry.coordinates, feature.rando_type, makeEditable, 'Summit point');
+                mapObjects.push(marker);
             }
+
         }
         return mapObjects;
+    },
+
+    getGoogleMarker: function (coordinates, randoType, makeDraggable, title) {
+        if (!randoType) {
+            randoType = App.Fixtures.MapSymbolTypes.SUMMIT_POINT;
+        }
+
+        var marker = new google.maps.Marker({
+            position: new google.maps.LatLng(coordinates[1], coordinates[0]),
+            draggable: makeDraggable,
+            rando_type: randoType,
+            title: title
+        });
+
+        return marker;
     },
 
     getGooglePolyline: function (path, randoType, makeEditable) {

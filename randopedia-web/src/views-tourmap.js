@@ -47,6 +47,7 @@ App.TourEditMapView = Ember.View.extend({
     mapRootElement: null,
     map: null,
     currentMapPolylines: [],
+    summitPointMarker: null,
     drawingManager: null,
     selectedPolylines: [],
     mousePositionLat: null,
@@ -54,26 +55,42 @@ App.TourEditMapView = Ember.View.extend({
     loadingGpxData: false,
     gpxDataWasLoaded: false,
     gpxDataIsInvalid: false,
-    
+
     didInsertElement: function() {
         this.initMap();
     },
 
-    parseGeoJson: function () {
+    parseGeoJson: function() {
         var self = this;
 
         var tourMapObjects = App.GeoHelper.getGoogleObjectsFromTourGeoJson(self.get('controller.model.mapGeoJson'), true);
 
         tourMapObjects.forEach(function (mapObject) {
-            self.setupPolylineListeners(mapObject);
-            self.get('currentMapPolylines').push(mapObject);
+            if (mapObject.get('rando_type') === App.Fixtures.MapSymbolTypes.SUMMIT_POINT) {
+                self.setupMarkerListeners(mapObject);
+                self.set('summitPointMarker', mapObject);
+            } else {
+                // Assume paths
+                self.setupPolylineListeners(mapObject);
+                self.get('currentMapPolylines').push(mapObject);
+            }
             mapObject.setMap(self.get('map'));
         });
     },
 
-    saveGeoJson: function () {
+    saveGeoJson: function() {
         var self = this;
-        var geojson = App.GeoHelper.getGeoJsonFromGoogleObjects(self.get('currentMapPolylines'));
+        var mapObjects = [];
+
+        self.get('currentMapPolylines').forEach(function (polyline) {
+            mapObjects.push(polyline);
+        });
+
+        if (self.get('summitPointMarker')) {
+            mapObjects.push(self.get('summitPointMarker'));
+        }
+
+        var geojson = App.GeoHelper.getGeoJsonFromGoogleObjects(mapObjects);
         self.get('controller').send('updateGeoJson', geojson);
     },
 
@@ -84,7 +101,7 @@ App.TourEditMapView = Ember.View.extend({
             self.set('gpxDataIsInvalid', true);
             return;
         }
-        
+
         // TODO: Refactor out to helper method(s)
         var minDistanceBetweenPoints = 40;
         geojson.features.forEach(function(feature) {
@@ -93,7 +110,7 @@ App.TourEditMapView = Ember.View.extend({
             if (geometry.type === "LineString") {
                 var coordinatesToBeDeleted = [];
                 var prevCoord = null;
-               // console.log('BEFORE: ' + geometry.coordinates.length);
+                // console.log('BEFORE: ' + geometry.coordinates.length);
                 for (var i = 0; i < geometry.coordinates.length; i++) {
 
                     var currentCoord = geometry.coordinates[i];
@@ -122,14 +139,14 @@ App.TourEditMapView = Ember.View.extend({
                     }
                 });
 
-              //  console.log('AFTER: ' + geometry.coordinates.length);
+                //  console.log('AFTER: ' + geometry.coordinates.length);
             }
         });
 
         self.set('loadingGpxData', true);
         self.get('controller').send('updateGeoJson', geojson);
 
-        setTimeout(function () {
+        setTimeout(function() {
             self.parseGeoJson();
             self.setZoomAndCenter();
             self.set('loadingGpxData', false);
@@ -138,10 +155,12 @@ App.TourEditMapView = Ember.View.extend({
         }, 500);
     },
 
-    setZoomAndCenter: function () {
+    setZoomAndCenter: function() {
         var lines = this.get('currentMapPolylines');
 
-        if (!lines || lines.length === 0) { return; }
+        if (!lines || lines.length === 0) {
+            return;
+        }
 
         var bounds = new google.maps.LatLngBounds();
         for (var i = 0; i < lines.length; i++) {
@@ -153,40 +172,40 @@ App.TourEditMapView = Ember.View.extend({
         this.get('map').fitBounds(bounds);
     },
 
-    setMapSize: function () {
+    setMapSize: function() {
         var self = this;
         var newWidth = $('.mapContainer').width();
         var newHeight = 800;
         self.get('mapRootElement').css({ width: newWidth + 'px', height: newHeight + 'px' });
     },
 
-    setDrawingMode: function (type) {
+    setDrawingMode: function(type) {
         var self = this;
         var dm = self.get('drawingManager');
 
         switch (type) {
-            case App.Fixtures.MapSymbolTypes.UP_DOWN_TRACK:
-                dm.polylineOptions.strokeColor = App.Fixtures.MapObjectStyles.DEFAULT_PATH_COLOR;
-                dm.setDrawingMode(google.maps.drawing.OverlayType.POLYLINE);
-                break;
-            case App.Fixtures.MapSymbolTypes.UP_TRACK:
-                dm.polylineOptions.strokeColor = App.Fixtures.MapObjectStyles.UP_PATH_COLOR;
-                dm.setDrawingMode(google.maps.drawing.OverlayType.POLYLINE);
-                break;
-            case App.Fixtures.MapSymbolTypes.DOWN_TRACK:
-                dm.polylineOptions.strokeColor = App.Fixtures.MapObjectStyles.DOWN_PATH_COLOR;
-                dm.setDrawingMode(google.maps.drawing.OverlayType.POLYLINE);
-                break;
-            case App.Fixtures.MapSymbolTypes.SUMMIT_POINT:
-                dm.setDrawingMode(google.maps.drawing.OverlayType.MARKER);
-                break;
-            default:
-                dm.setDrawingMode(null);
-                break;
+        case App.Fixtures.MapSymbolTypes.UP_DOWN_TRACK:
+            dm.polylineOptions.strokeColor = App.Fixtures.MapObjectStyles.DEFAULT_PATH_COLOR;
+            dm.setDrawingMode(google.maps.drawing.OverlayType.POLYLINE);
+            break;
+        case App.Fixtures.MapSymbolTypes.UP_TRACK:
+            dm.polylineOptions.strokeColor = App.Fixtures.MapObjectStyles.UP_PATH_COLOR;
+            dm.setDrawingMode(google.maps.drawing.OverlayType.POLYLINE);
+            break;
+        case App.Fixtures.MapSymbolTypes.DOWN_TRACK:
+            dm.polylineOptions.strokeColor = App.Fixtures.MapObjectStyles.DOWN_PATH_COLOR;
+            dm.setDrawingMode(google.maps.drawing.OverlayType.POLYLINE);
+            break;
+        case App.Fixtures.MapSymbolTypes.SUMMIT_POINT:
+            dm.setDrawingMode(google.maps.drawing.OverlayType.MARKER);
+            break;
+        default:
+            dm.setDrawingMode(null);
+            break;
         }
     },
 
-    onPolylinePathChanged: function () {
+    onPolylinePathChanged: function() {
         var self = this;
         if (!self.get('drawingManager')) {
             return;
@@ -195,19 +214,19 @@ App.TourEditMapView = Ember.View.extend({
         self.saveGeoJson();
     },
 
-    onPolylineClick: function (polyline) {
+    onPolylineClick: function(polyline) {
         var self = this;
         if (polyline.strokeColor === App.Fixtures.MapObjectStyles.SELECTED_PATH_COLOR) {
             switch (polyline.get('rando_type')) {
-                case App.Fixtures.MapSymbolTypes.UP_DOWN_TRACK:
-                    polyline.setOptions({ strokeColor: App.Fixtures.MapObjectStyles.DEFAULT_PATH_COLOR, strokeWeight: App.Fixtures.MapObjectStyles.DEFAULT_PATH_WIDTH });
-                    break;
-                case App.Fixtures.MapSymbolTypes.UP_TRACK:
-                    polyline.setOptions({ strokeColor: App.Fixtures.MapObjectStyles.UP_PATH_COLOR, strokeWeight: App.Fixtures.MapObjectStyles.DEFAULT_PATH_WIDTH });
-                    break;
-                case App.Fixtures.MapSymbolTypes.DOWN_TRACK:
-                    polyline.setOptions({ strokeColor: App.Fixtures.MapObjectStyles.DOWN_PATH_COLOR, strokeWeight: App.Fixtures.MapObjectStyles.DEFAULT_PATH_WIDTH });
-                    break;
+            case App.Fixtures.MapSymbolTypes.UP_DOWN_TRACK:
+                polyline.setOptions({ strokeColor: App.Fixtures.MapObjectStyles.DEFAULT_PATH_COLOR, strokeWeight: App.Fixtures.MapObjectStyles.DEFAULT_PATH_WIDTH });
+                break;
+            case App.Fixtures.MapSymbolTypes.UP_TRACK:
+                polyline.setOptions({ strokeColor: App.Fixtures.MapObjectStyles.UP_PATH_COLOR, strokeWeight: App.Fixtures.MapObjectStyles.DEFAULT_PATH_WIDTH });
+                break;
+            case App.Fixtures.MapSymbolTypes.DOWN_TRACK:
+                polyline.setOptions({ strokeColor: App.Fixtures.MapObjectStyles.DOWN_PATH_COLOR, strokeWeight: App.Fixtures.MapObjectStyles.DEFAULT_PATH_WIDTH });
+                break;
             }
             self.get('selectedPolylines').removeObject(polyline);
         } else {
@@ -216,22 +235,43 @@ App.TourEditMapView = Ember.View.extend({
         }
     },
 
-    setupPolylineListeners: function (polyline) {
+    setupMarkerListeners: function (marker) {
+        var self = this;
+        google.maps.event.addListener(marker, "dragend", function () {
+            self.saveGeoJson();
+        });
+    },
+
+    setupPolylineListeners: function(polyline) {
         var self = this;
         var path = polyline.getPath();
 
-        google.maps.event.addListener(path, 'set_at', function () {
+        google.maps.event.addListener(path, 'set_at', function() {
             self.onPolylinePathChanged();
         });
-        google.maps.event.addListener(path, 'insert_at', function () {
+        google.maps.event.addListener(path, 'insert_at', function() {
             self.onPolylinePathChanged();
         });
-        google.maps.event.addListener(polyline, 'click', function () {
+        google.maps.event.addListener(polyline, 'click', function() {
             self.onPolylineClick(this);
         });
     },
 
-    addPolyline: function (polyline) {
+    addSummitPointMarker: function(marker) {
+        var self = this;
+
+        if (self.get('summitPointMarker')) {
+            return;
+        }
+
+        marker.set('rando_type', App.Fixtures.MapSymbolTypes.SUMMIT_POINT);
+        self.set('summitPointMarker', marker);
+        self.setupMarkerListeners(self.get('summitPointMarker'));
+        self.saveGeoJson();
+        self.get('drawingManager').setDrawingMode(null);
+    },
+
+    addPolyline: function(polyline) {
         var self = this;
         self.get('currentMapPolylines').push(polyline);
         self.saveGeoJson();
@@ -241,34 +281,38 @@ App.TourEditMapView = Ember.View.extend({
         clearDrawingMode: function() {
             this.get('drawingManager').setDrawingMode(null);
         },
-        drawUpDownTrack: function () {
+        drawUpDownTrack: function() {
             this.setDrawingMode(App.Fixtures.MapSymbolTypes.UP_DOWN_TRACK);
         },
-        drawUpTrack: function () {
+        drawUpTrack: function() {
             this.setDrawingMode(App.Fixtures.MapSymbolTypes.UP_TRACK);
         },
-        drawDownTrack: function () {
+        drawDownTrack: function() {
             this.setDrawingMode(App.Fixtures.MapSymbolTypes.DOWN_TRACK);
         },
-        drawSummitPoint: function () {
+        drawSummitPoint: function() {
             this.setDrawingMode(App.Fixtures.MapSymbolTypes.SUMMIT_POINT);
         },
         deleteRoutes: function() {
             var self = this;
-            self.get('selectedPolylines').forEach(function(line){
+            self.get('selectedPolylines').forEach(function(line) {
                 line.setMap(null);
                 var index = self.get('currentMapPolylines').indexOf(line);
                 self.get('currentMapPolylines').splice(index, 1);
             });
-            
+
             self.get('selectedPolylines').clear();
-            
+
             self.saveGeoJson();
         },
         closeGpxImportModal: function() {
             this.set('gpxDataWasLoaded', false);
         }
     },
+
+    hasSummitPointMarker: function() {
+        return this.get('summitPointMarker') !== null;
+    }.property('summitPointMarker'),
 
     isDeletePathsDisabled: function () {
         return !this.get('haveSelectedPaths');
@@ -318,6 +362,9 @@ App.TourEditMapView = Ember.View.extend({
                 position: google.maps.ControlPosition.TOP_CENTER,
                 drawingModes: []
             },
+            markerOptions: {
+                draggable: true
+            },
             polylineOptions: {
                 strokeColor: App.Fixtures.MapObjectStyles.DEFAULT_PATH_COLOR,
                 strokeWeight: App.Fixtures.MapObjectStyles.DEFAULT_PATH_WIDTH,
@@ -337,6 +384,10 @@ App.TourEditMapView = Ember.View.extend({
             google.maps.event.trigger(self.get('map'), 'resize');
             self.setZoomAndCenter();
         };
+
+        google.maps.event.addListener(self.get('drawingManager'), "markercomplete", function (marker) {
+            self.addSummitPointMarker(marker);
+        });
 
         google.maps.event.addListener(self.get('drawingManager'), 'polylinecomplete', function (polyline) {
 
