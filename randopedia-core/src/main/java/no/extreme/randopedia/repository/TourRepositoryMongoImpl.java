@@ -16,7 +16,7 @@ import java.util.TreeSet;
 
 import no.extreme.randopedia.factory.OutputStreamFactory;
 import no.extreme.randopedia.model.area.Area;
-import no.extreme.randopedia.model.tag.TagCloudTag;
+import no.extreme.randopedia.model.tag.Tag;
 import no.extreme.randopedia.model.tour.Tour;
 import no.extreme.randopedia.model.tour.TourAction;
 import no.extreme.randopedia.model.tour.TourComment;
@@ -447,13 +447,13 @@ public class TourRepositoryMongoImpl implements TourRepository {
     }
 
     @Override
-    public List<TagCloudTag> findAllTags() {
-        List<TagCloudTag> tags = mongoOperations.findAll(TagCloudTag.class);
+    public List<Tag> findAllTags() {
+        List<Tag> tags = mongoOperations.findAll(Tag.class);
         
-        Collections.sort(tags, new Comparator<TagCloudTag>() {
+        Collections.sort(tags, new Comparator<Tag>() {
             @Override
-            public int compare(TagCloudTag o1, TagCloudTag o2) {
-                return o2.getValue().compareTo(o1.getValue());
+            public int compare(Tag o1, Tag o2) {
+                return (Integer.valueOf(o2.getValue())).compareTo((Integer.valueOf(o1.getValue())));
             }
         });
         

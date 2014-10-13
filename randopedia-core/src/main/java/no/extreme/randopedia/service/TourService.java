@@ -8,7 +8,7 @@ import java.util.List;
 import no.extreme.randopedia.exception.InvalidTourException;
 import no.extreme.randopedia.exception.TokenInvalidException;
 import no.extreme.randopedia.model.area.Area;
-import no.extreme.randopedia.model.tag.TagCloudTag;
+import no.extreme.randopedia.model.tag.Tag;
 import no.extreme.randopedia.model.tour.Tour;
 import no.extreme.randopedia.model.tour.TourAction;
 import no.extreme.randopedia.model.tour.TourActionType;
@@ -347,10 +347,10 @@ public class TourService {
         return tourRepository.findToursByTag(tagId);
     }
 
-    public List<TagCloudTag> findAllTags() {
-        List<TagCloudTag> tags = tourRepository.findAllTags();
+    public List<Tag> findAllTags() {
+        List<Tag> tags = tourRepository.findAllTags();
         
-        for(TagCloudTag tag : tags) {
+        for(Tag tag : tags) {
             tag.setName(tag.getId());
             tag.setTours(new ArrayList<String>());
         }

@@ -3,7 +3,7 @@ package no.extreme.randopedia.repository;
 import java.io.IOException;
 import java.util.List;
 
-import no.extreme.randopedia.model.tag.TagCloudTag;
+import no.extreme.randopedia.model.tag.Tag;
 import no.extreme.randopedia.model.tour.Tour;
 import no.extreme.randopedia.model.tour.TourComment;
 import no.extreme.randopedia.model.tour.TourImage;
@@ -30,7 +30,7 @@ public interface TourRepository {
     Tour findTourByClientIdAndStatus(String id, int status);
     Tour findTourByClientId(String id);
     List<Tour> findToursByTag(String tagId);
-    List<TagCloudTag> findAllTags();
+    List<Tag> findAllTags();
     List<Tour> findToursByCoordinate(Long mapCenterLat, Long mapCenterLong, Long zoomLevel);
     List<Tour> findToursByCoordinate(Double topLeftLatitude, Double topLeftLongitude, Double bottomRightLatitude, Double bottomRightLongitude);
 }

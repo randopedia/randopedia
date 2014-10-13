@@ -2,7 +2,7 @@ package no.extreme.randopedia.controller;
 
 import java.util.List;
 
-import no.extreme.randopedia.model.tag.TagCloudTag;
+import no.extreme.randopedia.model.tag.Tag;
 import no.extreme.randopedia.model.tour.Tour;
 import no.extreme.randopedia.service.TourService;
 
@@ -24,7 +24,7 @@ public class TagsWebAppController {
         ModelAndView result = new ModelAndView();
         result.setViewName("tags");
         
-        List<TagCloudTag> tags = tourService.findAllTags();
+        List<Tag> tags = tourService.findAllTags();
         
         result.addObject("tags", tags);
         

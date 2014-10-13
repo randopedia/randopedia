@@ -1,5 +1,7 @@
 package no.extreme.randopedia.service;
 
+import java.util.List;
+
 import no.extreme.randopedia.model.tag.Tag;
 import no.extreme.randopedia.model.tour.Tour;
 
@@ -24,11 +26,16 @@ public class UpdateTagCloudService {
     MongoOperations mongoOperations;
     
     public void updateTagCloud() {
-        AggregationOperation sum = Aggregation.group("tags").sum("_id").as("tag_count");
+        AggregationOperation project = Aggregation.project("tags");
+        AggregationOperation sum = Aggregation.unwind("tags");
+        AggregationOperation group = Aggregation.group("tags").count().as("value");
 
-        Aggregation aggregation = newAggregation(sum);
+        Aggregation aggregation = newAggregation(project, sum, group);
         AggregationResults<Tag> aggregate = mongoOperations.aggregate(aggregation, "tour", Tag.class);
     
+        List<Tag> aggregatedTags = aggregate.getMappedResults();
+        
+        mongoOperations.insert(aggregatedTags, Tag.class);
     }
     
 }

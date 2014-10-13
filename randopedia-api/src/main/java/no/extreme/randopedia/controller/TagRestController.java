@@ -5,7 +5,6 @@ import java.util.List;
 
 import no.extreme.randopedia.controller.TourRestController.Mapper;
 import no.extreme.randopedia.model.tag.Tag;
-import no.extreme.randopedia.model.tag.TagCloudTag;
 import no.extreme.randopedia.model.tag.TagContainer;
 import no.extreme.randopedia.model.tag.TagsContainer;
 import no.extreme.randopedia.model.tour.Tour;
@@ -50,7 +49,7 @@ public class TagRestController {
     @RequestMapping(method=RequestMethod.GET, value="/tags", produces="application/json")
     public @ResponseBody TagsContainer getTags() {
         
-        List<TagCloudTag> tags = tourService.findAllTags();
+        List<Tag> tags = tourService.findAllTags();
         TagsContainer container = new TagsContainer();
         container.setTags(tags);
         
