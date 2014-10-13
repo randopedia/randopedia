@@ -7,7 +7,7 @@ App.Fixtures.MapSymbolTypes = {
 
 App.Fixtures.MapObjectStyles = {
     DEFAULT_PATH_WIDTH: 3,
-    SELECTED_PATH_WIDTH: 5,
+    SELECTED_PATH_WIDTH: 6,
     DEFAULT_PATH_COLOR: '#990000',
     UP_PATH_COLOR: '#343434',
     DOWN_PATH_COLOR: '#EE0000',
@@ -124,19 +124,6 @@ App.GeoHelper = Ember.Object.create({
 
         polyline.set('rando_type', randoType);
         polyline.setOptions({ strokeWeight: App.Fixtures.MapObjectStyles.DEFAULT_PATH_WIDTH });
-
-        //var lineSymbol = {
-        //    path: 'M 0,-0.5 0,0.5',
-        //    strokeWeight: 2,
-        //    strokeOpacity: 1,
-        //    scale: 4
-        //};
-        
-        //var icon = {
-        //    icon: lineSymbol,
-        //    offset: '100%',
-        //    repeat: '20px'
-        //};
 
         switch (randoType) {
             case App.Fixtures.MapSymbolTypes.UP_DOWN_TRACK:

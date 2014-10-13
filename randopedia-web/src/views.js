@@ -206,7 +206,6 @@ App.TourDetailsView = Ember.View.extend({
     
     didInsertElement: function() {
         $('.popover-link').popover({ placement: 'auto' });
-        console.log('popover');
     },
 });
 

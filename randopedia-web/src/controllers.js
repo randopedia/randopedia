@@ -12,7 +12,7 @@ App.IndexController = Ember.ObjectController.extend({
         var self = this;
         self.loadLiteTours();
         
-        onWindowResize = function() {
+        var onWindowResize = function() {
             self.set('isSmallScreen', window.innerWidth < 768);
         };
         
