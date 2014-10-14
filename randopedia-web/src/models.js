@@ -120,32 +120,5 @@ App.Tour = DS.Model.extend({
     comments: DS.hasMany('comment', { async : true }),
     actions: DS.hasMany('action', { async: true }),
     status: DS.attr('number'),
-    publishComment: DS.attr('string'),
-    tagsString : function() {
-        var tagsArray = this.get('tags');
-        var ret = '';
-        if(tagsArray !== null && typeof tagsArray !== 'undefined') {
-            var i=0;
-            tagsArray.forEach(function(item) {
-                if(i === 0) {
-                    ret = item;
-                } else {
-                    ret = ret + ', ' + item;
-                }
-                i++;
-            });
-        }
-        
-        return ret;
-    }.property('tags'),
-    tagsArray : function() {
-        var tagsString = this.get('tagsString');
-        if(tagsString !== null && typeof tagsString !== 'undefined' && tagsString.length > 0) {
-            tagsString = tagsString.replace(/\s/g, '');
-            tagsString = tagsString.replace('#', '');
-            var tagsArray = tagsString.split(',');
-            return tagsArray;
-        }
-        return null;
-    }.property('tagsString')
+    publishComment: DS.attr('string')
 });

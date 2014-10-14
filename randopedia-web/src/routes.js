@@ -146,22 +146,22 @@ App.TourEditRoute = App.BaseRoute.extend({
     renderTemplate: function() {
         this.render('touredit');
     },
-	model: function(params) {
+    model: function(params) {
         return this.store.find('tour', params.tour_id);
-	},
-	beforeModel: function(transition) {
+    },
+    beforeModel: function(transition) {
         //TODO: Prevent route if user not logged in  
-	},
-	actions: {
+    },
+    actions: {
         willTransition: function(transition) {
             var controller = this.get('controller');
             if(controller.get('hasChanges')) {
-                  if(confirm("The tour has unsaved changes, do you want to discard them?")){
-                      controller.send('cancelEditTour');
-                      return true;
-                  } else { 
-                      transition.abort(); 
-                  }
+                if(confirm("The tour has unsaved changes, do you want to discard them?")){
+                    controller.send('cancelEditTour');
+                    return true;
+                } else { 
+                    transition.abort(); 
+                }
             }
             else { 
                 return true; 

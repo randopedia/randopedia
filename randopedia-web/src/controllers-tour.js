@@ -71,7 +71,7 @@ App.TourEditController = Ember.ObjectController.extend({
     needs : ['login'],
     validationErrors: [],
     validationWarnings: [],
-    
+
     actions: {
         cancelEditTour: function() {
             if(!this.get('model').get('id')) {
@@ -453,10 +453,53 @@ App.TourEditController = Ember.ObjectController.extend({
     
         var str = this.get('itinerary').replace(/</g, '&lt;').replace(/>/g, '&gt;');
         this.set('itinerary', str);
-    },    
+    },
+    getTagsArrayFromString : function() {
+        var tagsString = this.get('tagsString');
+        if(tagsString !== null && typeof tagsString !== 'undefined' && tagsString.length > 0) {
+            tagsString = tagsString.replace(/\s/g, '');
+            tagsString = tagsString.replace('#', '');
+            var tagsArray = tagsString.split(',');
+            return tagsArray;
+        }
+        return null;
+    },
+    
         
     // Computed properties
-    
+
+    tagsString : function() {
+        var model = this.get('content');
+        var tags = model.get('tags');
+        console.log(tags);
+        var tagsString = '';
+        tags.forEach(function(item) {
+            tagsString += item;
+            tagsString += ', ';
+        });
+
+        return tagsString;
+    }.property('tags'),
+
+    tagsArray : function() {
+        var tagsArray = this.getTagsArrayFromString();
+        var ret = '';
+        console.log(tagsArray);
+        if(tagsArray !== null && typeof tagsArray !== 'undefined') {
+            var i=0;
+            tagsArray.forEach(function(item) {
+                if(i === 0) {
+                    ret = item;
+                } else {
+                    ret = ret + ', ' + item;
+                }
+                i++;
+            });
+        }
+        
+        return ret;
+    }.property('tagsString'),
+
     hasChanges: function() {
         if(this.get('isDirty') || this.get('hasNewImage') || this.get('areaIsUpdated')) {
             return true;
