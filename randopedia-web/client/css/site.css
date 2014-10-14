@@ -6907,7 +6907,7 @@ button.info:hover {
 .tour-edit-view .map-edit-view .mouse-position-container {
   position: absolute;
   top: calc(100% - 100px);
-  left: calc(100% - 100px);
+  left: calc(100% - 140px);
   color: #333333;
   background-color: rgba(255, 255, 255, 0.5);
   padding: 5px;

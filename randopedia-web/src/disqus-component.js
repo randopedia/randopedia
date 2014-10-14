@@ -4,10 +4,8 @@ App.DisqusComponentComponent = Ember.Component.extend( {
     timer : null,
 
     setup : function() {
-        console.log('Setting up disqus!!');
         var controller = this.get('parentView.controller');
-        
-       
+               
         if(!window.DISQUS) {
             var disqus_shortname = 'randopedia';
             var model = controller.get('model');
@@ -31,7 +29,6 @@ App.DisqusComponentComponent = Ember.Component.extend( {
     }.on('didInsertElement'),
 
     reset : function() {
-        console.log('Resettar disqus');
         var controller = this.get('parentView.controller');
         var model = controller.get('model');
         var postIdentifier = model.get('id');

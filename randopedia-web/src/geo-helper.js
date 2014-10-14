@@ -17,6 +17,9 @@ App.Fixtures.MapObjectStyles = {
 App.GeoHelper = Ember.Object.create({
     
     validateGeoJson: function(geojson) {
+        if(geojson === null) {
+            return false;
+        }
         if(!geojson.features || geojson.features.length === 0) {
             return false;
         }
