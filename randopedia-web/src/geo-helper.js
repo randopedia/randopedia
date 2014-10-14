@@ -7,7 +7,7 @@ App.Fixtures.MapSymbolTypes = {
 
 App.Fixtures.MapObjectStyles = {
     DEFAULT_PATH_WIDTH: 3,
-    SELECTED_PATH_WIDTH: 5,
+    SELECTED_PATH_WIDTH: 6,
     DEFAULT_PATH_COLOR: '#990000',
     UP_PATH_COLOR: '#343434',
     DOWN_PATH_COLOR: '#EE0000',
@@ -49,26 +49,34 @@ App.GeoHelper = Ember.Object.create({
     
     getGeoJsonFromGoogleObjects: function (googleMapObjects) {
 
-        // TODO: Currently only supporting polylines
-
         var geojson = {
             type: "FeatureCollection",
             features: []
         };
 
-        for (var i = 0; i < googleMapObjects.length; i++) {
-            var polyline = googleMapObjects[i];
-            var polylinePath = polyline.getPath();
-
-            geojson.features.push({
-                type: "Feature",
-                rando_type: polyline.get('rando_type'),
-                geometry: {
-                    type: "LineString",
-                    coordinates: App.GeoHelper.googleLatLngArrayToGeoJsonCoordinates(polylinePath),
-                }
-            });
-        }
+        googleMapObjects.forEach(function(googleMapObject) {
+            if (googleMapObject.get('rando_type') === App.Fixtures.MapSymbolTypes.SUMMIT_POINT) {
+                geojson.features.push({
+                    type: "Feature",
+                    rando_type: googleMapObject.get('rando_type'),
+                    geometry: {
+                        type: "Point",
+                        coordinates: [googleMapObject.position.lng(), googleMapObject.position.lat()],
+                    }
+                });
+            } else {
+                // Assume polyline type
+                var polylinePath = googleMapObject.getPath();
+                geojson.features.push({
+                    type: "Feature",
+                    rando_type: googleMapObject.get('rando_type'),
+                    geometry: {
+                        type: "LineString",
+                        coordinates: App.GeoHelper.googleLatLngArrayToGeoJsonCoordinates(polylinePath),
+                    }
+                });
+            }
+        });
 
         return geojson;
     },
@@ -86,13 +94,32 @@ App.GeoHelper = Ember.Object.create({
             var feature = geojson.features[i];
             var geometry = feature.geometry;
 
-            if(geometry.type === "LineString"){
+            if(geometry.type === "LineString") {
                 var polylinePath = App.GeoHelper.geoJsonCoordinatesToGoogleLatLngArray(geometry.coordinates);
                 var polyline = self.getGooglePolyline(polylinePath, feature.rando_type, makeEditable);
                 mapObjects.push(polyline);
+            } else if (geometry.type === "Point") {
+                var marker = self.getGoogleMarker(geometry.coordinates, feature.rando_type, makeEditable, 'Summit point');
+                mapObjects.push(marker);
             }
+
         }
         return mapObjects;
+    },
+
+    getGoogleMarker: function (coordinates, randoType, makeDraggable, title) {
+        if (!randoType) {
+            randoType = App.Fixtures.MapSymbolTypes.SUMMIT_POINT;
+        }
+
+        var marker = new google.maps.Marker({
+            position: new google.maps.LatLng(coordinates[1], coordinates[0]),
+            draggable: makeDraggable,
+            rando_type: randoType,
+            title: title
+        });
+
+        return marker;
     },
 
     getGooglePolyline: function (path, randoType, makeEditable) {
@@ -124,19 +151,6 @@ App.GeoHelper = Ember.Object.create({
 
         polyline.set('rando_type', randoType);
         polyline.setOptions({ strokeWeight: App.Fixtures.MapObjectStyles.DEFAULT_PATH_WIDTH });
-
-        //var lineSymbol = {
-        //    path: 'M 0,-0.5 0,0.5',
-        //    strokeWeight: 2,
-        //    strokeOpacity: 1,
-        //    scale: 4
-        //};
-        
-        //var icon = {
-        //    icon: lineSymbol,
-        //    offset: '100%',
-        //    repeat: '20px'
-        //};
 
         switch (randoType) {
             case App.Fixtures.MapSymbolTypes.UP_DOWN_TRACK:

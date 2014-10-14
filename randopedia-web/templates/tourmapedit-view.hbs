@@ -13,15 +13,12 @@
                         <li><a href="#" {{action "drawDownTrack" target="view" }}><span class="glyphicon glyphicon-arrow-down"></span> Down</a></li>
                     </ul>
                 </div>
-                <!--<div class="btn-group">
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                        Markers
-                        <span class="caret"></span>
+
+                <div class="btn-group">
+                    <button class="btn btn-default" {{bindAttr disabled="view.hasSummitPointMarker" }} {{action "drawSummitPoint" target="view" }}>
+                        <span class="glyphicon glyphicon-map-marker"></span> Summit point
                     </button>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a href="#" {{action "drawSummitPoint" target="view" }}>Summit point</a></li>
-                    </ul>
-                </div>-->
+                </div>
 
                 <div class="btn-group">
                     <button class="btn btn-default" data-toggle="modal" data-target="#confirmDeleteRoutesModal" {{bindAttr disabled="view.isDeletePathsDisabled" }}>

@@ -1,61 +1,104 @@
+App.BrowseMapObject = {
+    marker: null,
+    infowindow: null,
+    paths: null
+};
+
 App.BrowseTourmapComponent = Ember.Component.extend({
     mapRootElement: null,
     map: null,
     markers: [],
     tours: null,
     store: null,
-    currentMapObjects: [],
+    currentTourMapObjects: [],
     detailedZoomLevel: 13,
     showRoutesOnZoomLevel: 12,
     myPositionMarker: null,
     myPositionWatchId: null,
-    
+
     didInsertElement: function() {
-        if(!this.get('store')) {
+        if (!this.get('store')) {
             App.Utils.log('BrowseTourMap component needs a store, inject store=store');
             return;
         }
-        
-        if(!this.get('tours')) {
+
+        if (!this.get('tours')) {
             App.Utils.log('BrowseTourMap component needs tours, inject tours=tours');
             return;
         }
-        
-        if(!this.get('zoomLevel')) {
+
+        if (!this.get('zoomLevel')) {
             this.set('zoomLevel', 4);
         }
-        
-        if(!this.get('mapCenter')) {
+
+        if (!this.get('mapCenter')) {
             this.set('mapCenter', new google.maps.LatLng(58.0, 13.5));
         }
-        
+
         this.addTourMarkers(this.get('tours'));
     },
-    
-    zoomToTour: function (tour) {
-        var tourMapObjects = App.GeoHelper.getGoogleObjectsFromTourGeoJson(tour.get('mapGeoJson'));
-        if(!tourMapObjects) { 
-            return; 
+
+    zoomAndHighlightTour: function(tour) {
+        this.zoomToTour(tour);
+        this.highlightTour(tour);
+        this.openInfoWindow(tour);
+    },
+
+    findTourMapObject: function(tour) {
+        var self = this;
+
+        for (var i = 0; i < self.get('currentTourMapObjects').length; i++) {
+            if (self.get('currentTourMapObjects')[i].tourId === tour.get('id')) {
+                return self.get('currentTourMapObjects')[i];
+            }
         }
 
+        return null;
+    },
+
+    highlightTour: function (tour) {
+        var self = this;
+        var tourMapObject = self.findTourMapObject(tour);
+
+        tourMapObject.paths.forEach(function(polyline) {
+            polyline.setOptions({ strokeWeight: App.Fixtures.MapObjectStyles.SELECTED_PATH_WIDTH });
+        });
+    },
+
+    unhighlightTour: function(tour) {
+        var self = this;
+        var tourMapObject = self.findTourMapObject(tour);
+
+        tourMapObject.paths.forEach(function(polyline) {
+            polyline.setOptions({ strokeWeight: App.Fixtures.MapObjectStyles.DEFAULT_PATH_WIDTH });
+        });
+    },
+
+    openInfoWindow: function (tour) {
+        var self = this;
+        var tourMapObject = self.findTourMapObject(tour);
+        self.setupInfoWindowListeners(tourMapObject.infowindow, tour);
+        tourMapObject.infowindow.open(self.get('map'), tourMapObject.marker); 
+    },
+
+    zoomToTour: function (tour) {
+        var self = this;
+
         var bounds = new google.maps.LatLngBounds();
-        
-        tourMapObjects.forEach(function(mapObject) {
-            for(var j = 0; j < mapObject.getPath().length; j++){
-                bounds.extend(mapObject.getPath().getArray()[j]);
-            } 
+
+        var tourMapObject = self.findTourMapObject(tour);
+
+        tourMapObject.paths.forEach(function (polyline) {
+            for (var j = 0; j < polyline.getPath().length; j++) {
+                bounds.extend(polyline.getPath().getArray()[j]);
+            }
         });
         
-        this.get('map').fitBounds(bounds);
+        self.get('map').fitBounds(bounds);
+        self.highlightTour(tour);
     },
     
-    getTourCenterLatLng: function(geojson) {
-        // TODO: This should get the tour centre/summit point (if not exits, do what we do now)
-        
-        if(!geojson || !geojson.features) {
-            return null;
-        }
-        
+    getDefaultTourCenterLatLng: function(geojson) {
         for(var i = 0; i < geojson.features.length; i++) {
             
             var geometry = geojson.features[i].geometry;
@@ -83,11 +126,9 @@ App.BrowseTourmapComponent = Ember.Component.extend({
             return;
         }
         
-        self.get('tours').forEach(function(tour) {
-            var mapObjects = App.GeoHelper.getGoogleObjectsFromTourGeoJson(tour.get('mapGeoJson'));
-            mapObjects.forEach(function(mapObject) {
-                mapObject.setMap(self.get('map'));
-                self.get('currentMapObjects').push(mapObject);
+        self.get('currentTourMapObjects').forEach(function (tourMapObject) {
+            tourMapObject.paths.forEach(function (polyline) {
+                polyline.setMap(self.get('map'));
             });
         });
         
@@ -101,10 +142,12 @@ App.BrowseTourmapComponent = Ember.Component.extend({
             return;
         }
         
-        self.get('currentMapObjects').forEach(function(mapObject) {
-            mapObject.setMap(null);
+        self.get('currentTourMapObjects').forEach(function (tourMapObject) {
+            tourMapObject.paths.forEach(function (polyline) {
+                polyline.setMap(null);
+            });
         });
-        self.set('currentMapObjects', []);
+        
         self.set('tourRoutesAreShown', false);
     },
 
@@ -172,17 +215,29 @@ App.BrowseTourmapComponent = Ember.Component.extend({
         }
     },
 
+    setupInfoWindowListeners: function (infowindow, tour) {
+        var self = this;
+
+        google.maps.event.addListener(infowindow, 'domready', function () {
+            self.highlightTour(tour);
+            $('#zoomToTourLink').click(function () {
+                self.zoomToTour(tour);
+            });
+        });
+        google.maps.event.addListener(infowindow, 'closeclick', function () {
+            self.unhighlightTour(tour);
+        });
+    },
+
     addTourMarkers: function(tours) {
         var self = this;
         self.set('markers', []);
-        tours.forEach(function(tour){
+        tours.forEach(function (tour) {
 
-            var tourCenterLatLng = self.getTourCenterLatLng(tour.get('mapGeoJson'));
-            if(!tourCenterLatLng){
+            if (!App.GeoHelper.validateGeoJson(tour.get('mapGeoJson'))) {
                 return;
             }
 
-            var marker = new google.maps.Marker({ title: tour.get('name'), position: tourCenterLatLng });
             var html =
                 '<div style="background-color:#fff;width:260px;height:100px">' +
                 '<h4><a style="font-size:0.9em;" href=#!/tours/' + tour.get('id') + '>' + tour.get('name') + '</a></h4>' +
@@ -199,15 +254,36 @@ App.BrowseTourmapComponent = Ember.Component.extend({
 
             var infowindow = new google.maps.InfoWindow({ content: html, maxWidth: 600 });
 
+            var tourPaths = [];
+            var tourCenterLatLng = null;
+            var mapObjects = App.GeoHelper.getGoogleObjectsFromTourGeoJson(tour.get('mapGeoJson'));
+            mapObjects.forEach(function (mapObject) {
+                if (mapObject.get('rando_type') === App.Fixtures.MapSymbolTypes.SUMMIT_POINT) {
+                    tourCenterLatLng = mapObject.position;
+                } else {
+                    // Assume paths
+                    tourPaths.push(mapObject);
+                }
+            });
+
+            
+            if (!tourCenterLatLng) {
+                tourCenterLatLng = self.getDefaultTourCenterLatLng(tour.get('mapGeoJson'));
+            }
+
+            var marker = new google.maps.Marker({ title: tour.get('name'), position: tourCenterLatLng });
+
             google.maps.event.addListener(marker, 'click', function() {
                 infowindow.open(self.get('map'), marker);
-                google.maps.event.addListener(infowindow,'domready',function(){
-                    $('#zoomToTourLink').click(function() {
-                        self.zoomToTour(tour);
-                    });
-                });
+                self.setupInfoWindowListeners(infowindow, tour);
             });
-            
+
+            self.get('currentTourMapObjects').push({
+                tourId: tour.get('id'),
+                marker: marker,
+                infowindow: infowindow,
+                paths: tourPaths
+            });
             self.get('markers').push(marker);
         });
 
@@ -245,7 +321,7 @@ App.BrowseTourmapComponent = Ember.Component.extend({
         self.set('map', new google.maps.Map(this.get('mapRootElement').get(0), mapOptions));
         
         var markerCluster = new MarkerClusterer(this.get('map'), this.get('markers'));
-        markerCluster.setMaxZoom(14);
+        markerCluster.setMaxZoom(self.get('showRoutesOnZoomLevel') - 4);
         self.set('oms', new OverlappingMarkerSpiderfier(this.get('map')));
 
         google.maps.event.addListener(self.get('map'), 'zoom_changed', function() {
@@ -268,7 +344,7 @@ App.BrowseTourmapComponent = Ember.Component.extend({
         $(window).on('resize', redrawMap); 
         
         if(this.get('tour')) {
-            self.zoomToTour(this.get('tour'));
+            self.zoomAndHighlightTour(this.get('tour'));
         }
         
         self.showTourRoutesIfZoomed(self.get('map').getZoom());
