@@ -13,6 +13,8 @@
 @small-space:                   5px;
 @large-space:                   10px;
 
+@medium-dark-background:        #B7B7B7;
+
 @map-path-default-color:        #990000;
 @map-path-up-color:             #343434;
 @map-path-down-color:           #EE0000;
@@ -212,6 +214,29 @@ a {
     .adjust-margin-for-small();
 }
 
+.panel {
+    .panel-heading {
+        font-size: @font-size-large;
+        font-weight: 700;
+
+        a {
+            color: @gray-darker;
+            &:hover {
+                color: @gray;
+            }
+        }
+    }
+}
+
+.panel-heading .accordion-toggle:after {
+    font-family: 'Glyphicons Halflings';
+    content: "\e114";
+    float: right;     
+}
+.panel-heading .accordion-toggle.collapsed:after {
+    content: "\e080";
+}
+
 .navbar {
     background: @navbar-background;
     margin-bottom: 0;
@@ -409,10 +434,6 @@ button.info {
     h2 {
         margin-top: 5px;
     }
-    .panel-heading {
-        font-size: @font-size-large;
-        font-weight: 700;
-    }
     .tour-props {
         margin: 15px 0;
         .row {
@@ -448,7 +469,7 @@ button.info {
     }
     
     .image-carousel-container {
-        background: @gray-lighter;
+        background: @medium-dark-background;
         
         h4 {
             font-size: 20px;
