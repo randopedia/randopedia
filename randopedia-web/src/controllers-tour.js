@@ -608,16 +608,30 @@ App.MytoursController = Ember.ObjectController.extend({
     needs: 'login',
     user: null,
     drafts: [],
-    init: function() {
-        this.user = this.get('controllers.login').get('currentUser');
-        this.set('isLoadingDrafts', true);
-        this.set('serverErrors', false);
+    updates: [],
+
+    init: function () {
         var self = this;
-        this.store.findQuery('tour', {status : App.Fixtures.TourStatus.DRAFT}).then(function(tours) {
+        self.user = this.get('controllers.login').get('currentUser');
+        self.set('isLoadingDrafts', true);
+        self.set('isLoadingUpdates', true);
+        self.set('draftsServerErrors', false);
+        self.set('updatesServerErrors', false);
+
+        
+        self.store.findQuery('tour', { status: App.Fixtures.TourStatus.DRAFT }).then(function (tours) {
             self.set('drafts', tours);
             self.set('isLoadingDrafts', false);
         }, function(error) {
-            self.set('serverErrors', true);
+            self.set('draftsServerErrors', true);
+            self.set('isLoadingDrafts', false);
+        });
+
+        self.store.findQuery('tour', { usersTours: true }).then(function (tours) {
+            self.set('updates', tours);
+            self.set('isLoadingUpdates', false);
+        }, function (error) {
+            self.set('updatesServerErrors', true);
             self.set('isLoadingDrafts', false);
         });
     }

@@ -33,4 +33,5 @@ public interface TourRepository {
     List<Tag> findAllTags();
     List<Tour> findToursByCoordinate(Long mapCenterLat, Long mapCenterLong, Long zoomLevel);
     List<Tour> findToursByCoordinate(Double topLeftLatitude, Double topLeftLongitude, Double bottomRightLatitude, Double bottomRightLongitude);
+    List<Tour> findToursByUser(String userId);
 }

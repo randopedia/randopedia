@@ -88,6 +88,16 @@ public class TourService {
         return tours;
     }
     
+    public List<Tour> getToursByCurrentUser(
+            String token,
+            String provider) throws TokenInvalidException {
+        
+        User user = authenticationRepository.getUserFromToken(token, provider);
+        List<Tour> tours = new ArrayList<Tour>();
+        
+        return tourRepository.findToursByUser(user.getId());
+    }
+    
     /**
      * Get lite models of the tours
      * @return
