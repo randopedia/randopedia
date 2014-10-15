@@ -15,6 +15,22 @@ App.Fixtures.TourStatus = {
     DELETED: 3
 };
 
+App.Fixtures.MapSymbolTypes = {
+    UP_DOWN_TRACK: 10,
+    UP_TRACK: 11,
+    DOWN_TRACK: 12,
+    SUMMIT_POINT: 20,
+};
+
+App.Fixtures.MapObjectStyles = {
+    DEFAULT_PATH_WIDTH: 3,
+    SELECTED_PATH_WIDTH: 6,
+    DEFAULT_PATH_COLOR: '#990000',
+    UP_PATH_COLOR: '#343434',
+    DOWN_PATH_COLOR: '#EE0000',
+    SELECTED_PATH_COLOR: 'blue'
+};
+
 App.Fixtures.UndefinedString = "N/A",
 
 App.Fixtures.TourActions = [
@@ -70,6 +86,12 @@ App.Fixtures.Months = [
     Ember.Object.create({value: 10, name: 'October'}),
     Ember.Object.create({value: 11, name: 'November'}),
     Ember.Object.create({value: 12, name: 'December'})
+];
+
+App.Fixtures.PathTypes = [
+	Ember.Object.create({ value: App.Fixtures.MapSymbolTypes.UP_DOWN_TRACK, name: 'Up/Down' }),
+	Ember.Object.create({ value: App.Fixtures.MapSymbolTypes.UP_TRACK, name: 'Up' }),
+    Ember.Object.create({ value: App.Fixtures.MapSymbolTypes.DOWN_TRACK, name: 'Down' })
 ];
 
 

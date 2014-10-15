@@ -1,23 +1,7 @@
-App.Fixtures.MapSymbolTypes = {
-    UP_DOWN_TRACK: 10,
-    UP_TRACK: 11,
-    DOWN_TRACK: 12,
-    SUMMIT_POINT: 20,
-};
-
-App.Fixtures.MapObjectStyles = {
-    DEFAULT_PATH_WIDTH: 3,
-    SELECTED_PATH_WIDTH: 6,
-    DEFAULT_PATH_COLOR: '#990000',
-    UP_PATH_COLOR: '#343434',
-    DOWN_PATH_COLOR: '#EE0000',
-    SELECTED_PATH_COLOR: 'blue'
-};
-
 App.GeoHelper = Ember.Object.create({
     
     validateGeoJson: function(geojson) {
-        if(geojson === null) {
+        if(!geojson) {
             return false;
         }
         if(!geojson.features || geojson.features.length === 0) {
@@ -152,13 +136,18 @@ App.GeoHelper = Ember.Object.create({
             });
         }
 
-        polyline.set('rando_type', randoType);
+        this.setPolylineDefaultOptions(polyline, randoType);
+        return polyline;
+    },
+
+    setPolylineDefaultOptions: function (polyline, pathSymbolType) {
+        polyline.set('rando_type', pathSymbolType);
         polyline.setOptions({ strokeWeight: App.Fixtures.MapObjectStyles.DEFAULT_PATH_WIDTH });
 
-        switch (randoType) {
+        switch (pathSymbolType) {
             case App.Fixtures.MapSymbolTypes.UP_DOWN_TRACK:
                 polyline.setOptions({
-                     strokeColor: App.Fixtures.MapObjectStyles.DEFAULT_PATH_COLOR
+                    strokeColor: App.Fixtures.MapObjectStyles.DEFAULT_PATH_COLOR
                 });
                 break;
             case App.Fixtures.MapSymbolTypes.UP_TRACK:
@@ -172,7 +161,7 @@ App.GeoHelper = Ember.Object.create({
                 });
                 break;
         }
-
-        return polyline;
     }
+
+    
 });

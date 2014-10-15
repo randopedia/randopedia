@@ -2,9 +2,9 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="btn-toolbar" role="toolbar">
-                <div class="btn-group">
+                <div class="btn-group spacing-x-large">
                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                        Paths
+                        <span class="glyphicon glyphicon-plus"></span> Add path
                         <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" role="menu">
@@ -12,15 +12,15 @@
                         <li><a href="#" {{action "drawUpTrack" target="view" }}><span class="glyphicon glyphicon-arrow-up"></span> Up</a></li>
                         <li><a href="#" {{action "drawDownTrack" target="view" }}><span class="glyphicon glyphicon-arrow-down"></span> Down</a></li>
                     </ul>
-                </div>
-
-                <div class="btn-group">
                     <button class="btn btn-default" {{bindAttr disabled="view.hasSummitPointMarker" }} {{action "drawSummitPoint" target="view" }}>
                         <span class="glyphicon glyphicon-map-marker"></span> Summit point
                     </button>
                 </div>
 
-                <div class="btn-group">
+                <div class="btn-group spacing-x-large">
+                    <button class="btn btn-default" data-toggle="modal" data-target="#editPathsModal" {{bindAttr disabled="view.isDeletePathsDisabled" }}>
+                        <span class="glyphicon glyphicon-edit"></span> Edit paths
+                    </button>
                     <button class="btn btn-default" data-toggle="modal" data-target="#confirmDeleteRoutesModal" {{bindAttr disabled="view.isDeletePathsDisabled" }}>
                         <span class="glyphicon glyphicon-trash"></span>
                     </button>
@@ -56,8 +56,33 @@
                     Are you sure you want to delete the selected paths from the tour?
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+                    <button class="btn btn-default pull-right" data-dismiss="modal">Cancel</button>
                     <button class="btn btn-danger pull-right" data-dismiss="modal" {{action "deleteRoutes" target="view" }}>Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="editPathsModal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">Edit paths</h4>
+                </div>
+                <div class="modal-body">
+                    <label for="inputAspect">Set type on selected path(s)</label>
+                    {{view Ember.Select
+                        contentBinding="App.Fixtures.PathTypes"
+                        optionValuePath="content.value"
+                        optionLabelPath="content.name"
+                        valueBinding="view.draftPathType"
+                        id="inputMapPathType"
+                        class="form-control"}}
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-default pull-right" data-dismiss="modal">Cancel</button>
+                    <button class="btn btn-primary pull-right" data-dismiss="modal" {{action "updatePathsType" target="view" }}>Update</button>
                 </div>
             </div>
         </div>
@@ -100,7 +125,7 @@
                         {{#if view.gpxDataWasLoaded}}
                             <button class="btn btn-default pull-right" data-dismiss="modal" {{action "closeGpxImportModal" target="view" }}>Close</button>
                         {{else}}
-                            <button class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+                            <button class="btn btn-default pull-right" data-dismiss="modal">Cancel</button>
                         {{/if}}
                     {{/unless}}
                 </div>

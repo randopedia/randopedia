@@ -56,6 +56,8 @@ App.TourEditMapView = Ember.View.extend({
     gpxDataWasLoaded: false,
     gpxDataIsInvalid: false,
 
+    draftPathType: App.Fixtures.MapSymbolTypes.UP_DOWN_TRACK,
+
     didInsertElement: function() {
         this.initMap();
     },
@@ -307,6 +309,20 @@ App.TourEditMapView = Ember.View.extend({
         },
         closeGpxImportModal: function() {
             this.set('gpxDataWasLoaded', false);
+        },
+        updatePathsType: function () {
+            var self = this;
+            self.get('selectedPolylines').forEach(function (polyline) {
+                App.GeoHelper.setPolylineDefaultOptions(polyline, self.get('draftPathType'));
+            });
+
+            self.saveGeoJson();
+
+            self.send('clearSelectedPolylines');
+            self.set('draftPolyLineType', App.Fixtures.MapSymbolTypes.UP_DOWN_TRACK);
+        },
+        clearSelectedPolylines: function() {
+            this.set('selectedPolylines', []);
         }
     },
 
