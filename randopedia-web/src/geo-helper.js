@@ -80,6 +80,7 @@ App.GeoHelper = Ember.Object.create({
                 geojson.features.push({
                     type: "Feature",
                     rando_type: googleMapObject.get('rando_type'),
+                    properties: {name: "Summit point"},
                     geometry: {
                         type: "Point",
                         coordinates: [googleMapObject.position.lng(), googleMapObject.position.lat()],
@@ -91,9 +92,11 @@ App.GeoHelper = Ember.Object.create({
                 geojson.features.push({
                     type: "Feature",
                     rando_type: googleMapObject.get('rando_type'),
+                    properties: {name: "Tour path"},
                     geometry: {
                         type: "LineString",
                         coordinates: App.GeoHelper.googleLatLngArrayToGeoJsonCoordinates(polylinePath),
+                        
                     }
                 });
             }
@@ -195,7 +198,19 @@ App.GeoHelper = Ember.Object.create({
                 });
                 break;
         }
-    }
+    },
 
-    
+    saveAsGpx: function(geojson, name, description) {
+        var gpx = togpx(geojson, {
+            creator: 'randopedia.net',
+            metadata: {
+                author: 'randopedia.net',
+                name: name,
+                desc: description
+            }
+        });
+
+        var blob = new Blob([gpx], { type: "text/plain;charset=utf-8" });
+        saveAs(blob, name + ".gpx");
+    }
 });

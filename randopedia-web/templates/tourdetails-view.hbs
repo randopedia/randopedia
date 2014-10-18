@@ -149,17 +149,22 @@
 
         <div class="row">
             <div class="col-sm-12">
-                {{#if isPublished}}
+                <div class="map-buttons-container">
+                    {{#if isPublished}}
                     {{#if hasPaths}}
-                        <button class="btn btn-primary btn-view-on-map" {{action "viewTourOnMap" }}>
-                            <span class="glyphicon glyphicon-globe"></span><span class="spacing-x">View tour on map</span>
-                        </button>
+                    <button class="btn btn-primary" {{action "viewTourOnMap" }}>
+                        <span class="glyphicon glyphicon-globe"></span> View tour on map
+                    </button>
                     {{/if}}
-                {{else}}
+                    {{else}}
                     {{#if hasPaths}}
-                        <div class="spacing">[View tour on map] <em>Tours are not available on the map until they are published.</em></div>
+                    <div class="spacing">[View tour on map] <em>Tours are not available on the map until they are published.</em></div>
                     {{/if}}
-                {{/if}}
+                    {{/if}}
+                    <button class="btn btn-primary pull-right" {{action "downloadGpxFile" }}>
+                        <span class="glyphicon glyphicon-export"></span> GPX
+                    </button>
+                </div>
             </div>
 
             <div class="col-sm-12">

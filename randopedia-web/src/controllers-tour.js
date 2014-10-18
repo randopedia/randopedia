@@ -8,6 +8,9 @@ App.TourController = Ember.ObjectController.extend({
     actions: {
         viewTourOnMap: function() {
             this.get('controllers.index').send('viewTourOnMap', this.get('model'));
+        },
+        downloadGpxFile: function () {
+            App.GeoHelper.saveAsGpx(this.get('mapGeoJson'), this.get('name'), this.get('itinerary'));
         }
     },
     
