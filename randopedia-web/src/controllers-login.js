@@ -36,10 +36,12 @@ App.LoginController = Ember.ObjectController.extend({
             user.save().then(function() {
                 self.set('isLoggingIn', false);
                 self.set('currentUser', user);
+                App.Alerts.showSuccessMessage('You were successfully logged in. ', 2000);
             }, function(error) {
                 self.set('isLoggingIn', false);
                 App.oauth.expireAccessToken();
                 user.rollback();
+                App.Alerts.showErrorMessage('An error occured when trying to log in, please try again. ');
             });            
         },
         removeToken : function() {
@@ -52,7 +54,7 @@ App.LoginController = Ember.ObjectController.extend({
 
     isLoggedIn : function() {
         var user = this.get('currentUser');
-        if(user !== null && user.get('authenticated') === true) {
+        if(user && user.get('authenticated') === true) {
             var now = new Date();
             var tokenExp = user.get('tokenExp');
             if(tokenExp > now) {

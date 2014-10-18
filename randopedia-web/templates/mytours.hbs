@@ -11,16 +11,6 @@
             <div class="tab-content">
                 <div class="tab-pane active" id="drafts">
 
-                    {{#if draftsServerErrors}}
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="alert alert-danger alert-dismissible" role="alert">
-                                <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                An error occurred when getting your drafts, maybe you have been logged out? Try to reload the page and log in again.
-                            </div>
-                        </div>
-                    </div>
-                    {{else}}
                     {{#if isLoadingDrafts }}
                     <div class="loading">Loading tours...</div>
                     {{else}}
@@ -33,21 +23,11 @@
                     {{view App.TourItemView}}
                     {{/each}}
                     {{/if}}
-                    {{/if}}
 
                 </div>
 
                 <div id="updates" class="tab-pane">
-                    {{#if updatesServerErrors}}
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="alert alert-danger alert-dismissible" role="alert">
-                                <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                An error occurred when getting your tours, maybe you have been logged out? Try to reload the page and log in again.
-                            </div>
-                        </div>
-                    </div>
-                    {{else}}
+
                     {{#if isLoadingUpdates }}
                     <div class="loading">Loading tours...</div>
                     {{else}}
@@ -61,21 +41,11 @@
                     {{/each}}
 
                     {{/if}}
-                    {{/if}}
 
                 </div>
 
                 <div id="reviews" class="tab-pane">
-                    {{#if reviewsServerErrors}}
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="alert alert-danger alert-dismissible" role="alert">
-                                <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                An error occurred when getting tours in review, maybe you have been logged out? Try to reload the page and log in again.
-                            </div>
-                        </div>
-                    </div>
-                    {{else}}
+
                     {{#if isLoadingReviews }}
                     <div class="loading">Loading tours...</div>
                     {{else}}
@@ -88,7 +58,6 @@
                     {{view App.TourItemView}}
                     {{/each}}
 
-                    {{/if}}
                     {{/if}}
 
                 </div>

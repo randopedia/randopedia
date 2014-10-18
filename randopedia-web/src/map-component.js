@@ -271,7 +271,6 @@ App.BrowseTourmapComponent = Ember.Component.extend({
                     tourPaths.push(mapObject);
                 }
             });
-
             
             if (!tourCenterLatLng) {
                 tourCenterLatLng = self.getDefaultTourCenterLatLng(tour.get('mapGeoJson'));
@@ -327,7 +326,7 @@ App.BrowseTourmapComponent = Ember.Component.extend({
         self.set('map', new google.maps.Map(this.get('mapRootElement').get(0), mapOptions));
         
         var markerCluster = new MarkerClusterer(this.get('map'), this.get('markers'));
-        markerCluster.setMaxZoom(self.get('showRoutesOnZoomLevel') - 4);
+        markerCluster.setMaxZoom(self.get('showRoutesOnZoomLevel') - 3);
         self.set('oms', new OverlappingMarkerSpiderfier(this.get('map')));
 
         google.maps.event.addListener(self.get('map'), 'zoom_changed', function() {
