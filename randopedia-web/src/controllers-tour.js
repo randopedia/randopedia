@@ -68,9 +68,19 @@ App.TourController = Ember.ObjectController.extend({
 });
 
 App.TourEditController = Ember.ObjectController.extend({
-    needs : ['login'],
+    needs: ['login'],
+    queryParams: ['createNewInArea'], // Used for new tour triggered from area edit view
     validationErrors: [],
     validationWarnings: [],
+
+    init: function() {
+        var newAreaId = this.get('createNewInArea');
+        if (newAreaId) {
+            this.store.find('area', newAreaId).then(function(area) {
+                this.get('model').set('area', area);
+            });
+        }
+    },
 
     actions: {
         cancelEditTour: function() {
@@ -475,6 +485,7 @@ App.TourEditController = Ember.ObjectController.extend({
         var str = this.get('itinerary').replace(/</g, '&lt;').replace(/>/g, '&gt;');
         this.set('itinerary', str);
     },
+
     getTagsArrayFromString : function() {
         var tagsString = this.get('tagsString');
         if(tagsString !== null && typeof tagsString !== 'undefined' && tagsString.length > 0) {

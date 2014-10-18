@@ -1,4 +1,5 @@
-App.BrowseMapObject = {
+App.TourMapObject = {
+    tourId: 0,
     marker: null,
     infowindow: null,
     paths: null
@@ -46,10 +47,11 @@ App.BrowseTourmapComponent = Ember.Component.extend({
 
     findTourMapObject: function(tour) {
         var self = this;
+        var tourObjects = self.get('currentTourMapObjects');
 
-        for (var i = 0; i < self.get('currentTourMapObjects').length; i++) {
-            if (self.get('currentTourMapObjects')[i].tourId === tour.get('id')) {
-                return self.get('currentTourMapObjects')[i];
+        for (var i = 0; i < tourObjects.length; i++) {
+            if (tourObjects[i].tourId === tour.get('id')) {
+                return tourObjects[i];
             }
         }
 
@@ -95,7 +97,6 @@ App.BrowseTourmapComponent = Ember.Component.extend({
         });
         
         self.get('map').fitBounds(bounds);
-        self.highlightTour(tour);
     },
     
     getDefaultTourCenterLatLng: function(geojson) {
@@ -127,9 +128,11 @@ App.BrowseTourmapComponent = Ember.Component.extend({
         }
         
         self.get('currentTourMapObjects').forEach(function (tourMapObject) {
-            tourMapObject.paths.forEach(function (polyline) {
-                polyline.setMap(self.get('map'));
-            });
+            if (tourMapObject.paths) {
+                tourMapObject.paths.forEach(function(polyline) {
+                    polyline.setMap(self.get('map'));
+                });
+            }
         });
         
         self.set('tourRoutesAreShown', true);
@@ -143,9 +146,11 @@ App.BrowseTourmapComponent = Ember.Component.extend({
         }
         
         self.get('currentTourMapObjects').forEach(function (tourMapObject) {
-            tourMapObject.paths.forEach(function (polyline) {
-                polyline.setMap(null);
-            });
+            if (tourMapObject.paths) {
+                tourMapObject.paths.forEach(function(polyline) {
+                    polyline.setMap(null);
+                });
+            }
         });
         
         self.set('tourRoutesAreShown', false);
@@ -222,6 +227,7 @@ App.BrowseTourmapComponent = Ember.Component.extend({
             self.highlightTour(tour);
             $('#zoomToTourLink').click(function () {
                 self.zoomToTour(tour);
+                self.highlightTour(tour);
             });
         });
         google.maps.event.addListener(infowindow, 'closeclick', function () {

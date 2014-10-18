@@ -151,6 +151,8 @@ App.AreaEditController = Ember.ObjectController.extend({
         },
         addTour : function() {
             // TODO: How to pass current area to route? Now area is not pre-set on the new tour
+            // This should work when we've updated to latest ember:
+            //this.transitionTo('tour.new', { queryParams: { createNewInArea: this.get('areaId') } });
             this.transitionToRoute('tour.new');
         },
         showUpdateSuccessMsg : function() {
