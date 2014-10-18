@@ -103,6 +103,13 @@ public class TourRepositoryMongoImpl implements TourRepository {
     }
     
     @Override
+    public List<Tour> findToursByStatus(int status){
+        Criteria criteria = Criteria.where("status").is(status);
+        Query query = Query.query(criteria);
+        return mongoOperations.find(query, Tour.class);
+    }
+    
+    @Override
     public Tour findTourByClientIdAndStatus(String tourId, int status) {
         Criteria criteria = Criteria.where("clientId").is(tourId).and("status").is(status);
         Query query = Query.query(criteria);
@@ -293,9 +300,10 @@ public class TourRepositoryMongoImpl implements TourRepository {
         Query query = Query.query(criteria);
         return mongoOperations.findOne(query, Tour.class);
     }
+
     
     @Override
-    public List<Tour> getDrafts(String userId) {
+    public List<Tour> findDrafts(String userId) {
         Criteria criteria = Criteria.where("userId").is(userId);
         Query query = Query.query(criteria);
         List<TourAction> actions = mongoOperations.find(query, TourAction.class);
@@ -314,13 +322,7 @@ public class TourRepositoryMongoImpl implements TourRepository {
         
         return tours;
     } 
-    
-    @Override
-	public List<Tour> getDeletedTours() {
-        Criteria criteria = Criteria.where("status").is(TourStatus.DELETED);
-        Query query = Query.query(criteria);
-        return mongoOperations.find(query, Tour.class);
-	}
+
     
     /**
      * Returns lite tours (only basic props included in returned tours)

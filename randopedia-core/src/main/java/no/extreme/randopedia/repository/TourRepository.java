@@ -13,6 +13,7 @@ public interface TourRepository {
 	List<Tour> findAllTours();
 	List<Tour> findAllToursIgnoreStatus();
 	Tour findTourById(String tourId);
+    List<Tour> findToursByStatus(int status);
 	Tour findTourByIdAndStatus(String tourId, int status);
     List<Tour> findToursByQuery(String searchString);
     List<Tour> findToursByAreaId(List<String> areaIds);
@@ -23,8 +24,7 @@ public interface TourRepository {
     TourImage updateImageOnTour(Tour tour, String imageId, TourImage image);
     void deleteImageFromTour(String imageId);
 	Tour getTourFromImageId(String imageId);
-	List<Tour> getDrafts(String userId);
-	List<Tour> getDeletedTours();
+	List<Tour> findDrafts(String userId);
     List<Tour> getLiteTours();
     Tour getRandomTour();
     Tour findTourByClientIdAndStatus(String id, int status);

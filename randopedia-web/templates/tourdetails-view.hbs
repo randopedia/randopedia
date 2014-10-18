@@ -8,7 +8,18 @@
             <div class="col-sm-12">
                 <div class="alert alert-info alert-dismissible" role="alert">
                     <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    This is a draft, the tour has not yet been published
+                    This tour is a draft, it has not yet been published
+                </div>
+            </div>
+        </div>
+        {{/if}}
+
+        {{#if isInReview}}
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="alert alert-info alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    This tour is in review, it has not yet been published
                 </div>
             </div>
         </div>
@@ -151,19 +162,22 @@
             <div class="col-sm-12">
                 <div class="map-buttons-container">
                     {{#if isPublished}}
-                    {{#if hasPaths}}
-                    <button class="btn btn-primary" {{action "viewTourOnMap" }}>
-                        <span class="glyphicon glyphicon-globe"></span> View tour on map
-                    </button>
-                    {{/if}}
+                        {{#if hasPaths}}
+                            <button class="btn btn-primary" {{action "viewTourOnMap" }}>
+                                <span class="glyphicon glyphicon-globe"></span> View tour on map
+                            </button>
+                        {{/if}}
                     {{else}}
+                        {{#if hasPaths}}
+                        <div class="spacing">[View tour on map] <em>Tours are not available on the map until they are published.</em></div>
+                        {{/if}}
+                    {{/if}}
+
                     {{#if hasPaths}}
-                    <div class="spacing">[View tour on map] <em>Tours are not available on the map until they are published.</em></div>
+                        <button class="btn btn-primary pull-right" {{action "downloadGpxFile" }}>
+                            <span class="glyphicon glyphicon-export"></span> GPX
+                        </button>
                     {{/if}}
-                    {{/if}}
-                    <button class="btn btn-primary pull-right" {{action "downloadGpxFile" }}>
-                        <span class="glyphicon glyphicon-export"></span> GPX
-                    </button>
                 </div>
             </div>
 
@@ -227,6 +241,7 @@
             </div>
         </div>
 
+        {{#if isPublished}}
         <div class="row">
             <div class="col-sm-12">
                 <div class="panel-group spacing-y-large" id="accordion">
@@ -245,6 +260,43 @@
                 </div>
              </div>
         </div>
+        {{/if}}
+
+        {{#if isInReview}}
+            {{#if controllers.login.isLoggedIn}}
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="panel-group spacing-y-large" id="accordion">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                                        Review comments ({{comments.length}})
+                                    </a>
+                                </div>
+                                <div id="collapseOne" class="panel-collapse collapse in">
+                                    <div class="panel-body">
+                                        {{#each comments}}
+                                        <div class="spacing-y">
+                                            {{comment}}
+                                            <div class="secondary-text">
+                                                {{userName}} - {{displayTimestamp time}}
+                                            </div>
+                                        </div>
+                                        <hr />
+                                        {{/each}}
+                                    </div>
+                                    <div class="panel-footer">
+                                        <button class="btn btn-primary" data-toggle="modal" data-target="#addReviewCommentModal" {{action "startAddReviewComment" }}>
+                                            <span class="glyphicon glyphicon-plus"></span> Add comment
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                         </div>
+                    </div>
+                </div>
+            {{/if}}
+        {{/if}}
 
         {{#if controllers.login.isLoggedIn}}
         <div class="row">
@@ -257,7 +309,7 @@
         {{partial "footer"}}
 
         <div class="modal fade" id="tourDetailsGradeGuideModal" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog modal-lg login-view">
+            <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -265,6 +317,26 @@
                     </div>
                     <div class="modal-body">
                         {{partial "about-grades"}}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="addReviewCommentModal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Add review comment</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form role="form">
+                            <label for="commentField">Comment</label>
+                            {{textarea value=newCommentText maxlength=500 class="form-control" id="commentField"}}
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button {{action "cancelSaveReviewComment" }} data-dismiss="modal" class="btn btn-default pull-right">Cancel</button>
+                        <button {{action "saveReviewComment" }} data-dismiss="modal" class="btn btn-primary pull-right">Save</button>
                     </div>
                 </div>
             </div>

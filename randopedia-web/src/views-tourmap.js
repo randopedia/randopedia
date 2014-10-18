@@ -161,12 +161,14 @@ App.TourEditMapView = Ember.View.extend({
         var lines = this.get('currentMapPolylines');
 
         if (!lines || lines.length === 0) {
+            this.get('map').setZoom(3);
+            this.get('map').setCenter(new google.maps.LatLng(46.5, 8.5));
             return;
         }
 
         var bounds = new google.maps.LatLngBounds();
         for (var i = 0; i < lines.length; i++) {
-            for (j = 0; j < lines[i].getPath().length; j++) {
+            for (var j = 0; j < lines[i].getPath().length; j++) {
                 bounds.extend(lines[i].getPath().getArray()[j]);
             }
         }
@@ -362,14 +364,10 @@ App.TourEditMapView = Ember.View.extend({
             panControl: true,
             streetViewControl: false,
             overviewMapControl: false,
-            rotateControl: false,
-            center: new google.maps.LatLng(30.0, 13.5),
-            zoom: 2,
+            rotateControl: false
         };
 
         self.set('map', new google.maps.Map(self.get('mapRootElement').get(0), mapOptions));
-
-        self.get('map').setCenter(self.setZoomAndCenter());
 
         self.set('drawingManager', new google.maps.drawing.DrawingManager({
             drawingMode: null,
@@ -394,6 +392,7 @@ App.TourEditMapView = Ember.View.extend({
 
         self.setMapSize();
         self.parseGeoJson();
+        self.setZoomAndCenter();
 
         var redrawMap = function () {
             self.setMapSize();

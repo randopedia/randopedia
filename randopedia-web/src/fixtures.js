@@ -12,7 +12,8 @@ App.Fixtures.AreaTypes = {
 App.Fixtures.TourStatus = {
     PUBLISHED: 1,
     DRAFT: 2,
-    DELETED: 3
+    DELETED: 3,
+    IN_REVIEW: 4
 };
 
 App.Fixtures.MapSymbolTypes = {

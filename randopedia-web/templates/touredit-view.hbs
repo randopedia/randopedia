@@ -38,7 +38,7 @@
         <div class="col-sm-12">
             <div class="alert alert-danger" role="alert">
                 <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                Couldn't save draft, area and name must be set.
+                Couldn't save tour, area and name must be set.
             </div>
         </div>
     </div>
@@ -307,7 +307,7 @@
                                 <button type="button" class="info pull-right" data-toggle="popover" data-trigger="focus"
                                         title="Tags"
                                         data-content="You can tag your tour with tag words that gives a quick overview of the tour. Separate them with comma. For example: 'steep, powder, fields'"></button>
-                                {{textarea value=tagsString maxlength=500 id="inputTags" class="form-control" id="inputTags" class="form-control"}}
+                                {{textarea value=tagsString maxlength=500 id="inputTags" class="form-control" }}
                             </div>
                         </div>
 
@@ -584,11 +584,19 @@
                 </div>
 
                 {{#unless isPublished}}
-                <div class="btn-group pull-right">
-                    <button class="btn btn-default" {{bindAttr disabled="isSaveAsDraftDisabled" }} {{action "saveAsDraft" }}>
-                        <span class="glyphicon glyphicon-floppy-save"></span> Save as draft
-                    </button>
-                </div>
+                    <div class="btn-group pull-right">
+                        <button class="btn btn-default" {{bindAttr disabled="isSendToReviewDisabled" }} {{action "sendToReview" }}>
+                            <span class="glyphicon glyphicon-user"></span> Send to review
+                        </button>
+                    </div>
+
+                    {{#unless isInReview}}
+                        <div class="btn-group pull-right">
+                            <button class="btn btn-default" {{bindAttr disabled="isSaveAsDraftDisabled" }} {{action "saveAsDraft" }}>
+                                <span class="glyphicon glyphicon-floppy-save"></span> Save as draft
+                            </button>
+                        </div>
+                    {{/unless}}
                 {{/unless}}
 
                 <div class="saving-info-container pull-right">

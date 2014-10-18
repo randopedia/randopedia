@@ -126,6 +126,11 @@
     font-size: 0.8em;
 }
 
+.secondary-text {
+    color: @gray-light;
+    font-size: 0.9em;
+}
+
 .asterisk {
     .glyphicon();
     .glyphicon-asterisk();
@@ -486,7 +491,9 @@ button.info {
     }
     
     .map-buttons-container {
-        margin-bottom: 20px;
+        .btn {
+            margin-bottom: 20px;
+        }
     }
 
     .popover-link {

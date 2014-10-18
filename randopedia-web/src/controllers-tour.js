@@ -11,7 +11,59 @@ App.TourController = Ember.ObjectController.extend({
         },
         downloadGpxFile: function () {
             App.GeoHelper.saveAsGpx(this.get('mapGeoJson'), this.get('name'), this.get('itinerary'));
-        }
+        },
+        startAddReviewComment: function() {
+            var comment = this.store.createRecord('comment');
+            var loginController = this.get('controllers.login');
+            var userId = loginController.get('currentUser').get('userId');
+            var userName = loginController.get('currentUser').get('userName');
+            comment.set('tour', this.get('model'));
+            comment.set('userId', userId);
+            comment.set('userName', userName);
+            this.set('newComment', comment);
+            this.set('addCommentMode', true);
+        },
+        
+        cancelSaveReviewComment: function() {
+            this.set('addCommentMode', false);
+            this.set('newComment', null);
+            this.set('newCommentText', null);
+            this.set('commentError', null);
+        },
+        
+        saveReviewComment: function() {
+            if(this.get('havePendingOperations')){
+                return;
+            }
+            if(!App.Validate.isNotNullOrEmpty(this.get('newCommentText'))){
+                return;
+            }
+            var self = this;
+            self.set('havePendingOperations', true);
+            var newComment = self.get('newComment');
+            newComment.set('comment', self.get('newCommentText'));
+            newComment.save().then(
+                function() {
+                    self.get('model').reload();
+                    self.set('addCommentMode', false);
+                    self.set('newComment', null);
+                    self.set('newCommentText', null);
+                    self.set('commentError', null);
+                    self.set('havePendingOperations', false);
+                }, 
+                function(error) {
+                    var status = error.status;
+                    if(status === 403) {
+                        self.set('commentError', 'Oh noes, you have most likely been logged out. Try to log in again!');
+                        self.get('controllers.login').send('removeToken');
+                    }
+                    else {
+                        self.set('commentError', 'An error occured when saving comment, please try again');
+                    }
+                    self.set('havePendingOperations', false);
+                }
+            );
+        },
     },
     
     // Computed properties
@@ -24,6 +76,10 @@ App.TourController = Ember.ObjectController.extend({
         return this.get('status') === App.Fixtures.TourStatus.DRAFT;
     }.property('model.status'),
     
+    isInReview: function () {
+        return this.get('status') === App.Fixtures.TourStatus.IN_REVIEW;
+    }.property('model.status'),
+
     isDeleted: function() {
         return this.get('status') === App.Fixtures.TourStatus.DELETED;
     }.property('model.status'),
@@ -35,7 +91,8 @@ App.TourController = Ember.ObjectController.extend({
         return this.get('images').get('length') > 0;
     }.property('model.images.length'),
 
-    hasPaths: function() {
+    hasPaths: function () {
+        console.log(this.get('mapGeoJson'));
         if(!this.get('mapGeoJson')){
            return false;
         }
@@ -129,6 +186,21 @@ App.TourEditController = Ember.ObjectController.extend({
                 return; 
             }
             this.get('model').set('status', App.Fixtures.TourStatus.DRAFT);
+            this.saveAndExit(area);
+        },
+
+        sendToReview: function () {
+            if (this.get('havePendingOperations')) {
+                return;
+            }
+            this.set('draftValidationErrors', false);
+
+            var area = this.get('area');
+            if (!this.validateForDraft()) {
+                this.set('draftValidationErrors', true);
+                return;
+            }
+            this.get('model').set('status', App.Fixtures.TourStatus.IN_REVIEW);
             this.saveAndExit(area);
         },
     
@@ -563,12 +635,31 @@ App.TourEditController = Ember.ObjectController.extend({
         return !this.get('isDraft') || !this.get('hasChanges');
     }.property('model.status', 'isDirty', 'newImage', 'areaIsUpdated', 'model.name'),
 
+    isSendToReviewDisabled: function() {
+        if(this.get('model').get('isNew')){
+            return false;
+        }
+        if(!App.Validate.isNotNullOrEmpty(this.get('name'))){
+            return true;
+        }
+
+        if (this.get('isDraft')) {
+            return false;
+        }
+        
+        return this.get('isInReview') && !this.get('hasChanges');
+    }.property('model.status', 'isDirty', 'newImage', 'areaIsUpdated', 'model.name'),
+
     isPublished: function() {
         return this.get('status') === App.Fixtures.TourStatus.PUBLISHED;
     }.property('model.status'),
     
     isDraft: function() {
         return this.get('status') === App.Fixtures.TourStatus.DRAFT;
+    }.property('model.status'),
+
+    isInReview: function () {
+        return this.get('status') === App.Fixtures.TourStatus.IN_REVIEW;
     }.property('model.status'),
     
     isDeleted: function() {
@@ -579,7 +670,8 @@ App.TourEditController = Ember.ObjectController.extend({
         var status = this.get('status');
         if(status === App.Fixtures.TourStatus.PUBLISHED){ return "Published"; }
         if(status === App.Fixtures.TourStatus.DRAFT){ return "Draft"; }
-        if(status === App.Fixtures.TourStatus.DELETED){ return "Deleted"; }
+        if (status === App.Fixtures.TourStatus.DELETED) { return "Deleted"; }
+        if (status === App.Fixtures.TourStatus.IN_REVIEW) { return "In review"; }
         return 'Undefined';
     }.property('model.status'),
 
@@ -605,7 +697,9 @@ App.TourEditController = Ember.ObjectController.extend({
     }.property('model.mapGeoJson'),
     
     isIncomplete: function() {
-        if(this.get('isDraft')){ return false; }
+        if (this.get('isDraft')) {
+             return false;
+        }
         return this.checkForValidationWarnings() > 0;
     }.property('name'),
     
@@ -623,14 +717,17 @@ App.MytoursController = Ember.ObjectController.extend({
     user: null,
     drafts: [],
     updates: [],
+    reviews: [],
 
     init: function () {
         var self = this;
         self.user = this.get('controllers.login').get('currentUser');
         self.set('isLoadingDrafts', true);
         self.set('isLoadingUpdates', true);
+        self.set('isLoadingReviews', true);
         self.set('draftsServerErrors', false);
         self.set('updatesServerErrors', false);
+        self.set('reviewServerErrors', false);
 
         
         self.store.findQuery('tour', { status: App.Fixtures.TourStatus.DRAFT }).then(function (tours) {
@@ -647,6 +744,14 @@ App.MytoursController = Ember.ObjectController.extend({
         }, function (error) {
             self.set('updatesServerErrors', true);
             self.set('isLoadingDrafts', false);
+        });
+
+        self.store.findQuery('tour', { status: App.Fixtures.TourStatus.IN_REVIEW }).then(function (tours) {
+            self.set('reviews', tours);
+            self.set('isLoadingReviews', false);
+        }, function (error) {
+            self.set('reviewServerErrors', true);
+            self.set('isLoadingReviews', false);
         });
     }
 });
