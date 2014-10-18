@@ -128,17 +128,19 @@
                                 </div>
                             </div>
                             <div class="col-lg-3">
-                                <label for="inputAspect">Main aspect of slopes</label>
-                                <button type="button" class="info pull-right" data-toggle="popover" data-trigger="focus"
-                                        title="Aspect"
-                                        data-content="Aspect of the main part of the slopes on the descent route."></button>
-                                {{view Ember.Select
-                                contentBinding="App.Fixtures.Aspects"
-                                optionValuePath="content.value"
-                                optionLabelPath="content.name"
-                                valueBinding="aspect"
-                                id="inputAspect"
-                                class="form-control"}}
+                                <div class="form-group">
+                                    <label for="inputAspect">Main aspect of slopes<span class="asterisk required"></span></label>
+                                    <button type="button" class="info pull-right" data-toggle="popover" data-trigger="focus"
+                                            title="Aspect"
+                                            data-content="Aspect of the main part of the slopes on the descent route."></button>
+                                    {{view Ember.Select
+                                        contentBinding="App.Fixtures.Aspects"
+                                        optionValuePath="content.value"
+                                        optionLabelPath="content.name"
+                                        valueBinding="aspect"
+                                        id="inputAspect"
+                                        class="form-control"}}
+                                </div>
                             </div>
                         </div>
 
@@ -174,12 +176,12 @@
                                             title="Season from"
                                             data-content="First month of the season when the tour normally is skiable."></button>
                                     {{view Ember.Select
-                                    contentBinding="App.Fixtures.Months"
-                                    optionValuePath="content.value"
-                                    optionLabelPath="content.name"
-                                    valueBinding="timeOfYearFrom"
-                                    id="inputSeasonFrom"
-                                    class="form-control"}}
+                                        contentBinding="App.Fixtures.Months"
+                                        optionValuePath="content.value"
+                                        optionLabelPath="content.name"
+                                        valueBinding="timeOfYearFrom"
+                                        id="inputSeasonFrom"
+                                        class="form-control"}}
                                 </div>
                             </div>
                             <div class="col-lg-3">

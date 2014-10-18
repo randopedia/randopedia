@@ -5,6 +5,14 @@ App.ToursController = Ember.ArrayController.extend();
 App.TourController = Ember.ObjectController.extend({
     needs : ['login', 'index'],
 
+    init: function () {
+        var self = this;
+        // hack to give page time to load before evaluating the isIncomplete status
+        setTimeout(function () {
+            self.checkIfIncomplete();
+        }, 1500);
+    },
+
     actions: {
         viewTourOnMap: function() {
             this.get('controllers.index').send('viewTourOnMap', this.get('model'));
@@ -98,17 +106,17 @@ App.TourController = Ember.ObjectController.extend({
         return true;
     }.property('model.mapGeoJson'),
     
-    isIncomplete: function() {
+    checkIfIncomplete: function() {
         var warningCount = 0;
-        if(!App.Validate.isNotNullOrEmpty(this.get('shortDescription'))){ warningCount++; }
-        if(!this.get('grade')) { warningCount++; }
-        if(!App.Validate.isPosNumber(this.get('elevationMax'))) { warningCount++; }
-        if(!this.get('timeOfYearFrom')) { warningCount++; }
-        if(!this.get('timeOfYearTo')) { warningCount++; }
-        if(!App.Validate.isNotNull(this.get('mapGeoJson'))){ warningCount++; }
-        if(!App.Validate.lengthOrNull(this.get('itinerary'), 100, 8000, false)){ warningCount++; }
-        return warningCount > 0;
-    }.property('name'),
+        if (!App.Validate.isNotNullOrEmpty(this.get('shortDescription'))) { warningCount++; }
+        if (!this.get('grade')) { warningCount++; }
+        if (!App.Validate.isPosNumber(this.get('elevationMax'))) { warningCount++; }
+        if (!this.get('timeOfYearFrom')) { warningCount++; }
+        if (!this.get('timeOfYearTo')) { warningCount++; }
+        if (!App.Validate.isNotNull(this.get('mapGeoJson'))) { warningCount++; }
+        if (!App.Validate.lengthOrNull(this.get('itinerary'), 100, 8000, false)) { warningCount++; }
+        this.set('isIncomplete', warningCount > 0);
+    },
     
     haveNoHazards: function() {
         return !this.get('haveHazards');

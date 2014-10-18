@@ -29,13 +29,6 @@
     }
 }
 
-@font-size-h1:            floor((@font-size-base * 2.6)); // ~36px
-@font-size-h2:            floor((@font-size-base * 2.15)); // ~30px
-@font-size-h3:            ceil((@font-size-base * 1.7)); // ~24px
-@font-size-h4:            ceil((@font-size-base * 1.25)); // ~18px
-@font-size-h5:            @font-size-base;
-@font-size-h6:            ceil((@font-size-base * 0.85)); // ~12px
-
 @media (max-width: 749px) {  
     body {
         font-size: 12px !important;
@@ -214,6 +207,13 @@ a {
     }
 }   
 
+.bootstrap-growl {
+    margin-left: 20px !important;
+    a.close {
+        margin-left: 5px;
+    }
+}
+
 .nav-tabs {
     margin-top: 10px;
     border-bottom: @nav-tab-border;
@@ -349,7 +349,9 @@ a {
 }
 
 .modal-content{
-    margin-top: 100px;
+    @media (min-width: 750px) {  
+        margin-top: 100px;
+    }
 }
 
 .edit-navbar {
@@ -367,16 +369,22 @@ a {
     .saving-info-container {
         margin: 10px;
     }
+    
+    @media (max-width: 749px) {  
+        height: 100px;
+        .btn-toolbar {
+            padding: 10px;
+        }
+        .btn-group {
+            margin-top: 5px;
+        }
+    }
 }
 
 .edit-container {
     padding: 20px;
     border-top: @light-border;
     border-bottom: @light-border;
-    
-    @media (max-width: 749px) {  
-        border-bottom: none;  
-    }
 
     a {
         .btn();
@@ -591,6 +599,10 @@ button.info {
 
 .tour-edit-view {
     margin-bottom: 75px;
+
+   @media (max-width: 749px) {  
+        margin-bottom: 100px;
+    }
 
     #tourEditMapRootElement {
         height: 700px;
