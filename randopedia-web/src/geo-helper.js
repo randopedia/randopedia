@@ -1,31 +1,21 @@
-App.Fixtures.MapSymbolTypes = {
-    UP_DOWN_TRACK: 10,
-    UP_TRACK: 11,
-    DOWN_TRACK: 12,
-    SUMMIT_POINT: 20,
-};
-
-App.Fixtures.MapObjectStyles = {
-    DEFAULT_PATH_WIDTH: 3,
-    SELECTED_PATH_WIDTH: 6,
-    DEFAULT_PATH_COLOR: '#990000',
-    UP_PATH_COLOR: '#343434',
-    DOWN_PATH_COLOR: '#EE0000',
-    SELECTED_PATH_COLOR: 'blue'
-};
-
 App.GeoHelper = Ember.Object.create({
     
     validateGeoJson: function(geojson) {
-        if(geojson === null) {
+        if(!geojson) {
             return false;
         }
         if(!geojson.features || geojson.features.length === 0) {
             return false;
         }
-        if(!geojson.features[0].geometry) {
+        if (!geojson.features[0].geometry || geojson.features[0].geometry.length === 0) {
             return false;
-        }    
+        }
+
+        // TODO: Add when all tours are updated 
+        //if (!geojson.features[0].properties || !geojson.features[0].properties.name) {
+        //    return false;
+        //}
+
         return true;
     },
     
@@ -62,6 +52,7 @@ App.GeoHelper = Ember.Object.create({
                 geojson.features.push({
                     type: "Feature",
                     rando_type: googleMapObject.get('rando_type'),
+                    properties: {name: "Summit point"},
                     geometry: {
                         type: "Point",
                         coordinates: [googleMapObject.position.lng(), googleMapObject.position.lat()],
@@ -73,9 +64,11 @@ App.GeoHelper = Ember.Object.create({
                 geojson.features.push({
                     type: "Feature",
                     rando_type: googleMapObject.get('rando_type'),
+                    properties: {name: "Tour path"},
                     geometry: {
                         type: "LineString",
                         coordinates: App.GeoHelper.googleLatLngArrayToGeoJsonCoordinates(polylinePath),
+                        
                     }
                 });
             }
@@ -101,7 +94,7 @@ App.GeoHelper = Ember.Object.create({
                 var polylinePath = App.GeoHelper.geoJsonCoordinatesToGoogleLatLngArray(geometry.coordinates);
                 var polyline = self.getGooglePolyline(polylinePath, feature.rando_type, makeEditable);
                 mapObjects.push(polyline);
-            } else if (geometry.type === "Point") {
+            } else if (geometry.type === "Point" && feature.rando_type === App.Fixtures.MapSymbolTypes.SUMMIT_POINT) {
                 var marker = self.getGoogleMarker(geometry.coordinates, feature.rando_type, makeEditable, 'Summit point');
                 mapObjects.push(marker);
             }
@@ -152,13 +145,18 @@ App.GeoHelper = Ember.Object.create({
             });
         }
 
-        polyline.set('rando_type', randoType);
+        this.setPolylineDefaultOptions(polyline, randoType);
+        return polyline;
+    },
+
+    setPolylineDefaultOptions: function (polyline, pathSymbolType) {
+        polyline.set('rando_type', pathSymbolType);
         polyline.setOptions({ strokeWeight: App.Fixtures.MapObjectStyles.DEFAULT_PATH_WIDTH });
 
-        switch (randoType) {
+        switch (pathSymbolType) {
             case App.Fixtures.MapSymbolTypes.UP_DOWN_TRACK:
                 polyline.setOptions({
-                     strokeColor: App.Fixtures.MapObjectStyles.DEFAULT_PATH_COLOR
+                    strokeColor: App.Fixtures.MapObjectStyles.DEFAULT_PATH_COLOR
                 });
                 break;
             case App.Fixtures.MapSymbolTypes.UP_TRACK:
@@ -172,7 +170,30 @@ App.GeoHelper = Ember.Object.create({
                 });
                 break;
         }
+    },
 
-        return polyline;
+    saveAsGpx: function (geojson, name, description) {
+        if (!window.File || !window.FileReader || !window.FileList || !window.Blob) {
+            return false;
+        }
+
+        var gpx = togpx(geojson, {
+            creator: 'randopedia.net',
+            metadata: {
+                author: 'randopedia.net',
+                name: name,
+                desc: description
+            }
+        });
+
+        var blob = new Blob([gpx], { type: "text/plain;charset=utf-8" });
+        saveAs(blob, name + ".gpx");
+        return true;
+    },
+
+    // Removes all objects that are not LineString. Assumes valid geojson as input.
+    cleanImportedGeoJson: function (geojson) {
+        // TODO: Implement... :P
+        return geojson;
     }
 });

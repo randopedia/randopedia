@@ -1,44 +1,11 @@
 <div class="container-fluid tour-edit-view">
 
-    {{#if authenticationErrors}}
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="alert alert-danger" role="alert">
-                <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                Looks like you have been logged out, try to log in again.
-            </div>
-        </div>
-    </div>
-    {{/if}}
-
-    {{#if serverErrors}}
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="alert alert-danger" role="alert">
-                <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                Something went wrong when saving the tour, please try again.
-            </div>
-        </div>
-    </div>
-    {{/if}}
-
-    {{#if validationErrors}}
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="alert alert-danger" role="alert">
-                <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                Oh noes, there was some validation errors, please try again.
-            </div>
-        </div>
-    </div>
-    {{/if}}
-
     {{#if draftValidationErrors}}
     <div class="row">
         <div class="col-sm-12">
             <div class="alert alert-danger" role="alert">
                 <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                Couldn't save draft, area and name must be set.
+                Couldn't save tour, area and name must be set.
             </div>
         </div>
     </div>
@@ -61,17 +28,6 @@
             <div class="alert alert-danger" role="alert">
                 <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 Tour is marked as deleted and will eventually be permanently deleted from the databse.
-            </div>
-        </div>
-    </div>
-    {{/if}}
-
-    {{#if updateSuccessfully}}
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="alert alert-success alert-dismissible" role="alert">
-                <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                Tour was successfully updated.
             </div>
         </div>
     </div>
@@ -172,17 +128,19 @@
                                 </div>
                             </div>
                             <div class="col-lg-3">
-                                <label for="inputAspect">Main aspect of slopes</label>
-                                <button type="button" class="info pull-right" data-toggle="popover" data-trigger="focus"
-                                        title="Aspect"
-                                        data-content="Aspect of the main part of the slopes on the descent route."></button>
-                                {{view Ember.Select
-                                contentBinding="App.Fixtures.Aspects"
-                                optionValuePath="content.value"
-                                optionLabelPath="content.name"
-                                valueBinding="aspect"
-                                id="inputAspect"
-                                class="form-control"}}
+                                <div class="form-group">
+                                    <label for="inputAspect">Main aspect of slopes</span></label>
+                                    <button type="button" class="info pull-right" data-toggle="popover" data-trigger="focus"
+                                            title="Aspect"
+                                            data-content="Aspect of the main part of the slopes on the descent route."></button>
+                                    {{view Ember.Select
+                                        contentBinding="App.Fixtures.Aspects"
+                                        optionValuePath="content.value"
+                                        optionLabelPath="content.name"
+                                        valueBinding="aspect"
+                                        id="inputAspect"
+                                        class="form-control"}}
+                                </div>
                             </div>
                         </div>
 
@@ -218,12 +176,12 @@
                                             title="Season from"
                                             data-content="First month of the season when the tour normally is skiable."></button>
                                     {{view Ember.Select
-                                    contentBinding="App.Fixtures.Months"
-                                    optionValuePath="content.value"
-                                    optionLabelPath="content.name"
-                                    valueBinding="timeOfYearFrom"
-                                    id="inputSeasonFrom"
-                                    class="form-control"}}
+                                        contentBinding="App.Fixtures.Months"
+                                        optionValuePath="content.value"
+                                        optionLabelPath="content.name"
+                                        valueBinding="timeOfYearFrom"
+                                        id="inputSeasonFrom"
+                                        class="form-control"}}
                                 </div>
                             </div>
                             <div class="col-lg-3">
@@ -307,7 +265,7 @@
                                 <button type="button" class="info pull-right" data-toggle="popover" data-trigger="focus"
                                         title="Tags"
                                         data-content="You can tag your tour with tag words that gives a quick overview of the tour. Separate them with comma. For example: 'steep, powder, fields'"></button>
-                                {{textarea value=tagsString maxlength=500 id="inputTags" class="form-control" id="inputTags" class="form-control"}}
+                                {{textarea value=tagsString maxlength=500 id="inputTags" class="form-control" }}
                             </div>
                         </div>
 
@@ -433,7 +391,7 @@
                     The tour has unsaved changes, do you want to discard them?
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+                    <button class="btn btn-default pull-right" data-dismiss="modal">Cancel</button>
                     <button class="btn btn-danger pull-right" {{action "confirmDiscardChanges" target="view" }}>Discard changes</button>
                 </div>
             </div>
@@ -451,7 +409,7 @@
                     Are you sure you want to delete the tour?
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+                    <button class="btn btn-default pull-right" data-dismiss="modal">Cancel</button>
                     <button class="btn btn-danger pull-right" {{action "confirmDeleteTour" target="view" }}>Delete tour</button>
                 </div>
             </div>
@@ -509,7 +467,7 @@
                     {{/if}}
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+                    <button class="btn btn-default pull-right" data-dismiss="modal">Cancel</button>
                     <button class="btn btn-primary pull-right" {{bindAttr disabled="view.haveValidationErrors" }} {{action "continueToPublishStep2" target="view" }}>Continue</button>
                 </div>
             </div>
@@ -533,8 +491,26 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+                    <button class="btn btn-default pull-right" data-dismiss="modal">Cancel</button>
                     <button class="btn btn-primary pull-right" {{bindAttr disabled="view.isPublishDisabled" }} {{action "confirmPublishTour" target="view" }}><span class="glyphicon glyphicon-cloud-upload"></span> Publish</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="editTourHelpModal" tabindex="-1" role="dialog" aria-hidden="true">
+
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">Help</h4>
+                </div>
+                <div class="modal-body">
+                    {{partial "about-collaboration"}}
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-default pull-right" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
@@ -547,33 +523,47 @@
 
         <div class="navbar-header">
             <div class="btn-toolbar">
-                {{#unless isPublished}}
-                <div class="btn-group">
-                    <button class="btn btn-default" {{bindAttr disabled="isSaveAsDraftDisabled" }} {{action "saveAsDraft" }}>
-                        <span class="glyphicon glyphicon-floppy-save"></span> Save as draft
-                    </button>
-               </div>
-                {{/unless}}
-
-                <div class="btn-group">
-                    <button class="btn btn-default" {{bindAttr disabled="isStartPublishDisabled" }} {{action "startPublishTour" target="view" }}>
-                        <span class="glyphicon glyphicon-cloud-upload"></span> Publish
+                <div class="btn-group pull-left">
+                    <button class="btn btn-default" data-toggle="modal" data-target="#editTourHelpModal">
+                        <span class="glyphicon glyphicon-question-sign"></span> Help
                     </button>
                 </div>
-                    
-                <div class="btn-group">
+
+                <div class="btn-group pull-right">
                     <button class="btn btn-default" {{action "startCancelingEditTour" target="view" }}>
                         <span class="glyphicon glyphicon-share"></span> Exit edit
                     </button>
                 </div>
 
-                <div class="saving-info-container">
+                <div class="btn-group pull-right">
+                    <button class="btn btn-default" {{bindAttr disabled="isStartPublishDisabled" }} {{action "startPublishTour" target="view" }}>
+                        <span class="glyphicon glyphicon-cloud-upload"></span> Publish
+                    </button>
+                </div>
+
+                {{#unless isPublished}}
+                    <div class="btn-group pull-right">
+                        <button class="btn btn-default" {{bindAttr disabled="isSendToReviewDisabled" }} {{action "sendToReview" }}>
+                            <span class="glyphicon glyphicon-user"></span> Send to review
+                        </button>
+                    </div>
+
+                    {{#unless isInReview}}
+                        <div class="btn-group pull-right">
+                            <button class="btn btn-default" {{bindAttr disabled="isSaveAsDraftDisabled" }} {{action "saveAsDraft" }}>
+                                <span class="glyphicon glyphicon-floppy-save"></span> Save as draft
+                            </button>
+                        </div>
+                    {{/unless}}
+                {{/unless}}
+
+                <div class="saving-info-container pull-right">
                     {{#if hasChanges}}
-                        {{#if havePendingOperations}}
-                        <span class="spacing-x-large"><span class="glyphicon glyphicon-floppy-disk"></span><em> Saving...</em></span>
-                        {{else}}
-                        <span class="spacing-x-large"><span class="glyphicon glyphicon-floppy-disk"></span><em class="hidden-xs"> Tour has unsaved changes</em></span>
-                        {{/if}}
+                    {{#if havePendingOperations}}
+                    <span class="spacing-x-large"><span class="glyphicon glyphicon-floppy-disk"></span><em> Saving...</em></span>
+                    {{else}}
+                    <span class="spacing-x-large"><span class="glyphicon glyphicon-floppy-disk"></span><em class="hidden-xs"> Tour has unsaved changes</em></span>
+                    {{/if}}
                     {{/if}}
                 </div>
 

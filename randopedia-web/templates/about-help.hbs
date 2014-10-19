@@ -5,89 +5,21 @@
     </div>
 </div>
 
+<div class="panel panel-default">
+    <div class="panel-heading">Map</div>
+    <div class="panel-body">
+        <p>
+            There are three different types of paths shown on the map. A tour can have paths of one or many types.
+        </p>
+        <p><span class="glyphicon glyphicon-minus default-path"></span> Default (Can be for both ascent and descent)</p>
+        <p><span class="glyphicon glyphicon-minus up-patch"></span> Suitable for ascent </p>
+        <p><span class="glyphicon glyphicon-minus down-path"></span> Suitable for descent </p>
+    </div>
+</div>
+
 <div class="panel panel-info">
     <div class="panel-heading">Collaborating</div>
     <div class="panel-body">
-        <p>
-            To add a new tour or update an existing you have to login. When logged an "Add new tour" button is
-            available in the main menu and an "Edit" button appears in the bottom right corner of the tour pages.
-            A new tour can also be created from the area edit page.
-
-            On the tour edit page you can add/update tour details, write a description, upload images and edit the
-            map. Here you can also view the history of all updates that has been made on the tour.
-        </p>
-
-        <h3>Adding links in descriptions</h3>
-        <p>
-            Randopedia supports something called "markdown". This means that some codes can be added in a text field and these will be translated
-            into links in view mode. This is supported in the area and tour description fields. Note that the full address must be added (included the http stuff).
-        <p>
-            <strong>Syntax: </strong> [Name](address)
-        </p>
-        <p>
-        <p><strong>Example (in the edit text boxes): </strong></p>
-        <pre><code>Visit us on our [facebook page](http://www.facebook.com/randopedia.net)</code></pre>
-        <p><strong>...will look like this:</strong></p>
-        <pre>Visit us on our <a href="http://www.facebook.com/randopedia.net">facebook page</a></pre>
-        </p>
-
-        <h3>Drafts</h3>
-        <p>
-            Tours can be saved as private drafts. This means the tour is saved, but only visible to you.
-            It's only possible to save drafts for unpublished tours, once published or sent to review the
-            draft option is no longer available.
-        </p>
-        <p>
-            Tour drafts are listed in the "My tours" page, available from the main menu.
-        </p>
-        <p>
-            <em>Note:</em> If you have saved tour drafts when logged in with one account, for example Facebook, those tours will not be
-            available if you log in with Google or vice versa.
-        </p>
-
-        <!--
-        <h3>In Review</h3>
-        <p>
-            Tours can be sent to review. This means the tour is still a draft, but it is visible to other logged in users.
-            Tours in review will not appear on the map or in search results. This is useful if you want someone else to review
-            the tour before its published. Maybe you don't have some importanat information that someone else might have or you
-            just want someone else to review the tour before it's published. There's a comment section available for tours in review, here
-            you can specify whats missing etc. The review comments will not be visible when the tour once is published.
-        </p>
-        <p>
-            Tour in review are listed in the "My tours" page, available from the main menu.
-        </p>
-        -->
-        <h3>Map</h3>
-        <h4>Drawing paths</h4>
-        <p>
-            You can select from three different path types. If the path isn't specifically an up or down track, use the default Up/Down type.
-        </p>
-
-        <h4>Summit point</h4>
-        <p>
-            You can set a summit point on the tour. This point is used on the map as the tour marker. If not set, the first point will be used
-            as the tour marker.
-        </p>
-
-        <h4>Importing GPX files</h4>
-        <p>
-            GPX files from gps devices can be uploaded and imported on the map. For preformance reasons the tracks are compressed a bit to reduce the number of points. Only tracks
-            are imported, waypoints and other meta data in the GPX files are ignored. The tracks can be edited on the map after import.
-        </p>
-
-        <h3>Images</h3>
-        <p>
-            In the images section of the tour edit page you can upload images, add/edit image captions and delete images.
-        </p>
-
-        <h3>Areas</h3>
-        <p>
-            Areas also have an edit page. As for tours an "Edit" button is available in the bottom right corner of the area pages.
-            On the edit area page you can add subareas and edit the area description.
-        </p>
-        <p>
-            You'll get to an area page by clicking the area name in the breadcrumb on the top of the tour pages.
-        </p>
+        {{partial "about-collaboration"}}
     </div>
 </div>

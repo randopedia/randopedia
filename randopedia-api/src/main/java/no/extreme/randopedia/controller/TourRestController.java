@@ -128,20 +128,17 @@ public class TourRestController {
             @RequestParam(value="ids[]", required = false) String[] ids,
             @RequestParam(value="status", required = false) String status,
             @RequestParam(value="liteTours", required = false) Boolean liteTours,
-            @RequestParam(value="randomTour", required = false) Boolean randomTour) throws InvalidTourException, TokenInvalidException {
+            @RequestParam(value="usersTours", required = false) Boolean usersTours) throws InvalidTourException, TokenInvalidException {
         
         ToursContainer toursContainer = new ToursContainer();
         List<Tour> tours = new ArrayList<Tour>();
-        boolean includeComments = true;
+        boolean includeComments = false;
 
         if(liteTours != null){
             tours = tourService.getLiteTours();
         }
-        else if(randomTour != null){
-            /* Random tour returns a tour with all simple properties and ONE image */
-            Tour tour = tourService.getRandomTour();
-            tours.add(tour);
-            includeComments = false;
+        else if(usersTours != null){
+            tours = tourService.getToursByCurrentUser(token, provider);
         }
         else {
             tours = tourService.getTours(token, provider, ids, query, status);

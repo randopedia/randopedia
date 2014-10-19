@@ -28,15 +28,18 @@
     </noscript>
     <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
     <script src="js/libs/bootstrap.min.js"></script>
+    <script src="js/libs/jquery.bootstrap-growl.min.js"></script>
     <script src="js/libs/moment.min.js"></script>
     <script src="js/libs/markerclusterer.js"></script>
     <script src="js/libs/oms.min.js"></script>
     <script src="js/libs/togeojson.js"></script>
+    <script src="js/libs/togpx.js"></script>
     <script src="js/libs/geojson-utils.js"></script>
     <script src="js/libs/marked.js"></script>
-    <script src="js/randopedia.js"></script>
+    <script src="js/libs/FileSaver.min.js"></script>
+    <script src="js/randopedia.min.js"></script>
     <script src="js/templates.js"></script>
-    
+
     <!-- Piwik -->
     <script type="text/javascript">
      if((document.location.hostname.indexOf("randopedia") != -1)){
@@ -49,7 +52,7 @@
            _paq.push(['setSiteId', 1]);
            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.type='text/javascript';
            g.defer=true; g.async=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
-         })(); 
+         })();
      }
     </script>
     <noscript><p><img src="http://donc.se/randopedia-stats/piwik.php?idsite=1" style="border:0;" alt="" /></p></noscript>

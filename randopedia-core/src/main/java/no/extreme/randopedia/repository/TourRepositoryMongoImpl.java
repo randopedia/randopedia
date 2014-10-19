@@ -1,9 +1,7 @@
 package no.extreme.randopedia.repository;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -14,7 +12,6 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import no.extreme.randopedia.factory.OutputStreamFactory;
 import no.extreme.randopedia.model.area.Area;
 import no.extreme.randopedia.model.tag.Tag;
 import no.extreme.randopedia.model.tour.Tour;
@@ -103,6 +100,13 @@ public class TourRepositoryMongoImpl implements TourRepository {
         Criteria criteria = Criteria.where("id").is(tourId).and("status").is(status);
         Query query = Query.query(criteria);
     	return mongoOperations.findOne(query, Tour.class);
+    }
+    
+    @Override
+    public List<Tour> findToursByStatus(int status){
+        Criteria criteria = Criteria.where("status").is(status);
+        Query query = Query.query(criteria);
+        return mongoOperations.find(query, Tour.class);
     }
     
     @Override
@@ -296,9 +300,10 @@ public class TourRepositoryMongoImpl implements TourRepository {
         Query query = Query.query(criteria);
         return mongoOperations.findOne(query, Tour.class);
     }
+
     
     @Override
-    public List<Tour> getDrafts(String userId) {
+    public List<Tour> findDrafts(String userId) {
         Criteria criteria = Criteria.where("userId").is(userId);
         Query query = Query.query(criteria);
         List<TourAction> actions = mongoOperations.find(query, TourAction.class);
@@ -317,13 +322,7 @@ public class TourRepositoryMongoImpl implements TourRepository {
         
         return tours;
     } 
-    
-    @Override
-	public List<Tour> getDeletedTours() {
-        Criteria criteria = Criteria.where("status").is(TourStatus.DELETED);
-        Query query = Query.query(criteria);
-        return mongoOperations.find(query, Tour.class);
-	}
+
     
     /**
      * Returns lite tours (only basic props included in returned tours)
@@ -483,6 +482,24 @@ public class TourRepositoryMongoImpl implements TourRepository {
         query.addCriteria(criteria);
         
         return mongoOperations.find(query, Tour.class);
+    }
+
+    @Override
+    public List<Tour> findToursByUser(String userId) {
+        Criteria criteria = Criteria.where("userId").is(userId);
+        Query query = Query.query(criteria);
+        List<TourAction> actions = mongoOperations.find(query, TourAction.class);
+        
+        Set<String> actionTourIds = new HashSet<String>();
+        for(TourAction action : actions) {
+            actionTourIds.add(action.getTourId());
+        }
+        
+        Criteria tagCriteria = Criteria.where("id").in(actionTourIds);
+        Query tourQuery = new Query();
+        tourQuery.addCriteria(tagCriteria);
+        tourQuery.addCriteria(onlyPublishedCriteria);
+        return mongoOperations.find(tourQuery, Tour.class);
     }
     
 }

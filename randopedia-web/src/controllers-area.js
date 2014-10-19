@@ -62,7 +62,6 @@ App.AreaEditController = Ember.ObjectController.extend({
 
     actions: {
         editArea : function() {
-            this.clearErrorFlags();
             this.set('editAreaMode', true);
         },
         saveArea : function() {
@@ -73,22 +72,22 @@ App.AreaEditController = Ember.ObjectController.extend({
             this.set('havePendingOperations', true);
             var area = this.get('model');
             var self = this;
-            self.clearErrorFlags();
             this.replaceHtmlChars();
             area.save().then(function() {
                 self.set('editAreaMode', false);
                 self.set('havePendingOperations', false);
                 self.transitionToRoute('area', self.get('model'));
+                App.Alerts.showSuccessMessage('Area was successfully saved. ');
             }, function(error) {
                 var status = error.status;
                 if (status === 421) {
-                    self.set('validationErrors', true);
+                    App.Alerts.showErrorMessage('Oh noes, there was some validation errors, please try again');
 
                 } else if (status === 403) {
-                    self.set('authenticationErrors', true);
                     self.get('controllers.login').send('removeToken');
+                    App.Alerts.showErrorMessage('Oh noes, you have most likely been logged out. Try to log in again. ');
                 } else {
-                    self.set('serverErrors', true);
+                    App.Alerts.showErrorMessage('An error occured when saing the area, please try again. ');
                 }
                 self.set('havePendingOperations', false);
             });
@@ -109,23 +108,20 @@ App.AreaEditController = Ember.ObjectController.extend({
             this.set('havePendingOperations', true);
             var newArea = this.get('newArea');
             var self = this;
-            self.clearErrorFlags();
             this.replaceHtmlChars();
             newArea.save().then(function() {
                 self.set('havePendingOperations', false);
-                self.send('showUpdateSuccessMsg');
-                // Reload area to get proper children list
                 self.get('model').reload();
+                App.Alerts.showSuccessMessage('Area was successfully saved. ');
             }, function(error) {
                 var status = error.status;
                 if (status === 421) {
-                    self.set('validationErrors', true);
+                    App.Alerts.showErrorMessage('Oh noes, there was some validation errors, please try again');
                 } else if (status === 403) {
-                    self.set('authenticationErrors', true);
-                    var loginController = self.get('controllers.login');
-                    loginController.send('removeToken');
+                    self.get('controllers.login').send('removeToken');
+                    App.Alerts.showErrorMessage('Oh noes, you have most likely been logged out. Try to log in again. ');
                 } else {
-                    self.set('serverErrors', true);
+                    App.Alerts.showErrorMessage('An error occured when adding the area, please try again. ');
                 }
                 self.set('havePendingOperations', false);
             });
@@ -151,22 +147,10 @@ App.AreaEditController = Ember.ObjectController.extend({
         },
         addTour : function() {
             // TODO: How to pass current area to route? Now area is not pre-set on the new tour
+            // This should work when we've updated to latest ember:
+            //this.transitionTo('tour.new', { queryParams: { createNewInArea: this.get('areaId') } });
             this.transitionToRoute('tour.new');
-        },
-        showUpdateSuccessMsg : function() {
-            var self = this;
-            this.set('updateSuccessfully', true);
-            setTimeout(function() {
-                self.set('updateSuccessfully', false);
-            }, 4000);
         }
-    },
-
-    clearErrorFlags : function() {
-        this.set('validationErrors', false);
-        this.set('serverErrors', false);
-        this.set('authenticationErrors', false);
-        this.set('updateSuccessfully', false);
     },
 
     validate : function() {

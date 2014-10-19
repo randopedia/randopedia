@@ -13,6 +13,8 @@
 @small-space:                   5px;
 @large-space:                   10px;
 
+@medium-dark-background:        #B7B7B7;
+
 @map-path-default-color:        #990000;
 @map-path-up-color:             #343434;
 @map-path-down-color:           #EE0000;
@@ -26,13 +28,6 @@
         margin-right: -10px;        
     }
 }
-
-@font-size-h1:            floor((@font-size-base * 2.6)); // ~36px
-@font-size-h2:            floor((@font-size-base * 2.15)); // ~30px
-@font-size-h3:            ceil((@font-size-base * 1.7)); // ~24px
-@font-size-h4:            ceil((@font-size-base * 1.25)); // ~18px
-@font-size-h5:            @font-size-base;
-@font-size-h6:            ceil((@font-size-base * 0.85)); // ~12px
 
 @media (max-width: 749px) {  
     body {
@@ -51,8 +46,16 @@
         font-size: 16px !important;
     } 
      
+    pre {
+        font-size: 12px !important;
+    }
+
     .panel-heading {
         font-size: 16px !important;
+    }
+
+    .btn {
+        .btn-sm();
     }
 }
 
@@ -62,6 +65,14 @@
 
 .spacing-top {
     margin-top: @large-space;
+}
+
+.spacing-left {
+    margin-left: @large-space !important;
+}
+
+.spacing-right {
+    margin-right: @large-space;
 }
 
 .spacing-x {
@@ -84,6 +95,18 @@
     margin-right: @large-space * 2;
 }
 
+.default-path {
+    color: @map-path-default-color;
+}
+
+.up-path {
+    color: @map-path-up-color;
+}
+
+.down-path {
+    color: @map-path-down-color;
+}
+
 .danger {
     color: @brand-danger;
 }
@@ -94,6 +117,11 @@
 
 .small {
     font-size: 0.8em;
+}
+
+.secondary-text {
+    color: @gray-light;
+    font-size: 0.9em;
 }
 
 .asterisk {
@@ -179,6 +207,13 @@ a {
     }
 }   
 
+.bootstrap-growl {
+    margin-left: 20px !important;
+    a.close {
+        margin-left: 5px;
+    }
+}
+
 .nav-tabs {
     margin-top: 10px;
     border-bottom: @nav-tab-border;
@@ -204,12 +239,44 @@ a {
            background: @tab-color;
         }
     }
+
+   @media (max-width: 749px) {  
+        border: none;
+        font-weight: 700;
+        li.active a {
+            border-radius: 5px;
+            border-bottom-color: #dddddd;
+        }
+    }
 }
 
 .tab-content {
     padding: @large-space;
 
     .adjust-margin-for-small();
+}
+
+.panel {
+    .panel-heading {
+        font-size: @font-size-large;
+        font-weight: 700;
+
+        a {
+            color: @gray-darker;
+            &:hover {
+                color: @gray;
+            }
+        }
+    }
+}
+
+.panel-heading .accordion-toggle:after {
+    font-family: 'Glyphicons Halflings';
+    content: "\e114";
+    float: right;     
+}
+.panel-heading .accordion-toggle.collapsed:after {
+    content: "\e080";
 }
 
 .navbar {
@@ -282,7 +349,9 @@ a {
 }
 
 .modal-content{
-    margin-top: 100px;
+    @media (min-width: 750px) {  
+        margin-top: 100px;
+    }
 }
 
 .edit-navbar {
@@ -300,16 +369,22 @@ a {
     .saving-info-container {
         margin: 10px;
     }
+    
+    @media (max-width: 749px) {  
+        height: 100px;
+        .btn-toolbar {
+            padding: 10px;
+        }
+        .btn-group {
+            margin-top: 5px;
+        }
+    }
 }
 
 .edit-container {
     padding: 20px;
     border-top: @light-border;
     border-bottom: @light-border;
-    
-    @media (max-width: 749px) {  
-        border-bottom: none;  
-    }
 
     a {
         .btn();
@@ -409,10 +484,6 @@ button.info {
     h2 {
         margin-top: 5px;
     }
-    .panel-heading {
-        font-size: @font-size-large;
-        font-weight: 700;
-    }
     .tour-props {
         margin: 15px 0;
         .row {
@@ -427,9 +498,10 @@ button.info {
         }  
     }
     
-    .btn-view-on-map {
-        margin-bottom: 22px;
-        margin-right: 20px;
+    .map-buttons-container {
+        .btn {
+            margin-bottom: 20px;
+        }
     }
 
     .popover-link {
@@ -448,13 +520,21 @@ button.info {
     }
     
     .image-carousel-container {
-        background: @gray-lighter;
+        background: @medium-dark-background;
         
         h4 {
             font-size: 20px;
             font-weight: 700;
             margin-left: 20px;
             padding-top: 10px;
+        }
+    }
+
+    .panel-group {
+        margin-right: 0;
+        @media (max-width: 749px) { 
+            margin-left: 0;
+            margin-right: 0;        
         }
     }
 
@@ -520,6 +600,10 @@ button.info {
 .tour-edit-view {
     margin-bottom: 75px;
 
+   @media (max-width: 749px) {  
+        margin-bottom: 100px;
+    }
+
     #tourEditMapRootElement {
         height: 700px;
     }
@@ -563,7 +647,6 @@ button.info {
             margin-top: 3px;
             margin-bottom: 4px;
         }
-
     }
 }
 

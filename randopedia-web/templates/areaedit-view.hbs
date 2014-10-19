@@ -3,39 +3,6 @@
  --> 
 <div class="container-fluid">
 
-	{{#if validationErrors}}
-	<div class="row">
-	    <div class="col-sm-12">
-	        <div class="alert alert-danger" role="alert">
-	            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-	            Oh noes, there was some validation errors, please try again
-	        </div>          
-	    </div>
-	</div>
-	{{/if}}
-	
-	{{#if authenticationErrors}}
-	<div class="row">
-	    <div class="col-sm-12">
-	        <div class="alert alert-danger" role="alert">
-	            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-	            Oh noes, you have most likely been logged out. Try to log in again.
-	        </div>          
-	    </div>
-	</div>
-	{{/if}}
-	
-	{{#if serverErrors}}
-	<div class="row">
-	    <div class="col-sm-12">
-	        <div class="alert alert-danger" role="alert">
-	            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-	           Something went wrong when saving the area, please try again.
-	        </div>          
-	    </div>
-	</div>
-	{{/if}}
-	
 	{{#if updateSuccessfully}}
 	<div class="row">
 	    <div class="col-sm-12">
@@ -132,7 +99,7 @@
                     The area has unsaved changes, do you want to discard them?
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+                    <button class="btn btn-default pull-right" data-dismiss="modal">Cancel</button>
                     <button class="btn btn-danger pull-right" data-dismiss="modal" {{action "cancelEdit" }}>Discard changes</button>
                 </div>
             </div>
@@ -164,10 +131,12 @@
                     <h4 class="modal-title">Publish area</h4>
                 </div>
                 <div class="modal-body">
-                    Area is ready to be be published.
+                    <div class="alert alert-success" role="alert">
+                        Area is ready to be be published.
+                    </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+                    <button class="btn btn-default pull-right" data-dismiss="modal">Cancel</button>
                     <button class="btn btn-primary pull-right" data-dismiss="modal" {{action "saveArea" }}><span class="glyphicon glyphicon-cloud-upload"></span> Publish</button>
                 </div>
             </div>
@@ -194,7 +163,7 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-default pull-left" data-dismiss="modal" {{action "cancelAddSubAreaDialog" target="view" }}>Cancel</button>
+                    <button class="btn btn-default pull-right" data-dismiss="modal" {{action "cancelAddSubAreaDialog" target="view" }}>Cancel</button>
                     <button class="btn btn-primary pull-right" data-dismiss="modal" {{action "addSubArea" target="view" }}>Add area</button>
                 </div>
             </div>
@@ -208,28 +177,28 @@
         <div class="navbar-header">
             <div class="btn-toolbar">
                 {{#if isReadOnlyArea}}
-                <span class="info label" class="alert">{{name}} is a root area and cannot be edited, but it's possible to add subareas.</span>
+                <span class="info label alert">{{name}} is a root area and cannot be edited, but it's possible to add subareas.</span>
                 {{else}}
 
-                <div class="btn-group">
-                    <button class="btn btn-default" {{bindAttr disabled="isNotDirty" }} {{action "saveArea" target="view" }}>
-                        <span class="glyphicon glyphicon-cloud-upload"></span> Publish
-                    </button>
-                </div>
-
-                <div class="btn-group">
+                <div class="btn-group pull-right">
                     <button class="btn btn-default" {{action "startCancelingEdit" target="view" }}>
                         <span class="glyphicon glyphicon-share"></span> Exit edit
                     </button>
                 </div>
 
-                <div class="saving-info-container">
+                <div class="btn-group pull-right">
+                    <button class="btn btn-default" {{bindAttr disabled="isNotDirty" }} {{action "saveArea" target="view" }}>
+                        <span class="glyphicon glyphicon-cloud-upload"></span> Publish
+                    </button>
+                </div>
+
+                <div class="saving-info-container pull-right">
                     {{#if isDirty}}
-                        {{#if havePendingOperations}}
-                        <span class="spacing-x-large"><span class="glyphicon glyphicon-floppy-disk"></span><em> Saving...</em></span>
-                        {{else}}
-                        <span class="spacing-x-large"><span class="glyphicon glyphicon-floppy-disk"></span><em class="hidden-xs"> Area has unsaved changes</em></span>
-                        {{/if}}
+                    {{#if havePendingOperations}}
+                    <span class="spacing-x-large"><span class="glyphicon glyphicon-floppy-disk"></span><em> Saving...</em></span>
+                    {{else}}
+                    <span class="spacing-x-large"><span class="glyphicon glyphicon-floppy-disk"></span><em class="hidden-xs"> Area has unsaved changes</em></span>
+                    {{/if}}
                     {{/if}}
                 </div>
                 {{/if}}

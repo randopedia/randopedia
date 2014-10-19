@@ -70,10 +70,11 @@ public class TourService {
             
             if(status.equals(Integer.toString(TourStatus.DRAFT))){
                 User user = authenticationRepository.getUserFromToken(token, provider);
-                tours = tourRepository.getDrafts(user.getId());
+                tours = tourRepository.findDrafts(user.getId());
             }
-            else if(status.equals(Integer.toString(TourStatus.DELETED))){
-                tours = tourRepository.getDeletedTours();
+            
+            else{
+                tours = tourRepository.findToursByStatus(Integer.parseInt(status));
             }
         }
         else {
@@ -86,6 +87,14 @@ public class TourService {
         }
         
         return tours;
+    }
+    
+    public List<Tour> getToursByCurrentUser(
+            String token,
+            String provider) throws TokenInvalidException {
+        
+        User user = authenticationRepository.getUserFromToken(token, provider);
+        return tourRepository.findToursByUser(user.getId());
     }
     
     /**

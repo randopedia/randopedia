@@ -11,7 +11,7 @@ App.GpxFileUploadView = Ember.View.extend({
                 }
             }
         } else {
-            App.Util.log('The File APIs are not fully supported in this browser.');
+            App.Alerts.showErrorMessage('Could not import gpx file. Most likely because your browser does not support the File API.');
         }
     },
 
@@ -55,6 +55,8 @@ App.TourEditMapView = Ember.View.extend({
     loadingGpxData: false,
     gpxDataWasLoaded: false,
     gpxDataIsInvalid: false,
+
+    draftPathType: App.Fixtures.MapSymbolTypes.UP_DOWN_TRACK,
 
     didInsertElement: function() {
         this.initMap();
@@ -101,6 +103,8 @@ App.TourEditMapView = Ember.View.extend({
             self.set('gpxDataIsInvalid', true);
             return;
         }
+
+        geojson = App.GeoHelper.cleanImportedGeoJson(geojson);
 
         // TODO: Refactor out to helper method(s)
         var minDistanceBetweenPoints = 40;
@@ -159,12 +163,14 @@ App.TourEditMapView = Ember.View.extend({
         var lines = this.get('currentMapPolylines');
 
         if (!lines || lines.length === 0) {
+            this.get('map').setZoom(3);
+            this.get('map').setCenter(new google.maps.LatLng(46.5, 8.5));
             return;
         }
 
         var bounds = new google.maps.LatLngBounds();
         for (var i = 0; i < lines.length; i++) {
-            for (j = 0; j < lines[i].getPath().length; j++) {
+            for (var j = 0; j < lines[i].getPath().length; j++) {
                 bounds.extend(lines[i].getPath().getArray()[j]);
             }
         }
@@ -307,6 +313,20 @@ App.TourEditMapView = Ember.View.extend({
         },
         closeGpxImportModal: function() {
             this.set('gpxDataWasLoaded', false);
+        },
+        updatePathsType: function () {
+            var self = this;
+            self.get('selectedPolylines').forEach(function (polyline) {
+                App.GeoHelper.setPolylineDefaultOptions(polyline, self.get('draftPathType'));
+            });
+
+            self.saveGeoJson();
+
+            self.send('clearSelectedPolylines');
+            self.set('draftPolyLineType', App.Fixtures.MapSymbolTypes.UP_DOWN_TRACK);
+        },
+        clearSelectedPolylines: function() {
+            this.set('selectedPolylines', []);
         }
     },
 
@@ -346,14 +366,10 @@ App.TourEditMapView = Ember.View.extend({
             panControl: true,
             streetViewControl: false,
             overviewMapControl: false,
-            rotateControl: false,
-            center: new google.maps.LatLng(30.0, 13.5),
-            zoom: 2,
+            rotateControl: false
         };
 
         self.set('map', new google.maps.Map(self.get('mapRootElement').get(0), mapOptions));
-
-        self.get('map').setCenter(self.setZoomAndCenter());
 
         self.set('drawingManager', new google.maps.drawing.DrawingManager({
             drawingMode: null,
@@ -378,6 +394,7 @@ App.TourEditMapView = Ember.View.extend({
 
         self.setMapSize();
         self.parseGeoJson();
+        self.setZoomAndCenter();
 
         var redrawMap = function () {
             self.setMapSize();
