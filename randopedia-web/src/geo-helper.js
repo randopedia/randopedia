@@ -7,9 +7,15 @@ App.GeoHelper = Ember.Object.create({
         if(!geojson.features || geojson.features.length === 0) {
             return false;
         }
-        if(!geojson.features[0].geometry) {
+        if (!geojson.features[0].geometry || geojson.features[0].geometry.length === 0) {
             return false;
-        }    
+        }
+
+        // TODO: Add when all tours are updated 
+        //if (!geojson.features[0].properties || !geojson.features[0].properties.name) {
+        //    return false;
+        //}
+
         return true;
     },
     
@@ -88,7 +94,7 @@ App.GeoHelper = Ember.Object.create({
                 var polylinePath = App.GeoHelper.geoJsonCoordinatesToGoogleLatLngArray(geometry.coordinates);
                 var polyline = self.getGooglePolyline(polylinePath, feature.rando_type, makeEditable);
                 mapObjects.push(polyline);
-            } else if (geometry.type === "Point") {
+            } else if (geometry.type === "Point" && feature.rando_type === App.Fixtures.MapSymbolTypes.SUMMIT_POINT) {
                 var marker = self.getGoogleMarker(geometry.coordinates, feature.rando_type, makeEditable, 'Summit point');
                 mapObjects.push(marker);
             }
@@ -166,7 +172,11 @@ App.GeoHelper = Ember.Object.create({
         }
     },
 
-    saveAsGpx: function(geojson, name, description) {
+    saveAsGpx: function (geojson, name, description) {
+        if (!window.File || !window.FileReader || !window.FileList || !window.Blob) {
+            return false;
+        }
+
         var gpx = togpx(geojson, {
             creator: 'randopedia.net',
             metadata: {
@@ -178,5 +188,12 @@ App.GeoHelper = Ember.Object.create({
 
         var blob = new Blob([gpx], { type: "text/plain;charset=utf-8" });
         saveAs(blob, name + ".gpx");
+        return true;
+    },
+
+    // Removes all objects that are not LineString. Assumes valid geojson as input.
+    cleanImportedGeoJson: function (geojson) {
+        // TODO: Implement... :P
+        return geojson;
     }
 });

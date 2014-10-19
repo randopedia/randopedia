@@ -11,7 +11,7 @@ App.GpxFileUploadView = Ember.View.extend({
                 }
             }
         } else {
-            App.Util.log('The File APIs are not fully supported in this browser.');
+            App.Alerts.showErrorMessage('Could not import gpx file. Most likely because your browser does not support the File API.');
         }
     },
 
@@ -103,6 +103,8 @@ App.TourEditMapView = Ember.View.extend({
             self.set('gpxDataIsInvalid', true);
             return;
         }
+
+        geojson = App.GeoHelper.cleanImportedGeoJson(geojson);
 
         // TODO: Refactor out to helper method(s)
         var minDistanceBetweenPoints = 40;

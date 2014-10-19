@@ -18,7 +18,10 @@ App.TourController = Ember.ObjectController.extend({
             this.get('controllers.index').send('viewTourOnMap', this.get('model'));
         },
         downloadGpxFile: function () {
-             App.GeoHelper.saveAsGpx(this.get('mapGeoJson'), this.get('name'), this.get('itinerary'));
+            var saveSuccess = App.GeoHelper.saveAsGpx(this.get('mapGeoJson'), this.get('name'), this.get('itinerary'));
+            if (!saveSuccess) {
+                App.Alerts.showErrorMessage('Could not save gpx file. Most likely because your browser does not support the File API.');
+            }
         },
         startAddReviewComment: function() {
             var comment = this.store.createRecord('comment');
@@ -100,10 +103,7 @@ App.TourController = Ember.ObjectController.extend({
     }.property('model.images.length'),
 
     hasPaths: function () {
-        if(!this.get('mapGeoJson')){
-           return false;
-        }
-        return true;
+        return App.GeoHelper.validateGeoJson(this.get('mapGeoJson'));
     }.property('model.mapGeoJson'),
     
     checkIfIncomplete: function() {
