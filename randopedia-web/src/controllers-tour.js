@@ -697,10 +697,16 @@ App.MytoursController = Ember.ObjectController.extend({
     drafts: [],
     updates: [],
     reviews: [],
+    isLoadingDrafts: false,
+    isLoadingUpdates: false,
+    isLoadingReviews: false,
 
     init: function () {
         var self = this;
         self.user = this.get('controllers.login').get('currentUser');
+        self.set('isLoadingDrafts', true);
+        self.set('isLoadingUpdates', true);
+        self.set('isLoadingReviews', true);
 
         self.store.findQuery('tour', { status: App.Fixtures.TourStatus.DRAFT }).then(function (tours) {
             self.set('drafts', tours);
