@@ -370,11 +370,11 @@ App.TourEditController = Ember.ObjectController.extend({
     hasTagChanges: function() {
         var tags = this.get('tags');
         var tagsArray = this.getTagsArrayFromString();
-        if(tags !== null) {
+        if(tags && tagsArray) {
             if(tags.length !== tagsArray.length) {
                 return true;
             }
-        } else if (tagsArray !== null && tagsArray.length > 0) {
+        } else if (tagsArray && tagsArray.length > 0) {
             return true;
         }
         return false;
