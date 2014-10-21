@@ -17,7 +17,7 @@ var App = Ember.Application.create({
         }
         else if(url.indexOf('randopedia.net') > 0) {
             facebookAppId = App.Config.facebookAppIdProd;
-            googleAppid = App.Config.googleAppIdProd;
+            googleAppId = App.Config.googleAppIdProd;
         }
         else {
             var html = url.indexOf('index.html');

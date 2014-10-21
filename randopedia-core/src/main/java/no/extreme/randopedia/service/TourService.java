@@ -7,6 +7,7 @@ import java.util.List;
 
 import no.extreme.randopedia.exception.InvalidTourException;
 import no.extreme.randopedia.exception.TokenInvalidException;
+import no.extreme.randopedia.helper.TagsHelper;
 import no.extreme.randopedia.model.area.Area;
 import no.extreme.randopedia.model.tag.Tag;
 import no.extreme.randopedia.model.tour.Tour;
@@ -149,7 +150,10 @@ public class TourService {
         }
         
         tour = washer.washTour(tour);
-
+        
+        List<String> tags = TagsHelper.getTagsFromItinerary(tour.getItinerary());
+        tour.setTags(tags);
+        
         Tour currentTour = tourRepository.findTourById(tour.getId());
         if(currentTour == null) {
             throw new InvalidTourException("Tour not found", error);
@@ -179,6 +183,8 @@ public class TourService {
         
         return tour;
     }
+    
+    
     
     /**
      * Create a new tour

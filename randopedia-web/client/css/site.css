@@ -6192,8 +6192,17 @@ button.close {
   h4 {
     font-size: 16px !important;
   }
+  pre {
+    font-size: 12px !important;
+  }
   .panel-heading {
     font-size: 16px !important;
+  }
+  .btn {
+    padding: 5px 10px;
+    font-size: 14px;
+    line-height: 1.5;
+    border-radius: 3px;
   }
 }
 .spacing {
@@ -6201,6 +6210,12 @@ button.close {
 }
 .spacing-top {
   margin-top: 10px;
+}
+.spacing-left {
+  margin-left: 10px !important;
+}
+.spacing-right {
+  margin-right: 10px;
 }
 .spacing-x {
   margin-left: 10px;
@@ -6218,6 +6233,15 @@ button.close {
   margin-top: 20px;
   margin-right: 20px;
 }
+.default-path {
+  color: #990000;
+}
+.up-path {
+  color: #343434;
+}
+.down-path {
+  color: #ee0000;
+}
 .danger {
   color: #d9534f;
 }
@@ -6226,6 +6250,10 @@ button.close {
 }
 .small {
   font-size: 0.8em;
+}
+.secondary-text {
+  color: #777777;
+  font-size: 0.9em;
 }
 .asterisk {
   position: relative;
@@ -6304,6 +6332,12 @@ a:hover {
   cursor: pointer;
   text-decoration: none;
 }
+.bootstrap-growl {
+  margin-left: 20px !important;
+}
+.bootstrap-growl a.close {
+  margin-left: 5px;
+}
 .nav-tabs {
   margin-top: 10px;
   border-bottom: 5px solid #eeeeee;
@@ -6333,6 +6367,16 @@ a:hover {
 .nav-tabs li.active > a:hover {
   background: #eeeeee;
 }
+@media (max-width: 749px) {
+  .nav-tabs {
+    border: none;
+    font-weight: 700;
+  }
+  .nav-tabs li.active a {
+    border-radius: 5px;
+    border-bottom-color: #dddddd;
+  }
+}
 .tab-content {
   padding: 10px;
 }
@@ -6341,6 +6385,24 @@ a:hover {
     margin-left: -10px;
     margin-right: -10px;
   }
+}
+.panel .panel-heading {
+  font-size: 20px;
+  font-weight: 700;
+}
+.panel .panel-heading a {
+  color: #222222;
+}
+.panel .panel-heading a:hover {
+  color: #555555;
+}
+.panel-heading .accordion-toggle:after {
+  font-family: 'Glyphicons Halflings';
+  content: "\e114";
+  float: right;
+}
+.panel-heading .accordion-toggle.collapsed:after {
+  content: "\e080";
 }
 .navbar {
   background: #333333;
@@ -6405,8 +6467,10 @@ a:hover {
   display: block;
   padding: 5px;
 }
-.modal-content {
-  margin-top: 100px;
+@media (min-width: 750px) {
+  .modal-content {
+    margin-top: 100px;
+  }
 }
 .edit-navbar {
   position: relative;
@@ -6599,15 +6663,21 @@ fieldset[disabled] .edit-navbar .btn-link:focus {
 .edit-navbar .saving-info-container {
   margin: 10px;
 }
+@media (max-width: 749px) {
+  .edit-navbar {
+    height: 100px;
+  }
+  .edit-navbar .btn-toolbar {
+    padding: 10px;
+  }
+  .edit-navbar .btn-group {
+    margin-top: 5px;
+  }
+}
 .edit-container {
   padding: 20px;
   border-top: 1px solid #eeeeee;
   border-bottom: 1px solid #eeeeee;
-}
-@media (max-width: 749px) {
-  .edit-container {
-    border-bottom: none;
-  }
 }
 .edit-container a {
   display: inline-block;
@@ -6782,10 +6852,6 @@ button.info:hover {
 .tour-details-view h2 {
   margin-top: 5px;
 }
-.tour-details-view .panel-heading {
-  font-size: 20px;
-  font-weight: 700;
-}
 .tour-details-view .tour-props {
   margin: 15px 0;
 }
@@ -6799,9 +6865,8 @@ button.info:hover {
   text-transform: uppercase;
   color: #777777;
 }
-.tour-details-view .btn-view-on-map {
-  margin-bottom: 22px;
-  margin-right: 20px;
+.tour-details-view .map-buttons-container .btn {
+  margin-bottom: 20px;
 }
 .tour-details-view .popover-link {
   background: #fff;
@@ -6817,13 +6882,22 @@ button.info:hover {
   background: #fff;
 }
 .tour-details-view .image-carousel-container {
-  background: #eeeeee;
+  background: #b7b7b7;
 }
 .tour-details-view .image-carousel-container h4 {
   font-size: 20px;
   font-weight: 700;
   margin-left: 20px;
   padding-top: 10px;
+}
+.tour-details-view .panel-group {
+  margin-right: 0;
+}
+@media (max-width: 749px) {
+  .tour-details-view .panel-group {
+    margin-left: 0;
+    margin-right: 0;
+  }
 }
 .tour-details-view .carousel {
   max-width: 1570px;
@@ -6890,6 +6964,11 @@ button.info:hover {
 }
 .tour-edit-view {
   margin-bottom: 75px;
+}
+@media (max-width: 749px) {
+  .tour-edit-view {
+    margin-bottom: 100px;
+  }
 }
 .tour-edit-view #tourEditMapRootElement {
   height: 700px;

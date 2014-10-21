@@ -130,7 +130,8 @@ App.TourController = Ember.ObjectController.extend({
         if(!this.get('itinerary')){ 
             return null;
         }
-        return marked(this.get('itinerary'));
+        var linkedItinerary = this.get('itinerary').replace(/#(\S*)/g,'<a href="/#!/tags/$1">#$1</a>');
+        return marked(linkedItinerary);
     }.property('itinerary'),
 });
 
@@ -141,6 +142,7 @@ App.TourEditController = Ember.ObjectController.extend({
     validationWarnings: [],
 
     init: function() {
+        
         var newAreaId = this.get('createNewInArea');
         if (newAreaId) {
             this.store.find('area', newAreaId).then(function(area) {
@@ -366,41 +368,16 @@ App.TourEditController = Ember.ObjectController.extend({
         }
         
     },
-
-    hasTagChanges: function() {
-        var tags = this.get('tags');
-        var tagsArray = this.getTagsArrayFromString();
-        if(tags !== null) {
-            if(tags.length !== tagsArray.length) {
-                return true;
-            }
-        } else if (tagsArray !== null && tagsArray.length > 0) {
-            return true;
-        }
-        return false;
-    },
     
     saveAndExit: function (area) {
         this.set('havePendingOperations', true);
         var self = this;
-        var tagsArray = this.getTagsArrayFromString();
-        var cleanTagsArray = [];
-        if(tagsArray !== null && typeof tagsArray !== 'undefined') {
-            
-            tagsArray.forEach(function(item) {
-                if(item.length > 0) {
-                    cleanTagsArray.push(item);
-                }
-            });
-            this.get('model').set('tags', cleanTagsArray);
-        }
         this.get('model').save().then(
             function() {
                 self.set('areaIsUpdated', false);
                 self.get('model').reload();
             
                 self.set('havePendingOperations', false);
-                self.set('tagsString', self.getTagsStringFromTags());
                 self.transitionToRoute('tour', self.get('model'));
             
                 if(area !== null && typeof area !== 'undefined') {
@@ -540,52 +517,15 @@ App.TourEditController = Ember.ObjectController.extend({
         this.set('itinerary', str);
     },
 
-    getTagsArrayFromString : function() {
-        var tagsString = this.get('tagsString');
-        if(tagsString !== null && typeof tagsString !== 'undefined' && tagsString.length > 0) {
-            tagsString = tagsString.replace(/\s/g, '');
-            tagsString = tagsString.replace('#', '');
-            var tagsArray = tagsString.split(',');
-            return tagsArray;
-        }
-        return null;
-    },
-    
-    getTagsStringFromTags: function() {
-        var model = this.get('content');
-        var tags = model.get('tags');
-        if(tags === null || typeof tags === 'undefined') {
-            return '';
-        }
-        var tagsString = '';
-        var i = 0;
-        tags.forEach(function(item) {
-            tagsString += item;
-            i++;
-            if(i < tags.length) {
-                tagsString += ', ';
-            }
-        });
-        return tagsString;
-    },
-
     // Computed properties
-
-    tagsString : function() {
-        var tagsString = this.getTagsStringFromTags();
-        return tagsString;
-    }.property('tags'),
 
     hasChanges: function() {
         if(this.get('isDirty') || this.get('hasNewImage') || this.get('areaIsUpdated')) {
             return true;
         }
-        if(this.hasTagChanges()) {
-            return true;
-        }
         
         return false;
-    }.property('isDirty', 'newImage', 'areaIsUpdated', 'tags', 'tagsString'),
+    }.property('isDirty', 'newImage', 'areaIsUpdated'),
     
     isStartPublishDisabled: function() {
         if(this.get('isDeleted')){
@@ -597,12 +537,9 @@ App.TourEditController = Ember.ObjectController.extend({
         if(this.get('isDraft') || this.get('isDirty') || this.get('areaIsUpdated')){
             return false;
         }
-        if(this.hasTagChanges()) {
-            return false;
-        }
         
         return true;
-    }.property('isDirty', 'status', 'areaIsUpdated', 'name', 'tagsString'),
+    }.property('isDirty', 'status', 'areaIsUpdated', 'name'),
     
     isSaveAsDraftDisabled: function() {
         if(this.get('model').get('isNew')){
