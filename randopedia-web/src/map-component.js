@@ -159,65 +159,66 @@ App.BrowseTourmapComponent = Ember.Component.extend({
     showCurrentPosition: function() {
         var self = this;
 
-        if (self.get('myPositionWatchId')) {
-            self.get('map').setCenter(self.get('myPositionMarker').get('position'));
+        if (!navigator.geolocation) {
+            App.Alerts.showErrorMessage('Cannot show your location, seems like your browser doesnt support geolocation.');
+            return;
+        }
+
+        if (self.get('myPositionWatchId')) {            
+            navigator.geolocation.clearWatch(self.get('myPositionWatchId'));
+            self.set('myPositionWatchId', null);
+        }
+
+        navigator.geolocation.getCurrentPosition(function(position) {
+            var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+            var pinIcon = new google.maps.MarkerImage(
+                'images/my_position_marker.png',
+                null, /* size is determined at runtime */
+                null, /* origin is 0,0 */
+                null, /* anchor is bottom center of the scaled image */
+                new google.maps.Size(40, 40));
+
+            self.set('myPositionMarker', new google.maps.Marker({
+                title: 'My position', 
+                position: pos,
+                map: self.get('map'),
+                icon: pinIcon
+            }));
+
+            var html =
+                '<div style="background-color:#fff;width:200px;height:100px">' +
+                '<h4>My position</h4>' +
+                '<p style="font-size:1.1em;">' +
+                'Lat: ' + App.GeoHelper.roundCoordinate(pos.lat()) + '<br>' +
+                'Lng: ' + App.GeoHelper.roundCoordinate(pos.lng()) +
+                '</p>' +
+                '</div>';
+
+            var infowindow = new google.maps.InfoWindow({ content: html, maxWidth: 600 });
+
+            google.maps.event.addListener(self.get('myPositionMarker'), 'click', function () {
+                infowindow.open(self.get('map'), self.get('myPositionMarker'));
+            });
+
+            self.get('map').setCenter(pos);
             self.get('map').setZoom(self.get('detailedZoomLevel'));
-            return;
-        }
 
-        if(navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function(position) {
-                var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-                var pinIcon = new google.maps.MarkerImage(
-                    'images/my_position_marker.png',
-                    null, /* size is determined at runtime */
-                    null, /* origin is 0,0 */
-                    null, /* anchor is bottom center of the scaled image */
-                    new google.maps.Size(40, 40));
+            function onWatchPositionUpdate(newPosition) {
+                self.get('myPositionMarker').set('position', new google.maps.LatLng(newPosition.coords.latitude, newPosition.coords.longitude));
+            }
 
-                self.set('myPositionMarker', new google.maps.Marker({
-                    title: 'My position', 
-                    position: pos,
-                    map: self.get('map'),
-                    icon: pinIcon
-                }));
+            var watchOptions = {
+                enableHighAccuracy: false,
+                timeout: 60000,
+                maximumAge: 10000
+            };
 
-                var html =
-                    '<div style="background-color:#fff;width:200px;height:100px">' +
-                    '<h4>My position</h4>' +
-                    '<p style="font-size:1.1em;">' +
-                    'Lat: ' + App.GeoHelper.roundCoordinate(pos.lat()) + '<br>' +
-                    'Lng: ' + App.GeoHelper.roundCoordinate(pos.lng()) +
-                    '</p>' +
-                    '</div>';
+            var id = navigator.geolocation.watchPosition(onWatchPositionUpdate, null, watchOptions);
+            self.set('myPositionWatchId', id);
 
-                var infowindow = new google.maps.InfoWindow({ content: html, maxWidth: 600 });
-
-                google.maps.event.addListener(self.get('myPositionMarker'), 'click', function () {
-                    infowindow.open(self.get('map'), self.get('myPositionMarker'));
-                });
-
-                self.get('map').setCenter(pos);
-                self.get('map').setZoom(self.get('detailedZoomLevel'));
-
-                function updatePosition(newPosition) {
-                    self.get('myPositionMarker').set('position', new google.maps.LatLng(newPosition.coords.latitude, newPosition.coords.longitude));
-                }
-
-                var watchOptions = {
-                    enableHighAccuracy: false,
-                    timeout: 5000,
-                    maximumAge: 1000
-                };
-
-                var id = navigator.geolocation.watchPosition(updatePosition, null, watchOptions);
-                self.set('myPositionWatchId', id);
-
-          }, function(){});
-        } else {
-            // Browser doesn't support Geolocation
-            return;
-        }
+        }, function(error) {
+            App.Alerts.showErrorMessage('An error occured when trying to get your location');
+        });
     },
 
     setupInfoWindowListeners: function (infowindow, tour) {
