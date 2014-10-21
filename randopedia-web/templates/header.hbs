@@ -1,45 +1,47 @@
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container-fluid">
-    
-	    <div class="navbar-header">
-			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-				<span class="sr-only">Toggle navigation</span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			</button>
-			<a class="navbar-brand randopedia-logo-text" {{action goToIndex}}>Randopedia</a>
-			<button type="button" class="navbar-toggle-button" {{action toggleNavbarSearchBox target="view"}}">
+
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand randopedia-logo-text" {{action gotoindex}}>Randopedia</a>
+            <button type="button" class="navbar-toggle-button" {{action togglenavbarsearchbox target="view" }}">
                 <span class="glyphicon glyphicon-search"></span>
             </button>
-			{{#if view.showNavbarSearch}}
-			    {{view App.SearchTextField valueBinding="controllers.search.query" class="searchbox"}}
-			{{/if}}
-	    </div>
-	    
-	    <div class="collapse navbar-collapse main-menu-container" id="bs-example-navbar-collapse-1">
-			
-		   <a {{action topbarMenuLink "index"}}>Map</a>
-           {{!-- <a {{action topbarMenuLink "area-browse"}}>Areas</a> --}}
-           <a {{action topbarMenuLink "about"}} data-toggle="collapse" data-target=".nav-collapse">About</a>
-           
-           {{#if controllers.login.isLoggedIn}}
-               <hr />
-	           <a {{action topbarMenuLink "tour.new"}}>Add new tour</a>
-	           <a {{action topbarMenuLink "mytours"}}>View my tours</a>
-	           <hr />
-	           <p class="navbar-text">Logged in as {{maxString controllers.login.currentUser.userName 50}}</p>
-           {{else}}
-               {{#if controllers.login.isLoggingIn}}
-                    <hr />
-                    <em>Logging in...</em>   
-               {{else}}
-                    <hr />
-                    <a {{action topbarMenuLink "collapseNavbar"}} data-toggle="modal" data-target="#loginViewModalId">Login</a>
-               {{/if}}
-           {{/if}}
-       
-	    </div>
+            {{#if view.showNavbarSearch}}
+            {{view App.SearchTextField valueBinding="controllers.search.query" class="searchbox"}}
+            {{/if}}
+        </div>
+
+        <div class="collapse navbar-collapse main-menu-container" id="bs-example-navbar-collapse-1">
+
+            <a {{action topbarmenulink "index" }}>Map</a>
+            {{!-- <a {{action topbarmenulink "area-browse" }}>Areas</a> --}}
+            <a {{action topbarmenulink "about" }} data-toggle="collapse" data-target=".nav-collapse">About</a>
+
+            {{#if controllers.login.isLoggedIn}}
+            <hr />
+            <a {{action topbarmenulink "tour.new" }}>Add new tour</a>
+            <a {{action topbarmenulink "mytours" }}>View my tours</a>
+            <hr />
+            <a {{action logout}}>Logout</a>
+            <hr />
+            <p class="navbar-text">Logged in as {{maxString controllers.login.currentUser.userName 50}}</p>
+            {{else}}
+            {{#if controllers.login.isLoggingIn}}
+            <hr />
+            <em>Logging in...</em>
+            {{else}}
+            <hr />
+            <a {{action topbarmenulink "collapseNavbar" }} data-toggle="modal" data-target="#loginViewModalId">Login</a>
+            {{/if}}
+            {{/if}}
+
+        </div>
 
     </div>
 </nav>

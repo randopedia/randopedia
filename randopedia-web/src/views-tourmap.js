@@ -346,6 +346,8 @@ App.TourEditMapView = Ember.View.extend({
         var self = this;
 
         self.set('currentMapPolylines', []);
+        self.set('selectedPolylines', []);
+
         self.set('mapRootElement', self.$('#tourEditMapRootElement'));
 
         var mapOptions = {

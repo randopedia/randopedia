@@ -14,6 +14,11 @@ App.LoginController = Ember.ObjectController.extend({
         App.oauth.authorize();
     },
 
+    logout: function() {
+        this.send('removeToken');
+        App.Alerts.showSuccessMessage('You were logged out.');
+    },
+
     actions: {
         requestAuthentication: function() {
             var self = this;

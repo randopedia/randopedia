@@ -27,25 +27,20 @@ App.ApplicationController = Ember.ArrayController.extend({
     
     actions: {
         // TODO: Move to view
-        topbarMenuLink: function(route) {
+        topbarmenulink: function (route) {
             if(route){
                 if(route === 'index'){
                     this.send('goToIndex');
                 } else if(route === 'collapseNavbar') {
                     // Dummy for collapsing navbar
                 } else {
-                    this.transitionToRoute(route);	
-                    
+                    this.transitionToRoute(route);	   
                 }
                 this.send('collapseNavbar');
             }
         },
-        loginWithFacebook: function() {
-            this.get('controller.controllers.login').loginWithFacebook();
-            this.send('collapseNavbar');
-        },
-        loginWithGoogle: function() {
-            this.get('controller.controllers.login').loginWithGoogle();
+        logout: function () {
+            this.get('controllers.login').logout();
             this.send('collapseNavbar');
         },
         goToIndex: function() {
