@@ -1,7 +1,7 @@
 App.ApplicationView = Ember.View.extend({
     showNavbarSearch: false,
     actions: {
-        toggleNavbarSearchBox: function() {
+        togglenavbarsearchbox: function () {
             this.set('showNavbarSearch', !this.get('showNavbarSearch'));
             if(this.get('showNavbarSearch')) {
                 $("body").css('padding-top', '100px');

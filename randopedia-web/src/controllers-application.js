@@ -30,7 +30,7 @@ App.ApplicationController = Ember.ArrayController.extend({
         topbarmenulink: function (route) {
             if(route){
                 if(route === 'index'){
-                    this.send('goToIndex');
+                    this.send('gotoindex');
                 } else if(route === 'collapseNavbar') {
                     // Dummy for collapsing navbar
                 } else {
@@ -43,7 +43,7 @@ App.ApplicationController = Ember.ArrayController.extend({
             this.get('controllers.login').logout();
             this.send('collapseNavbar');
         },
-        goToIndex: function() {
+        gotoindex: function () {
             this.get('controllers.search').clearSearchResult();
             this.transitionToRoute('index');
         },
