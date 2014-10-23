@@ -169,6 +169,7 @@ App.BrowseTourmapComponent = Ember.Component.extend({
             self.set('myPositionWatchId', null);
         }
 
+        self.set('waitingForPosition', true);
         navigator.geolocation.getCurrentPosition(function(position) {
             var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
             var pinIcon = new google.maps.MarkerImage(
@@ -208,16 +209,18 @@ App.BrowseTourmapComponent = Ember.Component.extend({
             }
 
             var watchOptions = {
-                enableHighAccuracy: false,
+                enableHighAccuracy: true,
                 timeout: 60000,
                 maximumAge: 10000
             };
 
             var id = navigator.geolocation.watchPosition(onWatchPositionUpdate, null, watchOptions);
             self.set('myPositionWatchId', id);
+            self.set('waitingForPosition', false);
 
         }, function(error) {
             App.Alerts.showErrorMessage('An error occured when trying to get your location');
+            self.set('waitingForPosition', false);
         });
     },
 

@@ -1,6 +1,11 @@
 <div class="browse-map-view full-screen">
-	<div id="tourMapRootElement" class="full-screen"></div>
-	<button class="btn btn-primary btn-my-position" {{action "toggleMyPosition"}}>
-	    <span class="glyphicon glyphicon-screenshot"></span>
-	</button>   
+    <div id="tourMapRootElement" class="full-screen"></div>
+    {{#if waitingForPosition}}
+    <div class="loading-data">
+        Waiting for position...
+    </div>
+    {{/if}}
+    <button class="btn btn-primary btn-my-position" {{action "toggleMyPosition" }}>
+        <span class="glyphicon glyphicon-screenshot"></span>
+    </button>
 </div>
