@@ -19,11 +19,11 @@ App.LoginModalView = Ember.View.extend({
     templateName: 'login-modal-view',
     actions: {
         loginWithFacebook: function() {
-            this.get('controller.controllers.login').send('loginWithFacebook');
+            this.get('controller.controllers.login').loginWithFacebook();
             this.closeModal();
         },
         loginWithGoogle: function() {
-            this.get('controller.controllers.login').send('loginWithGoogle');
+            this.get('controller.controllers.login').loginWithGoogle();
             this.closeModal();
         },
         goToAbout: function() {
@@ -176,11 +176,13 @@ App.ImageCarouselView = Ember.View.extend({
         var obj = this.get('content.firstObject');
         Ember.set(obj, 'isActive', true);
     },
-    previousSlide: function() {
-        this.$().carousel('prev');
-    },
-    nextSlide: function() {
-        this.$().carousel('next');
+    actions: {
+        previousSlide: function () {
+            this.$().carousel('prev');
+        },
+        nextSlide: function () {
+            this.$().carousel('next');
+        },
     },
     didInsertElement: function() {
         this.$().carousel({
@@ -193,7 +195,7 @@ App.ImageCarouselView = Ember.View.extend({
         itemViewClass: Ember.View.extend({
             classNames: ['item'],
             classNameBindings: ['content.isActive:active'],
-            template: Ember.Handlebars.compile('<img {{bindAttr src="view.content.imageFile"}} alt=""/><div class="carousel-caption"><p>{{view.content.caption}}</p></div>')
+            template: Ember.Handlebars.compile('<img {{bind-attr src="view.content.imageFile"}} alt=""/><div class="carousel-caption"><p>{{view.content.caption}}</p></div>')
         })
     }),
     haveMoreThanOneImage: function() {
@@ -209,6 +211,7 @@ App.TourDetailsView = Ember.View.extend({
     },
 });
 
+// TODO: Rewrite as component
 App.TourItemView = Ember.View.extend({
     templateName: 'touritem-view'
 });

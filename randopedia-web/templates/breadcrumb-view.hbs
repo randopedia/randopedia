@@ -1,7 +1,0 @@
-{{#if parent}}
-    {{#unless parent.isRootArea}}
-        {{control "breadCrumb" parent}}
-    {{/unless}}
-{{/if}}
-
-<li class="uppercase">{{#linkTo 'area' content }} {{content.name}} {{/linkTo}}</li>

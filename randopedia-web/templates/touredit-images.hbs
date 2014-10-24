@@ -23,7 +23,7 @@
                     <hr />
 	                <div class="col-sm-12 col-lg-2">
                         <div class="thumbnail-wrapper">
-                            <img {{bindAttr src="newImage.imageData" }} />
+                            <img {{bind-attr src="newImage.imageData" }} />
                         </div>
 	                </div>
 	                <div class="col-sm-12 col-lg-10">
@@ -62,7 +62,7 @@
 	                <div class="row">
 	                    <div class="col-sm-12 col-lg-2">
 	                            <div class="thumbnail-wrapper">
-	                            <img {{bindAttr src="image.imageFile"}} class="thumbnail-image" />
+	                            <img {{bind-attr src="image.imageFile"}} class="thumbnail-image" />
 	                        </div>
 	                    </div>
 	                    <div class="col-sm-12 col-lg-10">
@@ -78,8 +78,8 @@
 										</label>
 										</div>
 										<div class="button-group pull-right">
-		                                    <button {{action "saveImage" image}} {{bindAttr disabled="image.isUpdateDisabled"}} class="btn btn-primary">Update</button>
-		                                    <button {{action "startDeleteImage" image target="view"}} data-toggle="modal" data-target="#confirmDeleteImageModal" {{bindAttr disabled="image.isDeleteDisabled"}} class="btn btn-danger">Delete image</button>
+		                                    <button {{action "saveImage" image}} {{bind-attr disabled="image.isUpdateDisabled"}} class="btn btn-primary">Update</button>
+		                                    <button {{action "startDeleteImage" image target="view"}} data-toggle="modal" data-target="#confirmDeleteImageModal" {{bind-attr disabled="image.isDeleteDisabled"}} class="btn btn-danger">Delete image</button>
 		                                </div>
                                 </div>                                            
                             </form>

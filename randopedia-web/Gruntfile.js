@@ -7,8 +7,8 @@ module.exports = function(grunt) {
         separator: ';'
       },
       dist: {
-        src: ['vendor/handlebars-1.0.0.js',
-              'vendor/ember.1.1.2.js',
+        src: ['vendor/handlebars-v1.3.0.js',
+              'vendor/ember.1.7.0.js',
               'vendor/ember-data-1.0-b2.js',
               'vendor/ember.oauth2.js',
               'src/*.js'],
@@ -59,12 +59,7 @@ module.exports = function(grunt) {
             files: {
                 "client/css/site.css": "client/css/site.less"
             }
-        },
-//        production: {
-//            files: {
-//                "client/css/site.css": "client/css/site.less"
-//            }
-//        }
+        }
     },
     qunit: {
         all: ['test/*.html']

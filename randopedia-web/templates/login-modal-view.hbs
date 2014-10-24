@@ -5,13 +5,13 @@
             <h4 class="modal-title" id="myModalLabel">Select account to login with</h4>
         </div>
         <div class="modal-body">
-            <a class="login-link" {{action loginWithFacebook target="view"}}>
+            <a class="login-link" {{action "loginWithFacebook" target="view"}}>
                 <div>
                 Login with <img src="images/facebook_logo.png">
                 </div>
             </a>
 
-            <a class="login-link" {{action loginWithGoogle target="view"}}>
+            <a class="login-link" {{action "loginWithGoogle" target="view"}}>
                 <div>
                 Login with <img src="images/google_logo.png" width="100">
                 </div>
@@ -21,7 +21,7 @@
         <hr />
         <div class="spacing">
 	        <small>
-	            Randopedia doesn't use or store any sensitive information about the account being used. Read more about privacy <a data-dismiss="modal" {{action goToAbout target="view"}}>here</a>.
+	            Randopedia doesn't use or store any sensitive information about the account being used. Read more about privacy <a data-dismiss="modal" {{action "goToAbout" target="view"}}>here</a>.
 	        </small>
         </div>
     </div>

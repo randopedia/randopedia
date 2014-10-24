@@ -459,7 +459,7 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-default pull-right" data-dismiss="modal">Cancel</button>
-                    <button class="btn btn-primary pull-right" {{bindAttr disabled="view.haveValidationErrors" }} {{action "continueToPublishStep2" target="view" }}>Continue</button>
+                    <button class="btn btn-primary pull-right" {{bind-attr disabled="view.haveValidationErrors" }} {{action "continueToPublishStep2" target="view" }}>Continue</button>
                 </div>
             </div>
         </div>
@@ -483,7 +483,7 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-default pull-right" data-dismiss="modal">Cancel</button>
-                    <button class="btn btn-primary pull-right" {{bindAttr disabled="view.isPublishDisabled" }} {{action "confirmPublishTour" target="view" }}><span class="glyphicon glyphicon-cloud-upload"></span> Publish</button>
+                    <button class="btn btn-primary pull-right" {{bind-attr disabled="view.isPublishDisabled" }} {{action "confirmPublishTour" target="view" }}><span class="glyphicon glyphicon-cloud-upload"></span> Publish</button>
                 </div>
             </div>
         </div>
@@ -527,21 +527,21 @@
                 </div>
 
                 <div class="btn-group pull-right">
-                    <button class="btn btn-default" {{bindAttr disabled="isStartPublishDisabled" }} {{action "startPublishTour" target="view" }}>
+                    <button class="btn btn-default" {{bind-attr disabled="isStartPublishDisabled" }} {{action "startPublishTour" target="view" }}>
                         <span class="glyphicon glyphicon-cloud-upload"></span> Publish
                     </button>
                 </div>
 
                 {{#unless isPublished}}
                     <div class="btn-group pull-right">
-                        <button class="btn btn-default" {{bindAttr disabled="isSendToReviewDisabled" }} {{action "sendToReview" }}>
+                        <button class="btn btn-default" {{bind-attr disabled="isSendToReviewDisabled" }} {{action "sendToReview" }}>
                             <span class="glyphicon glyphicon-user"></span> Send to review
                         </button>
                     </div>
 
                     {{#unless isInReview}}
                         <div class="btn-group pull-right">
-                            <button class="btn btn-default" {{bindAttr disabled="isSaveAsDraftDisabled" }} {{action "saveAsDraft" }}>
+                            <button class="btn btn-default" {{bind-attr disabled="isSaveAsDraftDisabled" }} {{action "saveAsDraft" }}>
                                 <span class="glyphicon glyphicon-floppy-save"></span> Save as draft
                             </button>
                         </div>

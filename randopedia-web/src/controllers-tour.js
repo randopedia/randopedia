@@ -137,18 +137,18 @@ App.TourController = Ember.ObjectController.extend({
 
 App.TourEditController = Ember.ObjectController.extend({
     needs: ['login'],
-    queryParams: ['createNewInArea'], // Used for new tour triggered from area edit view
+    //queryParams: ['createNewInArea'], // Used for new tour triggered from area edit view
+    //createNewInArea: null,
     validationErrors: [],
     validationWarnings: [],
 
     init: function() {
-        
-        var newAreaId = this.get('createNewInArea');
-        if (newAreaId) {
-            this.store.find('area', newAreaId).then(function(area) {
-                this.get('model').set('area', area);
-            });
-        }
+        //var newAreaId = this.get('createNewInArea');
+        //if (newAreaId) {
+        //    this.store.find('area', newAreaId).then(function(area) {
+        //        this.get('model').set('area', area);
+        //    });
+        //}
     },
 
     actions: {

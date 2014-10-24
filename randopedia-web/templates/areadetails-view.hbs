@@ -1,7 +1,7 @@
 <div class="container-fluid">
 	<div class="row">
 	    <div class="col-sm-12">
-	        <h2>{{name}} {{#if parent}}{{#linkTo "area" parent}}<span class="small uppercase">{{parent.name}}</span>{{/linkTo}}{{/if}}</h2>
+	        <h2>{{name}} {{#if parent}}{{#link-to "area" parent}}<span class="small uppercase">{{parent.name}}</span>{{/link-to}}{{/if}}</h2>
 	    </div>
 	</div>
 	
@@ -18,7 +18,7 @@
 		    <ul class="inline-list">
 		     {{#each child in children}}
 		         <li>
-			         {{#linkTo "area" child}} {{child.name}} {{/linkTo}} 
+			         {{#link-to "area" child}} {{child.name}} {{/link-to}} 
 			         {{!--
 			         {{#if child.hasTours }}
 			             ({{ child.nbrTours }} tours) 

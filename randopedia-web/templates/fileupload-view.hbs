@@ -3,6 +3,6 @@
  -->
  
 <input type="file" id="fileInputElement" accept="image/*" class=" hide" />
-<button class="btn btn-primary" {{action "openFileDialog" target="view" }} {{bindAttr disabled="havePendingOperations" }}>
+<button class="btn btn-primary" {{action "openFileDialog" target="view" }} {{bind-attr disabled="havePendingOperations" }}>
     <span class="glyphicon glyphicon-picture"></span> Select image
 </button>

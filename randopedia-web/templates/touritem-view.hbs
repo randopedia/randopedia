@@ -1,8 +1,8 @@
 <div class="row tour-item-view">
     <div class="col-sm-12">   
 	    <div class="item-panel">
-            <h4> {{#linkTo "tour" tour}} {{tour.name}} {{/linkTo}} <span class="small uppercase">{{tour.area.name}}<span></h4>
-			<div class="item-props">
+            <h4> {{#link-to "tour" tour}} {{tour.name}} {{/link-to}} <span class="small uppercase">{{tour.area.name}}</span></h4>
+			<div class="item-props">    
 				{{resolveGradeName tour.grade}} | 
 				{{tour.timingMin}}-{{tour.timingMax}}h | 
 				{{tour.elevationGain}}m &uarr; {{tour.elevationLoss}}m &darr;
