@@ -533,7 +533,7 @@ App.TourEditController = Ember.ObjectController.extend({
         if(!App.Validate.isNotNullOrEmpty(this.get('name'))){
             return true;
         }
-        if(this.get('isDraft') || this.get('isDirty') || this.get('areaIsUpdated')){
+        if(this.get('isDraft') || this.get('isInReview') || this.get('isDirty') || this.get('areaIsUpdated')){
             return false;
         }
         
