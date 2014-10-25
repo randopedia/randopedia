@@ -44,7 +44,7 @@ App.IndexController = Ember.ObjectController.extend({
 App.AboutController = Ember.ObjectController.extend();
 
 App.SearchController = Ember.ArrayController.extend({
-	needs: ['index'],
+    needs: ['index'],
     hasSearchResults: false,
     isSearching: false,
     

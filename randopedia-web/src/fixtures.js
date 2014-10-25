@@ -47,7 +47,7 @@ App.Fixtures.TourActions = [
 ];
 
 App.Fixtures.Grades = [
-	Ember.Object.create({value: null, name: App.Fixtures.UndefinedString}),
+    Ember.Object.create({value: null, name: App.Fixtures.UndefinedString}),
     Ember.Object.create({value: 1, name: 'Easy'}),
     Ember.Object.create({value: 2, name: 'Fairly difficult'}),
     Ember.Object.create({value: 3, name: 'Quite difficult'}),
@@ -57,28 +57,28 @@ App.Fixtures.Grades = [
 ];
 
 App.Fixtures.Aspects = [
-	Ember.Object.create({value: null, name: App.Fixtures.UndefinedString}),
-	Ember.Object.create({value: 1, name: 'N'}),
-	Ember.Object.create({value: 2, name: 'NW'}),
-	Ember.Object.create({value: 3, name: 'W'}),
-	Ember.Object.create({value: 4, name: 'SW'}),
-	Ember.Object.create({value: 5, name: 'S'}),
-	Ember.Object.create({value: 6, name: 'SE'}),
-	Ember.Object.create({value: 7, name: 'E'}),
-	Ember.Object.create({value: 8, name: 'NE'})
+    Ember.Object.create({value: null, name: App.Fixtures.UndefinedString}),
+    Ember.Object.create({value: 1, name: 'N'}),
+    Ember.Object.create({value: 2, name: 'NW'}),
+    Ember.Object.create({value: 3, name: 'W'}),
+    Ember.Object.create({value: 4, name: 'SW'}),
+    Ember.Object.create({value: 5, name: 'S'}),
+    Ember.Object.create({value: 6, name: 'SE'}),
+    Ember.Object.create({value: 7, name: 'E'}),
+    Ember.Object.create({value: 8, name: 'NE'})
 ];
 
 App.Fixtures.BooleanOptions = [
-	Ember.Object.create({value: false, name: 'No' }),
+    Ember.Object.create({value: false, name: 'No' }),
     Ember.Object.create({value: true, name: 'Yes'})
 ]; 
 
 App.Fixtures.Months = [
-	Ember.Object.create({value: null, name: App.Fixtures.UndefinedString}),
-	Ember.Object.create({value: 1, name: 'January'}),
-	Ember.Object.create({value: 2, name: 'February'}),
-	Ember.Object.create({value: 3, name: 'Mars'}),
-	Ember.Object.create({value: 4, name: 'April'}),
+    Ember.Object.create({value: null, name: App.Fixtures.UndefinedString}),
+    Ember.Object.create({value: 1, name: 'January'}),
+    Ember.Object.create({value: 2, name: 'February'}),
+    Ember.Object.create({value: 3, name: 'Mars'}),
+    Ember.Object.create({value: 4, name: 'April'}),
     Ember.Object.create({value: 5, name: 'May'}),
     Ember.Object.create({value: 6, name: 'June'}),
     Ember.Object.create({value: 7, name: 'July'}),
@@ -90,8 +90,8 @@ App.Fixtures.Months = [
 ];
 
 App.Fixtures.PathTypes = [
-	Ember.Object.create({ value: App.Fixtures.MapSymbolTypes.UP_DOWN_TRACK, name: 'Up/Down' }),
-	Ember.Object.create({ value: App.Fixtures.MapSymbolTypes.UP_TRACK, name: 'Up' }),
+    Ember.Object.create({ value: App.Fixtures.MapSymbolTypes.UP_DOWN_TRACK, name: 'Up/Down' }),
+    Ember.Object.create({ value: App.Fixtures.MapSymbolTypes.UP_TRACK, name: 'Up' }),
     Ember.Object.create({ value: App.Fixtures.MapSymbolTypes.DOWN_TRACK, name: 'Down' })
 ];
 
@@ -99,61 +99,61 @@ App.Fixtures.PathTypes = [
 // Resolve method
 
 App.Fixtures.resolveNameFromValue = function(fixture, value){
-	var fixtureObject;
-	
-	switch(fixture){
-	case 'Grades':
-		fixtureObject = App.Fixtures.Grades;
-		break;
-	case 'DangerGrades':
-		fixtureObject = App.Fixtures.DangerGrades;
-		break;
-	case 'Aspects':
-		fixtureObject = App.Fixtures.Aspects;
-		break;
-	case 'BooleanOptions':
-		fixtureObject = App.Fixtures.BooleanOptions;
-		break;
-	case 'Months':
-		fixtureObject = App.Fixtures.Months;
-		break;
-	case 'TourActions':
-	    fixtureObject = App.Fixtures.TourActions;
-	    break;
-	default:
-		return App.Fixtures.UndefinedString;
-	}
-	
+    var fixtureObject;
+    
+    switch(fixture){
+    case 'Grades':
+        fixtureObject = App.Fixtures.Grades;
+        break;
+    case 'DangerGrades':
+        fixtureObject = App.Fixtures.DangerGrades;
+        break;
+    case 'Aspects':
+        fixtureObject = App.Fixtures.Aspects;
+        break;
+    case 'BooleanOptions':
+        fixtureObject = App.Fixtures.BooleanOptions;
+        break;
+    case 'Months':
+        fixtureObject = App.Fixtures.Months;
+        break;
+    case 'TourActions':
+        fixtureObject = App.Fixtures.TourActions;
+        break;
+    default:
+        return App.Fixtures.UndefinedString;
+    }
+    
     for(var i = 0; i < fixtureObject.length; i++) {
         if (fixtureObject[i].value === value){
             return fixtureObject[i].name;
         }
     }
     
-	return this.UndefinedString;
+    return this.UndefinedString;
 };
 
 
 // Handlebars helpers that resolves names
 
 Ember.Handlebars.registerBoundHelper('resolveGradeName', function (value) {
-	return App.Fixtures.resolveNameFromValue('Grades', value);
+    return App.Fixtures.resolveNameFromValue('Grades', value);
 });
 
 Ember.Handlebars.registerBoundHelper('resolveDangerGradeName', function (value) {
-	return App.Fixtures.resolveNameFromValue('DangerGrades', value);
+    return App.Fixtures.resolveNameFromValue('DangerGrades', value);
 });
 
 Ember.Handlebars.registerBoundHelper('resolveAspectName', function (value) {
-	return App.Fixtures.resolveNameFromValue('Aspects', value);
+    return App.Fixtures.resolveNameFromValue('Aspects', value);
 });
 
 Ember.Handlebars.registerBoundHelper('resolveBooleanOptionName', function (value) {
-	return App.Fixtures.resolveNameFromValue('BooleanOptions', value);
+    return App.Fixtures.resolveNameFromValue('BooleanOptions', value);
 });
 
 Ember.Handlebars.registerBoundHelper('resolveMonthName', function (value) {
-	return App.Fixtures.resolveNameFromValue('Months', value);
+    return App.Fixtures.resolveNameFromValue('Months', value);
 });
 
 Ember.Handlebars.registerBoundHelper('resolveTourAction', function (value) {

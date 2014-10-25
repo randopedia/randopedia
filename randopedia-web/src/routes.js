@@ -1,24 +1,24 @@
 App.Router.map(function() {
-	this.resource('toplevels', function(){
+    this.resource('toplevels', function(){
         this.resource('toplevel', {path:':toplevel_id'});
-	});
-	this.resource('area-browse');
-	
-	this.resource('area', {path:'/areas/:area_id'});
-	this.resource('area.edit', {path:'/areas/:area_id/edit'});
-	
-	this.resource('tours');
-	this.resource('tour', {path:'/tours/:tour_id'});
-	this.resource('tour.edit', {path:'/tours/:tour_id/edit'});
-	this.resource('tour.new', {path:'/tours/new'});
-	
-	this.resource('search');
-	this.resource('about');
-	this.resource('mytours');
-	this.resource('tags');
-	this.resource('tag', {path:'tags/:tag_id'});
-	
-	this.resource('stats');
+    });
+    this.resource('area-browse');
+    
+    this.resource('area', {path:'/areas/:area_id'});
+    this.resource('area.edit', {path:'/areas/:area_id/edit'});
+    
+    this.resource('tours');
+    this.resource('tour', {path:'/tours/:tour_id'});
+    this.resource('tour.edit', {path:'/tours/:tour_id/edit'});
+    this.resource('tour.new', {path:'/tours/new'});
+    
+    this.resource('search');
+    this.resource('about');
+    this.resource('mytours');
+    this.resource('tags');
+    this.resource('tag', {path:'tags/:tag_id'});
+    
+    this.resource('stats');
 });
 
 App.BaseRoute = Ember.Route.extend({
@@ -37,7 +37,7 @@ App.BaseRoute = Ember.Route.extend({
 });
 
 App.ApplicationRoute = Ember.Route.extend({
-	setupController: function(controller, model){
+    setupController: function(controller, model){
         this.controllerFor('application').verifyLogin();
         this._super(controller, model);
     },
@@ -46,9 +46,9 @@ App.ApplicationRoute = Ember.Route.extend({
 App.IndexRoute = App.BaseRoute.extend();
 
 App.StatsRoute = App.BaseRoute.extend({
-	model: function(params) {
-		return this.store.find('stats', null);
-	}
+    model: function(params) {
+        return this.store.find('stats', null);
+    }
 });
 
 App.LoadingRoute = Ember.Route.extend();
@@ -86,9 +86,9 @@ App.TagRoute = App.BaseRoute.extend({
 });
 
 App.AreaRoute = App.BaseRoute.extend({
-	model: function(params) {
+    model: function(params) {
             return this.store.find('area', params.area_id);
-	}
+    }
 });
 
 App.AreaEditRoute = App.BaseRoute.extend({
@@ -137,9 +137,9 @@ App.TourNewRoute = App.BaseRoute.extend({
        controller.set('model', this.get('controller').get('model'));
        this.render('tournew', { controller: controller });
     },
-	model : function(params) {
+    model : function(params) {
         return this.store.createRecord('tour');
-	}
+    }
 });
 
 App.TourEditRoute = App.BaseRoute.extend({
@@ -163,9 +163,7 @@ App.TourEditRoute = App.BaseRoute.extend({
                     transition.abort(); 
                 }
             }
-            else { 
-                return true; 
-            }
+            return true; 
         }
     }
 });
