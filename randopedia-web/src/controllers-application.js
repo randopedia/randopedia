@@ -34,7 +34,7 @@ App.ApplicationController = Ember.ArrayController.extend({
                 } else if(route === 'collapseNavbar') {
                     // Dummy for collapsing navbar
                 } else {
-                    this.transitionToRoute(route);	   
+                    this.transitionToRoute(route);
                 }
                 this.send('collapseNavbar');
             }

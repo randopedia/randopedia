@@ -6826,6 +6826,17 @@ button.info:hover {
   background-color: #0A89DD;
   border-color: #0A89DD;
 }
+.browse-map-view {
+  /*tour-infowindow {
+        position: absolute;
+        bottom: calc(~'100% - 200px');
+        left: 0;
+        width: 200px;
+        height: 200px;
+        background: rgba(255, 255, 255, 0.5);
+        border: 1px solid #FFF;
+    }*/
+}
 .browse-map-view .btn-my-position {
   position: absolute;
   top: calc(100% - 65px);
@@ -6841,6 +6852,13 @@ button.info:hover {
 }
 .browse-map-view .btn-my-position:hover {
   background: #eeeeee;
+}
+.browse-map-view .loading-data {
+  position: absolute;
+  top: 75px;
+  left: calc(50% - 50px);
+  background: rgba(255, 255, 255, 0.6);
+  padding: 5px;
 }
 .tour-item-view .item-panel {
   margin-bottom: 10px;
