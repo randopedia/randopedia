@@ -11,6 +11,7 @@ module.exports = function(grunt) {
               'vendor/ember.1.7.0.js',
               'vendor/ember-data-1.0-b2.js',
               'vendor/ember.oauth2.js',
+              'vendor/bootstrap.js',
               'src/*.js'],
         dest: 'client/js/<%= pkg.name %>.js'
       }
@@ -31,10 +32,17 @@ module.exports = function(grunt) {
     uglify: {
         my_target: {
           files: {
-            'client/js/randopedia.min.js': ['client/js/randopedia.js']
+              'client/js/randopedia.min.js': ['client/js/randopedia.js', 'client/js/templates.js'],
           }
         }
-      },
+    },
+    cssmin: {
+        combine: {
+            files: {
+              'client/css/site.min.css': ['client/css/normalize.css', 'client/css/site.css']
+            }
+        }
+    },
     emberTemplates: {
         compile: {
           options: {
@@ -121,13 +129,14 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-ember-templates');
   grunt.loadNpmTasks('grunt-contrib-qunit');
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-connect-proxy');
   grunt.loadNpmTasks('grunt-contrib-less');
   
   grunt.registerTask('test', ['jshint', 'concat', 'emberTemplates', 'less', 'qunit']);
   grunt.registerTask('localhost', ['jshint', 'concat', 'emberTemplates', 'less', 'qunit']);
-  grunt.registerTask('default', ['jshint', 'concat', 'emberTemplates', 'less', 'qunit', 'uglify']);
+  grunt.registerTask('default', ['jshint', 'concat', 'emberTemplates', 'less', 'qunit', 'uglify', 'cssmin']);
   grunt.registerTask('server', ['configureProxies:server', 'connect']);
   
 };
