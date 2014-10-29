@@ -475,15 +475,35 @@ button.info {
         padding: 5px;
     }
 
-    /*tour-infowindow {
+    .tour-info {
         position: absolute;
-        bottom: calc(~'100% - 200px');
+        top: calc(~'100% - 161px');
         left: 0;
-        width: 200px;
-        height: 200px;
-        background: rgba(255, 255, 255, 0.5);
-        border: 1px solid #FFF;
-    }*/
+        width: 100%; 
+        height: 150px;
+        background: rgba(255, 255, 255, 0.75);
+        border: 1px solid @gray-dark;
+        padding: 10px;
+        h4 {
+            margin-left: 0;
+        }
+        button.close {
+            margin-top: -15px;
+        }
+        .link-container {
+            margin-top: 30px;
+        }
+
+         @media (min-width: 970px) { 
+            left: calc(~'25%');
+            width: 50%;     
+        }
+
+        @media (min-width: 1170px) { 
+            left: calc(~'30%');
+            width: 40%;  
+        }
+    }
 }
 
 .tour-item-view {
