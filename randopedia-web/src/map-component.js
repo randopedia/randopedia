@@ -293,11 +293,13 @@ App.BrowseTourmapComponent = Ember.Component.extend({
                 mapTypeId: google.maps.MapTypeId.TERRAIN,
                 mapTypeControl: true,
                 mapTypeControlOptions: {
-                    style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
+                    style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
+                    position: google.maps.ControlPosition.TOP_RIGHT
                 },
                 zoomControl: true,
                 zoomControlOptions: {
-                    style: google.maps.ZoomControlStyle.SMALL
+                    style: google.maps.ZoomControlStyle.SMALL,
+                    position: google.maps.ControlPosition.TOP_LEFT
                 },
                 scaleControl: true,
                 scaleControlOptions: {

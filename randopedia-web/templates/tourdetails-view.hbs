@@ -166,17 +166,14 @@
                             <button class="btn btn-primary" {{action "viewTourOnMap" }}>
                                 <span class="glyphicon glyphicon-globe"></span> View tour on map
                             </button>
+                            <button class="btn btn-primary" {{action "downloadGpxFile" }}>
+                                <span class="glyphicon glyphicon-export"></span> GPX
+                            </button>
                         {{/if}}
                     {{else}}
                         {{#if hasPaths}}
                         <div class="spacing">[View tour on map] <em>Tours are not available on the map until they are published.</em></div>
                         {{/if}}
-                    {{/if}}
-
-                    {{#if hasPaths}}
-                        <button class="btn btn-primary pull-right" {{action "downloadGpxFile" }}>
-                            <span class="glyphicon glyphicon-export"></span> GPX
-                        </button>
                     {{/if}}
                 </div>
             </div>
