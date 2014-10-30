@@ -43,7 +43,8 @@ App.Fixtures.TourActions = [
     Ember.Object.create({value: 5, name: 'Image updated'}),
     Ember.Object.create({value: 6, name: 'Image deleted'}),  
     Ember.Object.create({value: 7, name: 'Published'}),  
-    Ember.Object.create({value: 8, name: 'Restored'}),
+    Ember.Object.create({ value: 8, name: 'Restored' }),
+    Ember.Object.create({ value: 9, name: 'Sent to review' })
 ];
 
 App.Fixtures.Grades = [
