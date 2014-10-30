@@ -383,6 +383,5 @@ public class TourService {
             Double bottomRightLongitude) {
         return tourRepository.findToursByCoordinate(topLeftLatitude, topLeftLongitude, bottomRightLatitude, bottomRightLongitude);
     }
-
     
 }

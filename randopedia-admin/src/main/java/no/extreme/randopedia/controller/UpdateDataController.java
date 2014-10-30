@@ -1,9 +1,13 @@
 package no.extreme.randopedia.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import no.extreme.randopedia.model.migration.MigrationResult;
+import no.extreme.randopedia.model.tour.Tour;
 import no.extreme.randopedia.model.update.UpdateResult;
+import no.extreme.randopedia.service.SnapshotCacheService;
+import no.extreme.randopedia.service.TourService;
 import no.extreme.randopedia.service.UpdateTagCloudService;
 import no.extreme.randopedia.service.UpdateTourCenterCoordinatesService;
 
@@ -21,6 +25,8 @@ public class UpdateDataController {
     UpdateTagCloudService updateTagCloudService;
     @Autowired
     UpdateTourCenterCoordinatesService updateTourCenterCoordinatesService;
+    @Autowired
+    SnapshotCacheService snapshotCacheService;
 
     @RequestMapping(method = RequestMethod.GET, value = "/updateTagCloud", produces = "application/json")
     public @ResponseBody MigrationResult updateTagCloud() throws IOException {
@@ -37,4 +43,14 @@ public class UpdateDataController {
         result.setResult("Update: " + updated + " tours");
         return result;
     }
+    
+    @RequestMapping(method = RequestMethod.GET, value = "/updateAllCaches", produces = "application/json")
+    public @ResponseBody UpdateResult updateAllCaches() throws IOException {
+        snapshotCacheService.updateAllCaches();
+        UpdateResult result = new UpdateResult();
+        result.setResult("Ok");
+        return result;
+    }
+        
+    
 }

@@ -32,7 +32,7 @@ module.exports = function(grunt) {
     uglify: {
         my_target: {
           files: {
-              'client/js/randopedia.min.js': ['client/js/randopedia.js', 'client/js/templates.js'],
+              'client/js/randopedia.min.js': ['client/js/randopedia.js'],
           }
         }
     },

@@ -3,11 +3,13 @@ package no.extreme.randopedia.model.tour;
 import org.bson.types.ObjectId;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 
 public class TourImage {
   
     @Id
     private ObjectId _id;
+    @Transient
     private String imageData;
     private String imageFile;
     private String tour;

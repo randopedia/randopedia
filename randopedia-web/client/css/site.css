@@ -6677,7 +6677,6 @@ fieldset[disabled] .edit-navbar .btn-link:focus {
 .edit-container {
   padding: 20px;
   border-top: 1px solid #eeeeee;
-  border-bottom: 1px solid #eeeeee;
 }
 .edit-container a {
   display: inline-block;
@@ -6769,7 +6768,7 @@ fieldset[disabled] .edit-container a.active {
 }
 @media (max-width: 749px) {
   .edit-container a {
-    margin-bottom: 10px;
+    margin-bottom: 20px;
   }
 }
 .edit-container.area {
@@ -6826,17 +6825,6 @@ button.info:hover {
   background-color: #0A89DD;
   border-color: #0A89DD;
 }
-.browse-map-view {
-  /*tour-infowindow {
-        position: absolute;
-        bottom: calc(~'100% - 200px');
-        left: 0;
-        width: 200px;
-        height: 200px;
-        background: rgba(255, 255, 255, 0.5);
-        border: 1px solid #FFF;
-    }*/
-}
 .browse-map-view .btn-my-position {
   position: absolute;
   top: calc(100% - 65px);
@@ -6859,6 +6847,37 @@ button.info:hover {
   left: calc(50% - 50px);
   background: rgba(255, 255, 255, 0.6);
   padding: 5px;
+}
+.browse-map-view .tour-info {
+  position: absolute;
+  top: calc(100% - 161px);
+  left: 0;
+  width: 100%;
+  height: 150px;
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid #333333;
+  padding: 10px;
+}
+.browse-map-view .tour-info h4 {
+  margin-left: 0;
+}
+.browse-map-view .tour-info button.close {
+  margin-top: -15px;
+}
+.browse-map-view .tour-info .link-container {
+  margin-top: 30px;
+}
+@media (min-width: 970px) {
+  .browse-map-view .tour-info {
+    left: calc(25%);
+    width: 50%;
+  }
+}
+@media (min-width: 1170px) {
+  .browse-map-view .tour-info {
+    left: calc(30%);
+    width: 40%;
+  }
 }
 .tour-item-view .item-panel {
   margin-bottom: 10px;
