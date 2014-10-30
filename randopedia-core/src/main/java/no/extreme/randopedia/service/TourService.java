@@ -173,7 +173,12 @@ public class TourService {
         
         saveTourAction(user, tour, TourActionType.UPDATE);
         
-        if(currentTour.getStatus() == TourStatus.DRAFT && tour.getStatus() == TourStatus.PUBLISHED){
+        if(currentTour.getStatus() == TourStatus.DRAFT && tour.getStatus() == TourStatus.IN_REVIEW){
+            saveTourAction(user, tour, TourActionType.SENT_TO_REVIEW);
+        }
+        
+        if((currentTour.getStatus() == TourStatus.DRAFT && tour.getStatus() == TourStatus.PUBLISHED) ||
+           (currentTour.getStatus() == TourStatus.IN_REVIEW && tour.getStatus() == TourStatus.PUBLISHED)){
             
             // TOUR IS PUBLISHED FOR THE FIRST TIME
             

@@ -12,4 +12,5 @@ public final class TourActionType {
     public static int IMAGE_DELETE = 6;
     public static int PUBLISH = 7;
     public static final int RESTORE = 8;
+    public static final int SENT_TO_REVIEW = 9;
 }
