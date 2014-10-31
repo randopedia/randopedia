@@ -76,7 +76,7 @@ public class TourValidator extends AbstractValidator{
             return true;
         }
         
-        if(mountaineeringSkillsDescription.length() > 300) {
+        if(mountaineeringSkillsDescription.length() > 500) {
             valid = false;
             errors.add("The description text is to long!");
         }
@@ -96,7 +96,7 @@ public class TourValidator extends AbstractValidator{
             return true;
         }
         
-        if(dangerDescription.length() > 300) {
+        if(dangerDescription.length() > 500) {
             valid = false;
             errors.add("The description text is to long!");
         }

@@ -9,6 +9,10 @@ public class TagsHelper {
         
         List<String> tags = new ArrayList<String>();
         
+        if(itinerary == null) {
+            return tags;
+        }
+        
         int hashIndex = itinerary.indexOf('#');
         while(hashIndex >= 0) {
             int spaceIndex = itinerary.indexOf(' ', hashIndex);
