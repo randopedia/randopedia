@@ -6449,14 +6449,15 @@ a:hover {
 }
 .navbar .searchbox {
   position: absolute;
-  top: 75px;
-  left: 100;
+  top: 50px;
+  left: 50;
   width: 100%;
-  background: rgba(255, 255, 255, 0.75);
+  background: #ffffff;
   border: 1px solid #333333;
   padding: 10px;
   overflow-x: hidden;
-  overflow-y: scroll;
+  overflow-y: auto;
+  max-height: 500px;
 }
 .navbar .searchbox h4 {
   margin-left: 0;
@@ -6478,6 +6479,9 @@ a:hover {
     right: calc(5%);
     width: 40%;
   }
+}
+.navbar .searchbox .search-textfield {
+  width: 100%;
 }
 .navbar-fixed-top .navbar-collapse,
 .navbar-fixed-bottom .navbar-collapse {
@@ -6560,14 +6564,15 @@ a:hover {
 }
 .edit-navbar .searchbox {
   position: absolute;
-  top: 75px;
-  left: 100;
+  top: 50px;
+  left: 50;
   width: 100%;
-  background: rgba(255, 255, 255, 0.75);
+  background: #ffffff;
   border: 1px solid #333333;
   padding: 10px;
   overflow-x: hidden;
-  overflow-y: scroll;
+  overflow-y: auto;
+  max-height: 500px;
 }
 .edit-navbar .searchbox h4 {
   margin-left: 0;
@@ -6589,6 +6594,9 @@ a:hover {
     right: calc(5%);
     width: 40%;
   }
+}
+.edit-navbar .searchbox .search-textfield {
+  width: 100%;
 }
 .edit-navbar .navbar-brand {
   color: #eeeeee;

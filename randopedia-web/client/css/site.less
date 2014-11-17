@@ -329,14 +329,15 @@ a {
     }
     .searchbox {
         position: absolute;
-        top: +75px;
-        left: 100;
+        top: +50px;
+        left: 50;
         width: 100%; 
-        background: rgba(255, 255, 255, 0.75);
+        background: rgba(255, 255, 255, 1);
         border: 1px solid @gray-dark;
         padding: 10px;
         overflow-x: hidden;
-        overflow-y: scroll;
+        overflow-y: auto;
+        max-height: 500px;
         h4 {
             margin-left: 0;
         }
@@ -355,6 +356,9 @@ a {
         @media (min-width: 1170px) { 
             right: calc(~'5%');
             width: 40%;  
+        }
+        .search-textfield {
+            width: 100%;
         }
     }
    
