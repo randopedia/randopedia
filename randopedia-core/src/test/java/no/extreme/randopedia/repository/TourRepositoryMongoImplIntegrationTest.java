@@ -203,7 +203,7 @@ public class TourRepositoryMongoImplIntegrationTest extends AbstractJUnit4Spring
         Tour tour = tours.get(0);
         
         assertEquals(1, tour.getTourImages().size());
-        assertNotNull(tour.getTourImages().get(0).getImageData());
+        assertNotNull(tour.getTourImages().get(0).getImageFile());
         assertEquals(imageCaption, tour.getTourImages().get(0).getCaption());
     }
 
@@ -343,7 +343,8 @@ public class TourRepositoryMongoImplIntegrationTest extends AbstractJUnit4Spring
     @Test
     public void test_getRandomTour() throws IOException {
         createAndSaveBasicTourAndAddOneImage("image0");
-        createAndSaveBasicTourAndAddOneImage("image1");
+        //createAndSaveBasicTourAndAddOneImage("image1");
+        
         createAndSaveBasicTour();
         Tour tourWithEmptyImageArray = createBasicTour();
         tourWithEmptyImageArray.setTourImages(new ArrayList<TourImage>());
@@ -351,7 +352,7 @@ public class TourRepositoryMongoImplIntegrationTest extends AbstractJUnit4Spring
         
         // ASSERT: Empty image array is handled
         List<Tour> ids = tourRepo.getIdsForAllToursWithImages();
-        assertEquals(2, ids.size());
+        assertEquals(1, ids.size());
 
         // ASSERT: Only tours that have images are returned
         Tour tour = tourRepo.getRandomTour();

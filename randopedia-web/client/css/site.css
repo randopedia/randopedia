@@ -6448,14 +6448,36 @@ a:hover {
   color: #222222;
 }
 .navbar .searchbox {
-  display: block;
-  line-height: 34px;
-  font-size: 20px;
-  font-weight: 650;
-  opacity: 0.9;
-  padding-left: 5px;
-  width: calc(100% - 20px);
-  margin: 5px 10px;
+  position: absolute;
+  top: 75px;
+  left: 100;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid #333333;
+  padding: 10px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+.navbar .searchbox h4 {
+  margin-left: 0;
+}
+.navbar .searchbox button.close {
+  margin-top: -15px;
+}
+.navbar .searchbox .link-container {
+  margin-top: 30px;
+}
+@media (min-width: 970px) {
+  .navbar .searchbox {
+    right: calc(5%);
+    width: 50%;
+  }
+}
+@media (min-width: 1170px) {
+  .navbar .searchbox {
+    right: calc(5%);
+    width: 40%;
+  }
 }
 .navbar-fixed-top .navbar-collapse,
 .navbar-fixed-bottom .navbar-collapse {
@@ -6537,14 +6559,36 @@ a:hover {
   color: #222222;
 }
 .edit-navbar .searchbox {
-  display: block;
-  line-height: 34px;
-  font-size: 20px;
-  font-weight: 650;
-  opacity: 0.9;
-  padding-left: 5px;
-  width: calc(100% - 20px);
-  margin: 5px 10px;
+  position: absolute;
+  top: 75px;
+  left: 100;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid #333333;
+  padding: 10px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+.edit-navbar .searchbox h4 {
+  margin-left: 0;
+}
+.edit-navbar .searchbox button.close {
+  margin-top: -15px;
+}
+.edit-navbar .searchbox .link-container {
+  margin-top: 30px;
+}
+@media (min-width: 970px) {
+  .edit-navbar .searchbox {
+    right: calc(5%);
+    width: 50%;
+  }
+}
+@media (min-width: 1170px) {
+  .edit-navbar .searchbox {
+    right: calc(5%);
+    width: 40%;
+  }
 }
 .edit-navbar .navbar-brand {
   color: #eeeeee;

@@ -1,5 +1,5 @@
 App.ApplicationController = Ember.ArrayController.extend({
-    needs: ['login', 'search'],
+    needs: ['login'],
     
     verifyLogin : function() {
         var token = App.oauth.getToken('facebook');
@@ -44,7 +44,6 @@ App.ApplicationController = Ember.ArrayController.extend({
             this.send('collapseNavbar');
         },
         gotoindex: function () {
-            this.get('controllers.search').clearSearchResult();
             this.transitionToRoute('index');
         },
         collapseNavbar: function() {

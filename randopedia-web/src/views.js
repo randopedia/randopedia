@@ -3,14 +3,14 @@ App.ApplicationView = Ember.View.extend({
     actions: {
         togglenavbarsearchbox: function () {
             this.set('showNavbarSearch', !this.get('showNavbarSearch'));
-            if(this.get('showNavbarSearch')) {
+            /*if(this.get('showNavbarSearch')) {
                 $("body").css('padding-top', '100px');
                 $("#tourMapRootElement").css('margin-top', '97px');
                 //this.get('controller').send('collapseNavbar');
             } else {
                 $("body").css('padding-top', '50px');
                 $("#tourMapRootElement").css('margin-top', '50px');
-            }
+            }*/
         }
     }
 });

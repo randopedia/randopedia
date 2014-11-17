@@ -12,10 +12,11 @@
             <button type="button" class="navbar-toggle-button" {{action "togglenavbarsearchbox" target="view" }}">
                 <span class="glyphicon glyphicon-search"></span>
             </button>
-            {{#if view.showNavbarSearch}}
-            {{view App.SearchTextField valueBinding="controllers.search.query" class="searchbox"}}
-            {{/if}}
+            
+           
         </div>
+
+       
 
         <div class="collapse navbar-collapse main-menu-container" id="bs-example-navbar-collapse-1">
 
@@ -44,8 +45,13 @@
         </div>
 
     </div>
+ {{#if view.showNavbarSearch}}
+            {{!--{{view App.SearchTextField valueBinding="controllers.search.query" class="searchbox"}}--}}
+            {{search-component store=store}}
+        {{/if}} 
 </nav>
 
+     
 <div class="modal fade" id="loginViewModalId" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     {{view App.LoginModalView}}
 </div>
