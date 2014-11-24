@@ -33,6 +33,9 @@
     body {
         font-size: 12px !important;
     }
+    /*a {
+        font-size: 12px;
+    }*/
     h1 {
         font-size: 30px !important;
     }  
@@ -45,15 +48,12 @@
     h4 {
         font-size: 16px !important;
     } 
-     
     pre {
         font-size: 12px !important;
     }
-
     .panel-heading {
         font-size: 16px !important;
     }
-
     .btn {
         .btn-sm();
     }
@@ -281,98 +281,106 @@ a {
 
 .navbar {
     background: @navbar-background;
-    margin-bottom: 0;
-    border-radius: 0;
 
-    .navbar .navbar-collapse {
-        text-align: center;
-     }
-     
-     .navbar-toggle-button {
+    .nav > .open > a {
+        background: @navbar-background;
+    }
+
+    .nav {
+        .dropdown-menu {
+            background: black;
+            color: @navbar-default-bg;
+
+            li > a {
+                color: @gray-lighter;
+                &:hover {
+                    background: @gray-light;
+                    color: @navbar-background;
+                }
+            }
+        }
+    }
+
+    li > p {
+        margin-left: 10px;
+        font-size: small;
+        font-style: italic;
+        color: @gray-lighter;
+    }
+
+     .navbar-search-button {
          float: right;
          margin-right: @navbar-padding-horizontal;
          padding: 9px 10px;
          .navbar-vertical-align(34px);
          background-color: transparent;
          background-image: none;
-         border: 1px solid transparent;
-         border-radius: @border-radius-base;   
+         border: none;
          color: #fff;
          &:focus {
             outline: 0;
-         }   
+         }           
+     }
+
+     .nav > li > a {
          &:hover {
-             background: @gray-dark;
-         }             
+             background: black;
+         }
      }
-     
-     hr {
-         margin: 0;
-         border-top: 1px solid #101010;
-     }
-    
-     p {
-         margin-left: 10px;
-         font-style: italic;
-     }
-        
-    .main-menu-container {
-        a {
-            margin: 5px 0px;
-            padding: 10px;
-            &:hover {
-                text-decoration: none;
-                background: @hover-background-on-dark;
-                color: @gray-darker;
-            }
-        }
-    }
-    .searchbox {
-        position: absolute;
-        top: +50px;
-        left: 50;
-        width: 100%; 
-        background: rgba(255, 255, 255, 1);
-        border: 1px solid @gray-dark;
-        padding: 10px;
-        overflow-x: hidden;
-        overflow-y: auto;
-        max-height: 500px;
-        h4 {
-            margin-left: 0;
-        }
-        button.close {
-            margin-top: -15px;
-        }
-        .link-container {
-            margin-top: 30px;
-        }
 
-         @media (min-width: 970px) { 
-            right: calc(~'5%');
-            width: 50%;     
-        }
+     .nav > li > a.dropdown-toggle {
+         &:hover {
+             background: black;
+         }
+     }
 
-        @media (min-width: 1170px) { 
-            right: calc(~'5%');
-            width: 40%;  
+     .nav-with-space {
+        @media (min-width: 750px) { 
+            margin-left: 25px;   
         }
-        .search-textfield {
-            width: 100%;
-        }
-    }
-   
+     }
+
+     .caret {
+         margin-left: 5px;
+     }
 }
-.navbar-fixed-top .navbar-collapse, .navbar-fixed-bottom .navbar-collapse {
-    max-height: 400px;
-    a {
-        color: #fff;
-        display: block;
+
+.searchbox {
+    position: absolute;
+    top: 50px;
+    right: 0;
+    width: 100%; 
+    background: rgba(255, 255, 255, 1);
+    border: 1px solid @gray-dark;
+    padding: 10px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    max-height: 500px;
+    z-index: 1000;
+    h4 {
+        margin-left: 0;
+    }
+    button.close {
+        margin-top: -15px;
+    }
+    .link-container {
+        margin-top: 30px;
+    }
+
+    @media (min-width: 970px) { 
+        right: calc(~'5%');
+        width: 50%;     
+    }
+
+    @media (min-width: 1170px) { 
+        right: calc(~'5%');
+        width: 40%;  
+    }
+    .search-textfield {
+        width: 100%;
         padding: 5px;
     }
 }
-
-
 
 .modal-content{
     @media (min-width: 750px) {  
