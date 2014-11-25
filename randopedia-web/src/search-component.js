@@ -6,7 +6,7 @@ App.SearchComponentComponent = Ember.Component.extend({
 
     onSearchQueryChanged : function() {
         var query = this.get('query');
-        if(query === null && typeof query === 'undefined') {
+        if(!query) {
             return;
         }
         query = query.trim();

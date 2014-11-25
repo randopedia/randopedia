@@ -13,6 +13,8 @@ App.BrowseTourmapComponent = Ember.Component.extend({
     currentTourMapObjects: [],
     detailedZoomLevel: 13,
     showRoutesOnZoomLevel: 12,
+    defaultMapCenter: new google.maps.LatLng(58.0, 13.5),
+    defaultZoomLevel: 4,
     myPositionMarker: null,
     myPositionWatchId: null,
     selectedTour: null,
@@ -29,11 +31,11 @@ App.BrowseTourmapComponent = Ember.Component.extend({
         }
 
         if (!this.get('zoomLevel')) {
-            this.set('zoomLevel', 4);
+            this.set('zoomLevel', this.get('defaultZoomLevel'));
         }
 
         if (!this.get('mapCenter')) {
-            this.set('mapCenter', new google.maps.LatLng(58.0, 13.5));
+            this.set('mapCenter', this.get('defaultMapCenter'));
         }
 
         this.addTourMarkers(this.get('tours'));
@@ -103,18 +105,27 @@ App.BrowseTourmapComponent = Ember.Component.extend({
 
     zoomToTour: function (tour) {
         var self = this;
-
-        var bounds = new google.maps.LatLngBounds();
-
         var tourMapObject = self.findTourMapObject(tour);
 
-        tourMapObject.paths.forEach(function (polyline) {
-            for (var j = 0; j < polyline.getPath().length; j++) {
-                bounds.extend(polyline.getPath().getArray()[j]);
-            }
-        });
-        
-        self.get('map').fitBounds(bounds);
+        if (tourMapObject.paths.length > 0) {
+            console.log('bounds');
+            var bounds = new google.maps.LatLngBounds();
+            tourMapObject.paths.forEach(function (polyline) {
+                for (var j = 0; j < polyline.getPath().length; j++) {
+                    bounds.extend(polyline.getPath().getArray()[j]);
+                }
+            });
+            self.get('map').fitBounds(bounds);
+
+        } else if (tourMapObject.marker !== null) {
+            console.log('marker');
+            self.get('map').setZoom(self.get('detailedZoomLevel'));
+            self.get('map').setCenter(tourMapObject.marker.position);
+
+        } else {
+            self.get('map').setZoom(self.get('defaultZoomLevel'));
+            self.get('map').setCenter(self.get('defaultMapCenter'));
+        }
     },
     
     getDefaultTourCenterLatLng: function(geojson) {

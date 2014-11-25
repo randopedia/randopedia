@@ -98,8 +98,12 @@ App.TourController = Ember.ObjectController.extend({
         return this.get('images').get('length') > 0;
     }.property('model.images.length'),
 
-    hasPaths: function () {
+    hasMapData: function () {
         return App.GeoHelper.validateGeoJson(this.get('mapGeoJson'));
+    }.property('model.mapGeoJson'),
+
+    hasPaths: function() {
+        return App.GeoHelper.geojsonContainsPath(this.get('mapGeoJson'));
     }.property('model.mapGeoJson'),
     
     checkIfIncomplete: function() {
