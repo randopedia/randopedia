@@ -1,3 +1,4 @@
+/* @grid-float-breakpoint:                     4000px; */
 /*! normalize.css v3.0.1 | MIT License | git.io/normalize */
 html {
   font-family: sans-serif;
@@ -1243,7 +1244,7 @@ dt {
 dd {
   margin-left: 0;
 }
-@media (min-width: 4000px) {
+@media (min-width: 768px) {
   .dl-horizontal dt {
     float: left;
     width: 160px;
@@ -3222,7 +3223,7 @@ tbody.collapse.in {
   bottom: 100%;
   margin-bottom: 1px;
 }
-@media (min-width: 4000px) {
+@media (min-width: 768px) {
   .navbar-right .dropdown-menu {
     left: auto;
     right: 0;
@@ -3755,12 +3756,12 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   margin-bottom: 22px;
   border: 1px solid transparent;
 }
-@media (min-width: 4000px) {
+@media (min-width: 768px) {
   .navbar {
     border-radius: 4px;
   }
 }
-@media (min-width: 4000px) {
+@media (min-width: 768px) {
   .navbar-header {
     float: left;
   }
@@ -3776,7 +3777,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .navbar-collapse.in {
   overflow-y: auto;
 }
-@media (min-width: 4000px) {
+@media (min-width: 768px) {
   .navbar-collapse {
     width: auto;
     border-top: 0;
@@ -3815,7 +3816,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   margin-right: -15px;
   margin-left: -15px;
 }
-@media (min-width: 4000px) {
+@media (min-width: 768px) {
   .container > .navbar-header,
   .container-fluid > .navbar-header,
   .container > .navbar-collapse,
@@ -3828,7 +3829,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   z-index: 1000;
   border-width: 0 0 1px;
 }
-@media (min-width: 4000px) {
+@media (min-width: 768px) {
   .navbar-static-top {
     border-radius: 0;
   }
@@ -3842,7 +3843,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   -webkit-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
 }
-@media (min-width: 4000px) {
+@media (min-width: 768px) {
   .navbar-fixed-top,
   .navbar-fixed-bottom {
     border-radius: 0;
@@ -3868,7 +3869,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .navbar-brand:focus {
   text-decoration: none;
 }
-@media (min-width: 4000px) {
+@media (min-width: 768px) {
   .navbar > .container .navbar-brand,
   .navbar > .container-fluid .navbar-brand {
     margin-left: -15px;
@@ -3898,7 +3899,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .navbar-toggle .icon-bar + .icon-bar {
   margin-top: 4px;
 }
-@media (min-width: 4000px) {
+@media (min-width: 768px) {
   .navbar-toggle {
     display: none;
   }
@@ -3911,7 +3912,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   padding-bottom: 10px;
   line-height: 22px;
 }
-@media (max-width: 3999px) {
+@media (max-width: 767px) {
   .navbar-nav .open .dropdown-menu {
     position: static;
     float: none;
@@ -3933,7 +3934,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
     background-image: none;
   }
 }
-@media (min-width: 4000px) {
+@media (min-width: 768px) {
   .navbar-nav {
     float: left;
     margin: 0;
@@ -3949,7 +3950,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
     margin-right: -15px;
   }
 }
-@media (min-width: 4000px) {
+@media (min-width: 768px) {
   .navbar-left {
     float: left !important;
   }
@@ -4015,12 +4016,12 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
     top: 0;
   }
 }
-@media (max-width: 3999px) {
+@media (max-width: 767px) {
   .navbar-form .form-group {
     margin-bottom: 5px;
   }
 }
-@media (min-width: 4000px) {
+@media (min-width: 768px) {
   .navbar-form {
     width: auto;
     border: 0;
@@ -4060,7 +4061,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   margin-top: 14px;
   margin-bottom: 14px;
 }
-@media (min-width: 4000px) {
+@media (min-width: 768px) {
   .navbar-text {
     float: left;
     margin-left: 15px;
@@ -4125,7 +4126,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   background-color: #e7e7e7;
   color: #555555;
 }
-@media (max-width: 3999px) {
+@media (max-width: 767px) {
   .navbar-default .navbar-nav .open .dropdown-menu > li > a {
     color: #777777;
   }
@@ -4221,7 +4222,7 @@ fieldset[disabled] .navbar-default .btn-link:focus {
   background-color: #080808;
   color: #ffffff;
 }
-@media (max-width: 3999px) {
+@media (max-width: 767px) {
   .navbar-inverse .navbar-nav .open .dropdown-menu > .dropdown-header {
     border-color: #080808;
   }
@@ -6180,6 +6181,9 @@ button.close {
   body {
     font-size: 12px !important;
   }
+  /*a {
+        font-size: 12px;
+    }*/
   h1 {
     font-size: 30px !important;
   }
@@ -6406,13 +6410,28 @@ a:hover {
 }
 .navbar {
   background: #333333;
-  margin-bottom: 0;
-  border-radius: 0;
 }
-.navbar .navbar .navbar-collapse {
-  text-align: center;
+.navbar .nav > .open > a {
+  background: #333333;
 }
-.navbar .navbar-toggle-button {
+.navbar .nav .dropdown-menu {
+  background: black;
+  color: #f8f8f8;
+}
+.navbar .nav .dropdown-menu li > a {
+  color: #eeeeee;
+}
+.navbar .nav .dropdown-menu li > a:hover {
+  background: #777777;
+  color: #333333;
+}
+.navbar li > p {
+  margin-left: 10px;
+  font-size: small;
+  font-style: italic;
+  color: #eeeeee;
+}
+.navbar .navbar-search-button {
   float: right;
   margin-right: 15px;
   padding: 9px 10px;
@@ -6420,37 +6439,30 @@ a:hover {
   margin-bottom: 8px;
   background-color: transparent;
   background-image: none;
-  border: 1px solid transparent;
-  border-radius: 4px;
+  border: none;
   color: #fff;
 }
-.navbar .navbar-toggle-button:focus {
+.navbar .navbar-search-button:focus {
   outline: 0;
 }
-.navbar .navbar-toggle-button:hover {
-  background: #333333;
+.navbar .nav > li > a:hover {
+  background: black;
 }
-.navbar hr {
-  margin: 0;
-  border-top: 1px solid #101010;
+.navbar .nav > li > a.dropdown-toggle:hover {
+  background: black;
 }
-.navbar p {
-  margin-left: 10px;
-  font-style: italic;
+@media (min-width: 750px) {
+  .navbar .nav-with-space {
+    margin-left: 25px;
+  }
 }
-.navbar .main-menu-container a {
-  margin: 5px 0px;
-  padding: 10px;
+.navbar .caret {
+  margin-left: 5px;
 }
-.navbar .main-menu-container a:hover {
-  text-decoration: none;
-  background: #eeeeee;
-  color: #222222;
-}
-.navbar .searchbox {
+.searchbox {
   position: absolute;
   top: 50px;
-  left: 50;
+  right: 0;
   width: 100%;
   background: #ffffff;
   border: 1px solid #333333;
@@ -6458,39 +6470,31 @@ a:hover {
   overflow-x: hidden;
   overflow-y: auto;
   max-height: 500px;
+  z-index: 1000;
 }
-.navbar .searchbox h4 {
+.searchbox h4 {
   margin-left: 0;
 }
-.navbar .searchbox button.close {
+.searchbox button.close {
   margin-top: -15px;
 }
-.navbar .searchbox .link-container {
+.searchbox .link-container {
   margin-top: 30px;
 }
 @media (min-width: 970px) {
-  .navbar .searchbox {
+  .searchbox {
     right: calc(5%);
     width: 50%;
   }
 }
 @media (min-width: 1170px) {
-  .navbar .searchbox {
+  .searchbox {
     right: calc(5%);
     width: 40%;
   }
 }
-.navbar .searchbox .search-textfield {
+.searchbox .search-textfield {
   width: 100%;
-}
-.navbar-fixed-top .navbar-collapse,
-.navbar-fixed-bottom .navbar-collapse {
-  max-height: 400px;
-}
-.navbar-fixed-top .navbar-collapse a,
-.navbar-fixed-bottom .navbar-collapse a {
-  color: #fff;
-  display: block;
   padding: 5px;
 }
 @media (min-width: 750px) {
@@ -6504,7 +6508,6 @@ a:hover {
   margin-bottom: 22px;
   border: 1px solid transparent;
   background: #333333;
-  border-radius: 0;
   background-color: #222222;
   border-color: #080808;
   position: fixed;
@@ -6519,15 +6522,32 @@ a:hover {
   height: 75px;
   color: #fff;
 }
-@media (min-width: 4000px) {
+@media (min-width: 768px) {
   .edit-navbar {
     border-radius: 4px;
   }
 }
-.edit-navbar .navbar .navbar-collapse {
-  text-align: center;
+.edit-navbar .nav > .open > a {
+  background: #333333;
 }
-.edit-navbar .navbar-toggle-button {
+.edit-navbar .nav .dropdown-menu {
+  background: black;
+  color: #f8f8f8;
+}
+.edit-navbar .nav .dropdown-menu li > a {
+  color: #eeeeee;
+}
+.edit-navbar .nav .dropdown-menu li > a:hover {
+  background: #777777;
+  color: #333333;
+}
+.edit-navbar li > p {
+  margin-left: 10px;
+  font-size: small;
+  font-style: italic;
+  color: #eeeeee;
+}
+.edit-navbar .navbar-search-button {
   float: right;
   margin-right: 15px;
   padding: 9px 10px;
@@ -6535,68 +6555,25 @@ a:hover {
   margin-bottom: 8px;
   background-color: transparent;
   background-image: none;
-  border: 1px solid transparent;
-  border-radius: 4px;
+  border: none;
   color: #fff;
 }
-.edit-navbar .navbar-toggle-button:focus {
+.edit-navbar .navbar-search-button:focus {
   outline: 0;
 }
-.edit-navbar .navbar-toggle-button:hover {
-  background: #333333;
+.edit-navbar .nav > li > a:hover {
+  background: black;
 }
-.edit-navbar hr {
-  margin: 0;
-  border-top: 1px solid #101010;
+.edit-navbar .nav > li > a.dropdown-toggle:hover {
+  background: black;
 }
-.edit-navbar p {
-  margin-left: 10px;
-  font-style: italic;
-}
-.edit-navbar .main-menu-container a {
-  margin: 5px 0px;
-  padding: 10px;
-}
-.edit-navbar .main-menu-container a:hover {
-  text-decoration: none;
-  background: #eeeeee;
-  color: #222222;
-}
-.edit-navbar .searchbox {
-  position: absolute;
-  top: 50px;
-  left: 50;
-  width: 100%;
-  background: #ffffff;
-  border: 1px solid #333333;
-  padding: 10px;
-  overflow-x: hidden;
-  overflow-y: auto;
-  max-height: 500px;
-}
-.edit-navbar .searchbox h4 {
-  margin-left: 0;
-}
-.edit-navbar .searchbox button.close {
-  margin-top: -15px;
-}
-.edit-navbar .searchbox .link-container {
-  margin-top: 30px;
-}
-@media (min-width: 970px) {
-  .edit-navbar .searchbox {
-    right: calc(5%);
-    width: 50%;
+@media (min-width: 750px) {
+  .edit-navbar .nav-with-space {
+    margin-left: 25px;
   }
 }
-@media (min-width: 1170px) {
-  .edit-navbar .searchbox {
-    right: calc(5%);
-    width: 40%;
-  }
-}
-.edit-navbar .searchbox .search-textfield {
-  width: 100%;
+.edit-navbar .caret {
+  margin-left: 5px;
 }
 .edit-navbar .navbar-brand {
   color: #eeeeee;
@@ -6649,7 +6626,7 @@ a:hover {
   background-color: #080808;
   color: #ffffff;
 }
-@media (max-width: 3999px) {
+@media (max-width: 767px) {
   .edit-navbar .navbar-nav .open .dropdown-menu > .dropdown-header {
     border-color: #080808;
   }
@@ -6704,7 +6681,7 @@ fieldset[disabled] .edit-navbar .btn-link:focus {
     max-height: 200px;
   }
 }
-@media (min-width: 4000px) {
+@media (min-width: 768px) {
   .edit-navbar {
     border-radius: 0;
   }
