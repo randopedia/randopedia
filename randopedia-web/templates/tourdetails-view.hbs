@@ -12,28 +12,40 @@
                 </div>
             </div>
         </div>
-        {{/if}}
-
-        {{#if isInReview}}
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="alert alert-info alert-dismissible" role="alert">
-                    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    This tour is in review, it has not yet been published
+        {{else}}
+            {{#if isInReview}}
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="alert alert-info alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        This tour is in review, it has not yet been published
+                    </div>
                 </div>
             </div>
-        </div>
-        {{/if}}
+            {{/if}}
 
-        {{#if isDeleted}}
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="alert alert-danger" role="alert">
-                    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    Tour is marked as deleted and will eventually be permanently deleted from the databse
+            {{#if isIncomplete}}
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="alert alert-warning" role="alert">
+                        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        This tour is marked as incomplete. This means that it might lack some important data such as map path, grade etc. 
+                    </div>
                 </div>
             </div>
-        </div>
+            {{/if}}
+
+
+            {{#if isDeleted}}
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="alert alert-danger" role="alert">
+                        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        Tour is marked as deleted and will eventually be permanently deleted from the databse
+                    </div>
+                </div>
+            </div>
+            {{/if}}
         {{/if}}
 
         <div class="row">
@@ -48,15 +60,12 @@
             <div class="col-sm-12">
                 <h2>
                     {{name}} {{#if elevationMax }} <span class="small">({{elevationMax}}m)</span> {{/if}}
+
                     {{#if isIncomplete}}
                     <span class="small">
-                        <button class="popover-link"
-                           data-toggle="popover"
-                           data-trigger="focus"
-                           title="Incomplete"
-                           data-content="This tour is marked as incomplete. This means that it might lack some data, but it should be enough information available to make the description useful anyway.">
+                        <a title="Tour description is marked as incomplete">
                             <span class="glyphicon glyphicon-warning-sign danger"></span>
-                        </button>
+                        </a>
                     </span>
                     {{/if}}
                 </h2>

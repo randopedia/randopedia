@@ -207,7 +207,16 @@ App.TourDetailsView = Ember.View.extend({
     templateName: 'tourdetails-view',
     
     didInsertElement: function() {
-        $('.popover-link').popover({ placement: 'auto' });
+        var self = this;
+        
+        // hack to give page time to load before evaluating the isIncomplete status
+        setTimeout(function () {
+            self.get('controller').checkIfIncomplete();
+        }, 1500);
+        // check status directly if tour is already marked as incomplete
+        if (self.get('controller').get('isIncomplete')) {
+            self.get('controller').checkIfIncomplete();
+        }
     },
 });
 

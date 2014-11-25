@@ -195,5 +195,37 @@ App.GeoHelper = Ember.Object.create({
     cleanImportedGeoJson: function (geojson) {
         // TODO: Implement... :P
         return geojson;
+    },
+
+    // Validation helper methods
+
+    geojsonContainsPath: function(geojson) {
+        if (!App.GeoHelper.validateGeoJson(geojson)) {
+            return false;
+        }
+
+        for (var i = 0; i < geojson.features.length; i++) {
+            var feature = geojson.features[i];
+            if (feature.geometry.type === "LineString") {
+                return true;
+            }
+        }
+
+        return false;
+    },
+
+    geojsonContainsSummitPoint: function (geojson) {
+        if (!App.GeoHelper.validateGeoJson(geojson)) {
+            return false;
+        }
+
+        for (var i = 0; i < geojson.features.length; i++) {
+            var feature = geojson.features[i];
+            if (feature.geometry.type === "Point" && feature.rando_type === App.Fixtures.MapSymbolTypes.SUMMIT_POINT) {
+                return true;
+            }
+        }
+
+        return false;
     }
 });

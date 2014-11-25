@@ -6,11 +6,7 @@ App.TourController = Ember.ObjectController.extend({
     needs : ['login', 'index'],
 
     init: function () {
-        var self = this;
-        // hack to give page time to load before evaluating the isIncomplete status
-        setTimeout(function () {
-            self.checkIfIncomplete();
-        }, 1500);
+
     },
 
     actions: {
@@ -113,7 +109,8 @@ App.TourController = Ember.ObjectController.extend({
         if (!App.Validate.isPosNumber(this.get('elevationMax'))) { warningCount++; }
         if (!this.get('timeOfYearFrom')) { warningCount++; }
         if (!this.get('timeOfYearTo')) { warningCount++; }
-        if (!App.Validate.isNotNull(this.get('mapGeoJson'))) { warningCount++; }
+        if (!App.GeoHelper.geojsonContainsPath(this.get('mapGeoJson'))) { warningCount++; }
+        if (!App.GeoHelper.geojsonContainsSummitPoint(this.get('mapGeoJson'))) { warningCount++; }
         if (!App.Validate.lengthOrNull(this.get('itinerary'), 100, 8000, false)) { warningCount++; }
         this.set('isIncomplete', warningCount > 0);
     },
@@ -500,8 +497,11 @@ App.TourEditController = Ember.ObjectController.extend({
         if(!this.get('timeOfYearTo')) {
             this.get('validationWarnings').push('Season to');
         }
-        if(!App.Validate.isNotNull(this.get('mapGeoJson'))){
-            this.get('validationWarnings').push('Map');
+        if(!App.GeoHelper.geojsonContainsPath(this.get('mapGeoJson'))){
+            this.get('validationWarnings').push('Map path');
+        }
+        if (!App.GeoHelper.geojsonContainsSummitPoint(this.get('mapGeoJson'))) {
+            this.get('validationWarnings').push('Map summit point');
         }
         if(!App.Validate.lengthOrNull(this.get('itinerary'), 100, 8000, false)){
             this.get('validationWarnings').push('Description (very short)');
