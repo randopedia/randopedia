@@ -29,7 +29,7 @@
                 <div class="col-sm-12">
                     <div class="alert alert-warning" role="alert">
                         <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                        This tour is marked as incomplete. This means that it might lack some important data such as map path, grade etc. 
+                        This tour is marked as incomplete so it might lack some important information
                     </div>
                 </div>
             </div>
@@ -41,7 +41,7 @@
                 <div class="col-sm-12">
                     <div class="alert alert-danger" role="alert">
                         <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                        Tour is marked as deleted and will eventually be permanently deleted from the databse
+                        Tour is marked as deleted and will eventually be permanently deleted from the database
                     </div>
                 </div>
             </div>
@@ -171,17 +171,19 @@
             <div class="col-sm-12">
                 <div class="map-buttons-container">
                     {{#if isPublished}}
-                        {{#if hasPaths}}
+                        {{#if hasMapData}}
                             <button class="btn btn-primary" {{action "viewTourOnMap" }}>
                                 <span class="glyphicon glyphicon-globe"></span> View tour on map
                             </button>
+                        {{/if}}
+                        {{#if hasPaths}}
                             <button class="btn btn-primary" {{action "downloadGpxFile" }}>
                                 <span class="glyphicon glyphicon-export"></span> GPX
                             </button>
                         {{/if}}
                     {{else}}
-                        {{#if hasPaths}}
-                        <div class="spacing">[View tour on map] <em>Tours are not available on the map until they are published.</em></div>
+                        {{#if hasMapData}}
+                            <div class="spacing">[View tour on map] <em>Tours are not available on the map until they are published.</em></div>
                         {{/if}}
                     {{/if}}
                 </div>

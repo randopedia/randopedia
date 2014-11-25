@@ -159,23 +159,32 @@ App.TourEditMapView = Ember.View.extend({
         }, 500);
     },
 
-    setZoomAndCenter: function() {
+    setZoomAndCenter: function () {
+        // If tour has paths they are used to set bounds (both zoom and center)
+        // If no paths but summit point is set, this is used for map center
+        // Else, zoom and center are reset to defaults
+
         var lines = this.get('currentMapPolylines');
 
-        if (!lines || lines.length === 0) {
+        if (lines && lines.length > 0) {
+            console.log('lines ');
+            var bounds = new google.maps.LatLngBounds();
+            for (var i = 0; i < lines.length; i++) {
+                for (var j = 0; j < lines[i].getPath().length; j++) {
+                    bounds.extend(lines[i].getPath().getArray()[j]);
+                }
+            }
+            this.get('map').fitBounds(bounds);
+
+        } else if (this.get('summitPointMarker')) {
+            this.get('map').setZoom(13);
+            this.get('map').setCenter(this.get('summitPointMarker').position);
+            console.log('SM - ' + this.get('summitPointMarker').position);
+
+        } else {
             this.get('map').setZoom(3);
             this.get('map').setCenter(new google.maps.LatLng(46.5, 8.5));
-            return;
         }
-
-        var bounds = new google.maps.LatLngBounds();
-        for (var i = 0; i < lines.length; i++) {
-            for (var j = 0; j < lines[i].getPath().length; j++) {
-                bounds.extend(lines[i].getPath().getArray()[j]);
-            }
-        }
-
-        this.get('map').fitBounds(bounds);
     },
 
     setMapSize: function() {
