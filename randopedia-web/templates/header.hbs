@@ -8,7 +8,7 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand randopedia-logo-text" {{action "gotoindex" }}>Randopedia</a>
-            <a class="navbar-search-button hidden-sm hidden-md hidden-lg" {{action "togglenavbarsearchbox" target="view" }}">
+            <a class="navbar-search-button hidden-sm hidden-md hidden-lg" {{action "toggleNavbarSearchbox" }}">
                 <span class="glyphicon glyphicon-search"></span>
             </a>
         </div>
@@ -55,7 +55,7 @@
 
             <ul class="nav navbar-nav navbar-right hidden-xs">
                 <li>
-                    <a class="navbar-search-button pull-right" {{action "togglenavbarsearchbox" target="view" }}">
+                    <a class="navbar-search-button pull-right" {{action "toggleNavbarSearchbox"}}">
                         <span class="glyphicon glyphicon-search"></span>
                     </a>
                 </li>
@@ -64,7 +64,7 @@
     </div>
 </nav>
 
- {{#if view.showNavbarSearch}}
+{{#if showNavbarSearch}}
      {{search-component store=store}}
 {{/if}} 
 

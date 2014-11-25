@@ -6481,17 +6481,13 @@ a:hover {
 .searchbox .link-container {
   margin-top: 30px;
 }
-.searchbox .shadow {
-  -webkit-box-shadow: 0 10px 6px -6px #777777;
-  -moz-box-shadow: 0 10px 6px -6px #777777;
-  box-shadow: 0 10px 6px -6px #777777;
-}
-@media (min-width: 970px) {
+@media (max-width: 749px) {
   .searchbox {
-    width: 50%;
+    width: 100%;
+    height: 100%;
   }
 }
-@media (min-width: 1170px) {
+@media (min-width: 750px) {
   .searchbox {
     width: 40%;
   }

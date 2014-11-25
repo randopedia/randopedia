@@ -48,6 +48,10 @@ App.ApplicationController = Ember.ArrayController.extend({
         },
         collapseNavbar: function() {
             $('.navbar-collapse').collapse('hide');
+        },
+        toggleNavbarSearchbox: function () {
+            console.log('ajjemen!');
+            this.set('showNavbarSearch', !this.get('showNavbarSearch'));
         }
     }
 });

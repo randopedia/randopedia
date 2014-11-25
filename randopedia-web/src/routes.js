@@ -40,10 +40,11 @@ App.ApplicationRoute = Ember.Route.extend({
     setupController: function(controller, model){
         this.controllerFor('application').verifyLogin();
         this._super(controller, model);
-    },
+    }
 });
 
-App.IndexRoute = App.BaseRoute.extend();
+App.IndexRoute = App.BaseRoute.extend({
+});
 
 App.StatsRoute = App.BaseRoute.extend({
     model: function(params) {
@@ -177,6 +178,8 @@ App.TourRoute = App.BaseRoute.extend({
         if(!model.get('itinerary')) {
             model.reload();    
         }
+
+        this.controllerFor('application').set('showNavbarSearch', false);
     },
     model: function(params){
         return this.store.find('tour', params.tour_id);
