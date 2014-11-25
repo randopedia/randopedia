@@ -349,10 +349,10 @@ a {
     position: absolute;
     top: 50px;
     right: 0;
-    width: 100%; 
-    background: rgba(255, 255, 255, 1);
+    width: 100%;
+    background: @navbar-background; 
     border: 1px solid @gray-dark;
-    padding: 10px;
+    padding: 5px;
     overflow-x: hidden;
     overflow-y: auto;
     max-height: 500px;
@@ -368,17 +368,15 @@ a {
     }
 
     @media (min-width: 970px) { 
-        right: calc(~'5%');
         width: 50%;     
     }
 
     @media (min-width: 1170px) { 
-        right: calc(~'5%');
         width: 40%;  
     }
     .search-textfield {
         width: 100%;
-        padding: 5px;
+        padding: 2px;
     }
 }
 

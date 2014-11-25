@@ -6464,9 +6464,9 @@ a:hover {
   top: 50px;
   right: 0;
   width: 100%;
-  background: #ffffff;
+  background: #333333;
   border: 1px solid #333333;
-  padding: 10px;
+  padding: 5px;
   overflow-x: hidden;
   overflow-y: auto;
   max-height: 500px;
@@ -6481,21 +6481,24 @@ a:hover {
 .searchbox .link-container {
   margin-top: 30px;
 }
+.searchbox .shadow {
+  -webkit-box-shadow: 0 10px 6px -6px #777777;
+  -moz-box-shadow: 0 10px 6px -6px #777777;
+  box-shadow: 0 10px 6px -6px #777777;
+}
 @media (min-width: 970px) {
   .searchbox {
-    right: calc(5%);
     width: 50%;
   }
 }
 @media (min-width: 1170px) {
   .searchbox {
-    right: calc(5%);
     width: 40%;
   }
 }
 .searchbox .search-textfield {
   width: 100%;
-  padding: 5px;
+  padding: 2px;
 }
 @media (min-width: 750px) {
   .modal-content {
