@@ -95,6 +95,10 @@
     margin-right: @large-space * 2;
 }
 
+.default-cursor {
+    cursor: default !important;
+}
+
 .default-path {
     color: @map-path-default-color;
 }
@@ -280,7 +284,9 @@ a {
 }
 
 .navbar {
-    background: @navbar-background;
+    /*background: @navbar-background;*/
+    background-image: url('/images/header-bg.png');
+    background-repeat: repeat-x;
 
     .nav > .open > a {
         background: @navbar-background;
@@ -816,10 +822,14 @@ button.info {
 
 .footer-view {
     background: @navbar-background;
+    background-image: url('/images/header-bg.png');
+    background-position: right;
+    background-repeat: no-repeat;
+
     color: @gray-lighter;
     font-size: 0.8em;
-    padding: 20px;
     margin: 0 -15px;
+    padding: 45px 20px;
 
     a:hover {
         color: @gray-lighter;
