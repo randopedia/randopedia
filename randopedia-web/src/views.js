@@ -1,8 +1,5 @@
 App.ApplicationView = Ember.View.extend({
-    showNavbarSearch: false,
-    actions: {
-       
-    }
+    showNavbarSearch: false
 });
 
 App.LoginModalView = Ember.View.extend({

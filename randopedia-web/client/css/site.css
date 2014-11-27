@@ -6464,7 +6464,7 @@ a:hover {
   top: 50px;
   right: 0;
   width: 100%;
-  background: #333333;
+  background: white;
   border: 1px solid #333333;
   padding: 5px;
   overflow-x: hidden;
@@ -6495,6 +6495,7 @@ a:hover {
 .searchbox .search-textfield {
   width: 100%;
   padding: 2px;
+  font-size: 16px;
 }
 @media (min-width: 750px) {
   .modal-content {
