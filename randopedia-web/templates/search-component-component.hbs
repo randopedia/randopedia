@@ -1,5 +1,17 @@
 
-{{view App.SearchTextField valueBinding="query"}}
+<div class="form-group has-feedback">
+    <div class="inner-addon left-addon">
+        <i class="glyphicon glyphicon-search"></i>
+        {{view App.SearchTextField valueBinding="query"}}
+    </div>
+</div>
+
+{{#if isSearching}}
+    <div class="load-container">
+        <div class="loader"></div>
+    </div>
+{{/if}}
+
 {{#each tour in tours}}
     {{view App.TourItemView}}
 {{/each}}

@@ -212,7 +212,7 @@
 
         <div class="row">
             {{#if haveHazards}}
-            <div class="col-sm-12 col-sm-6">
+            <div class="col-sm-12 col-lg-6">
                 <div class="panel panel-danger">
                     <div class="panel-heading">Hazards</div>
                     <div class="panel-body">
@@ -223,7 +223,7 @@
             {{/if}}
 
             {{#if requiresTools}}
-            <div class="col-sm-12 col-sm-6">
+            <div class="col-sm-12 col-lg-6">
                 <div class="panel panel-info">
                     <div class="panel-heading">Mountaineering</div>
                     <div class="panel-body">
@@ -234,20 +234,18 @@
             {{/if}}
         </div>
 
+        {{#if hasImages}}
         <div class="row">
-            <div id="image-carousel-container" class="image-carousel-container col-sm-12">
-
-                <h4>Images<span class="small"> ({{images.length}})</span></h4>
-
-                {{#if hasImages}}
-                {{view App.ImageCarouselView contentBinding="images"}}
-                {{else}}
-                <div class="spacing-x-large spacing-y">No images available for this tour</div>
-                {{/if}}
-
-
+            <div class="col-sm-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Images <span class="small"> ({{images.length}})</span></div>
+                    <div id="image-carousel-container" class="image-carousel-container">
+                        {{view App.ImageCarouselView contentBinding="images"}}
+                    </div>
+                </div>
             </div>
         </div>
+        {{/if}}
 
         {{#if isPublished}}
         <div class="row">
