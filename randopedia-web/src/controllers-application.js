@@ -50,8 +50,13 @@ App.ApplicationController = Ember.ArrayController.extend({
             $('.navbar-collapse').collapse('hide');
         },
         toggleNavbarSearchbox: function () {
-            console.log('ajjemen!');
             this.set('showNavbarSearch', !this.get('showNavbarSearch'));
+
+            if (this.get('showNavbarSearch')) {
+                setTimeout(function () {
+                    $('.search-textfield').focus();
+                }, 300);
+            }
         }
     }
 });

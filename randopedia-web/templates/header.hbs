@@ -8,7 +8,7 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand randopedia-logo-text" {{action "gotoindex" }}>Randopedia</a>
-            <a class="navbar-search-button hidden-sm hidden-md hidden-lg" {{action "toggleNavbarSearchbox" }}">
+            <a class="navbar-search-button hidden-sm hidden-md hidden-lg" {{action "toggleNavbarSearchbox" }} {{bind-attr class="showNavbarSearch:pressed" }}">
                 <span class="glyphicon glyphicon-search"></span>
             </a>
         </div>
@@ -29,10 +29,9 @@
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">User<span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-user"></span> <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                         <li><a {{action "logout" }}>Logout</a></li>
-                        <li class="divider"></li>
                         <li><p>Logged in as {{maxString controllers.login.currentUser.userName 50}}</p></li>
                     </ul>
                 </li>
@@ -55,7 +54,7 @@
 
             <ul class="nav navbar-nav navbar-right hidden-xs">
                 <li>
-                    <a class="navbar-search-button pull-right" {{action "toggleNavbarSearchbox"}}">
+                    <a class="navbar-search-button pull-right" {{action "toggleNavbarSearchbox" }}" {{bind-attr class="showNavbarSearch:pressed" }}>
                         <span class="glyphicon glyphicon-search"></span>
                     </a>
                 </li>

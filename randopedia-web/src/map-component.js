@@ -19,7 +19,7 @@ App.BrowseTourmapComponent = Ember.Component.extend({
     myPositionWatchId: null,
     selectedTour: null,
 
-    didInsertElement: function() {
+    didInsertElement: function () {
         if (!this.get('store')) {
             App.Utils.log('BrowseTourMap component needs a store, inject store=store');
             return;
@@ -108,7 +108,6 @@ App.BrowseTourmapComponent = Ember.Component.extend({
         var tourMapObject = self.findTourMapObject(tour);
 
         if (tourMapObject.paths.length > 0) {
-            console.log('bounds');
             var bounds = new google.maps.LatLngBounds();
             tourMapObject.paths.forEach(function (polyline) {
                 for (var j = 0; j < polyline.getPath().length; j++) {
@@ -118,7 +117,6 @@ App.BrowseTourmapComponent = Ember.Component.extend({
             self.get('map').fitBounds(bounds);
 
         } else if (tourMapObject.marker !== null) {
-            console.log('marker');
             self.get('map').setZoom(self.get('detailedZoomLevel'));
             self.get('map').setCenter(tourMapObject.marker.position);
 
