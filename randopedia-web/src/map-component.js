@@ -5,19 +5,25 @@ App.TourMapObject = {
 };
 
 App.BrowseTourmapComponent = Ember.Component.extend({
+    settings: {
+        detailedZoomLevel: 13,
+        showRoutesOnZoomLevel: 12,
+        defaultMapCenter: new google.maps.LatLng(58.0, 13.5),
+        defaultZoomLevel: 4,
+        mapRootElementId: '#tourMapRootElement'
+    },
+
     mapRootElement: null,
     map: null,
     markers: [],
     tours: null,
     store: null,
     currentTourMapObjects: [],
-    detailedZoomLevel: 13,
-    showRoutesOnZoomLevel: 12,
-    defaultMapCenter: new google.maps.LatLng(58.0, 13.5),
-    defaultZoomLevel: 4,
     myPositionMarker: null,
     myPositionWatchId: null,
     selectedTour: null,
+    showOnlySelectedToursPaths: false,
+    isShowingPaths: false,
 
     didInsertElement: function () {
         if (!this.get('store')) {
@@ -31,11 +37,11 @@ App.BrowseTourmapComponent = Ember.Component.extend({
         }
 
         if (!this.get('zoomLevel')) {
-            this.set('zoomLevel', this.get('defaultZoomLevel'));
+            this.set('zoomLevel', this.settings.defaultZoomLevel);
         }
 
         if (!this.get('mapCenter')) {
-            this.set('mapCenter', this.get('defaultMapCenter'));
+            this.set('mapCenter', this.settings.defaultMapCenter);
         }
 
         this.addTourMarkers(this.get('tours'));
@@ -53,6 +59,8 @@ App.BrowseTourmapComponent = Ember.Component.extend({
 
     closeInfoWindow: function() {
         this.unhighlightTour(this.get('selectedTour'));
+        this.set('showOnlySelectedToursPaths', false);
+        this.toggleOtherToursPaths(); // Why isn't this triggered automatically by the observes statement?
         this.set('selectedTour', null);
     },
 
@@ -81,7 +89,6 @@ App.BrowseTourmapComponent = Ember.Component.extend({
                 return tourObjects[i];
             }
         }
-
         return null;
     },
 
@@ -117,14 +124,23 @@ App.BrowseTourmapComponent = Ember.Component.extend({
             self.get('map').fitBounds(bounds);
 
         } else if (tourMapObject.marker !== null) {
-            self.get('map').setZoom(self.get('detailedZoomLevel'));
+            self.get('map').setZoom(self.settings.detailedZoomLevel);
             self.get('map').setCenter(tourMapObject.marker.position);
 
         } else {
-            self.get('map').setZoom(self.get('defaultZoomLevel'));
-            self.get('map').setCenter(self.get('defaultMapCenter'));
+            self.get('map').setZoom(self.settings.defaultZoomLevel);
+            self.get('map').setCenter(self.settings.defaultMapCenter);
         }
     },
+
+    toggleOtherToursPaths: function () {
+        var self = this;
+        if (self.get('showOnlySelectedToursPaths')) {
+            self.hideTourRoutes(true);
+        } else {
+            self.showTourRoutes();
+        }
+    }.observes('showOnlySelectedToursPaths'),
     
     getDefaultTourCenterLatLng: function(geojson) {
         for(var i = 0; i < geojson.features.length; i++) {
@@ -139,48 +155,43 @@ App.BrowseTourmapComponent = Ember.Component.extend({
         return null;
     },
 
-    showTourRoutesIfZoomed: function(zoom) {
-        if(zoom >= this.get('showRoutesOnZoomLevel')) {
-            this.showTourRoutes();
+    showTourRoutesIfZoomed: function () {
+        var self = this;
+
+        if (self.get('isShowingPaths')) {
+            if (!self.get('isPathsAlreadyShown')) {
+                self.showTourRoutes();
+            }
         } else {
-            this.hideTourRoutes();
+            self.hideTourRoutes();
         }
     },
     
     showTourRoutes: function() {
         var self = this;
-        
-        if(self.get('tourRoutesAreShown') === true) {
+        if (!self.get('isShowingPaths')) {
             return;
         }
-        
         self.get('currentTourMapObjects').forEach(function (tourMapObject) {
-            if (tourMapObject.paths) {
-                tourMapObject.paths.forEach(function(polyline) {
+            if (!self.get('showOnlySelectedToursPaths') || (tourMapObject.tourId === self.get('selectedTour').get('id'))) {
+                tourMapObject.paths.forEach(function (polyline) {
                     polyline.setMap(self.get('map'));
                 });
             }
         });
-        
-        self.set('tourRoutesAreShown', true);
+        self.set('isPathsAlreadyShown', true);
     },
     
-    hideTourRoutes: function() {
+    hideTourRoutes: function(dontHideSelectedTour) {
         var self = this;
-
-        if(!self.get('tourRoutesAreShown')) {
-            return;
-        }
-        
         self.get('currentTourMapObjects').forEach(function (tourMapObject) {
-            if (tourMapObject.paths) {
-                tourMapObject.paths.forEach(function(polyline) {
+            if (!dontHideSelectedTour || (tourMapObject.tourId !== self.get('selectedTour').get('id'))) {
+                tourMapObject.paths.forEach(function (polyline) {
                     polyline.setMap(null);
                 });
             }
         });
-        
-        self.set('tourRoutesAreShown', false);
+        self.set('isPathsAlreadyShown', false);
     },
 
     showCurrentPosition: function() {
@@ -229,7 +240,7 @@ App.BrowseTourmapComponent = Ember.Component.extend({
             });
 
             self.get('map').setCenter(pos);
-            self.get('map').setZoom(self.get('detailedZoomLevel'));
+            self.get('map').setZoom(self.settings.detailedZoomLevel);
 
             function onWatchPositionUpdate(newPosition) {
                 self.get('myPositionMarker').set('position', new google.maps.LatLng(newPosition.coords.latitude, newPosition.coords.longitude));
@@ -296,7 +307,7 @@ App.BrowseTourmapComponent = Ember.Component.extend({
     
     initMap: function() {
         var self = this;
-        this.set('mapRootElement', this.$('#tourMapRootElement'));
+        self.set('mapRootElement', self.$(self.settings.mapRootElementId));
 
         var mapOptions = {
                 mapTypeId: google.maps.MapTypeId.TERRAIN,
@@ -320,18 +331,20 @@ App.BrowseTourmapComponent = Ember.Component.extend({
                 overviewMapControl:false,
                 rotateControl:false,
                 center: self.get('mapCenter'),
-                zoom: self.get('zoomLevel'),
+                zoom: self.get('zoomLevel')
             };
             
         self.set('map', new google.maps.Map(this.get('mapRootElement').get(0), mapOptions));
         
         var markerCluster = new MarkerClusterer(this.get('map'), this.get('markers'));
-        markerCluster.setMaxZoom(self.get('showRoutesOnZoomLevel') - 3);
+        markerCluster.setMaxZoom(self.settings.showRoutesOnZoomLevel - 3);
         self.set('oms', new OverlappingMarkerSpiderfier(this.get('map')));
 
         google.maps.event.addListener(self.get('map'), 'zoom_changed', function() {
             var newZoomLevel = self.get('map').getZoom();
-            self.showTourRoutesIfZoomed(newZoomLevel);
+            
+            self.set('isShowingPaths', newZoomLevel >= self.settings.showRoutesOnZoomLevel);
+            self.showTourRoutesIfZoomed();
             self.sendAction('zoomChanged', newZoomLevel);
         });
         
@@ -359,13 +372,13 @@ App.BrowseTourmapComponent = Ember.Component.extend({
     }.property('selectedTour'),
 
     actions: {
-        toggleMyPosition: function() {
+        toggleMyPositionAction: function() {
             this.showCurrentPosition();
         },
         closeInfoWindowAction: function () {
             this.closeInfoWindow();
         },
-        zoomToSelectedTour: function() {
+        zoomToSelectedTourAction: function() {
             this.zoomToTour(this.get('selectedTour'));
         }
     }
