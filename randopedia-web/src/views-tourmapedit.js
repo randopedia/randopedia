@@ -167,7 +167,6 @@ App.TourEditMapView = Ember.View.extend({
         var lines = this.get('currentMapPolylines');
 
         if (lines && lines.length > 0) {
-            console.log('lines ');
             var bounds = new google.maps.LatLngBounds();
             for (var i = 0; i < lines.length; i++) {
                 for (var j = 0; j < lines[i].getPath().length; j++) {
@@ -179,7 +178,6 @@ App.TourEditMapView = Ember.View.extend({
         } else if (this.get('summitPointMarker')) {
             this.get('map').setZoom(13);
             this.get('map').setCenter(this.get('summitPointMarker').position);
-            console.log('SM - ' + this.get('summitPointMarker').position);
 
         } else {
             this.get('map').setZoom(3);

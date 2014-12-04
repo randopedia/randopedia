@@ -256,6 +256,33 @@ a {
     .adjust-margin-for-small();
 }
 
+.checkbox {
+    margin: 0;
+    cursor: pointer;
+    padding-left: 0;
+
+    > label {
+        padding-left: 0;
+        &.checked {
+            .glyphicon {
+                color: @gray-dark;
+                background-color: #fff;
+                border: solid 1px #d2d2d2;
+            }
+        }
+
+        .glyphicon {
+            margin-right: 2px;
+            font-size: 16px;
+            padding: -1px;
+            color: #fff;
+            background-color: #fff;
+            border: solid 1px #d2d2d2;
+            border-radius: @border-radius-small;
+        }
+    }
+}
+
 .panel {
     .panel-heading {
         font-size: @font-size-large;
@@ -595,18 +622,11 @@ button.info {
         label {
             margin-top: 5px;
             font-weight: normal !important;
-            font-style: italic;
             cursor: pointer !important;
 
             @media (min-width: 750px) {
                 margin-top: 10px;
             }
-        }
-
-        input[type=checkbox] {
-            height: 13px !important;
-            margin-right: 2px !important;
-            cursor: pointer !important;
         }
 
         @media (min-width: 750px) {

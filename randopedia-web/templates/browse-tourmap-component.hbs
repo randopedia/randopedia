@@ -23,8 +23,12 @@
             <span><a {{action "zoomToSelectedTourAction"}}>View on map</a></span>
             <span>{{#link-to "tour" selectedTour}} View tour details {{/link-to}}</span>
         </div>
-        <div>
-            <label>{{input type="checkbox" checked=showOnlySelectedToursPaths}}Hide other tour paths</label>
+        <div class="checkbox">
+            <label {{bind-attr class="showOnlySelectedToursPaths:checked" }}>
+                {{view Ember.Checkbox checkedBinding="showOnlySelectedToursPaths" class="hide"}}
+                <span class="glyphicon glyphicon-ok"></span>
+                <span>Hide other tour paths</span>
+            </label>
         </div>
     </div>
     {{/if}}
