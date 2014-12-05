@@ -1,5 +1,8 @@
 App.GpxFileUploadView = Ember.View.extend({
     templateName: 'gpx-file-upload-view',
+    settings: {
+        fileInputElementId: '#gpxFileInputElement'
+    },
 
     change: function (evt) {
         if (window.File && window.FileReader && window.FileList && window.Blob) {
@@ -37,12 +40,19 @@ App.GpxFileUploadView = Ember.View.extend({
 
     actions: {
         openFileDialog: function () {
-            $('#gpxFileInputElement').click();
+            $(this.settings.fileInputElementId).click();
         }
     }
 });
 
 App.TourEditMapView = Ember.View.extend({
+    settings: {
+        mapRootElementId: '#tourEditMapRootElement',
+        defaultZoomLevel: 3,
+        detailedZoomLevel: 13,
+        defaultMapCenter: new google.maps.LatLng(46.5, 8.5)
+    },
+
     templateName: 'tourmapedit-view',
     mapRootElement: null,
     map: null,
@@ -55,7 +65,7 @@ App.TourEditMapView = Ember.View.extend({
     loadingGpxData: false,
     gpxDataWasLoaded: false,
     gpxDataIsInvalid: false,
-
+    allTours: [],
     draftPathType: App.Fixtures.MapSymbolTypes.UP_DOWN_TRACK,
 
     didInsertElement: function() {
@@ -164,7 +174,8 @@ App.TourEditMapView = Ember.View.extend({
         // If no paths but summit point is set, this is used for map center
         // Else, zoom and center are reset to defaults
 
-        var lines = this.get('currentMapPolylines');
+        var self = this;
+        var lines = self.get('currentMapPolylines');
 
         if (lines && lines.length > 0) {
             var bounds = new google.maps.LatLngBounds();
@@ -173,15 +184,15 @@ App.TourEditMapView = Ember.View.extend({
                     bounds.extend(lines[i].getPath().getArray()[j]);
                 }
             }
-            this.get('map').fitBounds(bounds);
+            self.get('map').fitBounds(bounds);
 
         } else if (this.get('summitPointMarker')) {
-            this.get('map').setZoom(13);
-            this.get('map').setCenter(this.get('summitPointMarker').position);
+            self.get('map').setZoom(self.settings.detailedZoomLevel);
+            self.get('map').setCenter(self.get('summitPointMarker').position);
 
         } else {
-            this.get('map').setZoom(3);
-            this.get('map').setCenter(new google.maps.LatLng(46.5, 8.5));
+            self.get('map').setZoom(self.settings.defaultZoomLevel);
+            self.get('map').setCenter(self.settings.defaultMapCenter);
         }
     },
 
@@ -290,6 +301,45 @@ App.TourEditMapView = Ember.View.extend({
         self.saveGeoJson();
     },
 
+    // todo: Work in progress on "show other tours" feature
+    //startShowOtherTours: function () {
+    //    var self = this;
+
+    //    if (self.get('allTours').length > 0) {
+    //        self.showOtherTours();
+    //    }
+
+    //    self.set('loadingAllTours', true);
+    //    self.get('store').findQuery('tour', { liteTours: true }).then(function (tours) {
+    //        self.set('allTours', tours);
+    //        self.set('loadingAllTours', false);
+    //        self.showOtherTours();
+    //    }, function (error) {
+    //        App.Alerts.showErrorMessage('Error when loading tours');
+    //        self.set('loadingAllTours', false);
+    //    });
+    //},
+
+    //showOtherTours: function () {
+    //    var tourPaths = [];
+
+    //    self.get('allTours').forEach(function(tour) {
+    //        var mapObjects = App.GeoHelper.getGoogleObjectsFromTourGeoJson(tour.get('mapGeoJson'));
+    //        mapObjects.forEach(function(mapObject) {
+    //            if (mapObject.get('rando_type') !== App.Fixtures.MapSymbolTypes.SUMMIT_POINT) {
+    //                tourPaths.push(mapObject);
+    //                mapObject.setMap(self.get('map'));
+    //            }
+    //        });
+    //    });
+
+    //    self.set('otherToursPaths', tourPaths);
+    //},
+
+    //hideOtherTours: function() {
+        
+    //},
+
     actions: {
         clearDrawingMode: function() {
             this.get('drawingManager').setDrawingMode(null);
@@ -355,7 +405,7 @@ App.TourEditMapView = Ember.View.extend({
         self.set('currentMapPolylines', []);
         self.set('selectedPolylines', []);
 
-        self.set('mapRootElement', self.$('#tourEditMapRootElement'));
+        self.set('mapRootElement', self.$(self.settings.mapRootElementId));
 
         var mapOptions = {
             mapTypeId: google.maps.MapTypeId.TERRAIN,

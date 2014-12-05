@@ -37,7 +37,7 @@ App.IndexController = Ember.ObjectController.extend({
         this.get('store').findQuery('tour', {liteTours: true}).then(function(tours) {
             self.set('liteTours', tours);
         }, function(error) {
-            App.Utils.log('Error when loading tours for browse map');
+            App.Alerts.showErrorMessage('Error when loading tours');
         });
     },
 });
@@ -45,6 +45,8 @@ App.IndexController = Ember.ObjectController.extend({
 App.AboutController = Ember.ObjectController.extend();
 
 App.ResultController = Ember.ArrayController.extend();
+
+App.TagsController = Ember.ArrayController.extend();
 
 App.BreadCrumbController = Ember.ObjectController.extend();
 App.register('controller:breadCrumb', App.BreadCrumbController, {
