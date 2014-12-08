@@ -5,7 +5,7 @@
         Waiting for position...
     </div>
     {{/if}}
-    <button class="btn btn-primary btn-my-position" {{action "toggleMyPosition" }}>
+    <button class="btn btn-primary btn-my-position" {{action "toggleMyPositionAction" }}>
         <span class="glyphicon glyphicon-screenshot"></span>
     </button>
     {{#if showTourInfo}}
@@ -20,8 +20,15 @@
             {{selectedTour.elevationGain}}m &uarr; {{selectedTour.elevationLoss}}m &darr;
         </div>
         <div class="link-container">
-            <span><a {{action "zoomToSelectedTour"}}>View on map</a></span>
-            <span class="pull-right">{{#link-to "tour" selectedTour}} View tour details {{/link-to}}</span>
+            <span><a {{action "zoomToSelectedTourAction"}}>View on map</a></span>
+            <span>{{#link-to "tour" selectedTour}} View tour details {{/link-to}}</span>
+        </div>
+        <div class="checkbox">
+            <label {{bind-attr class="showOnlySelectedToursPaths:checked" }}>
+                {{view Ember.Checkbox checkedBinding="showOnlySelectedToursPaths" class="hide"}}
+                <span class="glyphicon glyphicon-ok"></span>
+                <span>Hide other tour paths</span>
+            </label>
         </div>
     </div>
     {{/if}}

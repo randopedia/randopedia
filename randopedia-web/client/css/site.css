@@ -6237,6 +6237,9 @@ button.close {
   margin-top: 20px;
   margin-right: 20px;
 }
+.default-cursor {
+  cursor: default !important;
+}
 .default-path {
   color: #990000;
 }
@@ -6409,7 +6412,9 @@ a:hover {
   content: "\e080";
 }
 .navbar {
-  background: #333333;
+  /*background: @navbar-background;*/
+  background-image: url('/images/header-bg.png');
+  background-repeat: repeat-x;
 }
 .navbar .nav > .open > a {
   background: #333333;
@@ -6507,7 +6512,9 @@ a:hover {
   min-height: 50px;
   margin-bottom: 22px;
   border: 1px solid transparent;
-  background: #333333;
+  /*background: @navbar-background;*/
+  background-image: url('/images/header-bg.png');
+  background-repeat: repeat-x;
   background-color: #222222;
   border-color: #080808;
   position: fixed;
@@ -7163,10 +7170,13 @@ button.info:hover {
 }
 .footer-view {
   background: #333333;
+  background-image: url('/images/header-bg.png');
+  background-position: right;
+  background-repeat: no-repeat;
   color: #eeeeee;
   font-size: 0.8em;
-  padding: 20px;
   margin: 0 -15px;
+  padding: 45px 20px;
 }
 .footer-view a:hover {
   color: #eeeeee;

@@ -234,8 +234,10 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <div class="checkbox">
-                                        <label>
-                                            {{view Ember.Checkbox checkedBinding="haveHazards"}}Hazards
+                                        <label {{bind-attr class="haveHazards:checked" }}>
+                                            {{view Ember.Checkbox checkedBinding="haveHazards" class="hide"}}
+                                            <span class="glyphicon glyphicon-ok"></span>
+                                            <span>Hazards</span>
                                         </label>
                                     </div>
                                     <button type="button" class="info pull-right" data-toggle="popover" data-trigger="focus"
@@ -247,8 +249,10 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <div class="checkbox">
-                                        <label>
-                                            {{view Ember.Checkbox checkedBinding="requiresTools"}}Mountaineering skills/equipment
+                                        <label {{bind-attr class="requiresTools:checked" }}>
+                                            {{view Ember.Checkbox checkedBinding="requiresTools" class="hide"}}
+                                            <span class="glyphicon glyphicon-ok"></span>
+                                            <span>Mountaineering skills/equipment</span>
                                         </label>
                                     </div>
                                     <button type="button" class="info pull-right" data-toggle="popover" data-trigger="focus"

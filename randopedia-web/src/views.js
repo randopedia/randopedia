@@ -288,7 +288,7 @@ App.FocusTextField = Ember.TextField.extend({
 App.SearchTextField = Ember.TextField.extend({
     attributeBindings: ['placeholder'],
     placeholder: 'Search ski tours...',
-    classNames: ['search-textfield'],
+    classNames: ['form-control','search-textfield'],
     insertNewline: function() {
         this.get('parentView.controller.controllers.search').send('search');
     }

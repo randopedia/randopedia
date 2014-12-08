@@ -1,4 +1,5 @@
 @import "bootstrapoverride/bootstrap.less";
+@import "loader.less";
 
 @logo-font:                     Aight;
 @navbar-background:             @gray-dark;
@@ -148,11 +149,6 @@
 
 body {
     padding-top: 50px;
-//    width: 100%;
-//    height: 100%;
-//    background-image: url(../images/background.jpg);
-//    background-attachment: fixed;
-//    background-size: cover;
 }
    
 #full-screen-map-container {
@@ -260,6 +256,33 @@ a {
     .adjust-margin-for-small();
 }
 
+.checkbox {
+    margin: 0;
+    cursor: pointer;
+    padding-left: 0;
+
+    > label {
+        padding-left: 0;
+        &.checked {
+            .glyphicon {
+                color: @gray-dark;
+                background-color: #fff;
+                border: solid 1px #d2d2d2;
+            }
+        }
+
+        .glyphicon {
+            margin-right: 2px;
+            font-size: 16px;
+            padding: -1px;
+            color: #fff;
+            background-color: #fff;
+            border: solid 1px #d2d2d2;
+            border-radius: @border-radius-small;
+        }
+    }
+}
+
 .panel {
     .panel-heading {
         font-size: @font-size-large;
@@ -289,55 +312,82 @@ a {
     background-repeat: repeat-x;
 
     .nav > .open > a {
-        background: @navbar-background;
+        background: #222222;
+        border-color: #373737;
     }
 
     .nav {
         .dropdown-menu {
-            background: black;
+            background: #222222;
             color: @navbar-default-bg;
 
             li > a {
                 color: @gray-lighter;
+                padding: 5px 20px;
                 &:hover {
                     background: @gray-light;
                     color: @navbar-background;
+                }
+                &:active {
+
                 }
             }
         }
     }
 
     li > p {
-        margin-left: 10px;
+        margin-top: 20px;
+        margin-left: 20px;
         font-size: small;
         font-style: italic;
         color: @gray-lighter;
+        @media (max-width: 749px) { 
+            font-size: 0.8em;
+        }
     }
+
+     .nav > li > a {
+         color: @gray-lighter;
+         border: 1px solid #373737;
+         border-radius: 4px;
+         padding: 5px 10px;
+         margin: 10px 8px 2px 8px;
+         &:hover {
+             background: @gray-dark;
+         }
+         &.dropdown-toggle {
+             &:hover {
+                 background: #222222;
+             }
+         }
+          @media (max-width: 749px) { 
+            border: none; 
+        }
+     }
 
      .navbar-search-button {
          float: right;
-         margin-right: @navbar-padding-horizontal;
-         padding: 9px 10px;
-         .navbar-vertical-align(34px);
-         background-color: transparent;
-         background-image: none;
-         border: none;
+         padding: 10px 15px;
+         margin: 8px;
          color: #fff;
+         position: relative;
+         border: 1px solid #373737;
+         border-radius: 4px;
          &:focus {
             outline: 0;
-         }           
-     }
+         }    
 
-     .nav > li > a {
-         &:hover {
-             background: black;
+         &:hover       {
+             background-color: @gray-dark;
          }
-     }
 
-     .nav > li > a.dropdown-toggle {
-         &:hover {
-             background: black;
+         &.pressed {
+             background-color: @gray-dark;
          }
+
+         @media (min-width: 750px) { 
+            padding: 7px 15px !important; 
+        }
      }
 
      .nav-with-space {
@@ -351,13 +401,35 @@ a {
      }
 }
 
+::-webkit-input-placeholder {    /* WebKit browsers */
+    font-style: italic;
+    color: @gray-light;
+}
+::-moz-placeholder {            /* Mozilla Firefox 19+ */
+    font-style: italic;
+    color: @gray-light;
+}
+:-ms-input-placeholder {        /* Internet Explorer 10+ */
+    font-style: italic;
+    color: @gray-light;
+}
+
 .searchbox {
     position: absolute;
     top: 50px;
     right: 0;
     width: 100%;
+<<<<<<< HEAD
     background: white; 
     border: 1px solid @gray-dark;
+||||||| merged common ancestors
+    background: @navbar-background; 
+    border: 1px solid @gray-dark;
+=======
+    background-color: #fff;
+    border: 1px solid @navbar-background;
+    border-width: 0 1px 1px;
+>>>>>>> b6c2147bf15aaad1d2b08a24fd318dc738b239fe
     padding: 5px;
     overflow-x: hidden;
     overflow-y: auto;
@@ -372,19 +444,45 @@ a {
     .link-container {
         margin-top: 30px;
     }
+    .glyphicon-search {
+        left: 5px;
+        top: 14px;
+    }
+    .form-group {
+        margin-bottom: 0;
+    }
+    .search-textfield {
+        width: 100%;
+        padding: 2px 25px;
+        margin: 5px 0;
+        margin-top: -12px;
+    }
+    .load-container {
+        float: right;
+        margin-top: -36px;
+        margin-right: 5px;
+    }
 
     @media (max-width: 749px) { 
         width: 100%;
         height: 100%; 
     }
-
     @media (min-width: 750px) { 
-        width: 40%;
+        width: 50%;
     }
+<<<<<<< HEAD
     .search-textfield {
         width: 100%;
         padding: 2px;
         font-size: 16px;
+||||||| merged common ancestors
+    .search-textfield {
+        width: 100%;
+        padding: 2px;
+=======
+    @media (min-width: 970px) { 
+        width: 40%;
+>>>>>>> b6c2147bf15aaad1d2b08a24fd318dc738b239fe
     }
 }
 
@@ -399,6 +497,8 @@ a {
     .navbar-inverse();
     .navbar-fixed-bottom();
     height: 75px;
+    background: none;
+    background-color: @navbar-background;
 
     color: #fff;
 
@@ -517,24 +617,46 @@ button.info {
 
     .tour-info {
         position: absolute;
-        top: calc(~'100% - 161px');
+        top: calc(~'100% - 126px');
         left: 0;
         width: 100%; 
-        height: 150px;
-        background: rgba(255, 255, 255, 0.75);
+        height: 125px;
+        background: rgba(255, 255, 255, 0.9);
         border: 1px solid @gray-dark;
+        border-width: 1px 0 0 0;
         padding: 10px;
         h4 {
             margin-left: 0;
+            margin-top: 5px;
+            margin-bottom: 5px;
         }
         button.close {
-            margin-top: -15px;
+            margin-top: -10px;
+            opacity: 0.9;
         }
         .link-container {
-            margin-top: 30px;
+            margin-top: 15px;
+            span {
+                margin-right: 20px;
+            }
+        }
+        label {
+            margin-top: 5px;
+            font-weight: normal !important;
+            cursor: pointer !important;
+
+            @media (min-width: 750px) {
+                margin-top: 10px;
+            }
         }
 
-         @media (min-width: 970px) { 
+        @media (min-width: 750px) {
+            border-width: 1px;
+            top: calc(~'100% - 161px');
+            height: 150px;
+        }
+
+        @media (min-width: 970px) { 
             left: calc(~'25%');
             width: 50%;     
         }
@@ -597,7 +719,6 @@ button.info {
     }
     
     .image-carousel-container {
-        background: @medium-dark-background;
         
         h4 {
             font-size: 20px;
@@ -616,7 +737,6 @@ button.info {
     }
 
     .carousel {
-        max-width: 1570px;
         height: 340px;    
         margin-left: -15px;
         margin-right: -15px; 
@@ -646,6 +766,7 @@ button.info {
             margin-right: auto;
             max-height: 340px;  
             padding-bottom: 20px; 
+            margin-top: 10px;
 
             @media (min-width: 370px) { 
                 max-height: 400px;           
@@ -668,7 +789,7 @@ button.info {
             background: none;
             opacity: 0.5;
             &:hover {
-                opacity: 1.0;
+                opacity: 1;
             }
         }
     }

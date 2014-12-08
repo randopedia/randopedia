@@ -34,7 +34,10 @@ public class SnapshotCacheService {
 
     private void updateTourCache(CloseableHttpClient httpClient, Tour tour) {
         String request = "http://www.randopedia.net/?_escaped_fragment_=" + "/tours/" + tour.getClientId();
-        String response = getData(httpClient, request);
+        getData(httpClient, request);
+        request = "http://randopedia.net/?_escaped_fragment_=" + "/tours/" + tour.getClientId();
+        getData(httpClient, request);
+        
     }
     
     private String getData(CloseableHttpClient httpClient, String request) {

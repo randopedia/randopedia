@@ -1,1 +1,0 @@
-App.TagsController = Ember.ArrayController.extend();
