@@ -29,7 +29,11 @@ App.BaseRoute = Ember.Route.extend({
     afterModel : function(model) {
         if(typeof model !== 'undefined' && model !== null) {
             var tourName = model.get('name');
-            $(document).attr('title', tourName + ' - Randopedia, the ski tour encyclopedia');
+            if(typeof tourName !== 'undefined' && tourName !== null) {
+                $(document).attr('title', tourName + ' - Randopedia, the ski tour encyclopedia');
+            } else {
+                $(document).attr('title', 'Randopedia, the ski tour encyclopedia');
+            }
         } else {
             $(document).attr('title', 'Randopedia, the ski tour encyclopedia');
         }

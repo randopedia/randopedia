@@ -6167,6 +6167,50 @@ button.close {
     display: none !important;
   }
 }
+.load-container {
+  float: left;
+  position: relative;
+  overflow: hidden;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.loader {
+  font-size: 5px;
+  position: relative;
+  text-indent: -9999em;
+  border-top: 1.1em solid rgba(0, 0, 0, 0.2);
+  border-right: 1.1em solid rgba(0, 0, 0, 0.2);
+  border-bottom: 1.1em solid rgba(0, 0, 0, 0.2);
+  border-left: 1.1em solid rgba(0, 0, 0, 0.7);
+  -webkit-animation: load8 1.1s infinite linear;
+  animation: load8 1.1s infinite linear;
+}
+.loader,
+.loader:after {
+  border-radius: 50%;
+  width: 5em;
+  height: 5em;
+}
+@-webkit-keyframes load8 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes load8 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
 @font-face {
   font-family: Aight;
   src: url('../fonts/aaaiight.ttf');
@@ -6393,6 +6437,28 @@ a:hover {
     margin-right: -10px;
   }
 }
+.checkbox {
+  margin: 0;
+  cursor: pointer;
+  padding-left: 0;
+}
+.checkbox > label {
+  padding-left: 0;
+}
+.checkbox > label.checked .glyphicon {
+  color: #333333;
+  background-color: #fff;
+  border: solid 1px #d2d2d2;
+}
+.checkbox > label .glyphicon {
+  margin-right: 2px;
+  font-size: 16px;
+  padding: -1px;
+  color: #fff;
+  background-color: #fff;
+  border: solid 1px #d2d2d2;
+  border-radius: 3px;
+}
 .panel .panel-heading {
   font-size: 20px;
   font-weight: 700;
@@ -6417,44 +6483,73 @@ a:hover {
   background-repeat: repeat-x;
 }
 .navbar .nav > .open > a {
-  background: #333333;
+  background: #222222;
+  border-color: #373737;
 }
 .navbar .nav .dropdown-menu {
-  background: black;
+  background: #222222;
   color: #f8f8f8;
 }
 .navbar .nav .dropdown-menu li > a {
   color: #eeeeee;
+  padding: 5px 20px;
 }
 .navbar .nav .dropdown-menu li > a:hover {
   background: #777777;
   color: #333333;
 }
 .navbar li > p {
-  margin-left: 10px;
+  margin-top: 20px;
+  margin-left: 20px;
   font-size: small;
   font-style: italic;
   color: #eeeeee;
 }
+@media (max-width: 749px) {
+  .navbar li > p {
+    font-size: 0.8em;
+  }
+}
+.navbar .nav > li > a {
+  color: #eeeeee;
+  border: 1px solid #373737;
+  border-radius: 4px;
+  padding: 5px 10px;
+  margin: 10px 8px 2px 8px;
+}
+.navbar .nav > li > a:hover {
+  background: #333333;
+}
+.navbar .nav > li > a.dropdown-toggle:hover {
+  background: #222222;
+}
+@media (max-width: 749px) {
+  .navbar .nav > li > a {
+    border: none;
+  }
+}
 .navbar .navbar-search-button {
   float: right;
-  margin-right: 15px;
-  padding: 9px 10px;
-  margin-top: 8px;
-  margin-bottom: 8px;
-  background-color: transparent;
-  background-image: none;
-  border: none;
+  padding: 10px 15px;
+  margin: 8px;
   color: #fff;
+  position: relative;
+  border: 1px solid #373737;
+  border-radius: 4px;
 }
 .navbar .navbar-search-button:focus {
   outline: 0;
 }
-.navbar .nav > li > a:hover {
-  background: black;
+.navbar .navbar-search-button:hover {
+  background-color: #333333;
 }
-.navbar .nav > li > a.dropdown-toggle:hover {
-  background: black;
+.navbar .navbar-search-button.pressed {
+  background-color: #333333;
+}
+@media (min-width: 750px) {
+  .navbar .navbar-search-button {
+    padding: 7px 15px !important;
+  }
 }
 @media (min-width: 750px) {
   .navbar .nav-with-space {
@@ -6464,13 +6559,31 @@ a:hover {
 .navbar .caret {
   margin-left: 5px;
 }
+::-webkit-input-placeholder {
+  /* WebKit browsers */
+  font-style: italic;
+  color: #777777;
+}
+::-moz-placeholder {
+  /* Mozilla Firefox 19+ */
+  font-style: italic;
+  color: #777777;
+}
+:-ms-input-placeholder {
+  /* Internet Explorer 10+ */
+  font-style: italic;
+  color: #777777;
+}
 .searchbox {
   position: absolute;
   top: 50px;
   right: 0;
   width: 100%;
   background: white;
+  background: #333333;
+  background-color: #fff;
   border: 1px solid #333333;
+  border-width: 0 1px 1px;
   padding: 5px;
   overflow-x: hidden;
   overflow-y: auto;
@@ -6486,6 +6599,24 @@ a:hover {
 .searchbox .link-container {
   margin-top: 30px;
 }
+.searchbox .glyphicon-search {
+  left: 5px;
+  top: 14px;
+}
+.searchbox .form-group {
+  margin-bottom: 0;
+}
+.searchbox .search-textfield {
+  width: 100%;
+  padding: 2px 25px;
+  margin: 5px 0;
+  margin-top: -12px;
+}
+.searchbox .load-container {
+  float: right;
+  margin-top: -36px;
+  margin-right: 5px;
+}
 @media (max-width: 749px) {
   .searchbox {
     width: 100%;
@@ -6494,13 +6625,18 @@ a:hover {
 }
 @media (min-width: 750px) {
   .searchbox {
-    width: 40%;
+    width: 50%;
   }
 }
 .searchbox .search-textfield {
   width: 100%;
   padding: 2px;
   font-size: 16px;
+}
+@media (min-width: 970px) {
+  .searchbox .search-textfield {
+    width: 40%;
+  }
 }
 @media (min-width: 750px) {
   .modal-content {
@@ -6527,6 +6663,8 @@ a:hover {
   margin-bottom: 0;
   border-width: 1px 0 0;
   height: 75px;
+  background: none;
+  background-color: #333333;
   color: #fff;
 }
 @media (min-width: 768px) {
@@ -6535,44 +6673,73 @@ a:hover {
   }
 }
 .edit-navbar .nav > .open > a {
-  background: #333333;
+  background: #222222;
+  border-color: #373737;
 }
 .edit-navbar .nav .dropdown-menu {
-  background: black;
+  background: #222222;
   color: #f8f8f8;
 }
 .edit-navbar .nav .dropdown-menu li > a {
   color: #eeeeee;
+  padding: 5px 20px;
 }
 .edit-navbar .nav .dropdown-menu li > a:hover {
   background: #777777;
   color: #333333;
 }
 .edit-navbar li > p {
-  margin-left: 10px;
+  margin-top: 20px;
+  margin-left: 20px;
   font-size: small;
   font-style: italic;
   color: #eeeeee;
 }
+@media (max-width: 749px) {
+  .edit-navbar li > p {
+    font-size: 0.8em;
+  }
+}
+.edit-navbar .nav > li > a {
+  color: #eeeeee;
+  border: 1px solid #373737;
+  border-radius: 4px;
+  padding: 5px 10px;
+  margin: 10px 8px 2px 8px;
+}
+.edit-navbar .nav > li > a:hover {
+  background: #333333;
+}
+.edit-navbar .nav > li > a.dropdown-toggle:hover {
+  background: #222222;
+}
+@media (max-width: 749px) {
+  .edit-navbar .nav > li > a {
+    border: none;
+  }
+}
 .edit-navbar .navbar-search-button {
   float: right;
-  margin-right: 15px;
-  padding: 9px 10px;
-  margin-top: 8px;
-  margin-bottom: 8px;
-  background-color: transparent;
-  background-image: none;
-  border: none;
+  padding: 10px 15px;
+  margin: 8px;
   color: #fff;
+  position: relative;
+  border: 1px solid #373737;
+  border-radius: 4px;
 }
 .edit-navbar .navbar-search-button:focus {
   outline: 0;
 }
-.edit-navbar .nav > li > a:hover {
-  background: black;
+.edit-navbar .navbar-search-button:hover {
+  background-color: #333333;
 }
-.edit-navbar .nav > li > a.dropdown-toggle:hover {
-  background: black;
+.edit-navbar .navbar-search-button.pressed {
+  background-color: #333333;
+}
+@media (min-width: 750px) {
+  .edit-navbar .navbar-search-button {
+    padding: 7px 15px !important;
+  }
 }
 @media (min-width: 750px) {
   .edit-navbar .nav-with-space {
@@ -6886,22 +7053,46 @@ button.info:hover {
 }
 .browse-map-view .tour-info {
   position: absolute;
-  top: calc(100% - 161px);
+  top: calc(100% - 126px);
   left: 0;
   width: 100%;
-  height: 150px;
-  background: rgba(255, 255, 255, 0.75);
+  height: 125px;
+  background: rgba(255, 255, 255, 0.9);
   border: 1px solid #333333;
+  border-width: 1px 0 0 0;
   padding: 10px;
 }
 .browse-map-view .tour-info h4 {
   margin-left: 0;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 .browse-map-view .tour-info button.close {
-  margin-top: -15px;
+  margin-top: -10px;
+  opacity: 0.9;
 }
 .browse-map-view .tour-info .link-container {
-  margin-top: 30px;
+  margin-top: 15px;
+}
+.browse-map-view .tour-info .link-container span {
+  margin-right: 20px;
+}
+.browse-map-view .tour-info label {
+  margin-top: 5px;
+  font-weight: normal !important;
+  cursor: pointer !important;
+}
+@media (min-width: 750px) {
+  .browse-map-view .tour-info label {
+    margin-top: 10px;
+  }
+}
+@media (min-width: 750px) {
+  .browse-map-view .tour-info {
+    border-width: 1px;
+    top: calc(100% - 161px);
+    height: 150px;
+  }
 }
 @media (min-width: 970px) {
   .browse-map-view .tour-info {
@@ -6954,9 +7145,6 @@ button.info:hover {
   border-width: 0;
   background: #fff;
 }
-.tour-details-view .image-carousel-container {
-  background: #b7b7b7;
-}
 .tour-details-view .image-carousel-container h4 {
   font-size: 20px;
   font-weight: 700;
@@ -6973,7 +7161,6 @@ button.info:hover {
   }
 }
 .tour-details-view .carousel {
-  max-width: 1570px;
   height: 340px;
   margin-left: -15px;
   margin-right: -15px;
@@ -7007,6 +7194,7 @@ button.info:hover {
   margin-right: auto;
   max-height: 340px;
   padding-bottom: 20px;
+  margin-top: 10px;
 }
 @media (min-width: 370px) {
   .tour-details-view .carousel img {
@@ -7033,7 +7221,7 @@ button.info:hover {
   opacity: 0.5;
 }
 .tour-details-view .carousel .carousel-control:hover {
-  opacity: 1.0;
+  opacity: 1;
 }
 .tour-edit-view {
   margin-bottom: 75px;

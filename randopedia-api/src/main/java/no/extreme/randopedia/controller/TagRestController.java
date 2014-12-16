@@ -1,5 +1,8 @@
 package no.extreme.randopedia.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,8 +28,9 @@ public class TagRestController {
     TourService tourService;
 
     @RequestMapping(method=RequestMethod.GET, value="/tags/{tagId}", produces="application/json")
-    public @ResponseBody TagContainer getTag(@PathVariable String tagId) {
-        List<Tour> tours = tourService.findToursByTag(tagId);
+    public @ResponseBody TagContainer getTag(@PathVariable String tagId) throws UnsupportedEncodingException {
+        String decodedTagId = URLDecoder.decode(tagId, "UTF-8");
+        List<Tour> tours = tourService.findToursByTag(decodedTagId);
         List<ClientTour> clientTours = Mapper.mapToursToClientsTour(tours);
         
         Tag tag = new Tag();
