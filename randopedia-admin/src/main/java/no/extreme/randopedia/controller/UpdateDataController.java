@@ -32,8 +32,9 @@ public class UpdateDataController {
     public @ResponseBody MigrationResult updateTagCloud() throws IOException {
 
         updateTagCloudService.updateTagCloud();
-        
-        return null;
+        MigrationResult result = new MigrationResult();
+        result.setResult("Ok");
+        return result;
     }
     
     @RequestMapping(method = RequestMethod.GET, value = "/updateTourCenterCoordinates", produces = "application/json")

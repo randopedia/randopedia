@@ -26,6 +26,9 @@ public class UpdateTagCloudService {
     MongoOperations mongoOperations;
     
     public void updateTagCloud() {
+        
+        mongoOperations.dropCollection(Tag.class);
+        
         AggregationOperation project = Aggregation.project("tags");
         AggregationOperation sum = Aggregation.unwind("tags");
         AggregationOperation group = Aggregation.group("tags").count().as("value");
