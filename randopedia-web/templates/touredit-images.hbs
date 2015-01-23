@@ -34,8 +34,8 @@
                             </div>
                             <div class="form-group">
                                 <div class="button-group pull-right">
-                                    <button class="btn btn-default" {{action "removeNewImage"}} {{bind-attr disabled="isUploadingImage" }}>Cancel</button>
-                                    <button class="btn btn-primary" {{action "saveNewImage"}} {{bind-attr disabled="isUploadingImage" }}>Upload image</button>
+                                    <button class="btn btn-default" {{action "removeNewImage"}} {{bind-attr disabled="havePendingOperations" }}>Cancel</button>
+                                    <button class="btn btn-primary" {{action "saveNewImage"}} {{bind-attr disabled="havePendingOperations" }}>Upload image</button>
                                 </div>                   
                             </div>                         
                         </form>
