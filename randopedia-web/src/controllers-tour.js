@@ -238,7 +238,7 @@ App.TourEditController = Ember.ObjectController.extend({
                    self.set("havePendingOperations", false);
 
                    self.get("model").reload();
-                   App.Alerts.showSuccessMessage("Image was successfully added. ");
+                   App.Alerts.showSuccessMessage("Image was successfully added. (If it doesn't appear in the list below, try to reload the page) ", App.Alerts.long_delay);
                 }, 
                 function(error) {
                     var status = error.status;
@@ -247,7 +247,7 @@ App.TourEditController = Ember.ObjectController.extend({
                         App.Alerts.showErrorMessage("Oh noes, you have most likely been logged out. Try to log in again. ");
                     }
                     else if (status === 413) {
-                        App.Alerts.showErrorMessage("Sorry, an error occured when trying to save the image. It seems like it's to big, please decrease the image file size and try again. ");
+                        App.Alerts.showErrorMessage("Couldn't save the image, it's too big. Max image file size allowed is 12MB. ");
                     }
                     else {
                         App.Alerts.showErrorMessage("Sorry, an error occured when trying to save the image, please try again. ");

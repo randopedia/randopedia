@@ -72,7 +72,8 @@ App.Alerts = Ember.Object.create({
     },
     showErrorMessage: function (message) {
         this.showMessage(message, "danger", 0);
-    }
+    },
+    long_delay : 7000
 });
 
 (function () {
