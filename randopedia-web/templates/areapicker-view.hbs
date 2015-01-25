@@ -52,7 +52,9 @@
 		   <div class="col-sm-12">
 		       <hr />
 			    Selected: <strong>{{controller.tempSelectedArea.name}}</strong>
-			    <a class="pull-right" {{action "startAddingSubArea"}}>Add new area in {{controller.tempSelectedArea.name}}</a>
+                {{#if controller.tempSelectedArea}}
+                <a class="pull-right" {{action "startAddingSubArea"}}>Add new area in {{controller.tempSelectedArea.name}}</a>
+                {{/if}}
 		    </div>
 		</div>
 	
