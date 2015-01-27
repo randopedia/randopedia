@@ -374,6 +374,7 @@ public class TourService {
             tag.setName(tag.getId());
             tag.setTours(new ArrayList<String>());
         }
+        
         return tags;
     }
 

@@ -62,17 +62,6 @@ App.AboutRoute = App.BaseRoute.extend();
 
 App.MytoursRoute = App.BaseRoute.extend();
 
-App.SearchRoute = Ember.Route.extend({
-    setupController : function(controller, model){
-        this._super(controller, model);
- 
-        if(!this.get('controller').get('query')){
-            // Probably caused by a page refresh, would show empty search result so redirect to /index instead
-            this.transitionTo('index');
-        }
-    },
-});
-
 App.TagsRoute = App.BaseRoute.extend({
     model : function() {
         return this.store.find('tag');

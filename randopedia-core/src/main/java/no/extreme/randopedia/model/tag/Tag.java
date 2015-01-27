@@ -11,6 +11,7 @@ public class Tag {
     private String name;
     @Transient
     private List<String> tours;
+    private int popularity;
     
     public String getId() {
         return id;
@@ -35,6 +36,12 @@ public class Tag {
     }
     public void setTours(List<String> tours) {
         this.tours = tours;
+    }
+    public int getPopularity() {
+        return popularity;
+    }
+    public void setPopularity(int popularity) {
+        this.popularity = popularity;
     }
     
     
