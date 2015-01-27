@@ -20,7 +20,7 @@ App.AreaBrowseItemController = Ember.ObjectController.extend({
             showTours = !showTours;
             this.set('showTours', showTours);
         }
-    },
+    }
 });
 App.register('controller:areaBrowseItem', App.AreaBrowseItemController, {
     singleton : false
@@ -44,7 +44,7 @@ App.AreaController = Ember.ObjectController.extend({
             return null;
         }
         return marked(this.get('description'));
-    }.property('description'),
+    }.property('description')
 });
 
 App.AreaEditController = Ember.ObjectController.extend({

@@ -20,6 +20,9 @@
 @map-path-up-color:             #343434;
 @map-path-down-color:           #EE0000;
 
+@top-bar-height:                50px;
+@main-view-margin:              20px;
+
 @font-face { font-family: Aight; src: url('../fonts/aaaiight.ttf'); }
 
 // Mixins
@@ -28,6 +31,29 @@
         margin-left: -10px;
         margin-right: -10px;        
     }
+}
+
+div.sidebar-container {
+    position: absolute;
+    top: @top-bar-height +  @main-view-margin;
+    left: 0;
+    bottom: @main-view-margin;
+    width: 19.5%;
+    background-color: rgba(255, 255, 255, 0.9);
+    min-height: 400px;
+    overflow-y: scroll;
+}
+
+div.main-view-container {
+    position: absolute;
+    top: @top-bar-height + @main-view-margin;
+    left: 0.5%;
+    right: @main-view-margin;
+    bottom: @main-view-margin;
+    overflow-y: scroll;
+    width: 99%;
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 1px solid @gray-lighter;
 }
 
 @media (max-width: 749px) {  
@@ -876,18 +902,6 @@ button.info {
     span.intent { 
         margin-left: 15px;
     }
-
-    a {
-        color:#4d4d4d; 
-        margin: 5px 0;
-        &:hover {
-            text-decoration: none; 
-            font-weight: 700;
-        }
-        &:visited {
-            color:#4d4d4d;
-        }
-    }
     
     a.areatree-expand { 
         font-size: 70%; 
@@ -929,7 +943,6 @@ button.info {
     background-image: url('/images/header-bg.png');
     background-position: right;
     background-repeat: no-repeat;
-
     color: @gray-lighter;
     font-size: 0.8em;
     margin: 0 -15px;

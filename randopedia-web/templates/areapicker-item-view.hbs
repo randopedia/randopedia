@@ -15,12 +15,8 @@
 
 {{#if view.isSelected}}
     <button class="areatree is-selected">{{name}}</button>  
-{{else}}
-    {{#if isReadOnlyArea}}
-        <button class="areatree" disabled="disabled" >{{name}}</button>
-    {{else}}    
-        <button class="areatree" {{action "selectArea" target="view"}}>{{name}}</button>
-    {{/if}}
+{{else}}  
+    <button class="areatree" {{action "selectArea" target="view"}}>{{name}}</button>
 {{/if}}
 
 {{#if view.isExpanded}}
