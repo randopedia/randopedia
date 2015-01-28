@@ -8,10 +8,6 @@
         </div>
     </div>
 
-    {{#each tag in controller}}
-        {{#link-to 'tag' tag}}#{{tag.name}}{{/link-to}}
-    {{/each}}
-
     {{tagcloud-component tags=model}}
 
 </div>

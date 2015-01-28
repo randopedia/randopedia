@@ -89,6 +89,11 @@ App.Action = DS.Model.extend({
 App.Tag = DS.Model.extend({
     name: DS.attr('string'),
     value: DS.attr('number'),
+    popularity: DS.attr('number'),
+    style : function() {
+        var popularity = this.get('popularity') + 16;
+        return 'font-size:' + popularity + 'px';
+    }.property('popularity'),
     tours: DS.hasMany('tour', { async: true })
 });
 

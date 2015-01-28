@@ -219,6 +219,7 @@ public class TourRestController {
         
         tourService.createNewImage(image, user);
         
+        
         return tourImageContainer;
     }
     

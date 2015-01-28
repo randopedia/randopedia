@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import no.extreme.randopedia.controller.TourRestController.Mapper;
@@ -54,6 +55,7 @@ public class TagRestController {
     public @ResponseBody TagsContainer getTags() {
         
         List<Tag> tags = tourService.findAllTags();
+        Collections.shuffle(tags);
         TagsContainer container = new TagsContainer();
         container.setTags(tags);
         

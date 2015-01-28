@@ -1,4 +1,3 @@
-Hello tags!
 {{#each tag in cloudTags}}
-    hej: {{tag.name}}
+    <span {{bind-attr style="tag.style"}}>{{#link-to 'tag' tag}}#{{tag.name}}{{/link-to}}</span>
 {{/each}}

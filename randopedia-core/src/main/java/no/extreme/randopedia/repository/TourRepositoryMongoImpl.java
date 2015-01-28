@@ -237,6 +237,7 @@ public class TourRepositoryMongoImpl implements TourRepository {
         fileWriterService.writeFile(fileName, imageBytes);
         image.setImageFile(databaseFileName);
         images.add(image);
+        image.setImageData(null);
         tour.setTourImages(images);  
         
         saveTour(tour);

@@ -226,6 +226,8 @@ App.TourEditController = Ember.ObjectController.extend({
         saveNewImage: function () {
             var self = this;
 
+            self.get("model").reload();
+
             if(self.get("havePendingOperations")){
                 return;
             }
@@ -238,7 +240,8 @@ App.TourEditController = Ember.ObjectController.extend({
                    self.set("havePendingOperations", false);
 
                    self.get("model").reload();
-                   App.Alerts.showSuccessMessage("Image was successfully added. (If it doesn't appear in the list below, try to reload the page) ", App.Alerts.long_delay);
+                   
+                    App.Alerts.showSuccessMessage("Image was successfully added. (If it doesn't appear in the list below, try to reload the page) ", App.Alerts.long_delay);
                 }, 
                 function(error) {
                     var status = error.status;
