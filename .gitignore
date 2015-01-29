@@ -11,7 +11,7 @@
 target
 var
 tourimages
-
+.metadata
 test_data
 bin
 
@@ -23,9 +23,19 @@ randopedia-core/src/main/resources/application.test.properties
 
 node_modules
 randopedia-web/src/config.js
-.metadata
 randopedia.js
 randopedia.min.js
 templates.js
+templates.min.js
 site.css
 site.min.css
+Thumbs.db
+
+# Visual Studio project files #
+randopedia-web.sln
+randopedia-web.csproj
+randopedia-web.csproj.user
+Properties
+obj
+*.suo
+# END Visual Studio files #

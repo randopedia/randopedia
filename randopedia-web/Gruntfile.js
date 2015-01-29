@@ -1,23 +1,23 @@
 module.exports = function(grunt) {
 
   grunt.initConfig({
-    pkg: grunt.file.readJSON('package.json'),
+    pkg: grunt.file.readJSON("package.json"),
     concat: {
       options: {
-        separator: ';'
+        separator: ";"
       },
       dist: {
-        src: ['vendor/handlebars-v1.3.0.js',
-              'vendor/ember.1.7.0.js',
-              'vendor/ember-data-1.0-b2.js',
-              'vendor/ember.oauth2.js',
-              'vendor/bootstrap.js',
-              'src/*.js'],
-        dest: 'client/js/<%= pkg.name %>.js'
+        src: ["vendor/handlebars-v1.3.0.js",
+              "vendor/ember.1.7.0.js",
+              "vendor/ember-data-1.0-b2.js",
+              "vendor/ember.oauth2.js",
+              "vendor/bootstrap.js",
+              "src/*.js"],
+        dest: "client/js/<%= pkg.name %>.js"
       }
     },
     jshint: {
-      files: ['gruntfile.js', 'src/**/*.js'],
+      files: ["gruntfile.js", "src/**/*.js"],
       options: {
         // options here to override JSHint defaults
         globals: {
@@ -26,20 +26,20 @@ module.exports = function(grunt) {
           module: true,
           document: true
         },
-        ignores: ['src/fixtures.js', 'vendor/*']
+        ignores: ["src/fixtures.js", "vendor/*"]
       }
     },
     uglify: {
         my_target: {
           files: {
-              'client/js/randopedia.min.js': ['client/js/randopedia.js'],
+              'client/js/randopedia.min.js': ["client/js/randopedia.js"]
           }
         }
     },
     cssmin: {
         combine: {
             files: {
-              'client/css/site.min.css': ['client/css/normalize.css', 'client/css/site.css']
+              'client/css/site.min.css': ["client/css/normalize.css", "client/css/site.css"]
             }
         }
     },
@@ -48,14 +48,14 @@ module.exports = function(grunt) {
           options: {
             templateName: function(sourceFile) {
                 
-                    if(sourceFile.indexOf('-component') != -1) {
-                        return sourceFile.replace("templates/", 'components/').replace('-component', '');
+                    if(sourceFile.indexOf("-component") !== -1) {
+                        return sourceFile.replace("templates/", "components/").replace("-component", "");
                     }
-                    return sourceFile.replace("templates/", '');
+                    return sourceFile.replace("templates/", "");
                 }
           },
           files: {
-            "client/js/templates.js": "templates/*.hbs",
+            "client/js/templates.js": "templates/*.hbs"
           }
         }
     },
@@ -70,14 +70,23 @@ module.exports = function(grunt) {
         }
     },
     qunit: {
-        all: ['test/*.html']
+        all: ["test/*.html"]
+    },
+    watch: {
+        scripts: {
+            files: ["**/*.js", "**/*.hbs", "**/*.less", "**/*.html"],
+            tasks: ["jshint", "concat", "emberTemplates", "less", "qunit", "uglify", "cssmin"],
+            options: {
+                spawn: false
+            }
+        }
     },
     connect: {
         server: {
             options: {
                 port: 9001,
-                hostname: 'localhost',
-                base: ['client'],
+                hostname: "localhost",
+                base: ["client"],
                 keepalive : true,
                 middleware: function (connect, options) {
                     if (!Array.isArray(options.base)) {
@@ -85,7 +94,7 @@ module.exports = function(grunt) {
                     }
 
                     // Setup the proxy
-                    var middlewares = [require('grunt-connect-proxy/lib/utils').proxyRequest];
+                    var middlewares = [require("grunt-connect-proxy/lib/utils").proxyRequest];
 
                     // Serve static files
                     options.base.forEach(function(base) {
@@ -101,8 +110,8 @@ module.exports = function(grunt) {
             },
             proxies: [
                 {
-                    context: '/randopedia/api',
-                    host: '127.0.0.1',
+                    context: "/randopedia/api",
+                    host: "127.0.0.1",
                     port: 8080,
                     https: false,
                     changeOrigin: false,
@@ -112,8 +121,8 @@ module.exports = function(grunt) {
                     //}
                 },
                 {
-                    context: '/randopedia/logincallback',
-                    host: '127.0.0.1',
+                    context: "/randopedia/logincallback",
+                    host: "127.0.0.1",
                     port: 8080,
                     https: false,
                     changeOrigin: false,
@@ -124,19 +133,19 @@ module.exports = function(grunt) {
     }    
   });
   
-  grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-contrib-concat');
-  grunt.loadNpmTasks('grunt-ember-templates');
-  grunt.loadNpmTasks('grunt-contrib-qunit');
-  grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-contrib-cssmin');
-  grunt.loadNpmTasks('grunt-contrib-connect');
-  grunt.loadNpmTasks('grunt-connect-proxy');
-  grunt.loadNpmTasks('grunt-contrib-less');
-  
-  grunt.registerTask('test', ['jshint', 'concat', 'emberTemplates', 'less', 'qunit']);
-  grunt.registerTask('localhost', ['jshint', 'concat', 'emberTemplates', 'less', 'qunit']);
-  grunt.registerTask('default', ['jshint', 'concat', 'emberTemplates', 'less', 'qunit', 'uglify', 'cssmin']);
-  grunt.registerTask('server', ['configureProxies:server', 'connect']);
-  
+  grunt.loadNpmTasks("grunt-contrib-jshint");
+  grunt.loadNpmTasks("grunt-contrib-concat");
+  grunt.loadNpmTasks("grunt-ember-templates");
+  grunt.loadNpmTasks("grunt-contrib-qunit");
+  grunt.loadNpmTasks("grunt-contrib-uglify");
+  grunt.loadNpmTasks("grunt-contrib-cssmin");
+  grunt.loadNpmTasks("grunt-contrib-connect");
+  grunt.loadNpmTasks("grunt-connect-proxy");
+  grunt.loadNpmTasks("grunt-contrib-less");
+  grunt.loadNpmTasks("grunt-contrib-watch");
+
+  grunt.registerTask("default", ["jshint", "concat", "emberTemplates", "less", "qunit", "uglify", "cssmin"]);
+  grunt.registerTask("test", ["jshint", "concat", "emberTemplates", "less", "qunit"]);
+  grunt.registerTask("localhost", ["jshint", "concat", "emberTemplates", "less", "qunit"]);
+  grunt.registerTask("server", ["configureProxies:server", "connect"]);
 };
