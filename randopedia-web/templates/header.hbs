@@ -8,7 +8,7 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand randopedia-logo-text" {{action "gotoindex" }}>Randopedia</a>
-            <a class="navbar-search-button hidden-sm hidden-md hidden-lg" {{action "toggleNavbarSearchbox" }} {{bind-attr class="showNavbarSearch:pressed" }}>
+            <a class="navbar-search-button hidden-sm hidden-md hidden-lg" {{action "toggleNavbarSearchbox" }} {{bind-attr class="showNavbarSearch:pressed" }}">
                 <span class="glyphicon glyphicon-search"></span>
             </a>
         </div>
@@ -17,6 +17,9 @@
             <ul class="nav navbar-nav nav-with-space">
                 <li><a {{action "topbarmenulink" "index" }}>Map</a></li>
                 <li><a {{action "topbarmenulink" "about" }} data-toggle="collapse" data-target=".nav-collapse">About</a></li>
+            </ul>
+
+            <ul class="nav navbar-nav hidden-xs">
                 {{#if controllers.login.isLoggedIn}}
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Tours<span class="caret"></span></a>
@@ -36,14 +39,6 @@
                 <li><a {{action "topbarmenulink" "collapseNavbar" }} data-toggle="modal" data-target="#loginViewModalId">Login</a></li>
                 {{/if}}
             </ul>
-            
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a class="navbar-search-button" {{action "toggleNavbarSearchbox" }} {{bind-attr class="showNavbarSearch:pressed" }}>
-                        <span class="glyphicon glyphicon-search"></span>
-                    </a>
-                </li>
-            </ul>
 
             <ul class="nav navbar-nav hidden-sm hidden-md hidden-lg">
                 {{#if controllers.login.isLoggedIn}}
@@ -57,6 +52,13 @@
                 {{/if}}
             </ul>
 
+            <ul class="nav navbar-nav navbar-right hidden-xs">
+                <li>
+                    <a class="navbar-search-button pull-right" {{action "toggleNavbarSearchbox" }}" {{bind-attr class="showNavbarSearch:pressed" }}>
+                        <span class="glyphicon glyphicon-search"></span>
+                    </a>
+                </li>
+            </ul>
         </div>
     </div>
 </nav>
