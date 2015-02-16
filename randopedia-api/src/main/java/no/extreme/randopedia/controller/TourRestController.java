@@ -171,6 +171,10 @@ public class TourRestController {
         
         tour = tourService.updateTour(tour, user);
         
+        tour = tourService.getTourByClientId(tourId);
+        
+        clientTour = Mapper.mapTourToClientTour(tour);
+        tourContainer.setTour(clientTour);
         tourContainer.setImages(tour.getTourImages());
         tourContainer.setComments(tour.getTourComments());
         

@@ -4,13 +4,10 @@ module.exports = function(grunt) {
     pkg: grunt.file.readJSON("package.json"),
     concat: {
       options: {
-        separator: ";"
+        separator: ";;"
       },
       dist: {
-        src: ["vendor/handlebars-v1.3.0.js",
-              "vendor/ember.1.7.0.js",
-              "vendor/ember-data-1.0-b2.js",
-              "vendor/ember.oauth2.js",
+          src: [
               "vendor/bootstrap.js",
               "src/*.js"],
         dest: "client/js/<%= pkg.name %>.js"

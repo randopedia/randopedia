@@ -1,6 +1,7 @@
 package no.extreme.randopedia.model.tour;
 
 import org.bson.types.ObjectId;
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
@@ -16,6 +17,7 @@ public class TourImage {
     private String caption;
     private boolean isPortfolio;
 
+    @JsonIgnore
     public ObjectId get_Id() {
         return _id;
     }

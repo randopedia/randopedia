@@ -1,7 +1,7 @@
 
 <div class="form-group has-feedback">
     <div class="inner-addon left-addon">
-        {{view App.SearchTextField valueBinding="query"}}
+        {{view "searchText" valueBinding="query"}}
     </div>
     {{#if isSearching}}
     <div class="load-container">
@@ -11,6 +11,6 @@
 </div>
 
 {{#each tour in tours}}
-    {{view App.TourItemView}}
+    {{view "tourItem"}}
 {{/each}}
 

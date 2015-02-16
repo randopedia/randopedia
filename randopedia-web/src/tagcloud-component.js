@@ -13,4 +13,6 @@ App.TagcloudComponentComponent = Ember.Component.extend({
         console.log(tags);
         this.set('cloudTags', tags);
     }.on('didInsertElement')
+
+
 });

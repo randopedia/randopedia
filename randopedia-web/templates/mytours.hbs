@@ -20,7 +20,7 @@
                     </div>
 
                     {{#each tour in drafts}}
-                    {{view App.TourItemView}}
+                    {{view "tourItem"}}
                     {{/each}}
                     {{/if}}
 
@@ -37,7 +37,7 @@
                     </div>
 
                     {{#each tour in updates}}
-                    {{view App.TourItemView}}
+                    {{view "tourItem"}}
                     {{/each}}
 
                     {{/if}}
@@ -55,7 +55,7 @@
                     </div>
 
                     {{#each tour in reviews}}
-                    {{view App.TourItemView}}
+                    {{view "tourItem"}}
                     {{/each}}
 
                     {{/if}}

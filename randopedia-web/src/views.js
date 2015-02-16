@@ -152,7 +152,7 @@ App.BreadCrumbView = Ember.View.extend({
     templateName: 'breadcrumb-view'
 });
 
-App.ImageCarouselView = Ember.View.extend({    
+App.ImageCarouselView = Ember.View.extend({
     templateName: 'image-carousel-view',
     classNames: ['carousel', 'slide'],
     init: function() { 
@@ -285,7 +285,7 @@ App.FocusTextField = Ember.TextField.extend({
     }.on('didInsertElement')
 });
 
-App.SearchTextField = Ember.TextField.extend({
+App.SearchTextView = Ember.TextField.extend({
     attributeBindings: ['placeholder'],
     placeholder: 'Search ski tours...',
     classNames: ['form-control','search-textfield'],

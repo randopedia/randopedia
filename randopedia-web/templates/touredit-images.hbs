@@ -1,6 +1,3 @@
-<!-- 
-    Template for an image uploader with preview of selected images    
--->
 <div class="image-upload-view">
 
 	<div class="row">
@@ -11,7 +8,7 @@
 	
 	<div class="row">
 	    <div class="col-sm-12">
-	        <div>{{view App.FileUploadView}}</div>
+	        <div>{{view "fileUpload"}}</div>
 	    </div>
 	</div>
 	
@@ -74,7 +71,7 @@
                                 <div class="form-group">
                                     <div class="checkbox">
                                         <label {{bind-attr class="image.isPortfolio:checked" }}>
-                                            {{view Ember.Checkbox checkedBinding="image.isPortfolio" class="hide"}}
+                                            {{input type="checkbox" checkedBinding="image.isPortfolio" class="hide"}}
                                             <span class="glyphicon glyphicon-ok"></span>
                                             <span>Is portfolio image</span>
                                         </label>

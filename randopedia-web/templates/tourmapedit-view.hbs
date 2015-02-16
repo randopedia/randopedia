@@ -72,8 +72,8 @@
                 </div>
                 <div class="modal-body">
                     <label for="inputAspect">Set type on selected path(s)</label>
-                    {{view Ember.Select
-                        contentBinding="App.Fixtures.PathTypes"
+                    {{view "select"
+                        contentBinding="pathTypes"
                         optionValuePath="content.value"
                         optionLabelPath="content.name"
                         valueBinding="view.draftPathType"
@@ -115,7 +115,7 @@
                             <div class="alert alert-info" role="alert">
                                 For performance reasons the tracks might be compressed (some points ignored). Only tracks will be imported. Waypoints and metadata in the GPX file are ignored.
                             </div>
-                            {{view App.GpxFileUploadView}}
+                            {{view "gpxFileUpload"}}
                         {{/if}}
                     {{/if}}
 

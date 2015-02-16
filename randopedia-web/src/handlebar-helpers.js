@@ -13,3 +13,26 @@ Ember.Handlebars.registerBoundHelper('maxString', function(string, maxLength) {
     if(string.length > maxLength) { return string.substring(0, maxLength - 3) + "..."; }
     return string;
 });
+
+Ember.Handlebars.registerBoundHelper('numberRegex', function() {
+    return "[0-9]+";
+});
+
+Ember.Handlebars.registerBoundHelper('aspects', function() {
+    return App.Fixtures.Aspects;
+});
+
+Ember.Handlebars.registerBoundHelper('months', function() {
+    return App.Months.Aspects;
+});
+
+Ember.Handlebars.registerBoundHelper('grades', function() {
+    return App.Fixtures.Grades;
+});
+
+Ember.Handlebars.registerBoundHelper('pathTypes', function() {
+    return App.Fixtures.PathTypes;
+});
+
+
+

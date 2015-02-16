@@ -47,14 +47,14 @@ App.Area = DS.Model.extend({
             return true;
         }
         return false;
-    }.property('areaType'),
+    }.property('areaType')
 });
 
 App.Maps = Ember.Object.create();
 
 App.Image = DS.Model.extend({
     imageData: DS.attr('string'),
-        imageFile: DS.attr('string'),
+    imageFile: DS.attr('string'),
     tour: DS.belongsTo('tour', {inverse: 'images'}),
     caption: DS.attr('string'),
     isPortfolio: DS.attr('boolean'),
@@ -99,7 +99,7 @@ App.Tag = DS.Model.extend({
 
 App.Tour = DS.Model.extend({
     name: DS.attr('string'),
-    area: DS.belongsTo('area'),
+    area: DS.belongsTo('area', {async : true}),
     shortDescription: DS.attr('string'),
     elevationGain: DS.attr('number'),
     elevationLoss: DS.attr('number'),
@@ -116,6 +116,7 @@ App.Tour = DS.Model.extend({
     timeOfYearFrom: DS.attr('number'),
     timeOfYearTo: DS.attr('number'),
     accessPoint: DS.attr('string'),
+    accessPointElevation: DS.attr('number'),
     itinerary: DS.attr('string'),
     mapPaths: DS.attr('raw'),
     mapGeoJson: DS.attr('raw'),

@@ -98,7 +98,7 @@
                                             title="Elevation loss"
                                             data-content="Total elevation to descend. Only digits are allowed."></button>
                                     <div class="input-group">
-                                        {{input placeholder="" pattern=App.Validate.numberRegex value=elevationLoss id="inputElevationLoss" class="form-control"}}
+                                        {{input placeholder="" pattern=numberRegex value=elevationLoss id="inputElevationLoss" class="form-control"}}
                                         <div class="input-group-addon">m</div>
                                     </div>
                                 </div>
@@ -110,7 +110,7 @@
                                             title="Elevation gain"
                                             data-content="Total elevation to climb. Only digits are allowed."></button>
                                     <div class="input-group">
-                                        {{input placeholder="" pattern=App.Validate.numberRegex value=elevationGain id="inputElevationGain" class="form-control"}}
+                                        {{input placeholder="" pattern=numberRegex value=elevationGain id="inputElevationGain" class="form-control"}}
                                         <div class="input-group-addon">m</div>
                                     </div>
                                 </div>
@@ -122,7 +122,7 @@
                                             title="Highest point"
                                             data-content="The highest point of the tour. Only digits are allowed."></button>
                                     <div class="input-group">
-                                        {{input placeholder="" pattern=App.Validate.numberRegex value=elevationMax id="inputHighestPoint" class="form-control"}}
+                                        {{input placeholder="" pattern=numberRegex value=elevationMax id="inputHighestPoint" class="form-control"}}
                                         <div class="input-group-addon">m</div>
                                     </div>
                                 </div>
@@ -133,8 +133,8 @@
                                     <button type="button" class="info pull-right" data-toggle="popover" data-trigger="focus"
                                             title="Aspect"
                                             data-content="Aspect of the main part of the slopes on the descent route."></button>
-                                    {{view Ember.Select
-                                        contentBinding="App.Fixtures.Aspects"
+                                    {{view "select"
+                                        contentBinding="aspects"
                                         optionValuePath="content.value"
                                         optionLabelPath="content.name"
                                         valueBinding="aspect"
@@ -152,7 +152,7 @@
                                             title="Time min"
                                             data-content="The minimum amount of time that can be expected for the tour. Only digits are allowed."></button>
                                     <div class="input-group">
-                                        {{input placeholder="" pattern=App.Validate.numberRegex value=timingMin id="inputTimeMin" class="form-control"}}
+                                        {{input placeholder="" pattern=numberRegex value=timingMin id="inputTimeMin" class="form-control"}}
                                         <div class="input-group-addon">h</div>
                                     </div>
                                 </div>
@@ -164,7 +164,7 @@
                                             title="Time max"
                                             data-content="The maximum amount of time that can be expected for the tour. Only digits are allowed."></button>
                                     <div class="input-group">
-                                        {{input placeholder="" pattern=App.Validate.numberRegex value=timingMax id="inputTimeMax" class="form-control"}}
+                                        {{input placeholder="" pattern=numberRegex value=timingMax id="inputTimeMax" class="form-control"}}
                                         <div class="input-group-addon">h</div>
                                     </div>
                                 </div>
@@ -175,8 +175,8 @@
                                     <button type="button" class="info pull-right" data-toggle="popover" data-trigger="focus"
                                             title="Season from"
                                             data-content="First month of the season when the tour normally is skiable."></button>
-                                    {{view Ember.Select
-                                        contentBinding="App.Fixtures.Months"
+                                    {{view "select"
+                                        contentBinding="months"
                                         optionValuePath="content.value"
                                         optionLabelPath="content.name"
                                         valueBinding="timeOfYearFrom"
@@ -190,8 +190,8 @@
                                     <button type="button" class="info pull-right" data-toggle="popover" data-trigger="focus"
                                             title="Season to"
                                             data-content="Last month of the season when the tour normally is skiable."></button>
-                                    {{view Ember.Select
-                                    contentBinding="App.Fixtures.Months"
+                                    {{view "select"
+                                    contentBinding="months"
                                     optionValuePath="content.value"
                                     optionLabelPath="content.name"
                                     valueBinding="timeOfYearTo"
@@ -206,8 +206,8 @@
                                 <div class="form-group">
                                     <label for="inputGrade">Grade<span class="asterisk recommended"></span></label>
                                     <button class="info pull-right" data-toggle="modal" data-target="#tourDetailsGradeGuideModal"></button>
-                                    {{view Ember.Select
-                                    contentBinding="App.Fixtures.Grades"
+                                    {{view "select"
+                                    contentBinding="grades"
                                     optionValuePath="content.value"
                                     optionLabelPath="content.name"
                                     valueBinding="grade"
@@ -223,7 +223,7 @@
                                             title="Steepness"
                                             data-content="Degrees on the steepest part of the route. Only digits are allowed."></button>
                                     <div class="input-group">
-                                        {{input pattern=App.Validate.numberRegex value=degreesMax id="inputSteepness" class="form-control"}}
+                                        {{input pattern=numberRegex value=degreesMax id="inputSteepness" class="form-control"}}
                                         <div class="input-group-addon">&#176;</div>
                                     </div>
                                 </div>
@@ -235,7 +235,7 @@
                                 <div class="form-group">
                                     <div class="checkbox">
                                         <label {{bind-attr class="haveHazards:checked" }}>
-                                            {{view Ember.Checkbox checkedBinding="haveHazards" class="hide"}}
+                                            {{input type="checkbox" checkedBinding="haveHazards" class="hide"}}
                                             <span class="glyphicon glyphicon-ok"></span>
                                             <span>Hazards</span>
                                         </label>
@@ -250,7 +250,7 @@
                                 <div class="form-group">
                                     <div class="checkbox">
                                         <label {{bind-attr class="requiresTools:checked" }}>
-                                            {{view Ember.Checkbox checkedBinding="requiresTools" class="hide"}}
+                                            {{input type="checkbox" checkedBinding="requiresTools" class="hide"}}
                                             <span class="glyphicon glyphicon-ok"></span>
                                             <span>Mountaineering skills/equipment</span>
                                         </label>
@@ -292,7 +292,7 @@
 
                 <div id="map-panel" class="tab-pane">
                     <div class="row">
-                        {{view App.TourEditMapView}}
+                        {{view "tourEditMap"}}
                     </div>
                 </div>
 
@@ -329,6 +329,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+{{!--                                        
                                         {{#each action in actions}}
                                         <tr>
                                             <td>{{displayTimestamp action.time}}</td>
@@ -337,6 +338,7 @@
                                             <td>{{action.comment}}</td>
                                         </tr>
                                         {{/each}}
+--}}
                                     </tbody>
                                 </table>
                             </div>
@@ -370,7 +372,7 @@
                     <h4 class="modal-title">Select area</h4>
                 </div>
                 <div class="modal-body">
-                    {{view App.AreaPickerView}}
+                    {{view "areaPicker"}}
                 </div>
             </div>
         </div>
