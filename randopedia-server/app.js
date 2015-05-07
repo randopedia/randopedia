@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var tours = require('./routes/tours');
 
 var app = express();
 
@@ -67,6 +68,22 @@ mongoose.connect(connectString, mongoOptions, function(err, res) {
     } else {
         console.log('Connected to database');
     }
+});
+
+var server = app.listen(8080, function () {
+
+    var connectString = 'mongodb://localhost/randopedia';
+    var mongoOptions = {};
+    
+    mongoose.connect(connectString, mongoOptions, function(err, res) {
+        if(err) {
+            console.log('Could not connect to database');
+        } else {
+            console.log('Connected to database');
+        }
+    });
+
+    console.log("Randopedia app listening at http://%s:%s", server.address().address, server.address().port);
 });
 
 module.exports = app;
