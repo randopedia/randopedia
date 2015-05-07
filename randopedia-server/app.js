@@ -56,5 +56,17 @@ app.use(function(err, req, res, next) {
   });
 });
 
+var mongoose = require('mongoose');
+
+var connectString = 'mongodb://localhost/randopedia';
+var mongoOptions = {};
+
+mongoose.connect(connectString, mongoOptions, function(err, res) {
+    if(err) {
+        console.log('Could not connect to database');
+    } else {
+        console.log('Connected to database');
+    }
+});
 
 module.exports = app;
