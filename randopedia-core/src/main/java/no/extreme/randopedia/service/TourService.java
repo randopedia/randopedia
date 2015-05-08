@@ -8,7 +8,6 @@ import java.util.List;
 import no.extreme.randopedia.exception.InvalidTourException;
 import no.extreme.randopedia.exception.TokenInvalidException;
 import no.extreme.randopedia.helper.TagsHelper;
-import no.extreme.randopedia.model.area.Area;
 import no.extreme.randopedia.model.tag.Tag;
 import no.extreme.randopedia.model.tour.Tour;
 import no.extreme.randopedia.model.tour.TourAction;
@@ -19,7 +18,6 @@ import no.extreme.randopedia.model.tour.TourImage;
 import no.extreme.randopedia.model.tour.TourStatus;
 import no.extreme.randopedia.model.user.User;
 import no.extreme.randopedia.repository.ActionRepository;
-import no.extreme.randopedia.repository.AreaRepository;
 import no.extreme.randopedia.repository.AuthenticationRepository;
 import no.extreme.randopedia.repository.TourRepository;
 import no.extreme.randopedia.utils.DataWasher;
@@ -32,8 +30,6 @@ import org.springframework.stereotype.Service;
 public class TourService {
     @Autowired
     TourRepository tourRepository;
-    @Autowired
-    AreaRepository areaRepository;
     @Autowired
     AuthenticationRepository authenticationRepository;
     @Autowired
@@ -159,13 +155,6 @@ public class TourService {
             throw new InvalidTourException("Tour not found", error);
         }
         
-        if(tour.getStatus() == TourStatus.PUBLISHED){
-            if(tour.getArea() != currentTour.getArea()){
-                addTourToArea(tour);
-                deleteTourFromArea(tour, currentTour);
-            }   
-        }
-        
         tour.setTourImages(currentTour.getTourImages());
         tour.setTourComments(currentTour.getTourComments());
 
@@ -181,15 +170,11 @@ public class TourService {
            (currentTour.getStatus() == TourStatus.IN_REVIEW && tour.getStatus() == TourStatus.PUBLISHED)){
             
             // TOUR IS PUBLISHED FOR THE FIRST TIME
-            
-            addTourToArea(tour);
             saveTourAction(user, tour, TourActionType.PUBLISH);
         }
         
         return tour;
     }
-    
-    
     
     /**
      * Create a new tour
@@ -214,10 +199,7 @@ public class TourService {
         saveTourAction(user, tour, TourActionType.CREATE);
         
         if(tour.getStatus() == TourStatus.PUBLISHED){
-            
-            // TOUR IS CREATED AND PUBLISHED
-            
-            addTourToArea(tour);    
+            // TOUR IS CREATED AND PUBLISHED  
             saveTourAction(user, tour, TourActionType.PUBLISH);
         }
         
@@ -303,31 +285,6 @@ public class TourService {
         }
         
         return actions;
-    }
-
-    private void addTourToArea(Tour tour){
-        Area area = areaRepository.findAreaById(tour.getArea());
-        List<String> tours = area.getTours();
-        List<String> clientTours = area.getClientTours();
-        tours.add(tour.getId());
-        clientTours.add(tour.getClientId());
-        area.setTours(tours);
-        area.setClientTours(clientTours);
-        areaRepository.updateArea(area);
-    }
-    
-    private void deleteTourFromArea(Tour tour, Tour currentTour){
-        Area area = areaRepository.findAreaById(currentTour.getArea());
-        if(area == null){
-            return;
-        }
-        List<String> tours = area.getTours();
-        List<String> clientTours = area.getClientTours();
-        tours.remove(tour.getId());
-        clientTours.remove(tour.getClientId());
-        area.setTours(tours);
-        area.setClientTours(clientTours);
-        areaRepository.updateArea(area);
     }
     
     private void saveTourAction(User user, Tour tour, int type){

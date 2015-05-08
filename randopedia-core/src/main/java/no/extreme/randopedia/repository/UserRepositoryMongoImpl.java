@@ -2,7 +2,6 @@ package no.extreme.randopedia.repository;
 
 import java.util.List;
 
-import no.extreme.randopedia.model.area.Area;
 import no.extreme.randopedia.model.user.User;
 
 import org.springframework.beans.factory.annotation.Autowired;

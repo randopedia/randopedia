@@ -1,7 +1,0 @@
-{{#if area.parent}}
-    {{#unless area.parent.isRootArea}}
-        {{area-breadcrumb area=area.parent}}
-    {{/unless}}
-{{/if}}
-
-<li class="uppercase">{{#link-to "area" area }} {{area.name}} {{/link-to}}</li>

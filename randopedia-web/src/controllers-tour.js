@@ -136,18 +136,11 @@ App.TourController = Ember.ObjectController.extend({
 
 App.TourEditController = Ember.ObjectController.extend({
     needs: ["login"],
-    //queryParams: ['createNewInArea'], // Used for new tour triggered from area edit view
-    //createNewInArea: null,
     validationErrors: [],
     validationWarnings: [],
 
     init: function() {
-        //var newAreaId = this.get('createNewInArea');
-        //if (newAreaId) {
-        //    this.store.find('area', newAreaId).then(function(area) {
-        //        this.get('model').set('area', area);
-        //    });
-        //}
+ 
     },
 
     actions: {
@@ -159,19 +152,11 @@ App.TourEditController = Ember.ObjectController.extend({
                 self.get("model").deleteRecord();
                 self.transitionToRoute("index");
             }
-            else {
-                
-                /*if (self.get("model").get("area") !== null) {
-                    self.get("model").get("area").rollback();
-                }*/
-                
+            else {                
                 self.get("model").rollback();
                 
                 self.set("newImage", null);
-                
-                self.set("areaIsUpdated", false);
-                //self.get("model").reload();
-            
+                            
                 self.transitionToRoute("tour", self.get("model"));
             }
         },
@@ -182,13 +167,13 @@ App.TourEditController = Ember.ObjectController.extend({
             if (self.get("havePendingOperations")) {
                 return;
             }
-            var area = self.get("area");
+            
             if (!self.validateForPublish()) {
                 App.Alerts.showErrorMessage("There are validation errors, please correct and try again.");
                 return;
             }
             self.get("model").set("status", App.Fixtures.TourStatus.PUBLISHED);
-            self.saveAndExit(area);
+            self.saveAndExit();
         },
     
         saveAsDraft: function () {
@@ -200,13 +185,12 @@ App.TourEditController = Ember.ObjectController.extend({
 
             self.set("draftValidationErrors", false);
             
-            var area = self.get("area");
             if (!self.validateForDraft()) {
                 App.Alerts.showErrorMessage("There are validation errors, area and name must be set before saving");
                 return; 
             }
             self.get("model").set("status", App.Fixtures.TourStatus.DRAFT);
-            self.saveAndExit(area);
+            self.saveAndExit();
         },
 
         sendToReview: function () {
@@ -216,13 +200,12 @@ App.TourEditController = Ember.ObjectController.extend({
                 return;
             }
 
-            var area = self.get("area");
             if (!self.validateForDraft()) {
                 App.Alerts.showErrorMessage("There are validation errors, area and name must be set before saving");
                 return;
             }
             self.get("model").set("status", App.Fixtures.TourStatus.IN_REVIEW);
-            self.saveAndExit(area);
+            self.saveAndExit();
         },
 
         saveNewImage: function () {
@@ -323,62 +306,7 @@ App.TourEditController = Ember.ObjectController.extend({
                }
             );
         },
-        
-        startAddingSubArea: function () {
-            var self = this;
-
-            if (self.get("havePendingOperations")) {
-                return;
-            }
-
-            self.set("addSubareaMode", true);
-            var newArea = self.store.createRecord("area");
-            self.set("newArea", newArea);
-        },
-        
-        cancelAddSubArea: function() {
-            this.get("newArea").deleteRecord();
-            this.set("addSubareaMode", false);
-        },
-        
-        addSubArea : function() {
-            var newArea = this.get("newArea");
-            if(!newArea || !App.Validate.name(newArea.get("name"))){
-                return;
-            }
-            this.set("havePendingOperations", true);
-            newArea.set("parent", this.get("tempSelectedArea"));
-            var self = this;
-            newArea.save().then(
-                function() {
-                    //console.log('WHY DONT WE GET HERE? Area is created OK on server, but save method seems to never return...');
-                    self.store.find("area").then(
-                            function(areas){
-                                self.set("allAreas", areas);
-                                self.set("tempSelectedArea", self.get("newArea"));
-                                self.set("addSubareaMode", false);
-                                self.set("havePendingOperations", false);
-                            }
-                    );
-                    App.Alerts.showSuccessMessage("Area was successfully created. ");
-                }, 
-                function(error) {
-                    var status = error.status;
-                    if(status === 421) {
-                        App.Alerts.showErrorMessage("Oh noes, there are validation errors, please try again. ");
-                    }
-                    else if(status === 403) {
-                        self.get("controllers.login").send("removeToken");
-                        App.Alerts.showErrorMessage("Oh noes, you have most likely been logged out. Try to log in again. ");
-                    }
-                    else {
-                        App.Alerts.showErrorMessage("An error occured when adding the area, please try again. ");
-                    }
-                    self.set("havePendingOperations", false);                    
-                }
-            );
-        },       
-        
+                
         // MAP ACTIONS
         
         updatePaths: function(geoJson) {
@@ -394,7 +322,7 @@ App.TourEditController = Ember.ObjectController.extend({
         }
         
     },    
-    saveAndExit: function (area) {
+    saveAndExit: function () {
         console.log('save and exit!');
         var self = this;
 
@@ -406,16 +334,9 @@ App.TourEditController = Ember.ObjectController.extend({
         self.get("model").save().then(
             function() {
                 console.log('saved ok');
-                self.set("areaIsUpdated", false);
-                //self.get("model").reload();
-            
+                            
                 self.set("havePendingOperations", false);
-                //self.transitionToRoute("tour", self.get("model"));
-            
-                if(area !== null && typeof area !== "undefined") {
-                    // Reload area so new tour shows in area tour list
-                    //area.reload();
-                }
+                
                 self.set("havePendingOperations", false);
                 App.Alerts.showSuccessMessage("Tour was successfully saved");
             }, 
@@ -451,7 +372,6 @@ App.TourEditController = Ember.ObjectController.extend({
     // Required fields when saving as draft are: name
     validateForDraft: function() {
         if(!App.Validate.name(this.get("name")) ||
-           !this.get("area") ||
            !App.Validate.shortDesc(this.get("shortDescription"), true) ||
            !App.Validate.mediumDesc(this.get("startingPoint"), true) ||
            !App.Validate.shortDesc(this.get("dangerDescription"), true) ||
@@ -474,9 +394,6 @@ App.TourEditController = Ember.ObjectController.extend({
         
         if(!App.Validate.name(this.get("name"))){
             this.get("validationErrors").push("Name");
-        }
-        if(!this.get("area")){
-            this.get("validationErrors").push("Area");
         }
         if(!App.Validate.shortDesc(this.get("shortDescription"), true)){
             this.get("validationErrors").push("Summary");
@@ -555,11 +472,11 @@ App.TourEditController = Ember.ObjectController.extend({
     // Computed properties
 
     hasChanges: function() {
-        if(this.get("isDirty") || this.get("hasNewImage") || this.get("areaIsUpdated")) {
+        if(this.get("isDirty") || this.get("hasNewImage")) {
             return true;
         }
         return false;
-    }.property("isDirty", "newImage", "areaIsUpdated"),
+    }.property("isDirty", "newImage"),
     
     isStartPublishDisabled: function () {
         if (this.get("havePendingOperations")) {
@@ -574,12 +491,12 @@ App.TourEditController = Ember.ObjectController.extend({
             return true;
         }
 
-        if(this.get("isDraft") || this.get("isInReview") || this.get("isDirty") || this.get("areaIsUpdated")){
+        if(this.get("isDraft") || this.get("isInReview") || this.get("isDirty")) {
             return false;
         }
         
         return true;
-    }.property("isDirty", "status", "areaIsUpdated", "name", "havePendingOperations"),
+    }.property("isDirty", "status", "name", "havePendingOperations"),
     
     isSaveAsDraftDisabled: function () {
         if(this.get("havePendingOperations")) {
@@ -595,7 +512,7 @@ App.TourEditController = Ember.ObjectController.extend({
         }
 
         return !this.get("isDraft") || !this.get("hasChanges");
-    }.property("model.status", "isDirty", "newImage", "areaIsUpdated", "model.name", "havePendingOperations"),
+    }.property("model.status", "isDirty", "newImage", "model.name", "havePendingOperations"),
 
     isSendToReviewDisabled: function () {
         if (this.get("havePendingOperations")) {
@@ -615,7 +532,7 @@ App.TourEditController = Ember.ObjectController.extend({
         }
         
         return this.get("isInReview") && !this.get("hasChanges");
-    }.property("model.status", "isDirty", "newImage", "areaIsUpdated", "model.name", "havePendingOperations"),
+    }.property("model.status", "isDirty", "newImage", "model.name", "havePendingOperations"),
 
     isPublished: function() {
         return this.get("status") === App.Fixtures.TourStatus.PUBLISHED;

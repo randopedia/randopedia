@@ -5,7 +5,7 @@
         <div class="col-sm-12">
             <div class="alert alert-danger" role="alert">
                 <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                Couldn't save tour, area and name must be set.
+                Couldn't save tour, name must be set.
             </div>
         </div>
     </div>
@@ -49,14 +49,7 @@
                     <form role="form">
 
                         <div class="row">
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label for="inputArea">Area<span class="asterisk required"></span></label>
-                                    <button type="button" class="info pull-right" data-toggle="popover" data-trigger="focus" title="Area" data-content="The area where the tour is located."></button>
-                                    <div><a data-toggle="modal" data-target="#areaPickerModal">{{#unless area}}Select area...{{else}}{{area.name}}{{/unless}}</a></div>
-                                </div>
-                            </div>
-                            <div class="col-sm-8">
+                            <div class="col-sm-12">
                                 <div class="form-group">
                                     <label for="inputName">Name of tour<span class="asterisk required"></span></label>
                                     <button type="button"
@@ -364,20 +357,6 @@
         </div>
     </div>
 
-    <div class="modal fade" id="areaPickerModal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <h4 class="modal-title">Select area</h4>
-                </div>
-                <div class="modal-body">
-                    {{view "areaPicker"}}
-                </div>
-            </div>
-        </div>
-    </div>
-
     <div class="modal fade" id="discardChangesTourModal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -437,7 +416,7 @@
                         </p>
 
                         <p class="secondary-text confirmation-message">
-                            Required fields for publish are: Area, Name, Access point, Description, Time min/max and Elevation gain/loss
+                            Required fields for publish are: Name, At least one Tag, Access point, Description, Time min/max and Elevation gain/loss
                         </p>
                     </div>
                     {{else}}

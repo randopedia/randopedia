@@ -7,7 +7,6 @@ import java.util.List;
 
 import no.extreme.randopedia.exception.InvalidTourException;
 import no.extreme.randopedia.exception.TokenInvalidException;
-import no.extreme.randopedia.model.area.Area;
 import no.extreme.randopedia.model.tour.Tour;
 import no.extreme.randopedia.model.tour.TourActionsContainer;
 import no.extreme.randopedia.model.tour.TourComment;
@@ -22,13 +21,11 @@ import no.extreme.randopedia.model.tour.ToursContainer;
 import no.extreme.randopedia.model.tour.client.ClientTour;
 import no.extreme.randopedia.model.user.User;
 import no.extreme.randopedia.repository.ActionRepositoryMongoImpl;
-import no.extreme.randopedia.repository.AreaRepositoryMongoImpl;
 import no.extreme.randopedia.repository.AuthenticationRepository;
 import no.extreme.randopedia.repository.FacebookRepository;
 import no.extreme.randopedia.repository.GoogleRepository;
 import no.extreme.randopedia.repository.TourRepositoryMongoImpl;
 import no.extreme.randopedia.repository.UserRepository;
-import no.extreme.randopedia.service.AreaService;
 import no.extreme.randopedia.service.TourService;
 
 import org.slf4j.Logger;
@@ -55,8 +52,6 @@ public class TourRestController {
 	@Autowired
 	TourRepositoryMongoImpl tourRepository;
 	@Autowired
-	AreaRepositoryMongoImpl areaRepository;
-	@Autowired
     UserRepository userRepository;
     @Autowired
     FacebookRepository facebookRepository;
@@ -68,8 +63,6 @@ public class TourRestController {
     AuthenticationRepository authenticationRepository;
     @Autowired
     TourService tourService;
-    @Autowired
-    AreaService areaService;
 	
     @RequestMapping(method=RequestMethod.GET, value="/tours/{tourId}", produces="application/json")
     public @ResponseBody TourContainer getTour(@PathVariable String tourId) {
@@ -167,7 +160,7 @@ public class TourRestController {
         
         ClientTour clientTour = tourContainer.getTour();
         clientTour.setId(tourId);
-        Tour tour = Mapper.mapClientTourToTour(clientTour, true, tourService, areaService);
+        Tour tour = Mapper.mapClientTourToTour(clientTour, true, tourService);
         
         tour = tourService.updateTour(tour, user);
         
@@ -189,7 +182,7 @@ public class TourRestController {
         
         User user = authenticationRepository.getUserFromToken(token, provider);
         ClientTour clientTour = tourContainer.getTour();
-        Tour tour = Mapper.mapClientTourToTour(clientTour, false, tourService, areaService);
+        Tour tour = Mapper.mapClientTourToTour(clientTour, false, tourService);
         tour = tourService.createTour(tour, user);
         ClientTour createdTour = Mapper.mapTourToClientTour(tour);
         tourContainer.setTour(createdTour);
@@ -310,7 +303,6 @@ public class TourRestController {
             clientTour.setAccessPoint(tour.getAccessPoint());
             clientTour.setAccessPointElevation(tour.getAccessPointElevation());
             clientTour.setActions(tour.getActions());
-            clientTour.setArea(tour.getClientArea());
             clientTour.setAspect(tour.getAspect());
             clientTour.setDegreesMax(tour.getDegreesMax());
             clientTour.setElevationGain(tour.getElevationGain());
@@ -350,7 +342,7 @@ public class TourRestController {
             return clientTours;
         }
 
-        public static Tour mapClientTourToTour(ClientTour clientTour, boolean updateTour, TourService tourService, AreaService areaService) {
+        public static Tour mapClientTourToTour(ClientTour clientTour, boolean updateTour, TourService tourService) {
             Tour tour = new Tour();
             Tour serverSideTour = tourService.getTourByClientId(clientTour.getId());
 
@@ -358,13 +350,10 @@ public class TourRestController {
                 
                 tour.setId(serverSideTour.getId());
             }
-            
-            Area area = areaService.findAreaByClientId(clientTour.getArea());
-            tour.setArea(area.getId());
+      
             tour.setAccessPoint(clientTour.getAccessPoint());
             tour.setAccessPointElevation(clientTour.getAccessPointElevation());
             tour.setActions(clientTour.getActions());
-            tour.setClientArea(clientTour.getArea());
             tour.setAspect(clientTour.getAspect());
             tour.setDegreesMax(clientTour.getDegreesMax());
             tour.setElevationGain(clientTour.getElevationGain());

@@ -8,6 +8,7 @@
 .tar.gz
 .tar
 .gz
+.log
 target
 var
 tourimages

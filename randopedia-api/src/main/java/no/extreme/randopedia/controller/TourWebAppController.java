@@ -1,12 +1,9 @@
 package no.extreme.randopedia.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import no.extreme.randopedia.model.area.Area;
 import no.extreme.randopedia.model.tour.Tour;
 import no.extreme.randopedia.model.tour.TourImage;
-import no.extreme.randopedia.service.AreaService;
 import no.extreme.randopedia.service.TourService;
 
 import org.markdownj.MarkdownProcessor;
@@ -21,8 +18,6 @@ import org.springframework.web.servlet.ModelAndView;
 public class TourWebAppController {
 
     @Autowired
-    AreaService areaService;
-    @Autowired
     TourService tourService;
 
     @RequestMapping(method=RequestMethod.GET, value="/tours/{tourId}")
@@ -35,25 +30,12 @@ public class TourWebAppController {
         Tour tour = tourService.getTourByClientId(tourId);
         List<TourImage> images = tour.getTourImages();
         
-        
-        String areaId = tour.getClientArea();
-        Area area = areaService.findAreaByClientId(areaId);
-           
-        List<Area> parents = new ArrayList<Area>();
-        while(area != null) {
-            parents.add(0, area);
-            area = areaService.findAreaById(area.getParent());
-        }
-        area = areaService.findAreaByClientId(areaId);
-        
         result.addObject("tour", tour);
         result.addObject("grade", formatGrade(tour.getGrade()));
         result.addObject("from", formatSeason(tour.getTimeOfYearFrom()));
         result.addObject("to", formatSeason(tour.getTimeOfYearTo()));
         result.addObject("aspect", formatAspect(tour.getAspect()));
-        result.addObject("area", area);
         result.addObject("images", images);
-        result.addObject("parents", parents);
         
         String itinerary = markdown.markdown(tour.getItinerary());
         result.addObject("itinerary", itinerary);

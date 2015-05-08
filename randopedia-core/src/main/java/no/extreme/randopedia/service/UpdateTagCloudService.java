@@ -2,12 +2,9 @@ package no.extreme.randopedia.service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import no.extreme.randopedia.model.tag.Tag;
-import no.extreme.randopedia.model.tour.Tour;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort.Direction;
@@ -18,10 +15,6 @@ import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.AggregationOperation;
 import org.springframework.data.mongodb.core.aggregation.AggregationResults;
-import org.springframework.data.mongodb.core.aggregation.GroupOperation;
-import org.springframework.data.mongodb.core.aggregation.GroupOperation.GroupOperationBuilder;
-import org.springframework.data.mongodb.core.aggregation.MatchOperation;
-import org.springframework.data.mongodb.core.aggregation.UnwindOperation;
 import org.springframework.stereotype.Service;
 
 @Service

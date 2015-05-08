@@ -1,6 +1,5 @@
 package no.extreme.randopedia.utils;
 
-import no.extreme.randopedia.model.area.Area;
 import no.extreme.randopedia.model.tour.Tour;
 import no.extreme.randopedia.model.tour.TourComment;
 
@@ -28,16 +27,6 @@ public class DataWasher {
     public TourComment washComment(TourComment comment) {
         comment.setComment(removeWhitespace(comment.getComment()));
         return comment;
-    }
-    
-    public Area washArea(Area area) {
-        area.setName(removeWhitespace(area.getName()));
-        area.setName(capitalizeFirstLetter(area.getName()));
-        
-        area.setDescription(removeWhitespace(area.getDescription()));
-        area.setDescription(replaceHtmlChars(area.getDescription()));
-        
-        return area;
     }
     
     private String removeWhitespace(String text) {

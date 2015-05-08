@@ -1,6 +1,5 @@
 package no.extreme.randopedia.exception;
 
-import no.extreme.randopedia.model.area.AreaError;
 import no.extreme.randopedia.model.tour.TourError;
 
 public class InvalidTourException extends Exception{

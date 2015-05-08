@@ -43,6 +43,7 @@ module.exports = function(grunt) {
     emberTemplates: {
         compile: {
           options: {
+            templateNamespace: 'Handlebars',
             templateName: function(sourceFile) {
                 
                     if(sourceFile.indexOf("-component") !== -1) {

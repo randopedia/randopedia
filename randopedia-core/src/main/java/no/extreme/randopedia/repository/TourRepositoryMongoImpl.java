@@ -12,7 +12,6 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import no.extreme.randopedia.model.area.Area;
 import no.extreme.randopedia.model.tag.Tag;
 import no.extreme.randopedia.model.tour.Tour;
 import no.extreme.randopedia.model.tour.TourAction;
@@ -123,36 +122,10 @@ public class TourRepositoryMongoImpl implements TourRepository {
     public List<Tour> findToursByQuery(String searchString) {
         List<Tour> toursByName = new ArrayList<Tour>();
         List<Tour> toursByArea = new ArrayList<Tour>();
-        List<Area> areasByName = new ArrayList<Area>();
         Criteria criteria = Criteria.where("name").regex(searchString, "i");
         Query query = Query.query(criteria);
         query.addCriteria(onlyPublishedCriteria);
         toursByName = mongoOperations.find(query, Tour.class);
-        
-        Criteria areaCriteria = Criteria.where("name").regex(searchString, "i");
-        Query areaQuery = Query.query(areaCriteria);
-        areasByName = mongoOperations.find(areaQuery, Area.class);
-        
-        List<Area> subAreas = new ArrayList<Area>();
-        for(Area area : areasByName) {
-            Criteria subAreaCriteria = Criteria.where("ancestors").in(area.getId());
-            Query subAreaQuery = Query.query(subAreaCriteria);
-            List<Area> subAreasTmp = mongoOperations.find(subAreaQuery, Area.class);
-            if(subAreasTmp != null) {
-                subAreas.addAll(subAreasTmp);
-            }
-        }
-        
-        Set<Area> allFoundAreas = new HashSet<Area>();
-        allFoundAreas.addAll(areasByName);
-        allFoundAreas.addAll(subAreas);
-           
-        List<String> areaIds = new ArrayList<String>();
-        for(Area area : allFoundAreas) {
-            areaIds.add(area.getId());
-        }
-        
-        toursByArea = findToursByAreaId(areaIds);
         
         SortedSet<Tour> allTours = new TreeSet<Tour>();
         allTours.addAll(toursByArea);

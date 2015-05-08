@@ -4,7 +4,6 @@ public class Stats {
 	private String id;
 	private long publishedTours;
 	private long publishedAreas;
-	private long deadAreas;
 	private long tourDrafts;
 	private long registeredUsers;
 	
@@ -30,14 +29,6 @@ public class Stats {
 	
 	public void setPublishedAreas(long publishedAreas) {
 		this.publishedAreas = publishedAreas;
-	}
-
-	public long getDeadAreas() {
-		return deadAreas;
-	}
-
-	public void setDeadAreas(long deadAreas) {
-		this.deadAreas = deadAreas;
 	}
 
 	public long getTourDrafts() {

@@ -7,7 +7,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import no.extreme.randopedia.model.area.Area;
 import no.extreme.randopedia.model.tour.Grade;
 import no.extreme.randopedia.model.tour.Tour;
 import no.extreme.randopedia.model.tour.TourComment;
@@ -22,10 +21,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.mockito.Spy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.test.context.ContextConfiguration;
@@ -38,8 +35,6 @@ import org.springframework.test.util.ReflectionTestUtils;
 public class TourRepositoryMongoImplIntegrationTest extends AbstractJUnit4SpringContextTests{
     @Autowired
     TourRepositoryMongoImpl tourRepo;
-    @Autowired
-    AreaRepositoryMongoImpl areaRepo;
     @Autowired
     MongoOperations mongoOperations;
     
@@ -63,7 +58,6 @@ public class TourRepositoryMongoImplIntegrationTest extends AbstractJUnit4Spring
     @After
     public void tearDown() {
         mongoOperations.dropCollection(Tour.class);
-        mongoOperations.dropCollection(Area.class);
     }
     
     /**
@@ -366,30 +360,6 @@ public class TourRepositoryMongoImplIntegrationTest extends AbstractJUnit4Spring
         assertEquals(tour.getTourImages().get(0).getId(), tour.getPortfolioImage());
     }
     
-    
-    /**
-     * Test move tour to new area
-     */
-    @Test
-    public void testMoveTourToNewArea_TourIsMoved() {
-        createAndSaveAreas();
-        
-        Area sweden = areaRepo.findAreaByName("Sweden");
-        Area norway = areaRepo.findAreaByName("Norway");
-        Tour tour = createBasicTour();
-        tour.setArea(sweden.getId());
-        tourRepo.saveTour(tour);
-        
-        Tour dbTour = getFirstTourFromRepository();
-        assertEquals(dbTour.getArea(), sweden.getId());
-        
-        dbTour.setArea(norway.getId());
-        tourRepo.saveTour(dbTour);
-        
-        Tour tourWithNewArea = getFirstTourFromRepository();
-        assertEquals(tourWithNewArea.getArea(), norway.getId());
-    }
-    
     /**
      * Helpers
      */ 
@@ -465,25 +435,6 @@ public class TourRepositoryMongoImplIntegrationTest extends AbstractJUnit4Spring
         tour.setStatus(TourStatus.PUBLISHED);
      
         mongoOperations.insert(tour);
-    }
-    
-    private void createAndSaveAreas() {
-        Area area = new Area();
-        area.setAncestors(null);
-        area.setParent(null);
-        area.setName("Earth");        
-        mongoOperations.insert(area);
-        
-        Area parent = areaRepo.findAreaByName("Earth");
-        Area europe = new Area();
-        europe.setName("Europe");
-        areaRepo.addArea(europe, parent);
-        Area sweden = new Area();
-        sweden.setName("Sweden");
-        areaRepo.addArea(sweden, europe);       
-        Area norway = new Area();
-        norway.setName("Norway");
-        areaRepo.addArea(norway, europe);     
     }
     
     private void createAndSaveBasicTourAndAddOneImage(String caption) throws IOException{
