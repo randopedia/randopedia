@@ -98,3 +98,5 @@ App.Tour = DS.Model.extend({
     status: DS.attr('number'),
     publishComment: DS.attr('string')
 });
+
+App.TourItem = App.Tour.extend();

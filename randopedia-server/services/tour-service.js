@@ -9,9 +9,18 @@ var tourService = (function () {
             }
         });
     }
+    
+    function getTourItems(callback) {
+        return tourRepository.getTourItems(function(tourItems) {
+            if(callback) {
+                callback(tourItems);
+            }
+        });
+    }    
 
     return {
-        get: getTour
+        get: getTour,
+        getTourItems: getTourItems
     };
 
 })();

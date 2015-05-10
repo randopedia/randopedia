@@ -12,7 +12,7 @@
     <div class="tour-info">
         <h4>
             <button type="button" class="close" {{action "closeInfoWindowAction" }}><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-            {{#link-to "tour" selectedTour}} {{selectedTour.name}} {{/link-to}}
+            {{#link-to "tour" selectedTour.id}} {{selectedTour.name}} {{/link-to}}
         </h4>
         <div>
             {{resolveGradeName selectedTour.grade}} |

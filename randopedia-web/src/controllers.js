@@ -11,7 +11,7 @@ App.IndexController = Ember.ObjectController.extend({
         this._super();
         
         var self = this;
-        self.loadLiteTours();
+        self.loadTourItems();
         
         var onWindowResize = function() {
             self.set('isSmallScreen', window.innerWidth < 768);
@@ -32,10 +32,10 @@ App.IndexController = Ember.ObjectController.extend({
             this.transitionToRoute('index');
         }
     },
-    loadLiteTours: function() {
+    loadTourItems: function() {
         var self = this;
-        this.get('store').findQuery('tour', {liteTours: true}).then(function(tours) {
-            self.set('liteTours', tours);
+        self.get('store').findQuery('tourItem', {}).then(function(tourItems) {
+            self.set('liteTours', tourItems);
         }, function(error) {
             App.Alerts.showErrorMessage('Error when loading tours');
         });
