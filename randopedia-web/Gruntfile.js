@@ -114,12 +114,9 @@ module.exports = function(grunt) {
                     https: false,
                     changeOrigin: false,
                     xforward: false,
-                    //rewrite: {
-                    //    '^/api/$': '/randopedia/api/$1'
-                    //}
                 },
                 {
-                    context: "/randopedia/logincallback",
+                    context: "/auth/facebook/callback",
                     host: "127.0.0.1",
                     port: 8080,
                     https: false,

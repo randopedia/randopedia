@@ -21,26 +21,28 @@ var App = Ember.Application.create({
         }
         else {
             var html = url.indexOf('index.html');
-            url = url.slice(0, html) + '/randopedia';
+            url = url.slice(0, html);
             facebookAppId = App.Config.facebookAppIdLocalhost;
             googleAppId = App.Config.googleAppIdLocalhost;
         }
+        
         Ember.OAuth2.config = {
             facebook: {
                 clientId: facebookAppId,
                 authBaseUri: 'https://www.facebook.com/dialog/oauth',
-                redirectUri: url + '/logincallback',
+                redirectUri: url + '/auth/facebook/callback',
                 scope: ''
             },
             google: {
                 clientId: googleAppId,
                 authBaseUri: 'https://accounts.google.com/o/oauth2/auth',
-                redirectUri: url + '/logincallback',
+                redirectUri: url + '/auth/google/callback',
                 scope: 'https://www.googleapis.com/auth/userinfo.profile'
             }
         };
         
-        //App.oauth = Ember.OAuth2.create({providerId: 'google'});
+       // console.log('URL: ' + Ember.OAuth2.config.facebook.redirectUri);
+        
         App.oauth = Ember.OAuth2.create();
     }
 });

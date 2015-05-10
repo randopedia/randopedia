@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
+var auth = require('./routes/auth');
 var users = require('./routes/users');
 var tours = require('./routes/tours');
 
@@ -24,6 +25,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
+app.use('/auth', auth);
 app.use('/users', users);
 app.use('/randopedia/api/tours/', tours);
 
@@ -86,5 +88,5 @@ var server = app.listen(8080, function () {
 
     console.log("Randopedia app listening at http://%s:%s", server.address().address, server.address().port);
 });
-
+                                 
 module.exports = app;
