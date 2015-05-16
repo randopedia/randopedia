@@ -31,6 +31,7 @@ templates.min.js
 site.css
 site.min.css
 Thumbs.db
+npm-debug.log
 
 # Visual Studio project files #
 randopedia-web.sln

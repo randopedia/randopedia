@@ -10,6 +10,7 @@ var auth = require('./routes/auth');
 var users = require('./routes/users');
 var tours = require('./routes/tours');
 var touritems = require('./routes/touritems');
+var tags = require('./routes/tags');
 
 var app = express();
 
@@ -30,6 +31,7 @@ app.use('/auth', auth);
 app.use('/users', users);
 app.use('/randopedia/api/tours/', tours);
 app.use('/randopedia/api/touritems/', touritems);
+app.use('/randopedia/api/tags/', tags);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
