@@ -10,20 +10,27 @@ var TourStatus = {
 
 var tourRepository = (function () {
 
-    function clientifyResultTour(resultTour) {
-        var tour = resultTour.toObject();
+    function handleError(err, errorCallback) {
+        console.log(err);
+        if(errorCallback) {
+            errorCallback(err);
+        }
+    }
+    
+    function documentToTour(doc) {
+        var tour = doc.toObject();
         tour.id = tour.clientId;
         return tour;
     }
-
-    function clientifyResultTours(resultTours) {
-        if(!resultTours || resultTours.length === 0) {
+    
+    function documentsToTours(documents) {
+        if(!documents || documents.length === 0) {
             return { tours: [] };
         }
         
         var entities = [];
-        resultTours.forEach(function(item) {
-            entities.push(clientifyResultTour(item));
+        documents.forEach(function(doc) {
+            entities.push(documentToTour(doc));
         }, this);
 
         return { tourItems: entities };
@@ -33,7 +40,8 @@ var tourRepository = (function () {
 
         Tour.find({ clientId: tourId }, function (err, result) {
             if (err) {
-                console.error(err);
+                handleError(err);
+                return;
             }
             
             if (callback) {
@@ -41,7 +49,26 @@ var tourRepository = (function () {
                     callback(null);
                     return;
                 }
-                callback( {tour: clientifyResultTour(result[0])} );
+                callback( {tour: documentToTour(result[0])} );
+            }
+        });
+    }
+    
+    function getTours(callback) {
+        // todo: ...
+    }
+    
+    function saveTour(tour, callback, errorCallback) {
+        // console.log("saveTour: " + tour.id);
+
+        Tour.findOneAndUpdate({clientId: tour.id}, tour, { upsert: true }, function(err, result) {
+            if(err) {
+                handleError(err, errorCallback);
+                return;
+            }
+            //console.log(result);
+            if(callback) {
+                callback(documentToTour(result));
             }
         });
     }
@@ -51,17 +78,20 @@ var tourRepository = (function () {
 
         Tour.find({status: TourStatus.PUBLISHED}, itemFields, function (err, result) {
             if (err) {
-                console.error(err);
+                handleError(err);
+                return;
             }
             
             if (callback) {
-                callback(clientifyResultTours(result));
+                callback(documentsToTours(result));
             }
         });
     }
 
     return {
-        get: getTour,
+        getTour: getTour,
+        getTours: getTours,
+        saveTour: saveTour,        
         getTourItems: getTourItems
     };
 
