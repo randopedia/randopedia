@@ -9,7 +9,7 @@
     	  var boundSend = controller.send.bind(controller);
     	  boundSend('requestAuthentication');
       }
-      
+
       window.opener.App.oauth.onRedirect(window.location.hash);
       sendAuthEvent();
       window.close();

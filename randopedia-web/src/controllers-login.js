@@ -25,17 +25,20 @@ App.LoginController = Ember.ObjectController.extend({
             
             // Create a user object and let server return a user id
             var user;
-            if(!this.get('currentUser')){
-                user = this.store.createRecord('user');
+            if(!self.get('currentUser')){
+                user = self.store.createRecord('user');
             } else {
-                user = this.get('currentUser');
+                user = self.get('currentUser');
             }
             
             user.set('token', App.oauth.getAccessToken());
             var token = App.oauth.getToken();
+            
+            // console.log("TOKEN: " + token);
+            
             user.set('tokenExp', new Date(token.expires_in*1000));
             user.set('authenticated', false);
-            this.set('isLoggingIn', true);
+            self.set('isLoggingIn', true);
             
             // Save user, get updated user with id and data in response
             user.save().then(function() {

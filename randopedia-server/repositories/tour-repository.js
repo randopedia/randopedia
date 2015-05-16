@@ -1,5 +1,5 @@
 ﻿var mongoose = require("mongoose");
-var tourModel = require("../models/tour");
+var Tour = require("../models/tour");
 
 var TourStatus = {
     PUBLISHED:  1,
@@ -31,7 +31,7 @@ var tourRepository = (function () {
     
     function getTour(tourId, callback) {
 
-        tourModel.find({ clientId: tourId }, function (err, result) {
+        Tour.find({ clientId: tourId }, function (err, result) {
             if (err) {
                 console.error(err);
             }
@@ -49,7 +49,7 @@ var tourRepository = (function () {
     function getTourItems(callback) {
         var itemFields = "mapGeoJson name grade elevationLoss elevationGain timingMin timingMax shortDescription clientId";
 
-        tourModel.find({status: TourStatus.PUBLISHED}, itemFields, function (err, result) {
+        Tour.find({status: TourStatus.PUBLISHED}, itemFields, function (err, result) {
             if (err) {
                 console.error(err);
             }
