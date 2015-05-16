@@ -71,7 +71,7 @@ var mongoOptions = {};
 
 mongoose.connect(connectString, mongoOptions, function(err, res) {
     if(err) {
-        console.log('Could not connect to database');
+        console.log('Could not connect to database. ' + err);
     } else {
         console.log('Connected to database');
     }
