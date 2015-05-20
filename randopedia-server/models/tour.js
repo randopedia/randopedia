@@ -2,7 +2,30 @@
 
 var TourSchema = mongoose.Schema(
     {
-        name: String
+        name: String,
+        shortDescription: String,
+        elevationGain: Number,
+        elevationLoss: Number,
+        elevationMax: Number,
+        timingMin: Number,
+        timingMax: Number,
+        grade: Number,
+        haveHazards: Boolean,
+        hazardsDescription: String,
+        degreesMax: String,
+        requiresTools: Boolean,
+        toolsDescription: String, 
+        aspect: Number,
+        timeOfYearFrom: Number,
+        timeOfYearTo: Number,
+        accessPoint: String,
+        accessPointElevation: Number,
+        itinerary: String,
+//        mapPaths: DS.attr('raw'),
+//        mapGeoJson: DS.attr('raw'),
+//        tags: DS.attr('raw'),
+//        portfolioImage: DS.belongsTo('image'),
+        status: Number
     },
     {
          collection: "tour"

@@ -59,18 +59,28 @@ var tourRepository = (function () {
     }
     
     function saveTour(tour, callback, errorCallback) {
-        // console.log("saveTour: " + tour.id);
-
-        Tour.findOneAndUpdate({clientId: tour.id}, tour, { upsert: true }, function(err, result) {
-            if(err) {
-                handleError(err, errorCallback);
-                return;
-            }
-            //console.log(result);
-            if(callback) {
-                callback(documentToTour(result));
-            }
-        });
+        if(!tour.id) {
+            Tour.create(tour, function(err, result) {
+                if(err) {
+                    handleError(err, errorCallback);
+                    return;
+                }
+                if(callback) {
+                    callback(documentToTour(result));
+                }                
+            });  
+        
+        } else {
+            Tour.findOneAndUpdate({clientId: tour.id}, tour, function(err, result) {
+                if(err) {
+                    handleError(err, errorCallback);
+                    return;
+                }
+                if(callback) {
+                    callback(documentToTour(result));
+                }
+            }); 
+        }
     }
     
     function getTourItems(callback) {
