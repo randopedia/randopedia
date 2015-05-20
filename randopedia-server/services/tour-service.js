@@ -1,4 +1,5 @@
 ﻿var tourRepository = require("../repositories/tour-repository");
+var dataWasher = require("../helpers/data-washer");
 
 var tourService = (function () {
 
@@ -23,11 +24,13 @@ var tourService = (function () {
         
     function createTour(tour, callback) {
         
-        // todo: wash data
+        tour = dataWasher.washTour(tour);
         
         // todo: validate data
         
         // todo: get tags from itinerary
+        
+        // todo: find and set client id
         
         return tourRepository.saveTour(tour, function(tour) {
             
@@ -39,15 +42,15 @@ var tourService = (function () {
         });
     }
     
-    function updateTour(tourId, callback) {
+    function updateTour(tour, callback) {
         
-        // todo: wash data
+        tour = dataWasher.washTour(tour);
         
         // todo: validate data
         
         // todo: get tags from itinerary
                 
-        return tourRepository.saveTour(tourId, function(tour) {
+        return tourRepository.saveTour(tour, function(tour) {
             
             // todo: resolve tour status and save action (history)
             
