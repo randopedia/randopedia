@@ -37,7 +37,7 @@ var tourRepository = (function () {
     }
     
     function getTour(tourId, callback) {
-
+        console.log('aupa');
         Tour.find({ clientId: tourId }, function (err, result) {
             if (err) {
                 handleError(err);
@@ -53,6 +53,10 @@ var tourRepository = (function () {
             }
         });
     }
+
+    function getToursWithTag(tagName, callback) {
+
+    };
     
     function getTours(callback) {
         // todo: ...
