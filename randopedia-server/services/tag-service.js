@@ -5,41 +5,34 @@ var Q = require('q');
 var tagService = (function() {
 
     function getTags(callback) {
-        tagRepository.getTags(function(tags) {
-            if(callback) {
-                callback({'tags' : tags});
-            }
+        tagRepository.getTags().then(function(tags) {
+            callback({'tags' : tags});
+        }, function(error) {
+            console.log('error :' + error);
         });
     };
 
     function getTag(tagName, callback) {
         console.log('tag service, getTag');
-        // det här är asynkront. Fint att göra kall till getTag
-        // och getTour samtidigt och samla upp med ett promise
-        tagRepository.getTag(tagName, function(tag) {
-            
-            tourRepository.getTour('nibbi', function(tours) {
-                console.log('hehe');
-                tag.tour = tours;
+
+        var toursPromise = tourRepository.getToursWithTag(tagName);
+        var tagPromise = tagRepository.getTag(tagName);
+        var allPromise = Q.all([toursPromise, tagPromise]);
+
+        allPromise.spread(function(toursResult, tagResult) {
+            var tours = toursResult.tourItems;
+            var tourIds = tours.map(function(tour) {
+                return tour.clientId;
             });
 
-            
-            
-            if(callback) {
-                console.log('returning tag');
-                callback({'tag' : tag});
-            }
-        });
+            var tag = tagResult;
+            tag.tours = tourIds;
 
-        Q.ninvoke(tourRepository, 'getTour', 'nibbi')
-        .then(function(tour) {
-            console.log('then...');
-        }, function(err) {
-            console.log(err);
+            callback({'tag' : tag});
+
+        }, function(error) {
+            console.log('error: ' + error);
         });
-        
-        //tourRepository.getToursWithTag(tagName, function(tours) {
-        //});
     };
 
     return {

@@ -1,5 +1,6 @@
 ﻿var mongoose = require("mongoose");
 var Tour = require("../models/tour");
+var Q = require("q");
 
 var TourStatus = {
     PUBLISHED:  1,
@@ -56,7 +57,6 @@ var tourRepository = (function () {
     }
     
     function getTour(tourId, callback) {
-        console.log('aupa');
         Tour.find({ clientId: tourId }, function (err, result) {
             if (err) {
                 handleError(err);
@@ -73,8 +73,17 @@ var tourRepository = (function () {
         });
     }
 
-    function getToursWithTag(tagName, callback) {
+    function getToursWithTag(tagName) {
+        var deferred = Q.defer();
 
+        Tour.find({tags : tagName}, function (err, result) {
+            if(err) {
+                deferred.reject(err);
+            } else {
+                deferred.resolve(documentsToTours(result));
+            }
+        });
+        return deferred.promise;
     };
     
     function getTours(callback) {
@@ -127,7 +136,8 @@ var tourRepository = (function () {
         getTour: getTour,
         getTours: getTours,
         saveTour: saveTour,        
-        getTourItems: getTourItems
+        getTourItems: getTourItems,
+        getToursWithTag : getToursWithTag
     };
 
 })();
