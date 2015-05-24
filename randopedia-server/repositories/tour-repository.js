@@ -36,6 +36,25 @@ var tourRepository = (function () {
         return { tourItems: entities };
     }
     
+    function findUniqueClientId(tour) {
+        // todo: implement... :P
+        
+        return tour.name;
+/* JAVA
+    private String findUniqueClientId(Tour tour) {
+        String startClientId = RandoNameUtils.getTextId(tour.getName());
+        String clientId = startClientId;
+        int startIter = 1;
+        Tour duplicate = findTourByClientId(startClientId);
+        while(duplicate != null) {
+            clientId = startClientId + "_" + startIter;
+            duplicate = findTourByClientId(clientId);
+            startIter++;
+        }
+        return clientId;
+    } */        
+    }
+    
     function getTour(tourId, callback) {
         console.log('aupa');
         Tour.find({ clientId: tourId }, function (err, result) {
@@ -63,18 +82,30 @@ var tourRepository = (function () {
     }
     
     function saveTour(tour, callback, errorCallback) {
-        // console.log("saveTour: " + tour.id);
-
-        Tour.findOneAndUpdate({clientId: tour.id}, tour, { upsert: true }, function(err, result) {
-            if(err) {
-                handleError(err, errorCallback);
-                return;
-            }
-            //console.log(result);
-            if(callback) {
-                callback(documentToTour(result));
-            }
-        });
+        if(!tour.id) {
+            tour.clientId = findUniqueClientId(tour);
+            
+            Tour.create(tour, function(err, result) {
+                if(err) {
+                    handleError(err, errorCallback);
+                    return;
+                }
+                if(callback) {
+                    callback(documentToTour(result));
+                }                
+            });  
+        
+        } else {
+            Tour.findOneAndUpdate({clientId: tour.id}, tour, function(err, result) {
+                if(err) {
+                    handleError(err, errorCallback);
+                    return;
+                }
+                if(callback) {
+                    callback(documentToTour(result));
+                }
+            }); 
+        }
     }
     
     function getTourItems(callback) {
