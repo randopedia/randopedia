@@ -1,13 +1,16 @@
 ﻿var tourRepository = require("../repositories/tour-repository");
 var dataWasher = require("../helpers/data-washer");
+var Q = require('q');
 
 var tourService = (function () {
 
     function getTour(tourId, callback) {
-        return tourRepository.getTour(tourId, function(tour) {
+        tourRepository.getTour(tourId).then(function(tour) {
             if(callback) {
                 callback(tour);
             }
+        }).catch(function(error) {
+            console.log(error);
         });
     }
     
@@ -15,7 +18,7 @@ var tourService = (function () {
         
         // todo: handle conditions (status etc.)
         
-        return tourRepository.getTours(function(tours) {
+        tourRepository.getTours().then(function(tours) {
             if(callback) {
                 callback(tours);
             }
@@ -32,13 +35,16 @@ var tourService = (function () {
         
         // todo: find and set client id
         
-        return tourRepository.saveTour(tour, function(tour) {
+        tourRepository.saveTour(tour).then(function(tour) {
             
             // todo: resolve tour status and save action (history)
             
             if(callback) {
                 callback(tour);
             }
+            
+        }).catch(function(error) {
+            console.log(error);
         });
     }
     
@@ -50,21 +56,27 @@ var tourService = (function () {
         
         // todo: get tags from itinerary
                 
-        return tourRepository.saveTour(tour, function(tour) {
+        tourRepository.saveTour(tour).then(function(tour) {
             
             // todo: resolve tour status and save action (history)
             
             if(callback) {
                 callback(tour);
             }
+            
+        }).catch(function(error) {
+            console.log(error);
         });
     }        
     
     function getTourItems(callback) {
-        return tourRepository.getTourItems(function(tourItems) {
+        tourRepository.getTourItems().then(function(tourItems) {
             if(callback) {
                 callback(tourItems);
             }
+            
+        }).catch(function(error) {
+            console.log(error);
         });
     }    
 

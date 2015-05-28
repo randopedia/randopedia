@@ -56,21 +56,22 @@ var tourRepository = (function () {
     } */        
     }
     
-    function getTour(tourId, callback) {
+    function getTour(tourId) {
+        var deferred = Q.defer();
+        
         Tour.find({ clientId: tourId }, function (err, result) {
             if (err) {
-                handleError(err);
-                return;
-            }
-            
-            if (callback) {
-                if(result.length === 0) {
-                    callback(null);
-                    return;
+                deferred.reject(err);
+            } else {
+                if(result.length > 0) {
+                    deferred.resolve({tour: documentToTour(result[0])});
+                } else {
+                    deferred.reject("Tour id not found: " + tourId);
                 }
-                callback( {tour: documentToTour(result[0])} );
             }
         });
+        
+        return deferred.promise;
     }
 
     function getToursWithTag(tagName) {
@@ -86,50 +87,50 @@ var tourRepository = (function () {
         return deferred.promise;
     };
     
-    function getTours(callback) {
+    function getTours() {
         // todo: ...
     }
     
-    function saveTour(tour, callback, errorCallback) {
+    function saveTour(tour) {
+        var deferred = Q.defer();
+        
         if(!tour.id) {
             tour.clientId = findUniqueClientId(tour);
             
             Tour.create(tour, function(err, result) {
                 if(err) {
-                    handleError(err, errorCallback);
-                    return;
+                    deferred.reject(err);
+                } else {
+                    deferred.resolve(documentToTour(result));
                 }
-                if(callback) {
-                    callback(documentToTour(result));
-                }                
             });  
         
         } else {
             Tour.findOneAndUpdate({clientId: tour.id}, tour, function(err, result) {
                 if(err) {
-                    handleError(err, errorCallback);
-                    return;
-                }
-                if(callback) {
-                    callback(documentToTour(result));
+                    deferred.reject(err);
+                } else {
+                    deferred.resolve(documentToTour(result));
                 }
             }); 
         }
+        
+        return deferred.promise;
     }
     
-    function getTourItems(callback) {
+    function getTourItems() {
         var itemFields = "mapGeoJson name grade elevationLoss elevationGain timingMin timingMax shortDescription clientId";
+        var deferred = Q.defer();
 
         Tour.find({status: TourStatus.PUBLISHED}, itemFields, function (err, result) {
             if (err) {
-                handleError(err);
-                return;
-            }
-            
-            if (callback) {
-                callback(documentsToTours(result));
+                deferred.reject(err);
+            } else {
+                deferred.resolve(documentsToTours(result));
             }
         });
+        
+        return deferred.promise;
     }
 
     return {
