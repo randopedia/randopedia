@@ -31,9 +31,7 @@ var tourService = (function () {
         
         // todo: validate data
         
-        // todo: get tags from itinerary
-        
-        // todo: find and set client id
+        // todo: get tags from itinerary and save
         
         tourRepository.saveTour(tour).then(function(tour) {
             

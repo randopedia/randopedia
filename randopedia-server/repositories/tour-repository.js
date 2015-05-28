@@ -1,23 +1,11 @@
 ﻿var mongoose = require("mongoose");
-var Tour = require("../models/tour");
 var Q = require("q");
-
-var TourStatus = {
-    PUBLISHED:  1,
-    DRAFT:      2,
-    DELETED:    3,
-    IN_REVIEW:  4
-};
+var Tour = require("../models/tour");
+var common = require("../helpers/common");
+var enums = require("../enums");
 
 var tourRepository = (function () {
 
-    function handleError(err, errorCallback) {
-        console.log(err);
-        if(errorCallback) {
-            errorCallback(err);
-        }
-    }
-    
     function documentToTour(doc) {
         var tour = doc.toObject();
         tour.id = tour.clientId;
@@ -37,23 +25,22 @@ var tourRepository = (function () {
         return { tourItems: entities };
     }
     
-    function findUniqueClientId(tour) {
-        // todo: implement... :P
+    function findUniqueClientId(tourName, currentCounter) {
+        var uniqueClientId = common.getTextId(tourName);
+        var counter = currentCounter ? currentCounter : 1;
         
-        return tour.name;
-/* JAVA
-    private String findUniqueClientId(Tour tour) {
-        String startClientId = RandoNameUtils.getTextId(tour.getName());
-        String clientId = startClientId;
-        int startIter = 1;
-        Tour duplicate = findTourByClientId(startClientId);
-        while(duplicate != null) {
-            clientId = startClientId + "_" + startIter;
-            duplicate = findTourByClientId(clientId);
-            startIter++;
-        }
-        return clientId;
-    } */        
+        return getTour(tourName).then(function(tour) {
+            if(!tour) {
+                return uniqueClientId;
+            }
+            
+            uniqueClientId = uniqueClientId + "_" + counter;
+            counter++;
+            return findUniqueClientId(uniqueClientId, counter);
+        
+        }).catch(function(error) {
+            console.log(error);
+        });      
     }
     
     function getTour(tourId) {
@@ -66,7 +53,7 @@ var tourRepository = (function () {
                 if(result.length > 0) {
                     deferred.resolve({tour: documentToTour(result[0])});
                 } else {
-                    deferred.reject("Tour id not found: " + tourId);
+                    deferred.resolve(null);
                 }
             }
         });
@@ -95,7 +82,7 @@ var tourRepository = (function () {
         var deferred = Q.defer();
         
         if(!tour.id) {
-            tour.clientId = findUniqueClientId(tour);
+            tour.clientId = findUniqueClientId(tour.name);
             
             Tour.create(tour, function(err, result) {
                 if(err) {
@@ -122,7 +109,7 @@ var tourRepository = (function () {
         var itemFields = "mapGeoJson name grade elevationLoss elevationGain timingMin timingMax shortDescription clientId";
         var deferred = Q.defer();
 
-        Tour.find({status: TourStatus.PUBLISHED}, itemFields, function (err, result) {
+        Tour.find({status: enums.TourStatus.PUBLISHED}, itemFields, function (err, result) {
             if (err) {
                 deferred.reject(err);
             } else {
