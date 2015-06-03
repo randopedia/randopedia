@@ -17,7 +17,7 @@ var tagRepository = (function () {
         return deferred.promise;
     }
     
-    function getTags(callback) {
+    function getTags() {
         var deferred = Q.defer();
         tagModel.find(function(err, tags) {
             if(err) {

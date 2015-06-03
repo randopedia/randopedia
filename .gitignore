@@ -24,6 +24,7 @@ randopedia-core/src/main/resources/application.test.properties
 
 node_modules
 randopedia-web/src/config.js
+randopedia-server/config/config.js
 randopedia.js
 randopedia.min.js
 templates.js

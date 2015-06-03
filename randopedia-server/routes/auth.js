@@ -31,12 +31,16 @@ passport.use(new FacebookStrategy(
     )
 );
 
-router.get('/facebook', passport.authenticate('facebook'));
+//router.get('/facebook', passport.authenticate('facebook'));
 
-router.get('/facebook/callback', passport.authenticate('facebook', { session: false, successRedirect: '/logincallback.html' }));
+//router.get('/facebook/callback', passport.authenticate('facebook', { session: false, successRedirect: '/logincallback.html' }));
 
-router.get('/google', passport.authenticate('google'));
+router.get('/facebook/callback', function(req, res, next) {
+    res.render('logincallback', { title : 'logincallback'});
+});
 
-router.get('/google/callback', passport.authenticate('google', { session: false, successRedirect: '/', failureRedirect: '/login' }));
+//router.get('/google', passport.authenticate('google'));
+
+//router.get('/google/callback', passport.authenticate('google', { session: false, successRedirect: '/', failureRedirect: '/login' }));
 
 module.exports = router;

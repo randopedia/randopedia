@@ -28,7 +28,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/auth', auth);
-app.use('/users', users);
+app.use('/randopedia/api/users/', users);
 app.use('/randopedia/api/tours/', tours);
 app.use('/randopedia/api/touritems/', touritems);
 app.use('/randopedia/api/tags/', tags);
