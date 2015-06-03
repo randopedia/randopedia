@@ -1,9 +1,23 @@
 ﻿var tourRepository = require("../repositories/tour-repository");
+var tourActionRepository = require("../repositories/tour-action-repository");
 var dataWasher = require("../helpers/data-washer");
+var enums = require("../enums");
 var Q = require('q');
 
 var tourService = (function () {
-
+   
+    function isTourPublishedWhenCreated(tour) {
+        return tour.status === enums.TourStatus.PUBLISHED;
+    }
+        
+    function isTourSentToReview(originalTour, tour) {
+        return originalTour.status === enums.TourStatus.DRAFT && tour.status === enums.TourStatus.IN_REVIEW;
+    }
+    
+    function isTourPublishedForTheFirstTime(originalTour, tour) {
+        return (originalTour.status == enums.TourStatus.DRAFT && tour.status === enums.TourStatus.PUBLISHED) || (originalTour.status === enums.TourStatus.IN_REVIEW && tour.status === enums.TourStatus.PUBLISHED);
+    }
+     
     function getTour(tourId, callback) {
         tourRepository.getTour(tourId).then(function(tour) {
             if(callback) {
@@ -25,17 +39,20 @@ var tourService = (function () {
         });
     }
         
-    function createTour(tour, callback) {
-        
+    function createTour(tour, user, callback) {
         tour = dataWasher.washTour(tour);
         
-        // todo: validate data
+        // todo: validate tour data
         
         // todo: get tags from itinerary and save
         
         tourRepository.saveTour(tour).then(function(tour) {
             
-            // todo: resolve tour status and save action (history)
+            tourActionRepository.save(user, tour, enums.TourActionType.CREATE);
+            
+            if(isTourPublishedWhenCreated(tour)) {  
+                tourActionRepository.save(user, tour, enums.TourActionType.PUBLISH);
+            }
             
             if(callback) {
                 callback(tour);
@@ -45,27 +62,37 @@ var tourService = (function () {
             console.log(error);
         });
     }
-    
-    function updateTour(tour, callback) {
         
+    function updateTour(tour, user, callback) {       
         tour = dataWasher.washTour(tour);
         
-        // todo: validate data
+        // todo: validate tour data
         
-        // todo: get tags from itinerary
+        // todo: get tags from itinerary and save
+        
+        tourRepository.getTour(tour.tourId).then(function(originalTour) {
+           
+            tourRepository.saveTour(tour).then(function(updatedTour) {
                 
-        tourRepository.saveTour(tour).then(function(tour) {
+                tourActionRepository.save(user, tour, enums.TourActionType.UPDATE);
+        
+                if(isTourSentToReview(originalTour, tour)) {
+                    tourActionRepository.save(user, tour, enums.TourActionType.SENT_TO_REVIEW);
+                
+                } else if(isTourPublishedForTheFirstTime(originalTour, tour)) {
+                    tourActionRepository.save(user, tour, enums.TourActionType.PUBLISH);
+                } 
             
-            // todo: resolve tour status and save action (history)
+                if(callback) {
+                    callback(updatedTour);
+                }                
             
-            if(callback) {
-                callback(tour);
-            }
-            
+            });
+                
         }).catch(function(error) {
             console.log(error);
         });
-    }        
+    }
     
     function getTourItems(callback) {
         tourRepository.getTourItems().then(function(tourItems) {

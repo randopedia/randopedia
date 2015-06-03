@@ -11,21 +11,23 @@ router.get("/:id?", function (req, res) {
 
 router.post("/", function (req, res) {
     
-    // todo: authenticate user
-    
+    // todo: authentication...
+    var user = { userId: 1, userName: "Randopedia" };
+        
     var tour = req.body.tour;
-    tourService.createTour(tour, function (createdTour) {
+    tourService.createTour(tour, user, function (createdTour) {
         res.send(createdTour);
     });
 });
 
 router.put("/:id?", function (req, res) {
     
-    // todo: authenticate user
+    // todo: authentication...
+    var user = { userId: 1, userName: "Randopedia" };
     
     var tour = req.body.tour;
     tour.id = req.params.id;
-    tourService.updateTour(tour, function (updatedTour) {
+    tourService.updateTour(tour, user, function (updatedTour) {
         res.send(updatedTour);
     });
 });
