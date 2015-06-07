@@ -5,7 +5,9 @@ var authService = require('../services/auth-service.js');
 router.post('/', function(req, res) {
     var token = req.get('X-Header-Token');
     
-    authService.authenticateUser(token);
+    authService.authenticateUser(token, function(user) {
+        res.send(user);
+    });
     
 });
 

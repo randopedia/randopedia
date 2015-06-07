@@ -7,17 +7,18 @@ var authService = (function () {
         // generate long lived token
         facebookRepository.generateLongLivedToken(token)
             .then(function(llToken) {
-                console.log('llToken: ' + llToken);
                 return facebookRepository.getExternalUser(llToken);
             })
             .then(function(facebookUser) {
-                
+                return userRepository.findUserById(facebookUser.id);
+            })
+            .then(function(user) {
+                user.authenticated = true;
+                user.token = token;
+                callback({'user' : user});
             },function(error) {
                 console.log('error: ' + error);
             });
-        
-        
-        // get or create user in database
     }
     
     return {

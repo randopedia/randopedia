@@ -15,7 +15,8 @@ var facebookRepository = (function() {
         var deferred = Q.defer();
         request(url, function (error, response, body) {
             if (!error && response.statusCode == 200) {
-                deferred.resolve(body);
+                var llToken = body.split('=')[1];
+                deferred.resolve(llToken);
             } else {
                 console.log(error);
                 console.log(response.statusCode);
@@ -32,7 +33,7 @@ var facebookRepository = (function() {
         var deferred = Q.defer();
         request(url, function(error, response, body) {
             if(!error && response.statusCode == 200) {
-                deferred.resolve(body);
+                deferred.resolve(JSON.parse(body));
             } else {
                 console.log(error);
                 console.log(response.statusCode);
