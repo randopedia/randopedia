@@ -5,18 +5,22 @@ var authService = (function () {
 
     function authenticateUser(token, callback) {
         // generate long lived token
+        console.log('authenticateUser');
         facebookRepository.generateLongLivedToken(token)
             .then(function(llToken) {
-                return facebookRepository.getExternalUser(llToken);
-            })
-            .then(function(facebookUser) {
-                return userRepository.findUserById(facebookUser.id);
-            })
-            .then(function(user) {
-                user.authenticated = true;
-                user.token = token;
-                callback({'user' : user});
-            },function(error) {
+                console.log('got token');
+                return facebookRepository.getExternalUser(llToken)
+                    .then(function(facebookUser) {
+                        console.log('got user from facebook: ' + facebookUser.id);
+                        return userRepository.findOrCreateUser(facebookUser, llToken);
+                    })
+                    .then(function(user) {
+                        user.authenticated = true;
+                        user.token = token;
+                        delete user.longLivedToken;
+                        callback({'user' : user});
+                    });
+            }, function(error) {
                 console.log('error: ' + error);
             });
     }
@@ -24,7 +28,7 @@ var authService = (function () {
     return {
         authenticateUser : authenticateUser
     };
-
+    
 })();
 
 module.exports = authService;

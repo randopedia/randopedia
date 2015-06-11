@@ -7,6 +7,7 @@ var config = require('../config/config');
 var facebookRepository = (function() {
 
     function generateLongLivedToken(token) {
+        console.log('generating llToken');
         var url = 'https://graph.facebook.com/oauth/access_token'
             + '?grant_type=fb_exchange_token'
             + '&client_id=' + config.facebook.app_id

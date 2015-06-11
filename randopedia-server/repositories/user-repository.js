@@ -4,20 +4,44 @@ var Q = require('q');
 
 var userRepository = (function() {
 
-    function findUserById(userId) {
+    function findOrCreateUser(facebookUser, llToken) {
+        console.log('find or create user ' + facebookUser.id + ' ' + llToken);
         var deferred = Q.defer();
-        userModel.find({'userId': userId}, function(err, user) {
+        userModel.findOne({'userId': facebookUser.id}, function(err, user) {
             if(err) {
                 deferred.reject(err);
             } else {
-                deferred.resolve(user[0].toObject());
+                if(user != null) {
+                    user.longLivedToken = llToken;
+                    user.save(function(err) {
+                    });    
+                    
+                    deferred.resolve(user.toObject());
+                } else {
+                    var newUser = new userModel(
+                        {
+                            userId : facebookUser.id,
+                            userName : facebookUser.name,
+                            longLivedToken : llToken,
+                            authenticated : true
+                        });
+                    console.log('creating new user');
+                    newUser.save(function(err) {
+                        if(err) {
+                            console.log('Could not create new user');
+                            deferred.reject(err);
+                        } else {
+                            deferred.resolve(newUser.toObject());
+                        }
+                    });
+                }
             }
         });
         return deferred.promise;        
     }
 
     return {
-        findUserById : findUserById
+        findOrCreateUser : findOrCreateUser
     };
     
 })();
