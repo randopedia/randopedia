@@ -29,10 +29,10 @@ var tourActionRepository = (function () {
             
         return deferred.promise;
     }
-    
-    function findAll (tourId) {
+
+    function getActions (ids) {
         var deferred = Q.defer();
-        TourAction.find({tourId: tourId}, function(err, result) {
+        TourAction.find({_id: { $in: ids }}, function(err, result) {
             if(err) {
                 deferred.reject(err);
             } else {
@@ -44,7 +44,7 @@ var tourActionRepository = (function () {
     }
 
     return {
-        findAll : findAll,
+        getActions : getActions,
         save : save
     };
     

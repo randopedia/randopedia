@@ -21,11 +21,12 @@ var TourSchema = mongoose.Schema(
         accessPoint: String,
         accessPointElevation: Number,
         itinerary: String,
-//        mapPaths: DS.attr('raw'),
-//        mapGeoJson: DS.attr('raw'),
-//        tags: DS.attr('raw'),
-//        portfolioImage: DS.belongsTo('image'),
-        status: Number
+        mapPaths: Object,
+        mapGeoJson: Object,
+        tags: Object,
+        portfolioImage: Object,
+        status: Number,
+        actions: Object
     },
     {
          collection: "tour"

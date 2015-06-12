@@ -104,13 +104,29 @@ var tourService = (function () {
             console.log(error);
         });
     }    
+    
+    function getActions(ids, callback) {
+        if(!ids || ids.length === 0) {
+            return [];
+        }
+
+        tourActionRepository.getActions(ids).then(function(actions) {
+            if(callback) {
+                callback(actions);
+            }
+            
+        }).catch(function(error) {
+            console.log(error);
+        });
+    }
 
     return {
         getTour: getTour,
         getTours: getTours,
         createTour: createTour,
         updateTour: updateTour,
-        getTourItems: getTourItems
+        getTourItems: getTourItems,
+        getActions: getActions
     };
 
 })();

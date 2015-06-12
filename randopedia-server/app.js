@@ -10,6 +10,7 @@ var auth = require('./routes/auth');
 var users = require('./routes/users');
 var tours = require('./routes/tours');
 var touritems = require('./routes/touritems');
+var actions = require('./routes/actions');
 var tags = require('./routes/tags');
 
 var app = express();
@@ -30,6 +31,7 @@ app.use('/', routes);
 app.use('/auth', auth);
 app.use('/randopedia/api/users/', users);
 app.use('/randopedia/api/tours/', tours);
+app.use('/randopedia/api/actions/', actions);
 app.use('/randopedia/api/touritems/', touritems);
 app.use('/randopedia/api/tags/', tags);
 
