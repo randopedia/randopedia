@@ -6,12 +6,15 @@ var tagRepository = (function () {
 
     function getTag(tagName) {
         var deferred = Q.defer();
-        tagModel.find({'tag':tagName}, function(err, tag) {
+        tagModel.findOne({'tag':tagName}, function(err, tag) {
             if(err) {
                 deferred.reject(err);
             } else {
-                //todo why do we get an array here?
-                deferred.resolve(tag[0].toObject());
+                var tagObject = null;
+                if(tag) {
+                    tagObject = tag.toObject();
+                }
+                deferred.resolve(tagObject);
             }
         });
         return deferred.promise;
