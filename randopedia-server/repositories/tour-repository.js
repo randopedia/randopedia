@@ -73,9 +73,37 @@ var tourRepository = (function () {
         });
         return deferred.promise;
     };
+
+    function getToursByStatus(status) {
+        var deferred = Q.defer();
+
+        Tour.find({status : status}, function (err, result) {
+            if(err) {
+                deferred.reject(err);
+            } else {
+                deferred.resolve(documentsToTours(result));
+            }
+        });
+        return deferred.promise;
+    }
     
-    function getTours() {
+    function getTourDrafts() {
         // todo: ...
+    }
+
+    function getTourItems() {
+        var itemFields = "mapGeoJson name grade elevationLoss elevationGain timingMin timingMax shortDescription clientId";
+        var deferred = Q.defer();
+
+        Tour.find({status: enums.TourStatus.PUBLISHED}, itemFields, function (err, result) {
+            if (err) {
+                deferred.reject(err);
+            } else {
+                deferred.resolve(documentsToTours(result));
+            }
+        });
+        
+        return deferred.promise;
     }
     
     function saveTour(tour) {
@@ -105,27 +133,13 @@ var tourRepository = (function () {
         return deferred.promise;
     }
     
-    function getTourItems() {
-        var itemFields = "mapGeoJson name grade elevationLoss elevationGain timingMin timingMax shortDescription clientId";
-        var deferred = Q.defer();
-
-        Tour.find({status: enums.TourStatus.PUBLISHED}, itemFields, function (err, result) {
-            if (err) {
-                deferred.reject(err);
-            } else {
-                deferred.resolve(documentsToTours(result));
-            }
-        });
-        
-        return deferred.promise;
-    }
-
     return {
         getTour: getTour,
-        getTours: getTours,
-        saveTour: saveTour,        
+        getToursWithTag : getToursWithTag,
+        getToursByStatus: getToursByStatus,
+        getTourDrafts: getTourDrafts,
         getTourItems: getTourItems,
-        getToursWithTag : getToursWithTag
+        saveTour: saveTour
     };
 
 })();
