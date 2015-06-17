@@ -1,9 +1,29 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
 var tourService = require("../services/tour-service");
 
+router.get("/", function (req, res) {
+    // todo: get user...
+    var user = { userId: 1, userName: "Randopedia" };
+    
+    var status = req.query["status"];
+    var usersTours = req.query["usersTours"];
+    
+    if(usersTours) {
+        tourService.getToursByCurrentUser(user, function(tours) {
+            res.send(tours);
+        });
+    }
+    else {
+        tourService.getTours(status, user, function(tours) {
+            res.send(tours);
+        });
+    }
+});
+
 router.get("/:id?", function (req, res) {
     var tourId = req.params.id;
+    
     tourService.getTour(tourId, function (tour) {
         res.send(tour);
     });
