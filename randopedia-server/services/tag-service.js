@@ -13,25 +13,26 @@ var tagService = (function() {
     };
 
     function getTag(tagName, callback) {
-        console.log('tag service, getTag');
-
         var toursPromise = tourRepository.getToursWithTag(tagName);
         var tagPromise = tagRepository.getTag(tagName);
         var allPromise = Q.all([toursPromise, tagPromise]);
 
         allPromise.spread(function(toursResult, tagResult) {
-            var tours = toursResult.tourItems;
-            var tourIds = tours.map(function(tour) {
-                return tour.clientId;
-            });
-
-            var tag = tagResult;
-            tag.tours = tourIds;
-
-            callback({'tag' : tag});
-
+            if(tagResult) {   
+                var tours = toursResult.tourItems;
+                var tourIds = tours.map(function(tour) {
+                    return tour.clientId;
+                });
+                var tag = tagResult;
+                tag.tours = tourIds;
+                tag.name = tagName;
+                callback({'tag' : tag});
+            } else {
+                callback({'tag' : {'id':tagName, 'tours':[]}});
+            }
         }, function(error) {
             console.log('error: ' + error);
+            
         });
     };
 
