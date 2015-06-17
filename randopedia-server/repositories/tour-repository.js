@@ -24,6 +24,20 @@ var tourRepository = (function () {
 
         return { tourItems: entities };
     }
+
+    function getImageIdArrayFromTourImages(tourImages) {
+        return tourImages.map(function(image) {
+            return image._id;
+        });
+    }
+
+    function getTourImagesWithIds(tourImages) {
+        return tourImages.map(function(tourImage) {
+            var imageWithId = tourImage;
+            imageWithId.id = tourImage._id;
+            return imageWithId;
+        });
+    }
     
     function findUniqueClientId(tourName, currentCounter) {
         var uniqueClientId = common.getTextId(tourName);
@@ -46,12 +60,20 @@ var tourRepository = (function () {
     function getTour(tourId) {
         var deferred = Q.defer();
         
-        Tour.find({ clientId: tourId }, function (err, result) {
+        Tour.findOne({ clientId: tourId }, function (err, result) {
             if (err) {
                 deferred.reject(err);
             } else {
-                if(result.length > 0) {
-                    deferred.resolve({tour: documentToTour(result[0])});
+                if(result) {
+                    var tour = documentToTour(result);
+                    var tourImages = tour.tourImages;
+                    if(tourImages) {   
+                        var images = getImageIdArrayFromTourImages(tourImages);
+                        tourImages = getTourImagesWithIds(tourImages);
+                        delete tour.tourImages;
+                        tour.images = images;
+                    }
+                    deferred.resolve({tour: tour, images : tourImages});
                 } else {
                     deferred.resolve(null);
                 }
@@ -60,7 +82,7 @@ var tourRepository = (function () {
         
         return deferred.promise;
     }
-
+    
     function getToursWithTag(tagName) {
         var deferred = Q.defer();
 

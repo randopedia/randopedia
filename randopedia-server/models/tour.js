@@ -24,6 +24,7 @@ var TourSchema = mongoose.Schema(
         mapPaths: Object,
         mapGeoJson: Object,
         tags: Object,
+        tourImages: Object,
         portfolioImage: Object,
         status: Number,
         actions: Object
