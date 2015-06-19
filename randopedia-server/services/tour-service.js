@@ -1,6 +1,5 @@
 ﻿var tourRepository = require("../repositories/tour-repository");
 var tourActionRepository = require("../repositories/tour-action-repository");
-var dataWasher = require("../helpers/data-washer");
 var enums = require("../enums");
 var Q = require('q');
 
@@ -67,9 +66,6 @@ var tourService = (function () {
     }
 
     function createTour(tour, user, callback) {
-        tour = dataWasher.washTour(tour);
-        
-        // todo: validate tour data
         
         // todo: get tags from itinerary and save
         
@@ -91,9 +87,6 @@ var tourService = (function () {
     }
 
     function updateTour(tour, user, callback) {
-        tour = dataWasher.washTour(tour);
-        
-        // todo: validate tour data
         
         // todo: get tags from itinerary and save
         
