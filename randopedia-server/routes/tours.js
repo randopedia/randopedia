@@ -1,8 +1,6 @@
 var express = require("express");
 var router = express.Router();
 var tourService = require("../services/tour-service");
-var dataWasher = require("../helpers/data-washer");
-var dataValidator = require("../helpers/data-validator");
 
 router.get("/", function (req, res) {
     // todo: get user...
@@ -35,16 +33,16 @@ router.post("/", function (req, res) {
     
     // todo: authentication...
     var user = { userId: 1, userName: "Randopedia" };
-        
-    var tour = dataWasher.washTour(req.body.tour);  
-    if(!dataValidator.validateTour(tour)) {
-        res.status(400).send("Tour have validation errors and couldn't be saved");
-        return;
-    }
-        
-    tourService.createTour(tour, user, function (createdTour) {
-        res.send(createdTour);
-    });
+    
+    var tour = req.body.tour; 
+    
+    tourService.createTour(tour, user, 
+        function (createdTour) {
+            res.send(createdTour);
+        },
+        function (validationErrors) {
+            res.status(400).send("Tour have validation errors and couldn't be saved", validationErrors);
+        });
 });
 
 router.put("/:id?", function (req, res) {
@@ -52,16 +50,15 @@ router.put("/:id?", function (req, res) {
     // todo: authentication...
     var user = { userId: 1, userName: "Randopedia" };
     
-    var tour = dataWasher.washTour(req.body.tour);  
-    if(!dataValidator.validateTour(tour)) {
-        res.status(400).send("Tour have validation errors and couldn't be saved");
-        return;
-    }
-    
+    var tour = req.body.tour;
     tour.id = req.params.id;
-    tourService.updateTour(tour, user, function (updatedTour) {
-        res.send(updatedTour);
-    });
+    tourService.updateTour(tour, user, 
+        function (updatedTour) {
+            res.send(updatedTour);
+        },
+        function (validationErrors) {
+            res.status(400).send("Tour have validation errors and couldn't be saved", validationErrors);
+        });
 });
 
 module.exports = router;

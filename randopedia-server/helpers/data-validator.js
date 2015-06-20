@@ -85,59 +85,60 @@ var validator = {
 };
         
 var dataValidator = (function() {
-
+        
     function validateTour(tour) {
-        var errorCount = 0;
+        var validationErrors = [];
         
         if(!validator.name(tour.name)) {
-            errorCount++;
+            validationErrors.push("Name");
         }
         if(!validator.mediumDesc(tour.shortDescription, true)) {
-            errorCount++;
+            validationErrors.push("Summary");
         }
         if(!validator.isPosNumber(tour.elevationGain)) {
-            errorCount++;
+            validationErrors.push("Elevation gain");
         }   
         if(!validator.isPosNumber(tour.elevationLoss)) {
-            errorCount++;
+            validationErrors.push("Elevation loss");
         }
         if(!validator.isPosNumberOrNull(tour.elevationMax)) {
-            errorCount++;
+            validationErrors.push("Highest point");
         }
         if(!validator.isPosNumber(tour.timingMin)) {
-            errorCount++;
+            validationErrors.push("Time min");
         }  
         if(!validator.isPosNumber(tour.timingMax)) {
-            errorCount++;
+            validationErrors.push("Time max");
         }  
         if(!validator.isPosNumberOrNull(tour.grade)) {
-            errorCount++;
+            validationErrors.push("Grade");
         }  
         if(!validator.mediumDesc(tour.hazardsDescription, !tour.haveHazards)) {
-            errorCount++;
+            validationErrors.push("Hazards description");
         }  
         if(!validator.mediumDesc(tour.toolsDescription, !tour.requiresTools)) {
-            errorCount++;
+            validationErrors.push("Requires skills description");
         }        
         if(!validator.isPosNumberOrNull(tour.degreesMax)) {
-            errorCount++;
+            validationErrors.push("Steepness");
         }  
         if(!validator.isPosNumberOrNull(tour.aspect)) {
-            errorCount++;
+            validationErrors.push("Aspect");
         }  
         if(!validator.isPosNumberOrNull(tour.timeOfYearFrom)) {
-            errorCount++;
+            validationErrors.push("Season from");
         }  
         if(!validator.isPosNumberOrNull(tour.timeOfYearTo)) {
-            errorCount++;
+            validationErrors.push("Season to");
         }
         if(!validator.mediumDesc(tour.accessPoint)) {
-            errorCount++;
+            validationErrors.push("Access point");
         }        
         if(!validator.longDesc(tour.itinerary)) {
-            errorCount++;
+            validationErrors.push("Description");
         } 
-        return errorCount === 0;
+        
+        return validationErrors;
     }
 
     return {
