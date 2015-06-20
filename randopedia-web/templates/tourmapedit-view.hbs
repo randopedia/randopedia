@@ -73,7 +73,7 @@
                 <div class="modal-body">
                     <label for="inputAspect">Set type on selected path(s)</label>
                     {{view "select"
-                        contentBinding="pathTypes"
+                        content=App.Fixtures.PathTypes
                         optionValuePath="content.value"
                         optionLabelPath="content.name"
                         valueBinding="view.draftPathType"

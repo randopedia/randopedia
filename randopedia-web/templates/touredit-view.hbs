@@ -127,7 +127,7 @@
                                             title="Aspect"
                                             data-content="Aspect of the main part of the slopes on the descent route."></button>
                                     {{view "select"
-                                        contentBinding="aspects"
+                                        content=App.Fixtures.Aspects
                                         optionValuePath="content.value"
                                         optionLabelPath="content.name"
                                         valueBinding="aspect"
@@ -169,7 +169,7 @@
                                             title="Season from"
                                             data-content="First month of the season when the tour normally is skiable."></button>
                                     {{view "select"
-                                        contentBinding="months"
+                                        content=App.Fixtures.Months
                                         optionValuePath="content.value"
                                         optionLabelPath="content.name"
                                         valueBinding="timeOfYearFrom"
@@ -184,12 +184,12 @@
                                             title="Season to"
                                             data-content="Last month of the season when the tour normally is skiable."></button>
                                     {{view "select"
-                                    contentBinding="months"
-                                    optionValuePath="content.value"
-                                    optionLabelPath="content.name"
-                                    valueBinding="timeOfYearTo"
-                                    id="inputTimeOfYearTo"
-                                    class="form-control"}}
+                                        content=App.Fixtures.Months
+                                        optionValuePath="content.value"
+                                        optionLabelPath="content.name"
+                                        valueBinding="timeOfYearTo"
+                                        id="inputTimeOfYearTo"
+                                        class="form-control"}}
                                 </div>
                             </div>
                         </div>
@@ -200,12 +200,12 @@
                                     <label for="inputGrade">Grade<span class="asterisk recommended"></span></label>
                                     <button class="info pull-right" data-toggle="modal" data-target="#tourDetailsGradeGuideModal"></button>
                                     {{view "select"
-                                    contentBinding="grades"
-                                    optionValuePath="content.value"
-                                    optionLabelPath="content.name"
-                                    valueBinding="grade"
-                                    id="inputGrade"
-                                    class="form-control"}}
+                                        content=App.Fixtures.Grades
+                                        optionValuePath="content.value"
+                                        optionLabelPath="content.name"
+                                        valueBinding="grade"
+                                        id="inputGrade"
+                                        class="form-control"}}
                                 </div>
                             </div>
 

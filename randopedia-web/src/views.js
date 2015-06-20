@@ -26,132 +26,6 @@ App.AboutView = Ember.View.extend({
    templateName: 'about',
 });
 
-App.AreaDetailsView = Ember.View.extend({
-    templateName: 'areadetails-view',
-});
-
-App.AreaEditView = Ember.View.extend({
-    templateName: 'areaedit-view', 
-    didInsertElement: function() {
-        $('.info').popover({placement: 'bottom'});
-    },
-    actions: {
-        saveArea: function() {
-            if(this.get('controller').validate() === true){
-                $('#confirmPublishAreaModal').modal('show');
-            }
-            else {
-                $('#validationErrorsAreaModal').modal('show');
-            }  
-        },
-        startCancelingEdit: function() {
-            if(this.get('controller').get('isDirty'))  {
-                $('#discardChangesAreaModal').modal('show');
-            } else {
-                this.get('controller').send('cancelEdit');
-            }
-        },        
-        startAddSubArea: function() {
-            this.get('controller').send('startAddingSubArea');
-        },
-        cancelAddSubAreaDialog: function() {
-            this.get('controller').send('cancelAddSubArea');
-        },
-        addSubArea: function() {
-            this.get('controller').send('addSubArea');
-        }
-    }
-});
-
-App.AreaBrowseItemsView = Ember.View.extend({
-    templateName: 'area-browse-items-view'
-});
-
-App.AreaBrowseItemView = Ember.View.extend({
-    templateName: 'area-browse-item-view',
-    actions: {
-        routeToArea: function() {
-            this.get('controller').transitionToRoute('area', this.get('controller').get('model'));
-        }
-    },
-    areaTitle: function() {
-        var controller = this.get('controller');
-        var title = controller.get('name');
-        if(controller.get('hasTours')){
-            var tourCount = controller.get('nbrTours');
-            title = title + ' (' + tourCount + ')'; 
-        }
-        
-        return title;
-    }.property('controller')
-});
-
-App.AreaBrowseView = Ember.View.extend();
-
-App.AreaPickerView = Ember.View.extend({
-   templateName: "areapicker-view",
-   didInsertElement : function() {
-       var self = this;
-       self.get('controller').set('tempSelectedArea', this.get('controller').get('model').get('area'));
-       
-       $('#areaPickerModal').on('shown.bs.modal', function (e) {
-           self.get('controller').set('toplevels', null);
-           self.set('loading', true);
-           
-           self.get('controller').store.find('toplevel').then(function(toplevels){
-               self.get('controller').set('toplevels', toplevels);
-               self.set('loading', false);
-           }, function(error) {
-               App.Utils.log('Error when loading areas: ' + error);
-           });
-        });
-   },
-   actions: {
-       confirmSelectedArea: function() {
-           this.get('controller').get('model').set('area', this.get('controller').get('tempSelectedArea'));
-           this.get('controller').set('areaIsUpdated', true);
-           this.send('closeAreaPickerDialog');
-       },
-       openAreaPickerDialog: function() {
-           this.get('controller').set('tempSelectedArea', this.get('controller').get('model').get('area'));
-       },
-       closeAreaPickerDialog: function() {
-           this.get('parentView').send('closeAreaPickerDialog');
-       },
-//       expandAncestorTree: function() {
-//           console.log('Tree expanded');
-//       }
-   }
-});
-
-App.AreaPickerItemView = Ember.View.extend({
-    templateName: "areapicker-item-view",
-    isExpanded: false,
-    actions: {
-        selectArea: function() {
-            this.get('controller').set('tempSelectedArea', this.get('item'));
-        },
-        toggleExpandChildren: function() {
-            this.set('isExpanded', !this.get('isExpanded'));
-        },
-    },
-    isSelected: function() {
-        if(!this.get('controller').get('tempSelectedArea')){
-            return false;
-        }
-        var selectedId = this.get('controller').get('tempSelectedArea').get('id');
-        if(selectedId === this.get('item').get('id')){
-            return true;
-        }
-        return false;
-        
-    }.property('controller.tempSelectedArea'),
-});
-
-App.BreadCrumbView = Ember.View.extend({
-    templateName: 'breadcrumb-view'
-});
-
 App.ImageCarouselView = Ember.View.extend({
     templateName: 'image-carousel-view',
     classNames: ['carousel', 'slide'],
@@ -217,6 +91,7 @@ App.TourEditView = Ember.View.extend({
     showAdvancedOptions: false,
     haveValidationErrors: false,
     haveValidationWarnings: false,
+    aspects: [],
     
     didInsertElement: function() {
         $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
@@ -225,7 +100,10 @@ App.TourEditView = Ember.View.extend({
         });
           
         $('.info').popover({placement: 'auto'});
+        
+        this.set("aspects", App.Fixtures.Aspects);
     },
+       
     actions: {
         startPublishTour: function () {
             this.set('haveValidationErrors', !this.get('controller').validateForPublish());
