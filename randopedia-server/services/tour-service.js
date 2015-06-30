@@ -17,7 +17,7 @@ var tourService = (function () {
 
     function isTourPublishedForTheFirstTime(originalTour, tour) {
         return (originalTour.status == enums.TourStatus.DRAFT && tour.status === enums.TourStatus.PUBLISHED) || (originalTour.status === enums.TourStatus.IN_REVIEW && tour.status === enums.TourStatus.PUBLISHED);
-    }
+    }   
 
     function getTour(tourId, callback) {
         tourRepository.getTour(tourId).then(function (tour) {
@@ -27,7 +27,7 @@ var tourService = (function () {
         }).catch(function (error) {
             console.log(error);
         });
-    }
+    }   
 
     function getTours(status, user, callback) {      
         if (status === enums.TourStatus.DRAFT.toString() && user) {
@@ -148,6 +148,45 @@ var tourService = (function () {
             console.log(error);
         });
     }
+    
+    function addImage(image, user, callback) {
+
+        tourRepository.addImage(image.tour, image).then(function() {
+    
+            if(callback) {
+                callback();
+            }
+
+        }).catch(function(error) {
+            console.log(error);
+        });       
+    }
+    
+    function updateImage(image, imageId, user, callback) {
+        
+        tourRepository.updateImage(image, imageId).then(function(image) {
+    
+            if(callback) {
+                callback(image);
+            }                
+
+        }).catch(function(error) {
+            console.log(error);
+        });  
+    }
+    
+    function deleteImage(imageId, user, callback) {
+        
+        tourRepository.deleteImage(imageId).then(function(image) {
+    
+            if(callback) {
+                callback(image);
+            }
+
+        }).catch(function(error) {
+            console.log(error);
+        });  
+    }    
 
     return {
         getTour: getTour,
@@ -156,7 +195,10 @@ var tourService = (function () {
         getTourItems: getTourItems,
         createTour: createTour,
         updateTour: updateTour,
-        getActions: getActions
+        getActions: getActions,
+        addImage: addImage,
+        updateImage: updateImage,
+        deleteImage: deleteImage
     };
 
 })();

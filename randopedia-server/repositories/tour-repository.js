@@ -1,5 +1,7 @@
 ﻿var mongoose = require("mongoose");
 var Q = require("q");
+var fs = require('fs');
+var config = require("../config/config")
 var Tour = require("../models/tour");
 var common = require("../helpers/common");
 var enums = require("../enums");
@@ -155,13 +157,130 @@ var tourRepository = (function () {
         return deferred.promise;
     }
     
+    function addImage(tourId, image) {
+        var deferred = Q.defer();
+        var imageId = mongoose.Types.ObjectId();
+        var databaseFileName = config.tourImagesDirectory + "/" + tourId + "_" + imageId + ".jpg";
+        var fileName = config.webappClientDirectory + "/" + databaseFileName;
+        
+        var imageBuffer = common.decodeBase64Image(image.imageData);
+
+        fs.writeFile(fileName, imageBuffer.data, function(err) {
+            if(err) {
+                deferred.reject(err);
+                return;
+            } 
+            
+            image._id = imageId;
+            image.tour = tourId;
+            image.imageFile = databaseFileName;
+            image.imageData = null;
+
+            Tour.findOne({ clientId: tourId }, function (err, result) {
+                if (err) {
+                    deferred.reject(err);
+                    return;
+                } 
+                
+                if (!result) {
+                    deferred.reject("Couldn't find tour");
+                    return;
+                }
+                
+                var tour = documentToTour(result);
+                if(!tour.tourImages) {
+                    tour.tourImages = [];
+                }
+                tour.tourImages.push(image);                       
+                
+                saveTour(tour).then(function() {
+                    deferred.resolve();
+                            
+                }).catch(function (error) {
+                    console.log(error);
+                });        
+            });
+        }); 
+
+        return deferred.promise;
+    }
+    
+   function findIndexFromId (array, id) {
+        var index = -1;
+        for(var i = 0; i < array.length; i++) {
+            var j = array[i]._id.toString();
+            if(array[i]._id.toString() === id) {
+                index = i;
+                break;
+            }
+        }
+        return index;
+    };
+    
+    function updateImage(image, imageId) {
+        var deferred = Q.defer();
+
+        Tour.findOne({ clientId: image.tour }, function (err, result) {
+            if (err) {
+                deferred.reject(err);
+                return;
+            } 
+            
+            if (!result) {
+                deferred.reject("Couldn't find tour for image");
+                return;
+            }
+            
+            var tour = documentToTour(result);
+            
+            if(!tour.tourImages) {
+                deferred.reject("Image does not exist, cannot update");
+                return;
+            }
+            
+           image._id = mongoose.Types.ObjectId(imageId);
+
+            var index = findIndexFromId(tour.tourImages, imageId);
+            if(index < 0) {
+                deferred.reject("Image does not exist, cannot update");
+                return;
+            }
+            
+            if(image.isPortfolio) {
+                tour.tourImages.forEach(function(element) {
+                    element.isPortfolio = false;
+                });
+                tour.portfolioImage = image.id;
+            } 
+            
+            tour.tourImages[index] = image;
+             
+            saveTour(tour).then(function () {
+                deferred.resolve(tour.tourImages[index]);
+
+            }).catch(function (error) {
+                console.log(error);
+            });
+        });
+        
+        return deferred.promise;
+     }
+    
+    function deleteImage(image) {
+        var deferred = Q.defer();
+        deferred.reject("Not implemented...");
+    }
+    
     return {
         getTour: getTour,
         getToursWithTag : getToursWithTag,
         getToursByStatus: getToursByStatus,
         getTourDrafts: getTourDrafts,
         getTourItems: getTourItems,
-        saveTour: saveTour
+        saveTour: saveTour,
+        addImage: addImage,
+        updateImage: updateImage,
+        deleteImage: deleteImage
     };
 
 })();
