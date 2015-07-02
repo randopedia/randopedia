@@ -1,15 +1,14 @@
 var express = require('express');
 var router = express.Router();
-
 var User = require("../models/user");
 
-var passport = require('passport')
 var FacebookStrategy = require('passport-facebook').Strategy;
 var GoogleStrategy = require('passport-google').Strategy;
 
-router.use(passport.initialize());
-router.use(passport.session());
+//router.use(passport.initialize());
+//router.use(passport.session());
 
+/*
 passport.use(new FacebookStrategy(
     {
         clientID: "579258552116376",
@@ -30,7 +29,7 @@ passport.use(new FacebookStrategy(
         }
     )
 );
-
+*/
 //router.get('/facebook', passport.authenticate('facebook'));
 
 //router.get('/facebook/callback', passport.authenticate('facebook', { session: false, successRedirect: '/logincallback.html' }));

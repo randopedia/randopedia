@@ -1,5 +1,8 @@
-  var common = (function () {
+var facebookRepository = require('../repositories/facebook-repository');
+var userRepository = require('../repositories/user-repository');
 
+var common = (function () {
+    
     function getTextId(textId) {
         textId = textId.replace('ø', 'o');
         textId = textId.replace('æ', 'a');
@@ -16,8 +19,22 @@
         return textId.toLowerCase();
     }
     
+    function getUserFromRequest(token) {
+        // returns a promise. Use facebook repository and user repository
+        return facebookRepository.getExternalUser(token)
+            .then(function(facebookUser) {
+                console.log('found facebook user');
+                return userRepository.findUser(facebookUser);
+            }, function(error) {
+                console.log('getUserFromRequest, error: ' + error);
+                return null;
+            });
+    }
+    
+    
     return {
-        getTextId: getTextId
+        getTextId: getTextId,
+        getUserFromRequest : getUserFromRequest
     };
     
 })();

@@ -40,8 +40,26 @@ var userRepository = (function() {
         return deferred.promise;        
     }
 
+    function findUser(facebookUser) {
+        console.log('userRepository.findUser ' + facebookUser.id);
+        var deferred = Q.defer();
+        userModel.findOne({'userId' : facebookUser.id}, function(err, user) {
+            if(err) {
+                deferred.reject(err);
+            } else {
+                if(user) {
+                    deferred.resolve(user.toObject());
+                } else {
+                    deferred.resolve(null);
+                }
+            }
+        });
+        return deferred.promise;
+    }
+
     return {
-        findOrCreateUser : findOrCreateUser
+        findOrCreateUser : findOrCreateUser,
+        findUser : findUser
     };
     
 })();

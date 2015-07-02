@@ -107,7 +107,7 @@ var tourService = (function () {
             }
             return;
         }
-                
+
         // todo: get tags from itinerary and save
         
         tourRepository.getTour(tour.tourId).then(function (originalTour) {
