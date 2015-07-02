@@ -18,7 +18,7 @@ var common = (function () {
         textId = textId.replaceAll("[^a-zA-Z0-9]", "_");
         return textId.toLowerCase();
     }
-    
+
     function getUserFromRequest(token) {
         // returns a promise. Use facebook repository and user repository
         return facebookRepository.getExternalUser(token)
@@ -30,11 +30,25 @@ var common = (function () {
                 return null;
             });
     }
-    
-    
+     
+    function decodeBase64Image(dataString) {
+        var matches = dataString.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
+        var response = {};
+        
+        if (matches.length !== 3) {
+            return new Error('Invalid input string');
+        }
+        
+        response.type = matches[1];
+        response.data = new Buffer(matches[2], 'base64');
+        
+        return response;
+    }
+
     return {
-        getTextId: getTextId,
-        getUserFromRequest : getUserFromRequest
+        getTextId : getTextId,
+        getUserFromRequest : getUserFromRequest,
+        decodeBase64Image : decodeBase64Image
     };
     
 })();

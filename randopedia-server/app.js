@@ -10,6 +10,7 @@ var auth = require('./routes/auth');
 var users = require('./routes/users');
 var tours = require('./routes/tours');
 var touritems = require('./routes/touritems');
+var tourimages = require('./routes/tourimages');
 var actions = require('./routes/actions');
 var tags = require('./routes/tags');
 
@@ -22,8 +23,8 @@ app.set('view engine', 'ejs');
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json({limit: "12mb"}));
+app.use(bodyParser.urlencoded({ extended: false, limit: "12mb" }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -33,6 +34,7 @@ app.use('/randopedia/api/users/', users);
 app.use('/randopedia/api/tours/', tours);
 app.use('/randopedia/api/actions/', actions);
 app.use('/randopedia/api/touritems/', touritems);
+app.use('/randopedia/api/images/', tourimages);
 app.use('/randopedia/api/tags/', tags);
 
 // catch 404 and forward to error handler
