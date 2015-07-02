@@ -13,14 +13,14 @@ var tourRepository = (function () {
         tour.id = tour.clientId;
         return tour;
     }
-    
+
     function documentsToTours(documents) {
-        if(!documents || documents.length === 0) {
+        if (!documents || documents.length === 0) {
             return { tours: [] };
         }
-        
+
         var entities = [];
-        documents.forEach(function(doc) {
+        documents.forEach(function (doc) {
             entities.push(documentToTour(doc));
         }, this);
 
@@ -28,68 +28,68 @@ var tourRepository = (function () {
     }
 
     function getImageIdArrayFromTourImages(tourImages) {
-        return tourImages.map(function(image) {
+        return tourImages.map(function (image) {
             return image._id;
         });
     }
 
     function getTourImagesWithIds(tourImages) {
-        return tourImages.map(function(tourImage) {
+        return tourImages.map(function (tourImage) {
             var imageWithId = tourImage;
             imageWithId.id = tourImage._id;
             return imageWithId;
         });
     }
-    
+
     function findUniqueClientId(tourName, currentCounter) {
         var uniqueClientId = common.getTextId(tourName);
         var counter = currentCounter ? currentCounter : 1;
-        
-        return getTour(tourName).then(function(tour) {
-            if(!tour) {
+
+        return getTour(tourName).then(function (tour) {
+            if (!tour) {
                 return uniqueClientId;
             }
-            
+
             uniqueClientId = uniqueClientId + "_" + counter;
             counter++;
             return findUniqueClientId(uniqueClientId, counter);
-        
-        }).catch(function(error) {
+
+        }).catch(function (error) {
             console.log(error);
-        });      
+        });
     }
-    
+
     function getTour(tourId) {
         var deferred = Q.defer();
-        
+
         Tour.findOne({ clientId: tourId }, function (err, result) {
             if (err) {
                 deferred.reject(err);
             } else {
-                if(result) {
+                if (result) {
                     var tour = documentToTour(result);
                     var tourImages = tour.tourImages;
-                    if(tourImages) {   
+                    if (tourImages) {
                         var images = getImageIdArrayFromTourImages(tourImages);
                         tourImages = getTourImagesWithIds(tourImages);
                         delete tour.tourImages;
                         tour.images = images;
                     }
-                    deferred.resolve({tour: tour, images : tourImages});
+                    deferred.resolve({ tour: tour, images: tourImages });
                 } else {
                     deferred.resolve(null);
                 }
             }
         });
-        
+
         return deferred.promise;
     }
-    
+
     function getToursWithTag(tagName) {
         var deferred = Q.defer();
 
-        Tour.find({tags : tagName}, function (err, result) {
-            if(err) {
+        Tour.find({ tags: tagName }, function (err, result) {
+            if (err) {
                 deferred.reject(err);
             } else {
                 deferred.resolve(documentsToTours(result));
@@ -101,8 +101,8 @@ var tourRepository = (function () {
     function getToursByStatus(status) {
         var deferred = Q.defer();
 
-        Tour.find({status : status}, function (err, result) {
-            if(err) {
+        Tour.find({ status: status }, function (err, result) {
+            if (err) {
                 deferred.reject(err);
             } else {
                 deferred.resolve(documentsToTours(result));
@@ -110,7 +110,7 @@ var tourRepository = (function () {
         });
         return deferred.promise;
     }
-    
+
     function getTourDrafts() {
         // todo: ...
     }
@@ -119,58 +119,58 @@ var tourRepository = (function () {
         var itemFields = "mapGeoJson name grade elevationLoss elevationGain timingMin timingMax shortDescription clientId";
         var deferred = Q.defer();
 
-        Tour.find({status: enums.TourStatus.PUBLISHED}, itemFields, function (err, result) {
+        Tour.find({ status: enums.TourStatus.PUBLISHED }, itemFields, function (err, result) {
             if (err) {
                 deferred.reject(err);
             } else {
                 deferred.resolve(documentsToTours(result));
             }
         });
-        
+
         return deferred.promise;
     }
-    
+
     function saveTour(tour) {
         var deferred = Q.defer();
-        
-        if(!tour.id) {
+
+        if (!tour.id) {
             tour.clientId = findUniqueClientId(tour.name);
-            
-            Tour.create(tour, function(err, result) {
-                if(err) {
+
+            Tour.create(tour, function (err, result) {
+                if (err) {
                     deferred.reject(err);
                 } else {
                     deferred.resolve(documentToTour(result));
                 }
-            });  
-        
+            });
+
         } else {
-            Tour.findOneAndUpdate({clientId: tour.id}, tour, function(err, result) {
-                if(err) {
+            Tour.findOneAndUpdate({ clientId: tour.id }, tour, function (err, result) {
+                if (err) {
                     deferred.reject(err);
                 } else {
                     deferred.resolve(documentToTour(result));
                 }
-            }); 
+            });
         }
-        
+
         return deferred.promise;
     }
-    
+
     function addImage(tourId, image) {
         var deferred = Q.defer();
         var imageId = mongoose.Types.ObjectId();
         var databaseFileName = config.tourImagesDirectory + "/" + tourId + "_" + imageId + ".jpg";
         var fileName = config.webappClientDirectory + "/" + databaseFileName;
-        
+
         var imageBuffer = common.decodeBase64Image(image.imageData);
 
-        fs.writeFile(fileName, imageBuffer.data, function(err) {
-            if(err) {
+        fs.writeFile(fileName, imageBuffer.data, function (err) {
+            if (err) {
                 deferred.reject(err);
                 return;
-            } 
-            
+            }
+
             image._id = imageId;
             image.tour = tourId;
             image.imageFile = databaseFileName;
@@ -180,43 +180,43 @@ var tourRepository = (function () {
                 if (err) {
                     deferred.reject(err);
                     return;
-                } 
-                
+                }
+
                 if (!result) {
                     deferred.reject("Couldn't find tour");
                     return;
                 }
-                
+
                 var tour = documentToTour(result);
-                if(!tour.tourImages) {
+                if (!tour.tourImages) {
                     tour.tourImages = [];
                 }
-                tour.tourImages.push(image);                       
-                
-                saveTour(tour).then(function() {
+                tour.tourImages.push(image);
+
+                saveTour(tour).then(function () {
                     deferred.resolve();
-                            
+
                 }).catch(function (error) {
                     console.log(error);
-                });        
+                });
             });
-        }); 
+        });
 
         return deferred.promise;
     }
-    
-   function findIndexFromId (array, id) {
+
+    function findIndexFromId(array, id) {
         var index = -1;
-        for(var i = 0; i < array.length; i++) {
+        for (var i = 0; i < array.length; i++) {
             var j = array[i]._id.toString();
-            if(array[i]._id.toString() === id) {
+            if (array[i]._id.toString() === id) {
                 index = i;
                 break;
             }
         }
         return index;
     };
-    
+
     function updateImage(image, imageId) {
         var deferred = Q.defer();
 
@@ -224,8 +224,67 @@ var tourRepository = (function () {
             if (err) {
                 deferred.reject(err);
                 return;
-            } 
-            
+            }
+
+            if (!result) {
+                deferred.reject("Couldn't find tour for image");
+                return;
+            }
+
+            var tour = documentToTour(result);
+
+            if (!tour.tourImages) {
+                deferred.reject("Image does not exist, cannot update");
+                return;
+            }
+
+            image._id = mongoose.Types.ObjectId(imageId);
+
+            var index = findIndexFromId(tour.tourImages, imageId);
+            if (index < 0) {
+                deferred.reject("Image does not exist, cannot update");
+                return;
+            }
+
+            if (image.isPortfolio) {
+                tour.tourImages.forEach(function (element) {
+                    element.isPortfolio = false;
+                });
+                tour.portfolioImage = image.id;
+                var imgs = [];
+                imgs.push(image);
+                tour.tourImages.forEach(function (element) {
+                    if (element._id.toString() !== image._id.toString()) {
+                        imgs.push(element);
+                    }
+                });
+                tour.tourImages = imgs;
+
+            } else {
+                tour.tourImages[index] = image;
+            }
+
+            saveTour(tour).then(function () {
+                deferred.resolve(image);
+
+            }).catch(function (error) {
+                console.log(error);
+            });
+        });
+
+        return deferred.promise;
+    }
+
+    function deleteImage(imageId) {
+        var deferred = Q.defer();
+        
+        var id = mongoose.Types.ObjectId(imageId);
+        Tour.findOne({ "tourImages._id": id }, function (err, result) {
+            if (err) {
+                deferred.reject(err);
+                return;
+            }
+
             if (!result) {
                 deferred.reject("Couldn't find tour for image");
                 return;
@@ -233,56 +292,49 @@ var tourRepository = (function () {
             
             var tour = documentToTour(result);
             
-            if(!tour.tourImages) {
-                deferred.reject("Image does not exist, cannot update");
+            if (!tour.tourImages) {
+                deferred.reject("Tour has no images, cannot delete");
                 return;
-            }
+            }         
             
-           image._id = mongoose.Types.ObjectId(imageId);
-
             var index = findIndexFromId(tour.tourImages, imageId);
-            if(index < 0) {
+            if (index < 0) {
                 deferred.reject("Image does not exist, cannot update");
                 return;
             }
-            
-            if(image.isPortfolio) {
-                tour.tourImages.forEach(function(element) {
-                    element.isPortfolio = false;
-                });
-                tour.portfolioImage = image.id;
-            } 
-            
-            tour.tourImages[index] = image;
-             
-            saveTour(tour).then(function () {
-                deferred.resolve(tour.tourImages[index]);
 
-            }).catch(function (error) {
-                console.log(error);
+            fs.unlink(config.webappClientDirectory + "/" + tour.tourImages[index].imageFile, function(err) {
+                if(err) {
+                    deferred.reject("Error wwhen deleting image file");
+                    throw err;
+                };
+        
+                tour.tourImages.splice(index, 1);        
+                
+                saveTour(tour).then(function () {
+                    deferred.resolve();
+        
+                }).catch(function (error) {
+                    console.log(error);
+                });                                           
             });
         });
-        
+
         return deferred.promise;
-     }
-    
-    function deleteImage(image) {
-        var deferred = Q.defer();
-        deferred.reject("Not implemented...");
-    }
+}
     
     return {
-        getTour: getTour,
-        getToursWithTag : getToursWithTag,
-        getToursByStatus: getToursByStatus,
-        getTourDrafts: getTourDrafts,
-        getTourItems: getTourItems,
-        saveTour: saveTour,
-        addImage: addImage,
-        updateImage: updateImage,
-        deleteImage: deleteImage
-    };
+            getTour: getTour,
+            getToursWithTag: getToursWithTag,
+            getToursByStatus: getToursByStatus,
+            getTourDrafts: getTourDrafts,
+            getTourItems: getTourItems,
+            saveTour: saveTour,
+            addImage: addImage,
+            updateImage: updateImage,
+            deleteImage: deleteImage
+        };
 
-})();
+    })();
 
-module.exports = tourRepository; 
+    module.exports = tourRepository; 

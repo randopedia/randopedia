@@ -211,8 +211,6 @@ App.TourEditController = Ember.ObjectController.extend({
         saveNewImage: function () {
             var self = this;
 
-            //self.get("model").reload();
-
             if(self.get("havePendingOperations")){
                 return;
             }
@@ -224,9 +222,9 @@ App.TourEditController = Ember.ObjectController.extend({
                    self.set("newImage", null);
                    self.set("havePendingOperations", false);
 
-                   //self.get("model").reload();
+                   self.get("model").reload();
                    
-                    App.Alerts.showSuccessMessage("Image was successfully added. (If it doesn't appear in the list below, try to reload the page) ", App.Alerts.long_delay);
+                    App.Alerts.showSuccessMessage("Image was successfully added.", App.Alerts.long_delay);
                 }, 
                 function(error) {
                     var status = error.status;
@@ -260,7 +258,7 @@ App.TourEditController = Ember.ObjectController.extend({
             self.set("havePendingOperations", true);
             image.save().then(
                 function() {
-                    //self.get("model").reload();
+                    self.get("model").reload();
                     self.set("havePendingOperations", false);
                     App.Alerts.showSuccessMessage("Image was successfully saved. ");
                 }, 
@@ -289,7 +287,6 @@ App.TourEditController = Ember.ObjectController.extend({
             image.deleteRecord();
             image.save().then(
                 function() {
-                    //self.get("model").reload();
                     self.set("havePendingOperations", false);
                     App.Alerts.showSuccessMessage("Image was successfully deleted. ");
                 },
@@ -330,15 +327,13 @@ App.TourEditController = Ember.ObjectController.extend({
             return;
         }
 
-        //self.set("havePendingOperations", true);
+        self.set("havePendingOperations", true);
+        
         self.get("model").save().then(
-            function() {
-                console.log('saved ok');
-                            
-                self.set("havePendingOperations", false);
-                
+            function() {                           
                 self.set("havePendingOperations", false);
                 App.Alerts.showSuccessMessage("Tour was successfully saved");
+                self.transitionToRoute("tour", self.get("model"));
             }, 
             function(error) {
                 var status = error.status;

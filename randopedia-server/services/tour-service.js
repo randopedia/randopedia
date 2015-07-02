@@ -114,14 +114,14 @@ var tourService = (function () {
 
             tourRepository.saveTour(tour).then(function (updatedTour) {
 
-                tourActionRepository.save(user, tour, enums.TourActionType.UPDATE);
-
-                if (isTourSentToReview(originalTour, tour)) {
-                    tourActionRepository.save(user, tour, enums.TourActionType.SENT_TO_REVIEW);
-
-                } else if (isTourPublishedForTheFirstTime(originalTour, tour)) {
-                    tourActionRepository.save(user, tour, enums.TourActionType.PUBLISH);
-                }
+//                 tourActionRepository.save(user, tour, enums.TourActionType.UPDATE);
+// 
+//                 if (isTourSentToReview(originalTour, tour)) {
+//                     tourActionRepository.save(user, tour, enums.TourActionType.SENT_TO_REVIEW);
+// 
+//                 } else if (isTourPublishedForTheFirstTime(originalTour, tour)) {
+//                     tourActionRepository.save(user, tour, enums.TourActionType.PUBLISH);
+//                 }
 
                 if (callback) {
                     callback(updatedTour);
@@ -177,10 +177,10 @@ var tourService = (function () {
     
     function deleteImage(imageId, user, callback) {
         
-        tourRepository.deleteImage(imageId).then(function(image) {
+        tourRepository.deleteImage(imageId).then(function() {
     
             if(callback) {
-                callback(image);
+                callback();
             }
 
         }).catch(function(error) {
