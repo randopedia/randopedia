@@ -53,6 +53,10 @@ var tourService = (function () {
     }
 
     function getToursByCurrentUser(user, callback) {
+        if(!user) {
+            return [];
+        }
+        
         // todo: ...
     }
 

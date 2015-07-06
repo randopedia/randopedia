@@ -30,6 +30,10 @@ var common = (function () {
                 return null;
             });
     }
+    
+    function sendUnauthorizedResponse(res) {
+        res.status(401).send('You have been logged out');
+    }
      
     function decodeBase64Image(dataString) {
         var matches = dataString.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
@@ -48,6 +52,7 @@ var common = (function () {
     return {
         getTextId : getTextId,
         getUserFromRequest : getUserFromRequest,
+        sendUnauthorizedResponse: sendUnauthorizedResponse,
         decodeBase64Image : decodeBase64Image
     };
     

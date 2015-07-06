@@ -58,7 +58,7 @@ App.TourController = Ember.ObjectController.extend({
                 }, 
                 function(error) {
                     var status = error.status;
-                    if(status === 403) {
+                    if(status === 401) {
                         self.get("controllers.login").send("removeToken");
                         App.Alerts.showErrorMessage("Oh noes, you have most likely been logged out. Try to log in again.");
                     }
@@ -140,7 +140,7 @@ App.TourEditController = Ember.ObjectController.extend({
     validationWarnings: [],
 
     init: function() {
- 
+
     },
 
     actions: {
@@ -169,7 +169,7 @@ App.TourEditController = Ember.ObjectController.extend({
             }
             
             if (!self.validateForPublish()) {
-                App.Alerts.showErrorMessage("There are validation errors, please correct and try again.");
+                App.Alerts.showErrorMessage("There are validation errors, please correct and try again. ");
                 return;
             }
             self.get("model").set("status", App.Fixtures.TourStatus.PUBLISHED);
@@ -186,7 +186,7 @@ App.TourEditController = Ember.ObjectController.extend({
             self.set("draftValidationErrors", false);
             
             if (!self.validateForDraft()) {
-                App.Alerts.showErrorMessage("There are validation errors, area and name must be set before saving");
+                App.Alerts.showErrorMessage("There are validation errors, tour name must be set before saving. ");
                 return; 
             }
             self.get("model").set("status", App.Fixtures.TourStatus.DRAFT);
@@ -201,7 +201,7 @@ App.TourEditController = Ember.ObjectController.extend({
             }
 
             if (!self.validateForDraft()) {
-                App.Alerts.showErrorMessage("There are validation errors, area and name must be set before saving");
+                App.Alerts.showErrorMessage("There are validation errors, tour name must be set before saving. ");
                 return;
             }
             self.get("model").set("status", App.Fixtures.TourStatus.IN_REVIEW);
@@ -228,7 +228,7 @@ App.TourEditController = Ember.ObjectController.extend({
                 }, 
                 function(error) {
                     var status = error.status;
-                    if(status === 403) {
+                    if(status === 401) {
                         self.get("controllers.login").send("removeToken");
                         App.Alerts.showErrorMessage("Oh noes, you have most likely been logged out. Try to log in again. ");
                     }
@@ -264,7 +264,7 @@ App.TourEditController = Ember.ObjectController.extend({
                 }, 
                 function(error) {
                     var status = error.status;
-                    if (status === 403) {
+                    if (status === 401) {
                         self.get("controllers.login").send("removeToken");
                         App.Alerts.showErrorMessage("Oh noes, you have most likely been logged out. Try to log in again. ");
                     }
@@ -292,7 +292,7 @@ App.TourEditController = Ember.ObjectController.extend({
                 },
                 function(error) {
                     var status = error.status;
-                    if(status === 403) {
+                    if(status === 401) {
                         self.get("controllers.login").send("removeToken");
                         App.Alerts.showErrorMessage("Oh noes, you have most likely been logged out. Try to log in again. ");
                     }
@@ -340,7 +340,7 @@ App.TourEditController = Ember.ObjectController.extend({
                 if(status === 421) {
                     App.Alerts.showErrorMessage("Oh noes, there are validation errors, please try again. ");
                 }
-                else if(status === 403) {
+                else if(status === 401) {
                     self.get("controllers.login").send("removeToken");
                     App.Alerts.showErrorMessage("Oh noes, you have most likely been logged out. Try to log in again. ");
                 }

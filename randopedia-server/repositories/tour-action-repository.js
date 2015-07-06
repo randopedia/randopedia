@@ -12,7 +12,19 @@ var tourActionRepository = (function () {
             time: new Date().getTime(),
             type: actionType,
             comment: tour.publishComment
-        }    
+        }        
+    }
+    
+    function documentsToActions(docs) {
+        if(!docs || docs.length === 0) {
+            return [];
+        }
+        
+        var actions = [];
+        docs.forEach(function(doc) {
+           actions.push(doc.toObject()); 
+        });
+        return actions;
     }
     
     function save (user, tour, actionType) {
@@ -23,7 +35,7 @@ var tourActionRepository = (function () {
             if(err) {
                 deferred.reject(err);
             } else {
-                deferred.resolve(result);
+                deferred.resolve(result.toObject());
             }
         });  
             
@@ -36,7 +48,7 @@ var tourActionRepository = (function () {
             if(err) {
                 deferred.reject(err);
             } else {
-                deferred.resolve(result);
+                deferred.resolve(documentsToActions(result));
             }
         });  
         

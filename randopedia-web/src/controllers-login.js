@@ -54,8 +54,10 @@ App.LoginController = Ember.ObjectController.extend({
         },
         removeToken : function() {
             var currentUser = this.get('currentUser');
-            currentUser.set('authenticated', false);
-            this.set('currentUser', null);
+            if(currentUser) {
+                currentUser.set('authenticated', false);
+                this.set('currentUser', null);
+            }
             App.oauth.expireAccessToken();
         },
     },
