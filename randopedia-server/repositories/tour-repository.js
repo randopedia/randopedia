@@ -16,15 +16,15 @@ var tourRepository = (function () {
 
     function documentsToTours(documents) {
         if (!documents || documents.length === 0) {
-            return { tours: [] };
+            return [];
         }
 
-        var entities = [];
+        var tours = [];
         documents.forEach(function (doc) {
-            entities.push(documentToTour(doc));
-        }, this);
+            tours.push(documentToTour(doc));
+        });
 
-        return { tourItems: entities };
+        return tours;
     }
 
     function getImageIdArrayFromTourImages(tourImages) {
@@ -42,21 +42,28 @@ var tourRepository = (function () {
     }
 
     function findUniqueClientId(tourName, currentCounter) {
+        var deferred = Q.defer();
+        
         var uniqueClientId = common.getTextId(tourName);
         var counter = currentCounter ? currentCounter : 1;
 
-        return getTour(tourName).then(function (tour) {
-            if (!tour) {
-                return uniqueClientId;
+        Tour.findOne({ clientId: tourName }, function (err, result) {
+            if(err) {
+                deferred.reject(err);
+                
+            } else {
+                if (!result) {
+                    deferred.resolve(uniqueClientId);
+                    return;
+                }
+    
+                uniqueClientId = uniqueClientId + "_" + counter;
+                counter++;
+                return findUniqueClientId(uniqueClientId, counter);
             }
-
-            uniqueClientId = uniqueClientId + "_" + counter;
-            counter++;
-            return findUniqueClientId(uniqueClientId, counter);
-
-        }).catch(function (error) {
-            console.log(error);
         });
+        
+        return deferred.promise;
     }
 
     function getTour(tourId) {
@@ -85,6 +92,39 @@ var tourRepository = (function () {
         return deferred.promise;
     }
 
+    function getTours(status) {
+        var deferred = Q.defer();
+        
+        status = !status ? enums.TourStatus.PUBLISHED : status;
+
+        Tour.find({ status: status }, function (err, result) {
+            if (err) {
+                deferred.reject(err);
+            } else {
+                deferred.resolve(documentsToTours(result));
+            }
+        });
+
+        return deferred.promise;
+    }
+    
+    function getTourItems(status) {
+        var itemFields = "mapGeoJson name grade elevationLoss elevationGain timingMin timingMax shortDescription clientId";
+        var deferred = Q.defer();
+        
+        status = !status ? enums.TourStatus.PUBLISHED : status;
+
+        Tour.find({ status: status }, itemFields, function (err, result) {
+            if (err) {
+                deferred.reject(err);
+            } else {
+                deferred.resolve(documentsToTours(result));
+            }
+        });
+
+        return deferred.promise;
+    }
+    
     function getToursWithTag(tagName) {
         var deferred = Q.defer();
 
@@ -97,51 +137,58 @@ var tourRepository = (function () {
         });
         return deferred.promise;
     };
+    
+    /*
+    @Override
+    public List<Tour> findDrafts(String userId) {
+        Criteria criteria = Criteria.where("userId").is(userId);
+        Query query = Query.query(criteria);
+        List<TourAction> actions = mongoOperations.find(query, TourAction.class);
+        
+        if(actions == null) {
+        	return null;
+        }
+        
+        List<Tour> tours = new ArrayList<Tour>();
+        for(TourAction action : actions){
+        	Tour tour = findTourByIdAndStatus(action.getTourId(), TourStatus.DRAFT);
+        	if(tour != null && !containsTour(tours, tour.getId())){
+        		tours.add(tour);	
+        	}
+        }
+        
+        return tours;
+    }     
+    */
 
-    function getToursByStatus(status) {
+    function getTourDrafts(userId) {
         var deferred = Q.defer();
+        deferred.resolve([]);
 
-        Tour.find({ status: status }, function (err, result) {
-            if (err) {
-                deferred.reject(err);
-            } else {
-                deferred.resolve(documentsToTours(result));
-            }
-        });
-        return deferred.promise;
-    }
-
-    function getTourDrafts() {
-        // todo: ...
-    }
-
-    function getTourItems() {
-        var itemFields = "mapGeoJson name grade elevationLoss elevationGain timingMin timingMax shortDescription clientId";
-        var deferred = Q.defer();
-
-        Tour.find({ status: enums.TourStatus.PUBLISHED }, itemFields, function (err, result) {
-            if (err) {
-                deferred.reject(err);
-            } else {
-                deferred.resolve(documentsToTours(result));
-            }
-        });
-
-        return deferred.promise;
+        // todo: ...        
+     
+       // Tour.find({ status: enums.TourStatus.DRAFT,  }, function (err, result) {
+        //     if (err) {
+        //         deferred.reject(err);
+        //     } else {
+        //         deferred.resolve(documentsToTours(result));
+        //     }
+        // });
     }
 
     function saveTour(tour) {
         var deferred = Q.defer();
 
         if (!tour.id) {
-            tour.clientId = findUniqueClientId(tour.name);
-
-            Tour.create(tour, function (err, result) {
-                if (err) {
-                    deferred.reject(err);
-                } else {
-                    deferred.resolve(documentToTour(result));
-                }
+            findUniqueClientId(tour.name).then(function(clientId) {
+                tour.clientId = clientId;
+                Tour.create(tour, function (err, result) {
+                    if (err) {
+                        deferred.reject(err);
+                    } else {
+                        deferred.resolve(documentToTour(result));
+                    }
+                });
             });
 
         } else {
@@ -325,10 +372,10 @@ var tourRepository = (function () {
     
     return {
             getTour: getTour,
-            getToursWithTag: getToursWithTag,
-            getToursByStatus: getToursByStatus,
-            getTourDrafts: getTourDrafts,
+            getTours: getTours,
             getTourItems: getTourItems,
+            getToursWithTag: getToursWithTag,
+            getTourDrafts: getTourDrafts,
             saveTour: saveTour,
             addImage: addImage,
             updateImage: updateImage,

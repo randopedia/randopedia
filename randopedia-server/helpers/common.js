@@ -14,8 +14,10 @@ var common = (function () {
         textId = textId.replace('Å', 'a');
         textId = textId.replace('Ä', 'a');
         textId = textId.replace('Ö', 'o');
-        textId = textId.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
-        textId = textId.replaceAll("[^a-zA-Z0-9]", "_");
+        textId = textId.replace("\\p{InCombiningDiacriticalMarks}+", "");
+        // todo: WHITESPACE REPLACE DOES NOT WORK!
+        // textId = textId.replace("[^a-zA-Z0-9]", "_");
+        // textId = textId.replace("/\s/g", "_");
         return textId.toLowerCase();
     }
 

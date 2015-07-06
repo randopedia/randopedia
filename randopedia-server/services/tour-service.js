@@ -41,7 +41,7 @@ var tourService = (function () {
             });
         }
         else {
-            tourRepository.getToursByStatus(status).then(function (tours) {
+            tourRepository.getTours(status).then(function (tours) {
                 if (callback) {
                     callback(tours);
                 }
@@ -195,8 +195,8 @@ var tourService = (function () {
     return {
         getTour: getTour,
         getTours: getTours,
-        getToursByCurrentUser: getToursByCurrentUser,
         getTourItems: getTourItems,
+        getToursByCurrentUser: getToursByCurrentUser,
         createTour: createTour,
         updateTour: updateTour,
         getActions: getActions,

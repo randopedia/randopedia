@@ -54,9 +54,23 @@ var tourActionRepository = (function () {
         
         return deferred.promise;
     }
+    
+    function getActionsByUser (ids) {
+        var deferred = Q.defer();
+        TourAction.find({_id: { $in: ids }}, function(err, result) {
+            if(err) {
+                deferred.reject(err);
+            } else {
+                deferred.resolve(documentsToActions(result));
+            }
+        });  
+        
+        return deferred.promise;
+    }    
 
     return {
         getActions : getActions,
+        getActionsByUser: getActionsByUser,
         save : save
     };
     

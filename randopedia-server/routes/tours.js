@@ -14,12 +14,12 @@ router.get("/", function (req, res) {
             
             if (usersTours) {
                 tourService.getToursByCurrentUser(user, function (tours) {
-                    res.send(tours);
+                    res.send({tours: tours});
                 });
             }
             else {
                 tourService.getTours(status, user, function (tours) {
-                    res.send(tours);
+                    res.send({tours: tours});
                 });
             }
     
@@ -42,18 +42,22 @@ router.post("/", function (req, res) {
 
     common.getUserFromRequest(token)
         .then(function (user) {
-        if (user) {
-            var tour = req.body.tour;
-            tourService.createTour(tour, user, function (createdTour) {
-                res.send(createdTour);
-            }, function (validationErrors) {
+            
+            if (user) {
+                var tour = req.body.tour;
+                tourService.createTour(tour, user, function (createdTour) {
+                    res.send({tour: createdTour});
+                    
+                }, function (validationErrors) {
                     res.status(400).send("Tour have validation errors and couldn't be saved", validationErrors);
                 });
-        } else {
-            common.sendUnauthorizedResponse(res);
-        }
-    }, function (error) {
-            common.sendUnauthorizedResponse(res);
+                    
+            } else {
+                common.sendUnauthorizedResponse(res);
+            }
+            
+        }, function (error) {
+                common.sendUnauthorizedResponse(res);
         });
 });
 
@@ -64,19 +68,21 @@ router.put("/:id?", function (req, res) {
     common.getUserFromRequest(token)
         .then(function (user) {
 
-        if (user) {
-
-            var tour = req.body.tour;
-            tour.id = req.params.id;
-            tourService.updateTour(tour, user, function (updatedTour) {
-                res.send(updatedTour);
-            }, function (validationErrors) {
+            if (user) {
+                var tour = req.body.tour;
+                tour.id = req.params.id;
+                tourService.updateTour(tour, user, function (updatedTour) {
+                    res.send({tour: updatedTour});
+                    
+                }, function (validationErrors) {
                     res.status(400).send("Tour have validation errors and couldn't be saved", validationErrors);
                 });
-        } else {
-            common.sendUnauthorizedResponse(res);
-        }
-    }, function (error) {
+                    
+            } else {
+                common.sendUnauthorizedResponse(res);
+            }
+        
+        }, function (error) {
             console.log('PUT tour error: ' + error);
             common.sendUnauthorizedResponse(res);
         });

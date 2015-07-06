@@ -3,6 +3,7 @@
 var TourSchema = mongoose.Schema(
     {
         name: String,
+        clientId: String,
         shortDescription: String,
         elevationGain: Number,
         elevationLoss: Number,

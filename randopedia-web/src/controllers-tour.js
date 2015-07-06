@@ -337,7 +337,7 @@ App.TourEditController = Ember.ObjectController.extend({
             }, 
             function(error) {
                 var status = error.status;
-                if(status === 421) {
+                if(status === 400) {
                     App.Alerts.showErrorMessage("Oh noes, there are validation errors, please try again. ");
                 }
                 else if(status === 401) {
@@ -621,14 +621,14 @@ App.MytoursController = Ember.ObjectController.extend({
             self.set("isLoadingDrafts", false);
             App.Alerts.showErrorMessage("An error occured when loading drafts, are you logged in?");
         });
-
-        self.store.findQuery("tour", { usersTours: true }).then(function (tours) {
-            self.set("updates", tours);
-            self.set("isLoadingUpdates", false);
-        }, function () {
-            self.set("isLoadingUpdates", false);
-            App.Alerts.showErrorMessage("An error occured when loading tours, are you logged in?");
-        });
+ 
+//         self.store.findQuery("tour", { usersTours: true }).then(function (tours) {
+//             self.set("updates", tours);
+//             self.set("isLoadingUpdates", false);
+//         }, function () {
+//             self.set("isLoadingUpdates", false);
+//             App.Alerts.showErrorMessage("An error occured when loading tours, are you logged in?");
+//         });
 
         self.store.findQuery("tour", { status: App.Fixtures.TourStatus.IN_REVIEW }).then(function (tours) {
             self.set("reviews", tours);
