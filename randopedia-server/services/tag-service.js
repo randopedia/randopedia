@@ -18,14 +18,15 @@ var tagService = (function() {
         var allPromise = Q.all([toursPromise, tagPromise]);
 
         allPromise.spread(function(toursResult, tagResult) {
-            if(tagResult) {   
-                var tours = toursResult.tourItems;
+            if(toursResult) {
+                var tours = toursResult;
                 var tourIds = tours.map(function(tour) {
                     return tour.clientId;
                 });
                 var tag = tagResult;
                 tag.tours = tourIds;
                 tag.name = tagName;
+                tag.id = tagName;
                 callback({'tag' : tag});
             } else {
                 callback({'tag' : {'id':tagName, 'tours':[]}});

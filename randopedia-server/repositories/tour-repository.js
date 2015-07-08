@@ -131,7 +131,7 @@ var tourRepository = (function () {
 
         Tour.find({'name' : { $regex : re}}, function(err, result) {
             if(err) {
-
+                deferred.reject();
             } else {
                 deferred.resolve(documentsToTours(result));
             }
