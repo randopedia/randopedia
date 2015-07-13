@@ -3,6 +3,7 @@ var Q = require("q");
 var fs = require('fs');
 var config = require("../config/config")
 var Tour = require("../models/tour");
+var TourAction = require("../models/tour-action");
 var common = require("../helpers/common");
 var enums = require("../enums");
 
@@ -163,17 +164,46 @@ var tourRepository = (function () {
 
     function getTourDrafts(userId) {
         var deferred = Q.defer();
-        deferred.resolve([]);
 
-        // todo: ...        
-     
-       // Tour.find({ status: enums.TourStatus.DRAFT,  }, function (err, result) {
-        //     if (err) {
-        //         deferred.reject(err);
-        //     } else {
-        //         deferred.resolve(documentsToTours(result));
-        //     }
-        // });
+        TourAction.find({userId: userId, type: enums.TourActionType.CREATE}, function(err, actions) {
+            if (err) {
+                deferred.reject(err);
+                
+            } else {
+                
+                if(actions.length === 0) {
+                    deferred.resolve([]);
+                    return;
+                };
+
+                var tourIds = [];
+                actions.forEach(function (action) {
+                    var actionObj = action.toObject();
+                    if(-1 === tourIds.indexOf(actionObj.tourId)) {
+                        tourIds.push(actionObj.tourId);
+                        console.log("ID: " + actionObj.tourId);
+                    }
+                }); 
+                          // {_id: {$in: tourIds},                           
+                Tour.find({status: enums.TourStatus.DRAFT}, function (err, tours) {
+                    
+                    if (err) {
+                        deferred.reject(err);
+                        
+                    } else {
+                        
+                        tours.forEach(function(t) {
+                           console.log("tour _id: " + t._id);
+                           console.log("tour id: " + t.id); 
+                        });
+                        
+                        deferred.resolve(documentsToTours(tours));
+                    }
+                });
+            }            
+        });
+        
+        return deferred.promise;
     }
 
     function saveTour(tour) {

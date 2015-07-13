@@ -31,7 +31,7 @@ var tourService = (function () {
 
     function getTours(status, user, callback) {      
         if (status === enums.TourStatus.DRAFT.toString() && user) {
-            tourRepository.getTourDrafts(user.userId).then(function (tours) {
+            tourRepository.getTourDrafts(user._id.toString()).then(function (tours) {
                 if (callback) {
                     callback(tours);
                 }
@@ -74,12 +74,18 @@ var tourService = (function () {
     function createTour(tour, user, callback, validationErrorsCallback) {
         
         tour = dataWasher.washTour(tour);  
-        var validationErrors = dataValidator.validateTour(tour);
-        if(validationErrors.length > 0) {
-            if(validationErrorsCallback) {
-                validationErrorsCallback(validationErrors);
-            }
-            return;
+        
+        if(tour.status === enums.TourStatus.DRAFT) {
+            // todo: validate for draft
+            
+        } else {
+            var validationErrors = dataValidator.validateTour(tour);
+            if(validationErrors.length > 0) {
+                if(validationErrorsCallback) {
+                    validationErrorsCallback(validationErrors);
+                }
+                return;
+            }   
         }
     
         // todo: get tags from itinerary and save

@@ -1,3 +1,5 @@
+var enums = require("../enums");
+
 var validator = {
     
     numberRegex: "[0-9]+",
@@ -92,6 +94,11 @@ var dataValidator = (function() {
         if(!validator.name(tour.name)) {
             validationErrors.push("Name");
         }
+        
+        if(tour.status === enums.TourStatus.DRAFT || tour.status === enums.TourStatus.IN_REVIEW) {
+            return validationErrors;
+        }
+        
         if(!validator.mediumDesc(tour.shortDescription, true)) {
             validationErrors.push("Summary");
         }
