@@ -1,7 +1,7 @@
 ﻿var mongoose = require("mongoose");
 var Q = require("q");
 var fs = require('fs');
-var config = require("../config/config")
+var config = require("../config/config");
 var Tour = require("../models/tour");
 var TourAction = require("../models/tour-action");
 var common = require("../helpers/common");
@@ -123,6 +123,20 @@ var tourRepository = (function () {
             }
         });
 
+        return deferred.promise;
+    }
+
+    function getToursByQuery(query) {
+        var re = new  RegExp(query, 'i');
+        var deferred = Q.defer();
+
+        Tour.find({'name' : { $regex : re}}, function(err, result) {
+            if(err) {
+                deferred.reject();
+            } else {
+                deferred.resolve(documentsToTours(result));
+            }
+        });
         return deferred.promise;
     }
     
@@ -396,22 +410,23 @@ var tourRepository = (function () {
                 });                                           
             });
         });
-
+        
         return deferred.promise;
-}
+    }
     
     return {
-            getTour: getTour,
-            getTours: getTours,
-            getTourItems: getTourItems,
-            getToursWithTag: getToursWithTag,
-            getTourDrafts: getTourDrafts,
-            saveTour: saveTour,
-            addImage: addImage,
-            updateImage: updateImage,
-            deleteImage: deleteImage
-        };
+        getTour: getTour,
+        getTours: getTours,
+        getTourItems: getTourItems,
+        getToursWithTag: getToursWithTag,
+        getToursByQuery : getToursByQuery,
+        getTourDrafts: getTourDrafts,
+        saveTour: saveTour,
+        addImage: addImage,
+        updateImage: updateImage,
+        deleteImage: deleteImage
+    };
 
-    })();
+})();
 
-    module.exports = tourRepository; 
+module.exports = tourRepository; 

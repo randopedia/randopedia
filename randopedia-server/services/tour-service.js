@@ -60,6 +60,17 @@ var tourService = (function () {
         // todo: ...
     }
 
+    function getToursByQuery(query, callback) {
+        tourRepository.getToursByQuery(query).then(function(tours) {
+            if(callback) {
+                callback(tours);
+            }
+        }).catch(function(error) {
+            console.log(error);
+        });
+        
+    }
+
     function getTourItems(callback) {
         tourRepository.getTourItems().then(function (tourItems) {
             if (callback) {
@@ -203,6 +214,7 @@ var tourService = (function () {
         getTours: getTours,
         getTourItems: getTourItems,
         getToursByCurrentUser: getToursByCurrentUser,
+        getToursByQuery : getToursByQuery,
         createTour: createTour,
         updateTour: updateTour,
         getActions: getActions,

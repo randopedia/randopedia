@@ -4,6 +4,22 @@ var Q = require('q');
 
 var tagRepository = (function () {
 
+    function documentToTag(tagDocument) {
+        var tag = tagDocument.toObject();
+        tag.id = tag.tag;;
+        delete tag._id;
+        return tag;
+    }
+    
+    function documentsToTags(tagDocuments) {
+        var tags = [];
+        
+        tagDocuments.forEach(function(doc) {
+            tags.push(documentToTag(doc));
+        });
+        return tags;
+    }
+    
     function getTag(tagName) {
         var deferred = Q.defer();
         tagModel.findOne({'tag':tagName}, function(err, tag) {
@@ -12,7 +28,7 @@ var tagRepository = (function () {
             } else {
                 var tagObject = null;
                 if(tag) {
-                    tagObject = tag.toObject();
+                    tagObject = documentToTag(tag);
                 }
                 deferred.resolve(tagObject);
             }
@@ -26,7 +42,7 @@ var tagRepository = (function () {
             if(err) {
                 deferred.reject(err);
             } else {
-                deferred.resolve(tags);
+                deferred.resolve(documentsToTags(tags));
             }
         });
         return deferred.promise;

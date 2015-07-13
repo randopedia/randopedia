@@ -304,7 +304,20 @@ App.BrowseTourmapComponent = Ember.Component.extend({
         self.initMap();
         $(window).resize();
     },
-    
+    getNorgeskartMapType: function() {
+        return new google.maps.ImageMapType({
+            getTileUrl: function(coord, zoom) {
+              var url = 'http://opencache.statkart.no/gatekeeper/gk/gk.open_gmaps?layers=topo2&zoom=' + zoom + '&x=' + coord.x + '&y=' + coord.y;
+              return url;
+            },
+            tileSize: new google.maps.Size(256, 256), 
+            opacity :1,
+            isPng: true,
+            minZoom: 1,
+            maxZoom: 20,
+            name: 'Norgeskart'
+          });
+    },
     initMap: function() {
         var self = this;
         self.set('mapRootElement', self.$(self.settings.mapRootElementId));
@@ -313,8 +326,8 @@ App.BrowseTourmapComponent = Ember.Component.extend({
                 mapTypeId: google.maps.MapTypeId.TERRAIN,
                 mapTypeControl: true,
                 mapTypeControlOptions: {
-                    style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
-                    position: google.maps.ControlPosition.TOP_RIGHT
+                  mapTypeIds: [google.maps.MapTypeId.TERRAIN, 'norgeskart'],
+                  style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR
                 },
                 zoomControl: true,
                 zoomControlOptions: {
@@ -328,13 +341,14 @@ App.BrowseTourmapComponent = Ember.Component.extend({
                 scrollwheel: true,
                 panControl: true,
                 streetViewControl:false,
-                overviewMapControl:false,
+                overviewMapControl:true,
                 rotateControl:false,
                 center: self.get('mapCenter'),
                 zoom: self.get('zoomLevel')
             };
-            
-        self.set('map', new google.maps.Map(this.get('mapRootElement').get(0), mapOptions));
+        var map = new google.maps.Map(this.get('mapRootElement').get(0), mapOptions);
+        map.mapTypes.set('norgeskart', self.getNorgeskartMapType());
+        self.set('map', map);
         
         var markerCluster = new MarkerClusterer(this.get('map'), this.get('markers'));
         markerCluster.setMaxZoom(self.settings.showRoutesOnZoomLevel - 3);

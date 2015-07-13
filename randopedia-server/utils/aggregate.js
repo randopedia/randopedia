@@ -15,7 +15,8 @@ mongoose.connect(connectString, mongoOptions, function(err, res) {
 var TagSchema = new Schema( {
     tag : String,
     value : Number,
-    popularity : Number
+    popularity : Number,
+    name : String
 });
 
 var TourSchema = new Schema( {
@@ -49,6 +50,7 @@ var aggregateCallback = function(err, result) {
             tag.tag = value._id;
             tag.popularity = value.popularity;
             tag.value = value.value;
+            tag.name = value._id;
             tag.save(function(err) {
                 if(err) {
                     console.log('Error saving tag: ' + err);

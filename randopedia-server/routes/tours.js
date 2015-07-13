@@ -8,11 +8,15 @@ router.get("/", function (req, res) {
     var token = req.get('X-Header-Token');
     var status = req.query["status"];
     var usersTours = req.query["usersTours"];
-    
+    var query = req.query["query"];
+
     common.getUserFromRequest(token)
         .then(function (user) {
-            
-            if (usersTours) {
+            if (query) {
+                tourService.getToursByQuery(query, function(tours) {
+                    res.send({tours : tours});
+                });
+            } else if (usersTours) {
                 tourService.getToursByCurrentUser(user, function (tours) {
                     res.send({tours: tours});
                 });
