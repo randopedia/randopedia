@@ -152,34 +152,11 @@ var tourRepository = (function () {
         });
         return deferred.promise;
     };
-    
-    /*
-    @Override
-    public List<Tour> findDrafts(String userId) {
-        Criteria criteria = Criteria.where("userId").is(userId);
-        Query query = Query.query(criteria);
-        List<TourAction> actions = mongoOperations.find(query, TourAction.class);
-        
-        if(actions == null) {
-        	return null;
-        }
-        
-        List<Tour> tours = new ArrayList<Tour>();
-        for(TourAction action : actions){
-        	Tour tour = findTourByIdAndStatus(action.getTourId(), TourStatus.DRAFT);
-        	if(tour != null && !containsTour(tours, tour.getId())){
-        		tours.add(tour);	
-        	}
-        }
-        
-        return tours;
-    }     
-    */
 
     function getTourDrafts(userId) {
         var deferred = Q.defer();
 
-        TourAction.find({userId: userId, type: enums.TourActionType.CREATE}, function(err, actions) {
+        TourAction.find({userId: userId}, function(err, actions) {
             if (err) {
                 deferred.reject(err);
                 
@@ -189,28 +166,21 @@ var tourRepository = (function () {
                     deferred.resolve([]);
                     return;
                 };
-
+                
                 var tourIds = [];
                 actions.forEach(function (action) {
                     var actionObj = action.toObject();
                     if(-1 === tourIds.indexOf(actionObj.tourId)) {
-                        tourIds.push(actionObj.tourId);
-                        console.log("ID: " + actionObj.tourId);
+                        tourIds.push(new mongoose.Types.ObjectId(actionObj.tourId));
                     }
                 }); 
-                          // {_id: {$in: tourIds},                           
-                Tour.find({status: enums.TourStatus.DRAFT}, function (err, tours) {
+                           
+                Tour.find({ _id: {$in: tourIds}, status: enums.TourStatus.DRAFT }, function (err, tours) {
                     
                     if (err) {
                         deferred.reject(err);
                         
                     } else {
-                        
-                        tours.forEach(function(t) {
-                           console.log("tour _id: " + t._id);
-                           console.log("tour id: " + t.id); 
-                        });
-                        
                         deferred.resolve(documentsToTours(tours));
                     }
                 });
