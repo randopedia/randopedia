@@ -17,7 +17,13 @@ var tourService = (function () {
 
     function isTourPublishedForTheFirstTime(originalTour, tour) {
         return (originalTour.status == enums.TourStatus.DRAFT && tour.status === enums.TourStatus.PUBLISHED) || (originalTour.status === enums.TourStatus.IN_REVIEW && tour.status === enums.TourStatus.PUBLISHED);
-    }   
+    }
+    
+    function execCallback(param, callback) {
+        if (callback) {
+            callback(param);
+        }
+    }    
 
     function getTour(tourId, callback) {
         tourRepository.getTour(tourId).then(function (tour) {
@@ -27,56 +33,57 @@ var tourService = (function () {
         }).catch(function (error) {
             console.log(error);
         });
-    }   
+    }
 
-    function getTours(status, user, callback) {      
-        if (status === enums.TourStatus.DRAFT.toString() && user) {
+    function getTours(status, user, callback) {
+        if (status === enums.TourStatus.DRAFT.toString()) {
+            if(!user) {
+                execCallback([], callback);
+            }
+            
             tourRepository.getTourDrafts(user._id.toString()).then(function (tours) {
-                if (callback) {
-                    callback(tours);
-                }
-                
+                execCallback(tours, callback);
+
             }).catch(function (error) {
                 console.log(error);
             });
         }
         else {
             tourRepository.getTours(status).then(function (tours) {
-                if (callback) {
-                    callback(tours);
-                }
-                
+                execCallback(tours, callback);
+
             }).catch(function (error) {
                 console.log(error);
             });
         }
     }
 
-    function getToursByCurrentUser(user, callback) {
+    function getToursForUser(user, callback) {
         if(!user) {
-            return [];
+            execCallback([], callback);
         }
         
-        // todo: ...
-        return [];
+        tourRepository.getToursForUser(user._id.toString()).then(function (tours) {
+            execCallback(tours, callback);
+
+        }).catch(function (error) {
+            console.log(error);
+        });
     }
 
     function getToursByQuery(query, callback) {
-        tourRepository.getToursByQuery(query).then(function(tours) {
-            if(callback) {
-                callback(tours);
-            }
-        }).catch(function(error) {
+        tourRepository.getToursByQuery(query).then(function (tours) {
+            execCallback(tours, callback);
+
+        }).catch(function (error) {
             console.log(error);
         });
-        
+
     }
 
     function getTourItems(callback) {
         tourRepository.getTourItems().then(function (tourItems) {
-            if (callback) {
-                callback(tourItems);
-            }
+            execCallback(tourItems, callback);
 
         }).catch(function (error) {
             console.log(error);
@@ -84,12 +91,12 @@ var tourService = (function () {
     }
 
     function createTour(tour, user, callback, validationErrorsCallback) {
-        
-        tour = dataWasher.washTour(tour);  
-        
+
+        tour = dataWasher.washTour(tour);
+
         var validationErrors = dataValidator.validateTour(tour);
-        if(validationErrors.length > 0) {
-            if(validationErrorsCallback) {
+        if (validationErrors.length > 0) {
+            if (validationErrorsCallback) {
                 validationErrorsCallback(validationErrors);
             }
             return;
@@ -100,7 +107,7 @@ var tourService = (function () {
         tourRepository.saveTour(tour).then(function (tour) {
 
             tourActionRepository.save(user, tour, enums.TourActionType.CREATE);
-                
+
             if (isTourPublishedWhenCreated(tour)) {
                 tourActionRepository.save(user, tour, enums.TourActionType.PUBLISH);
             }
@@ -115,11 +122,11 @@ var tourService = (function () {
     }
 
     function updateTour(tour, user, callback, validationErrorsCallback) {
-        
-        tour = dataWasher.washTour(tour);  
+
+        tour = dataWasher.washTour(tour);
         var validationErrors = dataValidator.validateTour(tour);
-        if(validationErrors.length > 0) {
-            if(validationErrorsCallback) {
+        if (validationErrors.length > 0) {
+            if (validationErrorsCallback) {
                 validationErrorsCallback(validationErrors);
             }
             return;
@@ -165,52 +172,52 @@ var tourService = (function () {
             console.log(error);
         });
     }
-    
+
     function addImage(image, user, callback) {
 
-        tourRepository.addImage(image.tour, image).then(function() {
-    
-            if(callback) {
+        tourRepository.addImage(image.tour, image).then(function () {
+
+            if (callback) {
                 callback();
             }
 
-        }).catch(function(error) {
+        }).catch(function (error) {
             console.log(error);
-        });       
+        });
     }
-    
+
     function updateImage(image, imageId, user, callback) {
-        
-        tourRepository.updateImage(image, imageId).then(function(image) {
-    
-            if(callback) {
-                callback(image);
-            }                
 
-        }).catch(function(error) {
+        tourRepository.updateImage(image, imageId).then(function (image) {
+
+            if (callback) {
+                callback(image);
+            }
+
+        }).catch(function (error) {
             console.log(error);
-        });  
+        });
     }
-    
+
     function deleteImage(imageId, user, callback) {
-        
-        tourRepository.deleteImage(imageId).then(function() {
-    
-            if(callback) {
+
+        tourRepository.deleteImage(imageId).then(function () {
+
+            if (callback) {
                 callback();
             }
 
-        }).catch(function(error) {
+        }).catch(function (error) {
             console.log(error);
-        });  
-    }    
+        });
+    }
 
     return {
         getTour: getTour,
         getTours: getTours,
         getTourItems: getTourItems,
-        getToursByCurrentUser: getToursByCurrentUser,
-        getToursByQuery : getToursByQuery,
+        getToursByQuery: getToursByQuery,
+        getToursForUser: getToursForUser,
         createTour: createTour,
         updateTour: updateTour,
         getActions: getActions,

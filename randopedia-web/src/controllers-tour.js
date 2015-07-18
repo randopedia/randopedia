@@ -622,13 +622,13 @@ App.MytoursController = Ember.ObjectController.extend({
             App.Alerts.showErrorMessage("An error occured when loading drafts, are you logged in?");
         });
  
-//         self.store.findQuery("tour", { usersTours: true }).then(function (tours) {
-//             self.set("updates", tours);
-//             self.set("isLoadingUpdates", false);
-//         }, function () {
-//             self.set("isLoadingUpdates", false);
-//             App.Alerts.showErrorMessage("An error occured when loading tours, are you logged in?");
-//         });
+        self.store.findQuery("tour", { usersTours: true }).then(function (tours) {
+            self.set("updates", tours);
+            self.set("isLoadingUpdates", false);
+        }, function () {
+            self.set("isLoadingUpdates", false);
+            App.Alerts.showErrorMessage("An error occured when loading tours, are you logged in?");
+        });
 
         self.store.findQuery("tour", { status: App.Fixtures.TourStatus.IN_REVIEW }).then(function (tours) {
             self.set("reviews", tours);

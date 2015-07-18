@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 var tourService = require("../services/tour-service");
 var common = require('../helpers/common');
+var enums = require("../enums");
 
 router.get("/", function (req, res) {
     
@@ -17,11 +18,21 @@ router.get("/", function (req, res) {
                     res.send({tours : tours});
                 });
             } else if (usersTours) {
-                tourService.getToursByCurrentUser(user, function (tours) {
-                    res.send({tours: tours});
-                });
+                if(!user) {
+                    common.sendUnauthorizedResponse(res);
+                    
+                } else {
+                    tourService.getToursForUser(user, function (tours) {
+                        res.send({tours: tours});
+                    });                    
+                }
             }
             else {
+                if (status === enums.TourStatus.DRAFT.toString() && !user) {
+                    common.sendUnauthorizedResponse(res);
+                    return;
+                }
+                
                 tourService.getTours(status, user, function (tours) {
                     res.send({tours: tours});
                 });
