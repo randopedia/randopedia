@@ -152,6 +152,20 @@ var tourRepository = (function () {
         return deferred.promise;
     }
 
+    function getToursWithTagRegex(tagRegex) {
+        var deferred = Q.defer();
+
+        Tour.find({ tags : { $regex : tagRegex } }, function(err, tours) {
+            if(err) {
+                deferred.reject(err);
+            } else {
+                deferred.resolve(documentsToTours(tours));
+            }
+        });
+
+        return deferred.promise;
+    }
+
     function getToursWithTag(tagName) {
         var deferred = Q.defer();
 
@@ -429,6 +443,7 @@ var tourRepository = (function () {
         getTours: getTours,
         getTourItems: getTourItems,
         getToursWithTag: getToursWithTag,
+        getToursWithTagRegex : getToursWithTagRegex,
         getToursByQuery: getToursByQuery,
         getTourDrafts: getTourDrafts,
         getToursForUser: getToursForUser,

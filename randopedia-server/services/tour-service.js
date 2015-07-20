@@ -72,9 +72,29 @@ var tourService = (function () {
     }
 
     function getToursByQuery(query, callback) {
-        tourRepository.getToursByQuery(query).then(function (tours) {
-            execCallback(tours, callback);
 
+        var queryPromise = tourRepository.getToursByQuery(query);
+        var tagsPromise = tourRepository.getToursWithTagRegex(query);
+        var allPromises = Q.all([queryPromise, tagsPromise]);
+
+        allPromises.spread(function(queryResults, tagsResults) {
+            var tours = {};
+            if(queryResults) {
+                queryResults.forEach(function(tour) {
+                    tours[tour.clientId] = tour;
+                });
+            }
+            if(tagsResults) {
+                tagsResults.forEach(function(tour) {
+                    tours[tour.clientId] = tour;
+                });
+            }
+            console.log(tours);
+            var toursArray = Object.keys(tours).map(function(key) {
+                return tours[key];
+            });
+            console.log(toursArray);
+            execCallback(toursArray, callback);
         }).catch(function (error) {
             console.log(error);
         });
