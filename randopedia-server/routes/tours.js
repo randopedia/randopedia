@@ -7,11 +7,12 @@ var enums = require("../enums");
 router.get("/", function (req, res) {
     
     var token = req.get('X-Header-Token');
+    var provider = req.get('X-Header-Provider');
     var status = req.query["status"];
     var usersTours = req.query["usersTours"];
     var query = req.query["query"];
 
-    common.getUserFromRequest(token)
+    common.getUserFromRequest(token, provider)
         .then(function (user) {
             if (query) {
                 tourService.getToursByQuery(query, function(tours) {
@@ -54,8 +55,9 @@ router.get("/:id?", function (req, res) {
 router.post("/", function (req, res) {
 
     var token = req.get('X-Header-Token');
+    var provider = req.get('X-Header-Provider');
 
-    common.getUserFromRequest(token)
+    common.getUserFromRequest(token, provider)
         .then(function (user) {
             
             if (user) {
@@ -79,8 +81,9 @@ router.post("/", function (req, res) {
 router.put("/:id?", function (req, res) {
 
     var token = req.get('X-Header-Token');
+    var provder = req.get('X-Header-Provider');
 
-    common.getUserFromRequest(token)
+    common.getUserFromRequest(token, provider)
         .then(function (user) {
 
             if (user) {

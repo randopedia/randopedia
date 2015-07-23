@@ -89,11 +89,9 @@ var tourService = (function () {
                     tours[tour.clientId] = tour;
                 });
             }
-            console.log(tours);
             var toursArray = Object.keys(tours).map(function(key) {
                 return tours[key];
             });
-            console.log(toursArray);
             execCallback(toursArray, callback);
         }).catch(function (error) {
             console.log(error);

@@ -1,5 +1,3 @@
-var mongoose = require('mongoose');
-var userModel = require('../models/tag');
 var Q = require('q');
 var request = require('request');
 var config = require('../config/config');

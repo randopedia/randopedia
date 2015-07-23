@@ -1,4 +1,5 @@
 var facebookRepository = require('../repositories/facebook-repository');
+var googleRepository = require('../repositories/google-repository');
 var userRepository = require('../repositories/user-repository');
 
 var common = (function () {
@@ -21,16 +22,27 @@ var common = (function () {
         return textId.toLowerCase();
     }
 
-    function getUserFromRequest(token) {
+    function getUserFromRequest(token, provider) {
         // returns a promise. Use facebook repository and user repository
-        return facebookRepository.getExternalUser(token)
-            .then(function(facebookUser) {
-                console.log('found facebook user');
-                return userRepository.findUser(facebookUser);
-            }, function(error) {
-                console.log('getUserFromRequest, error: ' + error);
-                return null;
-            });
+        if('facebook' === provider) {
+            return facebookRepository.getExternalUser(token)
+                .then(function(facebookUser) {
+                    console.log('found facebook user');
+                    return userRepository.findUser(facebookUser);
+                }, function(error) {
+                    console.log('getUserFromRequest, error: ' + error);
+                    return null;
+                });
+        } else {
+            return googleRepository.getExternalUser(token)
+                .then(function(googleUser) {
+                    console.log('found google user');
+                    return userRepository.findUser(googleUser);
+                }, function(error) {
+                    console.log('getUserFromRequest, error: ' + error);
+                    return null;
+                });
+        }
     }
     
     function sendUnauthorizedResponse(res) {

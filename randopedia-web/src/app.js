@@ -36,6 +36,7 @@ var App = Ember.Application.create({
             google: {
                 clientId: googleAppId,
                 authBaseUri: 'https://accounts.google.com/o/oauth2/auth',
+                //redirectUri: url + '/auth/google/callback',
                 redirectUri: url + '/auth/google/callback',
                 scope: 'https://www.googleapis.com/auth/userinfo.profile'
             }

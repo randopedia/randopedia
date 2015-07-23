@@ -29,13 +29,13 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-app.use('/auth', auth);
 app.use('/randopedia/api/users/', users);
 app.use('/randopedia/api/tours/', tours);
 app.use('/randopedia/api/actions/', actions);
 app.use('/randopedia/api/touritems/', touritems);
 app.use('/randopedia/api/images/', tourimages);
 app.use('/randopedia/api/tags/', tags);
+app.use('/auth/', auth);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -122,7 +122,16 @@ module.exports = function(grunt) {
                     https: false,
                     changeOrigin: false,
                     xforward: false
-                }
+                },
+                {
+                    context: "/auth/google/callback",
+                    host: "127.0.0.1",
+                    port: 8080,
+                    https: false,
+                    changeOrigin: false,
+                    xforward: false
+                },
+                
             ]
         }
     }    
