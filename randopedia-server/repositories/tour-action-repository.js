@@ -23,7 +23,9 @@ var tourActionRepository = (function () {
         
         var actions = [];
         docs.forEach(function(doc) {
-           actions.push(doc.toObject()); 
+            var actionObj = doc.toObject();
+            actionObj.id = doc._id.toString();
+            actions.push(actionObj); 
         });
         return actions;
     }
