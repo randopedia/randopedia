@@ -223,16 +223,18 @@ var tourRepository = (function () {
         var deferred = Q.defer();
 
         if (!tour.id) {
-            var startsWithRegex = new RegExp("^" + tour.name, "i");
+            var clientId = common.getTextId(tour.name);
+            var startsWithRegex = new RegExp("^" + clientId, "i");
+            
             Tour.find({ clientId: {$regex: startsWithRegex}}, function (err, result) {
                 if (err) {
                     deferred.reject(err);
                     
                 } else {
                     if(result.length > 0) {
-                        tour.clientId = tour.name + "_" + result.length;
+                        tour.clientId = clientId + "_" + result.length;
                     } else {
-                        tour.clientId = tour.name; 
+                        tour.clientId = clientId; 
                     }
                     
                     Tour.create(tour, function(createErr, result) {
