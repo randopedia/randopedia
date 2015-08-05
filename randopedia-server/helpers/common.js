@@ -16,14 +16,13 @@ var common = (function () {
         textId = textId.replace('Ä', 'a');
         textId = textId.replace('Ö', 'o');
         textId = textId.replace("\\p{InCombiningDiacriticalMarks}+", "");
-        // todo: WHITESPACE REPLACE DOES NOT WORK!
-        // textId = textId.replace("[^a-zA-Z0-9]", "_");
-        // textId = textId.replace("/\s/g", "_");
+        textId = textId.replace(/[^a-zA-Z0-9]/g, "_");
+        textId = textId.replace(/\s/g, "_");
         return textId.toLowerCase();
     }
 
     function getUserFromRequest(token, provider) {
-        // returns a promise. Use facebook repository and user repository
+        // returns a promise. Use facebook/google repository and user repository
         if('facebook' === provider) {
             return facebookRepository.getExternalUser(token)
                 .then(function(facebookUser) {

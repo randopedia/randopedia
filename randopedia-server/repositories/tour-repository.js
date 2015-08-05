@@ -43,31 +43,6 @@ var tourRepository = (function () {
         });
     }
 
-    function findUniqueClientId(tourName, currentCounter) {
-        var deferred = Q.defer();
-
-        var uniqueClientId = common.getTextId(tourName);
-        var counter = currentCounter ? currentCounter : 1;
-
-        Tour.findOne({ clientId: tourName }, function (err, result) {
-            if (err) {
-                deferred.reject(err);
-
-            } else {
-                if (!result) {
-                    deferred.resolve(uniqueClientId);
-                    return;
-                }
-
-                uniqueClientId = uniqueClientId + "_" + counter;
-                counter++;
-                return findUniqueClientId(uniqueClientId, counter);
-            }
-        });
-
-        return deferred.promise;
-    }
-
     function getDistinctTourIds(actions) {
         var tourIds = [];
         actions.forEach(function (action) {
@@ -249,15 +224,28 @@ var tourRepository = (function () {
         var deferred = Q.defer();
 
         if (!tour.id) {
-            findUniqueClientId(tour.name).then(function (clientId) {
-                tour.clientId = clientId;
-                Tour.create(tour, function (err, result) {
-                    if (err) {
-                        deferred.reject(err);
+            var clientId = common.getTextId(tour.name);
+            var startsWithRegex = new RegExp("^" + clientId, "i");
+            
+            Tour.find({ clientId: {$regex: startsWithRegex}}, function (err, result) {
+                if (err) {
+                    deferred.reject(err);
+                    
+                } else {
+                    if(result.length > 0) {
+                        tour.clientId = clientId + "_" + result.length;
                     } else {
-                        deferred.resolve(documentToTour(result));
+                        tour.clientId = clientId; 
                     }
-                });
+                    
+                    Tour.create(tour, function(createErr, result) {
+                        if(createErr) {
+                            deferred.reject(createErr);
+                        } else {
+                            deferred.resolve(documentToTour(result));
+                        }
+                    }); 
+                }
             });
 
         } else {
