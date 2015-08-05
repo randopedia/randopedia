@@ -74,11 +74,12 @@ var common = (function () {
                 tags.push(tag);
                 index = text.indexOf('#', spaceIndex);
             } else {
-                tag = text.substring(index+1, text.length());
+                tag = text.substring(index+1, text.length);
                 tags.push(tag);
                 index = text.indexOf('#', index+1);
             }
         }
+        return tags;
     }
 
     return {

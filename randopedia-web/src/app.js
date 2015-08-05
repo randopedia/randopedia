@@ -48,10 +48,6 @@ var App = Ember.Application.create({
     }
 });
 
-/*App.Router.reopen({
-  location: 'history'
-});*/
-
 App.ApplicationAdapter = DS.RESTAdapter;
 
 App.Utils = Ember.Object.create({

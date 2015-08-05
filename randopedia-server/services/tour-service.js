@@ -2,6 +2,7 @@
 var tourActionRepository = require("../repositories/tour-action-repository");
 var dataWasher = require("../helpers/data-washer");
 var dataValidator = require("../helpers/data-validator");
+var common = require("../helpers/common");
 var enums = require("../enums");
 var Q = require('q');
 
@@ -120,7 +121,9 @@ var tourService = (function () {
             return;
         }   
     
-        // todo: get tags from itinerary and save ?
+        var itinerary = tour.itinerary;
+        var tags = common.getTagsFromText(itinerary);
+        tour.tags = tags;
         
         tourRepository.saveTour(tour).then(function (tour) {
 
@@ -140,7 +143,6 @@ var tourService = (function () {
     }
 
     function updateTour(tour, user, callback, validationErrorsCallback) {
-
         tour = dataWasher.washTour(tour);
         var validationErrors = dataValidator.validateTour(tour);
         if (validationErrors.length > 0) {
@@ -149,14 +151,11 @@ var tourService = (function () {
             }
             return;
         }
-        console.log('updating');
+
         var itinerary = tour.itinerary;
-        console.log(itinerary);
         var tags = common.getTagsFromText(itinerary);
-        console.log(tags);
-        
-        // todo: get tags from itinerary and save ?
-        
+        tour.tags = tags;
+              
         tourRepository.getTour(tour.id).then(function (data) {
 
             tourRepository.saveTour(tour).then(function (updatedTour) {

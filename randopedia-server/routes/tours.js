@@ -81,8 +81,8 @@ router.post("/", function (req, res) {
 router.put("/:id?", function (req, res) {
 
     var token = req.get('X-Header-Token');
-    var provder = req.get('X-Header-Provider');
-
+    var provider = req.get('X-Header-Provider');
+    
     common.getUserFromRequest(token, provider)
         .then(function (user) {
 
