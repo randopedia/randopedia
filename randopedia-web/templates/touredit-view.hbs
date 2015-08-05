@@ -322,16 +322,17 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-{{!--                                        
+                                       
                                         {{#each action in actions}}
                                         <tr>
+                                        {{log action.comment}}
                                             <td>{{displayTimestamp action.time}}</td>
                                             <td>{{resolveTourAction action.type}}</td>
                                             <td>{{action.userName}}</td>
                                             <td>{{action.comment}}</td>
                                         </tr>
                                         {{/each}}
---}}
+
                                     </tbody>
                                 </table>
                             </div>

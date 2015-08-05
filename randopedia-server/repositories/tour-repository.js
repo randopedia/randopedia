@@ -22,7 +22,8 @@ var tourRepository = (function () {
 
         var tours = [];
         documents.forEach(function (doc) {
-            tours.push(documentToTour(doc));
+            tours.push(
+                documentToTour(doc));
         });
 
         return tours;

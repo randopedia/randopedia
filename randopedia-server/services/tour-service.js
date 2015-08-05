@@ -149,7 +149,12 @@ var tourService = (function () {
             }
             return;
         }
-
+        console.log('updating');
+        var itinerary = tour.itinerary;
+        console.log(itinerary);
+        var tags = common.getTagsFromText(itinerary);
+        console.log(tags);
+        
         // todo: get tags from itinerary and save ?
         
         tourRepository.getTour(tour.id).then(function (data) {

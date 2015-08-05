@@ -63,11 +63,31 @@ var common = (function () {
         return response;
     }
 
+    function getTagsFromText(text) {
+        var tags = [];
+
+        var index = text.indexOf("#");
+        while(index >= 0) {
+            var spaceIndex = text.indexOf(' ', index);
+            var tag;
+            if(spaceIndex > 0) {
+                tag = text.substring(index+1, spaceIndex);
+                tags.push(tag);
+                index = text.indexOf('#', spaceIndex);
+            } else {
+                tag = text.substring(index+1, text.length());
+                tags.push(tag);
+                index = text.indexOf('#', index+1);
+            }
+        }
+    }
+
     return {
         getTextId : getTextId,
         getUserFromRequest : getUserFromRequest,
         sendUnauthorizedResponse: sendUnauthorizedResponse,
-        decodeBase64Image : decodeBase64Image
+        decodeBase64Image : decodeBase64Image,
+        getTagsFromText : getTagsFromText
     };
     
 })();
