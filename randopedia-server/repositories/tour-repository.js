@@ -22,8 +22,7 @@ var tourRepository = (function () {
 
         var tours = [];
         documents.forEach(function (doc) {
-            tours.push(
-                documentToTour(doc));
+            tours.push(documentToTour(doc));
         });
 
         return tours;
@@ -426,7 +425,7 @@ var tourRepository = (function () {
 
         return deferred.promise;
     }
-
+    
     return {
         getTour: getTour,
         getTours: getTours,

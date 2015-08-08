@@ -233,7 +233,7 @@ App.TourEditController = Ember.ObjectController.extend({
                         App.Alerts.showErrorMessage("Oh noes, you have most likely been logged out. Try to log in again. ");
                     }
                     else if (status === 413) {
-                        App.Alerts.showErrorMessage("Couldn't save the image, it's too big. Max image file size allowed is 12MB. ");
+                        App.Alerts.showErrorMessage("Couldn't save the image, it's too big. Max image file size allowed is 15MB. ");
                     }
                     else {
                         App.Alerts.showErrorMessage("Sorry, an error occured when trying to save the image, please try again. ");
@@ -617,7 +617,7 @@ App.MytoursController = Ember.ObjectController.extend({
         self.store.findQuery("tour", { status: App.Fixtures.TourStatus.DRAFT }).then(function (tours) {
             self.set("drafts", tours);
             self.set("isLoadingDrafts", false);
-        }, function() {
+        }, function(err) {
             self.set("isLoadingDrafts", false);
             App.Alerts.showErrorMessage("An error occured when loading drafts, are you logged in?");
         });
@@ -625,7 +625,7 @@ App.MytoursController = Ember.ObjectController.extend({
         self.store.findQuery("tour", { usersTours: true }).then(function (tours) {
             self.set("updates", tours);
             self.set("isLoadingUpdates", false);
-        }, function () {
+        }, function (err) {
             self.set("isLoadingUpdates", false);
             App.Alerts.showErrorMessage("An error occured when loading tours, are you logged in?");
         });
@@ -633,9 +633,17 @@ App.MytoursController = Ember.ObjectController.extend({
         self.store.findQuery("tour", { status: App.Fixtures.TourStatus.IN_REVIEW }).then(function (tours) {
             self.set("reviews", tours);
             self.set("isLoadingReviews", false);
-        }, function () {
-            self.set("isLoadingReviews", false);
-            App.Alerts.showErrorMessage("An error occured when loading tours in review, are you logged in?");
+        }, function (err) {
+            if(err.status === 401) {
+                self.get("controllers.login").send("removeToken");
+                self.set("isLoadingReviews", false);
+                App.Alerts.showErrorMessage("Couldn't load tours in review. Are you logged in? ");
+            }
+            else {
+                self.set("isLoadingReviews", false);
+                App.Alerts.showErrorMessage("Sorry, an error occured when loading tours in review.");
+                console.log(err);
+            }
         });
     }
 });

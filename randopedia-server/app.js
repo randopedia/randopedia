@@ -13,6 +13,7 @@ var touritems = require('./routes/touritems');
 var tourimages = require('./routes/tourimages');
 var actions = require('./routes/actions');
 var tags = require('./routes/tags');
+var reviewcomments = require('./routes/reviewcomments');
 
 var app = express();
 
@@ -23,8 +24,8 @@ app.set('view engine', 'ejs');
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
-app.use(bodyParser.json({limit: "12mb"}));
-app.use(bodyParser.urlencoded({ extended: false, limit: "12mb" }));
+app.use(bodyParser.json({limit: "15mb"}));
+app.use(bodyParser.urlencoded({ extended: false, limit: "15mb" }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -35,6 +36,7 @@ app.use('/randopedia/api/actions/', actions);
 app.use('/randopedia/api/touritems/', touritems);
 app.use('/randopedia/api/images/', tourimages);
 app.use('/randopedia/api/tags/', tags);
+app.use('/randopedia/api/comments/', reviewcomments);
 app.use('/auth/', auth);
 
 // catch 404 and forward to error handler

@@ -4,12 +4,11 @@ var TourActionSchema = mongoose.Schema(
     {
         id: String,
         time: Number,
-        tourId: String,
         userId: String,
         userName: String,
-        type: Number,
         comment: String,
-        tour: String
+        type: Number,
+        tourId: String
     },
     {
          collection: "tourAction"

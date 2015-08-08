@@ -1,5 +1,6 @@
 ﻿var tourRepository = require("../repositories/tour-repository");
 var tourActionRepository = require("../repositories/tour-action-repository");
+var tourReviewCommentRepository = require("../repositories/tour-reviewcomment-repository");
 var dataWasher = require("../helpers/data-washer");
 var dataValidator = require("../helpers/data-validator");
 var common = require("../helpers/common");
@@ -125,16 +126,16 @@ var tourService = (function () {
         var tags = common.getTagsFromText(itinerary);
         tour.tags = tags;
         
-        tourRepository.saveTour(tour).then(function (tour) {
+        tourRepository.saveTour(tour).then(function (createdTour) {
 
-            tourActionRepository.save(user, tour, enums.TourActionType.CREATE);
+            tourActionRepository.save(user, createdTour, enums.TourActionType.CREATE);
 
-            if (isTourPublishedWhenCreated(tour)) {
-                tourActionRepository.save(user, tour, enums.TourActionType.PUBLISH);
+            if (isTourPublishedWhenCreated(createdTour)) {
+                tourActionRepository.save(user, createdTour, enums.TourActionType.PUBLISH, tour.publishComment);
             }
 
             if (callback) {
-                callback(tour);
+                callback(createdTour);
             }
 
         }).catch(function (error) {
@@ -157,16 +158,17 @@ var tourService = (function () {
         tour.tags = tags;
               
         tourRepository.getTour(tour.id).then(function (data) {
+            var originalTour = data.tour;
 
             tourRepository.saveTour(tour).then(function (updatedTour) {
 
-                tourActionRepository.save(user, data.tour, enums.TourActionType.UPDATE);
+                tourActionRepository.save(user, updatedTour, enums.TourActionType.UPDATE, tour.publishComment);
 
-                if (isTourSentToReview(data.tour, tour)) {
-                    tourActionRepository.save(user, data.tour, enums.TourActionType.SENT_TO_REVIEW);
+                if (isTourSentToReview(originalTour, tour)) {
+                    tourActionRepository.save(user, updatedTour, enums.TourActionType.SENT_TO_REVIEW);
 
-                } else if (isTourPublishedForTheFirstTime(data.tour, tour)) {
-                    tourActionRepository.save(user, data.tour, enums.TourActionType.PUBLISH);
+                } else if (isTourPublishedForTheFirstTime(originalTour, tour)) {
+                    tourActionRepository.save(user, updatedTour, enums.TourActionType.PUBLISH, "First published");
                 }
 
                 if (callback) {
@@ -199,6 +201,8 @@ var tourService = (function () {
 
         tourRepository.addImage(image.tour, image).then(function () {
 
+            //tourActionRepository.save(user, image.tour, enums.TourActionType.IMAGE_CREATE, "Image added");
+
             if (callback) {
                 callback();
             }
@@ -211,6 +215,8 @@ var tourService = (function () {
     function updateImage(image, imageId, user, callback) {
 
         tourRepository.updateImage(image, imageId).then(function (image) {
+            
+           // tourActionRepository.save(user, image.tour, enums.TourActionType.IMAGE_UPDATE, "Image updated");
 
             if (callback) {
                 callback(image);
@@ -224,9 +230,36 @@ var tourService = (function () {
     function deleteImage(imageId, user, callback) {
 
         tourRepository.deleteImage(imageId).then(function () {
+            
+            // todo: get tour id from somewhere
+            // tourActionRepository.save(user, image.tour, enums.TourActionType.IMAGE_DELETE, "Image deleted");
 
             if (callback) {
                 callback();
+            }
+
+        }).catch(function (error) {
+            console.log(error);
+        });
+    }
+    
+    function addReviewComment(comment, callback) {
+        tourReviewCommentRepository.save(comment).then(function (createdComment) {
+
+            if (callback) {
+                callback(createdComment);
+            }
+
+        }).catch(function (error) {
+            console.log(error);
+        });
+    }
+    
+    function getReviewComments(ids, callback) {
+
+        tourActionRepository.getReviewComments(ids).then(function (actions) {
+            if (callback) {
+                callback(actions);
             }
 
         }).catch(function (error) {
@@ -245,7 +278,9 @@ var tourService = (function () {
         getActions: getActions,
         addImage: addImage,
         updateImage: updateImage,
-        deleteImage: deleteImage
+        deleteImage: deleteImage,
+        addReviewComment: addReviewComment,
+        getReviewComments: getReviewComments
     };
 
 })();

@@ -7,8 +7,9 @@ var common = require('../helpers/common');
 router.post("/", function (req, res) {
     
     var token = req.get('X-Header-Token');
+    var provider = req.get('X-Header-Provider');
 
-    common.getUserFromRequest(token)
+    common.getUserFromRequest(token, provider)
         .then(function(user) {
             if(user) {
                 tourService.addImage(req.body.image, user, function () {
@@ -27,8 +28,9 @@ router.post("/", function (req, res) {
 router.put("/:id?", function (req, res) {
     
     var token = req.get('X-Header-Token');
+    var provider = req.get('X-Header-Provider');
     
-    common.getUserFromRequest(token)
+    common.getUserFromRequest(token, provider)
         .then(function(user) {
             if(user) {
                 var imageId = req.params.id;
@@ -49,8 +51,9 @@ router.put("/:id?", function (req, res) {
 router.delete("/:id?", function (req, res) {
     
     var token = req.get('X-Header-Token');
+    var provider = req.get('X-Header-Provider');
     
-    common.getUserFromRequest(token)
+    common.getUserFromRequest(token, provider)
         .then(function(user) {
             if(user) {
                 tourService.deleteImage(req.params.id, user, function () {
