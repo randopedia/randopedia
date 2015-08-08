@@ -399,6 +399,20 @@ App.TourEditMapView = Ember.View.extend({
         return this.get('selectedPolylines').length > 0;
     }.property('selectedPolylines.[]'),
 
+    getNorgeskartMapType: function() {
+        return new google.maps.ImageMapType({
+            getTileUrl: function(coord, zoom) {
+                return 'http://opencache.statkart.no/gatekeeper/gk/gk.open_gmaps?layers=topo2&zoom=' + zoom + '&x=' + coord.x + '&y=' + coord.y;
+            },
+            tileSize: new google.maps.Size(256, 256), 
+            opacity: 1,
+            isPng: true,
+            minZoom: 1,
+            maxZoom: 20,
+            name: 'Norgeskart'
+          });
+    },
+    
     initMap: function () {
         var self = this;
 
@@ -411,6 +425,7 @@ App.TourEditMapView = Ember.View.extend({
             mapTypeId: google.maps.MapTypeId.TERRAIN,
             mapTypeControl: true,
             mapTypeControlOptions: {
+                mapTypeIds: [google.maps.MapTypeId.TERRAIN, 'norgeskart'],
                 style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
             },
             zoomControl: true,
@@ -428,7 +443,9 @@ App.TourEditMapView = Ember.View.extend({
             rotateControl: false
         };
 
-        self.set('map', new google.maps.Map(self.get('mapRootElement').get(0), mapOptions));
+        var map = new google.maps.Map(self.get('mapRootElement').get(0), mapOptions);
+        map.mapTypes.set('norgeskart', App.GeoHelper.mapTypes.norgeskart());
+        self.set('map', map);
 
         self.set('drawingManager', new google.maps.drawing.DrawingManager({
             drawingMode: null,

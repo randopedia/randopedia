@@ -304,20 +304,7 @@ App.BrowseTourmapComponent = Ember.Component.extend({
         self.initMap();
         $(window).resize();
     },
-    getNorgeskartMapType: function() {
-        return new google.maps.ImageMapType({
-            getTileUrl: function(coord, zoom) {
-              var url = 'http://opencache.statkart.no/gatekeeper/gk/gk.open_gmaps?layers=topo2&zoom=' + zoom + '&x=' + coord.x + '&y=' + coord.y;
-              return url;
-            },
-            tileSize: new google.maps.Size(256, 256), 
-            opacity :1,
-            isPng: true,
-            minZoom: 1,
-            maxZoom: 20,
-            name: 'Norgeskart'
-          });
-    },
+    
     initMap: function() {
         var self = this;
         self.set('mapRootElement', self.$(self.settings.mapRootElementId));
@@ -327,7 +314,7 @@ App.BrowseTourmapComponent = Ember.Component.extend({
                 mapTypeControl: true,
                 mapTypeControlOptions: {
                   mapTypeIds: [google.maps.MapTypeId.TERRAIN, 'norgeskart'],
-                  style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR
+                  style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
                 },
                 zoomControl: true,
                 zoomControlOptions: {
@@ -346,8 +333,9 @@ App.BrowseTourmapComponent = Ember.Component.extend({
                 center: self.get('mapCenter'),
                 zoom: self.get('zoomLevel')
             };
+            
         var map = new google.maps.Map(this.get('mapRootElement').get(0), mapOptions);
-        map.mapTypes.set('norgeskart', self.getNorgeskartMapType());
+        map.mapTypes.set('norgeskart', App.GeoHelper.mapTypes.norgeskart());
         self.set('map', map);
         
         var markerCluster = new MarkerClusterer(this.get('map'), this.get('markers'));

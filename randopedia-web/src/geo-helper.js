@@ -227,5 +227,21 @@ App.GeoHelper = Ember.Object.create({
         }
 
         return false;
-    }
+    },
+    
+    mapTypes: {
+        norgeskart: function() {
+            return new google.maps.ImageMapType({
+                getTileUrl: function(coord, zoom) {
+                    return 'http://opencache.statkart.no/gatekeeper/gk/gk.open_gmaps?layers=topo2&zoom=' + zoom + '&x=' + coord.x + '&y=' + coord.y;
+                },
+                tileSize: new google.maps.Size(256, 256), 
+                opacity: 1,
+                isPng: true,
+                minZoom: 1,
+                maxZoom: 20,
+                name: 'Norgeskart'
+              });
+        },          
+    }  
 });
