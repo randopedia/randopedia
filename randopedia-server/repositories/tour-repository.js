@@ -10,6 +10,9 @@ var enums = require("../enums");
 var tourRepository = (function () {
 
     function documentToTour(doc) {
+        if(!doc) {
+            return null;
+        }
         var tour = doc.toObject();
         tour.id = tour.clientId;
         return tour;
@@ -54,10 +57,10 @@ var tourRepository = (function () {
         return tourIds;
     }
     
-    function getTour(tourId) {
+    function getTour(tourClientId, excludeImages) {
         var deferred = Q.defer();
 
-        Tour.findOne({ clientId: tourId }, function (err, result) {
+        Tour.findOne({ clientId: tourClientId }, function (err, result) {
             if (err) {
                 deferred.reject(err);
             } else {
@@ -70,7 +73,10 @@ var tourRepository = (function () {
                         delete tour.tourImages;
                         tour.images = images;
                     }
-                    deferred.resolve({ tour: tour, images: tourImages });
+                    
+                    var retVal = excludeImages ? tour : { tour: tour, images: tourImages };
+                    deferred.resolve(retVal);
+                    
                 } else {
                     deferred.resolve(null);
                 }
@@ -78,7 +84,7 @@ var tourRepository = (function () {
         });
 
         return deferred.promise;
-    }
+    }  
 
     function getTours(status) {
         var deferred = Q.defer();
@@ -260,10 +266,10 @@ var tourRepository = (function () {
         return deferred.promise;
     }
 
-    function addImage(tourId, image) {
+    function addImage(tourClientId, image) {
         var deferred = Q.defer();
         var imageId = mongoose.Types.ObjectId();
-        var databaseFileName = config.tourImagesDirectory + "/" + tourId + "_" + imageId + ".jpg";
+        var databaseFileName = config.tourImagesDirectory + "/" + tourClientId + "_" + imageId + ".jpg";
         var fileName = config.webappClientDirectory + "/" + databaseFileName;
 
         var imageBuffer = common.decodeBase64Image(image.imageData);
@@ -275,11 +281,10 @@ var tourRepository = (function () {
             }
 
             image._id = imageId;
-            image.tour = tourId;
             image.imageFile = databaseFileName;
             image.imageData = null;
 
-            Tour.findOne({ clientId: tourId }, function (err, result) {
+            Tour.findOne({ clientId: tourClientId }, function (err, result) {
                 if (err) {
                     deferred.reject(err);
                     return;
@@ -291,13 +296,16 @@ var tourRepository = (function () {
                 }
 
                 var tour = documentToTour(result);
+                image.tour = tour._id.toString();
+                
                 if (!tour.tourImages) {
                     tour.tourImages = [];
                 }
                 tour.tourImages.push(image);
 
                 saveTour(tour).then(function () {
-                    deferred.resolve();
+                    image.tour = tour.clientId;
+                    deferred.resolve(image);
 
                 }).catch(function (error) {
                     console.log(error);
@@ -321,7 +329,7 @@ var tourRepository = (function () {
     };
 
     function updateImage(image, imageId) {
-        var deferred = Q.defer();
+        var deferred = Q.defer();       
 
         Tour.findOne({ clientId: image.tour }, function (err, result) {
             if (err) {
@@ -380,38 +388,24 @@ var tourRepository = (function () {
 
     function deleteImage(imageId) {
         var deferred = Q.defer();
-
-        var id = mongoose.Types.ObjectId(imageId);
-        Tour.findOne({ "tourImages._id": id }, function (err, result) {
-            if (err) {
-                deferred.reject(err);
-                return;
-            }
-
-            if (!result) {
-                deferred.reject("Couldn't find tour for image");
-                return;
-            }
-
-            var tour = documentToTour(result);
-
-            if (!tour.tourImages) {
-                deferred.reject("Tour has no images, cannot delete");
-                return;
-            }
-
+        
+        getTourFromImageId(imageId).then(function(tour) {
+            
             var index = findIndexFromId(tour.tourImages, imageId);
             if (index < 0) {
                 deferred.reject("Image does not exist, cannot update");
                 return;
             }
-
+            
             fs.unlink(config.webappClientDirectory + "/" + tour.tourImages[index].imageFile, function (err) {
                 if (err) {
-                    deferred.reject("Error wwhen deleting image file");
+                    deferred.reject("Error when deleting image file");
                     throw err;
                 };
 
+                var imgs = tour.tourImages;
+                imgs.splice(index, 1);
+                
                 tour.tourImages.splice(index, 1);
 
                 saveTour(tour).then(function () {
@@ -422,8 +416,37 @@ var tourRepository = (function () {
                 });
             });
         });
-
+        
         return deferred.promise;
+    }
+    
+    function getTourFromImageId(imageId) {
+        var deferred = Q.defer();
+
+        var id = mongoose.Types.ObjectId(imageId);
+        
+        Tour.findOne({ "tourImages._id": id }, function (err, result) {
+            if (err) {
+                deferred.reject(err);
+                return;
+            }
+
+            if (!result) {
+                deferred.reject("Couldn't find tour with image id " + imageId);
+                return;
+            }
+
+            var tour = documentToTour(result);
+
+            if (!tour.tourImages) {
+                deferred.reject("Tour has no images, cannot delete image. Invalid tour id on image.");
+                return;
+            }
+
+            deferred.resolve(tour);
+        });
+
+        return deferred.promise;        
     }
     
     return {
@@ -438,7 +461,8 @@ var tourRepository = (function () {
         saveTour: saveTour,
         addImage: addImage,
         updateImage: updateImage,
-        deleteImage: deleteImage
+        deleteImage: deleteImage,
+        getTourFromImageId: getTourFromImageId,
     };
 
 })();

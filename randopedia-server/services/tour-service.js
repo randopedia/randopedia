@@ -199,12 +199,12 @@ var tourService = (function () {
 
     function addImage(image, user, callback) {
 
-        tourRepository.addImage(image.tour, image).then(function () {
+        tourRepository.addImage(image.tour, image).then(function (addedImage) {
 
-            //tourActionRepository.save(user, image.tour, enums.TourActionType.IMAGE_CREATE, "Image added");
+            tourActionRepository.saveImageAction(user, addedImage, enums.TourActionType.IMAGE_CREATE);
 
             if (callback) {
-                callback();
+                callback(addedImage);
             }
 
         }).catch(function (error) {
@@ -214,12 +214,12 @@ var tourService = (function () {
 
     function updateImage(image, imageId, user, callback) {
 
-        tourRepository.updateImage(image, imageId).then(function (image) {
+        tourRepository.updateImage(image, imageId).then(function (updatedImage) {
             
-           // tourActionRepository.save(user, image.tour, enums.TourActionType.IMAGE_UPDATE, "Image updated");
+            tourActionRepository.saveImageAction(user, updatedImage, enums.TourActionType.IMAGE_UPDATE);
 
             if (callback) {
-                callback(image);
+                callback(updatedImage);
             }
 
         }).catch(function (error) {
@@ -229,11 +229,10 @@ var tourService = (function () {
 
     function deleteImage(imageId, user, callback) {
 
+        tourActionRepository.saveDeleteImageAction(user, imageId);
+
         tourRepository.deleteImage(imageId).then(function () {
             
-            // todo: get tour id from somewhere
-            // tourActionRepository.save(user, image.tour, enums.TourActionType.IMAGE_DELETE, "Image deleted");
-
             if (callback) {
                 callback();
             }

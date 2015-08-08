@@ -2,15 +2,16 @@ var mongoose = require('mongoose');
 var TourAction = require('../models/tour-action');
 var enums = require("../enums");
 var tourRepository = require("../repositories/tour-repository");
+var Tour = require("../models/tour");
 var Q = require('q');
 
 var tourActionRepository = (function () {
     
-    function createTourAction(user, tour, actionType, comment) {
+    function createTourAction(user, tourId, actionType, comment) {
         return {
             userId: user._id.toString(),
             userName: user.userName,
-            tourId: tour._id.toString(),
+            tourId: tourId,
             time: new Date().getTime(),
             type: actionType,
             comment: comment
@@ -31,22 +32,13 @@ var tourActionRepository = (function () {
         return actions;
     }
     
-    function save (user, tour, actionType, comment) {
-        var deferred = Q.defer();
-        
-        if(tour.status === enums.TourStatus.DRAFT && actionType != enums.TourActionType.CREATE) {
-            deferred.reject("Only the created action is saved as long as the tour is a draft");
-            return;
-        }
-        
-        var tourAction = createTourAction(user, tour, actionType, comment);
-        
+    function create(tourAction, tour, deferred) {
         TourAction.create(tourAction, function(err, result) {
             if(err) {
                 deferred.reject(err);
             } else {
                 var createdAction = result.toObject();
-                
+        
                 if (!tour.actions) {
                     tour.actions = [];
                 }
@@ -56,10 +48,45 @@ var tourActionRepository = (function () {
                     deferred.resolve(createdAction);
                 });
             }
-        });
-            
+        });         
+    }
+    
+    function save (user, tour, actionType, comment) {
+        var deferred = Q.defer();
+        
+        if(tour.status === enums.TourStatus.DRAFT && actionType != enums.TourActionType.CREATE) {
+            deferred.reject("Only the created action is saved as long as the tour is a draft");
+            return;
+        }
+        
+        var tourAction = createTourAction(user, tour._id.toString(), actionType, comment);
+        create(tourAction, tour, deferred);
+    
         return deferred.promise;
     }
+    
+    function saveImageAction (user, image, imageActionType) {
+        var deferred = Q.defer();
+
+        tourRepository.getTour(image.tour, true).then(function(tour) {
+            var tourAction = createTourAction(user, tour._id.toString(), imageActionType);
+            create(tourAction, tour, deferred);
+        });
+
+        return deferred.promise;        
+    } 
+    
+    function saveDeleteImageAction (user, imageId) {
+        var deferred = Q.defer();
+        
+        tourRepository.getTourFromImageId(imageId).then(function(tour) {
+            var tourAction = createTourAction(user, tour._id.toString(), enums.TourActionType.IMAGE_DELETE);
+            create(tourAction, tour, deferred);
+        });
+        
+      return deferred.promise;
+    }
+
 
     function getActions (ids) {
         var deferred = Q.defer();
@@ -90,7 +117,9 @@ var tourActionRepository = (function () {
     return {
         getActions : getActions,
         getActionsByUser: getActionsByUser,
-        save : save
+        save : save,
+        saveImageAction: saveImageAction,
+        saveDeleteImageAction: saveDeleteImageAction
     };
     
 })();
