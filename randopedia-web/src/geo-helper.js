@@ -229,6 +229,16 @@ App.GeoHelper = Ember.Object.create({
         return false;
     },
     
+    mapTypeControlOptions: [
+        google.maps.MapTypeId.TERRAIN,
+        google.maps.MapTypeId.SATELLITE,
+        'norgeskart'
+    ],
+    
+    setMapTypes: function(map) {
+        map.mapTypes.set('norgeskart', App.GeoHelper.mapTypes.norgeskart());
+    },
+    
     mapTypes: {
         norgeskart: function() {
             return new google.maps.ImageMapType({
@@ -242,6 +252,39 @@ App.GeoHelper = Ember.Object.create({
                 maxZoom: 20,
                 name: 'Norgeskart'
               });
-        },          
+        },     
+        
+        lantmateriet: function() {
+            return new google.maps.ImageMapType({
+                getTileUrl: function (tile, zoom) {
+                    /*
+                    var projection = window.mapA.getProjection();
+                    var zpow = Math.pow(2, zoom);
+                    var ul = new google.maps.Point(tile.x * 256.0 / zpow, (tile.y + 1) * 256.0 / zpow);
+                    var lr = new google.maps.Point((tile.x + 1) * 256.0 / zpow, (tile.y) * 256.0 / zpow);
+                    var ulw = projection.fromPointToLatLng(ul);
+                    var lrw = projection.fromPointToLatLng(lr);
+                    //The user will enter the address to the public WMS layer here.  The data must be in WGS84
+                    var baseURL = "http://sampleserver1.arcgisonline.com/arcgis/services/Specialty/ESRI_StatesCitiesRivers_USA/MapServer/WMSServer?&REQUEST=GetMap&SERVICE=WMS&VERSION=1.3&LAYERS="; //begining of the WMS URL ending with a "?" or a "&".
+                    var format = "image%2Fjpeg"; //type of image returned  or image/jpeg
+                    //The layer ID.  Can be found when using the layers properties tool in ArcMap
+                    var layers = "0";
+                    var srs = "EPSG:4326"; //projection to display. This is the projection of google map. Don't change unless you know what you are doing.
+                    var bbox = ulw.lat() + "," + ulw.lng() + "," + lrw.lat() + "," + lrw.lng();
+                    //Add the components of the URL together
+                    var url = baseURL + layers + "&Styles=default" + "&SRS=" + srs + "&BBOX=" + bbox + "&width=256" + "&height=256" + "&format=" + format + "&BGCOLOR=0xFFFFFF&TRANSPARENT=true" + "&reaspect=false" + "&CRS=EPSG:4326";
+                    return url;
+                    */
+                    var url = "http://maps-open.lantmateriet.se/open/topowebb-ccby/v1/wmts?request=GetTiles&version=1.0.0&service=wmts";
+                    return url;
+                },
+                tileSize: new google.maps.Size(256, 256), 
+                opacity: 1,
+                isPng: false,
+                minZoom: 1,
+                maxZoom: 20,
+                name: 'SWE'
+            });
+        },      
     }  
 });

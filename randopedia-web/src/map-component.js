@@ -10,6 +10,7 @@ App.BrowseTourmapComponent = Ember.Component.extend({
         showRoutesOnZoomLevel: 12,
         defaultMapCenter: new google.maps.LatLng(58.0, 13.5),
         defaultZoomLevel: 4,
+        defaultMapTypeId: google.maps.MapTypeId.TERRAIN,
         mapRootElementId: '#tourMapRootElement'
     },
 
@@ -43,6 +44,10 @@ App.BrowseTourmapComponent = Ember.Component.extend({
         if (!this.get('mapCenter')) {
             this.set('mapCenter', this.settings.defaultMapCenter);
         }
+
+        if (!this.get('mapTypeId')) {
+            this.set('mapTypeId', this.settings.defaultMapTypeId);
+        }        
 
         this.addTourMarkers(this.get('tours'));
     },
@@ -310,10 +315,10 @@ App.BrowseTourmapComponent = Ember.Component.extend({
         self.set('mapRootElement', self.$(self.settings.mapRootElementId));
 
         var mapOptions = {
-                mapTypeId: google.maps.MapTypeId.TERRAIN,
+                mapTypeId: self.get("mapTypeId"),
                 mapTypeControl: true,
                 mapTypeControlOptions: {
-                  mapTypeIds: [google.maps.MapTypeId.TERRAIN, 'norgeskart'],
+                  mapTypeIds: App.GeoHelper.mapTypeControlOptions,
                   style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
                 },
                 zoomControl: true,
@@ -335,7 +340,7 @@ App.BrowseTourmapComponent = Ember.Component.extend({
             };
             
         var map = new google.maps.Map(this.get('mapRootElement').get(0), mapOptions);
-        map.mapTypes.set('norgeskart', App.GeoHelper.mapTypes.norgeskart());
+        App.GeoHelper.setMapTypes(map);
         self.set('map', map);
         
         var markerCluster = new MarkerClusterer(this.get('map'), this.get('markers'));
@@ -353,6 +358,10 @@ App.BrowseTourmapComponent = Ember.Component.extend({
         google.maps.event.addListener(self.get('map'), 'center_changed', function() {
             self.sendAction('centerChanged', self.get('map').getCenter());
         });
+        
+        google.maps.event.addListener(self.get('map'), 'maptypeid_changed', function() {
+            self.sendAction('mapTypeIdChanged', self.get('map').getMapTypeId());
+        });        
         
         // Hook up to window resize event to do implicit resize on map canvas
         var redrawMap = function() {

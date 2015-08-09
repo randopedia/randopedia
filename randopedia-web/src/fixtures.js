@@ -24,8 +24,8 @@ App.Fixtures.MapSymbolTypes = {
 };
 
 App.Fixtures.MapObjectStyles = {
-    DEFAULT_PATH_WIDTH: 2,
-    SELECTED_PATH_WIDTH: 4,
+    DEFAULT_PATH_WIDTH: 4,
+    SELECTED_PATH_WIDTH: 6,
     DEFAULT_PATH_COLOR: '#990000',
     UP_PATH_COLOR: '#343434',
     DOWN_PATH_COLOR: '#EE0000',

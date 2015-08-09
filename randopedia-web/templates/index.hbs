@@ -1,7 +1,7 @@
 
 {{#if liteTours}}
     <div id="full-screen-map-container" class="full-screen">
-        {{browse-tourmap store=store tours=liteTours zoomLevel=currentMapZoomLevel mapCenter=currentMapCenter tour=tourForMapView zoomChanged="mapZoomChanged" centerChanged="mapCenterChanged"}}
+        {{browse-tourmap store=store tours=liteTours zoomLevel=currentMapZoomLevel mapCenter=currentMapCenter mapTypeId=currentMapTypeId tour=tourForMapView zoomChanged="mapZoomChanged" centerChanged="mapCenterChanged" mapTypeIdChanged="mapTypeIdChanged"}}
     </div>
 {{else}}
     <div class="loading">Loading map...</div>

@@ -5,6 +5,7 @@ App.IndexController = Ember.ObjectController.extend({
     liteTours: null,
     currentMapZoomLevel: null,
     currentMapCenter: null,
+    currentMapTypeId: null,
     tourForMapView: null,
     
     init: function() {
@@ -26,6 +27,9 @@ App.IndexController = Ember.ObjectController.extend({
         },
         mapCenterChanged: function(centerLatLng) {
             this.set('currentMapCenter', centerLatLng);
+        },
+        mapTypeIdChanged: function(mapTypeId) {
+            this.set('currentMapTypeId', mapTypeId);
         },
         viewTourOnMap: function(tour){
             this.set('tourForMapView', tour);
