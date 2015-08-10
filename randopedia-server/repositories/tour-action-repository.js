@@ -93,7 +93,17 @@ var tourActionRepository = (function () {
             if(err) {
                 deferred.reject(err);
             } else {
-                deferred.resolve(documentsToActions(result));
+                var actions = documentsToActions(result);
+                actions.sort(function(a, b) {
+                   if(a.Time() > b.Time()) {
+                       return 1;
+                   } else if(a.Time() < b.Time()) {
+                       return -1;
+                   } else {
+                       return 0;
+                   }
+                });
+                deferred.resolve(actions);
             }
         });  
         
