@@ -243,11 +243,11 @@ var tourRepository = (function () {
                         tour.clientId = clientId; 
                     }
                     
-                    Tour.create(tour, function(createErr, result) {
+                    Tour.create(tour, function(createErr, createdTour) {
                         if(createErr) {
                             deferred.reject(createErr);
                         } else {
-                            deferred.resolve(documentToTour(result));
+                            deferred.resolve(documentToTour(createdTour));
                         }
                     }); 
                 }
@@ -309,6 +309,7 @@ var tourRepository = (function () {
 
                 }).catch(function (error) {
                     console.log(error);
+                    deferred.reject(error);
                 });
             });
         });
@@ -380,6 +381,7 @@ var tourRepository = (function () {
 
             }).catch(function (error) {
                 console.log(error);
+                deferred.reject(error);
             });
         });
 
@@ -393,19 +395,17 @@ var tourRepository = (function () {
             
             var index = findIndexFromId(tour.tourImages, imageId);
             if (index < 0) {
-                deferred.reject("Image does not exist, cannot update");
+                deferred.reject("Image does not exist");
                 return;
             }
             
             fs.unlink(config.webappClientDirectory + "/" + tour.tourImages[index].imageFile, function (err) {
                 if (err) {
+                    console.log(err);
                     deferred.reject("Error when deleting image file");
-                    throw err;
+                    return;
                 };
-
-                var imgs = tour.tourImages;
-                imgs.splice(index, 1);
-                
+               
                 tour.tourImages.splice(index, 1);
 
                 saveTour(tour).then(function () {
@@ -413,6 +413,7 @@ var tourRepository = (function () {
 
                 }).catch(function (error) {
                     console.log(error);
+                    deferred.reject(error);
                 });
             });
         });
@@ -432,14 +433,14 @@ var tourRepository = (function () {
             }
 
             if (!result) {
-                deferred.reject("Couldn't find tour with image id " + imageId);
+                deferred.reject("Couldn't find tour from image id " + imageId);
                 return;
             }
 
             var tour = documentToTour(result);
 
             if (!tour.tourImages) {
-                deferred.reject("Tour has no images, cannot delete image. Invalid tour id on image.");
+                deferred.reject("Tour has no images. Invalid tour id on image.");
                 return;
             }
 

@@ -84,9 +84,8 @@ var tourActionRepository = (function () {
             create(tourAction, tour, deferred);
         });
         
-      return deferred.promise;
+        return deferred.promise;
     }
-
 
     function getActions (ids) {
         var deferred = Q.defer();

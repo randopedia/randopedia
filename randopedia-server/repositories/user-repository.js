@@ -5,7 +5,6 @@ var Q = require('q');
 var userRepository = (function() {
 
     function findOrCreateUser(facebookUser, llToken) {
-        console.log('find or create user ' + facebookUser.id + ' ' + llToken);
         var deferred = Q.defer();
         userModel.findOne({'userId': facebookUser.id}, function(err, user) {
             if(err) {
@@ -25,10 +24,9 @@ var userRepository = (function() {
                             longLivedToken : llToken,
                             authenticated : true
                         });
-                    console.log('creating new user');
                     newUser.save(function(err) {
                         if(err) {
-                            console.log('Could not create new user');
+                            console.log('Could not create new user. ' + err);
                             deferred.reject(err);
                         } else {
                             deferred.resolve(newUser.toObject());
@@ -41,10 +39,10 @@ var userRepository = (function() {
     }
 
     function findUser(facebookUser) {
-        console.log('userRepository.findUser ' + facebookUser.id);
         var deferred = Q.defer();
         userModel.findOne({'userId' : facebookUser.id}, function(err, user) {
             if(err) {
+                console.log('Error when finding user. ' + err);
                 deferred.reject(err);
             } else {
                 if(user) {
