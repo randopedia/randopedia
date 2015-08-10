@@ -320,7 +320,6 @@ App.TourEditController = Ember.ObjectController.extend({
         
     },    
     saveAndExit: function () {
-        console.log('save and exit!');
         var self = this;
 
         if (self.get("havePendingOperations")) {

@@ -64,7 +64,11 @@ var common = (function () {
 
     function getTagsFromText(text) {
         var tags = [];
-
+        
+        if(!text) {
+            return tags;    
+        }
+        
         var index = text.indexOf("#");
         while(index >= 0) {
             var spaceIndex = text.indexOf(' ', index);

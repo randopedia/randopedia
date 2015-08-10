@@ -5,8 +5,6 @@ var config = require('../config/config');
 var googleRepository = (function() {
 
     function verifyToken(token) {
-        console.log('verifying google token');
-
         var url = 'https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=' + token;
         
         var deferred = Q.defer();
@@ -24,8 +22,6 @@ var googleRepository = (function() {
     };
 
     function getExternalUser(token) {
-        console.log('get external user from google');
-
         var url = 'https://www.googleapis.com/oauth2/v1/userinfo?access_token=' + token;
         
         var deferred = Q.defer();
