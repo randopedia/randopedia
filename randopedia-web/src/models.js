@@ -1,9 +1,7 @@
 // Models
 
-App.Stats = DS.Model.extend({
+App.Stat = DS.Model.extend({
     publishedTours : DS.attr('number'),
-    publishedAreas : DS.attr('number'),
-    deadAreas: DS.attr('number'),
     tourDrafts: DS.attr('number'),
     registeredUsers: DS.attr('number')
 });

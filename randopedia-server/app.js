@@ -13,6 +13,7 @@ var touritems = require('./routes/touritems');
 var tourimages = require('./routes/tourimages');
 var actions = require('./routes/actions');
 var tags = require('./routes/tags');
+var stats = require('./routes/stats');
 var reviewcomments = require('./routes/reviewcomments');
 
 var app = express();
@@ -36,6 +37,7 @@ app.use('/randopedia/api/actions/', actions);
 app.use('/randopedia/api/touritems/', touritems);
 app.use('/randopedia/api/images/', tourimages);
 app.use('/randopedia/api/tags/', tags);
+app.use('/randopedia/api/stats/', stats);
 app.use('/randopedia/api/comments/', reviewcomments);
 app.use('/auth/', auth);
 

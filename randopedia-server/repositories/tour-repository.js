@@ -447,7 +447,26 @@ var tourRepository = (function () {
             deferred.resolve(tour);
         });
 
-        return deferred.promise;        
+        return deferred.promise;
+    }
+    
+    function getTourCount(status) {
+        var deferred = Q.defer();
+        
+        if(!status) {
+            status = enums.TourStatus.PUBLISHED;
+        }
+        
+        Tour.count({status: status}, function(err, count) {
+            if (err) {
+                deferred.reject(err);
+                return;
+            }
+            
+            deferred.resolve(count);    
+        });
+        
+        return deferred.promise;
     }
     
     return {
@@ -464,6 +483,7 @@ var tourRepository = (function () {
         updateImage: updateImage,
         deleteImage: deleteImage,
         getTourFromImageId: getTourFromImageId,
+        getTourCount: getTourCount
     };
 
 })();

@@ -43,14 +43,8 @@ App.IndexRoute = App.BaseRoute.extend({
 });
 
 App.StatsRoute = App.BaseRoute.extend({
-    model: function(params) {
-        return this.store.find("stats", null);
-    },
-    renderTemplate: function () {
-        this.render({ outlet: "mainview" });
-
-        //this.render("about", { outlet: "sidebar" });
-        this.render("index", { outlet: "main" });
+    model: function() {
+        return this.store.find("stat");
     }
 });
 
