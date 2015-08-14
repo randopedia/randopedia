@@ -51,13 +51,3 @@ App.AboutController = Ember.ObjectController.extend();
 App.ResultController = Ember.ArrayController.extend();
 
 App.TagsController = Ember.ArrayController.extend();
-
-App.BreadCrumbController = Ember.ObjectController.extend();
-App.register('controller:breadCrumb', App.BreadCrumbController, {
-    singleton : false
-});
-
-App.BreadCrumbItemController = Ember.ObjectController.extend();
-App.register('controller:breadCrumbItem', App.BreadCrumbItemController, {
-    singleton : false
-});

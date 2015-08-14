@@ -1,3 +1,7 @@
+var Ember = Ember || {};
+var App = App || {};
+var google = google || {};
+
 App.TourMapObject = {
     tourId: 0,
     marker: null,
