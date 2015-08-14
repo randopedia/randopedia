@@ -265,7 +265,6 @@ App.GeoHelper = Ember.Object.create({
                     return 'http://opencache.statkart.no/gatekeeper/gk/gk.open_gmaps?layers=topo2&zoom=' + zoom + '&x=' + coord.x + '&y=' + coord.y;
                 },
                 tileSize: new google.maps.Size(256, 256), 
-                opacity: 0.5,
                 isPng: true,
                 minZoom: 1,
                 maxZoom: 20,
