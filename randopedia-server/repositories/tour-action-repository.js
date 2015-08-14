@@ -76,14 +76,16 @@ var tourActionRepository = (function () {
         return deferred.promise;        
     } 
     
-    function saveDeleteImageAction (user, imageId) {
+    function saveDeleteImageAction (user, tourClientId, imageId) {
         var deferred = Q.defer();
         
-        tourRepository.getTourFromImageId(imageId).then(function(tour) {
+        tourRepository.getTour(tourClientId, true).then(function(tour) {
+            
             var tourAction = createTourAction(user, tour._id.toString(), enums.TourActionType.IMAGE_DELETE);
             create(tourAction, tour, deferred);
-        });
-        
+            
+        });      
+       
         return deferred.promise;
     }
 

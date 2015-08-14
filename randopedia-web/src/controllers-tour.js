@@ -593,7 +593,12 @@ App.TourEditController = Ember.ObjectController.extend({
 
     doesNotRequireTools: function() {
         return !this.get("requiresTools");
-    }.property("requiresTools")
+    }.property("requiresTools"),
+    
+    sortedActions: function(){
+        return this.get("actions").sortBy("time");
+    }.property('actions.@each.time')
+
 });
 
 App.MytoursController = Ember.ObjectController.extend({

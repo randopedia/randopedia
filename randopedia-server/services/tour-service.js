@@ -229,18 +229,22 @@ var tourService = (function () {
 
     function deleteImage(imageId, user, callback) {
 
-        tourRepository.deleteImage(imageId).then(function () {
+        tourRepository.getTourFromImageId(imageId).then(function(tourFromImageId) {
             
-            // todo: using getTourFromImage which fails since the image is deleted... :P Needs to be solved some other way.
-            // tourActionRepository.saveDeleteImageAction(user, imageId);
+            tourRepository.deleteImage(imageId).then(function () {
+                
+                tourActionRepository.saveDeleteImageAction(user, tourFromImageId.clientId, imageId);
+                
+                if (callback) {
+                    callback();
+                }
+        
+            });
             
-            if (callback) {
-                callback();
-            }
-
         }).catch(function (error) {
             console.log(error);
         });
+
     }
     
     function addReviewComment(comment, callback) {
