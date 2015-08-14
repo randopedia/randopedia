@@ -232,25 +232,44 @@ App.GeoHelper = Ember.Object.create({
     mapTypeControlOptions: [
         google.maps.MapTypeId.TERRAIN,
         google.maps.MapTypeId.SATELLITE,
+        'osm',
         'norgeskart'
     ],
     
     setMapTypes: function(map) {
+        map.mapTypes.set('osm', App.GeoHelper.mapTypes.osm());
         map.mapTypes.set('norgeskart', App.GeoHelper.mapTypes.norgeskart());
     },
     
     mapTypes: {
+        osm: function() {
+            return new google.maps.ImageMapType({
+                getTileUrl: function(coord, zoom) {
+                    var tilesPerGlobe = 1 << zoom;
+                    var x = coord.x % tilesPerGlobe;
+                    if (x < 0) {
+                        x = tilesPerGlobe+x;
+                    }
+                    return "http://tile.opentopomap.org/" + zoom + "/" + x + "/" + coord.y + ".png";
+                },
+                tileSize: new google.maps.Size(256, 256),
+                minZoom: 5,
+                maxZoom: 15,
+                name: "OpenTopoMap (Europe)",
+            });
+        },
+                
         norgeskart: function() {
             return new google.maps.ImageMapType({
                 getTileUrl: function(coord, zoom) {
                     return 'http://opencache.statkart.no/gatekeeper/gk/gk.open_gmaps?layers=topo2&zoom=' + zoom + '&x=' + coord.x + '&y=' + coord.y;
                 },
                 tileSize: new google.maps.Size(256, 256), 
-                opacity: 1,
+                opacity: 0.5,
                 isPng: true,
                 minZoom: 1,
                 maxZoom: 20,
-                name: 'Norgeskart'
+                name: 'Norgeskart (NOR)'
               });
         },     
         
