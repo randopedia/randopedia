@@ -1,19 +1,32 @@
 App.ApplicationController = Ember.ArrayController.extend({
     needs: ['login'],
+
+    checkTokenExpired : function(token) {
+        if(token) {
+            var expires = new Date(token.expires_in*1000);
+            var now = new Date();
+            if(expires > now) {
+                return false;
+            }
+        }
+        return true;
+    },
     
     verifyLogin : function() {
         var token = App.oauth.getToken('facebook');
-        if(!token)
-            token = App.oauth.getToken('google');
 
+        if(token) {
+            if(this.checkTokenExpired(token)) {
+                token = null;
+            }
+        }
+        if(!token) {
+            token = App.oauth.getToken('google');
+        }
         if(token !== null) {
             App.oauth.setProviderId(token.provider_id);
             App.oauth.init();
-            
-            var expires = new Date(token.expires_in*1000);
-            var now = new Date();
-            // If there is a token that is not expired in local storage, fire off a request to check validity
-            if(expires > now) {
+            if(!this.checkTokenExpired(token)) {
                 var loginController = this.get('controllers.login');
                 loginController.send('requestAuthentication');
                 return true;
