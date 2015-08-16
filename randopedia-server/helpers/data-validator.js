@@ -6,7 +6,12 @@ var validator = {
     nameRegex: "^.{3,80}$",
 
     // Positive number values, zero not allowed, floats not allowed
-    isPosNumber: function(value) {
+    isPosNumber: function(value, allowNull) {
+        
+        if(allowNull && !value) {
+            return true;
+        }
+        
         if (isNaN(value) || value < 1) {
              return false;
         }
@@ -17,14 +22,7 @@ var validator = {
         
         return true;
     },
-    
-    isPosNumberOrNull: function(value) {
-        if (!value) {
-             return true;
-        }
-        return this.isPosNumber(value);
-    },
-    
+
     // Validates tour name
     name: function(value) {
         if (!value) {
@@ -91,57 +89,56 @@ var dataValidator = (function() {
     function validateTour(tour) {
         var validationErrors = [];
         
+        // required
         if(!validator.name(tour.name)) {
             validationErrors.push("Name");
         }
         
-        if(tour.status === enums.TourStatus.DRAFT || tour.status === enums.TourStatus.IN_REVIEW) {
-            return validationErrors;
-        }
+        var isDraftOrInReview = tour.status === enums.TourStatus.DRAFT || tour.status === enums.TourStatus.IN_REVIEW;
         
         if(!validator.mediumDesc(tour.shortDescription, true)) {
             validationErrors.push("Summary");
         }
-        if(!validator.isPosNumber(tour.elevationGain)) {
+        if(!validator.isPosNumber(tour.elevationGain, isDraftOrInReview)) {
             validationErrors.push("Elevation gain");
         }   
-        if(!validator.isPosNumber(tour.elevationLoss)) {
+        if(!validator.isPosNumber(tour.elevationLoss, isDraftOrInReview)) {
             validationErrors.push("Elevation loss");
         }
-        if(!validator.isPosNumberOrNull(tour.elevationMax)) {
+        if(!validator.isPosNumber(tour.elevationMax, true)) {
             validationErrors.push("Highest point");
         }
-        if(!validator.isPosNumber(tour.timingMin)) {
+        if(!validator.isPosNumber(tour.timingMin, isDraftOrInReview)) {
             validationErrors.push("Time min");
         }  
-        if(!validator.isPosNumber(tour.timingMax)) {
+        if(!validator.isPosNumber(tour.timingMax, isDraftOrInReview)) {
             validationErrors.push("Time max");
         }  
-        if(!validator.isPosNumberOrNull(tour.grade)) {
+        if(!validator.isPosNumber(tour.grade, true)) {
             validationErrors.push("Grade");
         }  
-        if(!validator.mediumDesc(tour.hazardsDescription, !tour.haveHazards)) {
+        if(!validator.mediumDesc(tour.hazardsDescription, !tour.haveHazards || isDraftOrInReview)) {
             validationErrors.push("Hazards description");
         }  
-        if(!validator.mediumDesc(tour.toolsDescription, !tour.requiresTools)) {
+        if(!validator.mediumDesc(tour.toolsDescription, !tour.requiresTools || isDraftOrInReview)) {
             validationErrors.push("Requires skills description");
         }        
-        if(!validator.isPosNumberOrNull(tour.degreesMax)) {
+        if(!validator.isPosNumber(tour.degreesMax, true)) {
             validationErrors.push("Steepness");
         }  
-        if(!validator.isPosNumberOrNull(tour.aspect)) {
+        if(!validator.isPosNumber(tour.aspect, true)) {
             validationErrors.push("Aspect");
         }  
-        if(!validator.isPosNumberOrNull(tour.timeOfYearFrom)) {
+        if(!validator.isPosNumber(tour.timeOfYearFrom, true)) {
             validationErrors.push("Season from");
         }  
-        if(!validator.isPosNumberOrNull(tour.timeOfYearTo)) {
+        if(!validator.isPosNumber(tour.timeOfYearTo, true)) {
             validationErrors.push("Season to");
         }
-        if(!validator.mediumDesc(tour.accessPoint)) {
+        if(!validator.mediumDesc(tour.accessPoint, isDraftOrInReview)) {
             validationErrors.push("Access point");
         }        
-        if(!validator.longDesc(tour.itinerary)) {
+        if(!validator.longDesc(tour.itinerary, isDraftOrInReview)) {
             validationErrors.push("Description");
         } 
         
