@@ -23,7 +23,7 @@ App.SearchComponentComponent = Ember.Component.extend({
         this.set('isSearching', true);
         var self = this;
         var store = this.get('store');
-        store.findQuery('tour', {query : query}).then(function(tours) {
+        store.findQuery('tourItem', {query : query}).then(function(tours) {
             self.set('tours', tours);
             self.set('hasSearchResults', true);
             self.set('isSearching', false);

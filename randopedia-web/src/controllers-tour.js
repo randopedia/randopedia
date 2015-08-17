@@ -618,7 +618,7 @@ App.MytoursController = Ember.ObjectController.extend({
         self.set("isLoadingUpdates", true);
         self.set("isLoadingReviews", true);
 
-        self.store.findQuery("tour", { status: App.Fixtures.TourStatus.DRAFT }).then(function (tours) {
+        self.store.findQuery("tourItem", { status: App.Fixtures.TourStatus.DRAFT }).then(function (tours) {
             self.set("drafts", tours);
             self.set("isLoadingDrafts", false);
         }, function(err) {
@@ -626,7 +626,7 @@ App.MytoursController = Ember.ObjectController.extend({
             App.Alerts.showErrorMessage("An error occured when loading drafts, are you logged in?");
         });
  
-        self.store.findQuery("tour", { usersTours: true }).then(function (tours) {
+        self.store.findQuery("tourItem", { usersTours: true }).then(function (tours) {
             self.set("updates", tours);
             self.set("isLoadingUpdates", false);
         }, function (err) {
@@ -634,7 +634,7 @@ App.MytoursController = Ember.ObjectController.extend({
             App.Alerts.showErrorMessage("An error occured when loading tours, are you logged in?");
         });
 
-        self.store.findQuery("tour", { status: App.Fixtures.TourStatus.IN_REVIEW }).then(function (tours) {
+        self.store.findQuery("tourItem", { status: App.Fixtures.TourStatus.IN_REVIEW }).then(function (tours) {
             self.set("reviews", tours);
             self.set("isLoadingReviews", false);
         }, function (err) {

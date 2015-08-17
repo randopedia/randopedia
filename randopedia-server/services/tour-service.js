@@ -32,6 +32,7 @@ var tourService = (function () {
             if (callback) {
                 callback(tour);
             }
+            
         }).catch(function (error) {
             console.log(error);
         });
@@ -99,15 +100,6 @@ var tourService = (function () {
             console.log(error);
         });
 
-    }
-
-    function getTourItems(callback) {
-        tourRepository.getTourItems().then(function (tourItems) {
-            execCallback(tourItems, callback);
-
-        }).catch(function (error) {
-            console.log(error);
-        });
     }
 
     function createTour(tour, user, callback, validationErrorsCallback) {
@@ -274,7 +266,6 @@ var tourService = (function () {
     return {
         getTour: getTour,
         getTours: getTours,
-        getTourItems: getTourItems,
         getToursByQuery: getToursByQuery,
         getToursForUser: getToursForUser,
         createTour: createTour,

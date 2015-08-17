@@ -7,6 +7,8 @@ var TourAction = require("../models/tour-action");
 var common = require("../helpers/common");
 var enums = require("../enums");
 
+var tourItemFields = "mapGeoJson name grade elevationLoss elevationGain timingMin timingMax shortDescription clientId";
+
 var tourRepository = (function () {
 
     function documentToTour(doc) {
@@ -86,12 +88,32 @@ var tourRepository = (function () {
         return deferred.promise;
     }  
 
+//     function getTours(status) {
+//         var deferred = Q.defer();
+// 
+//         status = !status ? enums.TourStatus.PUBLISHED : status;
+// 
+//         Tour.find({ status: status }, function (err, result) {
+//             if (err) {
+//                 deferred.reject(err);
+//             } else {
+//                 deferred.resolve(documentsToTours(result));
+//             }
+//         });
+// 
+//         return deferred.promise;
+//     }
+
+    /*
+    *  Returns TourItems
+    */
     function getTours(status) {
+        
         var deferred = Q.defer();
 
         status = !status ? enums.TourStatus.PUBLISHED : status;
 
-        Tour.find({ status: status }, function (err, result) {
+        Tour.find({ status: status }, tourItemFields, function (err, result) {
             if (err) {
                 deferred.reject(err);
             } else {
@@ -102,28 +124,14 @@ var tourRepository = (function () {
         return deferred.promise;
     }
 
-    function getTourItems(status) {
-        var itemFields = "mapGeoJson name grade elevationLoss elevationGain timingMin timingMax shortDescription clientId";
-        var deferred = Q.defer();
-
-        status = !status ? enums.TourStatus.PUBLISHED : status;
-
-        Tour.find({ status: status }, itemFields, function (err, result) {
-            if (err) {
-                deferred.reject(err);
-            } else {
-                deferred.resolve(documentsToTours(result));
-            }
-        });
-
-        return deferred.promise;
-    }
-
+    /*
+    *  Returns TourItems
+    */
     function getToursByQuery(query) {
         var re = new RegExp(query, 'i');
         var deferred = Q.defer();
 
-        Tour.find({ 'name': { $regex: re } }, function (err, result) {
+        Tour.find({ 'name': { $regex: re } }, tourItemFields, function (err, result) {
             if (err) {
                 deferred.reject();
             } else {
@@ -133,10 +141,13 @@ var tourRepository = (function () {
         return deferred.promise;
     }
 
+    /*
+    *  Returns TourItems
+    */
     function getToursWithTagRegex(tagRegex) {
         var deferred = Q.defer();
 
-        Tour.find({ tags : { $regex : tagRegex } }, function(err, tours) {
+        Tour.find({ tags : { $regex : tagRegex } }, tourItemFields, function(err, tours) {
             if(err) {
                 deferred.reject(err);
             } else {
@@ -147,10 +158,13 @@ var tourRepository = (function () {
         return deferred.promise;
     }
 
+    /*
+    *  Returns TourItems
+    */
     function getToursWithTag(tagName) {
         var deferred = Q.defer();
 
-        Tour.find({ tags: tagName }, function (err, result) {
+        Tour.find({ tags: tagName }, tourItemFields, function (err, result) {
             if (err) {
                 deferred.reject(err);
             } else {
@@ -160,6 +174,10 @@ var tourRepository = (function () {
         return deferred.promise;
     };
 
+    /*
+    *  Get all tours with status draft for the specified user
+    *  Returns TourItems
+    */
     function getTourDrafts(userId) {
         var deferred = Q.defer();
 
@@ -176,7 +194,7 @@ var tourRepository = (function () {
 
                 var tourIds = getDistinctTourIds(actions);
                         
-                Tour.find({ _id: { $in: tourIds }, status: enums.TourStatus.DRAFT }, function (err, tours) {
+                Tour.find({ _id: { $in: tourIds }, status: enums.TourStatus.DRAFT }, tourItemFields, function (err, tours) {
 
                     if (err) {
                         deferred.reject(err);
@@ -192,11 +210,12 @@ var tourRepository = (function () {
     }
 
     /*
-    *  Get all tours that the specified user have collaborated on (drafts not included)
+    *  Get all tours that the specified user have collaborated on (excluding drafts)
+    *  Returns TourItems
     */
     function getToursForUser(userId) {
         var deferred = Q.defer();
-
+        
         TourAction.find({ userId: userId }, function (err, actions) {
             if (err) {
                 deferred.reject(err);
@@ -210,7 +229,7 @@ var tourRepository = (function () {
 
                 var tourIds = getDistinctTourIds(actions);               
 
-                Tour.find({ _id: { $in: tourIds }, status: { $ne: enums.TourStatus.DRAFT } }, function (err, tours) {
+                Tour.find({ _id: { $in: tourIds }, status: { $ne: enums.TourStatus.DRAFT } }, tourItemFields, function (err, tours) {
 
                     if (err) {
                         deferred.reject(err);
@@ -472,7 +491,6 @@ var tourRepository = (function () {
     return {
         getTour: getTour,
         getTours: getTours,
-        getTourItems: getTourItems,
         getToursWithTag: getToursWithTag,
         getToursWithTagRegex : getToursWithTagRegex,
         getToursByQuery: getToursByQuery,

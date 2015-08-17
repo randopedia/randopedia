@@ -1,7 +1,7 @@
 <div class="row tour-item-view">
     <div class="col-sm-12">   
 	    <div class="item-panel">
-            <h4> {{#link-to "tour" tour}} {{tour.name}} {{/link-to}}</h4>
+            <h4> {{#link-to "tour" tour.id}} {{tour.name}} {{/link-to}}</h4>
 			<div class="item-props">    
 				{{resolveGradeName tour.grade}} | 
 				{{tour.timingMin}}-{{tour.timingMax}}h | 

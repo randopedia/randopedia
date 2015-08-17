@@ -126,13 +126,6 @@ App.TourEditRoute = App.BaseRoute.extend({
 App.TourRoute = App.BaseRoute.extend({
     setupController : function(controller, model){
         this._super(controller, model);
-
-        // When routing from the map, reload is needed since the tour is already loaded but wi+ self.get("model")th just a few properties set.
-        // Just check itinerary (never loaded in the lite object), reload if null. TODO: What's the proper way to handle a situation like this?
-        if(!model.get('itinerary')) {
-            model.reload();    
-        }
-
         this.controllerFor('application').set('showNavbarSearch', false);
     },
     model: function(params){

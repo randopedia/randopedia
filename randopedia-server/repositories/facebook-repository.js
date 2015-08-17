@@ -18,7 +18,6 @@ var facebookRepository = (function() {
                 deferred.resolve(llToken);
             } else {
                 console.log(error);
-                console.log(response.statusCode);
                 deferred.reject(error);
             }
         });
@@ -35,7 +34,6 @@ var facebookRepository = (function() {
                 deferred.resolve(JSON.parse(body));
             } else {
                 console.log(error);
-                console.log(response.statusCode);
                 deferred.reject(error);
             }
         });
