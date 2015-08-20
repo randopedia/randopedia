@@ -210,6 +210,11 @@ App.BrowseTourmapComponent = Ember.Component.extend({
             App.Alerts.showErrorMessage('Cannot show your location, seems like your browser doesnt support geolocation.');
             return;
         }
+        
+        if(self.get('myPositionMarker')) {
+            self.get('myPositionMarker').setMap(null);
+            self.set('myPositionMarker', null);
+        }
 
         if (self.get('myPositionWatchId')) {            
             navigator.geolocation.clearWatch(self.get('myPositionWatchId'));

@@ -86,23 +86,7 @@ var tourRepository = (function () {
         });
 
         return deferred.promise;
-    }  
-
-//     function getTours(status) {
-//         var deferred = Q.defer();
-// 
-//         status = !status ? enums.TourStatus.PUBLISHED : status;
-// 
-//         Tour.find({ status: status }, function (err, result) {
-//             if (err) {
-//                 deferred.reject(err);
-//             } else {
-//                 deferred.resolve(documentsToTours(result));
-//             }
-//         });
-// 
-//         return deferred.promise;
-//     }
+    }
 
     /*
     *  Returns TourItems
