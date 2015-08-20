@@ -178,6 +178,11 @@
                             <div class="spacing">[View tour on map] <em>Tours are not available on the map until they are published.</em></div>
                         {{/if}}
                     {{/if}}
+                    
+                    {{#if controllers.login.isLoggedIn}}
+                        {{#link-to 'tour.edit' model class="btn btn-default pull-right"}}<span class="glyphicon glyphicon-edit"></span> Edit tour{{/link-to}}
+                    {{/if}}
+                    
                 </div>
             </div>
 
@@ -297,14 +302,6 @@
             {{/if}}
         {{/if}}
         --}}
-
-        {{#if controllers.login.isLoggedIn}}
-        <div class="row">
-            <div class="col-sm-12 info-col edit-container">
-                {{#link-to 'tour.edit' model}}<span class="glyphicon glyphicon-edit"></span> Edit tour{{/link-to}}
-            </div>
-        </div>
-        {{/if}}
 
         <div class="row">
             <div class="col-sm-12 info-col">
