@@ -1,5 +1,5 @@
-<div class="container-fluid">
-    <div class="tour-details-view">
+<div class="main-container container-fluid">
+    <div class="main-view tour-details-view">
 
         <div class="hidden">{{view.imageLoaded}}</div>
 
@@ -160,7 +160,7 @@
         </div>
 
         <div class="row">
-            <div class="col-sm-12">
+            <div class="col-sm-12 info-col">
                 <div class="map-buttons-container">
                     {{#if isPublished}}
                         {{#if hasMapData}}
@@ -181,8 +181,8 @@
                 </div>
             </div>
 
-            <div class="col-sm-12">
-                <div class="panel panel-default">
+            <div class="col-sm-12 info-col">
+                <div class="panel panel-default panel-full-width">
                     <div class="panel-heading">Access point</div>
                     <div class="panel-body">
                         {{accessPoint}}
@@ -192,8 +192,8 @@
         </div>
 
         <div class="row">
-            <div class="col-sm-12">
-                <div class="panel panel-default">
+            <div class="col-sm-12 info-col">
+                <div class="panel panel-default panel-full-width">
                     <div class="panel-heading">Description</div>
                     <div class="panel-body">
                         <div>{{{markedItinerary}}}</div>
@@ -204,8 +204,8 @@
 
         <div class="row">
             {{#if haveHazards}}
-            <div class="col-sm-12 col-lg-6">
-                <div class="panel panel-danger">
+            <div class="col-sm-12 col-lg-6 info-col">
+                <div class="panel panel-default panel-full-width">
                     <div class="panel-heading">Hazards</div>
                     <div class="panel-body">
                         {{hazardsDescription}}
@@ -215,8 +215,8 @@
             {{/if}}
 
             {{#if requiresTools}}
-            <div class="col-sm-12 col-lg-6">
-                <div class="panel panel-info">
+            <div class="col-sm-12 col-lg-6 info-col">
+                <div class="panel panel-default panel-full-width">
                     <div class="panel-heading">Mountaineering</div>
                     <div class="panel-body">
                         {{toolsDescription}}
@@ -228,8 +228,8 @@
 
         {{#if hasImages}}
         <div class="row">
-            <div class="col-sm-12">
-                <div class="panel panel-default">
+            <div class="col-sm-12 info-col">
+                <div class="panel panel-default panel-full-width">
                     <div class="panel-heading">Images <span class="small"> ({{images.length}})</span></div>
                     <div id="image-carousel-container" class="image-carousel-container">
                         {{view "imageCarousel" contentBinding="images"}}
@@ -241,9 +241,9 @@
 
         {{#if isPublished}}
         <div class="row">
-            <div class="col-sm-12">
-                <div class="panel-group spacing-y-large" id="accordion">
-                    <div class="panel panel-default">
+            <div class="col-sm-12 info-col">
+                <div class="panel-group" id="accordion">
+                    <div class="panel panel-default panel-full-width">
                         <div class="panel-heading">
                             <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
                                 Discussions and trip reports
@@ -300,13 +300,17 @@
 
         {{#if controllers.login.isLoggedIn}}
         <div class="row">
-            <div class="col-sm-12 edit-container">
+            <div class="col-sm-12 info-col edit-container">
                 {{#link-to 'tour.edit' model}}<span class="glyphicon glyphicon-edit"></span> Edit tour{{/link-to}}
             </div>
         </div>
         {{/if}}
 
-        {{partial "footer"}}
+        <div class="row">
+            <div class="col-sm-12 info-col">
+                {{partial "footer"}}
+            </div>
+        </div>
 
         <div class="modal fade" id="tourDetailsGradeGuideModal" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-lg">

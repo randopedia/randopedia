@@ -5,6 +5,8 @@
 @navbar-background:             @gray-dark;
 @hover-background-on-dark:      @gray-lighter;
 
+@main-container-background:     @gray-light;
+
 @tab-color:                     @gray-lighter;
 
 @normal-border:                 1px solid @gray-light;
@@ -176,6 +178,10 @@ div.main-view-container {
 body {
     padding-top: 50px;
 }
+
+.btn {
+    border-radius: 0;
+} 
    
 #full-screen-map-container {
     .ember-view {
@@ -196,7 +202,13 @@ body {
 
 .panel {
     .adjust-margin-for-small();
+    border-radius: 0;
+    margin-bottom: 0;
 }
+
+.panel-group {
+    margin-bottom: 0;
+} 
 
 .alert {
     margin-top: 5px;
@@ -531,7 +543,7 @@ a {
 }
 
 .edit-container {
-    padding: 20px;
+    padding: 20px !important;
     border-top: @light-border;
 
     a {
@@ -684,6 +696,39 @@ button.info {
     }
     .item-props { 
         color: @gray-light;
+    }
+}
+
+.main-container {
+    background: #F0F0F0;
+}
+
+.main-view {
+    
+    @media (min-width: 1170px) {
+        width: 80%;
+        margin: 10px auto;
+        border: 1px solid #B6B6B6;
+        background-color: #fff;
+        padding: 0 5px;  
+        .panel-full-width {
+            margin-left: -5px;
+            margin-right: -5px;
+        }      
+    }
+    
+    @media (min-width: 1570px) {
+        width: 60%;
+    }
+    
+    @media (max-width: 1169px) {
+        .info-col {
+            padding: 0 5px;
+        }   
+    }
+    
+    .panel-full-width {
+        border: none;
     }
 }
 
@@ -945,25 +990,21 @@ button.info {
     background-repeat: no-repeat;
     color: @gray-lighter;
     font-size: 0.8em;
-    margin: 0 -15px;
-    padding: 45px 20px;
+    margin: 0 -5px;
+    margin-top: 25px;
+    margin-bottom: -10px;
+    padding: 45px 1em;
 
-    a:hover {
-        color: @gray-lighter;
-        text-decoration: underline;
-    }
-
-    .cc-img {
-        margin-bottom: 5px;
-    }
-
-    .randopedia-logo-text {
-        margin: 15px 0 0 0;
-        font-size: 25px;
+    a {
+        color: #fff;
+        font-size: 1.1em;
+        &:hover {
+            text-decoration: underline;
+        }
     }
 
     .inline-list { 
-	font-family: "Lucida console", Monospace; 
+	    font-family: "Lucida console", Monospace; 
         font-size: 1.1em;
         margin-left: -3px;
 
