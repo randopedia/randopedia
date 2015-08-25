@@ -147,8 +147,12 @@ DS.RESTAdapter.reopen({
           hash.beforeSend = function(xhr) {
               var token = App.oauth.getToken();
               if(token !== null && typeof token !== 'undefined') {
-                  xhr.setRequestHeader('X-Header-Token', App.oauth.getAccessToken());
-                  xhr.setRequestHeader('X-Header-Provider', App.oauth.getToken().provider_id);
+                  var expires = new Date(token.expires_in*1000);
+                  var now = new Date();
+                  if(expires > now) {
+                      xhr.setRequestHeader('X-Header-Token', App.oauth.getAccessToken());
+                      xhr.setRequestHeader('X-Header-Provider', App.oauth.getToken().provider_id);
+                  }
               }
               
           };
