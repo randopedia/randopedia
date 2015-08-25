@@ -11,10 +11,9 @@ router.get("/", function (req, res) {
     var status = req.query["status"];
     var usersTours = req.query["usersTours"];
     var query = req.query["query"];
-
+    
     common.getUserFromRequest(token, provider)
         .then(function (user) {
-            
             if (query) {
                 tourService.getToursByQuery(query, function(tours) {
                     res.send({tourItems : tours});
@@ -48,3 +47,4 @@ router.get("/", function (req, res) {
 });
 
 module.exports = router;
+

@@ -131,7 +131,9 @@ var tourRepository = (function () {
     function getToursWithTagRegex(tagRegex) {
         var deferred = Q.defer();
 
-        Tour.find({ tags : { $regex : tagRegex } }, tourItemFields, function(err, tours) {
+        var searchRegex = tagRegex.toLowerCase();
+
+        Tour.find({ tags : { $regex : searchRegex } }, tourItemFields, function(err, tours) {
             if(err) {
                 deferred.reject(err);
             } else {

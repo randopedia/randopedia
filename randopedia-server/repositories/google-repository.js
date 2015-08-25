@@ -25,18 +25,22 @@ var googleRepository = (function() {
         var url = 'https://www.googleapis.com/oauth2/v1/userinfo?access_token=' + token;
         
         var deferred = Q.defer();
-        request(url, function(error, response, body) {
-            if(!error && response.statusCode === 200) {
-                deferred.resolve(JSON.parse(body));
-            } else {
-                console.log(error);
-                console.log(response.statusCode);
-                deferred.reject(error);
-            }
-        });
+
+        if(token) {
+            request(url, function(error, response, body) {
+                if(!error && response.statusCode === 200) {
+                    deferred.resolve(JSON.parse(body));
+                } else {
+                    console.log(error);
+                    console.log(response.statusCode);
+                    deferred.reject(error);
+                }
+            });
+        } else {
+            deferred.reject("No token");
+        }
         return deferred.promise;
     };
-    
     
     return {
         verifyToken : verifyToken,
