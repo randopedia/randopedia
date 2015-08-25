@@ -55,9 +55,11 @@ var aggregateCallback = function(err, result) {
                 if(err) {
                     console.log('Error saving tag: ' + err);
                 }
-            });        
+            });
+            console.log('updated tag: ' + tag.name);
         });
     }
+    process.exit();
 };   
 
 tourModel.aggregate([
