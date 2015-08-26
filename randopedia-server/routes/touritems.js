@@ -11,39 +11,36 @@ router.get("/", function (req, res) {
     var status = req.query["status"];
     var usersTours = req.query["usersTours"];
     var query = req.query["query"];
-    
-    common.getUserFromRequest(token, provider)
-        .then(function (user) {
-            if (query) {
-                tourService.getToursByQuery(query, function(tours) {
-                    res.send({tourItems : tours});
-                });
-                
-            } else if (usersTours) {
-                if(!user) {
-                    common.sendUnauthorizedResponse(res);
-                    return;
-                    
+
+    if(query) {
+         tourService.getToursByQuery(query, function(tours) {
+             res.send({tourItems : tours});
+         });
+    } else {
+        common.getUserFromRequest(token, provider)
+            .then(function (user) {
+                if (usersTours) {
+                    if(!user) {
+                        common.sendUnauthorizedResponse(res);
+                        return;
+                    } else {
+                        tourService.getToursForUser(user, function (tours) {
+                            res.send({tourItems: tours});
+                        });
+                    }
                 } else {
-                    tourService.getToursForUser(user, function (tours) {
+                    if (status === enums.TourStatus.DRAFT.toString() && !user) {
+                        common.sendUnauthorizedResponse(res);
+                        return;
+                    }
+                    tourService.getTours(status, user, function (tours) {
                         res.send({tourItems: tours});
-                    });                    
+                    });
                 }
-                
-            } else {
-                if (status === enums.TourStatus.DRAFT.toString() && !user) {
-                    common.sendUnauthorizedResponse(res);
-                    return;
-                }
-                
-                tourService.getTours(status, user, function (tours) {
-                    res.send({tourItems: tours});
-                });                
-            }
-    
-        }, function (error) {
-            console.log("Error when getting tours: " + error);
-        });
+            }, function (error) {
+                console.log("Error when getting tours: " + error);
+            });
+    }
 });
 
 module.exports = router;
