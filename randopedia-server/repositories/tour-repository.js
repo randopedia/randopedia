@@ -259,7 +259,7 @@ var tourRepository = (function () {
             });
 
         } else {
-            Tour.findOneAndUpdate({ clientId: tour.id }, tour, function (err, result) {
+            Tour.findOneAndUpdate({ clientId: tour.id }, tour, {'new': true}, function (err, result) {
                 if (err) {
                     deferred.reject(err);
                 } else {
