@@ -29,14 +29,19 @@ var facebookRepository = (function() {
             + '?access_token=' + longLivedToken;
 
         var deferred = Q.defer();
-        request(url, function(error, response, body) {
-            if(!error && response.statusCode == 200) {
-                deferred.resolve(JSON.parse(body));
-            } else {
-                console.log(error);
-                deferred.reject(error);
-            }
-        });
+        if(longLivedToken) {
+            request(url, function(error, response, body) {
+                if(!error && response.statusCode == 200) {
+                    deferred.resolve(JSON.parse(body));
+                } else {
+                    console.log(error);
+                    deferred.reject(error);
+                }
+            });
+        } else {
+            deferred.reject("No token");
+        }
+        
         return deferred.promise;
     }
 

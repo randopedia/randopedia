@@ -19,7 +19,7 @@ router.post("/", function (req, res) {
 
     common.getUserFromRequest(token, provider)
         .then(function (user) {
-            
+
             if (user) {
                 var tour = req.body.tour;
                 tourService.createTour(tour, user, function (createdTour) {

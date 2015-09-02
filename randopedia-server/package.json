@@ -15,6 +15,7 @@
         "serve-favicon": "~2.2.0",
         "q": "~1.4.1",
         "mongoose": "~4.1.0",
-        "http-status-codes": "~1.0.5"
+        "http-status-codes": "~1.0.5",
+        "node-schedule": "~0.2.9"
     }
 }

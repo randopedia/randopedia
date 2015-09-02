@@ -1,4 +1,6 @@
 var mongoose = require('mongoose');
+var schedule = require('node-schedule');
+
 var Schema = mongoose.Schema;
 
 var connectString = 'mongodb://localhost/randopedia';
@@ -55,30 +57,34 @@ var aggregateCallback = function(err, result) {
                 if(err) {
                     console.log('Error saving tag: ' + err);
                 }
-            });        
+            });
+            console.log('updated tag: ' + tag.name);
         });
     }
-};   
+};
 
-tourModel.aggregate([
-    { 
-        $project : {
-            tags : 1
-        }
-    },
-    {
-        $unwind : "$tags"
-    },
-    {
-        $group : {
-            _id : "$tags",
-            value : { $sum : 1 }
-        }
-    }, 
-    {
-        $sort : {
-            value : -1
-        }
-    }], aggregateCallback
-);
+var job = schedule.scheduleJob('* * 2 * * *', function() {
+
+    tourModel.aggregate([
+        { 
+            $project : {
+                tags : 1
+            }
+        },
+        {
+            $unwind : "$tags"
+        },
+        {
+            $group : {
+                _id : "$tags",
+                value : { $sum : 1 }
+            }
+        }, 
+        {
+            $sort : {
+                value : -1
+            }
+        }], aggregateCallback
+   );
+});  
 

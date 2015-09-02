@@ -147,13 +147,14 @@ var tourService = (function () {
 
         var itinerary = tour.itinerary;
         var tags = common.getTagsFromText(itinerary);
-        tour.tags = tags;
-              
+        tour.tags = [];
+        tags.forEach(function(tag) {
+            tour.tags.push(tag);
+        });
+
         tourRepository.getTour(tour.id).then(function (data) {
             var originalTour = data.tour;
-
             tourRepository.saveTour(tour).then(function (updatedTour) {
-
                 tourActionRepository.save(user, updatedTour, enums.TourActionType.UPDATE, tour.publishComment);
 
                 if (isTourSentToReview(originalTour, tour)) {

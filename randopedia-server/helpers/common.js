@@ -23,6 +23,7 @@ var common = (function () {
 
     function getUserFromRequest(token, provider) {
         // returns a promise. Use facebook/google repository and user repository
+
         if('facebook' === provider) {
             return facebookRepository.getExternalUser(token)
                 .then(function(facebookUser) {
