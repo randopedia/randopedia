@@ -1,38 +1,44 @@
 module.exports = function(grunt) {
 
-  grunt.initConfig({
+grunt.initConfig ({
+    
     pkg: grunt.file.readJSON("package.json"),
+    
     concat: {
-      options: {
-        separator: ";;"
-      },
-      dist: {
-          src: [
-              "vendor/bootstrap.js",
-              "src/*.js"],
-        dest: "client/js/<%= pkg.name %>.js"
-      }
-    },
-    jshint: {
-      files: ["gruntfile.js", "src/**/*.js"],
-      options: {
-        // options here to override JSHint defaults
-        globals: {
-          jQuery: true,
-          console: true,
-          module: true,
-          document: true
+        options: {
+            separator: ";;"
         },
-        ignores: ["src/fixtures.js", "vendor/*"]
-      }
+        libs: {
+            src: ["client/js/libs/jquery-1.9.1.min.js", "client/js/libs/handlebars-v2.0.0.js", "client/js/libs/*.js"],
+            dest: "client/js/libs.js"
+        },
+        site: {
+            src: ["src/*.js"],
+            dest: "client/js/<%= pkg.name %>.js"
+        }
     },
+    
+    jshint: {
+        files: ["gruntfile.js", "src/**/*.js"],
+        options: {
+            globals: {
+                jQuery: true,
+                console: true,
+                module: true,
+                document: true
+            },
+            ignores: ["src/fixtures.js", "vendor/*"]
+        }
+    },
+
     uglify: {
-        my_target: {
+        prod: {
           files: {
-              'client/js/randopedia.min.js': ["client/js/randopedia.js"]
+              'client/js/<%= pkg.name %>.js': ["client/js/<%= pkg.name %>.js"]
           }
         }
     },
+    
     cssmin: {
         combine: {
             files: {
@@ -40,6 +46,7 @@ module.exports = function(grunt) {
             }
         }
     },
+    
     emberTemplates: {
         compile: {
           options: {
@@ -57,9 +64,11 @@ module.exports = function(grunt) {
           }
         }
     },
+    
     bootstrap: {
         dest: "out"
     },
+    
     less: {
         development: {
             files: {
@@ -67,19 +76,25 @@ module.exports = function(grunt) {
             }
         }
     },
+    
     qunit: {
         all: ["test/*.html"]
     },
+    
     watch: {
         scripts: {
             files: ["**/*.js", "**/*.hbs", "**/*.less", "**/*.html"],
-            tasks: ["jshint", "concat", "emberTemplates", "less", "qunit", "uglify", "cssmin"],
+            tasks: ["jshint", "concat", "emberTemplates", "less", "copy", "cssmin"],
             options: {
-                spawn: false
+                spawn: true
             }
         }
     },
+    
     connect: {
+        rules: [ 
+            { from: '^/index_dev.html$', to: '/' }
+        ],
         server: {
             options: {
                 port: 9001,
@@ -102,7 +117,7 @@ module.exports = function(grunt) {
                     // Make directory browse-able
                     var directory = options.directory || options.base[options.base.length - 1];
                     middlewares.push(connect.directory(directory));
-
+        
                     return middlewares;
                 }
             },
@@ -131,7 +146,6 @@ module.exports = function(grunt) {
                     changeOrigin: false,
                     xforward: false
                 },
-                
             ]
         }
     }    
@@ -148,8 +162,16 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks("grunt-contrib-less");
   grunt.loadNpmTasks("grunt-contrib-watch");
 
-  grunt.registerTask("default", ["jshint", "concat", "emberTemplates", "less", "qunit", "uglify", "cssmin"]);
-  grunt.registerTask("test", ["jshint", "concat", "emberTemplates", "less", "qunit"]);
-  grunt.registerTask("localhost", ["jshint", "concat", "emberTemplates", "less", "qunit"]);
+  /* "default" build. Not uglifying, not running tests */
+  grunt.registerTask("default", ["jshint", "concat", "emberTemplates", "less", "cssmin"]);
+  
+  /* "dev"" build. Not uglifying, Runs tests */
+  grunt.registerTask("dev", ["jshint", "concat", "emberTemplates", "less", "qunit", "cssmin"]);
+  
+  /* "prod"" build. Uglifying, Runs tests */
+  grunt.registerTask("prod", ["jshint", "concat", "emberTemplates", "less", "qunit", "uglify", "cssmin"]);
+  
+  /* grunt connect server */
   grunt.registerTask("server", ["configureProxies:server", "connect"]);
+  
 };
