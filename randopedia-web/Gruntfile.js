@@ -1,5 +1,5 @@
 module.exports = function(grunt) {
-
+var rewriteModule = require('http-rewrite-middleware');
   grunt.initConfig({
     pkg: grunt.file.readJSON("package.json"),
     concat: {
@@ -82,6 +82,7 @@ module.exports = function(grunt) {
     connect: {
         server: {
             options: {
+                debug : true,
                 port: 9001,
                 hostname: "localhost",
                 base: ["client"],
@@ -94,6 +95,13 @@ module.exports = function(grunt) {
                     // Setup the proxy
                     var middlewares = [require("grunt-connect-proxy/lib/utils").proxyRequest];
 
+                    middlewares.push(rewriteModule.getMiddleware([
+                         {from: '^/about', to: '/'},
+                        {from: '^/tours/nibbi', to: '/'},
+                        {from: '^/tours/(.*)$', to: '/'},
+                        
+                    ]));
+                    
                     // Serve static files
                     options.base.forEach(function(base) {
                         middlewares.push(connect.static(base));
@@ -102,7 +110,7 @@ module.exports = function(grunt) {
                     // Make directory browse-able
                     var directory = options.directory || options.base[options.base.length - 1];
                     middlewares.push(connect.directory(directory));
-
+                    
                     return middlewares;
                 }
             },
@@ -113,8 +121,16 @@ module.exports = function(grunt) {
                     port: 8080,
                     https: false,
                     changeOrigin: false,
-                    xforward: false,
+                    xforward: false
                 },
+                /*{
+                    context: "/tours",
+                    host: "127.0.0.1",
+                    port: 8080,
+                    https: false,
+                    changeOrigin: false,
+                    xforward: false
+                },*/
                 {
                     context: "/auth/facebook/callback",
                     host: "127.0.0.1",
@@ -130,8 +146,7 @@ module.exports = function(grunt) {
                     https: false,
                     changeOrigin: false,
                     xforward: false
-                },
-                
+                }                
             ]
         }
     }    
@@ -147,7 +162,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks("grunt-connect-proxy");
   grunt.loadNpmTasks("grunt-contrib-less");
   grunt.loadNpmTasks("grunt-contrib-watch");
-
+    
   grunt.registerTask("default", ["jshint", "concat", "emberTemplates", "less", "qunit", "uglify", "cssmin"]);
   grunt.registerTask("test", ["jshint", "concat", "emberTemplates", "less", "qunit"]);
   grunt.registerTask("localhost", ["jshint", "concat", "emberTemplates", "less", "qunit"]);

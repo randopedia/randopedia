@@ -113,9 +113,14 @@ App.Alerts = Ember.Object.create({
 
 })();
 
-App.Router.reopen({
+/*App.Router.reopen({
     location: 'hashbang'
+});*/
+
+App.Router.reopen({
+  location: 'history'
 });
+
 
 DS.RESTAdapter.reopen({
     //host : 'api',
@@ -123,6 +128,7 @@ DS.RESTAdapter.reopen({
         return App.Config.host;
     }.property(),
     ajax: function(url, type, hash) {
+        console.log(url);
         var adapter = this;
         return new Ember.RSVP.Promise(function(resolve, reject) {
           hash = hash || {};
@@ -168,7 +174,7 @@ DS.RESTAdapter.reopen({
 
             Ember.run(null, reject, jqXHR);
           };
-
+            console.log(hash);
           Ember.$.ajax(hash);
         });
       }

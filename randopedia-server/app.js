@@ -31,6 +31,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
+app.use('/tours/', routes);
 app.use('/randopedia/api/users/', users);
 app.use('/randopedia/api/tours/', tours);
 app.use('/randopedia/api/actions/', actions);

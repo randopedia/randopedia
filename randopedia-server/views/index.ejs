@@ -1,11 +1,63 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<meta name="description" content="Browse or search for ski tours all over the world. Contribute by adding your tours to the ultimate ski tour database.">
+    
+    <!-- Set the viewport width to device width for mobile and disallow zooming -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  	
+    <title>Randopedia - The ski tour encyclopedia</title>
+    
+    <link rel="stylesheet" href="css/site.min.css">
+        
+    <script src="js/libs/custom.modernizr.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAUVOlVv0_7EObpu2DbbvAKbo1Bjio9yQQ&sensor=false&libraries=drawing"></script>
+    <script type="text/javascript">
+        window.ENV = window.ENV || {};
+        ENV.EXPERIMENTAL_CONTROL_HELPER = true;    
+    </script>
+</head>
+
+<body class="off-canvas hide-extras">
+
+    <noscript>
+        <p>Randopedia is best used with JavaScript enabled.</p>
+    </noscript>
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="js/libs/jquery.bootstrap-growl.min.js"></script>
+    <script src="js/libs/moment.min.js"></script>
+    <script src="js/libs/markerclusterer.js"></script>
+    <script src="js/libs/oms.min.js"></script>
+    <script src="js/libs/togeojson.js"></script>
+    <script src="js/libs/togpx.js"></script>
+    <script src="js/libs/geojson-utils.js"></script>
+    <script src="js/libs/marked.js"></script>
+    <script src="js/libs/FileSaver.min.js"></script>
+    <script src="js/libs/handlebars-v2.0.0.js"></script>
+    <script src="js/libs/ember-1.9.1.min.js"></script>
+    <script src="js/libs/ember-data-1.0-b15.js"></script>
+    <script src="js/libs/ember.oauth2.js"></script>
+    <script src="js/randopedia.js"></script>
+    <script src="js/templates.js"></script>
+
+
+    <!-- Piwik -->
+    <script type="text/javascript">
+     if((document.location.hostname.indexOf("randopedia") != -1)){
+         var _paq = _paq || [];
+         _paq.push(['trackPageView']);
+         _paq.push(['enableLinkTracking']);
+         (function() {
+           var u=(("https:" == document.location.protocol) ? "https" : "http") + "://donc.se/randopedia-stats/";
+           _paq.push(['setTrackerUrl', u+'piwik.php']);
+           _paq.push(['setSiteId', 1]);
+           var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.type='text/javascript';
+           g.defer=true; g.async=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+         })();
+     }
+    </script>
+    <noscript><p><img src="http://donc.se/randopedia-stats/piwik.php?idsite=1" style="border:0;" alt="" /></p></noscript>
+    <!-- End Piwik Code -->
+</body>
 </html>
