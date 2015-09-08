@@ -29,16 +29,19 @@ randopedia.js
 randopedia.min.js
 templates.js
 templates.min.js
+libs.js
 site.css
 site.min.css
 Thumbs.db
 npm-debug.log
 
 # Visual Studio project files #
-randopedia-web.sln
-randopedia-web.csproj
-randopedia-web.csproj.user
 Properties
 obj
+.vs
+*.sln
+*.dat
 *.suo
+*.njsproj
+*.csproj
 # END Visual Studio files #

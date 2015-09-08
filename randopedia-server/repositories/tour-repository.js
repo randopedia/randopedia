@@ -274,8 +274,8 @@ var tourRepository = (function () {
     function addImage(tourClientId, image) {
         var deferred = Q.defer();
         var imageId = mongoose.Types.ObjectId();
-        var databaseFileName = config.tourImagesDirectory + "/" + tourClientId + "_" + imageId + ".jpg";
-        var fileName = config.webappClientDirectory + "/" + databaseFileName;
+        var databaseFileName = "/" + config.tourImagesDirectory + "/" + tourClientId + "_" + imageId + ".jpg";
+        var fileName = config.webappClientDirectory  + databaseFileName;
 
         var imageBuffer = common.decodeBase64Image(image.imageData);
 
