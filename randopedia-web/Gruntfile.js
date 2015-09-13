@@ -110,6 +110,9 @@ module.exports = function(grunt) {
 
                         middlewares.push(rewriteModule.getMiddleware([
                             {from: '^/about', to: '/'},
+                            {from: '^/tags', to: '/'},
+                            {from: '^/stats', to: '/'},
+                            {from: '^/dashboard', to: '/'},
                             {from: '^/tours/nibbi', to: '/'},
                             {from: '^/tours/(.*)$', to: '/'},
                             
