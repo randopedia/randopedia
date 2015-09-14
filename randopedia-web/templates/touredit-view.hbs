@@ -84,6 +84,20 @@
                         </div>
 
                         <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="tagsEditorId">Tags<span class="asterisk required"></span></label>
+                                    <button type="button" class="info pull-right" data-toggle="popover" data-trigger="focus"
+                                            title="Tags"
+                                            data-content="Add tags describing the location and characteristics of the tour, i.e. 'chamonix', 'colouir' etc."></button>
+
+                                    {{view "select" id="tagsEditorId" content=allTags optionValuePath="content" optionLabelPath="content.name" class="tags-editor form-control"}}
+
+                                </div>
+                             </div>
+                        </div>
+
+                        <div class="row">
                             <div class="col-lg-3">
                                 <div class="form-group">
                                     <label for="inputElevationLoss">Elevation loss<span class="asterisk required"></span></label>
@@ -98,7 +112,7 @@
                             </div>
                             <div class="col-lg-3">
                                 <div class="form-group">
-                                    <label for=inputElevationGain">Elevation gain<span class="asterisk required"></span></label>
+                                    <label for="inputElevationGain">Elevation gain<span class="asterisk required"></span></label>
                                     <button type="button" class="info pull-right" data-toggle="popover" data-trigger="focus"
                                             title="Elevation gain"
                                             data-content="Total elevation to climb. Only digits are allowed."></button>
@@ -122,7 +136,7 @@
                             </div>
                             <div class="col-lg-3">
                                 <div class="form-group">
-                                    <label for="inputAspect">Main aspect of slopes</span></label>
+                                    <label for="inputAspect">Main aspect of slopes</label>
                                     <button type="button" class="info pull-right" data-toggle="popover" data-trigger="focus"
                                             title="Aspect"
                                             data-content="Aspect of the main part of the slopes on the descent route."></button>

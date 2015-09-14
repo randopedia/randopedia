@@ -98,9 +98,15 @@ App.TourEditView = Ember.View.extend({
             // Hack to make sure content is loaded correctly, solves issue with Google Maps view not being rendered
             $(window).resize();
         });
-          
+
         $('.info').popover({placement: 'auto'});
         
+        $(".tags-editor").select2({
+            tags: true,
+            tokenSeparators: [',', ' '],
+            multiple: true
+        });
+
         this.set("aspects", App.Fixtures.Aspects);
     },
        

@@ -138,9 +138,20 @@ App.TourEditController = Ember.ObjectController.extend({
     needs: ["login"],
     validationErrors: [],
     validationWarnings: [],
+    allTags: [],
 
     init: function() {
+        this.loadTags();
+    },
+    
+    loadTags: function () {
+        var self = this;
+        self.get('store').findQuery('tag', {}).then(function (tags) {
+            self.set('allTags', tags);
 
+        }, function (error) {
+            App.Alerts.showErrorMessage('Error when loading tags');
+        });
     },
 
     actions: {
@@ -318,7 +329,8 @@ App.TourEditController = Ember.ObjectController.extend({
             this.set("model.mapGeoJson", geoJson);
         }
         
-    },    
+    },
+
     saveAndExit: function () {
         var self = this;
 

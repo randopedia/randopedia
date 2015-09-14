@@ -63,28 +63,50 @@ var aggregateCallback = function(err, result) {
     }
 };
 
-var job = schedule.scheduleJob('* * 2 * * *', function() {
+tourModel.aggregate([
+    {
+        $project : {
+            tags : 1
+        }
+    },
+    {
+        $unwind : "$tags"
+    },
+    {
+        $group : {
+            _id : "$tags",
+            value : { $sum : 1 }
+        }
+    }, 
+    {
+        $sort : {
+            value : -1
+        }
+    }], aggregateCallback
+);
 
-    tourModel.aggregate([
-        { 
-            $project : {
-                tags : 1
-            }
-        },
-        {
-            $unwind : "$tags"
-        },
-        {
-            $group : {
-                _id : "$tags",
-                value : { $sum : 1 }
-            }
-        }, 
-        {
-            $sort : {
-                value : -1
-            }
-        }], aggregateCallback
-   );
-});  
+//var job = schedule.scheduleJob('* * 2 * * *', function() {
+
+//    tourModel.aggregate([
+//        { 
+//            $project : {
+//                tags : 1
+//            }
+//        },
+//        {
+//            $unwind : "$tags"
+//        },
+//        {
+//            $group : {
+//                _id : "$tags",
+//                value : { $sum : 1 }
+//            }
+//        }, 
+//        {
+//            $sort : {
+//                value : -1
+//            }
+//        }], aggregateCallback
+//   );
+//});  
 
