@@ -9,6 +9,7 @@ App.Router.map(function() {
     this.resource('mytours');
     this.resource('tags');
     this.resource('tag', {path:'tags/:tag_id'});
+    this.resource('dashboard');
     
     this.resource('stats');
 });
@@ -57,6 +58,14 @@ App.MytoursRoute = App.BaseRoute.extend();
 App.TagsRoute = App.BaseRoute.extend({
     model : function() {
         return this.store.find('tag');
+    }
+});
+
+App.DashboardRoute = App.BaseRoute.extend({
+    setupController : function(controller, model) {
+        this._super(controller, model);
+        controller.set('tags', this.store.find('tag'));
+        controller.set('stat', this.store.find('stat', 1));
     }
 });
 

@@ -55,9 +55,23 @@ var userRepository = (function() {
         return deferred.promise;
     }
 
+    function getUserCount() {
+        var deferred = Q.defer();
+        userModel.count({}, function(err, count) {
+            if(err) {
+                console.log(err);
+                deferred = Q.reject(err);
+            }
+            deferred.resolve(count);
+        });
+
+        return deferred.promise;
+    }
+
     return {
         findOrCreateUser : findOrCreateUser,
-        findUser : findUser
+        findUser : findUser,
+        getUserCount : getUserCount
     };
     
 })();
