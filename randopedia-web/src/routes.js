@@ -114,6 +114,10 @@ App.TourEditRoute = App.BaseRoute.extend({
     model: function(params) {
         return this.store.find('tour', params.tour_id);
     },
+    setupController : function(controller, model) {
+        this._super(controller, model);
+        controller.set('allTags', this.store.find('tag'));
+    },
     beforeModel: function(transition) {
         //TODO: Prevent route if user not logged in  
     },

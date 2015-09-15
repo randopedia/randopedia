@@ -83,17 +83,16 @@
                             </div>
                         </div>
 
-                        <div class="row">
+                        <div class="row" style="display: none">
                             <div class="col-sm-12">
-                                <div class="form-group">
-                                    <label for="tagsEditorId">Tags<span class="asterisk required"></span></label>
-                                    <button type="button" class="info pull-right" data-toggle="popover" data-trigger="focus"
-                                            title="Tags"
-                                            data-content="Add tags describing the location and characteristics of the tour, i.e. 'chamonix', 'colouir' etc."></button>
+                                 <div class="form-group">
+                                     <label for="tagsEditorId">Tags<span class="asterisk required"></span></label>
+                                     <button type="button" class="info pull-right" data-toggle="popover" data-trigger="focus"
+                                             title="Tags"
+                                             data-content="Add tags describing the location and characteristics of the tour, i.e. 'chamonix', 'couloir' etc."></button>
 
-                                    {{view "select" id="tagsEditorId" content=allTags optionValuePath="content" optionLabelPath="content.name" class="tags-editor form-control"}}
-
-                                </div>
+                                    {{tagseditor-component tags=allTags selectedTags=tags action="tagsUpdated"}}
+                                 </div>
                              </div>
                         </div>
 
@@ -338,7 +337,6 @@
                                     <tbody>
                                         {{#each action in sortedActions}}
                                         <tr>
-                                        {{log action.comment}}
                                             <td>{{displayTimestamp action.time}}</td>
                                             <td>{{resolveTourAction action.type}}</td>
                                             <td>{{action.userName}}</td>

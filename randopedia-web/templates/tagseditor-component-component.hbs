@@ -1,0 +1,16 @@
+{{#if tags}}
+Hello tags
+{{/if}}
+
+{{#each tag in selectedTags2}}
+    <span>{{tag.name}}</span>
+{{/each}}
+
+{{view "select"
+    content=tags
+    optionValuePath="content.id"
+    optionLabelPath="content.name"
+    selection=selectedTagObjects
+    multiple="true"
+    class="tags-editor form-control"
+}}

@@ -138,23 +138,24 @@ App.TourEditController = Ember.ObjectController.extend({
     needs: ["login"],
     validationErrors: [],
     validationWarnings: [],
-    allTags: [],
+    allTags: null,
 
-    init: function() {
-        this.loadTags();
-    },
-    
-    loadTags: function () {
-        var self = this;
-        self.get('store').findQuery('tag', {}).then(function (tags) {
-            self.set('allTags', tags);
-
-        }, function (error) {
-            App.Alerts.showErrorMessage('Error when loading tags');
+    getTagNameArray: function(tags) {
+        return tags.map(function (tag) {
+            return tag.get("name");
         });
     },
 
     actions: {
+        tagsUpdated: function (tags) {
+            if (!tags) {
+                console.log("DEBUG - tagsUpdated but undefined");
+                return;
+            }
+            console.log("DEBUG - Tags updated, tag count: " + tags.length);
+            this.set("tags", this.getTagNameArray(tags));
+        },
+
         cancelEditTour: function () {
             var self = this;
 
