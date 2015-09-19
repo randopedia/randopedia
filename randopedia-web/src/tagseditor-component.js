@@ -6,11 +6,10 @@ App.TagseditorComponentComponent = Ember.Component.extend({
     setup: function () {
         var self = this;
 
-        // todo: when should we call initSelect? what event?
         setTimeout(function () {
             self.initSelect();
             self.set("loading", false);
-        }, 1000);
+        }, 750);
 
     }.on("didInsertElement"),
 

@@ -99,7 +99,6 @@ var tourService = (function () {
         }).catch(function (error) {
             console.log(error);
         });
-
     }
 
     function createTour(tour, user, callback, validationErrorsCallback) {
@@ -114,9 +113,7 @@ var tourService = (function () {
             return;
         }   
     
-        var itinerary = tour.itinerary;
-        var tags = common.getTagsFromText(itinerary);
-        tour.tags = tags;
+        tour.tags = common.mergeTags(tour.tags, tour.itinerary);
         
         tourRepository.saveTour(tour).then(function (createdTour) {
 
@@ -145,12 +142,7 @@ var tourService = (function () {
             return;
         }
 
-        var itinerary = tour.itinerary;
-        var tags = common.getTagsFromText(itinerary);
-        tour.tags = [];
-        tags.forEach(function(tag) {
-            tour.tags.push(tag);
-        });
+        tour.tags = common.mergeTags(tour.tags, tour.itinerary);
 
         tourRepository.getTour(tour.id).then(function (data) {
             var originalTour = data.tour;

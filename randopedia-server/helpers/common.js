@@ -86,13 +86,25 @@ var common = (function () {
         }
         return tags;
     }
+    
+    function mergeTags(tags, itinerary) {
+        var itineraryTags = getTagsFromText(itinerary);
+        tags = tags || [];
+        
+        itineraryTags.forEach(function (tag) {
+            if (tags.indexOf(tag) === -1) {
+                tags.push(tag);
+            }
+        });
+        return tags;
+    }
 
     return {
         getTextId : getTextId,
         getUserFromRequest : getUserFromRequest,
         sendUnauthorizedResponse: sendUnauthorizedResponse,
         decodeBase64Image : decodeBase64Image,
-        getTagsFromText : getTagsFromText
+        mergeTags: mergeTags
     };
     
 })();
