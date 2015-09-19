@@ -140,20 +140,13 @@ App.TourEditController = Ember.ObjectController.extend({
     validationWarnings: [],
     allTags: null,
 
-    getTagNameArray: function(tags) {
-        return tags.map(function (tag) {
-            return tag.get("name");
-        });
-    },
 
     actions: {
         tagsUpdated: function (tags) {
-            if (!tags) {
-                console.log("DEBUG - tagsUpdated but undefined");
-                return;
-            }
-            console.log("DEBUG - Tags updated, tag count: " + tags.length);
-            this.set("tags", this.getTagNameArray(tags));
+            tags = tags || [];
+            this.set("tags", tags);
+
+            console.log("DEBUG - Tags updated, new tag count: " + tags.length);
         },
 
         cancelEditTour: function () {
