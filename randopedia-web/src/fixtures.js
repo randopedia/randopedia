@@ -96,6 +96,35 @@ App.Fixtures.PathTypes = [
     Ember.Object.create({ value: App.Fixtures.MapSymbolTypes.DOWN_TRACK, name: 'Down' })
 ];
 
+App.Fixtures.Countries = [
+    Ember.Object.create({ value: null, name: "Other / Not set" }),
+    Ember.Object.create({ value: "AND", name: "Andorra" }),
+    Ember.Object.create({ value: "ARG", name: "Argentina" }),
+    Ember.Object.create({ value: "AUS", name: "Australia" }),
+    Ember.Object.create({ value: "AUT", name: "Austria" }),
+    Ember.Object.create({ value: "BGR", name: "Bulgaria" }),
+    Ember.Object.create({ value: "CAN", name: "Canada" }), 
+    Ember.Object.create({ value: "CHL", name: "Chili" }),
+    Ember.Object.create({ value: "FIN", name: "Finland" }),
+    Ember.Object.create({ value: "FRA", name: "France" }),
+    Ember.Object.create({ value: "GEO", name: "Georgia" }),
+    Ember.Object.create({ value: "DEU", name: "Germany" }),
+    Ember.Object.create({ value: "GRL", name: "Greenland" }),
+    Ember.Object.create({ value: "ISL", name: "Iceland" }),
+    Ember.Object.create({ value: "ITA", name: "Italy" }),
+    Ember.Object.create({ value: "IRN", name: "Iran" }),
+    Ember.Object.create({ value: "LIE", name: "Liechtenstein" }),
+    Ember.Object.create({ value: "MAR", name: "Morocco" }),
+    Ember.Object.create({ value: "NZL", name: "New Zealand" }),
+    Ember.Object.create({ value: "NOR", name: "Norway" }),
+    Ember.Object.create({ value: "POL", name: "Poland" }),
+    Ember.Object.create({ value: "RUS", name: "Russia" }),
+    Ember.Object.create({ value: "SVN", name: "Slovenia" }),
+    Ember.Object.create({ value: "ESP", name: "Spain" }),
+    Ember.Object.create({ value: "SWE", name: "Sweden" }),
+    Ember.Object.create({ value: "CHE", name: "Switzerland" }),
+    Ember.Object.create({ value: "USA", name: "USA" })
+];
 
 // Resolve method
 
@@ -120,6 +149,9 @@ App.Fixtures.resolveNameFromValue = function(fixture, value){
         break;
     case 'TourActions':
         fixtureObject = App.Fixtures.TourActions;
+        break;
+    case "Countries":
+        fixtureObject = App.Fixtures.Countries;
         break;
     default:
         return App.Fixtures.UndefinedString;
@@ -159,4 +191,8 @@ Ember.Handlebars.registerBoundHelper('resolveMonthName', function (value) {
 
 Ember.Handlebars.registerBoundHelper('resolveTourAction', function (value) {
     return App.Fixtures.resolveNameFromValue('TourActions', value);
+});
+
+Ember.Handlebars.registerBoundHelper("resolveCountryName", function (value) {
+    return App.Fixtures.resolveNameFromValue("Countries", value);
 });

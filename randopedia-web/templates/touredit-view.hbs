@@ -49,12 +49,28 @@
                     <form role="form">
 
                         <div class="row">
-                            <div class="col-sm-12">
+                            <div class="col-sm-12 col-md-8">
                                 <div class="form-group">
                                     <label for="inputName">Name of tour<span class="asterisk required"></span></label>
                                     <button type="button"
                                             class="info pull-right" data-toggle="popover" data-trigger="focus" title="Name" data-content="The name of the tour. Name is required and must be between 3 and 80 characters long."></button>
                                     {{input placeholder="" pattern="^.{3,80}$" value=name id="inputName" class="form-control"}}
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-4">
+                                <div class="form-group">
+                                    <label for="inputCountry">Country</label>
+                                    <button type="button" class="info pull-right" data-toggle="popover" data-trigger="focus"
+                                            title="Country"
+                                            data-content="The country where the tour is located."></button>
+                                    {{view "select"
+                                        content=App.Fixtures.Countries
+                                        optionValuePath="content.value"
+                                        optionLabelPath="content.name"
+                                        valueBinding="country"
+                                        id="inputCountry"
+                                        class="form-control"
+                                    }}
                                 </div>
                             </div>
                         </div>

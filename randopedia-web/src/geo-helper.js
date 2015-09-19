@@ -229,6 +229,8 @@ App.GeoHelper = Ember.Object.create({
         return false;
     },
     
+    // Map types
+    
     mapTypeControlOptions: [
         google.maps.MapTypeId.TERRAIN,
         google.maps.MapTypeId.SATELLITE,
@@ -241,6 +243,21 @@ App.GeoHelper = Ember.Object.create({
         map.mapTypes.set('norgeskart', App.GeoHelper.mapTypes.norgeskart());
     },
     
+    getDefaultMapTypeIdForCountry: function(country) {
+        if (country === "NOR") {
+            return "norgeskart";
+        }
+        
+        return google.maps.MapTypeId.TERRAIN;
+    },
+
+    setMapTypeIfDefaultDiffersFromCurrent: function (map, country) {
+        var defaultType = App.GeoHelper.getDefaultMapTypeIdForCountry(country);
+        if (defaultType !== map.getMapTypeId()) {
+            map.setMapTypeId(defaultType);
+        }
+    },
+
     mapTypes: {
         osm: function() {
             return new google.maps.ImageMapType({

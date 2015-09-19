@@ -40,8 +40,7 @@ App.ApplicationRoute = Ember.Route.extend({
     }
 });
 
-App.IndexRoute = App.BaseRoute.extend({
-});
+App.IndexRoute = App.BaseRoute.extend();
 
 App.StatsRoute = App.BaseRoute.extend({
     model: function() {

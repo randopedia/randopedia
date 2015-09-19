@@ -24,6 +24,7 @@ var TourSchema = mongoose.Schema(
         itinerary: String,
         mapPaths: Object,
         mapGeoJson: Object,
+        country: String,
         tags: Object,
         tourImages: Object,
         portfolioImage: Object,

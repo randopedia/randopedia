@@ -56,7 +56,7 @@ App.BrowseTourmapComponent = Ember.Component.extend({
         this.addTourMarkers(this.get('tours'));
     },
 
-    zoomAndHighlightTour: function(tour) {
+    zoomAndHighlightTour: function (tour) {
         this.zoomToTour(tour);
         this.openInfoWindow(tour);
     },
@@ -121,7 +121,10 @@ App.BrowseTourmapComponent = Ember.Component.extend({
 
     zoomToTour: function (tour) {
         var self = this;
+        var map = self.get("map");
         var tourMapObject = self.findTourMapObject(tour);
+
+        App.GeoHelper.setMapTypeIfDefaultDiffersFromCurrent(map, tour.get("country"));
 
         if (tourMapObject.paths.length > 0) {
             var bounds = new google.maps.LatLngBounds();
@@ -130,15 +133,15 @@ App.BrowseTourmapComponent = Ember.Component.extend({
                     bounds.extend(polyline.getPath().getArray()[j]);
                 }
             });
-            self.get('map').fitBounds(bounds);
+            map.fitBounds(bounds);
 
         } else if (tourMapObject.marker !== null) {
-            self.get('map').setZoom(self.settings.detailedZoomLevel);
-            self.get('map').setCenter(tourMapObject.marker.position);
+            map.setZoom(self.settings.detailedZoomLevel);
+            map.setCenter(tourMapObject.marker.position);
 
         } else {
-            self.get('map').setZoom(self.settings.defaultZoomLevel);
-            self.get('map').setCenter(self.settings.defaultMapCenter);
+            map.setZoom(self.settings.defaultZoomLevel);
+            map.setCenter(self.settings.defaultMapCenter);
         }
     },
 
@@ -322,6 +325,7 @@ App.BrowseTourmapComponent = Ember.Component.extend({
     initMap: function() {
         var self = this;
         self.set('mapRootElement', self.$(self.settings.mapRootElementId));
+        var tour = self.get("tour");
 
         var mapOptions = {
                 mapTypeId: self.get("mapTypeId"),
@@ -352,11 +356,11 @@ App.BrowseTourmapComponent = Ember.Component.extend({
         App.GeoHelper.setMapTypes(map);
         self.set('map', map);
         
-        var markerCluster = new MarkerClusterer(this.get('map'), this.get('markers'));
+        var markerCluster = new MarkerClusterer(map, this.get('markers'));
         markerCluster.setMaxZoom(self.settings.showRoutesOnZoomLevel - 3);
-        self.set('oms', new OverlappingMarkerSpiderfier(this.get('map')));
+        self.set('oms', new OverlappingMarkerSpiderfier(map));
 
-        google.maps.event.addListener(self.get('map'), 'zoom_changed', function() {
+        google.maps.event.addListener(map, 'zoom_changed', function () {
             var newZoomLevel = self.get('map').getZoom();
             
             self.set('isShowingPaths', newZoomLevel >= self.settings.showRoutesOnZoomLevel);
@@ -364,26 +368,31 @@ App.BrowseTourmapComponent = Ember.Component.extend({
             self.sendAction('zoomChanged', newZoomLevel);
         });
         
-        google.maps.event.addListener(self.get('map'), 'center_changed', function() {
-            self.sendAction('centerChanged', self.get('map').getCenter());
+        google.maps.event.addListener(map, 'center_changed', function () {
+            self.sendAction('centerChanged', map.getCenter());
         });
         
-        google.maps.event.addListener(self.get('map'), 'maptypeid_changed', function() {
-            self.sendAction('mapTypeIdChanged', self.get('map').getMapTypeId());
+        google.maps.event.addListener(map, 'maptypeid_changed', function () {
+            self.sendAction('mapTypeIdChanged', map.getMapTypeId());
         });        
         
         // Hook up to window resize event to do implicit resize on map canvas
         var redrawMap = function() {
-            google.maps.event.trigger(self.get('map'), 'resize');
+            google.maps.event.trigger(map, 'resize');
         };
         
         $(window).on('resize', redrawMap); 
         
-        if(this.get('tour')) {
-            self.zoomAndHighlightTour(this.get('tour'));
+        if (tour) {
+            var defaultMapTypeForCountry = App.GeoHelper.getDefaultMapTypeIdForCountry(tour.get("country"));
+            if (map.getMapTypeId() !== defaultMapTypeForCountry) {
+                map.setMapTypeId(defaultMapTypeForCountry);
+            }
+            
+            self.zoomAndHighlightTour(tour);
         }
         
-        self.showTourRoutesIfZoomed(self.get('map').getZoom());
+        self.showTourRoutesIfZoomed(map.getZoom());
         
     },
     
