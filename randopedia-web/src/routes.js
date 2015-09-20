@@ -24,12 +24,12 @@ App.BaseRoute = Ember.Route.extend({
         if(typeof model !== 'undefined' && model !== null) {
             var tourName = model.get('name');
             if(typeof tourName !== 'undefined' && tourName !== null) {
-                $(document).attr('title', tourName + ' - Randopedia, the ski tour encyclopedia');
+                $(document).attr('title', tourName + ' - Randopedia - The ski tour database');
             } else {
-                $(document).attr('title', 'Randopedia, the ski tour encyclopedia');
+                $(document).attr('title', 'Randopedia - The ski tour database');
             }
         } else {
-            $(document).attr('title', 'Randopedia, the ski tour encyclopedia');
+            $(document).attr('title', 'Randopedia - The ski tour database');
         }
     }
 });

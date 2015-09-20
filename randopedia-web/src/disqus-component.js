@@ -9,7 +9,7 @@ App.DisqusComponentComponent = Ember.Component.extend( {
         if(!window.DISQUS) {
             var disqus_shortname = 'randopedia';
             var model = controller.get('model');
-            var disqus_title = model.get('name') + ' - Randopedia, the ski tour encyclopedia';
+            var disqus_title = model.get('name') + ' - Randopedia - The ski tour database';
             var disqus_identifier = model.get('id');
             var disqus_url = window.location.href;
             window.disqus_shortname = disqus_shortname;
@@ -32,7 +32,7 @@ App.DisqusComponentComponent = Ember.Component.extend( {
         var controller = this.get('parentView.controller');
         var model = controller.get('model');
         var postIdentifier = model.get('id');
-        var postTitle = model.get('name') + ' - Randopedia, the ski tour encyclopedia';
+        var postTitle = model.get('name') + ' -Randopedia - The ski tour database';
         var postUrl = window.location.href;
 
        
