@@ -612,17 +612,14 @@ App.MytoursController = Ember.ObjectController.extend({
     user: null,
     drafts: [],
     updates: [],
-    reviews: [],
     isLoadingDrafts: false,
     isLoadingUpdates: false,
-    isLoadingReviews: false,
 
     init: function () {
         var self = this;
         self.user = this.get("controllers.login").get("currentUser");
         self.set("isLoadingDrafts", true);
         self.set("isLoadingUpdates", true);
-        self.set("isLoadingReviews", true);
 
         self.store.findQuery("tourItem", { status: App.Fixtures.TourStatus.DRAFT }).then(function (tours) {
             self.set("drafts", tours);
@@ -639,10 +636,23 @@ App.MytoursController = Ember.ObjectController.extend({
             self.set("isLoadingUpdates", false);
             App.Alerts.showErrorMessage("An error occured when loading tours, are you logged in?");
         });
+    }
+});
+
+App.ReviewController = Ember.ObjectController.extend({
+    needs: "login",
+    user: null,
+    reviews: [],
+
+    init: function () {
+        var self = this;
+        self.user = this.get("controllers.login").get("currentUser");
+        self.set("isLoadingReviews", true);
 
         self.store.findQuery("tourItem", { status: App.Fixtures.TourStatus.IN_REVIEW }).then(function (tours) {
             self.set("reviews", tours);
             self.set("isLoadingReviews", false);
+
         }, function (err) {
             if(err.status === 401) {
                 self.get("controllers.login").send("removeToken");

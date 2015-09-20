@@ -109,15 +109,21 @@ module.exports = function(grunt) {
                         var middlewares = [require("grunt-connect-proxy/lib/utils").proxyRequest];                        
 
                         middlewares.push(rewriteModule.getMiddleware([
-                            {from: '^/about', to: '/'},
-                            {from: '^/tags', to: '/'},
-                            {from: '^/stats', to: '/'},
-                            {from: '^/dashboard', to: '/'},
-                            {from: '^/tours/nibbi', to: '/'},
-                            {from: '^/tours/(.*)$', to: '/'},
+                            { from: '^/about', to: '/'},
+                            { from: '^/tags', to: '/'},
+                            { from: '^/stats', to: '/'},
+                            { from: '^/dashboard', to: '/' },
+                            { from: '^/mytours', to: '/' },
+                            { from: '^/review', to: '/' },
+                            { from: '^/tours/nibbi', to: '/' },
+                            { from: '^/tours/store_russetinden', to: '/' },
+                            { from: '^/tours/getryggen', to: '/' },
+                            { from: '^/tours/(.*)$', to: '/' },
                             
-                        ]));
+                        ], { verbose: true }));
                         
+                        // regex all: [\s\S]*
+
                         // Serve static files
                         options.base.forEach(function(base) {
                             middlewares.push(connect.static(base));

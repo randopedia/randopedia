@@ -5,7 +5,6 @@
             <ul class="nav nav-tabs" role="tablist">
                 <li class="active"><a href="#drafts" role="tab" data-toggle="tab">Drafts</a></li>
                 <li><a href="#updates" role="tab" data-toggle="tab">Publications</a></li>
-                <li><a href="#reviews" role="tab" data-toggle="tab">In review</a></li>
             </ul>
 
             <div class="tab-content">
@@ -44,23 +43,6 @@
 
                 </div>
 
-                <div id="reviews" class="tab-pane">
-
-                    {{#if isLoadingReviews }}
-                    <div class="loading">Loading tours...</div>
-                    {{else}}
-
-                    <div class="alert alert-info" role="alert">
-                        Below are all tours (not just yours) that currently are in review listed. There are currently {{reviews.length}} tour(s) in review.
-                    </div>
-
-                    {{#each tour in reviews}}
-                    {{view "tourItem"}}
-                    {{/each}}
-
-                    {{/if}}
-
-                </div>
             </div>
         </div>
     </div>

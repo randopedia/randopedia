@@ -7,6 +7,7 @@ App.Router.map(function() {
     this.resource('search');
     this.resource('about');
     this.resource('mytours');
+    this.resource('review');
     this.resource('tags');
     this.resource('tag', {path:'tags/:tag_id'});
     this.resource('dashboard');
@@ -53,6 +54,8 @@ App.LoadingRoute = Ember.Route.extend();
 App.AboutRoute = App.BaseRoute.extend();
 
 App.MytoursRoute = App.BaseRoute.extend();
+
+App.ReviewRoute = App.BaseRoute.extend();
 
 App.TagsRoute = App.BaseRoute.extend({
     model : function() {
