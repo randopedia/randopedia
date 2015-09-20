@@ -173,9 +173,6 @@ App.SearchTextView = Ember.TextField.extend({
     attributeBindings: ['placeholder'],
     placeholder: 'Search ski tours...',
     classNames: ['form-control','search-textfield'],
-    insertNewline: function() {
-        this.get('parentView.controller.controllers.search').send('search');
-    }
 });
 
 // TODO: Rename to ImageUploadView

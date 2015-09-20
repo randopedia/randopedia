@@ -9,6 +9,7 @@ App.SearchComponentComponent = Ember.Component.extend({
         if(!query) {
             return;
         }
+
         query = query.trim();
         
         // Only execute search if query string is at least 3 chars long
@@ -19,6 +20,12 @@ App.SearchComponentComponent = Ember.Component.extend({
         }
     }.observes('query'),
     
+    keyUp: function (e) {
+        if (e.keyCode === 13) {
+            this.onSearchQueryChanged();
+        }
+    },
+
     executeSearch: function(query) {
         this.set('isSearching', true);
         var self = this;
@@ -29,5 +36,4 @@ App.SearchComponentComponent = Ember.Component.extend({
             self.set('isSearching', false);
         });
     }
-    
 });
