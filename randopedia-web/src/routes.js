@@ -6,6 +6,7 @@ App.Router.map(function() {
     
     this.resource('search');
     this.resource('about');
+    this.resource('help');
     this.resource('mytours');
     this.resource('review');
     this.resource('tags');
@@ -52,6 +53,8 @@ App.StatsRoute = App.BaseRoute.extend({
 App.LoadingRoute = Ember.Route.extend();
 
 App.AboutRoute = App.BaseRoute.extend();
+
+App.HelpRoute = App.BaseRoute.extend();
 
 App.MytoursRoute = App.BaseRoute.extend();
 

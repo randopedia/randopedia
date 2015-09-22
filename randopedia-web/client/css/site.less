@@ -994,6 +994,48 @@ button.info {
     }
 } 
 
+.about-view {
+     padding: 0.5em 1.5em;
+
+    .about-section {
+        .text-section::first-letter {
+            font-family: @logo-font,Helvetica,Arial;
+            font-size: 250%;
+            font-weight: bold;
+        }
+        padding: 1em;
+    }
+
+    .cc-img-container {
+        margin: 1em;
+    }
+
+    .about-img {
+        img {
+            margin: 2em 0;
+        }
+    }
+
+    .panel-danger {
+        margin: 2em 0;
+    }
+
+    @media (max-width: 749px) { 
+        padding: 0;       
+    }
+}
+
+.help-view {
+    h2 {
+        border-bottom: 1px solid lightblue;
+    }
+
+    .section {
+        padding-left: 1em;
+        padding-right: 1em;
+    }
+}
+
 .about-grades-view {
     dt {
         margin-top: 10px;

@@ -72,7 +72,9 @@ App.TourDetailsView = Ember.View.extend({
         
         // hack to give page time to load before evaluating the isIncomplete status
         setTimeout(function () {
-            self.get('controller').checkIfIncomplete();
+            if (self.get('controller')) {
+                self.get('controller').checkIfIncomplete();
+            }
         }, 1500);
         // check status directly if tour is already marked as incomplete
         if (self.get('controller').get('isIncomplete')) {
