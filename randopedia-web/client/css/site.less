@@ -9,14 +9,17 @@
 
 @tab-color:                     @gray-lighter;
 
+@hilight-color:                 #add8e6;
+
+@medium-dark-background:        #B7B7B7;
+
 @normal-border:                 1px solid @gray-light;
 @light-border:                  1px solid @gray-lighter;
+@hilight-border:                1px solid @hilight-color;
 @nav-tab-border:                5px solid @tab-color;
 
 @small-space:                   5px;
 @large-space:                   10px;
-
-@medium-dark-background:        #B7B7B7;
 
 @map-path-default-color:        #990000;
 @map-path-up-color:             #343434;
@@ -26,6 +29,8 @@
 @main-view-margin:              20px;
 
 @font-face { font-family: Aight; src: url('../fonts/aaaiight.ttf'); }
+
+@import "hover.less";
 
 // Mixins
 .adjust-margin-for-small {
@@ -181,6 +186,7 @@ body {
 
 .btn {
     border-radius: 0;
+    transition: background 0.4s ease-out;
 } 
    
 #full-screen-map-container {
@@ -265,6 +271,7 @@ a {
         margin-left: -1px; 
         margin-bottom: 0;
         font-size: 1.2em;
+        
         &:hover {
            background: @gray-lighter;
            border-bottom: 1px solid @tab-color;
@@ -386,13 +393,9 @@ a {
 
      .nav > li > a {
          color: @gray-lighter;
-         border: 1px solid #373737;
-         border-radius: 4px;
          padding: 5px 10px;
          margin: 10px 8px 2px 8px;
-         &:hover {
-             background: @gray-dark;
-         }
+         font-weight: bold;
          &.dropdown-toggle {
              &:hover {
                  background: #222222;
@@ -411,12 +414,13 @@ a {
          position: relative;
          border: 1px solid #373737;
          border-radius: 4px;
+
          &:focus {
             outline: 0;
          }    
 
          &:hover       {
-             background-color: @gray-dark;
+             background-color: @gray-dark !important;
          }
 
          &.pressed {
@@ -934,28 +938,28 @@ button.info {
     .login-link {
         text-decoration: none; 
         color: @text-color;
-            
+        background: #fff;
+
         :hover {
-            color:@text-color;
-            background-color: @gray-lighter;
+           color: @text-color;
+           background: @gray-lighter;
         }
+
         :visited {
             color:@text-color;
         }
+
         div {
             border: @light-border;
             padding: @small-space @large-space;
             margin: 5px auto;
             text-align: center;
             width: 250px;
+
             & img {
                 vertical-align:middle;
                 margin: 10px; 
-            }            
-            :hover { 
-                background-color: @gray-lighter;
-                cursor: pointer;
-            }
+            }  
         }
     }
 }

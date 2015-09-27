@@ -15,9 +15,9 @@
 
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav nav-with-space">
-                <li><a {{action "topbarmenulink" "index" }}>Map</a></li>
-                <li><a {{action "topbarmenulink" "about" }} data-toggle="collapse" data-target=".nav-collapse">About</a></li>
-                <li><a {{action "topbarmenulink" "help" }} data-toggle="collapse" data-target=".nav-collapse">Help</a></li>
+                <li><a {{action "topbarmenulink" "index" }} class="hvr-underline-from-center">Map</a></li>
+                <li><a {{action "topbarmenulink" "about" }} class="hvr-underline-from-center" data-toggle="collapse" data-target=".nav-collapse">About</a></li>
+                <li><a {{action "topbarmenulink" "help" }} class="hvr-underline-from-center" data-toggle="collapse" data-target=".nav-collapse">Help</a></li>
             </ul>
 
             <ul class="nav navbar-nav hidden-xs">
@@ -38,7 +38,7 @@
                     </ul>
                 </li>
                 {{else}}
-                <li><a {{action "topbarmenulink" "collapseNavbar" }} data-toggle="modal" data-target="#loginViewModalId">Login</a></li>
+                <li><a {{action "topbarmenulink" "collapseNavbar" }} data-toggle="modal" data-target="#loginViewModalId" class="hvr-underline-from-center">Login</a></li>
                 {{/if}}
             </ul>
 
@@ -50,13 +50,13 @@
                 <li class="divider"></li>
                 <li><p>Logged in as {{maxString controllers.login.currentUser.userName 50}}</p></li>
                 {{else}}
-                <li><a {{action "topbarmenulink" "collapseNavbar" }} data-toggle="modal" data-target="#loginViewModalId">Login</a></li>
+                <li><a {{action "topbarmenulink" "collapseNavbar" }} class="hvr-underline-from-center" data-toggle="modal" data-target="#loginViewModalId">Login</a></li>
                 {{/if}}
             </ul>
 
             <ul class="nav navbar-nav navbar-right hidden-xs">
                 <li>
-                    <a class="navbar-search-button pull-right" {{action "toggleNavbarSearchbox" }}" {{bind-attr class="showNavbarSearch:pressed" }}>
+                    <a class="navbar-search-button pull-right hvr-fade" {{action "toggleNavbarSearchbox" }}" {{bind-attr class="showNavbarSearch:pressed" }}>
                         <span class="glyphicon glyphicon-search"></span>
                     </a>
                 </li>
