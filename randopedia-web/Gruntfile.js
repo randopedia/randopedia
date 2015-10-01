@@ -109,7 +109,8 @@ module.exports = function(grunt) {
                         var middlewares = [require("grunt-connect-proxy/lib/utils").proxyRequest];                        
 
                         middlewares.push(rewriteModule.getMiddleware([
-                            { from: '^/about', to: '/'},
+                            { from: '^/about', to: '/' },
+                            { from: '^/help', to: '/' },
                             { from: '^/tags', to: '/'},
                             { from: '^/stats', to: '/'},
                             { from: '^/dashboard', to: '/' },

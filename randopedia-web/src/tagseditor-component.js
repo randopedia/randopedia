@@ -18,7 +18,8 @@ App.TagseditorComponentComponent = Ember.Component.extend({
         var selectbox = $(".tagseditor-select");
 
         var data = [];
-        self.get("tags").forEach(function (tag) {
+
+        self.get("tags").sortBy("name").forEach(function (tag) {
             data.push({ id: tag.get("id"), text: tag.get("name") });
         });
 
@@ -40,4 +41,3 @@ App.TagseditorComponentComponent = Ember.Component.extend({
         });
     }
 });
-
