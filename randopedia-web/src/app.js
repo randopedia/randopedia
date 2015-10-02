@@ -14,6 +14,10 @@ var App = Ember.Application.create({
         var googleAppId = '';
         if(url.indexOf('test') > 0) {
             facebookAppId = App.Config.facebookAppIdTest;
+        } else if(url.indexOf('www.randopedia.net') > 0) {
+            facebookAppId = App.Config.facebookAppIdProd;
+            googleAppId = App.Config.googleAppIdProd;
+            url = 'http://www.randopedia.net';
         }
         else if(url.indexOf('randopedia.net') > 0) {
             facebookAppId = App.Config.facebookAppIdProd;
