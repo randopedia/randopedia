@@ -25,45 +25,6 @@ App.LoginModalView = Ember.View.extend({
 App.AboutView = Ember.View.extend({
    templateName: 'about',
 });
-
-App.ImageCarouselView = Ember.View.extend({
-    templateName: 'image-carousel-view',
-    classNames: ['carousel', 'slide'],
-    init: function() { 
-        this._super.apply(this, arguments);
-        // disable the data api from boostrap
-        $('#image-carousel-container').off('.data-api');      
-        // at least one item must have the active class, so we set the first here, and the class will be added by class binding
-        var obj = this.get('content.firstObject');
-        Ember.set(obj, 'isActive', true);
-    },
-    actions: {
-        previousSlide: function () {
-            this.$().carousel('prev');
-        },
-        nextSlide: function () {
-            this.$().carousel('next');
-        },
-    },
-    didInsertElement: function() {
-        this.$().carousel({
-            interval: false
-        });
-    },
-    itemsView: Ember.CollectionView.extend({        
-        classNames: ['carousel-inner'],
-        contentBinding: 'parentView.content',
-        itemViewClass: Ember.View.extend({
-            classNames: ['item'],
-            classNameBindings: ['content.isActive:active'],
-            template: Ember.Handlebars.compile('<img {{bind-attr src="view.content.imageFile"}} alt=""/><div class="carousel-caption"><p>{{view.content.caption}}</p></div>')
-        })
-    }),
-    haveMoreThanOneImage: function() {
-        return this.get('content.length') > 1;
-    }.property('content'),
-});
-
 App.TourDetailsView = Ember.View.extend({
     templateName: 'tourdetails-view',
     
