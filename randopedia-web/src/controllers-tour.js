@@ -129,7 +129,7 @@ App.TourController = Ember.ObjectController.extend({
         if(!this.get("itinerary")){ 
             return null;
         }
-        var linkedItinerary = this.get("itinerary").replace(/#(\S*)/g,"<a href=\"/#!/tags/$1\">#$1</a>");
+        var linkedItinerary = this.get("itinerary").replace(/#(\S*)/g,"<a href=\"/tags/$1\">#$1</a>");
         return marked(linkedItinerary);
     }.property("itinerary")
 });

@@ -1,0 +1,48 @@
+<div id="image-slider-container" style="position: relative; top: 0px; left: 0px; width: 1200px; height: 800px;">
+    <style>
+        .jssora03l, .jssora03r {
+            display: block;
+            position: absolute;
+            /* size of arrow element */
+            width: 55px;
+            height: 55px;
+            cursor: pointer;
+            background: url(images/jssor/a03.png) no-repeat;
+            overflow: hidden;
+        }
+        .jssora03l { background-position: -3px -33px; }
+        .jssora03r { background-position: -63px -33px; }
+        .jssora03l:hover { background-position: -123px -33px; }
+        .jssora03r:hover { background-position: -183px -33px; }
+        .jssora03l.jssora03ldn { background-position: -243px -33px; }
+        .jssora03r.jssora03rdn { background-position: -303px -33px; }
+    
+        .image-caption {
+            position: absolute;
+            text-align: center;
+            bottom: 0;
+            height: 45px;
+            width: 100%;
+            color: #F1F1F1;
+            text-shadow: 1px 1px 5px rgba(0,0,0,1);
+        }
+    </style>
+
+    <div u="slides" style="cursor: move; position: absolute; left: 0px; top: 0px; width: 1200px; height: 800px; overflow: hidden;">
+        {{#each img in images}}
+        <div>
+            <img u="image" {{bind-attr src="img.imageFile"}} />
+            <div class="image-caption">{{img.caption}}</div>
+        </div>
+        {{/each}}
+
+        {{#if view.haveMoreThanOneImage}}
+        <span u="arrowleft" class="jssora03l" style="top: 123px; left: 8px;"></span>
+        <span u="arrowright" class="jssora03r" style="top: 123px; right: 8px;"></span>
+        {{/if}}
+        
+        <!--Cred to these guys -->
+        <a style="display: none" href="http://www.jssor.com">Bootstrap Slider</a>
+    </div>
+
+</div>
