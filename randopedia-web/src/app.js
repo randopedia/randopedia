@@ -8,22 +8,25 @@ var App = Ember.Application.create({
         var host = url.split('randopedia')[0];
         var hash = url.indexOf('#');
         if(hash > 0) {
-            url = url.slice(0,hash);
+            url = url.slice(0, hash);
         }
         var facebookAppId = '';
         var googleAppId = '';
+
         if(url.indexOf('test') > 0) {
             facebookAppId = App.Config.facebookAppIdTest;
+
         } else if(url.indexOf('www.randopedia.net') > 0) {
             facebookAppId = App.Config.facebookAppIdProd;
             googleAppId = App.Config.googleAppIdProd;
             url = 'http://www.randopedia.net';
-        }
-        else if(url.indexOf('randopedia.net') > 0) {
+
+        } else if (url.indexOf('randopedia.net') > 0) {
             facebookAppId = App.Config.facebookAppIdProd;
             googleAppId = App.Config.googleAppIdProd;
-        }
-        else {
+            url = 'http://randopedia.net';
+
+        } else {
             var html = url.indexOf('index.html');
             url = 'http://localhost:9001';
             facebookAppId = App.Config.facebookAppIdLocalhost;
@@ -40,13 +43,10 @@ var App = Ember.Application.create({
             google: {
                 clientId: googleAppId,
                 authBaseUri: 'https://accounts.google.com/o/oauth2/auth',
-                //redirectUri: url + '/auth/google/callback',
                 redirectUri: url + '/auth/google/callback',
                 scope: 'https://www.googleapis.com/auth/userinfo.profile'
             }
         };
-        
-       // console.log('URL: ' + Ember.OAuth2.config.facebook.redirectUri);
         
         App.oauth = Ember.OAuth2.create();
     }
