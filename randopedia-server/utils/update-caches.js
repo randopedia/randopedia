@@ -17,8 +17,8 @@ mongoose.connect(connectString, mongoOptions, function(err, res) {
 });
 
 var callTour = function(tour) {
-    var url = 'http://www.randopedia.net/?_escaped_fragment_=/tours/';
-    var tourUrl = url + tour.clientId;
+    var url = 'http://www.randopedia.net/tours/';
+    var tourUrl = url + tour.clientId + '?_escaped_fragment_=';
     
     request(tourUrl, function(error, response, body) {
         console.log('Tour ' + tour.name + ' updated');
