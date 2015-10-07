@@ -6,7 +6,8 @@ var tagService = (function() {
 
     function getTags(callback) {
         tagRepository.getTags().then(function(tags) {
-            callback({'tags' : tags});
+            callback({ 'tags' : tags });
+
         }, function(error) {
             console.log('error :' + error);
         });
@@ -17,8 +18,8 @@ var tagService = (function() {
         var tagPromise = tagRepository.getTag(tagName);
         var allPromise = Q.all([toursPromise, tagPromise]);
 
-        allPromise.spread(function(toursResult, tagResult) {
-            if(toursResult) {
+        allPromise.spread(function (toursResult, tagResult) {
+            if(toursResult && tagResult) {
                 var tours = toursResult;
                 var tourIds = tours.map(function(tour) {
                     return tour.clientId;
@@ -27,13 +28,14 @@ var tagService = (function() {
                 tag.tours = tourIds;
                 tag.name = tagName;
                 tag.id = tagName;
-                callback({'tag' : tag});
+                callback({ 'tag' : tag });
+
             } else {
-                callback({'tag' : {'id':tagName, 'tours':[]}});
+                callback({'tag' : {'id':tagName, 'name': tagName, 'tours':[]}});
             }
+
         }, function(error) {
             console.log('error: ' + error);
-            
         });
     };
 
