@@ -21,6 +21,7 @@ var TourSchema = new Schema( {
 });
 
 var StatSchema = new Schema( {
+    clientId : String,
     totalGain : Number,
     totalLoss : Number
 });
@@ -43,6 +44,7 @@ var aggregateCallback = function(err, result) {
         var stat = new statModel();
         stat.totalGain = result[0].totalGain;
         stat.totalLoss = result[0].totalLoss;
+        stat.clientId = 'randostats';
         stat.save(function(err) {
             if(err) {
                 console.log(err);

@@ -3,7 +3,9 @@
 App.Stat = DS.Model.extend({
     publishedTours : DS.attr('number'),
     tourDrafts: DS.attr('number'),
-    registeredUsers: DS.attr('number')
+    registeredUsers: DS.attr('number'),
+    totalGain : DS.attr('number'),
+    totalLoss : DS.attr('number')
 });
 
 App.SearchResult = DS.Model.extend({

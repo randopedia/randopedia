@@ -3,6 +3,7 @@ var Q = require("q");
 var fs = require('fs');
 var config = require("../config/config");
 var Tour = require("../models/tour");
+var Stat = require("../models/stat");
 var TourAction = require("../models/tour-action");
 var common = require("../helpers/common");
 var enums = require("../enums");
@@ -473,6 +474,20 @@ var tourRepository = (function () {
         
         return deferred.promise;
     }
+
+    function getTourStats() {
+        var deferred = Q.defer();
+
+        Stat.findOne({clientId : 'randostats'}, function(err, result) {
+            if(err) {
+                deferred.reject(err);
+                return;
+            }
+
+            deferred.resolve(result);
+        });
+        return deferred.promise;
+    }
     
     return {
         getTour: getTour,
@@ -487,7 +502,8 @@ var tourRepository = (function () {
         updateImage: updateImage,
         deleteImage: deleteImage,
         getTourFromImageId: getTourFromImageId,
-        getTourCount: getTourCount
+        getTourCount: getTourCount,
+        getTourStats : getTourStats
     };
 
 })();

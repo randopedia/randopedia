@@ -22,15 +22,18 @@ var statsService = (function() {
         var tourCountPromise = tourRepository.getTourCount(enums.TourStatus.PUBLISHED);
         var userCountPromise = userRepository.getUserCount();
         var draftCountPromise = tourRepository.getTourCount(enums.TourStatus.DRAFT);
+        var statPromise = tourRepository.getTourStats();
         
-        var allPromise = Q.all([tourCountPromise, draftCountPromise, userCountPromise]);
+        var allPromise = Q.all([tourCountPromise, draftCountPromise, userCountPromise, statPromise]);
 
-        allPromise.spread(function(tourCountResult, draftCountPromise,  userCountResult) {
+        allPromise.spread(function(tourCountResult, draftCountPromise,  userCountResult, statPromise) {
             var stats = {};
             stats.id = '1';
             stats.publishedTours = tourCountResult;
             stats.registeredUsers = userCountResult;
             stats.tourDrafts = draftCountPromise;
+            stats.totalGain = statPromise.totalGain;
+            stats.totalLoss = statPromise.totalLoss;
             callback(stats);
         }, function(error) {
             console.log('stats error');
