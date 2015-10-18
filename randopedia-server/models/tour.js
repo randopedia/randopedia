@@ -30,7 +30,8 @@ var TourSchema = mongoose.Schema(
         portfolioImage: Object,
         status: Number,
         actions: Object,
-        comments: Object
+        comments: Object,
+        updatedStamp: Date
     },
     {
          collection: "tour"

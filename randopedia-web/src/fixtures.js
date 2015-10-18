@@ -13,7 +13,8 @@ App.Fixtures.TourStatus = {
     PUBLISHED: 1,
     DRAFT: 2,
     DELETED: 3,
-    IN_REVIEW: 4
+    IN_REVIEW: 4,
+    LAST_UPDATED: 5
 };
 
 App.Fixtures.MapSymbolTypes = {

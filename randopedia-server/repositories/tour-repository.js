@@ -97,14 +97,23 @@ var tourRepository = (function () {
         var deferred = Q.defer();
 
         status = !status ? enums.TourStatus.PUBLISHED : status;
-
-        Tour.find({ status: status }, tourItemFields, function (err, result) {
-            if (err) {
-                deferred.reject(err);
-            } else {
-                deferred.resolve(documentsToTours(result));
-            }
-        });
+        if(enums.TourStatus.LAST_UPDATED.toString() === status) {
+            Tour.find({ status : enums.TourStatus.PUBLISHED} , tourItemFields, function (err, result) {
+                if(err) {
+                    deferred.reject(err);
+                } else {
+                    deferred.resolve(documentsToTours(result));
+                }
+            }).sort({updatedStamp : 'desc'}).limit(5);
+        } else {
+            Tour.find({ status: status }, tourItemFields, function (err, result) {
+                if (err) {
+                    deferred.reject(err);
+                } else {
+                    deferred.resolve(documentsToTours(result));
+                }
+            });
+        }
 
         return deferred.promise;
     }
@@ -234,6 +243,7 @@ var tourRepository = (function () {
     function saveTour(tour) {
         var deferred = Q.defer();
 
+        tour.updatedStamp = new Date();
         if (!tour.id) {
             var clientId = common.getTextId(tour.name);
             var startsWithRegex = new RegExp("^" + clientId, "i");
