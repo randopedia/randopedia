@@ -228,6 +228,24 @@ App.GeoHelper = Ember.Object.create({
 
         return false;
     },
+
+    getSummitPoint: function (geojson) {
+        if (!App.GeoHelper.validateGeoJson(geojson)) {
+            return null;
+        }
+
+        for (var i = 0; i < geojson.features.length; i++) {
+            var feature = geojson.features[i];
+            if (feature.geometry.type === "Point" && feature.rando_type === App.Fixtures.MapSymbolTypes.SUMMIT_POINT) {
+                return {
+                    lng: feature.geometry.coordinates[0],
+                    lat: feature.geometry.coordinates[1]
+                };
+            }
+        }
+
+        return null;
+    },
     
     // Map types
     

@@ -25,6 +25,7 @@ App.LoginModalView = Ember.View.extend({
 App.AboutView = Ember.View.extend({
    templateName: 'about',
 });
+
 App.TourDetailsView = Ember.View.extend({
     templateName: 'tourdetails-view',
     
@@ -41,6 +42,8 @@ App.TourDetailsView = Ember.View.extend({
         if (self.get('controller').get('isIncomplete')) {
             self.get('controller').checkIfIncomplete();
         }
+
+
     },
 });
 

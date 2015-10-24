@@ -73,6 +73,11 @@ App.TourController = Ember.ObjectController.extend({
     
     // Computed properties
     
+    summitPoint: function() {
+        return App.GeoHelper.getSummitPoint(this.get("mapGeoJson"));
+
+    }.property("model.mapGeoJson"),
+
     isPublished: function() {
         return this.get("status") === App.Fixtures.TourStatus.PUBLISHED;
     }.property("model.status"),

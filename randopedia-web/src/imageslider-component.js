@@ -23,7 +23,7 @@ App.ImagesliderComponentComponent = Ember.Component.extend({
                 $SpacingX: 10,                                   //[Optional] Horizontal space between each item in pixel, default value is 0
                 $SpacingY: 10,                                   //[Optional] Vertical space between each item in pixel, default value is 0
                 $Orientation: 1                                 //[Optional] The orientation of the navigator, 1 horizontal, 2 vertical, default value is 1
-            },
+            }
         };
 
         var jssor_slider1 = new $JssorSlider$("image-slider-container", options);
@@ -45,7 +45,7 @@ App.ImagesliderComponentComponent = Ember.Component.extend({
     },
 
     haveMoreThanOneImage: function () {
-        return this.get('images.length') > 1;
-    }.property('images'),
+        return this.get("images.length") > 1;
+    }.property("images")
 
 });
