@@ -253,12 +253,14 @@ App.GeoHelper = Ember.Object.create({
         google.maps.MapTypeId.TERRAIN,
         google.maps.MapTypeId.SATELLITE,
         'osm',
-        'norgeskart'
+        'norgeskart',
+        'eniroair'
     ],
     
     setMapTypes: function(map) {
         map.mapTypes.set('osm', App.GeoHelper.mapTypes.osm());
         map.mapTypes.set('norgeskart', App.GeoHelper.mapTypes.norgeskart());
+        map.mapTypes.set('eniroair', App.GeoHelper.mapTypes.eniroair());
     },
     
     getDefaultMapTypeIdForCountry: function(country) {
@@ -306,6 +308,21 @@ App.GeoHelper = Ember.Object.create({
                 name: 'Norgeskart (NOR)'
               });
         },     
+
+        eniroair: function() {
+            return new google.maps.ImageMapType({
+                getTileUrl : function(coord, zoom) {
+                    var y = coord.y;
+                    y = Math.pow(2, zoom) - y - 1;
+                    return 'http://map01.eniro.no/geowebcache/service/tms1.0.0/aerial/'  + zoom + '/' + coord.x + '/' + y + '.jpeg';
+                },
+                tileSize: new google.maps.Size(256, 256),
+                isPng: true,
+                minZoom: 1,
+                maxZoom: 20,
+                name: 'Eniro aerial (NOR/SWE)'
+            });
+        },
         
         lantmateriet: function() {
             return new google.maps.ImageMapType({
