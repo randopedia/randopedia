@@ -29,24 +29,14 @@ App.BaseRoute = Ember.Route.extend({
             } else {
                 $(document).attr('title', 'Randopedia - The ski tour database');
             }
-            
-            var ogTitle = document.createElement('meta');
-            ogTitle.setAttribute('property', 'og:title');
-            ogTitle.setAttribute('content', model.get('name').replace(/"/g, "&quot;"));
-            document.getElementsByTagName('head')[0].appendChild(ogTitle);
-            
+
+            $('head').append('<meta property="og:title" content="' + model.get('name') + '">' );
             var description = model.get('itinerary');
             if(description) {
-                var ogDescription = document.createElement('meta');
-                ogDescription.setAttribute('property', 'og:description');
-                ogDescription.setAttribute('content', description.replace(/"/g, "&quot;"));
-                document.getElementsByTagName('head')[0].appendChild(ogDescription);
+                $('head').append('<meta property="og:description" content="' + description.replace(/"/g, "&quot;") + '">' );
             }
+            $('head').append('<meta property="fb:app_id" content="' + App.Config.facebookAppIdProd + '">' );
             
-            var ogAppId = document.createElement('meta');
-            ogAppId.setAttribute('property', 'og:app_id');
-            ogAppId.setAttribute('content',  App.Config.facebookAppIdProd);
-            document.getElementsByTagName('head')[0].appendChild(ogAppId);
         } else {
             $(document).attr('title', 'Randopedia - The ski tour database');
         }
