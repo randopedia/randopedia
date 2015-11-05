@@ -148,5 +148,24 @@ App.TourRoute = App.BaseRoute.extend({
     },
     model: function(params){
         return this.store.find('tour', params.tour_id);
+    },
+    afterModel: function(model) {
+        var ogTitle = document.createElement('meta');
+        ogTitle.setAttribute('property', 'og:title');
+        ogTitle.setAttribute('content', model.get('name').replace(/"/g, "&quot;"));
+        document.getElementsByTagName('head')[0].appendChild(ogTitle);
+
+        var description = model.get('itinerary');
+        if(description) {
+            var ogDescription = document.createElement('meta');
+            ogDescription.setAttribute('property', 'og:description');
+            ogDescription.setAttribute('content', description.replace(/"/g, "&quot;"));
+            document.getElementsByTagName('head')[0].appendChild(ogDescription);
+        }
+
+        var ogAppId = document.createElement('meta');
+        ogAppId.setAttribute('property', 'og:app_id');
+        ogAppId.setAttribute('content',  App.Config.facebookAppIdProd);
+        document.getElementsByTagName('head')[0].appendChild(ogAppId);
     }
 });
