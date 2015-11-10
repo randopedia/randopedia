@@ -31,7 +31,14 @@
     <script src="/js/libs.js"></script>
     <script src="/js/randopedia.js"></script>
     <script src="/js/templates.js"></script>
-
+        
+    <script type="text/javascript">
+    $(document).ready(function() {
+        var bgClass = "main-background-" + Math.floor((Math.random() * 7) + 1);
+        $("body").addClass(bgClass);
+    });
+    </script>
+    
     <!-- Piwik -->
     <script type="text/javascript">
      if((document.location.hostname.indexOf("randopedia") != -1)){
@@ -49,5 +56,6 @@
     </script>
     <noscript><p><img src="http://donc.se/randopedia-stats/piwik.php?idsite=1" style="border:0;" alt="" /></p></noscript>
     <!-- End Piwik Code -->
+
 </body>
 </html>
