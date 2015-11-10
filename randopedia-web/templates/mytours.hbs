@@ -1,48 +1,50 @@
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-sm-12">
+    <div class="main-view">
+        <div class="row">
+            <div class="col-sm-12">
 
-            <ul class="nav nav-tabs" role="tablist">
-                <li class="active"><a href="#drafts" role="tab" data-toggle="tab">Drafts</a></li>
-                <li><a href="#updates" role="tab" data-toggle="tab">Publications</a></li>
-            </ul>
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="active"><a href="#drafts" role="tab" data-toggle="tab">Drafts</a></li>
+                    <li><a href="#updates" role="tab" data-toggle="tab">Publications</a></li>
+                </ul>
 
-            <div class="tab-content">
-                <div class="tab-pane active" id="drafts">
+                <div class="tab-content">
+                    <div class="tab-pane active" id="drafts">
 
-                    {{#if isLoadingDrafts }}
-                    <div class="loading">Loading tours...</div>
-                    {{else}}
+                        {{#if isLoadingDrafts }}
+                        <div class="loading">Loading tours...</div>
+                        {{else}}
 
-                    <div class="alert alert-info" role="alert">
-                        Below are all your tour drafts listed. These tours are only visible to you. You currently have {{drafts.length}} tour draft(s).
+                        <div class="alert alert-info" role="alert">
+                            Below are all your tour drafts listed. These tours are only visible to you. You currently have {{drafts.length}} tour draft(s).
+                        </div>
+
+                        {{#each tour in drafts}}
+                        {{view "tourItem"}}
+                        {{/each}}
+                        {{/if}}
+
                     </div>
 
-                    {{#each tour in drafts}}
-                    {{view "tourItem"}}
-                    {{/each}}
-                    {{/if}}
+                    <div id="updates" class="tab-pane">
 
-                </div>
+                        {{#if isLoadingUpdates }}
+                        <div class="loading">Loading tours...</div>
+                        {{else}}
 
-                <div id="updates" class="tab-pane">
+                        <div class="alert alert-info" role="alert">
+                            Below are all tours that you have created and/or made updates on listed. You have contributed on {{updates.length}} tour(s).
+                        </div>
 
-                    {{#if isLoadingUpdates }}
-                    <div class="loading">Loading tours...</div>
-                    {{else}}
+                        {{#each tour in updates}}
+                        {{view "tourItem"}}
+                        {{/each}}
 
-                    <div class="alert alert-info" role="alert">
-                        Below are all tours that you have created and/or made updates on listed. You have contributed on {{updates.length}} tour(s).
+                        {{/if}}
+
                     </div>
 
-                    {{#each tour in updates}}
-                    {{view "tourItem"}}
-                    {{/each}}
-
-                    {{/if}}
-
                 </div>
-
             </div>
         </div>
     </div>
