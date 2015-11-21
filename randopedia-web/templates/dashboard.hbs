@@ -1,23 +1,16 @@
 <div class="main-container container-fluid">
 
-    <div class="main-view">
+    <div class="main-view dashboard-view">
 
         <div class="row">
-            <div class="col-sm-12 col-md-6">
-                <div class="panel">
-                    <h3>
-                        Last updated tours
-                    </h3>
-                    {{lastupdated-component store=store}}
+            <div class="col-sm-12">
+                <div class="panel panel-info">
+                    <div class="panel-body">
+                        <div class="stat-phrase">
+                            The randopedia database currently contains descriptions for <span class="highlight">{{stat.publishedTours}}</span> ski tours. That's <span class="highlight">{{stat.totalGain}}</span> meters of leg warming climbs and <span class="highlight">{{stat.totalLoss}}</span> meters of awesome skiing.
+                        </div>
+                    </div>
                 </div>
-
-            </div>
-
-            <div class="col-sm-12 col-md-6">
-                <h3>
-                    Stats
-                </h3>
-                {{stat-component stat=stat}}
             </div>
         </div>
 
@@ -28,13 +21,35 @@
         </div>
 
         <div class="row">
+            <div class="col-sm-12 col-md-6">
+                <div class="panel panel-info">
+                    <div class="panel-body">
+                        <div class="heading">Last updated tours</div>
+                        {{lastupdated-component store=store}}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
             <div class="col-sm-12">
-                <h3>
+                <h4>
                     #<span class="logo-font">randopedia</span> on Instagram
-                </h3>
+                </h4>
                 {{instafeed-component tagName='randopedia'}}
             </div>
         </div>
+
+        {{#if controllers.login.isAdmin}}
+            <div class="row">
+                <div class="col-sm-12">
+                    <h4>
+                       Admin stats
+                    </h4>
+                    {{stat-component stat=stat}}
+                </div>
+            </div>
+        {{/if}}
 
     </div>
 </div>

@@ -51,3 +51,7 @@ App.AboutController = Ember.ObjectController.extend();
 App.ResultController = Ember.ArrayController.extend();
 
 App.TagsController = Ember.ArrayController.extend();
+
+App.DashboardController = Ember.ArrayController.extend({
+    needs: ["login"]
+});

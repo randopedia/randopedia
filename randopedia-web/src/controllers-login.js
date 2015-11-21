@@ -76,4 +76,13 @@ App.LoginController = Ember.ObjectController.extend({
             return false;
         }
     }.property('currentUser.authenticated'),
+
+    isAdmin: function () {
+        var user = this.get('currentUser');
+        if (!user || !user.get('authenticated')) {
+            return false;
+        }
+        return user.get("userId") === "521716365" || user.get("id") === "615412384";
+
+    }.property('currentUser.authenticated'),
 });
