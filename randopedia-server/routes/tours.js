@@ -3,11 +3,15 @@ var router = express.Router();
 var tourService = require("../services/tour-service");
 var common = require('../helpers/common');
 var enums = require("../enums");
+var config = require("../config/config");
+
 
 router.get("/:id?", function (req, res) {
-    var tourId = req.params.id;
 
-    tourService.getTour(tourId, function (tour) {
+    var tourId = req.params.id;
+    var provider = req.get('X-Header-Provider');
+
+    tourService.getTour(tourId, req, function (tour) {
         res.send(tour);
     });
 });
@@ -16,13 +20,13 @@ router.post("/", function (req, res) {
 
     var token = req.get('X-Header-Token');
     var provider = req.get('X-Header-Provider');
-
+    
     common.getUserFromRequest(token, provider)
         .then(function (user) {
 
             if (user) {
                 var tour = req.body.tour;
-                tourService.createTour(tour, user, function (createdTour) {
+                tourService.createTour(tour, user, req, function (createdTour) {
                     res.send({tour: createdTour});
                     
                 }, function (validationErrors) {
@@ -49,7 +53,7 @@ router.put("/:id?", function (req, res) {
             if (user) {
                 var tour = req.body.tour;
                 tour.id = req.params.id;
-                tourService.updateTour(tour, user, function (updatedTour) {
+                tourService.updateTour(tour, user, req, function (updatedTour) {
                     res.send({tour: updatedTour});
                     
                 }, function (validationErrors) {

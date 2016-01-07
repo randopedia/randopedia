@@ -12,7 +12,7 @@ router.post("/", function (req, res) {
     common.getUserFromRequest(token, provider)
         .then(function(user) {
             if(user) {
-                tourService.addImage(req.body.image, user, function () {
+                tourService.addImage(req.body.image, user, req, function () {
                     res.send({image: req.body.image});
                 });
                 
@@ -35,7 +35,7 @@ router.put("/:id?", function (req, res) {
             if(user) {
                 var imageId = req.params.id;
             
-                tourService.updateImage(req.body.image, imageId, user, function (result) {
+                tourService.updateImage(req.body.image, imageId, user, req, function (result) {
                     res.send(result);
                 });
                 
@@ -56,7 +56,7 @@ router.delete("/:id?", function (req, res) {
     common.getUserFromRequest(token, provider)
         .then(function(user) {
             if(user) {
-                tourService.deleteImage(req.params.id, user, function () {
+                tourService.deleteImage(req.params.id, user, req, function () {
                     res.status(HttpStatus.NO_CONTENT).send();
                 });
                 

@@ -13,9 +13,9 @@ router.get("/", function (req, res) {
     var query = req.query["query"];
 
     if(query) {
-         tourService.getToursByQuery(query, function(tours) {
-             res.send({tourItems : tours});
-         });
+        tourService.getToursByQuery(query, req, function(tours) {
+            res.send({tourItems : tours});
+        });
     } else {
         common.getUserFromRequest(token, provider)
             .then(function (user) {
@@ -24,7 +24,7 @@ router.get("/", function (req, res) {
                         common.sendUnauthorizedResponse(res);
                         return;
                     } else {
-                        tourService.getToursForUser(user, function (tours) {
+                        tourService.getToursForUser(user, req, function (tours) {
                             res.send({tourItems: tours});
                         });
                     }
@@ -33,7 +33,7 @@ router.get("/", function (req, res) {
                         common.sendUnauthorizedResponse(res);
                         return;
                     }
-                    tourService.getTours(status, user, function (tours) {
+                    tourService.getTours(status, user, req, function (tours) {
                         res.send({tourItems: tours});
                     });
                 }

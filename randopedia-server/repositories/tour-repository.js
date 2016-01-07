@@ -12,23 +12,45 @@ var tourItemFields = "mapGeoJson name grade elevationLoss elevationGain timingMi
 
 var tourRepository = (function () {
 
-    function documentToTour(doc) {
+    function documentToTour(doc, req) {
         if(!doc) {
             return null;
         }
         var tour = doc.toObject();
         tour.id = tour.clientId;
+        var lang = req.get('X-Header-Language');
+        if("no" === lang) {
+            if(tour.itinerary) {
+                tour.itinerary = tour.itinerary.no;
+            }
+            if(tour.shortDescription) {
+                tour.shortDescription = tour.shortDescription.no;
+            }
+            if(tour.accessPoint) {
+                tour.accessPoint = tour.accessPoint.no;
+            }
+        } else {
+            if(tour.itinerary) {
+                tour.itinerary = tour.itinerary.eng;
+            }
+            if(tour.shortDescription) {
+                tour.shortDescription = tour.shortDescription.eng;
+            }
+            if(tour.accessPoint) {
+                tour.accessPoint = tour.accessPoint.eng;
+            }
+        }
         return tour;
     }
 
-    function documentsToTours(documents) {
+    function documentsToTours(documents, req) {
         if (!documents || documents.length === 0) {
             return [];
         }
 
         var tours = [];
         documents.forEach(function (doc) {
-            tours.push(documentToTour(doc));
+            tours.push(documentToTour(doc, req));
         });
 
         return tours;
@@ -60,15 +82,14 @@ var tourRepository = (function () {
         return tourIds;
     }
     
-    function getTour(tourClientId, excludeImages) {
+    function getTour(tourClientId, req, excludeImages) {
         var deferred = Q.defer();
-
         Tour.findOne({ clientId: tourClientId }, function (err, result) {
             if (err) {
                 deferred.reject(err);
             } else {
                 if (result) {
-                    var tour = documentToTour(result);
+                    var tour = documentToTour(result, req);
                     var tourImages = tour.tourImages;
                     if (tourImages) {
                         var images = getImageIdArrayFromTourImages(tourImages);
@@ -92,8 +113,9 @@ var tourRepository = (function () {
     /*
     *  Returns TourItems
     */
-    function getTours(status) {
-        
+    function getTours(status, req) {
+
+        var test = req.get('X-Header-Language');
         var deferred = Q.defer();
 
         status = !status ? enums.TourStatus.PUBLISHED : status;
@@ -102,7 +124,7 @@ var tourRepository = (function () {
                 if(err) {
                     deferred.reject(err);
                 } else {
-                    deferred.resolve(documentsToTours(result));
+                    deferred.resolve(documentsToTours(result, req));
                 }
             }).sort({updatedStamp : 'desc'}).limit(5);
         } else {
@@ -110,7 +132,7 @@ var tourRepository = (function () {
                 if (err) {
                     deferred.reject(err);
                 } else {
-                    deferred.resolve(documentsToTours(result));
+                    deferred.resolve(documentsToTours(result, req));
                 }
             });
         }
@@ -121,7 +143,7 @@ var tourRepository = (function () {
     /*
     *  Returns TourItems
     */
-    function getToursByQuery(query) {
+    function getToursByQuery(query, req) {
         var re = new RegExp(query, 'i');
         var deferred = Q.defer();
 
@@ -129,7 +151,7 @@ var tourRepository = (function () {
             if (err) {
                 deferred.reject();
             } else {
-                deferred.resolve(documentsToTours(result));
+                deferred.resolve(documentsToTours(result, req));
             }
         });
         return deferred.promise;
@@ -138,7 +160,7 @@ var tourRepository = (function () {
     /*
     *  Returns TourItems
     */
-    function getToursWithTagRegex(tagRegex) {
+    function getToursWithTagRegex(tagRegex, req) {
         var deferred = Q.defer();
 
         var searchRegex = tagRegex.toLowerCase();
@@ -147,7 +169,7 @@ var tourRepository = (function () {
             if(err) {
                 deferred.reject(err);
             } else {
-                deferred.resolve(documentsToTours(tours));
+                deferred.resolve(documentsToTours(tours, req));
             }
         });
 
@@ -157,14 +179,14 @@ var tourRepository = (function () {
     /*
     *  Returns TourItems
     */
-    function getToursWithTag(tagName) {
+    function getToursWithTag(tagName, req) {
         var deferred = Q.defer();
-
         Tour.find({ tags: tagName }, tourItemFields, function (err, result) {
             if (err) {
                 deferred.reject(err);
             } else {
-                deferred.resolve(documentsToTours(result));
+                console.log(result);
+                deferred.resolve(documentsToTours(result, req));
             }
         });
         return deferred.promise;
@@ -174,7 +196,7 @@ var tourRepository = (function () {
     *  Get all tours with status draft for the specified user
     *  Returns TourItems
     */
-    function getTourDrafts(userId) {
+    function getTourDrafts(userId, req) {
         var deferred = Q.defer();
 
         TourAction.find({ userId: userId }, function (err, actions) {
@@ -196,7 +218,7 @@ var tourRepository = (function () {
                         deferred.reject(err);
 
                     } else {
-                        deferred.resolve(documentsToTours(tours));
+                        deferred.resolve(documentsToTours(tours, req));
                     }
                 });
             }
@@ -209,7 +231,7 @@ var tourRepository = (function () {
     *  Get all tours that the specified user have collaborated on (excluding drafts)
     *  Returns TourItems
     */
-    function getToursForUser(userId) {
+    function getToursForUser(userId, req) {
         var deferred = Q.defer();
         
         TourAction.find({ userId: userId }, function (err, actions) {
@@ -231,7 +253,7 @@ var tourRepository = (function () {
                         deferred.reject(err);
 
                     } else {
-                        deferred.resolve(documentsToTours(tours));
+                        deferred.resolve(documentsToTours(tours, req));
                     }
                 });
             }
@@ -240,9 +262,8 @@ var tourRepository = (function () {
         return deferred.promise;
     }
 
-    function saveTour(tour) {
+    function saveTour(tour, req) {
         var deferred = Q.defer();
-
         tour.updatedStamp = new Date();
         if (!tour.id) {
             var clientId = common.getTextId(tour.name);
@@ -253,6 +274,19 @@ var tourRepository = (function () {
                     deferred.reject(err);
                     
                 } else {
+                    var lang = req.get('X-Header-Language');
+                    var itinerary = {};
+                    var shortDescription = {};
+                    var accessPoint = {};
+                    itinerary.no = tour.itinerary;
+                    itinerary.eng = tour.itinerary;
+                    shortDescription.no = tour.shortDescription;
+                    shortDescription.eng = tour.shortDescription;
+                    accessPoint.no = tour.accessPoint;
+                    accessPoint.eng = tour.accessPoint;
+                    tour.itinerary = itinerary;
+                    tour.shortDescription = shortDescription;
+                    tour.accessPoint = accessPoint;
                     if(result.length > 0) {
                         tour.clientId = clientId + "_" + result.length;
                     } else {
@@ -263,33 +297,63 @@ var tourRepository = (function () {
                         if(createErr) {
                             deferred.reject(createErr);
                         } else {
-                            deferred.resolve(documentToTour(createdTour));
+                            deferred.resolve(documentToTour(createdTour, req));
                         }
-                    }); 
+                   });
                 }
             });
 
         } else {
-            Tour.findOneAndUpdate({ clientId: tour.id }, tour, {'new': true}, function (err, result) {
-                if (err) {
-                    deferred.reject(err);
-                } else {
-                    deferred.resolve(documentToTour(result));
+            Tour.findOne({clientId : tour.id}, function(err, result) {
+                var existingTour = result.toObject();
+                
+                var lang = req.get('X-Header-Language');
+                var itinerary = result.itinerary;
+                if(!itinerary) {
+                    itinerary = {};
                 }
+                var shortDescription = result.shortDescription;
+                if(!shortDescription) {
+                    shortDescription = {};
+                }
+                var accessPoint = result.accessPoint;
+                if(!accessPoint) {
+                    accessPoint = {};
+                }
+                if("no" === lang) {
+                    itinerary.no = tour.itinerary;
+                    shortDescription.no = tour.shortDescription;
+                    accessPoint.no = tour.accessPoint;
+                } else {
+                    itinerary.eng = tour.itinerary;
+                    shortDescription.eng = tour.shortDescription;
+                    accessPoint.eng = tour.accessPoint;
+                }
+                tour.itinerary = itinerary;
+                tour.shortDescription = shortDescription;
+                tour.accessPoint = accessPoint;
+
+                Tour.findOneAndUpdate({ clientId: tour.id }, tour, {'new': true}, function (err, result) {
+                    if (err) {
+                        deferred.reject(err);
+                    } else {
+                        deferred.resolve(documentToTour(result, req));
+                    }
+                });
             });
         }
 
         return deferred.promise;
     }
 
-    function addImage(tourClientId, image) {
+    function addImage(tourClientId, image, req) {
         var deferred = Q.defer();
         var imageId = mongoose.Types.ObjectId();
         var databaseFileName = "/" + config.tourImagesDirectory + "/" + tourClientId + "_" + imageId + ".jpg";
         var fileName = config.webappClientDirectory  + databaseFileName;
 
         var imageBuffer = common.decodeBase64Image(image.imageData);
-
+        
         fs.writeFile(fileName, imageBuffer.data, function (err) {
             if (err) {
                 deferred.reject(err);
@@ -311,7 +375,7 @@ var tourRepository = (function () {
                     return;
                 }
 
-                var tour = documentToTour(result);
+                var tour = documentToTour(result, req);
                 image.tour = tour._id.toString();
                 
                 if (!tour.tourImages) {
@@ -319,7 +383,7 @@ var tourRepository = (function () {
                 }
                 tour.tourImages.push(image);
 
-                saveTour(tour).then(function () {
+                saveTour(tour, req).then(function () {
                     image.tour = tour.clientId;
                     deferred.resolve(image);
 
@@ -345,7 +409,7 @@ var tourRepository = (function () {
         return index;
     };
 
-    function updateImage(image, imageId) {
+    function updateImage(image, imageId, req) {
         var deferred = Q.defer();       
 
         Tour.findOne({ clientId: image.tour }, function (err, result) {
@@ -359,7 +423,7 @@ var tourRepository = (function () {
                 return;
             }
 
-            var tour = documentToTour(result);
+            var tour = documentToTour(result, req);
 
             if (!tour.tourImages) {
                 deferred.reject("Image does not exist, cannot update");
@@ -392,7 +456,7 @@ var tourRepository = (function () {
                 tour.tourImages[index] = image;
             }
 
-            saveTour(tour).then(function () {
+            saveTour(tour, req).then(function () {
                 deferred.resolve(image);
 
             }).catch(function (error) {
@@ -404,10 +468,10 @@ var tourRepository = (function () {
         return deferred.promise;
     }
 
-    function deleteImage(imageId) {
+    function deleteImage(imageId, req) {
         var deferred = Q.defer();
         
-        getTourFromImageId(imageId).then(function(tour) {
+        getTourFromImageId(imageId, req).then(function(tour) {
             
             var index = findIndexFromId(tour.tourImages, imageId);
             if (index < 0) {
@@ -424,7 +488,7 @@ var tourRepository = (function () {
                
                 tour.tourImages.splice(index, 1);
 
-                saveTour(tour).then(function () {
+                saveTour(tour, req).then(function () {
                     deferred.resolve();
 
                 }).catch(function (error) {
@@ -437,7 +501,7 @@ var tourRepository = (function () {
         return deferred.promise;
     }
     
-    function getTourFromImageId(imageId) {
+    function getTourFromImageId(imageId, req) {
         var deferred = Q.defer();
 
         var id = mongoose.Types.ObjectId(imageId);
@@ -453,7 +517,7 @@ var tourRepository = (function () {
                 return;
             }
 
-            var tour = documentToTour(result);
+            var tour = documentToTour(result, req);
 
             if (!tour.tourImages) {
                 deferred.reject("Tour has no images. Invalid tour id on image.");

@@ -13,8 +13,8 @@ var tagService = (function() {
         });
     };
 
-    function getTag(tagName, callback) {
-        var toursPromise = tourRepository.getToursWithTag(tagName);
+    function getTag(tagName, req, callback) {
+        var toursPromise = tourRepository.getToursWithTag(tagName, req);
         var tagPromise = tagRepository.getTag(tagName);
         var allPromise = Q.all([toursPromise, tagPromise]);
 

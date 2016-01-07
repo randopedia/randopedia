@@ -27,8 +27,8 @@ var tourService = (function () {
         }
     }    
 
-    function getTour(tourId, callback) {
-        tourRepository.getTour(tourId).then(function (tour) {
+    function getTour(tourId, req, callback) {
+        tourRepository.getTour(tourId, req).then(function (tour) {
             if (callback) {
                 callback(tour);
             }
@@ -38,13 +38,13 @@ var tourService = (function () {
         });
     }
 
-    function getTours(status, user, callback) {
+    function getTours(status, user, req, callback) {
         if (status === enums.TourStatus.DRAFT.toString()) {
             if(!user) {
                 execCallback([], callback);
             }
             
-            tourRepository.getTourDrafts(user._id.toString()).then(function (tours) {
+            tourRepository.getTourDrafts(user._id.toString(), req).then(function (tours) {
                 execCallback(tours, callback);
 
             }).catch(function (error) {
@@ -52,7 +52,7 @@ var tourService = (function () {
             });
         }
         else {
-            tourRepository.getTours(status).then(function (tours) {
+            tourRepository.getTours(status, req).then(function (tours) {
                 execCallback(tours, callback);
 
             }).catch(function (error) {
@@ -61,12 +61,12 @@ var tourService = (function () {
         }
     }
 
-    function getToursForUser(user, callback) {
+    function getToursForUser(user, req, callback) {
         if(!user) {
             execCallback([], callback);
         }
         
-        tourRepository.getToursForUser(user._id.toString()).then(function (tours) {
+        tourRepository.getToursForUser(user._id.toString(), req).then(function (tours) {
             execCallback(tours, callback);
 
         }).catch(function (error) {
@@ -74,10 +74,10 @@ var tourService = (function () {
         });
     }
 
-    function getToursByQuery(query, callback) {
+    function getToursByQuery(query, req, callback) {
 
-        var queryPromise = tourRepository.getToursByQuery(query);
-        var tagsPromise = tourRepository.getToursWithTagRegex(query);
+        var queryPromise = tourRepository.getToursByQuery(query, req);
+        var tagsPromise = tourRepository.getToursWithTagRegex(query, req);
         var allPromises = Q.all([queryPromise, tagsPromise]);
 
         allPromises.spread(function(queryResults, tagsResults) {
@@ -101,7 +101,7 @@ var tourService = (function () {
         });
     }
 
-    function createTour(tour, user, callback, validationErrorsCallback) {
+    function createTour(tour, user, req, callback, validationErrorsCallback) {
 
         tour = dataWasher.washTour(tour);
 
@@ -115,12 +115,12 @@ var tourService = (function () {
     
         tour.tags = common.mergeTags(tour.tags, tour.itinerary);
         
-        tourRepository.saveTour(tour).then(function (createdTour) {
+        tourRepository.saveTour(tour, req).then(function (createdTour) {
 
-            tourActionRepository.save(user, createdTour, enums.TourActionType.CREATE);
+            tourActionRepository.save(user, createdTour, enums.TourActionType.CREATE, req);
 
             if (isTourPublishedWhenCreated(createdTour)) {
-                tourActionRepository.save(user, createdTour, enums.TourActionType.PUBLISH, tour.publishComment);
+                tourActionRepository.save(user, createdTour, enums.TourActionType.PUBLISH, tour.publishComment, req);
             }
 
             if (callback) {
@@ -132,7 +132,7 @@ var tourService = (function () {
         });
     }
 
-    function updateTour(tour, user, callback, validationErrorsCallback) {
+    function updateTour(tour, user, req, callback, validationErrorsCallback) {
         tour = dataWasher.washTour(tour);
         var validationErrors = dataValidator.validateTour(tour);
         if (validationErrors.length > 0) {
@@ -144,16 +144,16 @@ var tourService = (function () {
 
         tour.tags = common.mergeTags(tour.tags, tour.itinerary);
 
-        tourRepository.getTour(tour.id).then(function (data) {
+        tourRepository.getTour(tour.id, req).then(function (data) {
             var originalTour = data.tour;
-            tourRepository.saveTour(tour).then(function (updatedTour) {
-                tourActionRepository.save(user, updatedTour, enums.TourActionType.UPDATE, tour.publishComment);
+            tourRepository.saveTour(tour, req).then(function (updatedTour) {
+                tourActionRepository.save(user, updatedTour, enums.TourActionType.UPDATE, req, tour.publishComment);
 
                 if (isTourSentToReview(originalTour, tour)) {
-                    tourActionRepository.save(user, updatedTour, enums.TourActionType.SENT_TO_REVIEW);
+                    tourActionRepository.save(user, updatedTour, enums.TourActionType.SENT_TO_REVIEW, req, "Sent to review");
 
                 } else if (isTourPublishedForTheFirstTime(originalTour, tour)) {
-                    tourActionRepository.save(user, updatedTour, enums.TourActionType.PUBLISH, "First published");
+                    tourActionRepository.save(user, updatedTour, enums.TourActionType.PUBLISH, req, "First published");
                 }
 
                 if (callback) {
@@ -182,11 +182,11 @@ var tourService = (function () {
         });
     }
 
-    function addImage(image, user, callback) {
+    function addImage(image, user, req, callback) {
 
-        tourRepository.addImage(image.tour, image).then(function (addedImage) {
+        tourRepository.addImage(image.tour, image, req).then(function (addedImage) {
 
-            tourActionRepository.saveImageAction(user, addedImage, enums.TourActionType.IMAGE_CREATE);
+            tourActionRepository.saveImageAction(user, addedImage, enums.TourActionType.IMAGE_CREATE, req);
 
             if (callback) {
                 callback(addedImage);
@@ -197,11 +197,11 @@ var tourService = (function () {
         });
     }
 
-    function updateImage(image, imageId, user, callback) {
+    function updateImage(image, imageId, user, req, callback) {
 
-        tourRepository.updateImage(image, imageId).then(function (updatedImage) {
+        tourRepository.updateImage(image, imageId, req).then(function (updatedImage) {
             
-            tourActionRepository.saveImageAction(user, updatedImage, enums.TourActionType.IMAGE_UPDATE);
+            tourActionRepository.saveImageAction(user, updatedImage, enums.TourActionType.IMAGE_UPDATE, req);
 
             if (callback) {
                 callback(updatedImage);
@@ -212,14 +212,14 @@ var tourService = (function () {
         });
     }
 
-    function deleteImage(imageId, user, callback) {
+    function deleteImage(imageId, user, req, callback) {
 
-        tourRepository.getTourFromImageId(imageId).then(function(tourFromImageId) {
+        tourRepository.getTourFromImageId(imageId, req).then(function(tourFromImageId) {
             
-            tourRepository.deleteImage(imageId).then(function () {
+            tourRepository.deleteImage(imageId, req).then(function () {
                 
-                tourActionRepository.saveDeleteImageAction(user, tourFromImageId.clientId, imageId);
-                
+                tourActionRepository.saveDeleteImageAction(user, tourFromImageId.clientId, imageId, req);
+
                 if (callback) {
                     callback();
                 }

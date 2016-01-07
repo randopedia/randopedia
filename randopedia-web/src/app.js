@@ -163,6 +163,7 @@ DS.RESTAdapter.reopen({
                       xhr.setRequestHeader('X-Header-Provider', App.oauth.getToken().provider_id);
                   }
               }
+              xhr.setRequestHeader('X-Header-Language', 'no');
               
           };
           

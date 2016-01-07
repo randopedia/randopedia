@@ -63,7 +63,7 @@ var aggregateCallback = function(err, result) {
     }
 };
 
-var job = schedule.scheduleJob('* * 2 * * *', function() {
+//var job = schedule.scheduleJob('* * 2 * * *', function() {
 
     tourModel.aggregate([
         { 
@@ -86,5 +86,5 @@ var job = schedule.scheduleJob('* * 2 * * *', function() {
             }
         }], aggregateCallback
    );
-});  
+//});  
 

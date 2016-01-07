@@ -5,7 +5,7 @@ var tagService = require("../services/tag-service");
 router.get("/:id?", function(req, res) {
     var tagName = req.params.id;
     if(tagName) {
-        tagService.getTag(tagName, function(tag) {
+        tagService.getTag(tagName, req, function(tag) {
             res.send(tag);
         });
 

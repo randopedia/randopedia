@@ -15,7 +15,7 @@ var tourActionRepository = (function () {
             time: new Date().getTime(),
             type: actionType,
             comment: comment
-        }        
+        };
     }
     
     function documentsToActions(docs) {
@@ -32,7 +32,7 @@ var tourActionRepository = (function () {
         return actions;
     }
     
-    function create(tourAction, tour, deferred) {
+    function create(tourAction, tour, req, deferred) {
         TourAction.create(tourAction, function(err, result) {
             if(err) {
                 deferred.reject(err);
@@ -44,14 +44,14 @@ var tourActionRepository = (function () {
                 }
                 tour.actions.push(createdAction._id.toString());
                 
-                tourRepository.saveTour(tour).then(function (updatedTour) {
+                tourRepository.saveTour(tour, req).then(function (updatedTour) {
                     deferred.resolve(createdAction);
                 });
             }
         });         
     }
     
-    function save (user, tour, actionType, comment) {
+    function save (user, tour, actionType, req, comment) {
         var deferred = Q.defer();
         
         if(tour.status === enums.TourStatus.DRAFT && actionType != enums.TourActionType.CREATE) {
@@ -60,29 +60,29 @@ var tourActionRepository = (function () {
         }
         
         var tourAction = createTourAction(user, tour._id.toString(), actionType, comment);
-        create(tourAction, tour, deferred);
+        create(tourAction, tour, req, deferred);
     
         return deferred.promise;
     }
     
-    function saveImageAction (user, image, imageActionType) {
+    function saveImageAction (user, image, imageActionType, req) {
         var deferred = Q.defer();
 
-        tourRepository.getTour(image.tour, true).then(function(tour) {
+        tourRepository.getTour(image.tour, req, true).then(function(tour) {
             var tourAction = createTourAction(user, tour._id.toString(), imageActionType);
-            create(tourAction, tour, deferred);
+            create(tourAction, tour, req, deferred);
         });
 
         return deferred.promise;        
     } 
     
-    function saveDeleteImageAction (user, tourClientId, imageId) {
+    function saveDeleteImageAction (user, tourClientId, imageId, req) {
         var deferred = Q.defer();
         
-        tourRepository.getTour(tourClientId, true).then(function(tour) {
+        tourRepository.getTour(tourClientId, req, true).then(function(tour) {
             
             var tourAction = createTourAction(user, tour._id.toString(), enums.TourActionType.IMAGE_DELETE);
-            create(tourAction, tour, deferred);
+            create(tourAction, tour, req, deferred);
             
         });      
        
