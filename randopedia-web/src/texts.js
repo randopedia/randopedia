@@ -1,7 +1,6 @@
 ﻿var texts = {};
 
 texts.get = function (identifier) {
-    console.log("get: " + identifier);
 
     if (!texts.dictionary[identifier]) {
         console.log("Couldn't resolve text " + identifier);
@@ -25,68 +24,208 @@ texts.get = function (identifier) {
 };
 
 texts.dictionary = {
-    accessPoint: {
+    header_about: {
+        no: "Om",
+        eng: "About"
+    },
+    header_addNewTour: {
+        no: "Legg til ny tur",
+        eng: "Add new tour"
+    },
+    header_map: {
+        no: "Kart",
+        eng: "Map"
+    },
+    header_dashboard: {
+        no: "Dashboard",
+        eng: "Dashboard"
+    },
+    header_help: {
+        no: "Hjelp",
+        eng: "Help"
+    },
+    header_logout: {
+        no: "Logge ut",
+        eng: "Logout"
+    },
+    header_loggedInAs: {
+        no: "Logget inn som",
+        eng: "Logged in as"
+    },
+    header_login: {
+        no: "Logge inn",
+        eng: "Logint"
+    },
+    header_tours: {
+        no: "Turer",
+        eng: "Tours"
+    },
+    header_myTours: {
+        no: "Mine turer",
+        eng: "My tours"
+    },
+    header_toursInReview: {
+        no: "Turer i review",
+        eng: "Tours in review"
+    },
+    tour_accessPoint: {
         no: "Start",
         eng: "Access point"
     },
-    aspect: {
+    tour_aspect: {
         no: "Aspekt",
         eng: "Aspect"
     },
-    description: {
+    tour_description: {
         no: "Beskrivelse",
         eng: "Description"
     },
-    discussionsAndTripReports: {
+    tour_discussionsAndTripReports: {
         no: "Diskussioner och turrapporter",
         eng: "Discussions and trip reports"
     },
-    editTour: {
+    tour_editTour: {
         no: "Endre tur",
         eng: "Edit tour"
     },
-    elevation: {
+    tour_elevation: {
         no: "Høyde",
         eng: "Elevation"
     },
-    grade: {
+    tour_grade: {
         no: "Grad",
         eng: "Grade"
     },
-    hazards: {
+    tour_hazards: {
         no: "Farer",
         eng: "Hazards"
     },
-    images: {
+    tour_images: {
         no: "Bilder",
         eng: "Images"
     },
-    instagreamFeed: {
+    tour_instagreamFeed: {
         no: "Instagramstrømme",
         eng: "Instagram feed"
     },
-    mountaineering: {
+    tour_mountaineering: {
         no: "Mountaineering",
         eng: "Mountaineering"
     },
-    season: {
-        no: "Årstid",
+    tour_season: {
+        no: "Sesong",
         eng: "Season"
     },
-    steepness: {
+    tour_steepness: {
         no: "Bratthet",
         eng: "Steepness"
     },
-    tags: {
+    tour_tags: {
         no: "Tags",
         eng: "Tags"
     },
-    time: {
+    tour_time: {
         no: "Tid",
         eng: "Time"
     },
-    viewTourOnMap: {
+    tour_viewTourOnMap: {
         no: "Vis på kart",
         eng: "View tour on map"
+    },
+    tourEdit_currentLanguageVersion: {
+        no: "Norsk version",
+        eng: "English version"
+    },
+    tourEdit_country: {
+        no: "Land",
+        eng: "Country"
+    },
+    tourEdit_details: {
+        no: "Detaljer",
+        eng: "Details"
+    },
+    tourEdit_exit: {
+        no: "Avslutt editering",
+        eng: "Exit edit"
+    },
+    tourEdit_elevationGain: {
+        no: "Elevation gain",
+        eng: "Elevation gain"
+    },
+    tourEdit_elevationLoss: {
+        no: "Elevation loss",
+        eng: "Elevation loss"
+    },
+    tourEdit_highestPoint: {
+        no: "Høyeste punkt",
+        eng: "Highest point"
+    },
+    tourEdit_history: {
+        no: "Historik",
+        eng: "History"
+    },
+    tour_instagramFeed: {
+        no: "Instagram",
+        eng: "Instagram feed"
+    },
+    tourEdit_publish: {
+        no: "Publiser",
+        eng: "Publish"
+    },
+    tourEdit_seasonFrom: {
+        no: "Sesong fra",
+        eng: "Season from"
+    },
+    tourEdit_seasonTo: {
+        no: "Sesong til",
+        eng: "Season to"
+    },
+    tourEdit_steepnessMax: {
+        no: "Bratthet, maks",
+        eng: "Steepness, max"
+    },
+    tourEdit_mainAspect: {
+        no: "Hovudsaklig ",
+        eng: "Main aspect of slopes"
+    },
+    tourEdit_map: {
+        no: "Kart",
+        eng: "Map"
+    },
+    tourEdit_mountaineering: {
+        no: "Mountaineering skills/equipment",
+        eng: "Mountaineering skills/equipment"
+    },
+    tourEdit_nameOfTour: {
+        no: "Navn på tur",
+        eng: "Name of tour"
+    },
+    tourEdit_sendToReview: {
+        no: "Send til review",
+        eng: "Send to review"
+    },
+    tourEdit_saveAsDraft: {
+        no: "Lagre som draft",
+        eng: "Save as draft"
+    },
+    tourEdit_saving: {
+        no: "Lagrer",
+        eng: "Saving"
+    },
+    tourEdit_summary: {
+        no: "Tursammendrag",
+        eng: "Tour summary"
+    },
+    tourEdit_timeMin: {
+        no: "Tid, min",
+        eng: "Time, min"
+    },
+    tourEdit_timeMax: {
+        no: "Tid, maks",
+        eng: "Time, max"
+    },
+    tourEdit_unsavedChanges: {
+        no: "Turen har endringer som ikke er lagret",
+        eng: "Tour has unsaved changes"
     },
 };
