@@ -1,4 +1,11 @@
 /**
+ * Displaying a text from the language dictionary
+ */
+Ember.Handlebars.registerBoundHelper('text', function (id) {
+    return texts.get(id);
+});
+
+/**
  * Displaying a Unix time stamp as a readable date string
  */
 Ember.Handlebars.registerBoundHelper('displayTimestamp', function(time) {

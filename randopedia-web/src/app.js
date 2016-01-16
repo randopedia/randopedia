@@ -2,6 +2,7 @@ var App = Ember.Application.create({
     LOG_TRANSITIONS : true,
     LOG_BINDINGS : true,
     currentPath: null,
+    language: "eng",
     
     ready: function() {
         var url = document.location.toString();
@@ -46,10 +47,11 @@ var App = Ember.Application.create({
                 redirectUri: url + '/auth/google/callback',
                 scope: 'https://www.googleapis.com/auth/userinfo.profile'
             }
-        };
-        
+        };       
+
         App.oauth = Ember.OAuth2.create();
-    }
+    },
+
 });
 
 App.ApplicationAdapter = DS.RESTAdapter;
@@ -117,17 +119,11 @@ App.Alerts = Ember.Object.create({
 
 })();
 
-/*App.Router.reopen({
-    location: 'hashbang'
-});*/
-
 App.Router.reopen({
   location: 'history'
 });
 
-
 DS.RESTAdapter.reopen({
-    //host : 'api',
     host : function() {
         return App.Config.host;
     }.property(),
@@ -163,7 +159,8 @@ DS.RESTAdapter.reopen({
                       xhr.setRequestHeader('X-Header-Provider', App.oauth.getToken().provider_id);
                   }
               }
-              xhr.setRequestHeader('X-Header-Language', 'no');
+
+              xhr.setRequestHeader('X-Header-Language', App.language);
               
           };
           
