@@ -35,7 +35,6 @@
             </div>
             {{/if}}
 
-
             {{#if isDeleted}}
             <div class="row">
                 <div class="col-sm-12">
@@ -75,7 +74,7 @@
 
                 <div class="row">
                     <div class="col-xs-5 col-sm-3 col-lg-2">
-                        <label>Time:</label>
+                        <label class="text-capitalize">{{text "tour_time"}}:</label>
                     </div>
                     <div class="col-xs-7 col-sm-9 col-lg-10">
                         {{#if timingMin}}{{timingMin}}{{/if}}{{#if timingMax}}-{{timingMax}}{{/if}}h
@@ -84,7 +83,7 @@
 
                 <div class="row">
                     <div class="col-xs-5 col-sm-3 col-lg-2">
-                        <label>Elevation:</label>
+                        <label class="text-capitalize">{{text "tour_elevation"}}:</label>
                     </div>
                     <div class="col-xs-7 col-sm-9 col-lg-10">
                         {{#if elevationGain}}
@@ -99,7 +98,7 @@
                 {{#if grade}}
                 <div class="row">
                     <div class="col-xs-5 col-sm-3 col-lg-2">
-                        <label>Grade:</label>
+                        <label class="text-capitalize">{{text "tour_grade"}}:</label>
                     </div>
                     <div class="col-xs-7 col-sm-9 col-lg-10">
                         <a data-toggle="modal" data-target="#tourDetailsGradeGuideModal">{{resolveGradeName grade}}</a>
@@ -110,7 +109,7 @@
                 {{#if degreesMax}}
                 <div class="row">
                     <div class="col-xs-5 col-sm-3 col-lg-2">
-                        <label>Steepness:</label>
+                        <label class="text-capitalize">{{text "tour_steepness"}}:</label>
                     </div>
                     <div class="col-xs-7 col-sm-9 col-lg-10">
                         {{degreesMax}}&#176;
@@ -122,7 +121,7 @@
                 {{#if timeOfYearTo}}
                 <div class="row">
                     <div class="col-xs-5 col-sm-3 col-sm-3 col-lg-2">
-                        <label>Season:</label>
+                        <label class="text-capitalize">{{text "tour_season"}}:</label>
                     </div>
                     <div class="col-xs-7 col-sm-9 col-lg-10">
                         {{resolveMonthName timeOfYearFrom}} - {{resolveMonthName timeOfYearTo}}
@@ -134,7 +133,7 @@
                 {{#if aspect}}
                 <div class="row">
                     <div class="col-xs-5 col-sm-3 col-lg-2">
-                        <label>Aspect:</label>
+                        <label class="text-capitalize">{{text "tour_aspect"}}:</label>
                     </div>
                     <div class="col-xs-7 col-sm-9 col-lg-10">
                         {{resolveAspectName aspect}}
@@ -145,7 +144,7 @@
                 {{#if tags}}
                 <div class="row">
                     <div class="col-xs-5 col-sm-3 col-lg-2">
-                        <label>Tags:</label>
+                        <label>{{text "tour_tags"}}:</label>
                     </div>
                     <div class="col-xs-7 col-sm-9 col-lg-10">
                         {{#each tag in tags}}
@@ -165,7 +164,7 @@
                     {{#if isPublished}}
                         {{#if hasMapData}}
                             <button class="btn btn-primary" {{action "viewTourOnMap" }}>
-                                <span class="glyphicon glyphicon-globe"></span> View tour on map
+                                <span class="glyphicon glyphicon-globe"></span> <span>{{text "tour_viewTourOnMap"}}</span>
                             </button>
                         {{/if}}
                         {{#if hasPaths}}
@@ -178,9 +177,9 @@
                             <div class="spacing">[View tour on map] <em>Tours are not available on the map until they are published.</em></div>
                         {{/if}}
                     {{/if}}
-                    
+
                     {{#if controllers.login.isLoggedIn}}
-                        {{#link-to 'tour.edit' model class="btn btn-default pull-right"}}<span class="glyphicon glyphicon-edit"></span> Edit tour{{/link-to}}
+                        {{#link-to 'tour.edit' model class="btn btn-default pull-right"}}<span class="glyphicon glyphicon-edit"></span> <span>{{text "tour_editTour"}}</span>{{/link-to}}
                     {{/if}}
                     
                 </div>
@@ -188,7 +187,7 @@
 
             <div class="col-sm-12 info-col">
                 <div class="panel panel-default panel-full-width">
-                    <div class="panel-heading">Access point</div>
+                    <div class="panel-heading">{{text "tour_accessPoint"}}</div>
                     <div class="panel-body">
                         {{accessPoint}}
                     </div>
@@ -199,7 +198,7 @@
         <div class="row">
             <div class="col-sm-12 info-col">
                 <div class="panel panel-default panel-full-width">
-                    <div class="panel-heading">Description</div>
+                    <div class="panel-heading">{{text "tour_description"}}</div>
                     <div class="panel-body">
                         <div>{{{markedItinerary}}}</div>
                     </div>
@@ -211,7 +210,7 @@
             {{#if haveHazards}}
             <div class="col-sm-12 col-lg-6 info-col">
                 <div class="panel panel-default panel-full-width">
-                    <div class="panel-heading">Hazards</div>
+                    <div class="panel-heading">{{text "tour_hazards"}}</div>
                     <div class="panel-body">
                         {{hazardsDescription}}
                     </div>
@@ -222,7 +221,7 @@
             {{#if requiresTools}}
             <div class="col-sm-12 col-lg-6 info-col">
                 <div class="panel panel-default panel-full-width">
-                    <div class="panel-heading">Mountaineering</div>
+                    <div class="panel-heading">{{text "tour_mountaineering"}}</div>
                     <div class="panel-body">
                         {{toolsDescription}}
                     </div>
@@ -235,7 +234,7 @@
         <div class="row">
             <div class="col-sm-12 info-col">
                 <div class="panel panel-default panel-full-width">
-                    <div class="panel-heading">Images <span class="small"> ({{images.length}})</span></div>
+                    <div class="panel-heading">{{text "tour_images"}} <span class="small"> ({{images.length}})</span></div>
                     {{imageslider-component images=images}}
                 </div>
             </div>
@@ -245,7 +244,7 @@
         <div class="row">
             <div class="col-sm-12 info-col">
                 <div class="panel panel-default panel-full-width">
-                    <div class="panel-heading">Instagram feed</div>
+                    <div class="panel-heading">{{text "tour_instagramFeed"}}</div>
                     <div class="panel-body">
                         {{instafeed-component point=summitPoint }}
                     </div>
@@ -260,7 +259,7 @@
                     <div class="panel panel-default panel-full-width">
                         <div class="panel-heading">
                             <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                                Discussions and trip reports
+                                {{text "tour_discussionsAndTripReports"}}
                             </a>
                         </div>
                         <div id="collapseOne" class="panel-collapse collapse in">

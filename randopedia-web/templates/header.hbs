@@ -15,43 +15,57 @@
 
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav nav-with-space">
-                <li><a {{action "topbarmenulink" "index" }} class="hvr-underline-from-center">Map</a></li>
-                <li><a {{action "topbarmenulink" "dashboard" }} class="hvr-underline-from-center" data-toggle="collapse" data-target=".nav-collapse">Dashboard</a></li>
-                <li><a {{action "topbarmenulink" "about" }} class="hvr-underline-from-center" data-toggle="collapse" data-target=".nav-collapse">About</a></li>
-                <li><a {{action "topbarmenulink" "help" }} class="hvr-underline-from-center" data-toggle="collapse" data-target=".nav-collapse">Help</a></li>
+                <li><a {{action "topbarmenulink" "index" }} class="hvr-underline-from-center">{{text "header_map"}}</a></li>
+                <li><a {{action "topbarmenulink" "dashboard" }} class="hvr-underline-from-center" data-toggle="collapse" data-target=".nav-collapse">{{text "header_dashboard"}}</a></li>
+                <li><a {{action "topbarmenulink" "about" }} class="hvr-underline-from-center" data-toggle="collapse" data-target=".nav-collapse">{{text "header_about"}}</a></li>
+                <li><a {{action "topbarmenulink" "help" }} class="hvr-underline-from-center" data-toggle="collapse" data-target=".nav-collapse">{{text "header_help"}}</a></li>
+            </ul>
+
+            <ul class="nav navbar-nav hidden-xs">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{text "header_language"}}<span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li>
+                            <a {{action "setlanguage" "eng" }}>English</a>
+                        </li>
+                        <li>
+                            <a {{action "setlanguage" "no" }}>Norsk</a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
 
             <ul class="nav navbar-nav hidden-xs">
                 {{#if controllers.login.isLoggedIn}}
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Tours<span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{text "header_tours"}}<span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a {{action "topbarmenulink" "tour.new" }}>Add new tour</a></li>
-                        <li><a {{action "topbarmenulink" "mytours" }}>My tours</a></li>
-                        <li><a {{action "topbarmenulink" "review" }}>Tours in review</a></li>
+                        <li><a {{action "topbarmenulink" "tour.new" }}>{{text "header_addNewTour"}}</a></li>
+                        <li><a {{action "topbarmenulink" "mytours" }}>{{text "header_myTours"}}</a></li>
+                        <li><a {{action "topbarmenulink" "review" }}>{{text "header_toursInReview"}}</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-user"></span> <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a {{action "logout" }}>Logout</a></li>
-                        <li><p>Logged in as {{maxString controllers.login.currentUser.userName 50}}</p></li>
+                        <li><a {{action "logout" }}>{{text "header_logout"}}</a></li>
+                        <li><p>{{text "header_loggedInAs"}} {{maxString controllers.login.currentUser.userName 50}}</p></li>
                     </ul>
                 </li>
                 {{else}}
-                <li><a {{action "topbarmenulink" "collapseNavbar" }} data-toggle="modal" data-target="#loginViewModalId" class="hvr-underline-from-center">Login</a></li>
+                <li><a {{action "topbarmenulink" "collapseNavbar" }} data-toggle="modal" data-target="#loginViewModalId" class="hvr-underline-from-center">{{text "header_login"}}</a></li>
                 {{/if}}
             </ul>
 
             <ul class="nav navbar-nav hidden-sm hidden-md hidden-lg">
                 {{#if controllers.login.isLoggedIn}}
-                <li><a {{action "topbarmenulink" "tour.new" }}>Add new tour</a></li>
-                <li><a {{action "topbarmenulink" "mytours" }}>View my tours</a></li>
-                <li><a {{action "logout" }}>Logout</a></li>
+                <li><a {{action "topbarmenulink" "tour.new" }}>{{text "header_addNewTour"}}</a></li>
+                <li><a {{action "topbarmenulink" "mytours" }}>{{text "header_myTours"}}</a></li>
+                <li><a {{action "logout" }}>{{text "header_logout"}}</a></li>
                 <li class="divider"></li>
-                <li><p>Logged in as {{maxString controllers.login.currentUser.userName 50}}</p></li>
+                <li><p>{{text "header_loggedInAs"}} {{maxString controllers.login.currentUser.userName 50}}</p></li>
                 {{else}}
-                <li><a {{action "topbarmenulink" "collapseNavbar" }} class="hvr-underline-from-center" data-toggle="modal" data-target="#loginViewModalId">Login</a></li>
+                <li><a {{action "topbarmenulink" "collapseNavbar" }} class="hvr-underline-from-center" data-toggle="modal" data-target="#loginViewModalId">{{text "header_login"}}</a></li>
                 {{/if}}
             </ul>
 
