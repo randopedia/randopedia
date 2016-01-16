@@ -1,4 +1,5 @@
 App.ApplicationController = Ember.ArrayController.extend({
+    queryParams: 'lang',
     needs: ['login'],
 
     checkTokenExpired : function(token) {
@@ -51,6 +52,10 @@ App.ApplicationController = Ember.ArrayController.extend({
                 }
                 this.send('collapseNavbar');
             }
+        },
+        setlanguage: function (language) {
+            this.transitionTo({ queryParams: { lang: language } });
+            location.reload();
         },
         logout: function () {
             this.get('controllers.login').logout();

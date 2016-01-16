@@ -44,6 +44,10 @@ texts.dictionary = {
         no: "Hjelp",
         eng: "Help"
     },
+    header_language: {
+        no: "Språk",
+        eng: "Language"
+    },
     header_logout: {
         no: "Logge ut",
         eng: "Logout"
@@ -54,7 +58,7 @@ texts.dictionary = {
     },
     header_login: {
         no: "Logge inn",
-        eng: "Logint"
+        eng: "Login"
     },
     header_tours: {
         no: "Turer",

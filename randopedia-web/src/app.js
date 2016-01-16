@@ -52,6 +52,14 @@ var App = Ember.Application.create({
         App.oauth = Ember.OAuth2.create();
     },
 
+    isEnglish: function () {
+        console.log("isEnglish?");
+        return false;
+    }.property("language"),
+
+    isNorwegian: function () {
+        return App.language === "no";
+    }.property("language")
 });
 
 App.ApplicationAdapter = DS.RESTAdapter;
@@ -159,6 +167,8 @@ DS.RESTAdapter.reopen({
                       xhr.setRequestHeader('X-Header-Provider', App.oauth.getToken().provider_id);
                   }
               }
+
+              console.log("RESTAdapter beforeSend, language: " + App.language);
 
               xhr.setRequestHeader('X-Header-Language', App.language);
               
