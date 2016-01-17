@@ -24,9 +24,29 @@ texts.get = function (identifier) {
 };
 
 texts.dictionary = {
-    header_about: {
-        no: "Om",
-        eng: "About"
+    grades_easy: {
+        no: "Lett",
+        eng: "Easy"
+    },
+    grades_fairlyDifficult: {
+        no: "Fairly difficult",
+        eng: "Fairly difficult"
+    },
+    grades_quiteDifficult: {
+        no: "Quite difficult",
+        eng: "Quite difficult"
+    },
+    grades_difficult: {
+        no: "Quite difficult",
+        eng: "Difficult"
+    },
+    grades_veryDifficult: {
+        no: "Very difficult",
+        eng: "Very difficult"
+    },
+    header_extremlyDifficult: {
+        no: "Extremly difficult",
+        eng: "Extremly difficult"
     },
     header_addNewTour: {
         no: "Legg til ny tur",
@@ -69,8 +89,20 @@ texts.dictionary = {
         eng: "My tours"
     },
     header_toursInReview: {
-        no: "Turer i review",
+        no: "Turer under vurdering",
         eng: "Tours in review"
+    },
+    map_hideOtherTours: {
+        no: "Skjul andre turer",
+        eng: "Hide other tour paths"
+    },
+    map_viewTourDetails: {
+        no: "Vis turdetaljer",
+        eng: "View tour details"
+    },
+    map_zoomInOnMap: {
+        no: "Zoom inn på kart",
+        eng: "Zoom in on map"
     },
     tour_accessPoint: {
         no: "Start",
@@ -108,12 +140,16 @@ texts.dictionary = {
         no: "Bilder",
         eng: "Images"
     },
-    tour_instagreamFeed: {
-        no: "Instagramstrømme",
+    tour_instagramFeed: {
+        no: "Instagram",
         eng: "Instagram feed"
     },
+    tour_markedAsIncomplete: {
+        no: "Denne tur er markert som ikke ferdig, så noen viktig information kan savnes",
+        eng: "This tour is marked as incomplete so it might lack some important information"
+    },
     tour_mountaineering: {
-        no: "Mountaineering",
+        no: "Klatremoment",
         eng: "Mountaineering"
     },
     tour_season: {
@@ -165,12 +201,8 @@ texts.dictionary = {
         eng: "Highest point"
     },
     tourEdit_history: {
-        no: "Historik",
+        no: "Historikk",
         eng: "History"
-    },
-    tour_instagramFeed: {
-        no: "Instagram",
-        eng: "Instagram feed"
     },
     tourEdit_publish: {
         no: "Publiser",
@@ -197,15 +229,23 @@ texts.dictionary = {
         eng: "Map"
     },
     tourEdit_mountaineering: {
-        no: "Mountaineering skills/equipment",
+        no: "Klatreferdigheter/utstyr",
         eng: "Mountaineering skills/equipment"
     },
     tourEdit_nameOfTour: {
         no: "Navn på tur",
         eng: "Name of tour"
     },
+    tourEdit_recommendedFieldInfo: {
+        no: "Anbefalt felt (turen blir markert som ikke ferdig hvis ikke satt)",
+        eng: "Recommended field (tour will be marked as incomplete if not set)"
+    },
+    tourEdit_requiredFieldInfo: {
+        no: "Obligatorisk felt (turen kan ikke bli publisert hvis ikke satt)",
+        eng: "Required field (tour cannot be published if not set)"
+    },
     tourEdit_sendToReview: {
-        no: "Send til review",
+        no: "Send til vurdering",
         eng: "Send to review"
     },
     tourEdit_saveAsDraft: {
@@ -231,5 +271,5 @@ texts.dictionary = {
     tourEdit_unsavedChanges: {
         no: "Turen har endringer som ikke er lagret",
         eng: "Tour has unsaved changes"
-    },
+    }
 };

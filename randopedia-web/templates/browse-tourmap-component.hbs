@@ -20,14 +20,14 @@
             {{selectedTour.elevationGain}}m &uarr; {{selectedTour.elevationLoss}}m &darr;
         </div>
         <div class="link-container">
-            <span><a {{action "zoomToSelectedTourAction"}}>Zoom in on the map</a></span>
-            <span>{{#link-to "tour" selectedTour}} View tour details {{/link-to}}</span>
+            <span><a {{action "zoomToSelectedTourAction"}}>{{text "map_zoomInOnMap"}}</a></span>
+            <span>{{#link-to "tour" selectedTour}} {{text "map_viewTourDetails"}} {{/link-to}}</span>
         </div>
         <div class="checkbox">
             <label {{bind-attr class="showOnlySelectedToursPaths:checked" }}>
                 {{input type="checkbox" checkedBinding="showOnlySelectedToursPaths" class="hide"}}
                 <span class="glyphicon glyphicon-ok"></span>
-                <span>Hide other tour paths</span>
+                <span>{{text "map_hideOtherTours"}}</span>
             </label>
         </div>
     </div>
