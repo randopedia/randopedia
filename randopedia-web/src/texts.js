@@ -44,9 +44,13 @@ texts.dictionary = {
         no: "Very difficult",
         eng: "Very difficult"
     },
-    header_extremlyDifficult: {
+    grades_extremlyDifficult: {
         no: "Extremly difficult",
         eng: "Extremly difficult"
+    },
+    header_about: {
+        no: "Om",
+        eng: "About"
     },
     header_addNewTour: {
         no: "Legg til ny tur",
