@@ -2,12 +2,17 @@ var App = Ember.Application.create({
     LOG_TRANSITIONS : true,
     LOG_BINDINGS : true,
     currentPath: null,
-    language: "eng",
+    language: "",
     
     ready: function() {
+        if (LocationHelper.removeAndRedirectPageIfUrlContainsHashbang()) {
+            return;
+        }
+
         var url = document.location.toString();
         var host = url.split('randopedia')[0];
         var hash = url.indexOf('#');
+
         if(hash > 0) {
             url = url.slice(0, hash);
         }
@@ -52,8 +57,12 @@ var App = Ember.Application.create({
         App.oauth = Ember.OAuth2.create();
     },
 
+    setAppLanguageFromLanguageCodeInUrl: function () {
+        App.language = LocationHelper.resolveLanguageCodeFromLocation();
+        return App.language;
+    },
+
     isEnglish: function () {
-        console.log("isEnglish?");
         return false;
     }.property("language"),
 
@@ -128,7 +137,8 @@ App.Alerts = Ember.Object.create({
 })();
 
 App.Router.reopen({
-  location: 'history'
+    location: 'history',
+    rootURL: '/' + App.setAppLanguageFromLanguageCodeInUrl()
 });
 
 DS.RESTAdapter.reopen({
@@ -168,10 +178,7 @@ DS.RESTAdapter.reopen({
                   }
               }
 
-              console.log("RESTAdapter beforeSend, language: " + App.language);
-
               xhr.setRequestHeader('X-Header-Language', App.language);
-              
           };
           
           hash.success = function(json) {

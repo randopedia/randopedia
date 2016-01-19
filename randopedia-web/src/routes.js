@@ -44,11 +44,6 @@ App.BaseRoute = Ember.Route.extend({
 });
 
 App.ApplicationRoute = Ember.Route.extend({
-    beforeModel: function (transition) {
-        if (transition.queryParams.lang) {
-            App.language = transition.queryParams.lang;
-        }
-    },
     setupController: function (controller, model) {
         this.controllerFor('application').verifyLogin();
         this._super(controller, model);
@@ -142,7 +137,7 @@ App.TourEditRoute = App.BaseRoute.extend({
     actions: {
         willTransition: function(transition) {
             var controller = this.get('controller');
-            
+
             if(controller.get('hasChanges') && !confirm("The tour has unsaved changes, do you want to discard them?")) {
                 transition.abort(); 
             

@@ -1,6 +1,5 @@
 App.ApplicationController = Ember.ArrayController.extend({
-    queryParams: 'lang',
-    needs: ['login'],
+    needs: ['login', 'tourEdit'],
 
     checkTokenExpired : function(token) {
         if(token) {
@@ -54,8 +53,14 @@ App.ApplicationController = Ember.ArrayController.extend({
             }
         },
         setlanguage: function (language) {
-            this.transitionTo({ queryParams: { lang: language } });
-            location.reload();
+            // we do check if current page is tour edit and there's unsaved changes, this is not captured by router (as when transit away from tour edit on other links)
+            var controller = this.get('controllers.tourEdit');
+            if (controller && controller.get('hasChanges') && !confirm("The tour has unsaved changes, do you want to discard them?")) {
+                return;
+            } 
+
+            var pathnameWithLangCode = LocationHelper.setPathnameWithLanguageCode(language);
+            LocationHelper.redirectToPathname(pathnameWithLangCode);
         },
         logout: function () {
             this.get('controllers.login').logout();
