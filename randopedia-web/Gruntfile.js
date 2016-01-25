@@ -14,7 +14,7 @@ module.exports = function(grunt) {
                 dest: "client/js/libs.js"
             },
             site: {
-                src: ["src/*.js"],
+                src: ["src/texts.js", "src/location-helper.js", "src/*.js"],
                 dest: "client/js/<%= pkg.name %>.js"
             }
         },
@@ -43,7 +43,7 @@ module.exports = function(grunt) {
         cssmin: {
             combine: {
                 files: {
-                    'client/css/site.min.css': ["client/css/normalize.css", "client/css/site.css", "select2.min.css"]
+                    'client/css/site.min.css': ["client/css/normalize.css", "client/css/site.css", "select2.min.css", "client/css/jqcloud.min.css"]
                 }
             }
             
@@ -109,6 +109,7 @@ module.exports = function(grunt) {
                         var middlewares = [require("grunt-connect-proxy/lib/utils").proxyRequest];                        
 
                         middlewares.push(rewriteModule.getMiddleware([
+                            { from: '^/no', to: '/' },
                             { from: '^/about', to: '/' },
                             { from: '^/help', to: '/' },
                             { from: '^/tags', to: '/'},
