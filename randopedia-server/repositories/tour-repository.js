@@ -29,6 +29,12 @@ var tourRepository = (function () {
             if(tour.accessPoint) {
                 tour.accessPoint = tour.accessPoint.no;
             }
+            if(tour.hazardsDescription) {
+                tour.hazardsDescription = tour.hazardsDescription.no;
+            }
+            if(tour.toolsDescription) {
+                tour.toolsDescription = tour.toolsDescription.no;
+            }
         } else {
             if(tour.itinerary) {
                 tour.itinerary = tour.itinerary.eng;
@@ -38,6 +44,12 @@ var tourRepository = (function () {
             }
             if(tour.accessPoint) {
                 tour.accessPoint = tour.accessPoint.eng;
+            }
+             if(tour.hazardsDescription) {
+                tour.hazardsDescription = tour.hazardsDescription.eng;
+            }
+            if(tour.toolsDescription) {
+                tour.toolsDescription = tour.toolsDescription.eng;
             }
         }
         return tour;
@@ -262,6 +274,102 @@ var tourRepository = (function () {
         return deferred.promise;
     }
 
+    function setNewTourLanguageSpecificData(tour, lang) {
+        var itinerary = {};
+        var shortDescription = {};
+        var accessPoint = {};
+        var toolsDescription = {};
+        var hazardsDescription = {};
+        itinerary.no = tour.itinerary;
+        itinerary.eng = tour.itinerary;
+        shortDescription.no = tour.shortDescription;
+        shortDescription.eng = tour.shortDescription;
+        accessPoint.no = tour.accessPoint;
+        accessPoint.eng = tour.accessPoint;
+        toolsDescription.no = tour.toolsDescription;
+        toolsDescription.eng = tour.toolsDescription;
+        hazardsDescription.no = tour.hazardsDescription;
+        hazardsDescription.eng = tour.hazardsDescription;
+        tour.itinerary = itinerary;
+        tour.shortDescription = shortDescription;
+        tour.accessPoint = accessPoint;
+        tour.toolsDescription = toolsDescription;
+        tour.hazardsDescription = hazardsDescription;
+    }
+
+    function updateTourLanguageSpecificData(existingTour, tour, lang) {
+        var itinerary = existingTour.itinerary;
+        if(!itinerary) {
+            itinerary = {};
+        }
+        var shortDescription = existingTour.shortDescription;
+        if(!shortDescription) {
+            shortDescription = {};
+        }
+        var accessPoint = existingTour.accessPoint;
+        if(!accessPoint) {
+            accessPoint = {};
+        }
+        var hazardsDescription = existingTour.hazardsDescription;
+        if(!hazardsDescription) {
+            hazardsDescription = {};
+        }
+        var toolsDescription = existingTour.toolsDescription;
+        if(!toolsDescription) {
+            toolsDescription = {};
+        }
+        
+        if("no" === lang) {
+            itinerary.no = tour.itinerary;
+            shortDescription.no = tour.shortDescription;
+            accessPoint.no = tour.accessPoint;
+            hazardsDescription.no = tour.hazardsDescription;
+            toolsDescription.no = tour.toolsDescription;
+            if(!itinerary.eng) {
+                itinerary.eng = tour.itinerary;
+            }
+            if(!shortDescription.eng) {
+                shortDescription.eng = tour.shortDescription;
+            }
+            if(!accessPoint.eng) {
+                accessPoint.eng = tour.accessPoint;
+            }
+            if(!hazardsDescription.eng) {
+                hazardsDescription.eng = tour.hazardsDescription;
+            }
+            if(!toolsDescription.eng) {
+                toolsDescription.eng = tour.toolsDescription;
+            }
+        } else {
+            itinerary.eng = tour.itinerary;
+            shortDescription.eng = tour.shortDescription;
+            accessPoint.eng = tour.accessPoint;
+            hazardsDescription.eng = tour.hazardsDescription;
+            toolsDescription.eng = tour.toolsDescription;
+            if(!itinerary.no) {
+                itinerary.no = tour.itinerary;
+            }
+            if(!shortDescription.no) {
+                shortDescription.no = tour.shortDescription;
+            }
+            if(!accessPoint.no) {
+                accessPoint.no = tour.accessPoint;
+            }
+            if(!hazardsDescription.no) {
+                hazardsDescription.no = tour.hazardsDescription;
+            }
+            if(!toolsDescription.no) {
+                toolsDescription.no = tour.toolsDescription;
+            }
+        }
+        tour.itinerary = itinerary;
+        tour.shortDescription = shortDescription;
+        tour.accessPoint = accessPoint;
+        tour.hazardsDescription = hazardsDescription;
+        tour.toolsDescription = toolsDescription;
+    }
+
+    
     function saveTour(tour, req) {
         var deferred = Q.defer();
         tour.updatedStamp = new Date();
@@ -275,18 +383,8 @@ var tourRepository = (function () {
                     
                 } else {
                     var lang = req.get('X-Header-Language');
-                    var itinerary = {};
-                    var shortDescription = {};
-                    var accessPoint = {};
-                    itinerary.no = tour.itinerary;
-                    itinerary.eng = tour.itinerary;
-                    shortDescription.no = tour.shortDescription;
-                    shortDescription.eng = tour.shortDescription;
-                    accessPoint.no = tour.accessPoint;
-                    accessPoint.eng = tour.accessPoint;
-                    tour.itinerary = itinerary;
-                    tour.shortDescription = shortDescription;
-                    tour.accessPoint = accessPoint;
+                    setNewTourLanguageSpecificData(tour, lang);
+                    
                     if(result.length > 0) {
                         tour.clientId = clientId + "_" + result.length;
                     } else {
@@ -308,30 +406,7 @@ var tourRepository = (function () {
                 var existingTour = result.toObject();
                 
                 var lang = req.get('X-Header-Language');
-                var itinerary = result.itinerary;
-                if(!itinerary) {
-                    itinerary = {};
-                }
-                var shortDescription = result.shortDescription;
-                if(!shortDescription) {
-                    shortDescription = {};
-                }
-                var accessPoint = result.accessPoint;
-                if(!accessPoint) {
-                    accessPoint = {};
-                }
-                if("no" === lang) {
-                    itinerary.no = tour.itinerary;
-                    shortDescription.no = tour.shortDescription;
-                    accessPoint.no = tour.accessPoint;
-                } else {
-                    itinerary.eng = tour.itinerary;
-                    shortDescription.eng = tour.shortDescription;
-                    accessPoint.eng = tour.accessPoint;
-                }
-                tour.itinerary = itinerary;
-                tour.shortDescription = shortDescription;
-                tour.accessPoint = accessPoint;
+                updateTourLanguageSpecificData(existingTour, tour, lang);
 
                 Tour.findOneAndUpdate({ clientId: tour.id }, tour, {'new': true}, function (err, result) {
                     if (err) {
