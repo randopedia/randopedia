@@ -55,12 +55,12 @@ App.Fixtures.TourActions = [
 
 App.Fixtures.Grades = [
     Ember.Object.create({value: null, name: App.Fixtures.UndefinedString}),
-    Ember.Object.create({ value: 1, name: 'Easy', name_no: 'Lett' }),
-    Ember.Object.create({ value: 2, name: 'Fairly difficult', name_no: 'Litt vanskelig' }),
-    Ember.Object.create({ value: 3, name: 'Quite difficult', name_no: 'Ganske vanskelig' }),
-    Ember.Object.create({ value: 4, name: 'Difficult', name_no: 'Vanskelig' }),
-    Ember.Object.create({ value: 5, name: 'Very difficult', name_no: 'Veldig vanskelig' }),
-    Ember.Object.create({ value: 6, name: 'Extremly difficult', name_no: 'Ekstremt vanskelig' })
+    Ember.Object.create({ value: 1, name: texts.dictionary.grades_easy.eng, name_no: texts.dictionary.grades_easy.no }),
+    Ember.Object.create({ value: 2, name: texts.dictionary.grades_fairlyDifficult.eng, name_no: texts.dictionary.grades_fairlyDifficult.no }),
+    Ember.Object.create({ value: 3, name: texts.dictionary.grades_quiteDifficult.eng, name_no: texts.dictionary.grades_quiteDifficult.no }),
+    Ember.Object.create({ value: 4, name: texts.dictionary.grades_difficult.eng, name_no: texts.dictionary.grades_difficult.no }),
+    Ember.Object.create({ value: 5, name: texts.dictionary.grades_veryDifficult.eng, name_no: texts.dictionary.grades_veryDifficult.no }),
+    Ember.Object.create({ value: 6, name: texts.dictionary.grades_extremlyDifficult.eng, name_no: texts.dictionary.grades_extremlyDifficult.no })
 ];
 
 App.Fixtures.Aspects = [
@@ -103,7 +103,7 @@ App.Fixtures.PathTypes = [
 ];
 
 App.Fixtures.Countries = [
-    Ember.Object.create({ value: null, name: "Other / Not set" }),
+    Ember.Object.create({ value: null, name: "Other / Not set", name_no: "Annet / Ikke satt" }),
     Ember.Object.create({ value: "AND", name: "Andorra" }),
     Ember.Object.create({ value: "ARG", name: "Argentina" }),
     Ember.Object.create({ value: "AUS", name: "Australia" }),

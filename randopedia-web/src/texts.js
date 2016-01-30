@@ -29,23 +29,23 @@ texts.dictionary = {
         eng: "Easy"
     },
     grades_fairlyDifficult: {
-        no: "Fairly difficult",
+        no: "Litt vanskelig",
         eng: "Fairly difficult"
     },
     grades_quiteDifficult: {
-        no: "Quite difficult",
+        no: "Ganske vanskelig",
         eng: "Quite difficult"
     },
     grades_difficult: {
-        no: "Quite difficult",
+        no: "Vanskelig",
         eng: "Difficult"
     },
     grades_veryDifficult: {
-        no: "Very difficult",
+        no: "Veldig vanskelig",
         eng: "Very difficult"
     },
     grades_extremlyDifficult: {
-        no: "Extremly difficult",
+        no: "Ekstremt vanskelig",
         eng: "Extremly difficult"
     },
     header_about: {
