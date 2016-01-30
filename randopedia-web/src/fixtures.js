@@ -2,6 +2,11 @@
 
 App.Fixtures = Ember.Object.create();
 
+App.Fixtures.LanguageCodes = {
+    ENG: "eng",
+    NO: "no"
+};
+
 App.Fixtures.AreaTypes = {
     ROOT: 1,
     CONTINENT: 2,
@@ -50,12 +55,12 @@ App.Fixtures.TourActions = [
 
 App.Fixtures.Grades = [
     Ember.Object.create({value: null, name: App.Fixtures.UndefinedString}),
-    Ember.Object.create({value: 1, name: 'Easy'}),
-    Ember.Object.create({value: 2, name: 'Fairly difficult'}),
-    Ember.Object.create({value: 3, name: 'Quite difficult'}),
-    Ember.Object.create({value: 4, name: 'Difficult'}),
-    Ember.Object.create({value: 5, name: 'Very difficult'}),
-    Ember.Object.create({value: 6, name: 'Extremly difficult'})
+    Ember.Object.create({ value: 1, name: 'Easy', name_no: 'Lett' }),
+    Ember.Object.create({ value: 2, name: 'Fairly difficult', name_no: 'Litt vanskelig' }),
+    Ember.Object.create({ value: 3, name: 'Quite difficult', name_no: 'Ganske vanskelig' }),
+    Ember.Object.create({ value: 4, name: 'Difficult', name_no: 'Vanskelig' }),
+    Ember.Object.create({ value: 5, name: 'Very difficult', name_no: 'Veldig vanskelig' }),
+    Ember.Object.create({ value: 6, name: 'Extremly difficult', name_no: 'Ekstremt vanskelig' })
 ];
 
 App.Fixtures.Aspects = [
@@ -71,24 +76,24 @@ App.Fixtures.Aspects = [
 ];
 
 App.Fixtures.BooleanOptions = [
-    Ember.Object.create({value: false, name: 'No' }),
-    Ember.Object.create({value: true, name: 'Yes'})
+    Ember.Object.create({value: false, name: 'No', name_no: 'Nei' }),
+    Ember.Object.create({value: true, name: 'Yes', name_no: 'Ja' })
 ]; 
 
 App.Fixtures.Months = [
-    Ember.Object.create({value: null, name: App.Fixtures.UndefinedString}),
-    Ember.Object.create({value: 1, name: 'January'}),
-    Ember.Object.create({value: 2, name: 'February'}),
-    Ember.Object.create({value: 3, name: 'Mars'}),
-    Ember.Object.create({value: 4, name: 'April'}),
-    Ember.Object.create({value: 5, name: 'May'}),
-    Ember.Object.create({value: 6, name: 'June'}),
-    Ember.Object.create({value: 7, name: 'July'}),
-    Ember.Object.create({value: 8, name: 'August'}),   
-    Ember.Object.create({value: 9, name: 'September'}),
-    Ember.Object.create({value: 10, name: 'October'}),
-    Ember.Object.create({value: 11, name: 'November'}),
-    Ember.Object.create({value: 12, name: 'December'})
+    Ember.Object.create({ value: null, name: App.Fixtures.UndefinedString }),
+    Ember.Object.create({ value: 1, name: 'January', name_no: 'januar' }),
+    Ember.Object.create({ value: 2, name: 'February', name_no: 'februar' }),
+    Ember.Object.create({ value: 3, name: 'Mars', name_no: 'mars' }),
+    Ember.Object.create({ value: 4, name: 'April', name_no: 'april' }),
+    Ember.Object.create({ value: 5, name: 'May', name_no: 'mai' }),
+    Ember.Object.create({ value: 6, name: 'June', name_no: 'juni' }),
+    Ember.Object.create({ value: 7, name: 'July', name_no: 'juli' }),
+    Ember.Object.create({ value: 8, name: 'August', name_no: 'august' }),
+    Ember.Object.create({ value: 9, name: 'September', name_no: 'september' }),
+    Ember.Object.create({ value: 10, name: 'October', name_no: 'oktober' }),
+    Ember.Object.create({ value: 11, name: 'November', name_no: 'november' }),
+    Ember.Object.create({ value: 12, name: 'December', name_no: 'desember' })
 ];
 
 App.Fixtures.PathTypes = [
@@ -159,7 +164,10 @@ App.Fixtures.resolveNameFromValue = function(fixture, value){
     }
     
     for(var i = 0; i < fixtureObject.length; i++) {
-        if (fixtureObject[i].value === value){
+        if (fixtureObject[i].value === value) {
+            if (App.language === App.Fixtures.LanguageCodes.NO && fixtureObject[i].name_no) {
+                return fixtureObject[i].name_no;
+            }
             return fixtureObject[i].name;
         }
     }
