@@ -641,8 +641,8 @@ a {
    }
 }
 
-button.info:before { content: "?"; }
-button.info {
+a.info:before, button.info:before { content: "?"; }
+a.info, button.info {
     display: inline;
     height: 1.5em;
     width: 1.5em;
@@ -654,14 +654,19 @@ button.info {
     font-family: Aight;
     padding: 0;
     margin-right: 5px;
+
     &:focus {
         outline: 0;
     } 
+
     &:hover { 
         background: none; 
         background-color: #0A89DD;
         border-color: #0A89DD;
     }
+}
+a.info {
+    padding-left: 0.45em;
 }
 
 .browse-map-view {
