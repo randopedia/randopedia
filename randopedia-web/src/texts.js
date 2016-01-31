@@ -121,7 +121,7 @@ texts.dictionary = {
         eng: "Description"
     },
     tour_discussionsAndTripReports: {
-        no: "Diskussioner och turrapporter",
+        no: "Diskusjoner og turrapporter",
         eng: "Discussions and trip reports"
     },
     tour_editTour: {
@@ -149,7 +149,7 @@ texts.dictionary = {
         eng: "Instagram feed"
     },
     tour_markedAsIncomplete: {
-        no: "Denne tur er markert som ikke ferdig, så noen viktig information kan savnes",
+        no: "Denne tur er markert som ikke ferdig, så noen viktig informasjon kan mangle",
         eng: "This tour is marked as incomplete so it might lack some important information"
     },
     tour_mountaineering: {
@@ -177,7 +177,7 @@ texts.dictionary = {
         eng: "View tour on map"
     },
     tourEdit_currentLanguageVersion: {
-        no: "Norsk version",
+        no: "Norsk versjon",
         eng: "English version"
     },
     tourEdit_country: {
@@ -225,7 +225,7 @@ texts.dictionary = {
         eng: "Steepness, max"
     },
     tourEdit_mainAspect: {
-        no: "Hovudsaklig ",
+        no: "Hovedsaklig ",
         eng: "Main aspect of slopes"
     },
     tourEdit_map: {
