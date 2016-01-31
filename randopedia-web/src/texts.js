@@ -193,11 +193,11 @@ texts.dictionary = {
         eng: "Exit edit"
     },
     tourEdit_elevationGain: {
-        no: "Elevation gain",
+        no: "Høydemeter opp",
         eng: "Elevation gain"
     },
     tourEdit_elevationLoss: {
-        no: "Elevation loss",
+        no: "Høydemeter ned",
         eng: "Elevation loss"
     },
     tourEdit_highestPoint: {
