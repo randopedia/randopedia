@@ -304,7 +304,18 @@ App.BrowseTourmapComponent = Ember.Component.extend({
                 tourCenterLatLng = self.getDefaultTourCenterLatLng(tour.get('mapGeoJson'));
             }
 
-            var marker = new google.maps.Marker({ title: tour.get('name'), position: tourCenterLatLng });
+            var markerImage = new google.maps.MarkerImage(
+                'images/skier-marker.png',
+                null, /* size is determined at runtime */
+                null, /* origin is 0,0 */
+                null, /* anchor is bottom center of the scaled image */
+                new google.maps.Size(50, 50));
+
+            var marker = new google.maps.Marker({
+                title: tour.get('name'),
+                position: tourCenterLatLng,
+                icon: markerImage
+            });
 
             google.maps.event.addListener(marker, 'click', function () {
                 self.toggleInfoWindow(tour);
