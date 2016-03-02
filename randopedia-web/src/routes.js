@@ -12,7 +12,7 @@ App.Router.map(function() {
     this.resource('tags');
     this.resource('tag', {path:'tags/:tag_id'});
     this.resource('dashboard');
-    
+        
     this.resource('stats');
 });
 
@@ -21,13 +21,15 @@ App.BaseRoute = Ember.Route.extend({
         window.scrollTo(0, 0);
         this._super.apply(this, arguments);
     },
-    afterModel : function(model) {
+    afterModel: function (model) {
+        var title = "Randopedia - " + texts.get("common_siteSlogan");
+
         if(typeof model !== 'undefined' && model !== null) {
             var tourName = model.get('name');
             if(typeof tourName !== 'undefined' && tourName !== null) {
-                $(document).attr('title', tourName + ' - Randopedia - The ski tour database');
+                $(document).attr('title', tourName + " " + title);
             } else {
-                $(document).attr('title', 'Randopedia - The ski tour database');
+                $(document).attr('title', title);
             }
 
             $('head').append('<meta property="og:title" content="' + model.get('name') + '">' );
@@ -38,7 +40,7 @@ App.BaseRoute = Ember.Route.extend({
             $('head').append('<meta property="fb:app_id" content="' + App.Config.facebookAppIdProd + '">' );
             
         } else {
-            $(document).attr('title', 'Randopedia - The ski tour database');
+            $(document).attr('title', title);
         }
     }
 });

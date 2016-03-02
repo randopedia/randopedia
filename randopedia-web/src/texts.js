@@ -24,6 +24,10 @@ texts.get = function (identifier) {
 };
 
 texts.dictionary = {
+    common_siteSlogan: {
+        no: "Topptursdatabasen",
+        eng: "The ski tour database"
+    },
     grades_easy: {
         no: "Lett",
         eng: "Easy"
