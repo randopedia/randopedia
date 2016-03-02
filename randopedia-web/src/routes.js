@@ -27,7 +27,7 @@ App.BaseRoute = Ember.Route.extend({
         if(typeof model !== 'undefined' && model !== null) {
             var tourName = model.get('name');
             if(typeof tourName !== 'undefined' && tourName !== null) {
-                $(document).attr('title', tourName + " " + title);
+                $(document).attr('title', tourName + " - " + title);
             } else {
                 $(document).attr('title', title);
             }
