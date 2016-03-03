@@ -60,6 +60,10 @@ texts.dictionary = {
         no: "Legg til ny tur",
         eng: "Add new tour"
     },
+    header_addTour: {
+        no: "Legg til tur",
+        eng: "Add tour"
+    },
     header_map: {
         no: "Kart",
         eng: "Map"

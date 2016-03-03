@@ -53,6 +53,7 @@
                     </ul>
                 </li>
                 {{else}}
+                <li><a {{action "topbarmenulink" "collapseNavbar" }} data-toggle="modal" data-target="#loginViewModalId" class="hvr-underline-from-center">{{text "header_addTour"}}</a></li>
                 <li><a {{action "topbarmenulink" "collapseNavbar" }} data-toggle="modal" data-target="#loginViewModalId" class="hvr-underline-from-center">{{text "header_login"}}</a></li>
                 {{/if}}
             </ul>
