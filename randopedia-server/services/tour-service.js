@@ -120,7 +120,7 @@ var tourService = (function () {
             tourActionRepository.save(user, createdTour, enums.TourActionType.CREATE, req);
 
             if (isTourPublishedWhenCreated(createdTour)) {
-                tourActionRepository.save(user, createdTour, enums.TourActionType.PUBLISH, tour.publishComment, req);
+                //tourActionRepository.save(user, createdTour, enums.TourActionType.PUBLISH, tour.publishComment, req);
             }
 
             if (callback) {
@@ -150,10 +150,10 @@ var tourService = (function () {
                 tourActionRepository.save(user, updatedTour, enums.TourActionType.UPDATE, req, tour.publishComment);
 
                 if (isTourSentToReview(originalTour, tour)) {
-                    tourActionRepository.save(user, updatedTour, enums.TourActionType.SENT_TO_REVIEW, req, "Sent to review");
+                    //tourActionRepository.save(user, updatedTour, enums.TourActionType.SENT_TO_REVIEW, req, "Sent to review");
 
                 } else if (isTourPublishedForTheFirstTime(originalTour, tour)) {
-                    tourActionRepository.save(user, updatedTour, enums.TourActionType.PUBLISH, req, "First published");
+                    //tourActionRepository.save(user, updatedTour, enums.TourActionType.PUBLISH, req, "First published");
                 }
 
                 if (callback) {
