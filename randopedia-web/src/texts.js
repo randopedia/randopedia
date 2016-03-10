@@ -81,7 +81,7 @@ texts.dictionary = {
         eng: "Language"
     },
     header_logout: {
-        no: "Logge ut",
+        no: "Logg ut",
         eng: "Logout"
     },
     header_loggedInAs: {
@@ -89,7 +89,7 @@ texts.dictionary = {
         eng: "Logged in as"
     },
     header_login: {
-        no: "Logge inn",
+        no: "Logg inn",
         eng: "Login"
     },
     header_tours: {
