@@ -2,7 +2,7 @@ var App = Ember.Application.create({
     LOG_TRANSITIONS : true,
     LOG_BINDINGS : true,
     currentPath: null,
-    language: "",
+    language: null,
     
     ready: function() {
         if (LocationHelper.removeAndRedirectPageIfUrlContainsHashbang()) {
@@ -60,15 +60,7 @@ var App = Ember.Application.create({
     setAppLanguageFromLanguageCodeInUrl: function () {
         App.language = LocationHelper.resolveLanguageCodeFromLocation();
         return App.language;
-    },
-
-    isEnglish: function () {
-        return false;
-    }.property("language"),
-
-    isNorwegian: function () {
-        return App.language === "no";
-    }.property("language")
+    }
 });
 
 App.ApplicationAdapter = DS.RESTAdapter;

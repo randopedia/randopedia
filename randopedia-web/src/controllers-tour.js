@@ -3,7 +3,7 @@
 App.ToursController = Ember.ArrayController.extend();
 
 App.TourController = Ember.ObjectController.extend({
-    needs : ["login", "index"],
+    needs : ["login", "index", "language"],
 
     actions: {
         viewTourOnMap: function() {
@@ -140,11 +140,10 @@ App.TourController = Ember.ObjectController.extend({
 });
 
 App.TourEditController = Ember.ObjectController.extend({
-    needs: ["login"],
+    needs: ["login", "language"],
     validationErrors: [],
     validationWarnings: [],
     allTags: null,
-
 
     actions: {
         tagsUpdated: function (tags) {

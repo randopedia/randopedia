@@ -82,7 +82,7 @@ App.LoginController = Ember.ObjectController.extend({
         if (!user || !user.get('authenticated')) {
             return false;
         }
-        return user.get("userId") === "521716365" || user.get("id") === "615412384";
+        return user.get("userId") === "521716365" || user.get("userId") === "615412384";
 
-    }.property('currentUser.authenticated'),
+    }.property('currentUser.authenticated')
 });

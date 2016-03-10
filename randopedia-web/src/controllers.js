@@ -46,7 +46,25 @@ App.IndexController = Ember.ObjectController.extend({
     },
 });
 
-App.AboutController = Ember.ObjectController.extend();
+App.LanguageController = Ember.ObjectController.extend({
+    dummy: null,
+
+    isEnglish: function () {
+        return !App.language || App.language === App.Fixtures.LanguageCodes.ENG;
+    }.property("dummy"),
+
+    isNorwegian: function () {
+        return App.language === App.Fixtures.LanguageCodes.NO;
+    }.property("dummy")
+});
+
+App.AboutController = Ember.ObjectController.extend({
+    needs: ["language"]
+});
+
+App.HelpController = Ember.ObjectController.extend({
+    needs: ["language"]
+});
 
 App.ResultController = Ember.ArrayController.extend();
 
