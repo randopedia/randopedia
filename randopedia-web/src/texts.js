@@ -53,6 +53,10 @@ texts.dictionary = {
         no: "høydemeter med rå skikjøring.",
         eng: "meters of awesome skiing."
     },
+    grades_header: {
+        no: "Vanskelighetsgrader",
+        eng: "Grades"
+    },
     grades_easy: {
         no: "Lett",
         eng: "Easy"
@@ -128,6 +132,18 @@ texts.dictionary = {
     header_toursInReview: {
         no: "Turer under vurdering",
         eng: "Tours in review"
+    },
+    login_loginWith: {
+        no: "Logg inn med",
+        eng: "Login with"
+    },
+    login_modalText: {
+        no: "Logg inn for å legge til eller oppdatere turer.",
+        eng: "Please login to add or update tours."
+    },
+    login_Login: {
+        no: "Logg inn",
+        eng: "Login"
     },
     map_hideOtherTours: {
         no: "Skjul andre turer",
