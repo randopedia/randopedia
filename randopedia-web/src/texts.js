@@ -28,6 +28,31 @@ texts.dictionary = {
         no: "Topptursdatabasen",
         eng: "The ski tour database"
     },
+    dashboard_onInstagram: {
+        no: "på Instagram",
+        eng: "on Instagram"
+    },
+    dashboard_lastUpdatedTours: {
+        no: "Siste oppdaterte turer ø",
+        eng: "Last updated tours"
+    }, 
+    // TODO: Create function that can resolve correct langauage string supporting any number of parameters such like getString("dashboard_funfact", param1, param2, param3)
+    dashboard_funfact1: {
+        no: "Randopedia-databasen inneholder for tiden beskrivelser for",
+        eng: "The randopedia database currently contains descriptions for"
+    },
+    dashboard_funfact2: {
+        no: "alpine toppturer. Til sammen",
+        eng: "ski tours. That's"
+    },
+    dashboard_funfact3: {
+        no: "høydemeter med koselig klatring og",
+        eng: "meters of leg warming climbs and"
+    },
+    dashboard_funfact4: {
+        no: "høydemeter med rå skikjøring.",
+        eng: "meters of awesome skiing."
+    },
     grades_easy: {
         no: "Lett",
         eng: "Easy"

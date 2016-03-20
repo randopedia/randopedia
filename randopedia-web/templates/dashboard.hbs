@@ -7,7 +7,7 @@
                 <div class="panel panel-info">
                     <div class="panel-body">
                         <div class="stat-phrase">
-                            The randopedia database currently contains descriptions for <span class="highlight">{{stat.publishedTours}}</span> ski tours. That's <span class="highlight">{{stat.totalGain}}</span> meters of leg warming climbs and <span class="highlight">{{stat.totalLoss}}</span> meters of awesome skiing.
+                            {{text "dashboard_funfact1"}} <span class="highlight">{{stat.publishedTours}}</span> {{text "dashboard_funfact2"}} <span class="highlight">{{stat.totalGain}}</span> {{text "dashboard_funfact3"}} <span class="highlight">{{stat.totalLoss}}</span> {{text "dashboard_funfact4"}}
                         </div>
                     </div>
                 </div>
@@ -24,7 +24,7 @@
             <div class="col-sm-12 col-md-6">
                 <div class="panel panel-info">
                     <div class="panel-body">
-                        <div class="heading">Last updated tours</div>
+                        <div class="heading">{{text "dashboard_lastUpdatedTours"}}</div>
                         {{lastupdated-component store=store}}
                     </div>
                 </div>
@@ -34,7 +34,7 @@
         <div class="row">
             <div class="col-sm-12">
                 <h4>
-                    #<span class="logo-font">randopedia</span> on Instagram
+                    #<span class="logo-font">randopedia</span> {{text "dashboard_onInstagram"}}
                 </h4>
                 {{instafeed-component tagName='randopedia'}}
             </div>

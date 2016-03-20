@@ -6,8 +6,5 @@ App.StatComponentComponent = Ember.Component.extend({
     setup : function() {
         var stat = this.get('stat');
         this.set('stat', stat);
-        console.log(stat);
     }.on('didInsertElement')
-
-
 });
