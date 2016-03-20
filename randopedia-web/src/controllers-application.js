@@ -1,5 +1,5 @@
 App.ApplicationController = Ember.ArrayController.extend({
-    needs: ['login', 'tourEdit'],
+    needs: ['login', 'language', 'tourEdit'],
 
     checkTokenExpired : function(token) {
         if(token) {
