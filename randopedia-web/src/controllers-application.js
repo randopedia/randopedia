@@ -73,6 +73,7 @@ App.ApplicationController = Ember.ArrayController.extend({
             $('.navbar-collapse').collapse('hide');
         },
         toggleNavbarSearchbox: function () {
+            this.send('collapseNavbar');
             this.set('showNavbarSearch', !this.get('showNavbarSearch'));
 
             if (this.get('showNavbarSearch')) {
