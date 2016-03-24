@@ -18,6 +18,20 @@
         overflow: hidden;
     }
 
+    .modal-header {
+        border: none;
+    }
+
+    .modal-body {
+        text-align: center;
+    }
+
+    @media (max-width: 650px) { 
+        #instagram-modal-image-element {
+            width: 300px;     
+        }
+    }
+
     .jssorb03 {
         position: absolute;
     }
@@ -57,6 +71,19 @@
     .jssora03r.jssora03rdn { background-position: -303px -33px; }
 </style>
 
+<div class="modal fade" id="instagramShowImageModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <img id="instagram-modal-image-element" />
+            </div>
+        </div>
+    </div>
+</div>
+
 <div id="instafeed_container" class="instafeed-container">
     
     <div id="instafeed_slider_images_container" u="slides" class="images-container"></div>
@@ -65,7 +92,7 @@
         <div u="prototype"><div u="numbertemplate"></div></div>
     </div>
 
-    <span u="arrowleft" class="jssora03l" style="top: 123px; left: 8px;"></span>    
+    <span u="arrowleft" class="jssora03l" style="top: 123px; left: 8px;"></span>        
     <span u="arrowright" class="jssora03r" style="top: 123px; right: 8px;"></span>
 
     <a style="display: none" href="http://www.jssor.com">Bootstrap Slider</a>

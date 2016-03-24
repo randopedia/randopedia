@@ -1,3 +1,8 @@
+instagramShowImageModal = function (src) {
+    $('#instagramShowImageModal').modal('show');
+    $('#instagram-modal-image-element').attr("src", src);
+};
+
 App.InstafeedComponentComponent = Ember.Component.extend({
     instagramClientId: "772df9d235554f3eacd13196e0f8302d",
     loading: true,
@@ -98,9 +103,12 @@ App.InstafeedComponentComponent = Ember.Component.extend({
 
                 for (var x in res.data) {
                     if (res.data.hasOwnProperty(x)) {
-                        $("#instafeed_slider_images_container").append("<div><img u='image' src=\"" + res.data[x].images.thumbnail.url + "\"></div>");
+                        var thumbnail_src = res.data[x].images.thumbnail.url;
+                        var full_src = res.data[x].images.standard_resolution.url;
+                        $("#instafeed_slider_images_container").append("<div><a onclick='instagramShowImageModal(\"" + full_src + "\")'><img u='image' src=\"" + thumbnail_src + "\"></a></div>");
                     }
                 }
+
                 if (res.data.length > 0) {
                     self.initJssorSlider("instafeed_container");
                 }

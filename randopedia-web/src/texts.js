@@ -153,6 +153,10 @@ texts.dictionary = {
         no: "Skjul andre turer",
         eng: "Hide other tour paths"
     },
+    map_loading: {
+        no: "Laster kart",
+        eng: "Loading map"
+    },
     map_myPosition: {
         no: "Min posisjon",
         eng: "My position"

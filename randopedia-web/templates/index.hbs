@@ -4,7 +4,7 @@
         {{browse-tourmap store=store tours=liteTours zoomLevel=currentMapZoomLevel mapCenter=currentMapCenter mapTypeId=currentMapTypeId tour=tourForMapView zoomChanged="mapZoomChanged" centerChanged="mapCenterChanged" mapTypeIdChanged="mapTypeIdChanged"}}
     </div>
 {{else}}
-    <div class="loading">Loading map...</div>
+    <div class="loading">{{text "map_loading"}}...</div>
 {{/if}}
 
 
