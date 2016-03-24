@@ -49,12 +49,12 @@ App.Fixtures.TourActions = [
     Ember.Object.create({value: 5, name: 'Image updated'}),
     Ember.Object.create({value: 6, name: 'Image deleted'}),  
     Ember.Object.create({value: 7, name: 'Published'}),  
-    Ember.Object.create({ value: 8, name: 'Restored' }),
-    Ember.Object.create({ value: 9, name: 'Sent to review' })
+    Ember.Object.create({value: 8, name: 'Restored' }),
+    Ember.Object.create({value: 9, name: 'Sent to review' })
 ];
 
 App.Fixtures.Grades = [
-    Ember.Object.create({value: null, name: App.Fixtures.UndefinedString}),
+    Ember.Object.create({ value: null, name: App.Fixtures.UndefinedString}),
     Ember.Object.create({ value: 1, name: texts.dictionary.grades_easy.eng, name_no: texts.dictionary.grades_easy.no }),
     Ember.Object.create({ value: 2, name: texts.dictionary.grades_fairlyDifficult.eng, name_no: texts.dictionary.grades_fairlyDifficult.no }),
     Ember.Object.create({ value: 3, name: texts.dictionary.grades_quiteDifficult.eng, name_no: texts.dictionary.grades_quiteDifficult.no }),
