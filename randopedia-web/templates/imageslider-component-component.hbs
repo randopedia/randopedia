@@ -24,13 +24,16 @@
             height: 45px;
             width: 100%;
             color: #F1F1F1;
-            text-shadow: 1px 1px 5px rgba(0,0,0,1);
             font-size: 1.2em
+        }
+        .image-caption-text {
+            background-color: rgba(0,0,0,0.5);
         }
 
         @media (max-width: 749px) {
             .image-caption {
-                font-size: 2.5em;
+                font-size: 3em;
+                margin-bottom: 2em;
             }
         }
 
@@ -40,7 +43,7 @@
         {{#each img in images}}
         <div>
             <img u="image" {{bind-attr src="img.imageFile"}} />
-            <div class="image-caption">{{img.caption}}</div>
+            <div class="image-caption"><span class="image-caption-text">{{img.caption}}</span></div>
         </div>
         {{/each}}
 
