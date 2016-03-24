@@ -235,7 +235,7 @@ App.BrowseTourmapComponent = Ember.Component.extend({
                 new google.maps.Size(40, 40));
 
             self.set('myPositionMarker', new google.maps.Marker({
-                title: 'My position', 
+                title: texts.get("map_myPosition"), 
                 position: pos,
                 map: self.get('map'),
                 icon: pinIcon
@@ -243,7 +243,7 @@ App.BrowseTourmapComponent = Ember.Component.extend({
 
             var html =
                 '<div style="background-color:#fff;width:200px;height:100px">' +
-                '<h4>My position</h4>' +
+                '<h4' + texts.get("map_myPosition") + '</h4>' +
                 '<p style="font-size:1.1em;">' +
                 'Lat: ' + App.GeoHelper.roundCoordinate(pos.lat()) + '<br>' +
                 'Lng: ' + App.GeoHelper.roundCoordinate(pos.lng()) +
@@ -274,7 +274,7 @@ App.BrowseTourmapComponent = Ember.Component.extend({
             self.set('waitingForPosition', false);
 
         }, function(error) {
-            App.Alerts.showErrorMessage('An error occured when trying to get your location');
+            App.Alerts.showErrorMessage(texts.get("error_getLocation"));
             self.set('waitingForPosition', false);
         });
     },

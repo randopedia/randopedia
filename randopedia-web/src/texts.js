@@ -53,6 +53,10 @@ texts.dictionary = {
         no: "høydemeter med rå skikjøring.",
         eng: "meters of awesome skiing."
     },
+    error_getLocation: {
+        no: "Couldn't resolve position, is location service enabled on your device?",
+        eng: "Couldn't resolve position, is location service enabled on your device?"
+    },
     grades_header: {
         no: "Vanskelighetsgrader",
         eng: "Grades"
@@ -149,9 +153,17 @@ texts.dictionary = {
         no: "Skjul andre turer",
         eng: "Hide other tour paths"
     },
+    map_myPosition: {
+        no: "Min posisjon",
+        eng: "My position"
+    },
     map_viewTourDetails: {
         no: "Vis turdetaljer",
         eng: "View tour details"
+    },
+    map_waitingForPosition: {
+        no: "Venter på posisjon",
+        eng: "Waiting for position"
     },
     map_zoomInOnMap: {
         no: "Zoom inn på kart",
