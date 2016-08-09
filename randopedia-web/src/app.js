@@ -130,7 +130,14 @@ App.Alerts = Ember.Object.create({
 
 App.Router.reopen({
     location: 'history',
-    rootURL: '/' + App.setAppLanguageFromLanguageCodeInUrl()
+    rootURL: '/' + App.setAppLanguageFromLanguageCodeInUrl(),
+    notifyGoogleAnalytics: function() {
+        return ga('send', 'pageview', {
+            'page': this.get('url'),
+            'title': this.get('url')
+        });
+    }.on('didTransition')
+
 });
 
 DS.RESTAdapter.reopen({
