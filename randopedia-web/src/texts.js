@@ -33,7 +33,7 @@ texts.dictionary = {
         eng: "on Instagram"
     },
     dashboard_lastUpdatedTours: {
-        no: "Siste oppdaterte turer ø",
+        no: "Siste oppdaterte turer",
         eng: "Last updated tours"
     }, 
     // TODO: Create function that can resolve correct langauage string supporting any number of parameters such like getString("dashboard_funfact", param1, param2, param3)
@@ -173,6 +173,30 @@ texts.dictionary = {
         no: "Zoom inn på kart",
         eng: "Zoom in on map"
     },
+    map_up: {
+        no: "Opp",
+        eng: "Up"
+    },
+    map_down: {
+        no: "Ned",
+        eng: "Down"
+    },
+    map_upDown: {
+        no: "Opp/Ned",
+        eng: "Up/Down"
+    },
+    map_summitPoint: {
+        no: "Topp-punkt",
+        eng: "Summit point"
+    },
+    map_editPaths: {
+        no: "Endre ruter",
+        eng: "Edit paths"
+    },
+    map_addPath: {
+        no: "Legg til rute",
+        eng: "Add path"
+    },
     tour_accessPoint: {
         no: "Start",
         eng: "Access point"
@@ -237,6 +261,10 @@ texts.dictionary = {
         no: "Tid",
         eng: "Time"
     },
+    tour_tourIsDraft: {
+        no: "Utkast, turen er ikke publisert",
+        eng: "This is a draft, the tour has not yet been published."
+    },
     tour_viewTourOnMap: {
         no: "Vis på kart",
         eng: "View tour on map"
@@ -286,11 +314,11 @@ texts.dictionary = {
         eng: "Season to"
     },
     tourEdit_steepnessMax: {
-        no: "Bratthet, maks",
+        no: "Helning, maks",
         eng: "Steepness, max"
     },
     tourEdit_mainAspect: {
-        no: "Hovedsaklig ",
+        no: "Hovedsaklig aspekt",
         eng: "Main aspect of slopes"
     },
     tourEdit_map: {

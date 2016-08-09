@@ -192,8 +192,10 @@ function MarkerClusterer(map, opt_markers, opt_options) {
  * @private
  */
 MarkerClusterer.prototype.MARKER_CLUSTER_IMAGE_PATH_ =
-    'http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerclusterer/' +
-    'images/m';
+    // FIX by Björn 2016-08-09
+    //'http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerclusterer/' +
+    //'images/m';
+    'https://cdn.rawgit.com/googlemaps/js-marker-clusterer/gh-pages/images/m';
 
 
 /**

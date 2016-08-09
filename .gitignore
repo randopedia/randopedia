@@ -45,3 +45,4 @@ obj
 *.njsproj
 *.csproj
 # END Visual Studio files #
+/design

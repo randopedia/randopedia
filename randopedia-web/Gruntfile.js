@@ -46,7 +46,6 @@ module.exports = function(grunt) {
                     'client/css/site.min.css': ["client/css/normalize.css", "client/css/site.css", "select2.min.css", "client/css/jqcloud.min.css"]
                 }
             }
-            
         },
 
         emberTemplates: {
@@ -71,6 +70,7 @@ module.exports = function(grunt) {
         bootstrap: {
             dest: "out"
         },
+
         less: {
             development: {
                 files: {

@@ -243,7 +243,7 @@ App.BrowseTourmapComponent = Ember.Component.extend({
 
             var html =
                 '<div style="background-color:#fff;width:200px;height:100px">' +
-                '<h4' + texts.get("map_myPosition") + '</h4>' +
+                '<h4>' + texts.get("map_myPosition") + '</h4>' +
                 '<p style="font-size:1.1em;">' +
                 'Lat: ' + App.GeoHelper.roundCoordinate(pos.lat()) + '<br>' +
                 'Lng: ' + App.GeoHelper.roundCoordinate(pos.lng()) +
@@ -263,13 +263,25 @@ App.BrowseTourmapComponent = Ember.Component.extend({
                 self.get('myPositionMarker').set('position', new google.maps.LatLng(newPosition.coords.latitude, newPosition.coords.longitude));
             }
 
+            function onWatchPositionError(err) {
+                if (err.code == 1) {
+                    // "Error: Access is denied"
+
+                } else if (err.code == 2) {
+                    // "Error: Position is unavailable"
+                }
+
+                App.Alerts.showErrorMessage(texts.get("error_getLocation") + " " + err.code);
+                self.set('waitingForPosition', false);
+            }
+
             var watchOptions = {
                 enableHighAccuracy: true,
-                timeout: 60000,
+                timeout: 5000,
                 maximumAge: 10000
             };
 
-            var id = navigator.geolocation.watchPosition(onWatchPositionUpdate, null, watchOptions);
+            var id = navigator.geolocation.watchPosition(onWatchPositionUpdate, onWatchPositionError, watchOptions);
             self.set('myPositionWatchId', id);
             self.set('waitingForPosition', false);
 
@@ -369,7 +381,7 @@ App.BrowseTourmapComponent = Ember.Component.extend({
         
         var markerCluster = new MarkerClusterer(map, this.get('markers'));
         markerCluster.setMaxZoom(self.settings.showRoutesOnZoomLevel - 3);
-        self.set('oms', new OverlappingMarkerSpiderfier(map));
+        // self.set('oms', new OverlappingMarkerSpiderfier(map));
 
         google.maps.event.addListener(map, 'zoom_changed', function () {
             var newZoomLevel = self.get('map').getZoom();
