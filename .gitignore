@@ -46,3 +46,4 @@ obj
 *.csproj
 # END Visual Studio files #
 /design
+/randopedia-webapp/
