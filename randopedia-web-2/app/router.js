@@ -8,6 +8,7 @@ const Router = Ember.Router.extend({
 
 Router.map(function() {
   this.route('tours');
+  this.route('tour', { path: '/tours/:tour_id' });
   this.route('about');
   this.route('help');
 });

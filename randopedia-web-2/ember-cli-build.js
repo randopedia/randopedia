@@ -7,6 +7,12 @@ module.exports = function(defaults) {
     // Add options here
   });
 
+  app.import('bower_components/moment/moment.js');
+  app.import('vendor/FileSaver.min.js');
+  app.import('vendor/marked.js');
+  app.import('vendor/togpx.js');
+  app.import('vendor/jssor.slider.min.js');
+
   // Use `app.import` to add additional libraries to the generated
   // output files.
   //

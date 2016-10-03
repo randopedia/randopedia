@@ -2,7 +2,10 @@
   "predef": [
     "document",
     "window",
-    "-Promise"
+    "-Promise",
+    "togpx",
+    "saveAs",
+    "marked"
   ],
   "browser": true,
   "boss": true,
