@@ -31,18 +31,21 @@ export default Ember.Component.extend({
         var jssor_slider1 = new $JssorSlider$("image-slider-container", options);
 
         //responsive code begin
-        function ScaleSlider() {
+        function scaleSlider() {
             var parentWidth = jssor_slider1.$Elmt.parentNode.clientWidth;
-            if (parentWidth)
+            if (parentWidth) {
                 jssor_slider1.$ScaleWidth(Math.min(parentWidth, 1200));
-            else
-                window.setTimeout(ScaleSlider, 30);
+            }
+            else {
+                window.setTimeout(scaleSlider, 30);
+            }
         }
-        ScaleSlider();
 
-        $(window).bind("load", ScaleSlider);
-        $(window).bind("resize", ScaleSlider);
-        $(window).bind("orientationchange", ScaleSlider);
+        scaleSlider();
+
+        $(window).bind("load", scaleSlider);
+        $(window).bind("resize", scaleSlider);
+        $(window).bind("orientationchange", scaleSlider);
         //responsive code end
     },
 

@@ -2,10 +2,15 @@ import Ember from 'ember';
 import App from 'ember';
 import Fixtures from '../fixtures';
 import GeoHelper from '../geo-helper';
+import Fix from '../fixtures';
 
 export default Ember.Component.extend({
     actions: {
         viewTourOnMap: function() {
+
+            console.log(Fixtures.LanguageCodes.NO);
+            console.log(Fixtures.constant1);
+
             this.get("controllers.index").send("viewTourOnMap", this.get("tour"));
         },
 

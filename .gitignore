@@ -47,3 +47,4 @@ obj
 # END Visual Studio files #
 /design
 /randopedia-webapp/
+*.tmp

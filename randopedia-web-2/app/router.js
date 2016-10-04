@@ -11,6 +11,7 @@ Router.map(function() {
   this.route('tour', { path: '/tours/:tour_id' });
   this.route('about');
   this.route('help');
+  this.route('dashboard');
 });
 
 export default Router;

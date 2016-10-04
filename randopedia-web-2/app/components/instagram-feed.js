@@ -51,19 +51,21 @@ export default Ember.Component.extend({
         var jssor_slider = new $JssorSlider$(containerId, options);
 
         //responsive code begin
-        function ScaleSlider() {
+        function scaleSlider() {
             var bodyWidth = document.body.clientWidth;
-            if (bodyWidth)
+            if (bodyWidth) {
                 jssor_slider.$ScaleWidth(Math.min(bodyWidth, 809));
-            else
-                window.setTimeout(ScaleSlider, 30);
+            }
+            else {
+                window.setTimeout(scaleSlider, 30);
+            }
         }
 
-        ScaleSlider();
+        scaleSlider();
 
-        $Jssor$.$AddEvent(window, "load", ScaleSlider);
-        $Jssor$.$AddEvent(window, "resize", $Jssor$.$WindowResizeFilter(window, ScaleSlider));
-        $Jssor$.$AddEvent(window, "orientationchange", ScaleSlider);
+        $Jssor$.$AddEvent(window, "load", scaleSlider);
+        $Jssor$.$AddEvent(window, "resize", $Jssor$.$WindowResizeFilter(window, scaleSlider));
+        $Jssor$.$AddEvent(window, "orientationchange", scaleSlider);
         // responsive code end
     },
 
