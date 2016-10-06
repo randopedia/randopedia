@@ -29,7 +29,7 @@ export default Ember.Component.extend({
     didInsertElement() {
         this._super(...arguments);
 
-        // todo: getting deprecation warnings because ww're setting properties in this hook. How can we initiate these with the default settings values elsewhere?
+        // todo: getting deprecation warnings because we're setting properties in this hook. How can we initiate these with the default settings values elsewhere?
 
         if (!this.get('tours')) {
             this.set("tours", []);

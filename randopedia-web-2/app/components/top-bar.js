@@ -1,6 +1,8 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
+    login: Ember.inject.service(),
+    language: Ember.inject.service(),
 
     actions: {
         topbarmenulink: function (routeName) {
@@ -26,11 +28,14 @@ export default Ember.Component.extend({
         },
 
         setlanguage: function (language) {
+
+            // todo ...
+
             // we do check if current page is tour edit and if there is unsaved changes, this is not captured by router (as when transit away from tour edit on other links)
-            var controller = this.get('controllers.tourEdit');
-            if (controller && controller.get('hasChanges') && !confirm("The tour has unsaved changes, do you want to discard them?")) {
-                return;
-            } 
+            //var controller = this.get('controllers.tourEdit');
+            //if (controller && controller.get('hasChanges') && !confirm("The tour has unsaved changes, do you want to discard them?")) {
+            //    return;
+            //} 
 
             //var pathnameWithLangCode = LocationHelper.setPathnameWithLanguageCode(language);
             //LocationHelper.redirectToPathname(pathnameWithLangCode);

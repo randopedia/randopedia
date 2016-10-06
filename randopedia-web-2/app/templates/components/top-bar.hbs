@@ -1,10 +1,14 @@
-<nav class="navbar navbar-dark bg-inverse">
-    
+<nav class="navbar navbar-light bg-faded" role="navigation">
+
+    <a class="navbar-brand" {{action "topbarmenulink" "index" }}>Randopedia</a>
+
+    <a class="navbar-search-button hvr-fade" {{action "toggleNavbarSearchbox" }} {{bind-attr class="showNavbarSearch:pressed" }}>
+        <i class="fa fa-search" aria-hidden="true"></i>
+    </a>
+
     <button class="navbar-toggler hidden-sm-up pull-xs-right" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2" aria-controls="exCollapsingNavbar2" aria-expanded="false" aria-label="Toggle navigation">
         &#9776;
     </button>
-
-    <a class="navbar-brand" {{action "topbarmenulink" "index" }}>Randopedia</a>
 
     <div class="collapse navbar-toggleable-xs" id="exCollapsingNavbar2">
 
@@ -12,22 +16,61 @@
             <li class="nav-item"><a {{action "topbarmenulink" "index" }} class="hvr-underline-from-center">{{text "header_map"}}</a></li>
             <li class="nav-item"><a {{action "topbarmenulink" "dashboard" }} class="hvr-underline-from-center" data-toggle="collapse" data-target=".nav-collapse">{{text "header_dashboard"}}</a></li>
             <li class="nav-item"><a {{action "topbarmenulink" "about" }} class="hvr-underline-from-center" data-toggle="collapse" data-target=".nav-collapse">{{text "header_about"}}</a></li>
-
             <li class="nav-item"><a {{action "topbarmenulink" "collapseNavbar" }} class="hvr-underline-from-center" data-toggle="modal" data-target="#loginViewModalId">{{text "header_login"}}</a></li>
 
-            <li class="hidden-xs">
+            <li class="nav-item btn-group">
+                <a class="dropdown-toggle nav-link" href="#" type="button" id="languageDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{text "header_language"}}
+                </a>
+                <div class="dropdown-menu" aria-labelledby="languageDropdown">
+                    {{#if language.isNorwegian}}
+                    <a class="dropdown-item" {{action "setlanguage"}}><i class="fa fa-circle-o"></i> English</a>
+                    <span class="dropdown-item dropdown-item"><i class="fa fa-check-circle"></i> Norsk</span>
+                    {{else}}
+                    <span class="dropdown-item"><i class="fa fa-check-circle"></i> English</span>
+                    <a class="dropdown-item" {{action "setlanguage" "no"}}><i class="fa fa-circle-o"></i> Norsk</a>
+                    {{/if}}
+                </div>
+            </li>
+
+            <li class="nav-item btn-group">
+                <a class="dropdown-toggle nav-link" href="#" type="button" id="toursDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{text "header_tours"}}
+                </a>
+                <div class="dropdown-menu" aria-labelledby="toursDropdown">
+                    <a class="dropdown-item" {{action "topbarmenulink" "tour.new" }}>{{text "header_addNewTour"}}</a>
+                    <a class="dropdown-item" {{action "topbarmenulink" "mytours" }}>{{text "header_myTours"}}</a>
+                    <a class="dropdown-item" {{action "topbarmenulink" "review" }}>{{text "header_toursInReview"}}</a>
+                </div>
+            </li>
+
+            <li class="nav-item btn-group">
+                <a class="dropdown-toggle nav-link" href="#" type="button" id="toursDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    user
+                </a>
+                <div class="dropdown-menu" aria-labelledby="toursDropdown">
+                    <a {{action "logout" }}>{{text "header_logout"}}</a>
+                    <p>{{text "header_loggedInAs"}} {{maxString login.currentUser.userName 50}}</p>
+                </div>
+            </li>
+
+            <li class="nav-item"><a {{action "topbarmenulink" "collapseNavbar" }} data-toggle="modal" data-target="#loginViewModalId" class="hvr-underline-from-center">{{text "header_addTour"}}</a></li>
+
+            <li class="nav-item"><a {{action "topbarmenulink" "collapseNavbar" }} data-toggle="modal" data-target="#loginViewModalId" class="hvr-underline-from-center">{{text "header_login"}}</a></li>
+
+            <li class="nav-item">
                 <div class="fb-like" data-href="https://www.facebook.com/randopedia.net" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
             </li>
 
-            <li class="hidden-xs">
-                <a class="navbar-search-button pull-right hvr-fade" {{action "toggleNavbarSearchbox" }} {{bind-attr class="showNavbarSearch:pressed" }}>
-                    <i class="fa fa-search" aria-hidden="true"></i>
-                </a>
-            </li>
-        </ul> 
+        </ul>
+    
     </div>
 
 </nav>
+
+{{#if showNavbarSearch}}
+    {{!-- search-component store=store --}}
+{{/if}}
 
 <div class="modal fade" id="loginViewModalId" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     {{login-form}}

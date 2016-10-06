@@ -2,6 +2,7 @@ import Ember from 'ember';
 import Resolver from './resolver';
 import loadInitializers from 'ember-load-initializers';
 import config from './config/environment';
+import locationHelper from './utils/location-helper';
 
 let App;
 
@@ -14,10 +15,9 @@ App = Ember.Application.extend({
     language: null,
 
     ready: function() {
-        // todo ...
-        //if (LocationHelper.removeAndRedirectPageIfUrlContainsHashbang()) {
-        //    return;
-        //}
+        if (locationHelper.removeAndRedirectPageIfUrlContainsHashbang()) {
+            return;
+        }
 
         var url = document.location.toString();
         var host = url.split('randopedia')[0];
