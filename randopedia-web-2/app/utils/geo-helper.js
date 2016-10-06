@@ -264,9 +264,11 @@ var GeoHelper = {
     ],
     
     setMapTypes: function(map) {
-        map.mapTypes.set('osm', GeoHelper.mapTypes.osm());
-        map.mapTypes.set('norgeskart', GeoHelper.mapTypes.norgeskart());
-        map.mapTypes.set('eniroair', GeoHelper.mapTypes.eniroair());
+        // todo ... Getting js error in console "new google.maps.Size" is not a constructor... gah.. why?
+
+        //map.mapTypes.set('osm', GeoHelper.mapTypes.osm());
+        //map.mapTypes.set('norgeskart', GeoHelper.mapTypes.norgeskart());
+        //map.mapTypes.set('eniroair', GeoHelper.mapTypes.eniroair());
     },
     
     getDefaultMapTypeIdForCountry: function(country) {

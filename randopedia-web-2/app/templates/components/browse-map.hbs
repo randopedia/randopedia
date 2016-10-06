@@ -1,0 +1,35 @@
+<div class="browse-map-view full-screen">
+    <div id="tourMapRootElement" class="full-screen"></div>
+    {{#if waitingForPosition}}
+    <div class="loading-data">
+        {{text "map_waitingForPosition"}}...
+    </div>
+    {{/if}}
+    <button class="btn btn-primary btn-my-position" {{action "toggleMyPositionAction" }}>
+        <span class="glyphicon glyphicon-screenshot"></span>
+    </button>
+    {{#if showTourInfo}}
+    <div class="tour-info">
+        <h4>
+            <button type="button" class="close" {{action "closeInfoWindowAction" }}><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            {{#link-to "tour" selectedTour.id}} {{selectedTour.name}} {{/link-to}}
+        </h4>
+        <div>
+            {{resolveGradeName selectedTour.grade}} |
+            {{selectedTour.timingMin}}-{{selectedTour.timingMax}}h |
+            {{selectedTour.elevationGain}}m &uarr; {{selectedTour.elevationLoss}}m &darr;
+        </div>
+        <div class="link-container">
+            <span><a {{action "zoomToSelectedTourAction"}}>{{text "map_zoomInOnMap"}}</a></span>
+            <span>{{#link-to "tour" selectedTour}} {{text "map_viewTourDetails"}} {{/link-to}}</span>
+        </div>
+        <div class="checkbox">
+            <label {{bind-attr class="showOnlySelectedToursPaths:checked" }}>
+                {{input type="checkbox" checkedBinding="showOnlySelectedToursPaths" class="hide"}}
+                <span class="glyphicon glyphicon-ok"></span>
+                <span>{{text "map_hideOtherTours"}}</span>
+            </label>
+        </div>
+    </div>
+    {{/if}}
+</div>

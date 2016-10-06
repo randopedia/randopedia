@@ -1,8 +1,7 @@
 import Ember from 'ember';
 import App from 'ember';
-import Fixtures from '../fixtures';
-import GeoHelper from '../geo-helper';
-import Fix from '../fixtures';
+import Fixtures from '../utils/fixtures';
+import GeoHelper from '../utils/geo-helper';
 
 export default Ember.Component.extend({
     actions: {

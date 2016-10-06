@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import texts from '../texts';
+import texts from '../utils/texts';
 
 export function text(id) {
     return texts.get(id);

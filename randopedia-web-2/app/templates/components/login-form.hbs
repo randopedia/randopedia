@@ -1,0 +1,32 @@
+<div class="modal-dialog login-view">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title" id="myModalLabel">{{text "login_Login"}}</h4>
+        </div>
+        <div class="modal-body">
+            <div>
+                {{text "login_modalText"}}
+            </div>
+
+            <a class="login-link" {{action "loginWithFacebook"}}>
+                <div>
+                    {{text "login_loginWith"}} <img src="/assets/images/facebook_logo.png">
+                </div>
+            </a>
+
+            <a class="login-link" {{action "loginWithGoogle"}}>
+                <div>
+                    {{text "login_loginWith"}} <img src="/assets/images/google_logo.png" width="100">
+                </div>
+            </a>
+
+        </div>
+        <hr />
+        <div class="spacing">
+            <small>
+                Randopedia doesn't use or store any sensitive information about the account being used. Read more about privacy <a data-dismiss="modal" {{link-to "about"}}>here</a>.
+            </small>
+        </div>
+    </div>
+</div>

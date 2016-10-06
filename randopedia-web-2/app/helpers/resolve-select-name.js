@@ -1,6 +1,6 @@
 ﻿import Ember from 'ember';
 import App from 'ember';
-import Fixtures from '../fixtures';
+import Fixtures from '../utils/fixtures';
 
 export default Ember.Helper.helper(function(params) {
     var fixture = params[0];

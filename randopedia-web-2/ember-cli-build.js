@@ -12,6 +12,8 @@ module.exports = function(defaults) {
   app.import('vendor/marked.js');
   app.import('vendor/togpx.js');
   app.import('vendor/jssor.slider.min.js');
+  app.import('vendor/jquery.bootstrap-growl.min.js');
+  app.import('vendor/markerclusterer.js');
 
   // Use `app.import` to add additional libraries to the generated
   // output files.

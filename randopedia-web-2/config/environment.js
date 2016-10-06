@@ -25,6 +25,16 @@ module.exports = function(environment) {
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
+
+      ENV.host = "/randopedia/api";
+      ENV.port = "8080";
+      ENV.facebookAppIdTest = "181281108742349";
+      ENV.facebookAppIdLocalhost = "579258552116376";
+      ENV.facebookAppIdProd = "387025698094707";
+
+      ENV.googleAppIdTest = "";
+      ENV.googleAppIdLocalhost = "991673526883.apps.googleusercontent.com";
+      ENV.googleAppIdProd = "719190645609-c0ogrmvrbtgbl5ohlb81d0lflf31uo51.apps.googleusercontent.com";
   }
 
   if (environment === 'test') {

@@ -25,16 +25,15 @@ export default Ember.Component.extend({
             this.get("router").transitionTo("index");
         },
 
-
         setlanguage: function (language) {
-            // we do check if current page is tour edit and there's unsaved changes, this is not captured by router (as when transit away from tour edit on other links)
+            // we do check if current page is tour edit and if there is unsaved changes, this is not captured by router (as when transit away from tour edit on other links)
             var controller = this.get('controllers.tourEdit');
             if (controller && controller.get('hasChanges') && !confirm("The tour has unsaved changes, do you want to discard them?")) {
                 return;
             } 
 
-            var pathnameWithLangCode = LocationHelper.setPathnameWithLanguageCode(language);
-            LocationHelper.redirectToPathname(pathnameWithLangCode);
+            //var pathnameWithLangCode = LocationHelper.setPathnameWithLanguageCode(language);
+            //LocationHelper.redirectToPathname(pathnameWithLangCode);
         },
         
         logout: function () {
