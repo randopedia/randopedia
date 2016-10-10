@@ -269,7 +269,7 @@ texts.dictionary = {
     },
     tour_viewTourOnMap: {
         no: "Vis på kart",
-        eng: "View tour on map"
+        eng: "View on map"
     },
     tourEdit_currentLanguageVersion: {
         no: "Norsk versjon",

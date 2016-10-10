@@ -29,7 +29,6 @@
             <div class="alert alert-warning" role="alert">
                 <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 {{text "tour_markedAsIncomplete"}}
-
             </div>
         </div>
     </div>
@@ -40,7 +39,7 @@
         <div class="col-sm-12">
             <div class="alert alert-danger" role="alert">
                 <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                Tour is marked as deleted and will eventually be permanently deleted from the database
+                Tour is marked as deleted and will eventually be deleted from the database
             </div>
         </div>
     </div>
@@ -158,22 +157,22 @@
                 {{#if isPublished}}
                 {{#if hasMapData}}
                 <button class="btn btn-primary" {{action "viewTourOnMap" }}>
-                    <span class="glyphicon glyphicon-globe"></span> <span>{{text "tour_viewTourOnMap"}}</span>
+                    <i class="fa fa-map" aria-hidden="true"></i> <span>{{text "tour_viewTourOnMap"}}</span>
                 </button>
                 {{/if}}
                 {{#if hasPaths}}
                 <button class="btn btn-primary" {{action "downloadGpxFile" }}>
-                    <span class="glyphicon glyphicon-export"></span> GPX
+                    <i class="fa fa-download" aria-hidden="true"></i> GPX
                 </button>
                 {{/if}}
                 {{else}}
                 {{#if hasMapData}}
-                <div class="spacing">[View tour on map] <em>Tours are not available on the map until they are published.</em></div>
+                <div class="spacing">[View on map] <em>Tours are not available on the map until they are published.</em></div>
                 {{/if}}
                 {{/if}}
 
-                {{#if controllers.login.isLoggedIn}}
-                {{#link-to 'tour.edit' model class="btn btn-default pull-right"}}<span class="glyphicon glyphicon-edit"></span> <span>{{text "tour_editTour"}}</span>{{/link-to}}
+                {{#if login.isLoggedIn}}
+                {{#link-to 'tour.edit' model class="btn btn-secondary pull-right"}}<i class="fa fa-pencil-square-o" aria-hidden="true"></i> <span>{{text "tour_editTour"}}</span>{{/link-to}}
                 {{/if}}
 
             </div>
@@ -269,7 +268,7 @@
 
     <div class="row">
         <div class="col-sm-12 info-col">
-            {{!-- partial "footer" --}}
+            {{ partial "partials/footer"}}
         </div>
     </div>
 
@@ -281,7 +280,7 @@
                     <h4 class="modal-title" id="myModalLabel">{{text "grades_header"}}</h4>
                 </div>
                 <div class="modal-body">
-                    {{!-- partial "about-grades" --}}
+                    {{partial "partials/about-grades"}}
                 </div>
             </div>
         </div>

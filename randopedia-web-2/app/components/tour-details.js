@@ -1,22 +1,21 @@
 import Ember from 'ember';
-import App from 'ember';
 import Fixtures from '../utils/fixtures';
 import GeoHelper from '../utils/geo-helper';
 
 export default Ember.Component.extend({
+    login: Ember.inject.service(),
+    language: Ember.inject.service(),
+    alert: Ember.inject.service(),
+
     actions: {
         viewTourOnMap: function() {
-
-            console.log(Fixtures.LanguageCodes.NO);
-            console.log(Fixtures.constant1);
-
             this.get("controllers.index").send("viewTourOnMap", this.get("tour"));
         },
 
         downloadGpxFile: function () {
             var saveSuccess = GeoHelper.saveAsGpx(this.get("tour.mapGeoJson"), this.get("tour.name"), this.get("tour.itinerary"));
             if (!saveSuccess) {
-                App.Alerts.showErrorMessage("Could not save gpx file. Most likely because your browser does not support the File API.");
+                alert.showErrorMessage("Could not save gpx file. Most likely because your browser does not support the File API.");
             }
         }
     },
@@ -73,15 +72,17 @@ export default Ember.Component.extend({
     }),
 
     checkIfIncomplete: function() {
-        var warningCount = 0;
-        if (!App.Validate.isNotNullOrEmpty(this.get("tour.shortDescription"))) { warningCount++; }
-        if (!this.get("tour.grade")) { warningCount++; }
-        if (!App.Validate.isPosNumber(this.get("tour.elevationMax"))) { warningCount++; }
-        if (!this.get("tour.timeOfYearFrom")) { warningCount++; }
-        if (!this.get("tour.timeOfYearTo")) { warningCount++; }
-        if (!GeoHelper.geojsonContainsPath(this.get("tour.mapGeoJson"))) { warningCount++; }
-        if (!GeoHelper.geojsonContainsSummitPoint(this.get("tour.mapGeoJson"))) { warningCount++; }
-        if (!App.Validate.lengthOrNull(this.get("tour.itinerary"), 100, 8000, false)) { warningCount++; }
-        this.set("isIncomplete", warningCount > 0);
+        return false;
+
+        //var warningCount = 0;
+        //if (!App.Validate.isNotNullOrEmpty(this.get("tour.shortDescription"))) { warningCount++; }
+        //if (!this.get("tour.grade")) { warningCount++; }
+        //if (!App.Validate.isPosNumber(this.get("tour.elevationMax"))) { warningCount++; }
+        //if (!this.get("tour.timeOfYearFrom")) { warningCount++; }
+        //if (!this.get("tour.timeOfYearTo")) { warningCount++; }
+        //if (!GeoHelper.geojsonContainsPath(this.get("tour.mapGeoJson"))) { warningCount++; }
+        //if (!GeoHelper.geojsonContainsSummitPoint(this.get("tour.mapGeoJson"))) { warningCount++; }
+        //if (!App.Validate.lengthOrNull(this.get("tour.itinerary"), 100, 8000, false)) { warningCount++; }
+        //this.set("isIncomplete", warningCount > 0);
     }
 });
