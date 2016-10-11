@@ -9,27 +9,17 @@ export default Ember.Component.extend({
     showAdvancedOptions: false,
     haveValidationErrors: false,
     haveValidationWarnings: false,
-    aspects: [],
     validationErrors: [],
     validationWarnings: [],
     allTags: null,
     
     didInsertElement: function() {
-        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        $('a[data-toggle="pill"]').on('shown.bs.tab', function (e) {
             // Hack to make sure content is loaded correctly, solves issue with Google Maps view not being rendered
             $(window).resize();
         });
 
         $('.info').popover({placement: 'auto'});
-
-        // todo ...        
-        //$(".tags-editor").select2({
-        //    tags: true,
-        //    tokenSeparators: [',', ' '],
-        //    multiple: true
-        //});
-
-        this.set("aspects", Fixtures.Aspects);
     },
        
     actions: {
@@ -70,14 +60,6 @@ export default Ember.Component.extend({
             this.set('showAdvancedOptions', !this.get('showAdvancedOptions'));
         },
         
-        //closeAreaPickerDialog: function() {
-        //    $('#areaPickerModal').modal('hide');
-        //},
-        
-        //confirmAreaPickerDialog: function() {
-        //    $('#areaPickerModal').modal('hide');
-        //},
-        
         confirmDeleteTour: function() {
             this.send('deleteTour');
             $('#confirmDeleteImageModal').modal('hide');
@@ -96,8 +78,6 @@ export default Ember.Component.extend({
         tagsUpdated: function (tags) {
             tags = tags || [];
             this.set("tags", tags);
-
-            // console.debug("Tags updated, new tag count: " + tags.length);
         },
 
         cancelEditTour: function () {
@@ -280,20 +260,6 @@ export default Ember.Component.extend({
 
         selectTimeOfYearTo: function(month) {
             this.set("tour.timeOfYearTo", month ? month.value : null);
-        },
-
-        // MAP ACTIONS
-        
-        updatePaths: function(geoJson) {
-            this.set("tour.mapGeoJson", geoJson);
-        },
-        
-        deletePaths: function() {
-            this.set("tour.mapGeoJson", null);
-        },
-        
-        updateGeoJson: function(geoJson) {
-            this.set("tour.mapGeoJson", geoJson);
         }
     },
 

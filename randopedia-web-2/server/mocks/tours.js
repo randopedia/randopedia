@@ -66,7 +66,8 @@ module.exports = function(app) {
           "type": "FeatureCollection"
       },
       "name": "Nordre Soleibotntind, north-east colouir",
-      "shortDescription": "Long, steep and spectacular colouir in Ringsdalen valley",
+      "accessPoint": "By the road",
+      "itinerary": "Long, steep and spectacular colouir in Ringsdalen valley",
       "timingMax": 6,
       "timingMin": 5,
       "id": "nordre_soleibotntind__north_east_colouir"

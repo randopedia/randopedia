@@ -5,7 +5,9 @@
     "-Promise",
     "togpx",
     "saveAs",
-    "marked"
+    "marked",
+    "google",
+    "$"
   ],
   "browser": true,
   "boss": true,

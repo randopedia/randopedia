@@ -1,9 +1,5 @@
 import Fixtures from './fixtures';
 
-var google = google || {};
-google.maps = google.maps || {};
-google.maps.MapTypeId = google.maps.MapTypeId || {};
-
 var GeoHelper = {
     
     validateGeoJson: function(geojson) {
@@ -264,11 +260,9 @@ var GeoHelper = {
     ],
     
     setMapTypes: function(map) {
-        // todo ... Getting js error in console "new google.maps.Size" is not a constructor... gah.. why?
-
-        //map.mapTypes.set('osm', GeoHelper.mapTypes.osm());
-        //map.mapTypes.set('norgeskart', GeoHelper.mapTypes.norgeskart());
-        //map.mapTypes.set('eniroair', GeoHelper.mapTypes.eniroair());
+        map.mapTypes.set('osm', GeoHelper.mapTypes.osm());
+        map.mapTypes.set('norgeskart', GeoHelper.mapTypes.norgeskart());
+        map.mapTypes.set('eniroair', GeoHelper.mapTypes.eniroair());
     },
     
     getDefaultMapTypeIdForCountry: function(country) {
