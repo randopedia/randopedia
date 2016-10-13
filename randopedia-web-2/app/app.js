@@ -20,7 +20,6 @@ App = Ember.Application.extend({
         }
 
         var url = document.location.toString();
-        var host = url.split('randopedia')[0];
         var hash = url.indexOf('#');
 
         if(hash > 0) {
@@ -43,7 +42,6 @@ App = Ember.Application.extend({
             url = 'http://randopedia.net';
 
         } else {
-            var html = url.indexOf('index.html');
             url = 'http://localhost:9001';
             facebookAppId = config.EmberENV.facebookAppIdLocalhost;
             googleAppId = config.EmberENV.googleAppIdLocalhost;

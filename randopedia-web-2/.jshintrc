@@ -7,7 +7,12 @@
     "saveAs",
     "marked",
     "google",
-    "$"
+    "$",
+    "MarkerClusterer",
+    "$Jssor$",
+    "$JssorBulletNavigator$",
+    "$JssorArrowNavigator$",
+    "$JssorSlider$"
   ],
   "browser": true,
   "boss": true,

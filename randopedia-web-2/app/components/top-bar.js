@@ -1,8 +1,9 @@
 import Ember from 'ember';
+import LocationHelper from '../utils/location-helper';
 
 export default Ember.Component.extend({
     login: Ember.inject.service(),
-    language: Ember.inject.service(),
+    anguage: Ember.inject.service(),
 
     actions: {
         topbarmenulink: function (routeName) {
@@ -37,8 +38,8 @@ export default Ember.Component.extend({
             //    return;
             //} 
 
-            //var pathnameWithLangCode = LocationHelper.setPathnameWithLanguageCode(language);
-            //LocationHelper.redirectToPathname(pathnameWithLangCode);
+            var pathnameWithLangCode = LocationHelper.setPathnameWithLanguageCode(language);
+            LocationHelper.redirectToPathname(pathnameWithLangCode);
         },
         
         logout: function () {

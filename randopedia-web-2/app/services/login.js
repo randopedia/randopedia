@@ -66,7 +66,7 @@ export default Ember.Service.extend({
     },
 
     isLoggedIn: Ember.computed('currentUser.authenticated', function() {
-        this.set("user", {userName: "Björn Asplund", userId: "521716365"});
+        this.set("user", {userName: "Bjï¿½rn Asplund", userId: "521716365"});
         return true;
 
         //var user = this.get('currentUser');

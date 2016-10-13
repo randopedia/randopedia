@@ -1,43 +1,46 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-  tags : [],
+    tags : [],
 
-  didInsertElement() {
-    var self = this;
-    setTimeout(function () {
-      self.initjQCloud();
-    });
-  },
-  initjQCloud: function() {
-      var jqTags = [];
+    didInsertElement() {
+        var self = this;
+        setTimeout(function () {
+            self.initjQCloud();
+        });
+    },
 
-      this.get("tags").forEach(function (tag) {
-          jqTags.push({
-              text: tag.get("name"),
-              weight: tag.get("popularity") + 5,
-              link: "/tags/" + tag.get("id")
-          });
-      });
+    initjQCloud: function() {
+        var jqTags = [];
 
-      function scaleCloud() {
-          var containerWidth = $(".tagcloud-component").width();
-          if (containerWidth)
-              $(".tagcloud-container").width(containerWidth);
-          else
-              window.setTimeout(scaleCloud, 30);
+        this.get("tags").forEach(function (tag) {
+            jqTags.push({
+                text: tag.get("name"),
+                weight: tag.get("popularity") + 5,
+                link: "/tags/" + tag.get("id")
+            });
+        });
 
-          $(".tagcloud-container").jQCloud(jqTags, {
-              width: containerWidth,
-              height: 300
-          });
-      }
+        function scaleCloud() {
+            var containerWidth = $(".tagcloud-component").width();
+            if (containerWidth) {
+                $(".tagcloud-container").width(containerWidth);
+            
+            } else {
+                window.setTimeout(scaleCloud, 30);
+            }
 
-      scaleCloud();
+            $(".tagcloud-container").jQCloud(jqTags, {
+                width: containerWidth,
+                height: 300
+            });
+        }
 
-      // todo: "live" scaling doesn't work with jqCloud. width needs to be set in some other way
-      //$Jssor$.$AddEvent(window, "load", scaleCloud);
-      //$Jssor$.$AddEvent(window, "resize", scaleCloud);
-      //$Jssor$.$AddEvent(window, "orientationchange", scaleCloud);
-  }
+        scaleCloud();
+
+        // todo: "live" scaling doesn't work with jqCloud. width needs to be set in some other way
+        //$Jssor$.$AddEvent(window, "load", scaleCloud);
+        //$Jssor$.$AddEvent(window, "resize", scaleCloud);
+        //$Jssor$.$AddEvent(window, "orientationchange", scaleCloud);
+    }
 });

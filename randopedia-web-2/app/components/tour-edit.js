@@ -14,7 +14,7 @@ export default Ember.Component.extend({
     allTags: null,
     
     didInsertElement: function() {
-        $('a[data-toggle="pill"]').on('shown.bs.tab', function (e) {
+        $('a[data-toggle="pill"]').on('shown.bs.tab', function () {
             // Hack to make sure content is loaded correctly, solves issue with Google Maps view not being rendered
             $(window).resize();
         });
@@ -431,9 +431,9 @@ export default Ember.Component.extend({
             return true;
         }
 
-        if(!App.Validate.isNotNullOrEmpty(this.get("name"))){
-            return true;
-        }
+        // if(!App.Validate.isNotNullOrEmpty(this.get("name"))){
+        //     return true;
+        // }
 
         if(this.get("isDraft") || this.get("isInReview") || this.get("isDirty")) {
             return false;
@@ -451,9 +451,9 @@ export default Ember.Component.extend({
             return false;
         }
 
-        if(!App.Validate.isNotNullOrEmpty(this.get("tour.name"))){
-            return true;
-        }
+        // if(!App.Validate.isNotNullOrEmpty(this.get("tour.name"))){
+        //     return true;
+        // }
 
         return !this.get("isDraft") || !this.get("hasChanges");
     }),
@@ -467,9 +467,9 @@ export default Ember.Component.extend({
             return false;
         }
 
-        if(!App.Validate.isNotNullOrEmpty(this.get("tour.name"))){
-            return true;
-        }
+        // if(!App.Validate.isNotNullOrEmpty(this.get("tour.name"))){
+        //     return true;
+        // }
 
         if (this.get("isDraft")) {
             return false;
