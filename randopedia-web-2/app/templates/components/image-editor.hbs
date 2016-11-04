@@ -1,2 +1,113 @@
+<div class="image-upload-view">
 
-IMAGE EDITOR COMPONENT
+	<div class="row">
+	    <div class="col-sm-12">
+	        <h4>Upload new images</h4>
+	    </div>
+	</div>
+	
+	<div class="row">
+	    <div class="col-sm-12">
+            {{#x-file-input action="didSelectImage" accept="image/*" alt="Select image"}}
+                <button class="btn btn-primary"><i class="fa fa-picture-o"></i> Select image</button>
+            {{/x-file-input}}
+	    </div>
+	</div>
+	
+	{{#if hasNewImage}}
+	<div class="row">
+	   <div class="col-sm-12">
+	        <div class="panel">
+	            <div class="row">
+                    <hr />
+	                <div class="col-sm-12 col-lg-2">
+                        <div class="thumbnail-wrapper">
+                            <img {{bind-attr src="newImage.imageData" }} />
+                        </div>
+	                </div>
+	                <div class="col-sm-12 col-lg-10">
+                        <form class="form">
+                            <div class="form-group">
+                                <label>Caption</label>
+                                {{input value=newImage.caption maxlength="300" class="form-control"}}
+                            </div>
+                            <div class="form-group">
+                                <div class="button-group pull-right">
+                                    <button class="btn btn-default" {{action "removeNewImage"}} {{bind-attr disabled="havePendingOperations" }}>Cancel</button>
+                                    <button class="btn btn-primary" {{action "saveNewImage"}} {{bind-attr disabled="havePendingOperations" }}>Upload image</button>
+                                </div>                   
+                            </div>                         
+                        </form>
+	                </div>
+	            </div>
+	        </div>
+	     </div>
+	</div>
+	{{/if}}
+	
+	<div class="row">
+	    <div class="col-sm-12">
+	        <hr />
+	        <h4>Current tour images <span class="secondary-text">({{images.length}})</span></h4>
+	    </div>
+	</div>
+		
+	<div class="row">
+		<div class="col-sm-12">
+		{{#each image in images}}
+		    {{#unless image.isNew}}
+	            <div class="col-sm-12">
+                    <hr />
+	                <div class="row">
+	                    <div class="col-sm-12 col-lg-2">
+	                            <div class="thumbnail-wrapper">
+	                            <img {{bind-attr src="image.imageFile"}} class="thumbnail-image" />
+	                        </div>
+	                    </div>
+	                    <div class="col-sm-12 col-lg-10">
+	                        <form class="form">
+	                            <div class="form-group">
+		                            <label>Caption</label>
+                                    {{input value=image.caption maxlength="300" class="form-control"}}
+                                </div>
+                                <div class="form-group">
+                                    <div class="checkbox">
+                                        <label {{bind-attr class="image.isPortfolio:checked" }}>
+                                            {{input type="checkbox" checkedBinding="image.isPortfolio" class="hide"}}
+                                            <span class="glyphicon glyphicon-ok"></span>
+                                            <span>Is portfolio image</span>
+                                        </label>
+                                    </div>
+									<div class="button-group pull-right">
+		                                <button {{action "saveImage" image}} {{bind-attr disabled="image.isUpdateDisabled"}} class="btn btn-primary">Update</button>
+		                                <button {{action "startDeleteImage" image }} data-toggle="modal" data-target="#confirmDeleteImageModal" {{bind-attr disabled="image.isDeleteDisabled"}} class="btn btn-danger">Delete image</button>
+		                            </div>
+                                </div>                                            
+                            </form>
+	                    </div>
+	                </div>
+	            </div>
+		    {{/unless}}
+		{{/each}}
+	    </div>         
+	</div>
+	
+    <div class="modal fade" id="confirmDeleteImageModal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">Delete image</h4>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete the image? It will not be possible to restore the image.
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+                    <button class="btn btn-danger pull-right" data-dismiss="modal" {{action "confirmDeleteImage" }}>Delete image</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

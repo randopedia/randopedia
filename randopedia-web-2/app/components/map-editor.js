@@ -257,45 +257,6 @@ export default Ember.Component.extend({
         self.saveGeoJson();
     },
 
-    // todo: Work in progress on "show other tours" feature
-    //startShowOtherTours: function () {
-    //    var self = this;
-
-    //    if (self.get('allTours').length > 0) {
-    //        self.showOtherTours();
-    //    }
-
-    //    self.set('loadingAllTours', true);
-    //    self.get('store').findQuery('tour', { liteTours: true }).then(function (tours) {
-    //        self.set('allTours', tours);
-    //        self.set('loadingAllTours', false);
-    //        self.showOtherTours();
-    //    }, function (error) {
-    //        Alerts.showErrorMessage('Error when loading tours');
-    //        self.set('loadingAllTours', false);
-    //    });
-    //},
-
-    //showOtherTours: function () {
-    //    var tourPaths = [];
-
-    //    self.get('allTours').forEach(function(tour) {
-    //        var mapObjects = GeoHelper.getGoogleObjectsFromTourGeoJson(tour.get('mapGeoJson'));
-    //        mapObjects.forEach(function(mapObject) {
-    //            if (mapObject.get('rando_type') !== Fixtures.MapSymbolTypes.SUMMIT_POINT) {
-    //                tourPaths.push(mapObject);
-    //                mapObject.setMap(self.get('map'));
-    //            }
-    //        });
-    //    });
-
-    //    self.set('otherToursPaths', tourPaths);
-    //},
-
-    //hideOtherTours: function() {
-        
-    //},
-
     actions: {
         clearDrawingMode: function() {
             this.get('drawingManager').setDrawingMode(null);
@@ -359,21 +320,21 @@ export default Ember.Component.extend({
         }
     },
 
-    hasSummitPointMarker: function() {
+    hasSummitPointMarker: Ember.computed('summitPointMarker', function() {
         return this.get('summitPointMarker') !== null;
-    }.property('summitPointMarker'),
+    }),
 
-    isDeletePathsDisabled: function () {
+    isDeletePathsDisabled: Ember.computed('selectedPolylines.[]', function() {
         return !this.get('haveSelectedPaths');
-    }.property('selectedPolylines.[]'),
+    }),
 
-    haveSelectedPaths: function () {
+    haveSelectedPaths: Ember.computed('selectedPolylines.[]', function() {
         return this.get('selectedPolylines').length > 0;
-    }.property('selectedPolylines.[]'),
+    }),
    
-    pathTypes: function() {
+    pathTypes: Ember.computed(function() {
         return Fixtures.PathTypes;
-    },
+    }),
 
     initMap: function () {
         var self = this;

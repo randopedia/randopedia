@@ -4,25 +4,25 @@
             <div class="btn-toolbar" role="toolbar">
                 <div class="btn-group spacing-x-large">
                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                        <span class="glyphicon glyphicon-plus"></span> {{text "map_addPath"}}
+                        <i class="fa fa-plus"></i> {{text "map_addPath"}}
                         <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="#" {{action "drawUpDownTrack"}}><span class="glyphicon glyphicon-sort"></span> {{text "map_upDown"}}</a></li>
-                        <li><a href="#" {{action "drawUpTrack"}}><span class="glyphicon glyphicon-arrow-up"></span> {{text "map_up"}}</a></li>
-                        <li><a href="#" {{action "drawDownTrack"}}><span class="glyphicon glyphicon-arrow-down"></span> {{text "map_down"}}</a></li>
+                        <li><a href="#" {{action "drawUpDownTrack"}}> <i class="fa fa-arrows-v"></i> {{text "map_upDown"}}</a></li>
+                        <li><a href="#" {{action "drawUpTrack"}}><i class="fa fa-arrow-up"></i> {{text "map_up"}}</a></li>
+                        <li><a href="#" {{action "drawDownTrack"}}><i class="fa fa-arrow-down"></i> {{text "map_down"}}</a></li>
                     </ul>
                     <button class="btn btn-default" {{bind-attr disabled="hasSummitPointMarker" }} {{action "drawSummitPoint"  }}>
-                        <span class="glyphicon glyphicon-map-marker"></span> {{text "map_summitPoint"}}
+                        <i class="fa fa-map-marker"></i> {{text "map_summitPoint"}}
                     </button>
                 </div>
 
                 <div class="btn-group spacing-x-large">
                     <button class="btn btn-default" data-toggle="modal" data-target="#editPathsModal" {{bind-attr disabled="isDeletePathsDisabled" }}>
-                        <span class="glyphicon glyphicon-edit"></span> {{text "map_editPaths"}}
+                        <i class="fa fa-pencil-square-o"></i> {{text "map_editPaths"}}
                     </button>
                     <button class="btn btn-default" data-toggle="modal" data-target="#confirmDeleteRoutesModal" {{bind-attr disabled="isDeletePathsDisabled" }}>
-                        <span class="glyphicon glyphicon-trash"></span>
+                        <i class="fa fa-trash-o"></i>
                     </button>
                 </div>
 
