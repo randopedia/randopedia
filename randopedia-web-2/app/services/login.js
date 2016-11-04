@@ -19,7 +19,7 @@ export default Ember.Service.extend({
 
     logout: function() {
         this.send('removeToken');
-        alert.showSuccessMessage('You were logged out.');
+        this.get('alert').showSuccessMessage('You were logged out.');
     },
 
     actions: {
@@ -45,13 +45,13 @@ export default Ember.Service.extend({
             user.save().then(function() {
                 self.set('isLoggingIn', false);
                 self.set('currentUser', user);
-                alert.showSuccessMessage('You were successfully logged in. ', 2000);
+                self.get('alert').showSuccessMessage('You were successfully logged in. ', 2000);
 
             }, function(error) {
                 self.set('isLoggingIn', false);
                 App.oauth.expireAccessToken();
                 user.rollback();
-                alert.showErrorMessage('An error occured when trying to log in, please try again. ');
+                self.get('alert').showErrorMessage('An error occured when trying to log in, please try again. ');
             });            
         },
 
