@@ -88,7 +88,7 @@ export default Ember.Component.extend({
                     self.set("newImage", null);
                     self.set("havePendingOperations", false);
                     self.get("tour").reload();
-                    self.get('alert').showSuccessMessage("Image was successfully added.", App.Alerts.long_delay);
+                    self.get('alert').showSuccessMessage("Image was successfully added.");
                 }, 
                 function(error) {
                     var status = error.status;

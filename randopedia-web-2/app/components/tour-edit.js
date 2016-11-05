@@ -19,7 +19,7 @@ export default Ember.Component.extend({
             $(window).resize();
         });
 
-        $('.info').popover({placement: 'auto'});
+        $('[data-toggle="popover"]').popover({placement: 'left'});
     },
        
     actions: {
@@ -83,17 +83,14 @@ export default Ember.Component.extend({
         cancelEditTour: function () {
             var self = this;
 
-            if (!self.get("tour").get("id")) {
-                
+            if (!self.get("tour.id")) {
                 self.get("tour").deleteRecord();
-                self.transitionToRoute("index");
-            }
-            else {                
-                self.get("tour").rollback();
-                
+                self.get("router").transitionTo("index");
+            
+            } else {                
+                self.get("tour").rollbackAttributes();
                 self.set("newImage", null);
-                            
-                self.transitionToRoute("tour", self.get("tour"));
+                self.get("router").transitionTo("tour", self.get("tour"));
             }
         },
     

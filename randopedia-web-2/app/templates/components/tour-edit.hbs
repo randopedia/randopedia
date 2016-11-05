@@ -1,4 +1,4 @@
-<div class="tour-edit-component">
+<div class="tour-edit">
 
     {{#if draftValidationErrors}}
     <div class="row">
@@ -34,11 +34,11 @@
     {{/if}}
 
     <div class="row">
-        <div class="col-xs-12">
+        <!--<div class="col-xs-12">
             <span class="pull-right lang-version">
-                {{text "tourEdit_currentLanguageVersion"}}
+                {{!-- text "tourEdit_currentLanguageVersion" --}}
             </span>
-        </div>
+        </div>-->
 
         <div class="col-xs-12">
 
@@ -46,7 +46,7 @@
                 <li class="nav-item"><a class="nav-link active" href="#details-panel" role="tab" data-toggle="pill">{{text "tourEdit_details"}}</a></li>
                 <li class="nav-item"><a class="nav-link" href="#map-panel" role="tab" data-toggle="pill">{{text "tourEdit_map"}}</a></li>
                 <li class="nav-item"><a class="nav-link" href="#images-panel" role="tab" data-toggle="pill">{{text "tour_images"}}</a></li>
-                <li class="nav-item"><a class="nav-link" href="#history-panel" role="tab" data-toggle="pill">{{text "tourEdit_history"}}</a></li>
+                <li class="nav-item right"><a class="nav-link" href="#history-panel" role="tab" data-toggle="pill">{{text "tourEdit_history"}}</a></li>
             </ul>
 
             <div class="tab-content">
@@ -57,9 +57,9 @@
                             <div class="col-xs-12 col-md-8">
                                 <div class="form-group">
                                     <label for="inputName">{{text "tourEdit_nameOfTour"}}<span class="asterisk required"></span></label>
-                                    <button type="button" class="info pull-right" data-toggle="popover" data-trigger="focus" title="Name" data-content="The name of the tour. Name is required and must be between 3 and 80 characters long."></button>
+                                    <button type="button" class="info pull-right" data-toggle="popover" data-placement="right" data-trigger="focus" title="Name" data-content="The name of the tour. Name is required and must be between 3 and 80 characters long."></button>
                                     {{input placeholder="" pattern="^.{3,80}$" value=tour.name id="inputName" class="form-control"}}
-                                </div>
+                                </div> 
                             </div>
                             <div class="col-xs-12 col-md-4">
                                 <div class="form-group">
@@ -67,7 +67,7 @@
                                     <button type="button" class="info pull-right" data-toggle="popover" data-trigger="focus"
                                             title="Country"
                                             data-content="The country where the tour is located."></button>
-                                    {{#x-select value=tour.country action="selectCountry" as |xs|}}
+                                    {{#x-select class="form-control" value=tour.country action="selectCountry" as |xs|}}
                                         {{#each countries as |country|}}
                                             {{#xs.option value=country.value}} {{country.name}} {{/xs.option}}
                                         {{/each}}
@@ -292,7 +292,9 @@
 
                 <div id="map-panel" class="tab-pane">
                     <div class="row">
-                        {{map-editor tour=tour}}
+                        <div class="col-xs-12">
+                            {{map-editor tour=tour}}
+                        </div>
                     </div>
                 </div>
 
@@ -497,59 +499,50 @@
         </div>
     </div>
 
-</div>
+    <div class="edit-toolbar" role="toolbar">
+        <div class="btn-toolbar">
+            <div class="btn-group right">
+                <button class="btn btn-secondary" {{action "startCancelingEditTour" }}>
+                    <i class="fa fa-times"></i> {{text "tourEdit_exit"}}
+                </button>
+            </div>
 
-<nav class="edit-navbar" role="toolbar">
-    <div class="container-fluid">
+            <div class="btn-group right">
+                <button class="btn btn-secondary" data-toggle="modal" data-target="#editTourHelpModal">
+                    <i class="fa fa-question"></i> {{text "header_help"}}
+                </button>
+            </div>
 
-        <div class="navbar-header">
-            <div class="btn-toolbar">
-                <div class="btn-group pull-left">
-                    <button class="btn btn-default" data-toggle="modal" data-target="#editTourHelpModal">
-                        <i class="fa fa-question"></i> {{text "header_help"}}
-                    </button>
-                </div>
-
-                <div class="btn-group pull-right">
-                    <button class="btn btn-default" {{action "startCancelingEditTour" }}>
-                        <i class="fa fa-times"></i> {{text "tourEdit_exit"}}
-                    </button>
-                </div>
-
-                <div class="btn-group pull-right">
-                    <button class="btn btn-default" {{bind-attr disabled="isStartPublishDisabled" }} {{action "startPublishTour" }}>
-                        <i class="fa fa-cloud-upload"></i> {{text "tourEdit_publish"}}
-                    </button>
-                </div>
-
+            <div class="btn-group">
+                <button class="btn btn-primary" {{bind-attr disabled="isStartPublishDisabled" }} {{action "startPublishTour" }}>
+                    <i class="fa fa-cloud-upload"></i> {{text "tourEdit_publish"}}
+                </button>
+                
                 {{#unless isPublished}}
-                <div class="btn-group pull-right">
-                    <button class="btn btn-default" {{bind-attr disabled="isSendToReviewDisabled" }} {{action "sendToReview" }}>
+                    <button class="btn btn-secondary" {{bind-attr disabled="isSendToReviewDisabled" }} {{action "sendToReview" }}>
                         <i class="fa fa-eye"></i> {{text "tourEdit_sendToReview"}}
                     </button>
-                </div>
 
-                {{#unless isInReview}}
-                <div class="btn-group pull-right">
-                    <button class="btn btn-default" {{bind-attr disabled="isSaveAsDraftDisabled" }} {{action "saveAsDraft" }}>
+                    {{#unless isInReview}}
+                    <button class="btn btn-secondary" {{bind-attr disabled="isSaveAsDraftDisabled" }} {{action "saveAsDraft" }}>
                         <i class="fa fa-floppy-o"></i> {{text "tourEdit_saveAsDraft"}}
                     </button>
-                </div>
-                {{/unless}}
-                {{/unless}}
+                    {{/unless}}
 
-                <div class="saving-info-container pull-right">
-                    {{#if hasChanges}}
-                    {{#if havePendingOperations}}
-                    <span class="spacing-x-large"><i class="fa fa-floppy-o"></i><em> {{text "tourEdit_saving"}}...</em></span>
-                    {{else}}
-                    <span class="spacing-x-large"><i class="fa fa-exclamation"></i><em class="hidden-xs"> {{text "tourEdit_unsavedChanges"}}</em></span>
-                    {{/if}}
-                    {{/if}}
-                </div>
-
+                {{/unless}}
             </div>
-        </div>
 
+            <div class="saving-info-container pull-right">
+                {{#if hasChanges}}
+                {{#if havePendingOperations}}
+                <span class="spacing-x-large"><i class="fa fa-floppy-o"></i><em> {{text "tourEdit_saving"}}...</em></span>
+                {{else}}
+                <span class="spacing-x-large"><i class="fa fa-exclamation"></i><em class="hidden-xs"> {{text "tourEdit_unsavedChanges"}}</em></span>
+                {{/if}}
+                {{/if}}
+            </div>
+
+        </div>
     </div>
-</nav>
+
+</div>
