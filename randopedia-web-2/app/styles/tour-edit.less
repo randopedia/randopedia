@@ -6,8 +6,8 @@
         height: 1.5em;
         width: 1.5em;
         border-radius: 50%;
-        border: 1px solid #818181;
-        background-color: #818181;
+        border: 1px solid @primary-color;
+        background-color: @primary-color;
         color: #FFF;
         font-size: 0.8em;
         font-family: Aight;
@@ -20,8 +20,9 @@
 
         &:hover { 
             background: none; 
-            background-color: #0A89DD;
-            border-color: #0A89DD;
+            background-color: @primary-hover-color;
+            border-color: @primary-hover-color;
+            cursor: pointer;
         }
     }
 
@@ -44,5 +45,9 @@
 
     .tab-pane {
         margin-top: 15px;   
+    }
+
+    .select2-container--default .select2-selection--multiple {
+        border: 1px solid rgba(0,0,0,.15);
     }
 }

@@ -3,7 +3,7 @@ import LocationHelper from '../utils/location-helper';
 
 export default Ember.Component.extend({
     login: Ember.inject.service(),
-    anguage: Ember.inject.service(),
+    language: Ember.inject.service(),
 
     actions: {
         topbarmenulink: function (routeName) {
@@ -43,12 +43,12 @@ export default Ember.Component.extend({
         },
         
         logout: function () {
-            this.get('controllers.login').logout();
+            this.get('login').logout();
             this.send('collapseNavbar');
         },
 
         collapseNavbar: function() {
-            $('.navbar-collapse').collapse('hide');
+            $('.collapse').collapse('hide');
         },
 
         toggleNavbarSearchbox: function () {

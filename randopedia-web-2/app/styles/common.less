@@ -1,5 +1,34 @@
-﻿select {
-    display: block;
+﻿@logo-font:                     Aight;
+
+@navbar-background:             #ececec;
+
+@primary-color:                 #444444;
+@primary-hover-color:           lighten(@primary-color, 15%);
+
+@font-face { font-family: Aight; src: url('../assets/fonts/aaaiight.ttf'); }
+
+// Bootstrp overrides
+
+.nav-link {
+    color: @primary-color !important;
+    &.active {
+        background-color: @primary-color !important;
+        color: #fff !important;
+    }
+} 
+
+.btn-primary {
+    background-color: @primary-color;
+    border-color: darken(@primary-color, 10%);
+    &:hover {
+        background-color: @primary-hover-color;
+    }
+}
+
+// END Bootstrp overrides
+
+.container {
+    margin-top: 15px;
 }
 
 .right {
@@ -13,6 +42,20 @@
 
 .spacer-y-bottom {
     margin-bottom: 10px;
+}
+
+.spacer-y-top {
+    margin-top: 10px;
+}
+
+.logo {
+    font-family: @logo-font;
+}
+
+a {
+    &:hover {
+        cursor: pointer;
+    }
 }
 
 select { // copy of bootstrap form-control class
@@ -30,6 +73,14 @@ select { // copy of bootstrap form-control class
     border-radius: .25rem;    
 }
 
-.select2-container--default .select2-selection--multiple {
-    border: 1px solid rgba(0,0,0,.15);
+.promo-box {
+    text-align: center;
+    margin-top: 2rem;
+    .logo {
+        font-size: 3.5rem;
+        margin-bottom: -10px;
+    }
+    div {
+        font-size: 1.75rem;
+    }
 }

@@ -248,13 +248,13 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <div class="checkbox">
+                                    <span class="checkbox">
                                         <label {{bind-attr class="haveHazards:checked" }}>
                                             {{input type="checkbox" checkedBinding="tour.haveHazards" class="hide"}}
                                             <span class="glyphicon glyphicon-ok"></span>
                                             <span>{{text "tour_hazards"}}</span>
                                         </label>
-                                    </div>
+                                    </span>
                                     <button type="button" class="info pull-right" data-toggle="popover" data-trigger="focus"
                                             title="Hazards"
                                             data-content="Description of any special hazards that skiers should be aware of. Description can have a maximum of 500 characters."></button>
@@ -263,13 +263,13 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <div class="checkbox">
+                                    <span class="checkbox">
                                         <label {{bind-attr class="requiresTools:checked" }}>
                                             {{input type="checkbox" checkedBinding="tour.requiresTools" class="hide"}}
                                             <span class="glyphicon glyphicon-ok"></span>
                                             <span>{{text "tourEdit_mountaineering"}}</span>
                                         </label>
-                                    </div>
+                                    </span>
                                     <button type="button" class="info pull-right" data-toggle="popover" data-trigger="focus"
                                             title="Skills/Equipment"
                                             data-content="Description of any mountaineering skills or equipment needed. Rappels, glacier safety equipment etc. Description can have a maximum of 500 characters."></button>
