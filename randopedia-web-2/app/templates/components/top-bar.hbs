@@ -42,11 +42,11 @@
                     <a class="nav-link dropdown-toggle" href="#" id="languageNavbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{text "header_language"}}</a>
                     <div class="dropdown-menu" aria-labelledby="languageNavbarDropdown">
                     {{#if language.isNorwegian}}
-                        <a class="dropdown-item" {{action "setlanguage"}}><i class="fa fa-circle-o"></i> English</a>
-                        <span class="dropdown-item dropdown-item"><i class="fa fa-check-circle"></i> Norsk</span>
+                        <a class="dropdown-item" {{action "setlanguage"}}><i class="fa fa-square-o"></i> English</a>
+                        <span class="dropdown-item dropdown-item"><i class="fa fa-check-square-o"></i> Norsk</span>
                         {{else}}
-                        <span class="dropdown-item"><i class="fa fa-check-circle"></i> English</span>
-                        <a class="dropdown-item" {{action "setlanguage" "no"}}><i class="fa fa-circle-o"></i> Norsk</a>
+                        <span class="dropdown-item"><i class="fa fa-check-square-o"></i> English</span>
+                        <a class="dropdown-item" {{action "setlanguage" "no"}}><i class="fa fa-square-o"></i> Norsk</a>
                         {{/if}}
                     </div>
                 </li>

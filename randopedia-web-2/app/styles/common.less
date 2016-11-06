@@ -4,6 +4,7 @@
 
 @primary-color:                 #444444;
 @primary-hover-color:           lighten(@primary-color, 15%);
+@error-color:                   red;
 
 @font-face { font-family: Aight; src: url('../assets/fonts/aaaiight.ttf'); }
 
@@ -23,9 +24,19 @@
     &:hover {
         background-color: @primary-hover-color;
     }
+    &[disabled] {
+        &:hover {
+            background-color: @primary-color;
+            border-color: darken(@primary-color, 10%);
+        }   
+    }
 }
 
 // END Bootstrp overrides
+
+body {
+    color: @primary-color;
+}
 
 .container {
     margin-top: 15px;
@@ -33,6 +44,11 @@
 
 .right {
     float: right !important;
+}
+
+.spacer-x {
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 .spacer-y {
@@ -46,6 +62,10 @@
 
 .spacer-y-top {
     margin-top: 10px;
+}
+
+.text-center {
+    text-align: center;
 }
 
 .logo {

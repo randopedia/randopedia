@@ -14,7 +14,7 @@
     {{#if isDraft}}
     <div class="row">
         <div class="col-xs-12">
-            <div class="alert alert-info alert-dismissible" role="alert">
+            <div class="alert alert-warning alert-dismissible" role="alert">
                 <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 {{text "tour_tourIsDraft"}}
             </div>
@@ -34,12 +34,22 @@
     {{/if}}
 
     <div class="row">
-        <!--<div class="col-xs-12">
-            <span class="pull-right lang-version">
-                {{!-- text "tourEdit_currentLanguageVersion" --}}
-            </span>
-        </div>-->
+        <div class="col-xs-12">
+            <div class="alert alert-info text-center" role="alert">
+            {{#if hasChanges}}
+                {{#if havePendingOperations}}
+                <i class="fa fa-floppy-o"></i><em> {{text "tourEdit_saving"}}...</em>
+                {{else}}
+                <i class="fa fa-floppy-o"></i><em> {{text "tourEdit_unsavedChanges"}}</em>
+                {{/if}}
+            {{else}}
+                <span> {{text "tourEdit_noChanges"}}</span>
+            {{/if}}
+            </div>
+        </div>
+    </div>
 
+    <div class="row">
         <div class="col-xs-12">
 
             <ul class="nav nav-pills" role="tablist">
@@ -56,9 +66,11 @@
                         <div class="row">
                             <div class="col-xs-12 col-md-8">
                                 <div class="form-group">
-                                    <label for="inputName">{{text "tourEdit_nameOfTour"}}<span class="asterisk required"></span></label>
+                                    <label for="inputName">{{text "tourEdit_nameOfTour"}}</label>
                                     <button type="button" class="info pull-right" data-toggle="popover" data-placement="right" data-trigger="focus" title="Name" data-content="The name of the tour. Name is required and must be between 3 and 80 characters long."></button>
-                                    {{input placeholder="" pattern="^.{3,80}$" value=tour.name id="inputName" class="form-control"}}
+                                    <div class="{{unless nameIsValid 'validation-error'}}">
+                                        {{input placeholder="" pattern="^.{3,80}$" value=tour.name id="inputName" class="form-control"}}
+                                    </div>
                                 </div> 
                             </div>
                             <div class="col-xs-12 col-md-4">
@@ -77,13 +89,15 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-xs-12 descTextAreaContainer">
+                            <div class="col-xs-12">
                                 <div class="form-group">
-                                    <label for="inputAccessPoint">{{text "tour_accessPoint"}}<span class="asterisk required"></span></label>
+                                    <label for="inputAccessPoint">{{text "tour_accessPoint"}}</label>
                                     <button type="button" class="info pull-right" data-toggle="popover" data-trigger="focus"
                                             title="Access point"
                                             data-content="Description of the access point and how to get there. The access point description can have a maximum of 1000 characters."></button>
-                                    {{textarea value=tour.accessPoint maxlength="1000" id="inputAccessPoint" class="form-control"}}
+                                            <div class="{{unless accessPointIsValid 'validation-error'}}">
+                                                {{textarea value=tour.accessPoint maxlength="1000" id="inputAccessPoint" class="form-control" }}
+                                            </div>
                                 </div>
                             </div>
                         </div>
@@ -91,11 +105,13 @@
                         <div class="row">
                             <div class="col-xs-12">
                                 <div class="form-group">
-                                    <label for="inputDescription">{{text "tour_description"}}<span class="asterisk required"></span></label>
+                                    <label for="inputDescription">{{text "tour_description"}}</label>
                                     <button type="button" class="info pull-right" data-toggle="popover" data-trigger="focus"
                                             title="Description"
-                                            data-content="Description of the tour itinerary and anything else that could be useful. Description can have a maximum of 8000 characters."></button>
-                                    {{textarea value=tour.itinerary maxlength="8000" id="inputDescription" class="form-control large"}}
+                                            data-content="Description of the tour itinerary and anything else that could be useful. Description can have a maximum of 10000 characters."></button>
+                                            <div class="{{unless descriptionIsValid 'validation-error'}}">
+                                                {{textarea value=tour.itinerary maxlength="10000" id="inputDescription" rows="8" class="form-control"}}
+                                            </div>
                                 </div>
                             </div>
                         </div>
@@ -103,12 +119,13 @@
                         <div class="row">
                             <div class="col-xs-12">
                                 <div class="form-group">
-                                    <label for="tagsEditorId">{{text "tour_tags"}}<span class="asterisk required"></span></label>
+                                    <label for="tagsEditorId">{{text "tour_tags"}}</label>
                                     <button type="button" class="info pull-right" data-toggle="popover" data-trigger="focus"
                                             title="Tags"
                                             data-content="Add tags describing the location and characteristics of the tour, i.e. 'chamonix', 'couloir' etc."></button>
-
-                                    {{tag-editor tags=allTags selectedTags=tour.tags action="tagsUpdated"}}
+                                            <div class="{{unless tagsAreValid 'validation-error'}}">
+                                                {{tag-editor tags=allTags selectedTags=tour.tags action="tagsUpdated"}}
+                                            </div>
                                 </div>
                             </div>
                         </div>
@@ -116,35 +133,35 @@
                         <div class="row">
                             <div class="col-lg-3">
                                 <div class="form-group">
-                                    <label for="inputElevationLoss">{{text "tourEdit_elevationLoss"}}<span class="asterisk required"></span></label>
+                                    <label for="inputElevationLoss">{{text "tourEdit_elevationLoss"}}</label>
                                     <button type="button" class="info pull-right" data-toggle="popover" data-trigger="focus"
                                             title="Elevation loss"
-                                            data-content="Total elevation to descend. Only digits are allowed."></button>
-                                    <div class="input-group">
-                                        {{input placeholder="" pattern=numberRegex value=tour.elevationLoss id="inputElevationLoss" class="form-control"}}
+                                            data-content="Total elevation to descend. Meters."></button>
+                                    <div class="input-group {{unless elevationLossIsValid 'validation-error'}}">
+                                        {{input pattern=numberRegex value=tour.elevationLoss id="inputElevationLoss" class="form-control"}}
                                         <div class="input-group-addon">m</div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="form-group">
-                                    <label for="inputElevationGain">{{text "tourEdit_elevationGain"}}<span class="asterisk required"></span></label>
+                                    <label for="inputElevationGain">{{text "tourEdit_elevationGain"}}</label>
                                     <button type="button" class="info pull-right" data-toggle="popover" data-trigger="focus"
                                             title="Elevation gain"
-                                            data-content="Total elevation to climb. Only digits are allowed."></button>
-                                    <div class="input-group">
-                                        {{input placeholder="" pattern=numberRegex value=tour.elevationGain id="inputElevationGain" class="form-control"}}
+                                            data-content="Total elevation to climb. Meters."></button>
+                                    <div class="input-group {{unless elevationGainIsValid 'validation-error'}}">
+                                        {{input pattern=numberRegex value=tour.elevationGain id="inputElevationGain" class="form-control"}}
                                         <div class="input-group-addon">m</div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="form-group">
-                                    <label for="inputHighestPoint">{{text "tourEdit_highestPoint"}}<span class="asterisk recommended"></span></label>
+                                    <label for="inputHighestPoint">{{text "tourEdit_highestPoint"}}</label>
                                     <button type="button" class="info pull-right" data-toggle="popover" data-trigger="focus"
                                             title="Highest point"
-                                            data-content="The highest point of the tour. Only digits are allowed."></button>
-                                    <div class="input-group">
+                                            data-content="The highest point of the tour. Meters."></button>
+                                    <div class="input-group {{unless elevationMaxIsValid 'validation-error'}}">
                                         {{input placeholder="" pattern=numberRegex value=tour.elevationMax id="inputHighestPoint" class="form-control"}}
                                         <div class="input-group-addon">m</div>
                                     </div>
@@ -168,11 +185,11 @@
                         <div class="row">
                             <div class="col-lg-3">
                                 <div class="form-group">
-                                    <label for="inputTimeMin">{{text "tourEdit_timeMin"}}<span class="asterisk required"></span></label>
+                                    <label for="inputTimeMin">{{text "tourEdit_timeMin"}}</label>
                                     <button type="button" class="info pull-right" data-toggle="popover" data-trigger="focus"
                                             title="Time min"
-                                            data-content="The minimum amount of time that can be expected for the tour. Only digits are allowed."></button>
-                                    <div class="input-group">
+                                            data-content="The minimum amount of time that can be expected for the tour. Hours."></button>
+                                    <div class="input-group {{unless timingMinIsValid 'validation-error'}}">
                                         {{input placeholder="" pattern=numberRegex value=tour.timingMin id="inputTimeMin" class="form-control"}}
                                         <div class="input-group-addon">h</div>
                                     </div>
@@ -180,11 +197,11 @@
                             </div>
                             <div class="col-lg-3">
                                 <div class="form-group">
-                                    <label for="inputTimeMax">{{text "tourEdit_timeMax"}}<span class="asterisk required"></span></label>
+                                    <label for="inputTimeMax">{{text "tourEdit_timeMax"}}</label>
                                     <button type="button" class="info pull-right" data-toggle="popover" data-trigger="focus"
                                             title="Time max"
-                                            data-content="The maximum amount of time that can be expected for the tour. Only digits are allowed."></button>
-                                    <div class="input-group">
+                                            data-content="The maximum amount of time that can be expected for the tour. Hours."></button>
+                                    <div class="input-group {{unless timingMaxIsValid 'validation-error'}}">
                                         {{input placeholder="" pattern=numberRegex value=tour.timingMax id="inputTimeMax" class="form-control"}}
                                         <div class="input-group-addon">h</div>
                                     </div>
@@ -192,7 +209,7 @@
                             </div>
                             <div class="col-lg-3">
                                 <div class="form-group">
-                                    <label for="inputSeasonFrom">{{text "tourEdit_seasonFrom"}}<span class="asterisk required"></span></label>
+                                    <label for="inputSeasonFrom">{{text "tourEdit_seasonFrom"}}</label>
                                     <button type="button" class="info pull-right" data-toggle="popover" data-trigger="focus"
                                             title="Season from"
                                             data-content="First month of the season when the tour normally is skiable."></button>
@@ -205,7 +222,7 @@
                             </div>
                             <div class="col-lg-3">
                                 <div class="form-group">
-                                    <label for="inputTimeOfYearTo">{{text "tourEdit_seasonTo"}}<span class="asterisk required"></span></label>
+                                    <label for="inputTimeOfYearTo">{{text "tourEdit_seasonTo"}}</label>
                                     <button type="button" class="info pull-right" data-toggle="popover" data-trigger="focus"
                                             title="Season to"
                                             data-content="Last month of the season when the tour normally is skiable."></button>
@@ -221,7 +238,7 @@
                         <div class="row">
                             <div class="col-lg-3">
                                 <div class="form-group">
-                                    <label for="inputGrade">{{text "tour_grade"}}<span class="asterisk recommended"></span></label>
+                                    <label for="inputGrade">{{text "tour_grade"}}</label>
                                     <a class="info pull-right" data-toggle="modal" data-target="#tourDetailsGradeGuideModal"></a>
                                     {{#x-select value=tour.grade action="selectGrade" as |xs|}}
                                         {{#each grades as |grade|}}
@@ -236,8 +253,8 @@
                                     <label for="inputSteepness">{{text "tourEdit_steepnessMax"}}</label>
                                     <button type="button" class="info pull-right" data-toggle="popover" data-trigger="focus"
                                             title="Steepness"
-                                            data-content="Degrees on the steepest part of the route. Only digits are allowed."></button>
-                                    <div class="input-group">
+                                            data-content="Degrees on the steepest part of the route. Degrees, 0-90."></button>
+                                    <div class="input-group {{unless degreesMaxIsValid 'validation-error'}}">
                                         {{input pattern=numberRegex value=tour.degreesMax id="inputSteepness" class="form-control"}}
                                         <div class="input-group-addon">&#176;</div>
                                     </div>
@@ -280,14 +297,6 @@
 
                     </form>
 
-                    <div class="row spacing-y-large">
-                        <div class="col-xs-12 small">
-                            <div class="form-group">
-                                <span class="asterisk required"></span> {{text "tourEdit_requiredFieldInfo"}} <br />
-                                <span class="asterisk recommended"></span> {{text "tourEdit_recommendedFieldInfo"}}
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
                 <div id="map-panel" class="tab-pane">
@@ -347,6 +356,46 @@
                 </div>
             </div>
 
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="edit-toolbar" role="toolbar">
+                <div class="btn-toolbar">
+                    <div class="btn-group right">
+                        <button class="btn btn-secondary" {{action "startCancelingEditTour" }}>
+                            <i class="fa fa-times"></i> {{text "tourEdit_exit"}}
+                        </button>
+                    </div>
+
+                    <div class="btn-group right">
+                        <button class="btn btn-secondary" data-toggle="modal" data-target="#editTourHelpModal">
+                            <i class="fa fa-question"></i> {{text "header_help"}}
+                        </button>
+                    </div>
+
+                    <div class="btn-group">
+                        <button class="btn btn-primary" disabled={{isStartPublishDisabled}} {{action "startPublishTour" }}>
+                            <i class="fa fa-cloud-upload"></i> {{text "tourEdit_publish"}}
+                        </button>
+                        
+                        {{#unless isPublished}}
+                            <button class="btn btn-secondary" disabled={{isSendToReviewDisabled}} {{action "sendToReview" }}>
+                                <i class="fa fa-eye"></i> {{text "tourEdit_sendToReview"}}
+                            </button>
+
+                            {{#unless isInReview}}
+                            <button class="btn btn-secondary" disabled={{isSaveAsDraftDisabled}} {{action "saveAsDraft" }}>
+                                <i class="fa fa-floppy-o"></i> {{text "tourEdit_saveAsDraft"}}
+                            </button>
+                            {{/unless}}
+
+                        {{/unless}}
+                    </div>
+
+                </div>
+            </div>
         </div>
     </div>
 
@@ -414,32 +463,8 @@
                     </div>
 
                     <div>
-                        <p>The tour lacks to much data to be published. Please add missing data and try again.</p>
-                        <p class="secondary-text">
-                            The following fields are missing or invalid:
-                            {{#each error in validationErrors}}
-                            <code>{{error}}</code>,
-                            {{/each}}
-                        </p>
-
-                        <p class="secondary-text confirmation-message">
-                            Required fields for publish are: Name, At least one Tag, Access point, Description, Time min/max and Elevation gain/loss
-                        </p>
-                    </div>
-                    {{else}}
-                    {{#if haveValidationWarnings }}
-                    <div class="alert alert-warning" role="alert">
-                        Tour data is valid but incomplete
-                    </div>
-                    <div>
-                        <p>The tour lacks some important data. It can be published, but it'll be marked as incomplete.</p>
-
-                        <p class="secondary-text confirmation-message">
-                            The following fields are missing:
-                            {{#each warning in validationWarnings}}
-                            <code>{{warning}}</code>,
-                            {{/each}}
-                        </p>
+                        <p>The tour are missing some required data and cannot be published.</p>
+                        <p>{{text "tourEdit_requiredFieldInfo"}}</p>
                     </div>
                     {{else}}
                     <div class="alert alert-success" role="alert">
@@ -447,11 +472,10 @@
                     </div>
                     <p>Tour is ready to be published.</p>
                     {{/if}}
-                    {{/if}}
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-default pull-right" data-dismiss="modal">Cancel</button>
-                    <button class="btn btn-primary pull-right" {{bind-attr disabled="haveValidationErrors" }} {{action "continueToPublishStep2"}}>Continue</button>
+                    <button class="btn btn-primary pull-right" disabled={{haveValidationErrors}} {{action "continueToPublishStep2"}}>Continue</button>
                 </div>
             </div>
         </div>
@@ -475,7 +499,7 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-default pull-right" data-dismiss="modal">Cancel</button>
-                    <button class="btn btn-primary pull-right" {{bind-attr disabled="isPublishDisabled" }} {{action "confirmPublishTour" target="view" }}><span class="glyphicon glyphicon-cloud-upload"></span> Publish</button>
+                    <button class="btn btn-primary pull-right" disabled={{isPublishDisabled}} {{action "confirmPublishTour" target="view" }}><span class="glyphicon glyphicon-cloud-upload"></span> Publish</button>
                 </div>
             </div>
         </div>
@@ -496,52 +520,6 @@
                     <button class="btn btn-default pull-right" data-dismiss="modal">Close</button>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <div class="edit-toolbar" role="toolbar">
-        <div class="btn-toolbar">
-            <div class="btn-group right">
-                <button class="btn btn-secondary" {{action "startCancelingEditTour" }}>
-                    <i class="fa fa-times"></i> {{text "tourEdit_exit"}}
-                </button>
-            </div>
-
-            <div class="btn-group right">
-                <button class="btn btn-secondary" data-toggle="modal" data-target="#editTourHelpModal">
-                    <i class="fa fa-question"></i> {{text "header_help"}}
-                </button>
-            </div>
-
-            <div class="btn-group">
-                <button class="btn btn-primary" {{bind-attr disabled="isStartPublishDisabled" }} {{action "startPublishTour" }}>
-                    <i class="fa fa-cloud-upload"></i> {{text "tourEdit_publish"}}
-                </button>
-                
-                {{#unless isPublished}}
-                    <button class="btn btn-secondary" {{bind-attr disabled="isSendToReviewDisabled" }} {{action "sendToReview" }}>
-                        <i class="fa fa-eye"></i> {{text "tourEdit_sendToReview"}}
-                    </button>
-
-                    {{#unless isInReview}}
-                    <button class="btn btn-secondary" {{bind-attr disabled="isSaveAsDraftDisabled" }} {{action "saveAsDraft" }}>
-                        <i class="fa fa-floppy-o"></i> {{text "tourEdit_saveAsDraft"}}
-                    </button>
-                    {{/unless}}
-
-                {{/unless}}
-            </div>
-
-            <div class="saving-info-container pull-right">
-                {{#if hasChanges}}
-                {{#if havePendingOperations}}
-                <span class="spacing-x-large"><i class="fa fa-floppy-o"></i><em> {{text "tourEdit_saving"}}...</em></span>
-                {{else}}
-                <span class="spacing-x-large"><i class="fa fa-exclamation"></i><em class="hidden-xs"> {{text "tourEdit_unsavedChanges"}}</em></span>
-                {{/if}}
-                {{/if}}
-            </div>
-
         </div>
     </div>
 

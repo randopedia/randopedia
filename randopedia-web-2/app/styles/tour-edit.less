@@ -50,4 +50,14 @@
     .select2-container--default .select2-selection--multiple {
         border: 1px solid rgba(0,0,0,.15);
     }
+
+    .validation-error {
+        textarea, input, .select2-container--default .select2-selection--multiple  {
+            border: 1px solid @error-color;
+        }
+    }
+
+    .saving-info-container {
+        margin: 5px 10px;
+    }
 }
