@@ -1,6 +1,6 @@
 
 <div class="tour-details-component">
-    <div class="hidden">{{view.imageLoaded}}</div>
+    <div class="hidden">{{!-- view.imageLoaded --}}</div>
 
     {{#if isDraft}}
     <div class="row">
@@ -62,23 +62,23 @@
         </div>
     </div>
 
-    <div class="row tour-props">
-        <div class="col-sm-12 col-lg-6">
+    <div class="row">
+        <div class="col-xs-12 col-lg-6">
 
             <div class="row">
-                <div class="col-xs-5 col-sm-3 col-lg-2">
-                    <label class="text-capitalize">{{text "tour_time"}}:</label>
+                <div class="col-xs-5 col-sm-4 col-lg-3">
+                    <label class="capitalize">{{text "tour_time"}}:</label>
                 </div>
-                <div class="col-xs-7 col-sm-9 col-lg-10">
+                <div class="col-xs-7 col-sm-8 col-lg-9">
                     {{#if tour.timingMin}}{{tour.timingMin}}{{/if}}{{#if tour.timingMax}}-{{tour.timingMax}}{{/if}}h
                 </div>
             </div>
 
             <div class="row">
-                <div class="col-xs-5 col-sm-3 col-lg-2">
-                    <label class="text-capitalize">{{text "tour_elevation"}}:</label>
+                <div class="col-xs-5 col-sm-4 col-lg-3">
+                    <label class="capitalize">{{text "tour_elevation"}}:</label>
                 </div>
-                <div class="col-xs-7 col-sm-9 col-lg-10">
+                <div class="col-xs-7 col-sm-8 col-lg-9">
                     {{#if tour.elevationGain}}
                     {{tour.elevationGain}}m &uarr;
                     {{/if}}
@@ -90,10 +90,10 @@
 
             {{#if tour.grade}}
             <div class="row">
-                <div class="col-xs-5 col-sm-3 col-lg-2">
-                    <label class="text-capitalize">{{text "tour_grade"}}:</label>
+                <div class="col-xs-5 col-sm-4 col-lg-3">
+                    <label class="capitalize">{{text "tour_grade"}}:</label>
                 </div>
-                <div class="col-xs-7 col-sm-9 col-lg-10">
+                <div class="col-xs-7 col-sm-8 col-lg-9">
                     <a data-toggle="modal" data-target="#tourDetailsGradeGuideModal">{{resolveSelectName 'Grades' tour.grade}}</a>
                 </div>
             </div>
@@ -101,10 +101,10 @@
 
             {{#if tour.degreesMax}}
             <div class="row">
-                <div class="col-xs-5 col-sm-3 col-lg-2">
-                    <label class="text-capitalize">{{text "tour_steepness"}}:</label>
+                <div class="col-xs-5 col-sm-4 col-lg-3">
+                    <label class="capitalize">{{text "tour_steepness"}}:</label>
                 </div>
-                <div class="col-xs-7 col-sm-9 col-lg-10">
+                <div class="col-xs-7 col-sm-8 col-lg-9">
                     {{tour.degreesMax}}&#176;
                 </div>
             </div>
@@ -113,10 +113,10 @@
             {{#if tour.timeOfYearFrom}}
             {{#if tour.timeOfYearTo}}
             <div class="row">
-                <div class="col-xs-5 col-sm-3 col-sm-3 col-lg-2">
-                    <label class="text-capitalize">{{text "tour_season"}}:</label>
+                <div class="col-xs-5 col-sm-4 col-lg-3">
+                    <label class="capitalize">{{text "tour_season"}}:</label>
                 </div>
-                <div class="col-xs-7 col-sm-9 col-lg-10">
+                <div class="col-xs-7 col-sm-8 col-lg-9">
                     {{resolveSelectName 'Months' tour.timeOfYearFrom}} - {{resolveSelectName 'Months' tour.timeOfYearTo}}
                 </div>
             </div>
@@ -125,10 +125,10 @@
 
             {{#if tour.aspect}}
             <div class="row">
-                <div class="col-xs-5 col-sm-3 col-lg-2">
-                    <label class="text-capitalize">{{text "tour_aspect"}}:</label>
+                <div class="col-xs-5 col-sm-4 col-lg-3">
+                    <label class="capitalize">{{text "tour_aspect"}}:</label>
                 </div>
-                <div class="col-xs-7 col-sm-9 col-lg-10">
+                <div class="col-xs-7 col-sm-8 col-lg-9">
                     {{resolveSelectName 'Aspects' tour.aspect}}
                 </div>
             </div>
@@ -136,10 +136,10 @@
 
             {{#if tour.tags}}
             <div class="row">
-                <div class="col-xs-5 col-sm-3 col-lg-2">
+                <div class="col-xs-5 col-sm-4 col-lg-3">
                     <label>{{text "tour_tags"}}:</label>
                 </div>
-                <div class="col-xs-7 col-sm-9 col-lg-10">
+                <div class="col-xs-7 col-sm-8 col-lg-9">
                     {{#each tag in tour.tags}}
                     {{#link-to 'tag' tour.tag}} #{{tour.tag}} {{/link-to}}
                     {{/each}}
@@ -152,124 +152,117 @@
     </div>
 
     <div class="row">
-        <div class="col-sm-12 info-col">
-            <div class="map-buttons-container">
-                {{#if isPublished}}
-                {{#if hasMapData}}
-                <button class="btn btn-primary" {{action "viewTourOnMap" }}>
-                    <i class="fa fa-map" aria-hidden="true"></i> <span>{{text "tour_viewTourOnMap"}}</span>
-                </button>
-                {{/if}}
-                {{#if hasPaths}}
-                <button class="btn btn-primary" {{action "downloadGpxFile" }}>
-                    <i class="fa fa-download" aria-hidden="true"></i> GPX
-                </button>
-                {{/if}}
-                {{else}}
-                {{#if hasMapData}}
-                <div class="spacing">[View on map] <em>Tours are not available on the map until they are published.</em></div>
-                {{/if}}
-                {{/if}}
+        <div class="col-xs-12 spacer-y-bottom">
+            {{#if isPublished}}
+            {{#if hasMapData}}
+            <button class="btn btn-primary" {{action "viewTourOnMap" }}>
+                <i class="fa fa-map" aria-hidden="true"></i> <span>{{text "tour_viewTourOnMap"}}</span>
+            </button>
+            {{/if}}
+            {{#if hasPaths}}
+            <button class="btn btn-primary" {{action "downloadGpxFile" }}>
+                <i class="fa fa-download" aria-hidden="true"></i> GPX
+            </button>
+            {{/if}}
+            {{else}}
+            {{#if hasMapData}}
+            <div class="spacing">[View on map] <em>Tours are not available on the map until they are published.</em></div>
+            {{/if}}
+            {{/if}}
 
-                {{#if login.isLoggedIn}}
-                {{#link-to 'tour.edit' tour class="btn btn-secondary right"}}<i class="fa fa-pencil-square-o" aria-hidden="true"></i> <span>{{text "tour_editTour"}}</span>{{/link-to}}
-                {{/if}}
-
-            </div>
-        </div>
-
-        <div class="col-sm-12 info-col">
-            <div class="panel panel-default panel-full-width">
-                <div class="panel-heading">{{text "tour_accessPoint"}}</div>
-                <div class="panel-body">
-                    {{tour.accessPoint}}
-                </div>
-            </div>
+            {{#if login.isLoggedIn}}
+            {{#link-to 'tour.edit' tour class="btn btn-secondary right"}}<i class="fa fa-pencil-square-o" aria-hidden="true"></i> <span>{{text "tour_editTour"}}</span>{{/link-to}}
+            {{/if}}
         </div>
     </div>
 
     <div class="row">
-        <div class="col-sm-12 info-col">
-            <div class="panel panel-default panel-full-width">
-                <div class="panel-heading">{{text "tour_description"}}</div>
-                <div class="panel-body">
-                    <div>{{{markedItinerary}}}</div>
-                </div>
+        <div class="card">
+            <h3 class="card-header">
+                {{text "tour_accessPoint"}}
+            </h3>
+            <div class="card-block">
+                {{tour.accessPoint}}
+            </div>
+        </div>
+
+        <div class="card">
+            <h3 class="card-header">
+                {{text "tour_description"}}
+            </h3>
+            <div class="card-block">
+                {{{markedItinerary}}}
             </div>
         </div>
     </div>
 
     <div class="row">
         {{#if haveHazards}}
-        <div class="col-sm-12 col-lg-6 info-col">
-            <div class="panel panel-default panel-full-width">
-                <div class="panel-heading">{{text "tour_hazards"}}</div>
-                <div class="panel-body">
-                    {{tour.hazardsDescription}}
+        <div class="col-xs-12 col-lg-6">
+            <div class="card">
+                <h3 class="card-header">
+                    {{text "tour_hazards"}}
+                </h3>
+                <div class="card-block">
+                    {{{tour.hazardsDescription}}}
                 </div>
-            </div>
+            </div>            
         </div>
         {{/if}}
 
         {{#if requiresTools}}
-        <div class="col-sm-12 col-lg-6 info-col">
-            <div class="panel panel-default panel-full-width">
-                <div class="panel-heading">{{text "tour_mountaineering"}}</div>
-                <div class="panel-body">
-                    {{tour.toolsDescription}}
+        <div class="col-xs-12 col-lg-6">
+            <div class="card">
+                <h3 class="card-header">
+                    {{text "tour_mountaineering"}}
+                </h3>
+                <div class="card-block">
+                    {{{tour.toolsDescription}}}
                 </div>
-            </div>
+            </div>            
         </div>
         {{/if}}
     </div>
 
     {{#if hasImages}}
     <div class="row">
-        <div class="col-sm-12 info-col">
-            <div class="panel panel-default panel-full-width">
-                <div class="panel-heading">{{text "tour_images"}} <span class="small"> ({{tour.images.length}})</span></div>
+        <div class="card">
+            <h3 class="card-header">
+                {{text "tour_images"}} <span class="small"> ({{tour.images.length}})</span>
+            </h3>
+            <div class="card-block">
                 {{image-slider images=tour.images}}
             </div>
-        </div>
+        </div>            
     </div>
     {{/if}}
 
     <div class="row">
-        <div class="col-sm-12 info-col">
-            <div class="panel panel-default panel-full-width">
-                <div class="panel-heading">{{text "tour_instagramFeed"}}</div>
-                <div class="panel-body">
-                    {{instagram-feed point=summitPoint}}
-                </div>
+        <div class="card">
+            <h3 class="card-header">
+                {{text "tour_instagramFeed"}}
+            </h3>
+            <div class="card-block">
+                {{instagram-feed point=summitPoint}}
             </div>
-        </div>
+        </div>            
     </div>
 
     {{#if isPublished}}
     <div class="row">
-        <div class="col-sm-12 info-col">
-            <div class="panel-group" id="accordion">
-                <div class="panel panel-default panel-full-width">
-                    <div class="panel-heading">
-                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                            {{text "tour_discussionsAndTripReports"}}
-                        </a>
-                    </div>
-                    <div id="collapseOne" class="panel-collapse collapse in">
-                        <div class="panel-body">
-                            {{disqus-forum tour=tour}}
-                        </div>
-                    </div>
-                </div>
+        <div class="card">
+            <h3 class="card-header">
+                {{text "tour_discussionsAndTripReports"}}
+            </h3>
+            <div class="card-block">
+                {{disqus-forum tour=tour}}
             </div>
-        </div>
+        </div>  
     </div>
     {{/if}}
 
     <div class="row">
-        <div class="col-sm-12 info-col">
-            {{ partial "partials/footer"}}
-        </div>
+        {{ partial "partials/footer"}}
     </div>
 
     <div class="modal fade" id="tourDetailsGradeGuideModal" tabindex="-1" role="dialog" aria-hidden="true">

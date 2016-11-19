@@ -276,7 +276,7 @@ export default Ember.Component.extend({
             function() {                           
                 self.set("havePendingOperations", false);
                 self.get("alert").showSuccessMessage("Tour was successfully saved");
-                self.transitionToRoute("tour", self.get("tour"));
+                self.get("router").transitionTo("tour", self.get("tour"));
             }, 
             function(error) {
                 var status = error.status;
@@ -303,12 +303,27 @@ export default Ember.Component.extend({
     },
     
     validateForDraft: function() {
-        return this.get("nameIsValid") && this.get("elevationGainIsValid") && this.get("elevationLossIsValid") && this.get("elevationMaxIsValid") && this.get("timingMinIsValid") && this.get("timingMaxIsValid") && this.get("degreesMaxIsValid");
+        return this.get("nameIsValid") && 
+               this.get("elevationGainIsValid") && 
+               this.get("elevationLossIsValid") &&
+               this.get("elevationMaxIsValid") && 
+               this.get("timingMinIsValid") && 
+               this.get("timingMaxIsValid") && 
+               this.get("degreesMaxIsValid");
     },
     
     validateForPublish: function() {      
-        return this.get("nameIsValid") && this.get("accessPointIsValid") && this.get("descriptionIsValid") && this.get("tagsAreValid") && this.get("mapDataIsValid") &&
-                this.get("elevationGainIsValid") && this.get("elevationLossIsValid") && this.get("elevationMaxIsValid") && this.get("timingMinIsValid") && this.get("timingMaxIsValid") && this.get("degreesMaxIsValid");
+        return this.get("nameIsValid") && 
+               this.get("accessPointIsValid") &&
+               this.get("descriptionIsValid") && 
+               this.get("tagsAreValid") && 
+               this.get("mapDataIsValid") &&
+               this.get("elevationGainIsValid") && 
+               this.get("elevationLossIsValid") && 
+               this.get("elevationMaxIsValid") && 
+               this.get("timingMinIsValid") && 
+               this.get("timingMaxIsValid") && 
+               this.get("degreesMaxIsValid");
     },
     
     replaceHtmlChars: function() {
