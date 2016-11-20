@@ -176,23 +176,21 @@
         </div>
     </div>
 
-    <div class="row">
-        <div class="card">
-            <h3 class="card-header">
-                {{text "tour_accessPoint"}}
-            </h3>
-            <div class="card-block">
-                {{tour.accessPoint}}
-            </div>
+    <div class="card">
+        <h3 class="card-header">
+            {{text "tour_accessPoint"}}
+        </h3>
+        <div class="card-block">
+            {{tour.accessPoint}}
         </div>
+    </div>
 
-        <div class="card">
-            <h3 class="card-header">
-                {{text "tour_description"}}
-            </h3>
-            <div class="card-block">
-                {{{markedItinerary}}}
-            </div>
+    <div class="card">
+        <h3 class="card-header">
+            {{text "tour_description"}}
+        </h3>
+        <div class="card-block">
+            {{{markedItinerary}}}
         </div>
     </div>
 
@@ -225,45 +223,37 @@
     </div>
 
     {{#if hasImages}}
-    <div class="row">
-        <div class="card">
-            <h3 class="card-header">
-                {{text "tour_images"}} <span class="small"> ({{tour.images.length}})</span>
-            </h3>
-            <div class="card-block">
-                {{image-slider images=tour.images}}
-            </div>
-        </div>            
-    </div>
+    <div class="card">
+        <h3 class="card-header">
+            {{text "tour_images"}} <span class="small"> ({{tour.images.length}})</span>
+        </h3>
+        <div class="card-block">
+            {{image-slider images=tour.images}}
+        </div>
+    </div>            
     {{/if}}
 
-    <div class="row">
-        <div class="card">
-            <h3 class="card-header">
-                {{text "tour_instagramFeed"}}
-            </h3>
-            <div class="card-block">
-                {{instagram-feed point=summitPoint}}
-            </div>
-        </div>            
+    <div class="card">
+        <h3 class="card-header">
+            {{text "tour_instagramFeed"}}
+        </h3>
+        <div class="card-block">
+            {{instagram-feed point=summitPoint}}
+        </div>
     </div>
 
     {{#if isPublished}}
-    <div class="row">
-        <div class="card">
-            <h3 class="card-header">
-                {{text "tour_discussionsAndTripReports"}}
-            </h3>
-            <div class="card-block">
-                {{disqus-forum tour=tour}}
-            </div>
-        </div>  
-    </div>
+    <div class="card">
+        <h3 class="card-header">
+            {{text "tour_discussionsAndTripReports"}}
+        </h3>
+        <div class="card-block">
+            {{disqus-forum tour=tour}}
+        </div>
+    </div>  
     {{/if}}
 
-    <div class="row">
-        {{ partial "partials/footer"}}
-    </div>
+    {{ partial "partials/footer"}}
 
     <div class="modal fade" id="tourDetailsGradeGuideModal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg">

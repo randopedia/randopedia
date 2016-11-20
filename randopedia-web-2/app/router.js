@@ -13,6 +13,7 @@ Router.map(function() {
   this.route('about');
   this.route('help');
   this.route('dashboard');
+  this.route('mytours');
 });
 
 export default Router;

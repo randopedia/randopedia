@@ -1,0 +1,46 @@
+<div class="my-tours">
+
+    <ul class="nav nav-pills" role="tablist">
+        <li class="nav-item"><a class="nav-link active" href="#drafts" role="tab" data-toggle="pill">Tour drafts</a></li>
+        <li class="nav-item"><a class="nav-link" href="#publications" role="tab" data-toggle="pill">Publications</a></li>
+    </ul>
+
+    <div class="tab-content">
+        <div class="tab-pane active" id="drafts">
+
+            {{#if isLoadingDrafts }}
+            <div class="loading">Loading tours...</div>
+            {{else}}
+
+            <div class="alert alert-info" role="alert">
+                Below are all your tour drafts listed. These tours are only visible to you. You currently have {{drafts.length}} tour draft(s).
+            </div>
+
+            {{#each tour in drafts}}
+            {{view "tourItem"}}
+            {{/each}}
+            {{/if}}
+
+        </div>
+
+        <div id="publications" class="tab-pane">
+
+            {{#if isLoadingUpdates }}
+            <div class="loading">Loading tours...</div>
+            {{else}}
+
+            <div class="alert alert-info" role="alert">
+                Below are all tours that you have created and/or made updates on listed. You have contributed on {{updates.length}} tour(s).
+            </div>
+
+            {{#each tour in updates}}
+            {{view "tourItem"}}
+            {{/each}}
+
+            {{/if}}
+
+        </div>
+
+    </div>
+
+</div>

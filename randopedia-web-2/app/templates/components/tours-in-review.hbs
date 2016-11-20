@@ -1,0 +1,19 @@
+<div>
+
+    {{#if isLoadingReviews }}
+
+    <div class="loading">Loading tours in review...</div>
+
+    {{else}}
+
+    <div class="alert alert-info" role="alert">
+        There are currently {{reviews.length}} tours in review.
+    </div>
+
+    {{#each tour in reviews}}
+    {{view "tourItem"}}
+    {{/each}}
+
+    {{/if}}
+
+</div>

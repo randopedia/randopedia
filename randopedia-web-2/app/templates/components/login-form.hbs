@@ -1,11 +1,11 @@
-<div class="modal-dialog login-view">
+<div class="modal-dialog login">
     <div class="modal-content">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
             <h4 class="modal-title" id="myModalLabel">{{text "login_Login"}}</h4>
         </div>
         <div class="modal-body">
-            <div>
+            <div class="text-left">
                 {{text "login_modalText"}}
             </div>
 
@@ -22,11 +22,9 @@
             </a>
 
         </div>
-        <hr />
-        <div class="spacing">
-            <small>
-                Randopedia doesn't use or store any sensitive information about the account being used. Read more about privacy <a data-dismiss="modal" {{link-to "about"}}>here</a>.
-            </small>
+
+        <div class="modal-footer text-left">
+            Randopedia doesn't use or store any sensitive information about the account being used. Read more about privacy <a data-dismiss="modal" {{link-to "about"}}>here</a>.
         </div>
     </div>
 </div>
