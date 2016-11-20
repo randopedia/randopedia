@@ -32,6 +32,13 @@
 
     <script src="{{rootURL}}assets/randopedia-web-2.js"></script>
 
+    <script type="text/javascript">
+      $(document).ready(function() {
+          var bgClass = "main-background-" + Math.floor((Math.random() * 7) + 1);
+          $("body").addClass(bgClass);
+      });
+    </script>
+
     <div id="fb-root"></div>
     
     {{content-for "body-footer"}}

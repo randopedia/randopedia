@@ -11,38 +11,44 @@
 
 @font-face { font-family: Aight; src: url('../assets/fonts/aaaiight.ttf'); }
 
-// Bootstrp overrides
-
-.nav-link {
-    color: @primary-color !important;
-    &.active {
-        background-color: @primary-color !important;
-        color: #fff !important;
-    }
-} 
-
-.btn-primary {
-    background-color: @primary-color;
-    border-color: darken(@primary-color, 10%);
-    &:hover {
-        background-color: @primary-hover-color;
-    }
-    &[disabled] {
-        &:hover {
-            background-color: @primary-color;
-            border-color: darken(@primary-color, 10%);
-        }   
-    }
-}
-
-// END Bootstrp overrides
-
 body {
     color: @primary-color;
+
+    @media (min-width: 1170px) {
+        background-size: cover;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+        background-position-y: 50px;
+        
+        &.main-background-1 {
+            background-image: url("/assets/images/backgrounds/bg-1.jpg");
+        }
+        &.main-background-2 {
+            background-image: url("/assets/images/backgrounds/bg-2.jpg");
+        }
+        &.main-background-3 {
+            background-image: url("/assets/images/backgrounds/bg-3.jpg");
+        }
+        &.main-background-4 {
+            background-image: url("/assets/images/backgrounds/bg-4.jpg");
+        }
+        &.main-background-5 {
+            background-image: url("/assets/images/backgrounds/bg-5.jpg");
+        }
+        &.main-background-6 {
+            background-image: url("/assets/images/backgrounds/bg-6.jpg");
+        }
+        &.main-background-7 {
+            background-image: url("/assets/images/backgrounds/bg-7.jpg");
+        }
+    }    
 }
 
 .container {
-    margin-top: 15px;
+    margin: 15px auto;
+    border: 1px solid #B6B6B6;
+    background-color: #fff;    
+    padding: 10px;
 }
 
 .right {
