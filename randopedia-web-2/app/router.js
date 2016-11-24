@@ -18,6 +18,7 @@ Router.map(function() {
       this.route('callback');
     });
   });
+  this.route('mytours');
 });
 
 export default Router;

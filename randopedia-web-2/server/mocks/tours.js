@@ -6,9 +6,17 @@ module.exports = function(app) {
   var tour1 = {
       "_id": "52936377e4b04666a6a2bcfe",
       "clientId": "nordre_soleibotntind__north_east_colouir",
+      "id": "nordre_soleibotntind__north_east_colouir",
+      "status": 1,
+      "name": "Nordre Soleibotntind, north-east colouir",
+      "accessPoint": "By the road",
+      "itinerary": "Long, steep and spectacular colouir in Ringsdalen valley",
+      "timingMax": 6,
+      "timingMin": 5,      
       "elevationGain": 800,
       "elevationLoss": 800,
       "grade": 4,
+      "tags": [],
       "mapGeoJson": {
           "features": [{
               "geometry": {
@@ -64,13 +72,7 @@ module.exports = function(app) {
               "type": "Feature"
           }],
           "type": "FeatureCollection"
-      },
-      "name": "Nordre Soleibotntind, north-east colouir",
-      "accessPoint": "By the road",
-      "itinerary": "Long, steep and spectacular colouir in Ringsdalen valley",
-      "timingMax": 6,
-      "timingMin": 5,
-      "id": "nordre_soleibotntind__north_east_colouir"
+      }
   };
 
   toursRouter.get('/', function (req, res) {

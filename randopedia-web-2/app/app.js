@@ -48,6 +48,32 @@ App = Ember.Application.extend({
             facebookAppId = config.EmberENV.facebookAppIdLocalhost;
             googleAppId = config.EmberENV.googleAppIdLocalhost;
         }
+        // Facebook api initialization
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/sv_SE/sdk.js#xfbml=1&version=v2.5&appId=" + config.EmberENV.facebookAppIdProd;
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
+        // todo ...
+        //Ember.OAuth2.config = {
+        //    facebook: {
+        //        clientId: facebookAppId,
+        //        authBaseUri: 'https://www.facebook.com/dialog/oauth',
+        //        redirectUri: url + '/auth/facebook/callback',
+        //        scope: ''
+        //    },
+        //    google: {
+        //        clientId: googleAppId,
+        //        authBaseUri: 'https://accounts.google.com/o/oauth2/auth',
+        //        redirectUri: url + '/auth/google/callback',
+        //        scope: 'https://www.googleapis.com/auth/userinfo.profile'
+        //    }
+        //};
+
+        //App.oauth = Ember.OAuth2.create();
     }
 });
 

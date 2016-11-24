@@ -1,3 +1,133 @@
-﻿select {
+﻿@logo-font:                     Aight;
+
+@navbar-background:             #ececec;
+@dark-background:               #222;
+
+@primary-color:                 #444444;
+@primary-hover-color:           lighten(@primary-color, 15%);
+@error-color:                   red;
+
+@gray-lighter:                  #eee;
+
+@light-border:                  1px solid @gray-lighter;
+
+@font-face { font-family: Aight; src: url('../assets/fonts/aaaiight.ttf'); }
+
+body {
+    color: @primary-color;
+
+    @media (min-width: 1170px) {
+        background-size: cover;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+        background-position-y: 50px;
+        
+        &.main-background-1 {
+            background-image: url("/assets/images/backgrounds/bg-1.jpg");
+        }
+        &.main-background-2 {
+            background-image: url("/assets/images/backgrounds/bg-2.jpg");
+        }
+        &.main-background-3 {
+            background-image: url("/assets/images/backgrounds/bg-3.jpg");
+        }
+        &.main-background-4 {
+            background-image: url("/assets/images/backgrounds/bg-4.jpg");
+        }
+        &.main-background-5 {
+            background-image: url("/assets/images/backgrounds/bg-5.jpg");
+        }
+        &.main-background-6 {
+            background-image: url("/assets/images/backgrounds/bg-6.jpg");
+        }
+        &.main-background-7 {
+            background-image: url("/assets/images/backgrounds/bg-7.jpg");
+        }
+    }    
+}
+
+.container {
+    margin: 15px auto;
+    border: 1px solid #B6B6B6;
+    background-color: #fff;    
+    padding: 10px;
+}
+
+.right {
+    float: right !important;
+}
+
+.spacer-x {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.spacer-y {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.spacer-y-bottom {
+    margin-bottom: 10px;
+}
+
+.spacer-y-top {
+    margin-top: 10px;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.capitalize {
+    text-transform: uppercase;
+}
+
+.logo {
+    font-family: @logo-font;
+}
+
+.card {
+    border-radius: 0;
+    .card-header {
+        font-size: 1.5rem;
+        padding: 0.5rem 1.25rem; 
+    }
+}
+
+a {
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+select { // copy of bootstrap form-control class
     display: block;
+    width: 100%;
+    padding: .42rem .75rem;
+    font-size: 1rem;
+    line-height: 1.25;
+    color: #55595c;
+    background-color: #fff;
+    background-image: none;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    border: 1px solid rgba(0,0,0,.15);
+    border-radius: .25rem;    
+}
+
+.promo-box {
+    text-align: center;
+    margin-top: 2rem;
+    .logo {
+        font-size: 3.5rem;
+        margin-bottom: -10px;
+    }
+    div {
+        font-size: 1.75rem;
+    }
 }

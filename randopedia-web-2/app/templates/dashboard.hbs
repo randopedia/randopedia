@@ -4,6 +4,26 @@
     Published tours: {{stats.publishedTours}}
     Total gain: {{stats.totalGain}}
     Total loss: {{stats.totalLoss}}
+
     {{tag-cloud tags=tags}}
-    {{last-updated tours=tours}}
+
+    <div class="card">
+        <h3 class="card-header">
+            {{text "dashboard_lastUpdatedTours"}}
+        </h3>
+        <div class="card-block">
+            {{last-updated tours=tours}}
+        </div>
+    </div>
+
+    <!--todo: only show if logged in -->
+    <div class="card">
+        <h3 class="card-header">
+            {{text "header_toursInReview"}}
+        </h3>
+        <div class="card-block">
+            {{tours-in-review}}
+        </div>
+    </div>
+
 </div>

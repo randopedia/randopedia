@@ -1,0 +1,33 @@
+.footer {
+    background: @dark-background;
+    background-image: url('/assets/images/mountain.png');
+    background-position: right;
+    background-repeat: no-repeat;
+    color: @gray-lighter;
+    font-size: 0.8em;   
+    margin-top: 25px;
+    padding: 25px;
+
+    a {
+        color: @gray-lighter;
+        font-size: 1.2em;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    .inline-list { 
+        list-style: none;
+	    font-family: "Lucida console", Monospace; 
+        padding-left: 0;
+
+        .green { color: #96AC92;}
+        .blue { color: #A1B3BE;}
+        .red { color: #F6C0C0;}
+        .brown { color: #DAD0A9;}
+
+        li {
+            display: inline;
+        }
+    }    
+}

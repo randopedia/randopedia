@@ -5,6 +5,7 @@ export default Ember.Component.extend({
     login: Ember.inject.service(),
     language: Ember.inject.service(),
     alert: Ember.inject.service(),
+    validation: Ember.inject.service(),
 
     showAdvancedOptions: false,
     haveValidationErrors: false,
@@ -19,13 +20,12 @@ export default Ember.Component.extend({
             $(window).resize();
         });
 
-        $('.info').popover({placement: 'auto'});
+        $('[data-toggle="popover"]').popover({placement: 'left'});
     },
        
     actions: {
         startPublishTour: function () {
             this.set('haveValidationErrors', !this.validateForPublish());
-            this.set('haveValidationWarnings', this.checkForValidationWarnings() > 0);
             $('#publishTourStep1Modal').modal('show');
         },
         
@@ -77,23 +77,21 @@ export default Ember.Component.extend({
     
         tagsUpdated: function (tags) {
             tags = tags || [];
-            this.set("tags", tags);
+            this.set("tour.tags", tags);
+            this.set("tagsIsDirty", true); // hack: belongsTo props does not update hasDirtyAtrributes in model
         },
 
         cancelEditTour: function () {
             var self = this;
 
-            if (!self.get("tour").get("id")) {
-                
+            if (!self.get("tour.id")) {
                 self.get("tour").deleteRecord();
-                self.transitionToRoute("index");
-            }
-            else {                
-                self.get("tour").rollback();
-                
+                self.get("router").transitionTo("index");
+            
+            } else {                
+                self.get("tour").rollbackAttributes();
                 self.set("newImage", null);
-                            
-                self.transitionToRoute("tour", self.get("tour"));
+                self.get("router").transitionTo("tour", self.get("tour"));
             }
         },
     
@@ -278,7 +276,7 @@ export default Ember.Component.extend({
             function() {                           
                 self.set("havePendingOperations", false);
                 self.get("alert").showSuccessMessage("Tour was successfully saved");
-                self.transitionToRoute("tour", self.get("tour"));
+                self.get("router").transitionTo("tour", self.get("tour"));
             }, 
             function(error) {
                 var status = error.status;
@@ -296,11 +294,6 @@ export default Ember.Component.extend({
             }
         );    
     },
-    
-    clearValidationFlags: function() {
-        this.set("validationErrors", []);
-        this.set("validationWarnings", []);
-    },
 
     addImageForUpload: function(imageData) {
         var image = this.store.createRecord("image");
@@ -309,102 +302,28 @@ export default Ember.Component.extend({
         this.set("newImage", image);
     },
     
-    // Required fields when saving as draft are: name
     validateForDraft: function() {
-        return !this.get("tour.name") ? false : true;
-
-        //if(!App.Validate.name(this.get("name")) ||
-        //   !App.Validate.shortDesc(this.get("shortDescription"), true) ||
-        //   !App.Validate.mediumDesc(this.get("startingPoint"), true) ||
-        //   !App.Validate.shortDesc(this.get("dangerDescription"), true) ||
-        //   !App.Validate.shortDesc(this.get("mountaineeringSkillsDescription"), true) ||
-        //   !App.Validate.longDesc(this.get("itinerary"), true) ||
-        //   !App.Validate.isPosNumberOrNull(this.get("timingMin")) ||
-        //   !App.Validate.isPosNumberOrNull(this.get("timingMax")) ||
-        //   !App.Validate.isPosNumberOrNull(this.get("highestPoint")) ||
-        //   !App.Validate.isPosNumberOrNull(this.get("heightDifferenceAscent")) ||
-        //   !App.Validate.isPosNumberOrNull(this.get("heightDifferenceDescent")) ||
-        //   !App.Validate.isPosNumberOrNull(this.get("degreesMax"))) {
-        //    return false;
-        //}
-        //return true;
+        return this.get("nameIsValid") && 
+               this.get("elevationGainIsValid") && 
+               this.get("elevationLossIsValid") &&
+               this.get("elevationMaxIsValid") && 
+               this.get("timingMinIsValid") && 
+               this.get("timingMaxIsValid") && 
+               this.get("degreesMaxIsValid");
     },
     
-    // Required fields when publishing are: name, starting point, itinerary, timingMin/Max, heightDifferenceAscent/Descent
     validateForPublish: function() {      
-        return !this.get("tour.name") ? false : true;
-
-        //this.set("validationErrors", []);
-        
-        //if(!App.Validate.name(this.get("name"))){
-        //    this.get("validationErrors").push("Name");
-        //}
-        //if(!App.Validate.shortDesc(this.get("shortDescription"), true)){
-        //    this.get("validationErrors").push("Summary");
-        //}
-        //if(!App.Validate.mediumDesc(this.get("accessPoint"), false)){
-        //    this.get("validationErrors").push("Access point");
-        //}
-        //if(!App.Validate.shortDesc(this.get("hazardsDescription"), true)){
-        //    this.get("validationErrors").push("Hazards description");
-        //}
-        //if(!App.Validate.shortDesc(this.get("toolsDescription"), true)){
-        //    this.get("validationErrors").push("Requires skills description");
-        //}
-        //if(!App.Validate.longDesc(this.get("itinerary"), false)){
-        //    this.get("validationErrors").push("Description");
-        //}
-        //if(!App.Validate.isPosNumber(this.get("timingMin"))){
-        //    this.get("validationErrors").push("Time min");
-        //}
-        //if(!App.Validate.isPosNumber(this.get("timingMax"))){
-        //    this.get("validationErrors").push("Time max");
-        //}
-        //if(!App.Validate.isPosNumberOrNull(this.get("elevationMax"))){
-        //    this.get("validationErrors").push("Highest point");
-        //}
-        //if(!App.Validate.isPosNumber(this.get("elevationGain"))){
-        //    this.get("validationErrors").push("Elevation gain");
-        //}
-        //if(!App.Validate.isPosNumber(this.get("elevationLoss"))){
-        //    this.get("validationErrors").push("Elevation loss");
-        //} 
-        //if(!App.Validate.isPosNumberOrNull(this.get("degreesMax"))) {
-        //    this.get("validationErrors").push("Steepness");
-        //}
-        
-        //return this.get("validationErrors").length === 0;
-    },
-    
-    checkForValidationWarnings: function() {
-        return false;
-        //this.set("validationWarnings", []);
-        
-        //if(!App.Validate.isNotNullOrEmpty(this.get("shortDescription"))){
-        //    this.get("validationWarnings").push("Summary");
-        //}
-        //if(!this.get("grade")) {
-        //    this.get("validationWarnings").push("Grade");
-        //}
-        //if(!App.Validate.isPosNumber(this.get("elevationMax"))) {
-        //    this.get("validationWarnings").push("Highest point");
-        //}
-        //if(!this.get("timeOfYearFrom")) {
-        //    this.get("validationWarnings").push("Season from");
-        //}
-        //if(!this.get("timeOfYearTo")) {
-        //    this.get("validationWarnings").push("Season to");
-        //}
-        //if(!App.GeoHelper.geojsonContainsPath(this.get("mapGeoJson"))){
-        //    this.get("validationWarnings").push("Map path");
-        //}
-        //if (!App.GeoHelper.geojsonContainsSummitPoint(this.get("mapGeoJson"))) {
-        //    this.get("validationWarnings").push("Map summit point");
-        //}
-        //if(!App.Validate.lengthOrNull(this.get("itinerary"), 100, 8000, false)){
-        //    this.get("validationWarnings").push("Description (very short)");
-        //}
-        //return this.get("validationWarnings").length > 0;
+        return this.get("nameIsValid") && 
+               this.get("accessPointIsValid") &&
+               this.get("descriptionIsValid") && 
+               this.get("tagsAreValid") && 
+               this.get("mapDataIsValid") &&
+               this.get("elevationGainIsValid") && 
+               this.get("elevationLossIsValid") && 
+               this.get("elevationMaxIsValid") && 
+               this.get("timingMinIsValid") && 
+               this.get("timingMaxIsValid") && 
+               this.get("degreesMaxIsValid");
     },
     
     replaceHtmlChars: function() {
@@ -418,32 +337,69 @@ export default Ember.Component.extend({
 
     // COMPUTED PROPS
 
-    hasChanges: Ember.computed('tour.isDirty', 'newImage', function() {
-        return this.get("tour.isDirty") || this.get("hasNewImage");
+    nameIsValid: Ember.computed('tour.name', function() {
+        return this.get("validation").name(this.get('tour.name'));
+    }),
+
+    accessPointIsValid: Ember.computed('tour.accessPoint', function() {
+        return this.get("validation").mediumDesc(this.get('tour.accessPoint'), false);
+    }),
+
+    descriptionIsValid: Ember.computed('tour.itinerary', function() {
+        return this.get("validation").longDesc(this.get('tour.itinerary'), false);
+    }),
+
+    tagsAreValid: Ember.computed('tour.tags', function() {
+        return this.get("tour.tags.length") > 0;
+    }),
+
+    elevationGainIsValid: Ember.computed('tour.elevationGain', function() {
+        return this.get("validation").isPosNumberOrNull(this.get("tour.elevationGain"));
+    }),
+
+    elevationLossIsValid: Ember.computed('tour.elevationLoss', function() {
+        return this.get("validation").isPosNumberOrNull(this.get("tour.elevationLoss"));
+    }),
+
+    elevationMaxIsValid: Ember.computed('tour.elevationMax', function() {
+        return this.get("validation").isPosNumberOrNull(this.get("tour.elevationMax"));
+    }),
+
+    timingMinIsValid: Ember.computed('tour.timingMin', function() {
+        return this.get("validation").isPosNumberOrNull(this.get("tour.timingMin"));
+    }),
+
+    timingMaxIsValid: Ember.computed('tour.timingMax', function() {
+        return this.get("validation").isPosNumberOrNull(this.get("tour.timingMax"));
+    }),
+
+    degreesMaxIsValid: Ember.computed('tour.degreesMax', function() {
+        return this.get("validation").isPosNumberOrNull(this.get("tour.degreesMax"));
+    }),
+
+    mapDataIsValid: Ember.computed('tour.mapGeoJson', function() {
+        // todo: ...
+        return true;
+    }),
+
+    hasChanges: Ember.computed('tour.hasDirtyAttributes', 'newImage', 'tagsIsDirty', function() {
+        return this.get("tour.hasDirtyAttributes") || this.get("tagsIsDirty") || this.get("hasNewImage");
     }),
     
-    isStartPublishDisabled: Ember.computed('tour.{status,name,isDirty}', 'havePendingOperations', function() {
-        if (this.get("havePendingOperations")) {
+    isStartPublishDisabled: Ember.computed('tour.{status,name,hasDirtyAttributes}', 'newImage', 'tagsIsDirty', 'havePendingOperations', function() {
+        if (this.get("havePendingOperations") || this.get("isDeleted") || !this.get("validation").name(this.get("tour.name"))) {
             return true;
         }
 
-        if(this.get("isDeleted")){
-            return true;
-        }
-
-        // if(!App.Validate.isNotNullOrEmpty(this.get("name"))){
-        //     return true;
-        // }
-
-        if(this.get("isDraft") || this.get("isInReview") || this.get("isDirty")) {
+        if(this.get("isDraft") || this.get("isInReview") || this.get("hasChanges")) {
             return false;
         }
         
         return true;
     }),
     
-    isSaveAsDraftDisabled: Ember.computed('tour.{status,name,isDirty}', 'newImage', 'havePendingOperations', function() {
-        if(this.get("havePendingOperations")) {
+    isSaveAsDraftDisabled: Ember.computed('tour.{status,name,hasDirtyAttributes}', 'newImage', 'tagsIsDirty', 'havePendingOperations', function() {
+        if (this.get("havePendingOperations") || this.get("isDeleted") || !this.get("validation").name(this.get("tour.name"))) {
             return true;
         }
 
@@ -451,30 +407,18 @@ export default Ember.Component.extend({
             return false;
         }
 
-        // if(!App.Validate.isNotNullOrEmpty(this.get("tour.name"))){
-        //     return true;
-        // }
-
         return !this.get("isDraft") || !this.get("hasChanges");
     }),
 
-    isSendToReviewDisabled: Ember.computed('tour.{status,name,isDirty}', 'newImage', 'havePendingOperations', function() {
-        if (this.get("havePendingOperations")) {
+    isSendToReviewDisabled: Ember.computed('tour.{status,name,hasDirtyAttributes}', 'newImage', 'tagsIsDirty', 'havePendingOperations', function() {
+        if (this.get("havePendingOperations") || this.get("isDeleted") || !this.get("validation").name(this.get("tour.name")) || this.get('isPublished')) {
             return true;
         }
 
-        if(this.get("tour").get("isNew")){
+        if(this.get("tour.isNew") || this.get("isDraft")){
             return false;
         }
 
-        // if(!App.Validate.isNotNullOrEmpty(this.get("tour.name"))){
-        //     return true;
-        // }
-
-        if (this.get("isDraft")) {
-            return false;
-        }
-        
         return this.get("isInReview") && !this.get("hasChanges");
     }),
 
@@ -523,7 +467,7 @@ export default Ember.Component.extend({
     
     // todo: ?
     isIncomplete: Ember.computed('tour.name', function() {
-        return this.get("isDraft") ? false : this.checkForValidationWarnings() > 0;
+        return this.get("isDraft") ? false : false;
     }),
     
     haveNoHazards: Ember.computed('tour.haveHazards', function() {

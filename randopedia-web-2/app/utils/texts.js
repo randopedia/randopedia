@@ -335,13 +335,9 @@ texts.dictionary = {
         no: "Navn på tur",
         eng: "Name of tour"
     },
-    tourEdit_recommendedFieldInfo: {
-        no: "Anbefalt felt (turen blir markert som ikke ferdig hvis ikke satt)",
-        eng: "Recommended field (tour will be marked as incomplete if not set)"
-    },
     tourEdit_requiredFieldInfo: {
-        no: "Obligatorisk felt (turen kan ikke bli publisert hvis ikke satt)",
-        eng: "Required field (tour cannot be published if not set)"
+        no: "Obligatorisk felter er Navn, Start, Beskrivelse, Tags (minst en), Topp-punkt og en Kart-rute.",
+        eng: "Required fields for publishing a tour are Name, Access point, Description, Tags (at least one), Map Summit point and Map path."
     },
     tourEdit_sendToReview: {
         no: "Send til vurdering",
@@ -370,6 +366,10 @@ texts.dictionary = {
     tourEdit_unsavedChanges: {
         no: "Turen har endringer som ikke er lagret",
         eng: "Tour has unsaved changes"
+    },
+    tourEdit_noChanges: {
+        no: "Ingen endringer",
+        eng: "No pending changes"
     }
 };
 
