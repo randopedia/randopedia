@@ -8,6 +8,8 @@ let App;
 
 Ember.MODEL_FACTORY_INJECTIONS = true;
 
+
+
 App = Ember.Application.extend({
     modulePrefix: config.modulePrefix,
     podModulePrefix: config.podModulePrefix,
@@ -46,25 +48,7 @@ App = Ember.Application.extend({
             facebookAppId = config.EmberENV.facebookAppIdLocalhost;
             googleAppId = config.EmberENV.googleAppIdLocalhost;
         }
-        
-        // todo ...
-        //Ember.OAuth2.config = {
-        //    facebook: {
-        //        clientId: facebookAppId,
-        //        authBaseUri: 'https://www.facebook.com/dialog/oauth',
-        //        redirectUri: url + '/auth/facebook/callback',
-        //        scope: ''
-        //    },
-        //    google: {
-        //        clientId: googleAppId,
-        //        authBaseUri: 'https://accounts.google.com/o/oauth2/auth',
-        //        redirectUri: url + '/auth/google/callback',
-        //        scope: 'https://www.googleapis.com/auth/userinfo.profile'
-        //    }
-        //};       
-
-        //App.oauth = Ember.OAuth2.create();
-    },
+    }
 });
 
 loadInitializers(App, config.modulePrefix);

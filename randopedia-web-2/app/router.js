@@ -13,6 +13,11 @@ Router.map(function() {
   this.route('about');
   this.route('help');
   this.route('dashboard');
+  this.route('auth', function() {
+    this.route('facebook', function() {
+      this.route('callback');
+    });
+  });
 });
 
 export default Router;
