@@ -13,7 +13,7 @@ export default Ember.Component.extend({
         self.user = self.get("login").get("currentUser");
         self.set("isLoadingReviews", true);
 
-        self.store.findQuery("tourItem", { status: Fixtures.TourStatus.IN_REVIEW }).then(function (tours) {
+        self.get("store").findQuery("tourItem", { status: Fixtures.TourStatus.IN_REVIEW }).then(function (tours) {
             self.set("reviews", tours);
             self.set("isLoadingReviews", false);
 

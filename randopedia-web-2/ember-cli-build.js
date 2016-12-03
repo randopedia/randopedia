@@ -15,6 +15,7 @@ module.exports = function(defaults) {
   app.import('vendor/jquery.bootstrap-growl.min.js');
   app.import('vendor/markerclusterer.js');
   app.import('bower_components/jqcloud2/dist/jqcloud.min.js')
+  
 
   // Use `app.import` to add additional libraries to the generated
   // output files.

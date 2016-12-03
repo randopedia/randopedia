@@ -7,7 +7,7 @@ export default Ember.Component.extend({
         var self = this;
         setTimeout(function () {
             self.initjQCloud();
-        });
+        }, 500);
     },
 
     initjQCloud: function() {
