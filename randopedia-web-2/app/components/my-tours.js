@@ -17,7 +17,7 @@ export default Ember.Component.extend({
         self.set("isLoadingDrafts", true);
         self.set("isLoadingUpdates", true);
 
-        self.get("store").findQuery("tourItem", { status: Fixtures.TourStatus.DRAFT }).then(function (tours) {
+        self.get("store").query("tourItem", { status: Fixtures.TourStatus.DRAFT }).then(function (tours) {
             self.set("drafts", tours);
             self.set("isLoadingDrafts", false);
         }, function(err) {
@@ -33,7 +33,7 @@ export default Ember.Component.extend({
             console.log(err);
         });
  
-        self.get("store").findQuery("tourItem", { usersTours: true }).then(function (tours) {
+        self.get("store").query("tourItem", { usersTours: true }).then(function (tours) {
             self.set("updates", tours);
             self.set("isLoadingUpdates", false);
         }, function (err) {

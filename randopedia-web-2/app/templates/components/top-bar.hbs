@@ -3,11 +3,11 @@
         <a class="logo" {{action "topbarmenulink" "index" }}>Randopedia</a>
         
         <a class="menu-button" {{action "toggleNavbarMenu" }} >
-            <i class="fa fa-bars" aria-hidden="true"></i>
+            <i class="fa fa-bars {{if showNavbarMenu 'selected'}}"></i>
         </a>
 
         <a class="menu-button" {{action "toggleNavbarSearchbox" }} >
-            <i class="fa fa-search" aria-hidden="true"></i>
+            <i class="fa fa-search {{if showNavbarSearch 'selected'}}"></i>
         </a>
 
     {{#if showNavbarMenu}}
