@@ -199,6 +199,10 @@ texts.dictionary = {
         no: "Legg til rute",
         eng: "Add path"
     },
+    tagCloud_header: {
+        no: "Randopedias tagger",
+        eng: "Here are the top tags for randopedia"
+    },
     tour_accessPoint: {
         no: "Start",
         eng: "Access point"

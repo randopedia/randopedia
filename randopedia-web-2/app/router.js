@@ -19,6 +19,7 @@ Router.map(function() {
     });
   });
   this.route('mytours');
+  this.route('tags');
 });
 
 export default Router;

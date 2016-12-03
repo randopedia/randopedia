@@ -14,4 +14,21 @@
         right:0;
         margin-top:50px;
     }
+
+    .btn-my-position {
+        position: absolute;
+        top: calc(~'100% - 65px');
+        left: calc(~'100% - 65px');
+        background: #fff;
+        border-color: #D3D3D3;
+        box-shadow: 0 0 5px #D3D3D3;
+        color: rgb(75, 129, 215);
+        font-size: 22px;
+        &:focus {
+            outline: 0;
+        }  
+        &:hover {
+            background: @gray-lighter;
+        }
+    }    
 }
