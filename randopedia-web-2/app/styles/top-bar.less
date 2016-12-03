@@ -11,10 +11,10 @@
     .bg-panel {
         /*width: 300px;*/
         min-height: @topbar-height;
-        background: rgba(255, 255, 255, 0.9);
+        background: rgba(255, 255, 255, 0.95);
         border-bottom-left-radius: 25%;
         border-bottom-right-radius: 25%;
-        border: @light-border;
+        border: 1px solid #ccc;
         color:#fff;
         position:relative;
         text-align: center;
@@ -99,32 +99,11 @@
         }
     }
 
-    /*.navbar {
-        background: @navbar-background;
-
-        .nav-link {
-            cursor: pointer;
-            color: #000;
-            font-weight: 600;
-        }
-
-        .dropdown-item {
-            &:hover {
-                cursor: pointer;
-            }
-        }           
-
-        // HACK, to be removed
-        .collapse {
-            margin-top: 50px;
-        }
-    }*/
-
     .fb-like {
         margin-top: 7px;
     }
     
-    .search-button {
+    .menu-button {
         width: 2em;
         height: 2em;
         padding: .5rem .75rem;
@@ -134,5 +113,6 @@
         -webkit-background-size: 24px 24px;
         background-size: 24px 24px;
         border-radius: .25rem;        
+        color: @normal-foreground !important;
     }
 }

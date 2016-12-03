@@ -2,7 +2,7 @@
     <div class="item-panel">
         <h4> {{#link-to "tour" tour.id}} {{tour.name}} {{/link-to}}</h4>
         <div class="item-props">    
-            {{resolveGradeName tour.grade}} | 
+            {{resolveSelectName 'Grades' tour.grade}} | 
             {{tour.timingMin}}-{{tour.timingMax}}h | 
             {{tour.elevationGain}}m &uarr; {{tour.elevationLoss}}m &darr;
         </div>
