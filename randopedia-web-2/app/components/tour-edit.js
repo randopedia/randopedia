@@ -479,9 +479,7 @@ export default Ember.Component.extend({
     }),
     
     sortedActions: Ember.computed('tour.actions.[]', function() {
-        // todo ...
-        // return this.get("tour.actions").sortBy("time");
-        return [];
+        return this.get("tour.actions").sortBy("time");
     }),
 
     // Wrappers for fixtures lists (does not directly bind in handlebars..)

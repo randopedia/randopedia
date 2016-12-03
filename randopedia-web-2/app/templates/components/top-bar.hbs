@@ -21,7 +21,7 @@
                     <a {{action "topbarmenulink" "about" }}>{{text "header_about"}}</a>       
 
                     {{#unless login.isLoggedIn}}
-                    <a {{action "topbarmenulink" "collapseNavbar" }} class="center" data-toggle="modal" data-target="#loginViewModalId">{{text "header_addNewTour"}}</a>
+                    <a {{action "topbarmenulink" "collapseNavbar" }} data-toggle="modal" data-target="#loginViewModalId">{{text "header_addNewTour"}}</a>
                     {{/unless}}    
                 </div>
 

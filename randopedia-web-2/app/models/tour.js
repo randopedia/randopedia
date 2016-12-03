@@ -16,5 +16,7 @@ export default DS.Model.extend({
   timeOfYearTo: attr(),
   mapGeoJson: attr(),
   grade: attr(),
-  status: attr()
+  status: attr(),
+  images: DS.hasMany('image', { async: true }),
+  actions: DS.hasMany('action', { async: true })
 });
