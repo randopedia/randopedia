@@ -24,10 +24,6 @@ export default Ember.Controller.extend({
         },
         mapTypeIdChanged: function(mapTypeId) {
             this.set('currentMapTypeId', mapTypeId);
-        },
-        viewTourOnMap: function(tour){
-            this.set('tourForMapView', tour);
-            this.get("router").transitionTo("index");
         }
     },
 });

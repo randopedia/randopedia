@@ -6,12 +6,13 @@ export default Ember.Component.extend({
     login: Ember.inject.service(),
     language: Ember.inject.service(),
     alert: Ember.inject.service(),
+    properties: Ember.inject.service(),
 
     actions: {
         viewTourOnMap: function() {
-            this.get("controllers.index").send("viewTourOnMap", this.get("tour"));
+            this.get('properties').setTourForMapView(this.get('tour'));
+            this.get('router').transitionTo('index');
         },
-
         downloadGpxFile: function () {
             var saveSuccess = GeoHelper.saveAsGpx(this.get("tour.mapGeoJson"), this.get("tour.name"), this.get("tour.itinerary"));
             if (!saveSuccess) {
@@ -27,11 +28,11 @@ export default Ember.Component.extend({
     isPublished: Ember.computed('tour', function() {
         return this.get("tour.status") === Fixtures.TourStatus.PUBLISHED;
     }),
-    
+
     isDraft: Ember.computed('tour', function() {
         return this.get("tour.status") === Fixtures.TourStatus.DRAFT;
     }),
-    
+
     isInReview: Ember.computed('tour', function () {
         return this.get("tour.status") === Fixtures.TourStatus.IN_REVIEW;
     }),
@@ -54,7 +55,7 @@ export default Ember.Component.extend({
     hasPaths: Ember.computed('tour', function() {
         return GeoHelper.geojsonContainsPath(this.get("tour.mapGeoJson"));
     }),
-    
+
     haveNoHazards: Ember.computed('tour', function() {
         return !this.get("tour.haveHazards");
     }),
@@ -62,9 +63,9 @@ export default Ember.Component.extend({
     doesNotRequireTools: Ember.computed('tour', function() {
         return !this.get("tour.requiresTools");
     }),
-    
+
     markedItinerary: Ember.computed('tour', function() {
-        if(!this.get("tour.itinerary")){ 
+        if(!this.get("tour.itinerary")){
             return null;
         }
         var linkedItinerary = this.get("tour.itinerary").replace(/#(\S*)/g,"<a href=\"/tags/$1\">#$1</a>");

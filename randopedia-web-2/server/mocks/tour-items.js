@@ -75,9 +75,11 @@ module.exports = function(app) {
       }
   };
 
+  var tour2 = {"_id":"52c5c33de4b0533a35f7a411","name":"Gaustatoppen","shortDescription":"Popular ski tour on southern Norway's highest mountain","timingMin":3,"timingMax":5,"elevationGain":800,"elevationLoss":800,"grade":3,"mapGeoJson":{"features":[{"geometry":{"coordinates":[[8.681731224060059,59.863635284300486],[8.678555488586426,59.86109275130626],[8.675894737243652,59.85755873862332],[8.67443561553955,59.85320535334565],[8.673405647277832,59.847213129325134],[8.671088218688965,59.843979466769454],[8.666796684265137,59.842082238523794],[8.66370677947998,59.843117103698326],[8.66147518157959,59.84535920121658],[8.658385276794434,59.84717001589073],[8.65649700164795,59.84928250850204],[8.65546703338623,59.85096378434415]],"type":"LineString"},"properties":{"name":"Tour path"},"rando_type":10,"type":"Feature"},{"geometry":{"coordinates":[[8.655316829681396,59.85152419075019],[8.65803088810435,59.85228955106696],[8.663529381122999,59.853210989474874],[8.671410083770752,59.854800223964524]],"type":"LineString"},"properties":{"name":"Tour path"},"rando_type":12,"type":"Feature"},{"geometry":{"coordinates":[[8.653020858764648,59.85329156452263],[8.655616822869433,59.85449852187604],[8.657429888368256,59.85501577374399],[8.659800975299731,59.85643815556325],[8.668513298034668,59.860101541728596]],"type":"LineString"},"properties":{"name":"Tour path"},"rando_type":12,"type":"Feature"},{"geometry":{"coordinates":[[8.651776313781738,59.85441228949826],[8.654479449755854,59.85746172673896],[8.659050069277555,59.860230840024066],[8.665938377380371,59.86098501256542]],"type":"LineString"},"properties":{"name":"Tour path"},"rando_type":12,"type":"Feature"},{"geometry":{"coordinates":[[8.653836250305176,59.852589296087835],[8.65548849105835,59.85320355722227],[8.656518459320068,59.85403333057462],[8.657441139221191,59.85494929011747]],"type":"LineString"},"properties":{"name":"Tour path"},"rando_type":12,"type":"Feature"},{"geometry":{"coordinates":[8.655381202697754,59.851130829548616],"type":"Point"},"properties":{"name":"Summit point"},"rando_type":20,"type":"Feature"}],"type":"FeatureCollection"},"clientId":"gaustatoppen","id":"gaustatoppen"};
+
   tourItemsRouter.get('/', function(req, res) {
     res.send({
-      'tourItems': [tour1]
+      'tourItems': [tour1, tour2]
     });
   });
 

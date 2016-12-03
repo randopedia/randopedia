@@ -5,6 +5,7 @@ import GeoHelper from '../utils/geo-helper';
 
 export default Ember.Component.extend({
     alert: Ember.inject.service(),
+    properties: Ember.inject.service(),
 
     settings: {
         detailedZoomLevel: 13,
@@ -28,7 +29,6 @@ export default Ember.Component.extend({
 
     didInsertElement() {
         this._super(...arguments);
-
         // todo: getting deprecation warnings because we're setting properties in this hook. How can we initiate these with the default settings values elsewhere
 
         if (!this.get('zoomLevel')) {
@@ -346,7 +346,8 @@ export default Ember.Component.extend({
     initMap: function() {
         var self = this;
         self.set('mapRootElement', self.$(self.settings.mapRootElementId));
-        var tour = self.get("tour");
+        var properties = this.get('properties');
+        var tour = properties.getTourForMapView();
 
         var mapOptions = {
             mapTypeId: self.get("mapTypeId"),
