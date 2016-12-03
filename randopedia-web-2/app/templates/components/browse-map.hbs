@@ -15,7 +15,7 @@
             {{#link-to "tour" selectedTour.id}} {{selectedTour.name}} {{/link-to}}
         </h4>
         <div>
-            {{resolveSelectName 'Grades' selectedTour.grade}} |
+            {{resolveGradeName selectedTour.grade}} |
             {{selectedTour.timingMin}}-{{selectedTour.timingMax}}h |
             {{selectedTour.elevationGain}}m &uarr; {{selectedTour.elevationLoss}}m &darr;
         </div>

@@ -29,7 +29,6 @@ export default Ember.Component.extend({
 
     didInsertElement() {
         this._super(...arguments);
-        // todo: getting deprecation warnings because we're setting properties in this hook. How can we initiate these with the default settings values elsewhere
 
         if (!this.get('zoomLevel')) {
             this.set('zoomLevel', this.settings.defaultZoomLevel);
@@ -258,15 +257,15 @@ export default Ember.Component.extend({
 
                 if (err.code === 1) {
                     errMsg = "Access is denied.";
-                    console.debug("Location error: " + errMsg);
+                    console.log("Location error: " + errMsg);
 
                 } else if (err.code === 2) {
                     errMsg = "Position is unavailable.";
-                    console.debug("Location error: " + errMsg);
+                    console.log("Location error: " + errMsg);
 
                 } else {
                     errMsg = "Unknown error.";
-                    console.debug("Location error: " + errMsg);
+                    console.log("Location error: " + errMsg);
                 }
 
                 alert.showErrorMessage(texts.get("error_getLocation") + " Error message: " + err.code + " - " + errMsg);
@@ -284,7 +283,7 @@ export default Ember.Component.extend({
             self.set('waitingForPosition', false);
 
         }, function(error) {
-            console.debug("Error when getting position: " + error);
+            console.log("Error when getting position: " + error);
             alert.showErrorMessage(texts.get("error_getLocation"));
             self.set('waitingForPosition', false);
         });
@@ -294,6 +293,7 @@ export default Ember.Component.extend({
         var self = this;
         self.set('markers', []);
         tours.forEach(function (tour) {
+
             if (!GeoHelper.validateGeoJson(tour.get('mapGeoJson'))) {
                 return;
             }
@@ -315,7 +315,7 @@ export default Ember.Component.extend({
             }
 
             var markerImage = new google.maps.MarkerImage(
-                '/assets/images/skier-marker.png',
+                'images/skier-marker.png',
                 null, /* size is determined at runtime */
                 null, /* origin is 0,0 */
                 null, /* anchor is bottom center of the scaled image */
@@ -346,6 +346,7 @@ export default Ember.Component.extend({
     initMap: function() {
         var self = this;
         self.set('mapRootElement', self.$(self.settings.mapRootElementId));
+
         var properties = this.get('properties');
         var tour = properties.getTourForMapView();
 

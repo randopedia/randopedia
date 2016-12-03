@@ -48,11 +48,17 @@ export default Ember.Component.extend({
         },
 
         collapseNavbar: function() {
-            $('.collapse').collapse('hide');
+            this.set('showNavbarMenu', false);
+            this.set('showNavbarSearch', false);
+        },
+
+        toggleNavbarMenu: function () {
+            this.set('showNavbarSearch', false);
+            this.set('showNavbarMenu', !this.get('showNavbarMenu'));
         },
 
         toggleNavbarSearchbox: function () {
-            this.send('collapseNavbar');
+            this.set('showNavbarMenu', false);
             this.set('showNavbarSearch', !this.get('showNavbarSearch'));
 
             if (this.get('showNavbarSearch')) {
