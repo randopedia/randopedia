@@ -4,7 +4,9 @@ var EmberApp = require('ember-cli/lib/broccoli/ember-app');
 
 module.exports = function(defaults) {
   var app = new EmberApp(defaults, {
-    // Add options here
+    minifyJS: {
+      enabled: false
+    },
   });
 
   app.import('bower_components/moment/moment.js');
@@ -15,7 +17,7 @@ module.exports = function(defaults) {
   app.import('vendor/jquery.bootstrap-growl.min.js');
   app.import('vendor/markerclusterer.js');
   app.import('bower_components/jqcloud2/dist/jqcloud.min.js')
-  
+
 
   // Use `app.import` to add additional libraries to the generated
   // output files.

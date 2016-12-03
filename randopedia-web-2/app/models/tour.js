@@ -18,5 +18,7 @@ export default DS.Model.extend({
   grade: attr(),
   status: attr(),
   images: DS.hasMany('image', { async: true }),
-  actions: DS.hasMany('action', { async: true })
+  actions: DS.hasMany('action', { async: true }),
+  aspect: attr(),
+  tags: attr()
 });

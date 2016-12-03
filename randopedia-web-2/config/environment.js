@@ -74,6 +74,9 @@ module.exports = function(environment) {
       scope: ''
     }
     ENV.EmberENV['ember-oauth2'].facebook = facebook;
+    ENV.minifyJS = {
+        enabled: false
+    };
   }
 
   return ENV;
