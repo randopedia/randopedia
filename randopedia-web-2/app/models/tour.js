@@ -14,6 +14,7 @@ export default DS.Model.extend({
   degreesMax: attr(),
   timeOfYearFrom: attr(),
   timeOfYearTo: attr(),
+  mapGeoJson: attr(),
   grade: attr(),
   status: attr()
 });
