@@ -1,9 +1,4 @@
 <div class="top-bar">
-
-    {{#if showNavbarSearch}}
-        {{tour-search}}
-    {{/if}}
-
     <div class="bg-panel">
         <a class="logo" {{action "topbarmenulink" "index" }}>Randopedia</a>
         
@@ -17,47 +12,60 @@
 
     {{#if showNavbarMenu}}
         <div class="menu">
-            <a {{action "topbarmenulink" "index" }}>{{text "header_map"}}</a>
+            <div class="row">
+                <div class="col-xs-6">
+                    <a {{action "topbarmenulink" "index" }}>{{text "header_map"}}</a>
 
-            <a {{action "topbarmenulink" "dashboard" }}>{{text "header_dashboard"}}</a>
+                    <a {{action "topbarmenulink" "dashboard" }}>{{text "header_dashboard"}}</a>
 
-            <a {{action "topbarmenulink" "about" }}>{{text "header_about"}}</a>       
+                    <a {{action "topbarmenulink" "about" }}>{{text "header_about"}}</a>       
 
-            <a {{action "topbarmenulink" "collapseNavbar" }} data-toggle="modal" data-target="#loginViewModalId">{{text "header_addTour"}}</a>
+                    {{#unless login.isLoggedIn}}
+                    <a {{action "topbarmenulink" "tour.new" }}>{{text "header_addNewTour"}}</a>
+                    {{/unless}}    
+                </div>
 
-            <a class="nav-link dropdown-toggle" href="#" id="languageNavbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{text "header_language"}}</a>
-            <div class="dropdown-menu" aria-labelledby="languageNavbarDropdown">
-            {{#if language.isNorwegian}}
-                <a class="dropdown-item" {{action "setlanguage"}}><i class="fa fa-square-o"></i> English</a>
-                <span class="dropdown-item dropdown-item"><i class="fa fa-check-square-o"></i> Norsk</span>
-                {{else}}
-                <span class="dropdown-item"><i class="fa fa-check-square-o"></i> English</span>
-                <a class="dropdown-item" {{action "setlanguage" "no"}}><i class="fa fa-square-o"></i> Norsk</a>
-                {{/if}}
+                <div class="col-xs-6">
+                    <h4>{{text "header_language"}}</h4>
+                    {{#if language.isNorwegian}}
+                    <a {{action "setlanguage"}}><i class="fa fa-square-o"></i> English</a>
+                    <span><i class="fa fa-check-square-o"></i> Norsk</span>
+                    {{else}}
+                    <span><i class="fa fa-check-square-o"></i> English</span>
+                    <a {{action "setlanguage" "no"}}><i class="fa fa-square-o"></i> Norsk</a>
+                    {{/if}}
+
+                </div>                
             </div>
 
-            {{#if login.isLoggedIn}}
-            <a class="nav-link dropdown-toggle" href="#" id="userNavbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i></a>
-            <div class="dropdown-menu" aria-labelledby="userNavbarDropdown">
-                <p class="small" style="margin-left: .5rem; text-align: center">
-                    {{maxString login.currentUser.userName 50}}
-                </p>
-                <hr />
-                <a class="dropdown-item" {{action "topbarmenulink" "tour.new" }}>{{text "header_addNewTour"}}</a>
-                <a class="dropdown-item" {{action "topbarmenulink" "mytours" }}>{{text "header_myTours"}}</a>
-                <hr />
-                <a {{action "logout" }} class="dropdown-item">{{text "header_logout"}}</a>
+            <div class="row">
+                <div class="col-xs-12 text-center">
+                    {{#if login.isLoggedIn}}
+                    <div class="login-menu-container">
+                        <hr />
+                        <h4><i class="fa fa-user"></i> {{maxString login.currentUser.userName 50}}</h4>
+                        <hr />
+                        <a {{action "topbarmenulink" "tour.new" }}>{{text "header_addNewTour"}}</a>
+                        <a {{action "topbarmenulink" "mytours" }}>{{text "header_myTours"}}</a>
+                        <hr />
+                        <a {{action "logout" }}>{{text "header_logout"}}</a>
+                    </div>
+                    {{else}}
+                    <a {{action "topbarmenulink" "collapseNavbar" }} class="center" data-toggle="modal" data-target="#loginViewModalId">{{text "header_login"}}</a>   
+                    {{/if}}
+                </div>
             </div>
-            {{else}}
-            <a {{action "topbarmenulink" "collapseNavbar" }} data-toggle="modal" data-target="#loginViewModalId" class="">{{text "header_login"}}</a>
-            {{/if}}
-
         </div>
     {{/if}}
 
+    {{#if showNavbarSearch}}
+        {{tour-search}}
+    {{/if}}    
+
     </div>
 
-    <div class="modal fade" id="loginViewModalId" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        {{login-form}}
-    </div>
+</div>
+
+<div class="modal fade" id="loginViewModalId" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    {{login-form}}
 </div>

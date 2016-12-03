@@ -10,10 +10,10 @@
 
     .bg-panel {
         /*width: 300px;*/
-        min-height: 75px;
+        min-height: @topbar-height;
         background: rgba(255, 255, 255, 0.9);
-        border-bottom-left-radius: 50%;
-        border-bottom-right-radius: 50%;
+        border-bottom-left-radius: 25%;
+        border-bottom-right-radius: 25%;
         border: @light-border;
         color:#fff;
         position:relative;
@@ -30,7 +30,7 @@
         width: 2.25rem;
         height: 1rem;
         padding: .5rem;
-        margin-top: -15px;
+        margin-top: -10px;
         font-size: 1.3rem !important;
         line-height: 1;
         border: none; 
@@ -38,28 +38,64 @@
         &:focus {
             outline: 0;
         }  
-        /*&:hover {
-            
-        } */
     }
 
     .menu {
-        /*background: rgba(255, 255, 255, 0.9);
-        position: absolute;
-        top: 40px;
-        width: 100%;
-        padding: 40px;*/
+        margin-top: 10px;
+        margin-bottom: 15px;
+        padding: 0 40px 25px;
 
         a {
             display: block;
             font-weight: 600;
-            color: #000 !important;
+            color: @normal-foreground !important;
+            text-align: left;
+            padding: 5px 5px;
+
             &:focus {
                 outline: 0;
             }  
             &:hover {
                 background: @gray-lighter;
             }            
+        }
+
+        div {
+            text-align: left;
+            color: @normal-foreground !important;
+        }
+
+        h4 {
+            text-align: left;
+            color: @normal-foreground !important;
+            font-size: 1rem;
+            margin-bottom: 2px;
+        }
+        
+        i {
+            text-align: left;
+            color: @normal-foreground !important;
+        }
+
+        span {
+            text-align: left;
+            color: @normal-foreground !important;
+            text-align: left;
+            margin-left: 5px;
+        }
+
+        .login-menu-container {
+            a, h4 {
+                text-align: center;
+            }
+
+            hr {
+                margin: 5px 0;
+            }
+        }
+
+        h4, i {
+            color: #a9a9a9 !important;  
         }
     }
 
