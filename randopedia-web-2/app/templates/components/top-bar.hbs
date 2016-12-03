@@ -1,12 +1,43 @@
 <div class="top-bar">
 
-    <nav class="navbar navbar-light bg-faded">
+    {{#if showNavbarSearch}}
+        {{tour-search}}
+    {{/if}}
+
+    <div class="bg-panel">
+        <a class="logo" {{action "topbarmenulink" "index" }}>Randopedia</a>
+        
+        <button class="btn btn-secondary search-button nav-item" {{action "toggleNavbarMenu" }} >
+            <i class="fa fa-bars" aria-hidden="true"></i>
+        </button>
+
+        <button class="btn btn-secondary search-button nav-item" {{action "toggleNavbarSearchbox" }} >
+            <i class="fa fa-search" aria-hidden="true"></i>
+        </button>
+
+    {{#if showNavbarMenu}}
+        <div class="menu">
+            <a {{action "topbarmenulink" "index" }} class="nav-link">{{text "header_map"}}</a>
+
+            <a {{action "topbarmenulink" "dashboard" }} class="nav-link">{{text "header_dashboard"}}</a>
+
+            <a {{action "topbarmenulink" "about" }} class="nav-link">{{text "header_about"}}</a>            
+        </div>
+    {{/if}}
+
+    </div>
+
+    <div class="modal fade" id="loginViewModalId" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        {{login-form}}
+    </div>
+    
+
+    <!--<nav class="navbar navbar-light bg-faded">
 
         <a class="navbar-brand logo" {{action "topbarmenulink" "index" }}>Randopedia</a>
 
         <button class="navbar-toggler hidden-lg-up float-xs-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"></button>
 
-    <!--class={{showNavbarSearch:pressed}}-->
         <button class="btn btn-secondary search-button nav-item float-xs-right" {{action "toggleNavbarSearchbox" }} >
             <i class="fa fa-search" aria-hidden="true"></i>
         </button>
@@ -67,14 +98,6 @@
             </ul>
 
         </div>
-    </nav>
-
-    {{#if showNavbarSearch}}
-        {{tour-search}}
-    {{/if}}
-
-    <div class="modal fade" id="loginViewModalId" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        {{login-form}}
-    </div>
+    </nav>-->
 
 </div>

@@ -1,6 +1,69 @@
 ﻿.top-bar {
+    position: absolute;
+    top: -0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 1000;
+    text-align: center;
+    background: transparent;
 
-    .navbar {
+    .bg-panel {
+        /*width: 300px;*/
+        height: 75px;
+        background: rgba(255, 255, 255, 0.9);
+        border-bottom-left-radius: 50%;
+        border-bottom-right-radius: 50%;
+        border: @light-border;
+        color:#fff;
+        position:relative;
+        text-align: center;
+    }
+
+    .logo {   
+        font-size: 25px;
+        color: #000 !important;
+        display: block;
+    }
+
+    .search-button {
+        width: 2.25rem;
+        height: 1rem;
+        padding: .5rem;
+        margin-top: -15px;
+        font-size: 1.3rem !important;
+        line-height: 1;
+        border: none; 
+        border-bottom: 2px solid #fff;
+        &:focus {
+            outline: 0;
+        }  
+        /*&:hover {
+            
+        } */
+    }
+
+    .menu {
+        /*background: rgba(255, 255, 255, 0.9);
+        position: absolute;
+        top: 40px;
+        width: 100%;
+        padding: 40px;*/
+
+        a {
+            display: block;
+            font-weight: 600;
+
+            &:focus {
+                outline: 0;
+            }  
+            &:hover {
+                background: @gray-lighter;
+            }            
+        }
+    }
+
+    /*.navbar {
         background: @navbar-background;
 
         .nav-link {
@@ -19,15 +82,14 @@
         .collapse {
             margin-top: 50px;
         }
-    }
+    }*/
 
     .fb-like {
         margin-top: 7px;
     }
     
     .search-button {
-        margin: 0 5px;
-        width: 2.5em;
+        width: 2em;
         height: 2em;
         padding: .5rem .75rem;
         font-size: 1.25rem;
