@@ -10,7 +10,7 @@ export default Ember.Service.extend({
              return false;
         }
         
-        if(parseFloat(value) != parseInt(value, 10 /* 10 for decimal system */)){
+        if(parseFloat(value) !== parseInt(value, 10 /* 10 for decimal system */)){
             return false;
         }
         
@@ -18,7 +18,7 @@ export default Ember.Service.extend({
     },
     
     isPosNumberOrNull: function(value) {
-        if (!value || value.trim().length === 0) {
+        if (!value || (typeof(value) === 'string' && value.trim().length === 0)) {
              return true;
         }
         return this.isPosNumber(value);
