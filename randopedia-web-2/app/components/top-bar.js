@@ -13,10 +13,10 @@ export default Ember.Component.extend({
 
             if(routeName === 'index'){
                 this.send('gotoindex');
-            
+
             } else if(routeName === 'collapseNavbar') {
                 // Dummy for collapsing navbar
-            
+
             } else {
                 this.get("router").transitionTo(routeName);
             }
@@ -36,12 +36,12 @@ export default Ember.Component.extend({
             //var controller = this.get('controllers.tourEdit');
             //if (controller && controller.get('hasChanges') && !confirm("The tour has unsaved changes, do you want to discard them?")) {
             //    return;
-            //} 
+            //}
 
             var pathnameWithLangCode = LocationHelper.setPathnameWithLanguageCode(language);
             LocationHelper.redirectToPathname(pathnameWithLangCode);
         },
-        
+
         logout: function () {
             this.get('login').logout();
             this.send('collapseNavbar');
@@ -52,6 +52,7 @@ export default Ember.Component.extend({
         },
 
         toggleNavbarSearchbox: function () {
+            console.log('toggle');
             this.send('collapseNavbar');
             this.set('showNavbarSearch', !this.get('showNavbarSearch'));
 

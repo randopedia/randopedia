@@ -1,0 +1,13 @@
+<div class="form-group has-feedback">
+    <div class="inner-addon left-addon">
+        {{search-text value=query}}
+    </div>
+    {{#if isSearching}}
+    <div class="load-container">
+        <div class="loader"></div>
+    </div>
+    {{/if}}
+</div>
+{{#each tours as |tour|}}
+    {{tour-item tour=tour}}
+{{/each}}
