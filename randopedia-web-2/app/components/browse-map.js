@@ -315,7 +315,7 @@ export default Ember.Component.extend({
             }
 
             var markerImage = new google.maps.MarkerImage(
-                'images/skier-marker.png',
+                'assets/images/skier-marker.png',
                 null, /* size is determined at runtime */
                 null, /* origin is 0,0 */
                 null, /* anchor is bottom center of the scaled image */
