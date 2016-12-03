@@ -5,14 +5,13 @@ export default Ember.Route.extend({
         return this.get('store').createRecord('tour');
     },
     actions: {
-        // TODO: ...
-        // willTransition: function(transition) {
-        //     var controller = this.get('controller');           
-        //     if(controller.get('isDirty') && !confirm("The tour has unsaved changes, do you want to discard them?")) {
-        //         transition.abort(); 
-        //     } else { 
-        //         return true;
-        //     }
-        // }
+        willTransition(transition) {         
+            var model = this.get('controller').get('model');
+            if(model.get('isNew') && !confirm("The tour has unsaved changes, do you want to discard them?")) {
+                transition.abort(); 
+            } else { 
+                return true;
+            }    
+        }
     }   
 });
