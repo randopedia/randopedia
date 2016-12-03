@@ -11,8 +11,6 @@ export default Ember.Route.extend({
   },
 
   setupController(controller, models) {
-    console.log(models.tags);
-    console.log(models.statistics);
     controller.set('tags', models.tags);
     controller.set('stats', models.statistics);
     controller.set('tours', models.tours);

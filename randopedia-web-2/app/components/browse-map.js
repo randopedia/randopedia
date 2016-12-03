@@ -29,11 +29,7 @@ export default Ember.Component.extend({
     didInsertElement() {
         this._super(...arguments);
 
-        // todo: getting deprecation warnings because we're setting properties in this hook. How can we initiate these with the default settings values elsewhere?
-
-        if (!this.get('tours')) {
-            this.set("tours", []);
-        }
+        // todo: getting deprecation warnings because we're setting properties in this hook. How can we initiate these with the default settings values elsewhere
 
         if (!this.get('zoomLevel')) {
             this.set('zoomLevel', this.settings.defaultZoomLevel);
@@ -45,7 +41,7 @@ export default Ember.Component.extend({
 
         if (!this.get('mapTypeId')) {
             this.set('mapTypeId', this.settings.defaultMapTypeId);
-        }        
+        }
 
         this.addTourMarkers(this.get('tours'));
     },
@@ -77,7 +73,7 @@ export default Ember.Component.extend({
         if (this.get('selectedTour.id') === tour.get('id')) {
             this.closeInfoWindow();
             return;
-        } 
+        }
         // Close current and open new selected tour
         this.closeInfoWindow();
         this.openInfoWindow(tour);
@@ -147,12 +143,12 @@ export default Ember.Component.extend({
             self.showTourRoutes();
         }
     }.observes('showOnlySelectedToursPaths'),
-    
+
     getDefaultTourCenterLatLng: function(geojson) {
         for(var i = 0; i < geojson.features.length; i++) {
-            
+
             var geometry = geojson.features[i].geometry;
-            
+
             if(geometry.type === "LineString"){
                 var array = GeoHelper.geoJsonCoordinatesToGoogleLatLngArray(geometry.coordinates);
                 return array[0];
@@ -172,7 +168,7 @@ export default Ember.Component.extend({
             self.hideTourRoutes();
         }
     },
-    
+
     showTourRoutes: function() {
         var self = this;
         if (!self.get('isShowingPaths')) {
@@ -187,7 +183,7 @@ export default Ember.Component.extend({
         });
         self.set('isPathsAlreadyShown', true);
     },
-    
+
     hideTourRoutes: function(dontHideSelectedTour) {
         var self = this;
         self.get('currentTourMapObjects').forEach(function (tourMapObject) {
@@ -207,13 +203,13 @@ export default Ember.Component.extend({
             alert.showErrorMessage('Cannot show your location, seems like your browser doesnt support geolocation.');
             return;
         }
-        
+
         if(self.get('myPositionMarker')) {
             self.get('myPositionMarker').setMap(null);
             self.set('myPositionMarker', null);
         }
 
-        if (self.get('myPositionWatchId')) {            
+        if (self.get('myPositionWatchId')) {
             navigator.geolocation.clearWatch(self.get('myPositionWatchId'));
             self.set('myPositionWatchId', null);
         }
@@ -229,7 +225,7 @@ export default Ember.Component.extend({
                 new google.maps.Size(40, 40));
 
             self.set('myPositionMarker', new google.maps.Marker({
-                title: texts.get("map_myPosition"), 
+                title: texts.get("map_myPosition"),
                 position: pos,
                 map: self.get('map'),
                 icon: pinIcon
@@ -262,15 +258,15 @@ export default Ember.Component.extend({
 
                 if (err.code === 1) {
                     errMsg = "Access is denied.";
-                    console.log("Location error: " + errMsg);
+                    console.debug("Location error: " + errMsg);
 
                 } else if (err.code === 2) {
                     errMsg = "Position is unavailable.";
-                    console.log("Location error: " + errMsg);
-                
+                    console.debug("Location error: " + errMsg);
+
                 } else {
                     errMsg = "Unknown error.";
-                    console.log("Location error: " + errMsg);
+                    console.debug("Location error: " + errMsg);
                 }
 
                 alert.showErrorMessage(texts.get("error_getLocation") + " Error message: " + err.code + " - " + errMsg);
@@ -288,7 +284,7 @@ export default Ember.Component.extend({
             self.set('waitingForPosition', false);
 
         }, function(error) {
-            console.log("Error when getting position: " + error);
+            console.debug("Error when getting position: " + error);
             alert.showErrorMessage(texts.get("error_getLocation"));
             self.set('waitingForPosition', false);
         });
@@ -298,7 +294,6 @@ export default Ember.Component.extend({
         var self = this;
         self.set('markers', []);
         tours.forEach(function (tour) {
-
             if (!GeoHelper.validateGeoJson(tour.get('mapGeoJson'))) {
                 return;
             }
@@ -314,13 +309,13 @@ export default Ember.Component.extend({
                     tourPaths.push(mapObject);
                 }
             });
-            
+
             if (!tourCenterLatLng) {
                 tourCenterLatLng = self.getDefaultTourCenterLatLng(tour.get('mapGeoJson'));
             }
 
             var markerImage = new google.maps.MarkerImage(
-                'images/skier-marker.png',
+                '/assets/images/skier-marker.png',
                 null, /* size is determined at runtime */
                 null, /* origin is 0,0 */
                 null, /* anchor is bottom center of the scaled image */
@@ -347,11 +342,10 @@ export default Ember.Component.extend({
         self.initMap();
         $(window).resize();
     },
-    
+
     initMap: function() {
         var self = this;
         self.set('mapRootElement', self.$(self.settings.mapRootElementId));
-        console.log(self.get("mapRootElement"));
         var tour = self.get("tour");
 
         var mapOptions = {
@@ -378,51 +372,51 @@ export default Ember.Component.extend({
             center: self.get('mapCenter'),
             zoom: self.get('zoomLevel')
         };
-            
+
         var map = new google.maps.Map(this.get('mapRootElement').get(0), mapOptions);
         GeoHelper.setMapTypes(map);
         self.set('map', map);
-        
+
         var markerCluster = new MarkerClusterer(map, this.get('markers'));
         markerCluster.setMaxZoom(self.settings.showRoutesOnZoomLevel - 3);
         // self.set('oms', new OverlappingMarkerSpiderfier(map));
 
         google.maps.event.addListener(map, 'zoom_changed', function () {
             var newZoomLevel = self.get('map').getZoom();
-            
+
             self.set('isShowingPaths', newZoomLevel >= self.settings.showRoutesOnZoomLevel);
             self.showTourRoutesIfZoomed();
             self.sendAction('zoomChanged', newZoomLevel);
         });
-        
+
         google.maps.event.addListener(map, 'center_changed', function () {
             self.sendAction('centerChanged', map.getCenter());
         });
-        
+
         google.maps.event.addListener(map, 'maptypeid_changed', function () {
             self.sendAction('mapTypeIdChanged', map.getMapTypeId());
-        });        
-        
+        });
+
         // Hook up to window resize event to do implicit resize on map canvas
         var redrawMap = function() {
             google.maps.event.trigger(map, 'resize');
         };
-        
-        $(window).on('resize', redrawMap); 
-        
+
+        $(window).on('resize', redrawMap);
+
         if (tour) {
             var defaultMapTypeForCountry = GeoHelper.getDefaultMapTypeIdForCountry(tour.get("country"));
             if (map.getMapTypeId() !== defaultMapTypeForCountry) {
                 map.setMapTypeId(defaultMapTypeForCountry);
             }
-            
+
             self.zoomAndHighlightTour(tour);
         }
-        
+
         self.showTourRoutesIfZoomed(map.getZoom());
-        
+
     },
-    
+
     showTourInfo: Ember.computed("selectedTour", function() {
         return this.get('selectedTour') !== null;
     }),

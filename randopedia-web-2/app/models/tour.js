@@ -10,5 +10,6 @@ export default DS.Model.extend({
   elevationGain: attr(),
   elevtationLoss: attr(),
   grade: attr(),
-  status: attr()
+  status: attr(),
+  mapGeoJson: attr()
 });
