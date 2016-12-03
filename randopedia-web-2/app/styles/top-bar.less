@@ -26,19 +26,22 @@
         display: block;
     }
 
-    .search-button {
-        width: 2.25rem;
-        height: 1rem;
-        padding: .5rem;
-        margin-top: -10px;
-        font-size: 1.3rem !important;
+    .menu-button {
+        width: 2em;
+        height: 2em;
+        padding: .5rem .75rem;
+        font-size: 1.25rem;
         line-height: 1;
-        border: none; 
-        border-bottom: 2px solid #fff;
-        &:focus {
-            outline: 0;
-        }  
-    }
+        background: transparent no-repeat center center;
+        -webkit-background-size: 24px 24px;
+        background-size: 24px 24px;
+        border-radius: .25rem;        
+        color: @normal-foreground !important;
+
+        i.selected {
+            color: gold !important;
+        }
+    }    
 
     .menu {
         margin-top: 10px;
@@ -101,18 +104,5 @@
 
     .fb-like {
         margin-top: 7px;
-    }
-    
-    .menu-button {
-        width: 2em;
-        height: 2em;
-        padding: .5rem .75rem;
-        font-size: 1.25rem;
-        line-height: 1;
-        background: transparent no-repeat center center;
-        -webkit-background-size: 24px 24px;
-        background-size: 24px 24px;
-        border-radius: .25rem;        
-        color: @normal-foreground !important;
     }
 }
