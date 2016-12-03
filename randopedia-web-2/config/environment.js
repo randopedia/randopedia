@@ -48,21 +48,11 @@ module.exports = function(environment) {
       scope: ''
     }
 
-      ENV.host = "/randopedia/api";
-      ENV.port = "8080";
+    ENV.host = "/randopedia/api";
+    ENV.port = "8080";
 
-      ENV.EmberENV['ember-oauth2'].facebook = facebook;
-      ENV.EmberENV['ember-oauth2'].google = google;
-
-
-      /*ENV.facebookAppIdTest = "181281108742349";
-      ENV.facebookAppIdLocalhost = "579258552116376";
-      ENV.facebookAppIdProd = "387025698094707";
-
-      ENV.googleAppIdTest = "";
-      ENV.googleAppIdLocalhost = "991673526883.apps.googleusercontent.com";
-      ENV.googleAppIdProd = "719190645609-c0ogrmvrbtgbl5ohlb81d0lflf31uo51.apps.googleusercontent.com";
-      */
+    ENV.EmberENV['ember-oauth2'].facebook = facebook;
+    ENV.EmberENV['ember-oauth2'].google = google;
   }
 
   if (environment === 'test') {
@@ -77,7 +67,13 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
-
+    var facebook = {
+      clientId: '579258552116376',
+      authBaseUri: 'https://www.facebook.com/dialog/oauth',
+      redirectUri: 'http://localhost:4200' + '/auth/facebook/callback',
+      scope: ''
+    }
+    ENV.EmberENV['ember-oauth2'].facebook = facebook;
   }
 
   return ENV;
