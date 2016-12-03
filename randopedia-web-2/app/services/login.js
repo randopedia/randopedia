@@ -34,7 +34,7 @@ export default Ember.Service.extend({
     },
 
     logout: function() {
-        this.send('removeToken');
+        this.removeToken();
         this.get('alert').showSuccessMessage('You were logged out.');
     },
     poll : function(fn, timeout, interval) {
@@ -42,16 +42,13 @@ export default Ember.Service.extend({
       interval = interval || 100;
 
       var checkCondition = function(resolve, reject) {
-        // If the condition is met, we're done!
         var result = fn();
         if(result) {
           resolve(result);
         }
-        // If the condition isn't met but the timeout hasn't elapsed, go again
         else if (Number(new Date()) < endTime) {
           setTimeout(checkCondition, interval, resolve, reject);
         }
-        // Didn't match and too much time, reject!
         else {
           reject(new Error('timed out for ' + fn + ': ' + arguments));
         }
@@ -93,21 +90,37 @@ export default Ember.Service.extend({
       }
       this.get('emberOauth2').expireAccessToken();
     },
+    checkTokenExpired : function(token) {
+        if(token) {
+            var expires = new Date(token.expires_in*1000);
+            var now = new Date();
+            if(expires > now) {
+                return false;
+            }
+        }
+        return true;
+    },
     isLoggedIn: Ember.computed('currentUser.authenticated', function() {
       //this.set("user", {userName: "Bj�rn Asplund", userId: "521716365"});
       //return true;
       //return false;
+      var emberOauth2 = this.get('emberOauth2');
+      emberOauth2.setProvider('facebook');
+      var token = emberOauth2.getToken();
       var user = this.get('currentUser');
       if(user && user.get('authenticated') === true) {
         var now = new Date();
         var tokenExp = user.get('tokenExp');
         return tokenExp > now;
-      }
-      else {
-        return false;
+      } else {
+        if(!this.checkTokenExpired(token)) {
+          this.requestAuthentication();
+          return true;
+        } else {
+          return false;
+        }
       }
     }),
-
     isAdmin: Ember.computed('currentUser.authenticated', function() {
       var user = this.get('currentUser');
       if (!user || !user.get('authenticated')) {
