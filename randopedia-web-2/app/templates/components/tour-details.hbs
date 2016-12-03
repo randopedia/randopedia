@@ -204,7 +204,7 @@
                 <div class="card-block">
                     {{{tour.hazardsDescription}}}
                 </div>
-            </div>            
+            </div>
         </div>
         {{/if}}
 
@@ -217,7 +217,7 @@
                 <div class="card-block">
                     {{{tour.toolsDescription}}}
                 </div>
-            </div>            
+            </div>
         </div>
         {{/if}}
     </div>
@@ -230,17 +230,8 @@
         <div class="card-block">
             {{image-slider images=tour.images}}
         </div>
-    </div>            
-    {{/if}}
-
-    <div class="card">
-        <h3 class="card-header">
-            {{text "tour_instagramFeed"}}
-        </h3>
-        <div class="card-block">
-            {{instagram-feed point=summitPoint}}
-        </div>
     </div>
+    {{/if}}
 
     {{#if isPublished}}
     <div class="card">
@@ -250,7 +241,7 @@
         <div class="card-block">
             {{disqus-forum tour=tour}}
         </div>
-    </div>  
+    </div>
     {{/if}}
 
     {{ partial "partials/footer"}}

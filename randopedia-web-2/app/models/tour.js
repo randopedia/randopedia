@@ -9,6 +9,11 @@ export default DS.Model.extend({
   timingMin: attr(),
   elevationGain: attr(),
   elevtationLoss: attr(),
+  elevationMax: attr(),
+  elevationMin: attr(),
+  degreesMax: attr(),
+  timeOfYearFrom: attr(),
+  timeOfYearTo: attr(),
   grade: attr(),
   status: attr()
 });

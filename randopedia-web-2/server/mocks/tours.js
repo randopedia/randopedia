@@ -2,7 +2,7 @@
 module.exports = function(app) {
   var express = require('express');
   var toursRouter = express.Router();
-    
+
   var tour1 = {
       "_id": "52936377e4b04666a6a2bcfe",
       "clientId": "nordre_soleibotntind__north_east_colouir",
@@ -12,9 +12,13 @@ module.exports = function(app) {
       "accessPoint": "By the road",
       "itinerary": "Long, steep and spectacular colouir in Ringsdalen valley",
       "timingMax": 6,
-      "timingMin": 5,      
+      "timingMin": 5,
       "elevationGain": 800,
       "elevationLoss": 800,
+      "elevationMax": 4000,
+      "degreesMax": 55,
+      "timeOfYearFrom":5,
+      "timeOfYearTo":6,
       "grade": 4,
       "tags": [],
       "mapGeoJson": {
