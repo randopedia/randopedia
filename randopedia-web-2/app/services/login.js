@@ -77,6 +77,7 @@ export default Ember.Service.extend({
         self.set('currentUser', user);
         self.get('alert').showSuccessMessage('You were successfully logged in. ', 2000);
       }).catch(function(error) {
+        console.debug('Could not save user', error);
         self.set('isLoggingIn', false);
         emberOauth2.expireAccessToken();
         self.get('alert').showErrorMessage('An error occured when trying to log in, please try again. ');
@@ -101,9 +102,6 @@ export default Ember.Service.extend({
         return true;
     },
     isLoggedIn: Ember.computed('currentUser.authenticated', function() {
-      //this.set("user", {userName: "Bj�rn Asplund", userId: "521716365"});
-      //return true;
-      //return false;
       var emberOauth2 = this.get('emberOauth2');
       emberOauth2.setProvider('facebook');
       var token = emberOauth2.getToken();

@@ -52,7 +52,6 @@ export default Ember.Component.extend({
         },
 
         toggleNavbarSearchbox: function () {
-            console.log('toggle');
             this.send('collapseNavbar');
             this.set('showNavbarSearch', !this.get('showNavbarSearch'));
 
