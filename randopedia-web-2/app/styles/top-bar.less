@@ -18,28 +18,36 @@
         color:#fff;
         position:relative;
         text-align: center;
+
+        &.search-is-open {
+            border-radius: 0;
+        }
     }
 
     .logo {   
         font-size: 25px;
         color: #000 !important;
-        display: block;
     }
 
     .menu-button {
         width: 2em;
         height: 2em;
-        padding: .5rem .75rem;
         font-size: 1.25rem;
+        padding: 0.25rem;
         line-height: 1;
         background: transparent no-repeat center center;
         -webkit-background-size: 24px 24px;
         background-size: 24px 24px;
         border-radius: .25rem;        
         color: @normal-foreground !important;
+        
 
-        i.selected {
-            color: gold !important;
+        i {
+            padding: 4px 6px !important;
+            border-radius: 5px;
+            &.selected {
+                background: @active-blue;
+            }
         }
     }    
 
