@@ -2,10 +2,8 @@
     position: absolute;
     top: @topbar-height - 5px;
     width: 100%;
-    background: white; 
-    border: @dark-border;
-    background-color: #fff;
-    border-width: 0 1px 1px;
+    border-bottom: 1px solid @dark-border;
+    background-color: @topbar-background;
     padding: 5px;
     overflow-x: hidden;
     overflow-y: auto;
@@ -24,11 +22,6 @@
         margin-top: 30px;
     }
     
-    .glyphicon-search {
-        left: 5px;
-        top: 14px;
-    }
-    
     .form-group {
         margin-bottom: 0;
     }
@@ -39,15 +32,11 @@
         margin-right: 5px;
     }
 
-    @media (max-width: 749px) { 
-        width: 100%;
-        height: 100%; 
-    }
-
     .search-textfield {
         width: 100%;
         padding: 5px;
         font-size: 16px;
+        margin-bottom: 4px;
 
         @media (min-width: 970px) { 
             width: 100%;

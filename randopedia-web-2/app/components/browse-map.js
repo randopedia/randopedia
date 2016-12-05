@@ -217,7 +217,7 @@ export default Ember.Component.extend({
         navigator.geolocation.getCurrentPosition(function(position) {
             var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
             var pinIcon = new google.maps.MarkerImage(
-                'images/my_position_marker.png',
+                '/assets/images/my_position_marker.png',
                 null, /* size is determined at runtime */
                 null, /* origin is 0,0 */
                 null, /* anchor is bottom center of the scaled image */
@@ -355,7 +355,8 @@ export default Ember.Component.extend({
             mapTypeControl: true,
             mapTypeControlOptions: {
                 mapTypeIds: GeoHelper.mapTypeControlOptions,
-                style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
+                style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
+                position: google.maps.ControlPosition.TOP_RIGHT
             },
             zoomControl: true,
             zoomControlOptions: {
