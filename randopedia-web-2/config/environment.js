@@ -68,9 +68,9 @@ module.exports = function(environment) {
 
   if (environment === 'production') {
     var facebook = {
-      clientId: '579258552116376',
+      clientId: '181281108742349',
       authBaseUri: 'https://www.facebook.com/dialog/oauth',
-      redirectUri: 'http://localhost:4200' + '/auth/facebook/callback',
+      redirectUri: 'http://test.randopedia.net' + '/auth/facebook/callback',
       scope: ''
     }
     ENV.EmberENV['ember-oauth2'].facebook = facebook;
