@@ -16,9 +16,10 @@
                 Below are all your tour drafts listed. These tours are only visible to you. You currently have {{drafts.length}} tour draft(s).
             </div>
 
-            {{#each tour in drafts}}
+            {{#each drafts as |tour|}}
                 {{tour-item tour=tour}}
             {{/each}}
+
             {{/if}}
 
         </div>
@@ -33,7 +34,7 @@
                 Below are all tours that you have created and/or made updates on listed. You have contributed on {{updates.length}} tour(s).
             </div>
 
-            {{#each tour in updates}}
+            {{#each updates as |tour|}}
                 {{tour-item tour=tour}}
             {{/each}}
 
