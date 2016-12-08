@@ -2,6 +2,8 @@ import Ember from 'ember';
 import Fixtures from '../utils/fixtures';
 
 export default Ember.Route.extend({
+  login: Ember.inject.service(),
+
   model() {
     return Ember.RSVP.hash({
       tags : this.get('store').findAll('tag'),
@@ -14,5 +16,6 @@ export default Ember.Route.extend({
     controller.set('tags', models.tags);
     controller.set('stats', models.statistics);
     controller.set('tours', models.tours);
+    controller.set('isLoggedIn', this.get('login.isLoggedIn'));
   }
 });

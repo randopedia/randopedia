@@ -1,9 +1,13 @@
 <div class="container">
     <h1>Dashboard</h1>
 
-    Published tours: {{stats.publishedTours}}
-    Total gain: {{stats.totalGain}}
-    Total loss: {{stats.totalLoss}}
+    <div class="card">
+        <div class="card-block">
+            Published tours: <strong>{{stats.publishedTours}}</strong>
+            Total gain: <strong>{{stats.totalGain}}</strong>
+            Total loss: <strong>{{stats.totalLoss}}</strong>
+        </div>
+    </div>
 
     {{tag-cloud tags=tags}}
 
@@ -16,7 +20,7 @@
         </div>
     </div>
 
-    <!--todo: only show if logged in -->
+    {{#if isLoggedIn}}
     <div class="card">
         <h3 class="card-header">
             {{text "header_toursInReview"}}
@@ -25,5 +29,6 @@
             {{tours-in-review}}
         </div>
     </div>
+    {{/if}}
 
 </div>
