@@ -3,7 +3,6 @@ import Ember from 'ember';
 export default Ember.Component.extend({
     classNames: ['searchbox'],
     query : null,
-    store : null,
     tours : null,
     store : Ember.inject.service(),
 
