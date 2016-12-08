@@ -17,8 +17,9 @@ export default DS.Model.extend({
   mapGeoJson: attr(),
   grade: attr(),
   status: attr(),
+  aspect: attr(),
+  tags: attr(),
   images: DS.hasMany('image', { async: true }),
   actions: DS.hasMany('action', { async: true }),
-  aspect: attr(),
-  tags: attr()
+  publishComment: DS.attr('string')
 });

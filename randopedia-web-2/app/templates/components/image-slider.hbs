@@ -59,7 +59,7 @@
     </style>
 
     <div u="slides" style="cursor: move; position: absolute; left: 0px; top: 0px; width: 1200px; height: 800px; overflow: hidden;">
-        {{#each img in images}}
+        {{#each images as |img|}}
         <div>
             <img u="image" {{bind-attr src="img.imageFile"}} />
             <div class="image-caption"><span class="image-caption-text">{{img.caption}}</span></div>
