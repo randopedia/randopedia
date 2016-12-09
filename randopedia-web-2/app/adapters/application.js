@@ -1,5 +1,7 @@
+import Ember from 'ember';
 import RESTAdapter from 'ember-data/adapters/rest';
-  export default RESTAdapter.extend({
+
+export default RESTAdapter.extend({
     namespace: 'api',
     emberOauth2: Ember.inject.service(),
     ajax: function(url, type, hash) {
@@ -18,7 +20,7 @@ import RESTAdapter from 'ember-data/adapters/rest';
           if (adapter.headers !== undefined) {
             var headers = adapter.headers;
             hash.beforeSend = function (xhr) {
-              forEach.call(Ember.keys(headers), function(key) {
+              Ember.keys(headers).forEach(function(key) {
                 xhr.setRequestHeader(key, headers[key]);
               });
             };
@@ -49,6 +51,9 @@ import RESTAdapter from 'ember-data/adapters/rest';
             }
 
             Ember.run(null, reject, jqXHR);
+
+            console.log(textStatus);
+            console.log(errorThrown);
           };
           Ember.$.ajax(hash);
         });
