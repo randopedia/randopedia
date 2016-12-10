@@ -27,6 +27,7 @@ export default Ember.Component.extend({
             this.onSearchQueryChanged();
         }
     },
+
     executeSearch: function(query) {
         this.set('isSearching', true);
         var self = this;
@@ -35,5 +36,11 @@ export default Ember.Component.extend({
             self.set('hasSearchResults', true);
             self.set('isSearching', false);
         });
+    },
+
+    actions: {
+        tourWasOpened: function() {
+            this.get("tourWasOpened")();
+        }
     }
 });

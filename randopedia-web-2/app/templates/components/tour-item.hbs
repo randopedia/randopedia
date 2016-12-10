@@ -1,6 +1,6 @@
 <div class="tour-item">  
     <div class="item-panel">
-        <h4> {{#link-to "tour" tour.id}} {{tour.name}} {{/link-to}}</h4>
+        <h4> <a {{action "openTour"}}>{{tour.name}}</a></h4>
         <div class="item-props">    
             {{resolveSelectName 'Grades' tour.grade}} | 
             {{tour.timingMin}}-{{tour.timingMax}}h | 

@@ -11,6 +11,6 @@
     </div>
 
     {{#each tours as |tour|}}
-        {{tour-item tour=tour}}
+        {{tour-item tour=tour tourWasOpened=(action "tourWasOpened")}}
     {{/each}}
 </div>

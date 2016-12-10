@@ -28,6 +28,11 @@ export default Ember.Component.extend({
             this.get("router").transitionTo("index");
         },
 
+        closeMenu: function() {
+            console.debug("closeMenu top-bar");
+            this.send('collapseNavbar');
+        },
+
         setlanguage: function (language) {
 
             // todo ...
