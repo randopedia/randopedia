@@ -18,6 +18,7 @@ export default DS.Model.extend({
   grade: attr(),
   status: attr(),
   aspect: attr(),
+  country: attr(),
   tags: attr(),
   images: DS.hasMany('image', { async: true }),
   actions: DS.hasMany('action', { async: true }),

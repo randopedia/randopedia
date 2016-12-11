@@ -281,7 +281,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <span class="checkbox">
-                                        <label {{bind-attr class="requiresTools:checked" }}>
+                                        <label class={{if requiresTools 'checked'}}>
                                             {{input type="checkbox" checkedBinding="tour.requiresTools" class="hide"}}
                                             <span class="glyphicon glyphicon-ok"></span>
                                             <span>{{text "tourEdit_mountaineering"}}</span>

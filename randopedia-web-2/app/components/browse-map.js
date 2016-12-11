@@ -199,7 +199,7 @@ export default Ember.Component.extend({
         var self = this;
 
         if (!navigator.geolocation) {
-            alert.showErrorMessage('Cannot show your location, seems like your browser doesnt support geolocation.');
+            selg.get("alert").showErrorMessage('Cannot show your location, seems like your browser doesnt support geolocation.');
             return;
         }
 
@@ -268,7 +268,7 @@ export default Ember.Component.extend({
                     console.log("Location error: " + errMsg);
                 }
 
-                alert.showErrorMessage(texts.get("error_getLocation") + " Error message: " + err.code + " - " + errMsg);
+                self.get("alert").showErrorMessage(texts.get("error_getLocation") + " Error message: " + err.code + " - " + errMsg);
                 self.set('waitingForPosition', false);
             }
 
@@ -284,7 +284,7 @@ export default Ember.Component.extend({
 
         }, function(error) {
             console.log("Error when getting position: " + error);
-            alert.showErrorMessage(texts.get("error_getLocation"));
+            self.get("alert").showErrorMessage(texts.get("error_getLocation"));
             self.set('waitingForPosition', false);
         });
     },

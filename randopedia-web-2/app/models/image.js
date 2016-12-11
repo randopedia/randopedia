@@ -9,8 +9,8 @@ export default DS.Model.extend({
     caption: attr(),
     isPortfolio: attr(),
     
-    isUpdateDisabled: Ember.computed('isDirty', 'isSaving', function() {
-        return !this.get('isDirty') || this.get('isSaving');
+    isUpdateDisabled: Ember.computed('hasDirtyAttributes', 'isSaving', function() {
+        return !this.get('hasDirtyAttributes') || this.get('isSaving');
     }),
     
     isDeleteDisabled: Ember.computed('isSaving', function() {
