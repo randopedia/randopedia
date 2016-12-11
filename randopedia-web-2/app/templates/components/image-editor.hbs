@@ -72,7 +72,7 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="checkbox">
-                                        <label {{bind-attr class="image.isPortfolio:checked" }}>
+                                        <label class={{if image.isPortfolio 'checked'}}>
                                             {{input type="checkbox" checked=image.isPortfolio class="hide"}}
                                             <span class="glyphicon glyphicon-ok"></span>
                                             <span>{{text "images_isPortfolioImage"}}</span>

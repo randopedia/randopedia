@@ -266,7 +266,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <span class="checkbox">
-                                        <label {{bind-attr class="haveHazards:checked" }}>
+                                        <label class={{if haveHazards 'checked'}}>
                                             {{input type="checkbox" checkedBinding="tour.haveHazards" class="hide"}}
                                             <span class="glyphicon glyphicon-ok"></span>
                                             <span>{{text "tour_hazards"}}</span>
