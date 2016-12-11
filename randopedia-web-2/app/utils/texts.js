@@ -26,10 +26,22 @@ texts.get = function (identifier) {
 };
 
 texts.dictionary = {
+    common_cancel: {
+        no: "Avbryt",
+        eng: "Cancel"
+    },
+    common_close: {
+        no: "Lukk",
+        eng: "Close"
+    },
     common_siteSlogan: {
         no: "Topptursdatabasen",
         eng: "The ski tour database"
     },
+    common_update: {
+        no: "Lagre",
+        eng: "Update"
+    },    
     dashboard_onInstagram: {
         no: "på Instagram",
         eng: "on Instagram"
@@ -139,6 +151,34 @@ texts.dictionary = {
         no: "Turer under vurdering",
         eng: "Tours in review"
     },
+    images_delete: {
+        no: "Slett bilde",
+        eng: "Delete image"
+    },
+    images_deleteConfirmation: {
+        no: "Er du sikker på at du vil slette bildet? Det vil ikke være mulig å gjenopprette bildet.",
+        eng: "Are you sure you want to delete the image? It will not be possible to restore the image."
+    },
+    images_isPortfolioImage: {
+        no: "Portfoliobilde",
+        eng: "Is portfolio image"
+    },
+    images_uploadNew: {
+        no: "Last opp bilder",
+        eng: "Upload new images"
+    },
+    images_upload: {
+        no: "Last opp bilde",
+        eng: "Upload image"
+    },
+    images_select: {
+        no: "Velj bilde",
+        eng: "Select image"
+    },
+    images_currentTourImages: {
+        no: "Turbilder",
+        eng: "Current tour images"
+    },        
     login_loginWith: {
         no: "Logg inn med",
         eng: "Login with"

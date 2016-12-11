@@ -2,14 +2,14 @@
 
 	<div class="row">
 	    <div class="col-sm-12">
-	        <h4>Upload new images</h4>
+	        <h4>{{text "images_uploadNew"}}</h4>
 	    </div>
 	</div>
 	
 	<div class="row">
 	    <div class="col-sm-12">
             {{#x-file-input accept="image/*" alt="Select image"}}
-                <button class="btn btn-primary"><i class="fa fa-picture-o"></i> Select image</button>
+                <button class="btn btn-primary"><i class="fa fa-picture-o"></i> {{text "images_select"}}</button>
             {{/x-file-input}}
 	    </div>
 	</div>
@@ -33,8 +33,8 @@
                             </div>
                             <div class="form-group">
                                 <div class="button-group pull-right">
-                                    <button class="btn btn-default" {{action "removeNewImage"}} disabled={{havePendingOperations}}>Cancel</button>
-                                    <button class="btn btn-primary" {{action "saveNewImage"}} disabled={{havePendingOperations}}>Upload image</button>
+                                    <button class="btn btn-default" {{action "removeNewImage"}} disabled={{havePendingOperations}}>{{text "common_cancel"}}</button>
+                                    <button class="btn btn-primary" {{action "saveNewImage"}} disabled={{havePendingOperations}}>{{text "images_upload"}}</button>
                                 </div>                   
                             </div>                         
                         </form>
@@ -48,7 +48,7 @@
 	<div class="row">
 	    <div class="col-sm-12">
 	        <hr />
-	        <h4>Current tour images <span class="secondary-text">({{tour.images.length}})</span></h4>
+	        <h4>{{text "images_currentTourImages"}}<span class="secondary-text"> ({{tour.images.length}})</span></h4>
 	    </div>
 	</div>
 		
@@ -61,7 +61,7 @@
 	                <div class="row">
 	                    <div class="col-sm-12 col-lg-2">
 	                            <div class="thumbnail-wrapper">
-	                            <img src={{image.imageFile}} class="thumbnail-image" />
+	                            <img src={{image.imageFile}} class="img-thumbnail" />
 	                        </div>
 	                    </div>
 	                    <div class="col-sm-12 col-lg-10">
@@ -75,13 +75,13 @@
                                         <label {{bind-attr class="image.isPortfolio:checked" }}>
                                             {{input type="checkbox" checked=image.isPortfolio class="hide"}}
                                             <span class="glyphicon glyphicon-ok"></span>
-                                            <span>Is portfolio image</span>
+                                            <span>{{text "images_isPortfolioImage"}}</span>
                                         </label>
                                     </div>
 									<div class="button-group pull-right">
-		                                <button {{action "saveImage" image}} disabled={{image.isUpdateDisabled}} class="btn btn-primary">Update</button>
+		                                <button {{action "saveImage" image}} disabled={{image.isUpdateDisabled}} class="btn btn-primary">{{text "common_update"}}</button>
 		                                <button {{action "startDeleteImage" image }} data-toggle="modal" data-target="#confirmDeleteImageModal"
-											 disabled={{image.isDeleteDisabled}} class="btn btn-danger">Delete image</button>
+											 disabled={{image.isDeleteDisabled}} class="btn btn-danger">{{text "images_delete"}}</button>
 		                            </div>
                                 </div>                                            
                             </form>
@@ -97,15 +97,17 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <h4 class="modal-title">Delete image</h4>
+                    <button type="button" class="close" data-dismiss="modal">
+						<span aria-hidden="true">&times;</span><span class="sr-only">{{text "common_close"}}</span>
+					</button>
+                    <h4 class="modal-title">{{text "images_deleteDelete"}}</h4>
                 </div>
                 <div class="modal-body">
-                    Are you sure you want to delete the image? It will not be possible to restore the image.
+					{{text "images_deleteConfirmation"}}
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-                    <button class="btn btn-danger pull-right" data-dismiss="modal" {{action "confirmDeleteImage" }}>Delete image</button>
+                    <button class="btn btn-default pull-left" data-dismiss="modal">{{text "common_cancel"}}</button>
+                    <button class="btn btn-danger pull-right" data-dismiss="modal" {{action "confirmDeleteImage" }}>{{text "images_delete"}}</button>
                 </div>
             </div>
         </div>
