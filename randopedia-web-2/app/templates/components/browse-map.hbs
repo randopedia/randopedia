@@ -21,7 +21,7 @@
         </div>
         <div class="link-container">
             <span><a {{action "zoomToSelectedTourAction"}}>{{text "map_zoomInOnMap"}}</a></span>
-            <span>{{#link-to "tour" selectedTour}} {{text "map_viewTourDetails"}} {{/link-to}}</span>
+            <span>{{#link-to "tour" selectedTour.id}} {{text "map_viewTourDetails"}} {{/link-to}}</span>
         </div>
         <div class="checkbox">
             <label {{bind-attr class="showOnlySelectedToursPaths:checked" }}>

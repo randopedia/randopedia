@@ -7,5 +7,5 @@ export default DS.Model.extend({
     userName : attr(),
     comment : attr(),
     type: attr(),
-    tour: DS.belongsTo('tour')
+    tour: DS.belongsTo('tour', {inverse: 'actions'})
 });

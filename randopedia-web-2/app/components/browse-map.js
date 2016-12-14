@@ -199,7 +199,7 @@ export default Ember.Component.extend({
         var self = this;
 
         if (!navigator.geolocation) {
-            selg.get("alert").showErrorMessage('Cannot show your location, seems like your browser doesnt support geolocation.');
+            self.get("alert").showErrorMessage('Cannot show your location, seems like your browser doesnt support geolocation.');
             return;
         }
 
@@ -278,8 +278,9 @@ export default Ember.Component.extend({
                 maximumAge: 10000
             };
 
-            var id = navigator.geolocation.watchPosition(onWatchPositionUpdate, onWatchPositionError, watchOptions);
-            self.set('myPositionWatchId', id);
+            // Turned off for now. Getting error on watch, maybe because we need to be on https?
+            // var id = navigator.geolocation.watchPosition(onWatchPositionUpdate, onWatchPositionError, watchOptions);
+            // self.set('myPositionWatchId', id);
             self.set('waitingForPosition', false);
 
         }, function(error) {
