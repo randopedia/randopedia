@@ -1,0 +1,25 @@
+<div class="main-container container-fluid">
+    <div class="main-view">
+    <div class="row">
+        <div class="col-sm-12">
+            <h2>
+                #{{name}} <span class="small">({{tours.length}} tours)</span>
+            </h2>
+        </div>
+    </div>
+
+    {{#if content.isUpdating}}
+        <div class="loading"></div>
+    {{/if}}
+
+    {{#each tours as |tour|}}
+        {{view "tourItem"}}
+    {{else}}
+        <div class="alert alert-info" role="alert">
+            No tours were found for <em>{{name}}</em>. If the tag was just added to a tour, it may take some time before the tour appears here.
+        </div>
+    {{/each}}
+
+    </div>
+
+</div>

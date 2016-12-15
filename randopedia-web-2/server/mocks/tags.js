@@ -46,6 +46,8 @@ module.exports = function(app) {
       "__v":0,"id":"hemsedal"
     }];
 
+    var tag = {"name":"hemsedal","value":2,"popularity":0,"tag":"hemsedal","__v":0,"id":"hemsedal","tours":["bukkehamaren","hogdebrotet"]};
+
   tagsRouter.get('/', function(req, res) {
     res.send({
       'tags': tags
@@ -58,16 +60,14 @@ module.exports = function(app) {
 
   tagsRouter.get('/:id', function(req, res) {
     res.send({
-      'tags': {
-        id: req.params.id
-      }
+      'tag': tag
     });
   });
 
   tagsRouter.put('/:id', function(req, res) {
     res.send({
-      'tags': {
-        id: req.params.id
+      'tag': {
+        tag
       }
     });
   });

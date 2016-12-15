@@ -21,6 +21,7 @@ Router.map(function() {
   });
   this.route('mytours');
   this.route('tags');
+  this.route('tag', {path: '/tags/:tag_id'});
 });
 
 export default Router;
