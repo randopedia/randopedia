@@ -20,6 +20,7 @@ var authService = (function () {
                         .then(function(user) {
                             user.authenticated = true;
                             user.token = token;
+                            user.id = user.userId;
                             delete user.longLivedToken;
                             callback({'user' : user});
                         });
@@ -44,14 +45,11 @@ var authService = (function () {
                 });
         }
     }
-    
+
     return {
         authenticateUser : authenticateUser
     };
-    
+
 })();
 
 module.exports = authService;
-
-
-

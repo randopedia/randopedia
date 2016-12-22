@@ -13,12 +13,12 @@ var userRepository = (function() {
                 if(user != null) {
                     user.longLivedToken = llToken;
                     user.save(function(err) {
-                    });    
-                    
+                    });
                     deferred.resolve(user.toObject());
                 } else {
                     var newUser = new userModel(
                         {
+                            id: facebookUser.id,
                             userId : facebookUser.id,
                             userName : facebookUser.name,
                             longLivedToken : llToken,
@@ -35,7 +35,7 @@ var userRepository = (function() {
                 }
             }
         });
-        return deferred.promise;        
+        return deferred.promise;
     }
 
     function findUser(facebookUser) {
@@ -73,7 +73,7 @@ var userRepository = (function() {
         findUser : findUser,
         getUserCount : getUserCount
     };
-    
+
 })();
 
 module.exports = userRepository;
