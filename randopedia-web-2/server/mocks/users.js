@@ -3,7 +3,7 @@ module.exports = function(app) {
   var express = require('express');
   var usersRouter = express.Router();
 
-  var user =  {"id":"528d0a73e4b0beb90f8a8e50","_class":"no.extreme.randopedia.model.user.User","userId":"615412384","userName":"Awesome Randouser","authenticated":true,"token":"EAAFfZC3FAZCnMBAB5TpFZBZB9MgXqf9Fu40JXCWUy8Q3xZB8oWd8ahNObKyc849ZA6DmHpigZC7gOur5m7G7srwq0zmdXigqLy0490NiqpmH2XjeesW961ca0SG9A85lWZAgd30y0snWH8alZBo7KmchwywDTnaqLgBAtQgkoQ9E17AZDZD"}
+  var user =  {"id":"615412384","_class":"no.extreme.randopedia.model.user.User","userId":"615412384","userName":"Awesome Randouser","authenticated":true,"token":"EAAFfZC3FAZCnMBAB5TpFZBZB9MgXqf9Fu40JXCWUy8Q3xZB8oWd8ahNObKyc849ZA6DmHpigZC7gOur5m7G7srwq0zmdXigqLy0490NiqpmH2XjeesW961ca0SG9A85lWZAgd30y0snWH8alZBo7KmchwywDTnaqLgBAtQgkoQ9E17AZDZD"}
 
 
   usersRouter.get('/', function(req, res) {

@@ -77,6 +77,7 @@ export default Ember.Service.extend({
         self.set('currentUser', user);
         self.get('alert').showSuccessMessage('You were successfully logged in. ', 2000);
       }).catch(function(error) {
+        console.debug('error during login ', error);
         self.set('isLoggingIn', false);
         emberOauth2.expireAccessToken();
         self.get('alert').showErrorMessage('An error occured when trying to log in, please try again. ');
