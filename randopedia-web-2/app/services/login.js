@@ -56,6 +56,7 @@ export default Ember.Service.extend({
       return new Promise(checkCondition);
     },
     requestAuthentication: function() {
+      console.debug('requestAuthentication');
       var store = this.get('store');
       var emberOauth2 = this.get('emberOauth2');
       var self = this;
@@ -101,7 +102,10 @@ export default Ember.Service.extend({
         }
         return true;
     },
-    isLoggedIn: Ember.computed('currentUser.authenticated', function() {
+    performBackgroundLogIn : function() {
+      this.checkIfLoggedIn();
+    },
+    checkIfLoggedIn : function() {
       //this.set("user", {userName: "Bj�rn Asplund", userId: "521716365"});
       //return true;
       //return false;
@@ -121,6 +125,9 @@ export default Ember.Service.extend({
           return false;
         }
       }
+    },
+    isLoggedIn: Ember.computed('currentUser.authenticated', function() {
+      return this.checkIfLoggedIn();
     }),
     isAdmin: Ember.computed('currentUser.authenticated', function() {
       var user = this.get('currentUser');
