@@ -2,7 +2,7 @@
 
     {{#if draftValidationErrors}}
     <div class="row">
-        <div class="col-xs-12">
+        <div class="col col-xs-12">
             <div class="alert alert-danger" role="alert">
                 <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 Couldn't save tour, name must be set.
@@ -13,7 +13,7 @@
 
     {{#if isDraft}}
     <div class="row">
-        <div class="col-xs-12">
+        <div class="col col-xs-12">
             <div class="alert alert-warning alert-dismissible" role="alert">
                 <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 {{text "tour_tourIsDraft"}}
@@ -24,7 +24,7 @@
 
     {{#if isDeleted}}
     <div class="row">
-        <div class="col-xs-12">
+        <div class="col col-xs-12">
             <div class="alert alert-danger" role="alert">
                 <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 Tour is marked as deleted and will eventually be permanently deleted from the databse.
@@ -34,7 +34,7 @@
     {{/if}}
 
     <div class="row">
-        <div class="col-xs-12">
+        <div class="col col-xs-12">
             <div class="alert alert-info text-center" role="alert">
             {{#if hasChanges}}
                 {{#if havePendingOperations}}
@@ -50,7 +50,7 @@
     </div>
 
     <div class="row">
-        <div class="col-xs-12">
+        <div class="col col-xs-12">
 
             <ul class="nav nav-pills" role="tablist">
                 <li class="nav-item"><a class="nav-link active" href="#details-panel" role="tab" data-toggle="pill">{{text "tourEdit_details"}}</a></li>
@@ -64,7 +64,7 @@
                     <form role="form">
 
                         <div class="row">
-                            <div class="col-xs-12 col-md-8">
+                            <div class="col col-xs-12 col-md-8">
                                 <div class="form-group">
                                     <label for="inputName">{{text "tourEdit_nameOfTour"}}</label>
                                     <button type="button" class="info pull-right" data-toggle="popover" data-placement="right" data-trigger="focus" title="Name" data-content="The name of the tour. Name is required and must be between 3 and 80 characters long."></button>
@@ -73,7 +73,7 @@
                                     </div>
                                 </div> 
                             </div>
-                            <div class="col-xs-12 col-md-4">
+                            <div class="col col-xs-12 col-md-4">
                                 <div class="form-group">
                                     <label for="inputCountry">{{text "tourEdit_country"}}</label>
                                     <button type="button" class="info pull-right" data-toggle="popover" data-trigger="focus"
@@ -89,7 +89,7 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-xs-12">
+                            <div class="col col-xs-12">
                                 <div class="form-group">
                                     <label for="inputAccessPoint">{{text "tour_accessPoint"}}</label>
                                     <button type="button" class="info pull-right" data-toggle="popover" data-trigger="focus"
@@ -103,7 +103,7 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-xs-12">
+                            <div class="col col-xs-12">
                                 <div class="form-group">
                                     <label for="inputDescription">{{text "tour_description"}}</label>
                                     <button type="button" class="info pull-right" data-toggle="popover" data-trigger="focus"
@@ -117,7 +117,7 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-xs-12">
+                            <div class="col col-xs-12">
                                 <div class="form-group">
                                     <label for="tagsEditorId">{{text "tour_tags"}}</label>
                                     <button type="button" class="info pull-right" data-toggle="popover" data-trigger="focus"
@@ -131,7 +131,7 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-lg-3">
+                            <div class="col col-lg-3">
                                 <div class="form-group">
                                     <label for="inputElevationLoss">{{text "tourEdit_elevationLoss"}}</label>
                                     <button type="button" class="info pull-right" data-toggle="popover" data-trigger="focus"
@@ -143,7 +143,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-3">
+                            <div class="col col-lg-3">
                                 <div class="form-group">
                                     <label for="inputElevationGain">{{text "tourEdit_elevationGain"}}</label>
                                     <button type="button" class="info pull-right" data-toggle="popover" data-trigger="focus"
@@ -155,7 +155,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-3">
+                            <div class="col col-lg-3">
                                 <div class="form-group">
                                     <label for="inputHighestPoint">{{text "tourEdit_highestPoint"}}</label>
                                     <button type="button" class="info pull-right" data-toggle="popover" data-trigger="focus"
@@ -167,7 +167,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-3">
+                            <div class="col col-lg-3">
                                 <div class="form-group">
                                     <label for="inputAspect">{{text "tourEdit_mainAspect"}}</label>
                                     <button type="button" class="info pull-right" data-toggle="popover" data-trigger="focus"
@@ -183,7 +183,7 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-lg-3">
+                            <div class="col col-lg-3">
                                 <div class="form-group">
                                     <label for="inputTimeMin">{{text "tourEdit_timeMin"}}</label>
                                     <button type="button" class="info pull-right" data-toggle="popover" data-trigger="focus"
@@ -195,7 +195,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-3">
+                            <div class="col col-lg-3">
                                 <div class="form-group">
                                     <label for="inputTimeMax">{{text "tourEdit_timeMax"}}</label>
                                     <button type="button" class="info pull-right" data-toggle="popover" data-trigger="focus"
@@ -207,7 +207,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-3">
+                            <div class="col col-lg-3">
                                 <div class="form-group">
                                     <label for="inputSeasonFrom">{{text "tourEdit_seasonFrom"}}</label>
                                     <button type="button" class="info pull-right" data-toggle="popover" data-trigger="focus"
@@ -220,7 +220,7 @@
                                         {{/x-select}}
                                 </div>
                             </div>
-                            <div class="col-lg-3">
+                            <div class="col col-lg-3">
                                 <div class="form-group">
                                     <label for="inputTimeOfYearTo">{{text "tourEdit_seasonTo"}}</label>
                                     <button type="button" class="info pull-right" data-toggle="popover" data-trigger="focus"
@@ -236,7 +236,7 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-lg-3">
+                            <div class="col col-lg-3">
                                 <div class="form-group">
                                     <label for="inputGrade">{{text "tour_grade"}}</label>
                                     <a class="info pull-right" data-toggle="modal" data-target="#tourDetailsGradeGuideModal"></a>
@@ -248,7 +248,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-3">
+                            <div class="col col-lg-3">
                                 <div class="form-group">
                                     <label for="inputSteepness">{{text "tourEdit_steepnessMax"}}</label>
                                     <button type="button" class="info pull-right" data-toggle="popover" data-trigger="focus"
@@ -263,7 +263,7 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col col-md-6">
                                 <div class="form-group">
                                     <span class="checkbox">
                                         <label class={{if haveHazards 'checked'}}>
@@ -278,7 +278,7 @@
                                     {{textarea value=tour.hazardsDescription disabledBinding="haveNoHazards" maxlength="500" id="inputHazards" class="form-control"}}
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col col-md-6">
                                 <div class="form-group">
                                     <span class="checkbox">
                                         <label class={{if requiresTools 'checked'}}>
@@ -301,7 +301,7 @@
 
                 <div id="map-panel" class="tab-pane">
                     <div class="row">
-                        <div class="col-xs-12">
+                        <div class="col col-xs-12">
                             {{map-editor tour=tour}}
                         </div>
                     </div>
@@ -309,7 +309,7 @@
 
                 <div id="images-panel" class="tab-pane">
                     <div class="row">
-                        <div class="col-xs-12">
+                        <div class="col col-xs-12">
                             <div class="spacing">
                                 {{#if isNew}}
                                 <p>Images cannot be uploaded until tour is saved. Publish or save as draft and then come back!</p>
@@ -323,12 +323,12 @@
 
                 <div id="history-panel" class="tab-pane">
                     <div class="row">
-                        <div class="col-xs-12 spacing">
+                        <div class="col col-xs-12 spacing">
                             Tour status: <em>{{displayStatus}}</em>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-xs-12">
+                        <div class="col col-xs-12">
                             <div class="table-responsive">
                                 <table class="table table-striped">
                                     <thead>
@@ -360,7 +360,7 @@
     </div>
 
     <div class="row">
-        <div class="col-xs-12">
+        <div class="col col-xs-12">
             <div class="edit-toolbar" role="toolbar">
                 <div class="btn-toolbar">
                     <div class="btn-group right">

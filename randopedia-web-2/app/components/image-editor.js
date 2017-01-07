@@ -100,7 +100,7 @@ export default Ember.Component.extend({
                         self.get('alert').showErrorMessage("Couldn't save the image, it's too big. Max image file size allowed is 15MB. ");
                     }
                     else {
-                        self.get('alert').showErrorMessage("Sorry, an error occured when trying to save the image, please try again. ");
+                        self.get('alert').showErrorMessage("Sorry, an error occured when trying to save the image, please try again. " + status);
                     }
 
                     self.set("havePendingOperations", false);
@@ -109,6 +109,7 @@ export default Ember.Component.extend({
         },   
 
         saveImage: function (image) {
+            console.debug("saveImage");
             var self = this;
 
             if(self.get("havePendingOperations")) {
@@ -129,7 +130,7 @@ export default Ember.Component.extend({
                         self.get('alert').showErrorMessage("Oh noes, you have most likely been logged out. Try to log in again. ");
                     }
                     else {
-                        self.get('alert').showErrorMessage("An error occured when saving the image, please try again. ");
+                        self.get('alert').showErrorMessage("An error occured when saving the image, please try again. " + status);
                     }
                     self.set("havePendingOperations", false);
                 }
@@ -163,6 +164,20 @@ export default Ember.Component.extend({
                 }
             );
         },
+        
+        startDeleteImage: function(image) {
+            this.set('imageToDelete', image);
+        },
+        
+        confirmDeleteImage: function() {
+            this.send('deleteImage', this.get('imageToDelete'));
+            this.send('closeConfirmDeleteImage');
+            this.set('imageToDelete', null);
+        },
+
+        closeConfirmDiscardChangesDialog: function() {
+            $('#discardChangesTourModal').modal('hide');
+        },          
 
         removeNewImage: function() {
             this.set("newImage", null);

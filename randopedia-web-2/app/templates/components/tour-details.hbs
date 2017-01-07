@@ -63,7 +63,7 @@
     </div>
 
     <div class="row">
-        <div class="col-xs-12 col-lg-6">
+        <div class="col col-xs-12 col-lg-6">
 
             <div class="row">
                 <div class="col-xs-5 col-sm-4 col-lg-3">
@@ -90,10 +90,10 @@
 
             {{#if tour.grade}}
             <div class="row">
-                <div class="col-xs-5 col-sm-4 col-lg-3">
+                <div class="col col-xs-5 col-sm-4 col-lg-3">
                     <label class="capitalize">{{text "tour_grade"}}:</label>
                 </div>
-                <div class="col-xs-7 col-sm-8 col-lg-9">
+                <div class="col col-xs-7 col-sm-8 col-lg-9">
                     <a data-toggle="modal" data-target="#tourDetailsGradeGuideModal">{{resolveSelectName 'Grades' tour.grade}}</a>
                 </div>
             </div>
@@ -101,10 +101,10 @@
 
             {{#if tour.degreesMax}}
             <div class="row">
-                <div class="col-xs-5 col-sm-4 col-lg-3">
+                <div class="col col-xs-5 col-sm-4 col-lg-3">
                     <label class="capitalize">{{text "tour_steepness"}}:</label>
                 </div>
-                <div class="col-xs-7 col-sm-8 col-lg-9">
+                <div class="col col-xs-7 col-sm-8 col-lg-9">
                     {{tour.degreesMax}}&#176;
                 </div>
             </div>
@@ -113,10 +113,10 @@
             {{#if tour.timeOfYearFrom}}
             {{#if tour.timeOfYearTo}}
             <div class="row">
-                <div class="col-xs-5 col-sm-4 col-lg-3">
+                <div class="col col-xs-5 col-sm-4 col-lg-3">
                     <label class="capitalize">{{text "tour_season"}}:</label>
                 </div>
-                <div class="col-xs-7 col-sm-8 col-lg-9">
+                <div class="col col-xs-7 col-sm-8 col-lg-9">
                     {{resolveSelectName 'Months' tour.timeOfYearFrom}} - {{resolveSelectName 'Months' tour.timeOfYearTo}}
                 </div>
             </div>
@@ -125,10 +125,10 @@
 
             {{#if tour.aspect}}
             <div class="row">
-                <div class="col-xs-5 col-sm-4 col-lg-3">
+                <div class="col col-xs-5 col-sm-4 col-lg-3">
                     <label class="capitalize">{{text "tour_aspect"}}:</label>
                 </div>
-                <div class="col-xs-7 col-sm-8 col-lg-9">
+                <div class="col col-xs-7 col-sm-8 col-lg-9">
                     {{resolveSelectName 'Aspects' tour.aspect}}
                 </div>
             </div>
@@ -136,10 +136,10 @@
 
             {{#if tour.tags}}
             <div class="row">
-                <div class="col-xs-5 col-sm-4 col-lg-3">
+                <div class="col col-xs-5 col-sm-4 col-lg-3">
                     <label class="capitalize">{{text "tour_tags"}}:</label>
                 </div>
-                <div class="col-xs-7 col-sm-8 col-lg-9">
+                <div class="col col-xs-7 col-sm-8 col-lg-9">
                     {{#each tour.tags as |tag|}}
                         {{tag}}
                         {{!-- {{#link-to 'tag' tag}} #{{tag}} {{/link-to}} --}}
@@ -153,7 +153,7 @@
     </div>
 
     <div class="row">
-        <div class="col-xs-12 spacer-y-bottom">
+        <div class="col col-xs-12 spacer-y-bottom">
             {{#if isPublished}}
             {{#if hasMapData}}
             <button class="btn btn-primary" {{action "viewTourOnMap" }}>
@@ -197,7 +197,7 @@
 
     <div class="row">
         {{#if haveHazards}}
-        <div class="col-xs-12 col-lg-6">
+        <div class="col col-xs-12 col-lg-6">
             <div class="card">
                 <h3 class="card-header">
                     {{text "tour_hazards"}}
@@ -210,7 +210,7 @@
         {{/if}}
 
         {{#if requiresTools}}
-        <div class="col-xs-12 col-lg-6">
+        <div class="col col-xs-12 col-lg-6">
             <div class="card">
                 <h3 class="card-header">
                     {{text "tour_mountaineering"}}

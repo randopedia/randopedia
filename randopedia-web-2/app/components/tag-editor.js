@@ -15,6 +15,7 @@ export default Ember.Component.extend({
     },
 
     initSelect: function() {
+        console.debug("init");
         var self = this;
         var selectbox = $(".tag-editor");
 

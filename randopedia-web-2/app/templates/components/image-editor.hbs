@@ -1,13 +1,13 @@
 <div class="image-editor">
 
 	<div class="row">
-	    <div class="col-sm-12">
+	    <div class="col col-xs-12">
 	        <h4>{{text "images_uploadNew"}}</h4>
 	    </div>
 	</div>
 	
 	<div class="row">
-	    <div class="col-sm-12">
+	    <div class="col col-xs-12">
             {{#x-file-input accept="image/*" alt="Select image"}}
                 <button class="btn btn-primary"><i class="fa fa-picture-o"></i> {{text "images_select"}}</button>
             {{/x-file-input}}
@@ -16,16 +16,16 @@
 	
 	{{#if hasNewImage}}
 	<div class="row">
-	   <div class="col-sm-12">
+	   <div class="col col-xs-12">
 	        <div class="panel">
 	            <div class="row">
                     <hr />
-	                <div class="col-sm-12 col-lg-2">
-                        <div class="img-thumbnail">
-                            <img src={{newImage.imageData}} />
+	                <div class="col col-xs-12 col-lg-2">
+                        <div class="thumbnail-wrapper">
+                            <img src={{newImage.imageData}} class="img-thumbnail" />
                         </div>
 	                </div>
-	                <div class="col-sm-12 col-lg-10">
+	                <div class="col col-xs-12 col-lg-10">
                         <form class="form">
                             <div class="form-group">
                                 <label>Caption</label>
@@ -46,25 +46,25 @@
 	{{/if}}
 	
 	<div class="row">
-	    <div class="col-sm-12">
+	    <div class="col col-xs-12">
 	        <hr />
 	        <h4>{{text "images_currentTourImages"}}<span class="secondary-text"> ({{tour.images.length}})</span></h4>
 	    </div>
 	</div>
 		
 	<div class="row">
-		<div class="col-sm-12">
+		<div class="col col-xs-12">
 		{{#each tour.images as |image|}}
 		    {{#unless image.isNew}}
-	            <div class="col-sm-12">
+	            <div class="col col-xs-12">
                     <hr />
 	                <div class="row">
-	                    <div class="col-sm-12 col-lg-2">
-	                            <div class="thumbnail-wrapper">
+	                    <div class="col col-xs-12 col-sm-2">
+							<div class="thumbnail-wrapper">
 	                            <img src={{image.imageFile}} class="img-thumbnail" />
 	                        </div>
 	                    </div>
-	                    <div class="col-sm-12 col-lg-10">
+	                    <div class="col col-xs-12 col-sm-10">
 	                        <form class="form">
 	                            <div class="form-group">
 		                            <label>Caption</label>
@@ -100,7 +100,7 @@
                     <button type="button" class="close" data-dismiss="modal">
 						<span aria-hidden="true">&times;</span><span class="sr-only">{{text "common_close"}}</span>
 					</button>
-                    <h4 class="modal-title">{{text "images_deleteDelete"}}</h4>
+                    <h4 class="modal-title">{{text "images_delete"}}</h4>
                 </div>
                 <div class="modal-body">
 					{{text "images_deleteConfirmation"}}

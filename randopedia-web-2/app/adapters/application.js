@@ -4,6 +4,7 @@ import RESTAdapter from 'ember-data/adapters/rest';
 export default RESTAdapter.extend({
     namespace: 'api',
     emberOauth2: Ember.inject.service(),
+    primaryKey: '_id',
     ajax: function(url, type, hash) {
         var adapter = this;
         return new Ember.RSVP.Promise(function(resolve, reject) {
