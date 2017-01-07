@@ -4,7 +4,7 @@
 
     {{#if isDraft}}
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col col-xs-12">
             <div class="alert alert-info alert-dismissible" role="alert">
                 <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 This tour is a draft, it has not yet been published
@@ -14,7 +14,7 @@
     {{else}}
     {{#if isInReview}}
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col col-xs-12">
             <div class="alert alert-info alert-dismissible" role="alert">
                 <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 This tour is in review, it has not yet been published
@@ -25,7 +25,7 @@
 
     {{#if isIncomplete}}
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col col-xs-12">
             <div class="alert alert-warning" role="alert">
                 <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 {{text "tour_markedAsIncomplete"}}
@@ -36,7 +36,7 @@
 
     {{#if isDeleted}}
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col col-xs-12">
             <div class="alert alert-danger" role="alert">
                 <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 Tour is marked as deleted and will eventually be deleted from the database
@@ -47,8 +47,8 @@
     {{/if}}
 
     <div class="row">
-        <div class="col-sm-12">
-            <h2>
+        <div class="col col-xs-12">
+            <h1>
                 {{tour.name}} {{#if tour.elevationMax }} <span class="small">({{tour.elevationMax}}m)</span> {{/if}}
 
                 {{#if isIncomplete}}
@@ -58,7 +58,7 @@
                     </a>
                 </span>
                 {{/if}}
-            </h2>
+            </h1>
         </div>
     </div>
 
@@ -152,7 +152,7 @@
     </div>
 
     <div class="row">
-        <div class="col col-xs-12 spacer-y-bottom">
+        <div class="col spacer-y">
             {{#if isPublished}}
             {{#if hasMapData}}
             <button class="btn btn-primary" {{action "viewTourOnMap" }}>
@@ -195,9 +195,9 @@
     </div>
 
     <div class="row">
-        {{#if haveHazards}}
-        <div class="col col-xs-12 col-lg-6">
-            <div class="card">
+        {{#if tour.haveHazards}}
+        <div class="col-lg-6">
+            <div class="card spacer-y">
                 <h3 class="card-header">
                     {{text "tour_hazards"}}
                 </h3>
@@ -208,9 +208,9 @@
         </div>
         {{/if}}
 
-        {{#if requiresTools}}
-        <div class="col col-xs-12 col-lg-6">
-            <div class="card">
+        {{#if tour.requiresTools}}
+        <div class="col-lg-6">
+            <div class="card spacer-y">
                 <h3 class="card-header">
                     {{text "tour_mountaineering"}}
                 </h3>

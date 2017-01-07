@@ -173,7 +173,7 @@
                                     <button type="button" class="info pull-right" data-toggle="popover" data-trigger="focus"
                                             title="Aspect"
                                             data-content="Aspect of the main part of the slopes on the descent route."></button>
-                                        {{#x-select value=aspect action="selectAspect" as |xs|}}
+                                        {{#x-select value=tour.aspect action="selectAspect" as |xs|}}
                                             {{#each aspects as |aspect|}}
                                                 {{#xs.option value=aspect.value}} {{aspect.name}} {{/xs.option}}
                                             {{/each}}
@@ -266,7 +266,7 @@
                             <div class="col col-md-6">
                                 <div class="form-group">
                                     <span class="checkbox">
-                                        <label class={{if haveHazards 'checked'}}>
+                                        <label class={{if tour.haveHazards 'checked'}}>
                                             {{input type="checkbox" checkedBinding="tour.haveHazards" class="hide"}}
                                             <span class="glyphicon glyphicon-ok"></span>
                                             <span>{{text "tour_hazards"}}</span>
@@ -281,7 +281,7 @@
                             <div class="col col-md-6">
                                 <div class="form-group">
                                     <span class="checkbox">
-                                        <label class={{if requiresTools 'checked'}}>
+                                        <label class={{if tour.requiresTools 'checked'}}>
                                             {{input type="checkbox" checkedBinding="tour.requiresTools" class="hide"}}
                                             <span class="glyphicon glyphicon-ok"></span>
                                             <span>{{text "tourEdit_mountaineering"}}</span>
@@ -364,12 +364,6 @@
             <div class="edit-toolbar" role="toolbar">
                 <div class="btn-toolbar">
                     <div class="btn-group right">
-                        <button class="btn btn-secondary" {{action "startCancelingEditTour" }}>
-                            <i class="fa fa-times"></i> {{text "tourEdit_exit"}}
-                        </button>
-                    </div>
-
-                    <div class="btn-group right">
                         <button class="btn btn-secondary" data-toggle="modal" data-target="#editTourHelpModal">
                             <i class="fa fa-question"></i> {{text "header_help"}}
                         </button>
@@ -393,6 +387,12 @@
 
                         {{/unless}}
                     </div>
+
+                    <div class="btn-group right spacer-x-left">
+                        <button class="btn btn-secondary" {{action "startCancelingEditTour" }}>
+                            <i class="fa fa-times"></i> {{text "tourEdit_exit"}}
+                        </button>
+                    </div>                    
 
                 </div>
             </div>

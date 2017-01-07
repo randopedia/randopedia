@@ -1,6 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
+    store: Ember.inject.service(),
     tags: null,
     selectedTags: null,
     loading: true,
@@ -8,22 +9,24 @@ export default Ember.Component.extend({
     didInsertElement() {
         var self = this;
 
-        setTimeout(function () {
-            self.initSelect();
+        self.get("store").findAll('tag').then(function(tags) {
+            self.set("tags", !tags ? [] : tags);
+            self.initSelectBox();
             self.set("loading", false);
-        }, 750);
+
+        }, function(err) {
+            self.get("alert").showErrorMessage("Sorry, an error occured when loading existing tags.");
+            self.set("loading", false);
+            console.log(err);
+        });
     },
 
-    initSelect: function() {
-        console.debug("init");
+    initSelectBox: function() {
         var self = this;
         var selectbox = $(".tag-editor");
-
         var data = [];
 
-        var tags = !self.get("tags") ? [] : self.get("tags");  
-
-        tags.sortBy("name").forEach(function (tag) {
+        self.get("tags").sortBy("name").forEach(function (tag) {
             data.push({ id: tag.get("id"), text: tag.get("name") });
         });
 
