@@ -8,7 +8,7 @@ export default DS.Model.extend({
   timingMax: attr(),
   timingMin: attr(),
   elevationGain: attr(),
-  elevtationLoss: attr(),
+  elevationLoss: attr(),
   elevationMax: attr(),
   elevationMin: attr(),
   degreesMax: attr(),
