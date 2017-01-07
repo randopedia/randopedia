@@ -340,10 +340,10 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {{#each action in sortedActions}}
+                                        {{#each sortedActions as |action|}}
                                         <tr>
-                                            <td>{{displayTimestamp action.time}}</td>
-                                            <td>{{resolveTourAction action.type}}</td>
+                                            <td>{{displayDateTime action.time}}</td>
+                                            <td>{{resolveSelectName 'TourActions' action.type}}</td>
                                             <td>{{action.userName}}</td>
                                             <td>{{action.comment}}</td>
                                         </tr>
