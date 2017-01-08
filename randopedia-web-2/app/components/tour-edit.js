@@ -163,7 +163,7 @@ export default Ember.Component.extend({
                 function(error) {
                     var status = error.status;
                     if(status === 401) {
-                        self.get("login").send("removeToken");
+                        self.get("login").removeToken();
                         self.get("alert").showErrorMessage("Oh noes, you have most likely been logged out. Try to log in again. ");
                     }
                     else if (status === 413) {
@@ -183,6 +183,8 @@ export default Ember.Component.extend({
         },
         
         saveImage: function (image) {
+            console.debug("tour-edit.saveImage - IS THIS IN USE?");
+
             var self = this;
 
             if(self.get("havePendingOperations")){
@@ -211,10 +213,12 @@ export default Ember.Component.extend({
         },
         
         deleteImage: function(image) {
+            console.debug("tour-edit.deleteImage - IS THIS IN USE?");
+
             var self = this;
 
             if (self.get("havePendingOperations")) {
-                return;
+                return; 
             }
             
             self.set("havePendingOperations", true);
@@ -227,7 +231,7 @@ export default Ember.Component.extend({
                 function(error) {
                     var status = error.status;
                     if(status === 401) {
-                        self.get("login").send("removeToken");
+                        self.get("login").removeToken();
                         self.get("alert").showErrorMessage("Oh noes, you have most likely been logged out. Try to log in again. ");
                     }
                     else {
@@ -284,7 +288,7 @@ export default Ember.Component.extend({
                     self.get("alert").showErrorMessage("Oh noes, there are validation errors, please try again. ");
                 }
                 else if(status === 401) {
-                    self.get("login").send("removeToken");
+                    self.get("login").removeToken();
                     self.get("alert").showErrorMessage("Oh noes, you have most likely been logged out. Try to log in again. ");
                 }
                 else {

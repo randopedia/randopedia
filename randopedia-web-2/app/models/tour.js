@@ -14,7 +14,6 @@ export default DS.Model.extend({
   degreesMax: attr(),
   timeOfYearFrom: attr(),
   timeOfYearTo: attr(),
-  mapGeoJson: attr(),
   grade: attr(),
   status: attr(),
   aspect: attr(),
@@ -23,8 +22,13 @@ export default DS.Model.extend({
   hazardsDescription: attr(),
   requiresTools: attr(),
   toolsDescription: attr(), 
+
+  mapGeoJson: attr(),
+
+  publishComment: DS.attr(),
+  
   tags: attr(),
+
   images: DS.hasMany('image', { async: true }),
-  actions: DS.hasMany('action', { async: true }),
-  publishComment: DS.attr('string')
+  actions: DS.hasMany('action', { async: true })
 });

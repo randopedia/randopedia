@@ -126,7 +126,7 @@ export default Ember.Component.extend({
                 function(error) {
                     var status = error.status;
                     if (status === 401) {
-                        self.get("login").send("removeToken");
+                        self.get("login").removeToken();
                         self.get('alert').showErrorMessage("Oh noes, you have most likely been logged out. Try to log in again. ");
                     }
                     else {
