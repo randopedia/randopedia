@@ -7,7 +7,7 @@ module.exports = function(app) {
 
   statsRouter.get('/', function(req, res) {
     res.send({
-      'stats': []
+      'stats': [stat]
     });
   });
 
