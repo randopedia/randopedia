@@ -3,7 +3,7 @@ var googleRepository = require('../repositories/google-repository');
 var userRepository = require('../repositories/user-repository');
 
 var common = (function () {
-    
+
     function getTextId(textId) {
         textId = textId.replace('ø', 'o');
         textId = textId.replace('æ', 'a');
@@ -23,7 +23,7 @@ var common = (function () {
 
     function getUserFromRequest(token, provider) {
         // returns a promise. Use facebook/google repository and user repository
-
+        console.log('getUserFromRequest');
         if('facebook' === provider) {
             return facebookRepository.getExternalUser(token)
                 .then(function(facebookUser) {
@@ -44,32 +44,32 @@ var common = (function () {
                 });
         }
     }
-    
+
     function sendUnauthorizedResponse(res) {
         res.status(401).send('You have been logged out');
     }
-     
+
     function decodeBase64Image(dataString) {
         var matches = dataString.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
         var response = {};
-        
+
         if (matches.length !== 3) {
             return new Error('Invalid input string');
         }
-        
+
         response.type = matches[1];
         response.data = new Buffer(matches[2], 'base64');
-        
+
         return response;
     }
 
     function getTagsFromText(text) {
         var tags = [];
-        
+
         if(!text) {
-            return tags;    
+            return tags;
         }
-        
+
         var index = text.indexOf("#");
         while(index >= 0) {
             var spaceIndex = text.indexOf(' ', index);
@@ -86,11 +86,11 @@ var common = (function () {
         }
         return tags;
     }
-    
+
     function mergeTags(tags, itinerary) {
         var itineraryTags = getTagsFromText(itinerary);
         tags = tags || [];
-        
+
         itineraryTags.forEach(function (tag) {
             if (tags.indexOf(tag) === -1) {
                 tags.push(tag);
@@ -106,7 +106,7 @@ var common = (function () {
         decodeBase64Image : decodeBase64Image,
         mergeTags: mergeTags
     };
-    
+
 })();
 
 module.exports = common;

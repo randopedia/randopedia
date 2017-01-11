@@ -93,7 +93,7 @@ var tourRepository = (function () {
 
         return tourIds;
     }
-    
+
     function getTour(tourClientId, req, excludeImages) {
         var deferred = Q.defer();
         Tour.findOne({ clientId: tourClientId }, function (err, result) {
@@ -109,10 +109,10 @@ var tourRepository = (function () {
                         delete tour.tourImages;
                         tour.images = images;
                     }
-                    
+
                     var retVal = excludeImages ? tour : { tour: tour, images: tourImages };
                     deferred.resolve(retVal);
-                    
+
                 } else {
                     deferred.resolve(null);
                 }
@@ -126,7 +126,7 @@ var tourRepository = (function () {
     *  Returns TourItems
     */
     function getTours(status, req) {
-
+        console.log('tourRepository.getTours');
         var test = req.get('X-Header-Language');
         var deferred = Q.defer();
 
@@ -140,10 +140,13 @@ var tourRepository = (function () {
                 }
             }).sort({updatedStamp : 'desc'}).limit(5);
         } else {
+            console.log('getting tours from db');
             Tour.find({ status: status }, tourItemFields, function (err, result) {
                 if (err) {
+                    console.log('could not get tours from db');
                     deferred.reject(err);
                 } else {
+                    console.log('loaded tours from db');
                     deferred.resolve(documentsToTours(result, req));
                 }
             });
@@ -223,7 +226,7 @@ var tourRepository = (function () {
                 };
 
                 var tourIds = getDistinctTourIds(actions);
-                        
+
                 Tour.find({ _id: { $in: tourIds }, status: enums.TourStatus.DRAFT }, tourItemFields, function (err, tours) {
 
                     if (err) {
@@ -245,7 +248,7 @@ var tourRepository = (function () {
     */
     function getToursForUser(userId, req) {
         var deferred = Q.defer();
-        
+
         TourAction.find({ userId: userId }, function (err, actions) {
             if (err) {
                 deferred.reject(err);
@@ -257,7 +260,7 @@ var tourRepository = (function () {
                     return;
                 };
 
-                var tourIds = getDistinctTourIds(actions);               
+                var tourIds = getDistinctTourIds(actions);
 
                 Tour.find({ _id: { $in: tourIds }, status: { $ne: enums.TourStatus.DRAFT } }, tourItemFields, function (err, tours) {
 
@@ -318,7 +321,7 @@ var tourRepository = (function () {
         if(!toolsDescription) {
             toolsDescription = {};
         }
-        
+
         if("no" === lang) {
             itinerary.no = tour.itinerary;
             shortDescription.no = tour.shortDescription;
@@ -369,28 +372,28 @@ var tourRepository = (function () {
         tour.toolsDescription = toolsDescription;
     }
 
-    
+
     function saveTour(tour, req) {
         var deferred = Q.defer();
         tour.updatedStamp = new Date();
         if (!tour.id) {
             var clientId = common.getTextId(tour.name);
             var startsWithRegex = new RegExp("^" + clientId, "i");
-            
+
             Tour.find({ clientId: {$regex: startsWithRegex}}, function (err, result) {
                 if (err) {
                     deferred.reject(err);
-                    
+
                 } else {
                     var lang = req.get('X-Header-Language');
                     setNewTourLanguageSpecificData(tour, lang);
-                    
+
                     if(result.length > 0) {
                         tour.clientId = clientId + "_" + result.length;
                     } else {
-                        tour.clientId = clientId; 
+                        tour.clientId = clientId;
                     }
-                    
+
                     Tour.create(tour, function(createErr, createdTour) {
                         if(createErr) {
                             deferred.reject(createErr);
@@ -404,7 +407,7 @@ var tourRepository = (function () {
         } else {
             Tour.findOne({clientId : tour.id}, function(err, result) {
                 var existingTour = result.toObject();
-                
+
                 var lang = req.get('X-Header-Language');
                 updateTourLanguageSpecificData(existingTour, tour, lang);
 
@@ -428,7 +431,7 @@ var tourRepository = (function () {
         var fileName = config.webappClientDirectory  + databaseFileName;
 
         var imageBuffer = common.decodeBase64Image(image.imageData);
-        
+
         fs.writeFile(fileName, imageBuffer.data, function (err) {
             if (err) {
                 deferred.reject(err);
@@ -452,7 +455,7 @@ var tourRepository = (function () {
 
                 var tour = documentToTour(result, req);
                 image.tour = tour._id.toString();
-                
+
                 if (!tour.tourImages) {
                     tour.tourImages = [];
                 }
@@ -485,7 +488,7 @@ var tourRepository = (function () {
     };
 
     function updateImage(image, imageId, req) {
-        var deferred = Q.defer();       
+        var deferred = Q.defer();
 
         Tour.findOne({ clientId: image.tour }, function (err, result) {
             if (err) {
@@ -545,22 +548,22 @@ var tourRepository = (function () {
 
     function deleteImage(imageId, req) {
         var deferred = Q.defer();
-        
+
         getTourFromImageId(imageId, req).then(function(tour) {
-            
+
             var index = findIndexFromId(tour.tourImages, imageId);
             if (index < 0) {
                 deferred.reject("Image does not exist");
                 return;
             }
-            
+
             fs.unlink(config.webappClientDirectory + "/" + tour.tourImages[index].imageFile, function (err) {
                 if (err) {
                     console.log(err);
                     deferred.reject("Error when deleting image file");
                     return;
                 };
-               
+
                 tour.tourImages.splice(index, 1);
 
                 saveTour(tour, req).then(function () {
@@ -572,15 +575,15 @@ var tourRepository = (function () {
                 });
             });
         });
-        
+
         return deferred.promise;
     }
-    
+
     function getTourFromImageId(imageId, req) {
         var deferred = Q.defer();
 
         var id = mongoose.Types.ObjectId(imageId);
-        
+
         Tour.findOne({ "tourImages._id": id }, function (err, result) {
             if (err) {
                 deferred.reject(err);
@@ -604,23 +607,23 @@ var tourRepository = (function () {
 
         return deferred.promise;
     }
-    
+
     function getTourCount(status) {
         var deferred = Q.defer();
-        
+
         if(!status) {
             status = enums.TourStatus.PUBLISHED;
         }
-        
+
         Tour.count({status: status}, function(err, count) {
             if (err) {
                 deferred.reject(err);
                 return;
             }
-            
-            deferred.resolve(count);    
+
+            deferred.resolve(count);
         });
-        
+
         return deferred.promise;
     }
 
@@ -637,7 +640,7 @@ var tourRepository = (function () {
         });
         return deferred.promise;
     }
-    
+
     return {
         getTour: getTour,
         getTours: getTours,
@@ -657,4 +660,4 @@ var tourRepository = (function () {
 
 })();
 
-module.exports = tourRepository; 
+module.exports = tourRepository;
