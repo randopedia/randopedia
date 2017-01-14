@@ -20,6 +20,10 @@
 
 @normal-foreground:             #000;
 
+@map-path-default-color:        #990000;
+@map-path-up-color:             #343434;
+@map-path-down-color:           #EE0000;
+
 @font-face { font-family: Aight; src: url('../assets/fonts/aaaiight.ttf'); }
 
 body {
@@ -160,4 +164,16 @@ select { // copy of bootstrap form-control class
     div {
         font-size: 1.75rem;
     }
+}
+
+.default-path {
+    color: @map-path-default-color;
+}
+
+.up-path {
+    color: @map-path-up-color;
+}
+
+.down-path {
+    color: @map-path-down-color;
 }

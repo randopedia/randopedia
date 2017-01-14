@@ -8,9 +8,9 @@
                         <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="#" {{action "drawUpDownTrack"}}> <i class="fa fa-arrows-v"></i> {{text "map_upDown"}}</a></li>
-                        <li><a href="#" {{action "drawUpTrack"}}><i class="fa fa-arrow-up"></i> {{text "map_up"}}</a></li>
-                        <li><a href="#" {{action "drawDownTrack"}}><i class="fa fa-arrow-down"></i> {{text "map_down"}}</a></li>
+                        <li><a href="#" {{action "drawUpDownTrack"}}> <i class="fa fa-minus default-path"></i> {{text "map_upDown"}}</a></li>
+                        <li><a href="#" {{action "drawUpTrack"}}><i class="fa fa-minus up-path"></i> {{text "map_up"}}</a></li>
+                        <li><a href="#" {{action "drawDownTrack"}}><i class="fa fa-minus down-path"></i> {{text "map_down"}}</a></li>
                     </ul>
                     <button class="btn btn-secondary" disabled={{hasSummitPointMarker}} {{action "drawSummitPoint"}}>
                         <i class="fa fa-map-marker"></i> {{text "map_summitPoint"}}
