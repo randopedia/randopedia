@@ -36,7 +36,8 @@ router.put("/:id?", function (req, res) {
                 var imageId = req.params.id;
             
                 tourService.updateImage(req.body.image, imageId, user, req, function (result) {
-                    res.send(result);
+                    result.id = imageId;
+                    res.send({image: result});
                 });
                 
             } else {
