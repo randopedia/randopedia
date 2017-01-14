@@ -181,87 +181,27 @@ export default Ember.Component.extend({
         removeNewImage: function() {
             this.set("newImage", null);
         },
-        
-        saveImage: function (image) {
-            console.debug("tour-edit.saveImage - IS THIS IN USE?");
-
-            var self = this;
-
-            if(self.get("havePendingOperations")){
-                return;
-            }
-            
-            self.set("havePendingOperations", true);
-            image.save().then(
-                function() {
-                    self.get("tour").reload();
-                    self.set("havePendingOperations", false);
-                    self.get("alert").showSuccessMessage("Image was successfully saved. ");
-                }, 
-                function(error) {
-                    var status = error.status;
-                    if (status === 401) {
-                        self.get("login").send("removeToken");
-                        self.get("alert").showErrorMessage("Oh noes, you have most likely been logged out. Try to log in again. ");
-                    }
-                    else {
-                        self.get("alert").showErrorMessage("An error occured when saving the image, please try again. ");
-                    }
-                    self.set("havePendingOperations", false);
-                }
-            );
-        },
-        
-        deleteImage: function(image) {
-            console.debug("tour-edit.deleteImage - IS THIS IN USE?");
-
-            var self = this;
-
-            if (self.get("havePendingOperations")) {
-                return; 
-            }
-            
-            self.set("havePendingOperations", true);
-            image.deleteRecord();
-            image.save().then(
-                function() {
-                    self.set("havePendingOperations", false);
-                    self.get("alert").showSuccessMessage("Image was successfully deleted. ");
-                },
-                function(error) {
-                    var status = error.status;
-                    if(status === 401) {
-                        self.get("login").removeToken();
-                        self.get("alert").showErrorMessage("Oh noes, you have most likely been logged out. Try to log in again. ");
-                    }
-                    else {
-                        self.get("alert").showErrorMessage("An error occured when deleting the image, please try again. ");
-                    }
-                    self.set("havePendingOperations", false);
-                }
-            );
-        },
-      
+       
         // SELECT BOX ACTIONS
 
         selectCountry: function(country) {
-            this.set("tour.country", country ? country.value : null);
+            this.set("tour.country", country);
         },
 
         selectAspect: function(aspect) {
-            this.set("tour.aspect", aspect ? aspect.value : null);
+            this.set("tour.aspect", aspect);
         },
 
         selectGrade: function(grade) {
-            this.set("tour.grade", grade ? grade.value : null);
+            this.set("tour.grade", grade);
         },
 
         selectTimeOfYearFrom: function(month) {
-            this.set("tour.timeOfYearFrom", month ? month.value : null);
+            this.set("tour.timeOfYearFrom", month);
         },
 
         selectTimeOfYearTo: function(month) {
-            this.set("tour.timeOfYearTo", month ? month.value : null);
+            this.set("tour.timeOfYearTo", month);
         }
     },
 

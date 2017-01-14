@@ -79,7 +79,7 @@
                                     <button type="button" class="info pull-right" data-toggle="popover" data-trigger="focus"
                                             title="Country"
                                             data-content="The country where the tour is located."></button>
-                                    {{#x-select class="form-control" value=tour.country action="selectCountry" as |xs|}}
+                                    {{#x-select value=tour.country action="selectCountry" as |xs|}}
                                         {{#each countries as |country|}}
                                             {{#xs.option value=country.value}} {{country.name}} {{/xs.option}}
                                         {{/each}}

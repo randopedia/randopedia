@@ -25,7 +25,7 @@ export default DS.Model.extend({
 
   mapGeoJson: attr(),
 
-  publishComment: DS.attr(),
+  publishComment: attr(),
   
   tags: attr(),
 
