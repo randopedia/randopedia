@@ -5,7 +5,7 @@
         <div class="col col-xs-12">
             <div class="alert alert-danger" role="alert">
                 <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                Couldn't save tour, name must be set.
+                {{text "tourEdit_nameNotSetOnSave"}}
             </div>
         </div>
     </div>
@@ -312,7 +312,7 @@
                         <div class="col col-xs-12">
                             <div class="spacing">
                                 {{#if isNew}}
-                                <p>Images cannot be uploaded until tour is saved. Publish or save as draft and then come back!</p>
+                                <p>{{text "tourEdit_imagesUploadNotPossibleTOurNotSaved"}}</p>
                                 {{else}}
                                 {{image-editor tour=tour}}
                                 {{/if}}
@@ -404,7 +404,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Grades</h4>
+                    <h4 class="modal-title" id="myModalLabel">{{text "grades_header"}}</h4>
                 </div>
                 <div class="modal-body">
                     {{partial "partials/about-grades"}}
@@ -417,14 +417,14 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4>Unsaved changes</h4>
+                    <h4>{{text "tourEdit_unsavedChangesHeader"}}</h4>
                 </div>
                 <div class="modal-body">
-                    The tour has unsaved changes, do you want to discard them?
+                    {{text "tourEdit_unsavedChangesDiscard"}}
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-default pull-right" data-dismiss="modal">Cancel</button>
-                    <button class="btn btn-danger pull-right" {{action "confirmDiscardChanges" }}>Discard changes</button>
+                    <button class="btn btn-default pull-right" data-dismiss="modal">{{text "common_cancel"}}</button>
+                    <button class="btn btn-danger pull-right" {{action "confirmDiscardChanges" }}>{{text "tourEdit_DiscardChanges"}}</button>
                 </div>
             </div>
         </div>
@@ -454,7 +454,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <h4 class="modal-title">Publish tour (Step 1 of 2)</h4>
+                    <h4 class="modal-title">{{text tourEdit_publishStep1Title}}</h4>
                 </div>
                 <div class="modal-body">
                     {{#if haveValidationErrors}}
@@ -468,14 +468,14 @@
                     </div>
                     {{else}}
                     <div class="alert alert-success" role="alert">
-                        Tour data is valid
+                        {{text "tourEdit_tourDataIsValid"}}
                     </div>
-                    <p>Tour is ready to be published.</p>
+                    <p>{{text "tourEdit_tourIsReadyToPublish"}}</p>
                     {{/if}}
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-default pull-right" data-dismiss="modal">Cancel</button>
-                    <button class="btn btn-primary pull-right" disabled={{haveValidationErrors}} {{action "continueToPublishStep2"}}>Continue</button>
+                    <button class="btn btn-default pull-right" data-dismiss="modal">{{text "common_cancel"}}</button>
+                    <button class="btn btn-primary pull-right" disabled={{haveValidationErrors}} {{action "continueToPublishStep2"}}>{{text "common_continue"}}</button>
                 </div>
             </div>
         </div>
@@ -487,19 +487,19 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <h4 class="modal-title">Publish tour (Step 2 of 2)</h4>
+                    <h4 class="modal-title">{{text tourEdit_publishStep2Title}}</h4>
                 </div>
                 <div class="modal-body">
                     <form role="form">
                         <div class="form-group">
-                            <label for="inputPublishComment">What did you change?</label>
+                            <label for="inputPublishComment">{{text "tourEdit_whatDidYouChange"}}</label>
                             {{textarea id="inputChangeComment" class="form-control" value=tour.publishComment maxlength="500"}}
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-default pull-right" data-dismiss="modal">Cancel</button>
-                    <button class="btn btn-primary pull-right" disabled={{isPublishDisabled}} {{action "confirmPublishTour" }}><span class="glyphicon glyphicon-cloud-upload"></span> Publish</button>
+                    <button class="btn btn-default pull-right" data-dismiss="modal">{{text "common_cancel"}}</button>
+                    <button class="btn btn-primary pull-right" disabled={{isPublishDisabled}} {{action "confirmPublishTour" }}><span class="glyphicon glyphicon-cloud-upload"></span> {{text "common_publish"}}</button>
                 </div>
             </div>
         </div>

@@ -34,6 +34,10 @@ texts.dictionary = {
         no: "Lukk",
         eng: "Close"
     },
+    common_continue: {
+        no: "Fortsett",
+        eng: "Continue"
+    },   
     common_siteSlogan: {
         no: "Topptursdatabasen",
         eng: "The ski tour database"
@@ -42,6 +46,10 @@ texts.dictionary = {
         no: "Lagre",
         eng: "Update"
     },
+    common_publish: {
+        no: "Publiser",
+        eng: "Publish"
+    },    
     dashboard_onInstagram: {
         no: "på Instagram",
         eng: "on Instagram"
@@ -50,7 +58,6 @@ texts.dictionary = {
         no: "Siste oppdaterte turer",
         eng: "Last updated tours"
     },
-    // TODO: Create function that can resolve correct langauage string supporting any number of parameters such like getString("dashboard_funfact", param1, param2, param3)
     dashboard_funfact1: {
         no: "Randopedia-databasen inneholder for tiden beskrivelser for",
         eng: "The randopedia database currently contains descriptions for"
@@ -343,6 +350,10 @@ texts.dictionary = {
         no: "Høydemeter ned",
         eng: "Elevation loss"
     },
+    tourEdit_imagesUploadNotPossibleTOurNotSaved: {
+        no: "Det går ikke å laste opp bilder før turen er lagret. Publiser eller lagre som kladd først.",
+        eng: "Images cannot be uploaded until tour is saved. Publish or save as draft first."
+    },
     tourEdit_highestPoint: {
         no: "Høyeste punkt",
         eng: "Highest point"
@@ -350,6 +361,10 @@ texts.dictionary = {
     tourEdit_history: {
         no: "Historikk",
         eng: "History"
+    },
+    tourEdit_nameNotSetOnSave: {
+        no: "Turen kunne ikke lagres, navn må angis.",
+        eng: "Couldn't save tour, name must be set."
     },
     tourEdit_publish: {
         no: "Publiser",
@@ -415,9 +430,41 @@ texts.dictionary = {
         no: "Turen har endringer som ikke er lagret",
         eng: "Tour has unsaved changes"
     },
+    tourEdit_unsavedChangesDiscard: {
+        no: "Turen har endringer som ikke er lagret, vil du forkaste dem?",
+        eng: "Tour has unsaved changes, do you want to discard them?"
+    },
     tourEdit_noChanges: {
         no: "Ingen endringer",
         eng: "No pending changes"
+    },
+    tourEdit_unsavedChangesHeader: {
+        no: "Endringer er ikke lagret",
+        eng: "Unsaved changes"
+    },
+    tourEdit_publishStep1Title: {
+        no: "Publiser tur (Trinn 1 av 2)",
+        eng: "Publish tour (Step 1 of 2)"
+    },
+    tourEdit_publishStep2Title: {
+        no: "Publiser tur (Trinn 2 av 2)",
+        eng: "Publish tour (Step 2 of 2)"
+    },    
+    tourEdit_tourDataIsValid: {
+        no: "All turdata er gyldig",
+        eng: "Tour data is valid"
+    },    
+    tourEdit_tourIsReadyToPublish: {
+        no: "Turen er klar for publisering",
+        eng: "The tour is ready to be published."
+    },    
+    tourEdit_whatDidYouChange: {
+        no: "Hva har du endret?",
+        eng: "What did you change?"
+    },    
+    tourEdit_DiscardChanges: {
+        no: "Forkast endringer",
+        eng: "Discard changes"
     }
 };
 
