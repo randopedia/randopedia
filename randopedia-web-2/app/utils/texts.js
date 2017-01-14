@@ -41,7 +41,7 @@ texts.dictionary = {
     common_update: {
         no: "Lagre",
         eng: "Update"
-    },    
+    },
     dashboard_onInstagram: {
         no: "på Instagram",
         eng: "on Instagram"
@@ -49,7 +49,7 @@ texts.dictionary = {
     dashboard_lastUpdatedTours: {
         no: "Siste oppdaterte turer",
         eng: "Last updated tours"
-    }, 
+    },
     // TODO: Create function that can resolve correct langauage string supporting any number of parameters such like getString("dashboard_funfact", param1, param2, param3)
     dashboard_funfact1: {
         no: "Randopedia-databasen inneholder for tiden beskrivelser for",
@@ -151,6 +151,10 @@ texts.dictionary = {
         no: "Turer under vurdering",
         eng: "Tours in review"
     },
+    header_statistics: {
+        no: "Statistik",
+        eng: "Statistics"
+    },
     images_delete: {
         no: "Slett bilde",
         eng: "Delete image"
@@ -178,7 +182,7 @@ texts.dictionary = {
     images_currentTourImages: {
         no: "Turbilder",
         eng: "Current tour images"
-    },        
+    },
     login_loginWith: {
         no: "Logg inn med",
         eng: "Login with"

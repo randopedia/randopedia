@@ -7,7 +7,7 @@ export default Ember.Route.extend({
   model() {
     return Ember.RSVP.hash({
       tags : this.get('store').findAll('tag'),
-      //TODO: statistics : this.get('store').findAll('stat', 1),
+      statistics : this.get('store').findRecord('stat', 1),
       tours : this.get('store').query('tourItem', {status : Fixtures.TourStatus.LAST_UPDATED})
     });
   },

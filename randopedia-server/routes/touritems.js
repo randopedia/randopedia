@@ -3,9 +3,9 @@ var router = express.Router();
 var tourService = require("../services/tour-service");
 var common = require('../helpers/common');
 var enums = require("../enums");
-                                     
+
 router.get("/", function (req, res) {
-    
+
     var token = req.get('X-Header-Token');
     var provider = req.get('X-Header-Provider');
     var status = req.query["status"];
@@ -17,6 +17,7 @@ router.get("/", function (req, res) {
             res.send({tourItems : tours});
         });
     } else {
+        console.log('Getting tour items');
         common.getUserFromRequest(token, provider)
             .then(function (user) {
                 if (usersTours) {
@@ -34,6 +35,7 @@ router.get("/", function (req, res) {
                         return;
                     }
                     tourService.getTours(status, user, req, function (tours) {
+                        console.log('sending response with tourItems');
                         res.send({tourItems: tours});
                     });
                 }
@@ -44,4 +46,3 @@ router.get("/", function (req, res) {
 });
 
 module.exports = router;
-

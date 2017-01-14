@@ -20,30 +20,31 @@ var tourService = (function () {
     function isTourPublishedForTheFirstTime(originalTour, tour) {
         return (originalTour.status == enums.TourStatus.DRAFT && tour.status === enums.TourStatus.PUBLISHED) || (originalTour.status === enums.TourStatus.IN_REVIEW && tour.status === enums.TourStatus.PUBLISHED);
     }
-    
+
     function execCallback(param, callback) {
         if (callback) {
             callback(param);
         }
-    }    
+    }
 
     function getTour(tourId, req, callback) {
         tourRepository.getTour(tourId, req).then(function (tour) {
             if (callback) {
                 callback(tour);
             }
-            
+
         }).catch(function (error) {
             console.log(error);
         });
     }
 
     function getTours(status, user, req, callback) {
+        console.log('tourService.getTours');
         if (status === enums.TourStatus.DRAFT.toString()) {
             if(!user) {
                 execCallback([], callback);
             }
-            
+
             tourRepository.getTourDrafts(user._id.toString(), req).then(function (tours) {
                 execCallback(tours, callback);
 
@@ -53,6 +54,7 @@ var tourService = (function () {
         }
         else {
             tourRepository.getTours(status, req).then(function (tours) {
+                console.log('callbacking response from tourRepository');
                 execCallback(tours, callback);
 
             }).catch(function (error) {
@@ -65,7 +67,7 @@ var tourService = (function () {
         if(!user) {
             execCallback([], callback);
         }
-        
+
         tourRepository.getToursForUser(user._id.toString(), req).then(function (tours) {
             execCallback(tours, callback);
 
@@ -111,10 +113,10 @@ var tourService = (function () {
                 validationErrorsCallback(validationErrors);
             }
             return;
-        }   
-    
+        }
+
         tour.tags = common.mergeTags(tour.tags, tour.itinerary);
-        
+
         tourRepository.saveTour(tour, req).then(function (createdTour) {
 
             tourActionRepository.save(user, createdTour, enums.TourActionType.CREATE, req);
@@ -200,7 +202,7 @@ var tourService = (function () {
     function updateImage(image, imageId, user, req, callback) {
 
         tourRepository.updateImage(image, imageId, req).then(function (updatedImage) {
-            
+
             tourActionRepository.saveImageAction(user, updatedImage, enums.TourActionType.IMAGE_UPDATE, req);
 
             if (callback) {
@@ -215,23 +217,23 @@ var tourService = (function () {
     function deleteImage(imageId, user, req, callback) {
 
         tourRepository.getTourFromImageId(imageId, req).then(function(tourFromImageId) {
-            
+
             tourRepository.deleteImage(imageId, req).then(function () {
-                
+
                 tourActionRepository.saveDeleteImageAction(user, tourFromImageId.clientId, imageId, req);
 
                 if (callback) {
                     callback();
                 }
-        
+
             });
-            
+
         }).catch(function (error) {
             console.log(error);
         });
 
     }
-    
+
     function addReviewComment(comment, callback) {
         tourReviewCommentRepository.save(comment).then(function (createdComment) {
 
@@ -243,7 +245,7 @@ var tourService = (function () {
             console.log(error);
         });
     }
-    
+
     function getReviewComments(ids, callback) {
 
         tourActionRepository.getReviewComments(ids).then(function (actions) {
@@ -273,4 +275,4 @@ var tourService = (function () {
 
 })();
 
-module.exports = tourService; 
+module.exports = tourService;
