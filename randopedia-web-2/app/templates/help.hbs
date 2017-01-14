@@ -1,3 +1,7 @@
 <div class="container">
-    <h1>Help</h1>
+    {{#if language.isNorwegian }}
+        {{partial "partials/help-lang-no"}}
+    {{else}}
+        {{partial "partials/help-lang-eng"}}
+    {{/if}}
 </div>

@@ -171,7 +171,6 @@ export default Ember.Component.extend({
         
         confirmDeleteImage: function() {
             this.send('deleteImage', this.get('imageToDelete'));
-            this.send('closeConfirmDeleteImage');
             this.set('imageToDelete', null);
         },
 
