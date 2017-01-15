@@ -220,7 +220,7 @@ export default Ember.Component.extend({
         self.get("tour").save().then(
             function() {                           
                 self.set("havePendingOperations", false);
-                self.get("alert").showSuccessMessage("Tour was successfully saved");
+                self.get("alert").showSuccessMessage("Tour was successfully saved. ");
                 self.get("router").transitionTo("tour", self.get("tour"));
             }, 
             function(error) {

@@ -95,23 +95,20 @@ var dataValidator = (function() {
         }
         
         var isDraftOrInReview = tour.status === enums.TourStatus.DRAFT || tour.status === enums.TourStatus.IN_REVIEW;
-        
-        if(!validator.mediumDesc(tour.shortDescription, true)) {
-            validationErrors.push("Summary");
-        }
-        if(!validator.isPosNumber(tour.elevationGain, isDraftOrInReview)) {
+
+        if(!validator.isPosNumber(tour.elevationGain, true)) {
             validationErrors.push("Elevation gain");
         }   
-        if(!validator.isPosNumber(tour.elevationLoss, isDraftOrInReview)) {
+        if(!validator.isPosNumber(tour.elevationLoss, true)) {
             validationErrors.push("Elevation loss");
         }
         if(!validator.isPosNumber(tour.elevationMax, true)) {
             validationErrors.push("Highest point");
         }
-        if(!validator.isPosNumber(tour.timingMin, isDraftOrInReview)) {
+        if(!validator.isPosNumber(tour.timingMin, true)) {
             validationErrors.push("Time min");
         }  
-        if(!validator.isPosNumber(tour.timingMax, isDraftOrInReview)) {
+        if(!validator.isPosNumber(tour.timingMax, true)) {
             validationErrors.push("Time max");
         }  
         if(!validator.isPosNumber(tour.grade, true)) {
