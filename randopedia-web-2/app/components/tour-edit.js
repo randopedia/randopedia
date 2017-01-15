@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import Fixtures from '../utils/fixtures';
+import GeoHelper from '../utils/geo-helper';
 
 export default Ember.Component.extend({
     login: Ember.inject.service(),
@@ -322,8 +323,7 @@ export default Ember.Component.extend({
     }),
 
     mapDataIsValid: Ember.computed('tour.mapGeoJson', function() {
-        // todo: ...
-        return true;
+        return GeoHelper.geojsonContainsSummitPoint(this.get("tour.mapGeoJson")) && GeoHelper.geojsonContainsPath(this.get("tour.mapGeoJson"))
     }),
 
     hasChanges: Ember.computed('tour.hasDirtyAttributes', 'newImage', 'tagsIsDirty', function() {
