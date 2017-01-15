@@ -359,42 +359,35 @@
         </div>
     </div>
 
-    <div class="row">
-        <div class="col col-xs-12">
-            <div class="edit-toolbar" role="toolbar">
+    <div class="edit-toolbar" role="toolbar">
+        <div class="row">
+            <div class="col">
                 <div class="btn-toolbar">
-                    <div class="btn-group right">
-                        <button class="btn btn-secondary" data-toggle="modal" data-target="#editTourHelpModal">
-                            <i class="fa fa-question"></i> {{text "header_help"}}
-                        </button>
-                    </div>
+                    <button class="btn btn-secondary" data-toggle="modal" data-target="#editTourHelpModal">
+                        <i class="fa fa-question"></i> {{text "header_help"}}
+                    </button>
 
-                    <div class="btn-group">
-                        <button class="btn btn-primary" disabled={{isStartPublishDisabled}} {{action "startPublishTour" }}>
-                            <i class="fa fa-cloud-upload"></i> {{text "tourEdit_publish"}}
-                        </button>
+                    <button class="btn btn-primary" disabled={{isStartPublishDisabled}} {{action "startPublishTour" }}>
+                        <i class="fa fa-cloud-upload"></i> {{text "tourEdit_publish"}}
+                    </button>
                         
-                        {{#unless isPublished}}
-                            <button class="btn btn-secondary" disabled={{isSendToReviewDisabled}} {{action "sendToReview" }}>
-                                <i class="fa fa-eye"></i> {{text "tourEdit_sendToReview"}}
-                            </button>
-
-                            {{#unless isInReview}}
-                            <button class="btn btn-secondary" disabled={{isSaveAsDraftDisabled}} {{action "saveAsDraft" }}>
-                                <i class="fa fa-floppy-o"></i> {{text "tourEdit_saveAsDraft"}}
-                            </button>
-                            {{/unless}}
-
-                        {{/unless}}
-                    </div>
-
-                    <div class="btn-group right spacer-x-left">
-                        <button class="btn btn-secondary" {{action "startCancelingEditTour" }}>
-                            <i class="fa fa-times"></i> {{text "tourEdit_exit"}}
+                    {{#unless isPublished}}
+                        <button class="btn btn-secondary" disabled={{isSendToReviewDisabled}} {{action "sendToReview" }}>
+                            <i class="fa fa-eye"></i> {{text "tourEdit_sendToReview"}}
                         </button>
-                    </div>                    
 
-                </div>
+                        {{#unless isInReview}}
+                        <button class="btn btn-secondary" disabled={{isSaveAsDraftDisabled}} {{action "saveAsDraft" }}>
+                            <i class="fa fa-floppy-o"></i> {{text "tourEdit_saveAsDraft"}}
+                        </button>
+                        {{/unless}}
+
+                    {{/unless}}
+
+                    <button class="btn btn-secondary spacer-x-left" {{action "startCancelingEditTour" }}>
+                        <i class="fa fa-times"></i> {{text "tourEdit_exit"}}
+                    </button>
+                </div>  
             </div>
         </div>
     </div>

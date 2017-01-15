@@ -3,8 +3,9 @@
 @topbar-background:             #efefef;
 @dark-background:               #222;
 
-@primary-color:                 #444444;
-@primary-hover-color:           lighten(@primary-color, 15%);
+@primary-color:                 #02b3e4;
+@primary-hover-color:           darken(@primary-color, 5%);
+
 @error-color:                   red;
 
 @gray-lighter:                  #eee;
@@ -13,8 +14,8 @@
 @light-border:                  1px solid @gray-lighter;
 @dark-border:                   1px solid #222;
 
-@active-blue:                   #a3ccff;
-@active-blue-hover:             lighten(@active-blue, 10%);
+@active-blue:                   #02b3e4;
+@active-blue-hover:             lighten(@active-blue, 5%);
 
 @topbar-height:                 40px;
 
@@ -27,7 +28,7 @@
 @font-face { font-family: Aight; src: url('../assets/fonts/aaaiight.ttf'); }
 
 body {
-    color: @primary-color;
+    color: #000;
 
     @media (min-width: 1170px) {
         background-size: cover;
@@ -105,7 +106,7 @@ body {
     text-align: center;
 }
 
-.capitalize {
+.uppercase {
     text-transform: uppercase;
 }
 
@@ -116,7 +117,14 @@ body {
 .card {
     border-radius: 0;
     .card-header {
-        padding: 0.5rem 1.25rem; 
+        text-transform: uppercase;
+        padding: 0.5rem; 
+        h4 {
+            font-size: 1rem;
+        }
+    }
+    .card-block {
+        padding: 0.5rem; 
     }
 }
 

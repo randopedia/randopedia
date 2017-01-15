@@ -47,6 +47,7 @@
             border-radius: 5px;
             &.selected {
                 background: @active-blue;
+                color: #fff;
             }
         }
     }    
@@ -59,40 +60,57 @@
         a {
             display: block;
             font-weight: 600;
-            color: @normal-foreground !important;
-            text-align: left;
-            padding: 5px 5px;
+            color: #fff !important;
+            background-color: @primary-color;
+            margin: 5px;
+            text-align: center;
+            padding: 10px;
+            text-transform: uppercase;
+            border-radius: 2px;
+            font-size: 0.8rem;
 
             &:focus {
                 outline: 0;
             }  
+
             &:hover {
-                background: @active-blue-hover;
-            }            
+                background: darken(@primary-color, 5%)
+            }           
+
+            &.lang {
+                background: none;
+                padding: 5px;
+                color: @normal-foreground !important; 
+                text-align: left;
+            }
         }
 
         div {
             text-align: left;
-            color: @normal-foreground !important;
         }
 
         h4 {
             text-align: left;
-            color: @normal-foreground !important;
+            color: #a9a9a9 !important;  
             font-size: 1rem;
             margin-bottom: 2px;
         }
         
         i {
             text-align: left;
-            color: @normal-foreground !important;
+            &.fa-user {
+                color: #a9a9a9 !important;  
+            }
         }
 
         span {
             text-align: left;
             color: @normal-foreground !important;
-            text-align: left;
             margin-left: 5px;
+            padding: 5px;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            font-weight: 600;
         }
 
         .login-menu-container {
@@ -103,10 +121,6 @@
             hr {
                 margin: 5px 0;
             }
-        }
-
-        h4, i {
-            color: #a9a9a9 !important;  
         }
     }
 

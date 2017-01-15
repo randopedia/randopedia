@@ -36,7 +36,7 @@
 
     {{#if isDeleted}}
     <div class="row">
-        <div class="col col-xs-12">
+        <div class="col">
             <div class="alert alert-danger" role="alert">
                 <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 Tour is marked as deleted and will eventually be deleted from the database
@@ -47,9 +47,9 @@
     {{/if}}
 
     <div class="row">
-        <div class="col col-xs-12">
-            <h1>
-                {{tour.name}} {{#if tour.elevationMax }} <span class="small">({{tour.elevationMax}}m)</span> {{/if}}
+        <div class="col">
+            <h2>
+                <span class="uppercase">{{tour.name}}</span> {{#if tour.elevationMax }} <span class="small">({{tour.elevationMax}}m)</span> {{/if}}
 
                 {{#if isIncomplete}}
                 <span class="small">
@@ -58,27 +58,27 @@
                     </a>
                 </span>
                 {{/if}}
-            </h1>
+            </h2>
         </div>
     </div>
 
     <div class="row">
-        <div class="col col-xs-12 col-lg-6">
+        <div class="col col-lg-6">
 
             <div class="row">
-                <div class="col-xs-5 col-sm-4 col-lg-3">
-                    <label class="capitalize">{{text "tour_time"}}:</label>
+                <div class="col-5 col-sm-4 col-lg-3">
+                    <label class="uppercase">{{text "tour_time"}}:</label>
                 </div>
-                <div class="col-xs-7 col-sm-8 col-lg-9">
+                <div class="col-7 col-sm-8 col-lg-9">
                     {{#if tour.timingMin}}{{tour.timingMin}}{{/if}}{{#if tour.timingMax}}-{{tour.timingMax}}{{/if}}h
                 </div>
             </div>
 
             <div class="row">
-                <div class="col-xs-5 col-sm-4 col-lg-3">
-                    <label class="capitalize">{{text "tour_elevation"}}:</label>
+                <div class="col-5 col-sm-4 col-lg-3">
+                    <label class="uppercase">{{text "tour_elevation"}}:</label>
                 </div>
-                <div class="col-xs-7 col-sm-8 col-lg-9">
+                <div class="col-7 col-sm-8 col-lg-9">
                     {{#if tour.elevationGain}}
                     {{tour.elevationGain}}m &uarr;
                     {{/if}}
@@ -90,10 +90,10 @@
 
             {{#if tour.grade}}
             <div class="row">
-                <div class="col col-xs-5 col-sm-4 col-lg-3">
-                    <label class="capitalize">{{text "tour_grade"}}:</label>
+                <div class="col-5 col-sm-4 col-lg-3">
+                    <label class="uppercase">{{text "tour_grade"}}:</label>
                 </div>
-                <div class="col col-xs-7 col-sm-8 col-lg-9">
+                <div class="col-7 col-sm-8 col-lg-9">
                     <a data-toggle="modal" data-target="#tourDetailsGradeGuideModal">{{resolveSelectName 'Grades' tour.grade}}</a>
                 </div>
             </div>
@@ -101,10 +101,10 @@
 
             {{#if tour.degreesMax}}
             <div class="row">
-                <div class="col col-xs-5 col-sm-4 col-lg-3">
-                    <label class="capitalize">{{text "tour_steepness"}}:</label>
+                <div class="col-5 col-sm-4 col-lg-3">
+                    <label class="uppercase">{{text "tour_steepness"}}:</label>
                 </div>
-                <div class="col col-xs-7 col-sm-8 col-lg-9">
+                <div class="col-7 col-sm-8 col-lg-9">
                     {{tour.degreesMax}}&#176;
                 </div>
             </div>
@@ -113,10 +113,10 @@
             {{#if tour.timeOfYearFrom}}
             {{#if tour.timeOfYearTo}}
             <div class="row">
-                <div class="col col-xs-5 col-sm-4 col-lg-3">
-                    <label class="capitalize">{{text "tour_season"}}:</label>
+                <div class="col-5 col-sm-4 col-lg-3">
+                    <label class="uppercase">{{text "tour_season"}}:</label>
                 </div>
-                <div class="col col-xs-7 col-sm-8 col-lg-9">
+                <div class="col-7 col-sm-8 col-lg-9">
                     {{resolveSelectName 'Months' tour.timeOfYearFrom}} - {{resolveSelectName 'Months' tour.timeOfYearTo}}
                 </div>
             </div>
@@ -125,10 +125,10 @@
 
             {{#if tour.aspect}}
             <div class="row">
-                <div class="col col-xs-5 col-sm-4 col-lg-3">
-                    <label class="capitalize">{{text "tour_aspect"}}:</label>
+                <div class="col-5 col-sm-4 col-lg-3">
+                    <label class="uppercase">{{text "tour_aspect"}}:</label>
                 </div>
-                <div class="col col-xs-7 col-sm-8 col-lg-9">
+                <div class="col-7 col-sm-8 col-lg-9">
                     {{resolveSelectName 'Aspects' tour.aspect}}
                 </div>
             </div>
@@ -136,10 +136,10 @@
 
             {{#if tour.tags}}
             <div class="row">
-                <div class="col col-xs-5 col-sm-4 col-lg-3">
-                    <label class="capitalize">{{text "tour_tags"}}:</label>
+                <div class="col-5 col-sm-4 col-lg-3">
+                    <label class="uppercase">{{text "tour_tags"}}:</label>
                 </div>
-                <div class="col col-xs-7 col-sm-8 col-lg-9">
+                <div class="col-7 col-sm-8 col-lg-9">
                     {{#each tour.tags as |tag|}}
                          {{#link-to 'tag' tag}} #{{tag}} {{/link-to}} 
                     {{/each}}
@@ -176,31 +176,39 @@
         </div>
     </div>
 
-    <div class="card">
-        <h3 class="card-header">
-            {{text "tour_accessPoint"}}
-        </h3>
-        <div class="card-block">
-            {{tour.accessPoint}}
-        </div>
-    </div>
-
-    <div class="card">
-        <h3 class="card-header">
-            {{text "tour_description"}}
-        </h3>
-        <div class="card-block">
-            {{{markedItinerary}}}
+    <div class="row">
+        <div class="col">
+            <div class="card spacer-y">
+                <h4 class="card-header">
+                    {{text "tour_accessPoint"}}
+                </h4>
+                <div class="card-block">
+                    {{tour.accessPoint}}
+                </div>
+            </div>
         </div>
     </div>
 
     <div class="row">
-        {{#if tour.haveHazards}}
-        <div class="col-lg-6">
+        <div class="col">
             <div class="card spacer-y">
-                <h3 class="card-header">
+                <h4 class="card-header">
+                    {{text "tour_description"}}
+                </h4>
+                <div class="card-block">
+                    {{{markedItinerary}}}
+                </div>
+            </div>
+        </div>
+    </div>    
+
+    <div class="row">
+        {{#if tour.haveHazards}}
+        <div class="col col-lg-6">
+            <div class="card spacer-y">
+                <h4 class="card-header">
                     {{text "tour_hazards"}}
-                </h3>
+                </h4>
                 <div class="card-block">
                     {{{tour.hazardsDescription}}}
                 </div>
@@ -209,11 +217,11 @@
         {{/if}}
 
         {{#if tour.requiresTools}}
-        <div class="col-lg-6">
+        <div class="col col-lg-6">
             <div class="card spacer-y">
-                <h3 class="card-header">
+                <h4 class="card-header">
                     {{text "tour_mountaineering"}}
-                </h3>
+                </h4>
                 <div class="card-block">
                     {{{tour.toolsDescription}}}
                 </div>
@@ -223,10 +231,10 @@
     </div>
 
     {{#if hasImages}}
-    <div class="card">
-        <h3 class="card-header">
+    <div class="card spacer-y">
+        <h4 class="card-header">
             {{text "tour_images"}} <span class="small"> ({{tour.images.length}})</span>
-        </h3>
+        </h4>
         <div class="card-block">
             {{image-slider images=tour.images}}
         </div>
@@ -234,10 +242,10 @@
     {{/if}}
 
     {{#if isPublished}}
-    <div class="card">
-        <h3 class="card-header">
+    <div class="card spacer-y">
+        <h4 class="card-header">
             {{text "tour_discussionsAndTripReports"}}
-        </h3>
+        </h4>
         <div class="card-block">
             {{disqus-forum tour=tour}}
         </div>

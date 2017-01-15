@@ -14,25 +14,25 @@
         <div class="menu">
             <div class="row">
                 <div class="col col-xs-6 col-md-4 offset-md-2">
-                    <a {{action "topbarmenulink" "index" }}>{{text "header_map"}}</a>
+                    <a {{action "topbarmenulink" "index" }}><i class="fa fa-map" aria-hidden="true"></i> {{text "header_map"}}</a>
 
-                    <a {{action "topbarmenulink" "dashboard" }}>{{text "header_dashboard"}}</a>
+                    <a {{action "topbarmenulink" "dashboard" }}><i class="fa fa-tachometer" aria-hidden="true"></i> {{text "header_dashboard"}}</a>
 
-                    <a {{action "topbarmenulink" "about" }}>{{text "header_about"}}</a>       
+                    <a {{action "topbarmenulink" "about" }}> <i class="fa fa-info-circle" aria-hidden="true"></i> {{text "header_about"}}</a>       
 
                     {{#unless login.isLoggedIn}}
-                    <a {{action "topbarmenulink" "collapseNavbar" }} data-toggle="modal" data-target="#loginViewModalId">{{text "header_addNewTour"}}</a>
+                    <a {{action "topbarmenulink" "collapseNavbar" }} data-toggle="modal" data-target="#loginViewModalId"><i class="fa fa-plus" aria-hidden="true"></i> {{text "header_addNewTour"}}</a>
                     {{/unless}}    
                 </div>
 
                 <div class="col-xs-6 col-md-4">
                     <h4>{{text "header_language"}}</h4>
                     {{#if language.isNorwegian}}
-                    <a {{action "setlanguage"}}><i class="fa fa-square-o"></i> English</a>
+                    <a class="lang" {{action "setlanguage"}}><i class="fa fa-square-o"></i> English</a>
                     <span><i class="fa fa-check-square-o"></i> Norsk</span>
                     {{else}}
                     <span><i class="fa fa-check-square-o"></i> English</span>
-                    <a {{action "setlanguage" "no"}}><i class="fa fa-square-o"></i> Norsk</a>
+                    <a class="lang" {{action "setlanguage" "no"}}><i class="fa fa-square-o"></i> Norsk</a>
                     {{/if}}
 
                 </div>                
@@ -45,13 +45,13 @@
                         <hr />
                         <h4><i class="fa fa-user"></i> {{maxString login.currentUser.userName 50}}</h4>
                         <hr />
-                        <a {{action "topbarmenulink" "tour.new" }}>{{text "header_addNewTour"}}</a>
-                        <a {{action "topbarmenulink" "mytours" }}>{{text "header_myTours"}}</a>
+                        <a {{action "topbarmenulink" "tour.new" }}><i class="fa fa-plus" aria-hidden="true"></i> {{text "header_addNewTour"}}</a>
+                        <a {{action "topbarmenulink" "mytours" }}><i class="fa fa-database" aria-hidden="true"></i> {{text "header_myTours"}}</a>
                         <hr />
-                        <a {{action "logout" }}>{{text "header_logout"}}</a>
+                        <a {{action "logout" }}><i class="fa fa-sign-out" aria-hidden="true"></i> {{text "header_logout"}}</a>
                     </div>
                     {{else}}
-                    <a {{action "topbarmenulink" "collapseNavbar" }} class="center" data-toggle="modal" data-target="#loginViewModalId">{{text "header_login"}}</a>   
+                    <a {{action "topbarmenulink" "collapseNavbar" }} class="center" data-toggle="modal" data-target="#loginViewModalId"><i class="fa fa-sign-in" aria-hidden="true"></i> {{text "header_login"}}</a>   
                     {{/if}}
                 </div>
             </div>
