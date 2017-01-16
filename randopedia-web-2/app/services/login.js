@@ -8,30 +8,16 @@ export default Ember.Service.extend({
     isLoggingIn: false,
 
     loginWithFacebook: function() {
-      var emberOauth2 = this.get('emberOauth2');
-      emberOauth2.setProvider('facebook');
-      var self = this;
-      emberOauth2.authorize().then(function(response) {
-        self.poll(function() {
-          if(response.location.hash) {
-            return true;
-          } else {
-            return false;
-          }
-        }, 2000, 150).then(function() {
-          emberOauth2.trigger('redirect', response.location.hash);
-          self.requestAuthentication();
-          response.close();
-        }).catch(function(error) {
-          console.log('Polling for token timed out', error);
-        });
-      });
+      this.login('facebook');
     },
     
     loginWithGoogle: function() {
-      console.debug("loginWithGoogle");
+      this.login('google');
+    },
+
+    login: function(provider) {
       var emberOauth2 = this.get('emberOauth2');
-      emberOauth2.setProvider('google');
+      emberOauth2.setProvider(provider);
       var self = this;
       emberOauth2.authorize().then(function(response) {
         self.poll(function() {
@@ -129,8 +115,6 @@ export default Ember.Service.extend({
     },
 
     checkIfLoggedIn : function() {
-      console.log("checkIfLoggedIn");
-
       var token = this.get('emberOauth2').getToken();
       var user = this.get('currentUser');
 

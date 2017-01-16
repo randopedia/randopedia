@@ -60,7 +60,9 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
-    console.log("env==production");
+
+    // TODO: change redirectUri's and enable minifyJS when deploying new version to prod
+
     var google = {
       clientId: '719190645609-c0ogrmvrbtgbl5ohlb81d0lflf31uo51.apps.googleusercontent.com',
       authBaseUri: 'https://accounts.google.com/o/oauth2/auth',

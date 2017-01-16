@@ -396,8 +396,8 @@
         <div class="modal-dialog modal-lg login-view">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                     <h4 class="modal-title" id="myModalLabel">{{text "grades_header"}}</h4>
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 </div>
                 <div class="modal-body">
                     {{partial "partials/about-grades"}}
@@ -423,31 +423,13 @@
         </div>
     </div>
 
-    <div class="modal fade" id="confirmDeleteTourModal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
-        <div class="modal-dialog modal-lg areapicker-view">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <h4 class="modal-title">Delete tour</h4>
-                </div>
-                <div class="modal-body">
-                    Are you sure you want to delete the tour?
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-default pull-right" data-dismiss="modal">Cancel</button>
-                    <button class="btn btn-danger pull-right" {{action "confirmDeleteTour"}}>Delete tour</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <div class="modal fade" id="publishTourStep1Modal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
 
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
+                    <h4 class="modal-title">{{text "tourEdit_publishStep1Title"}}</h4>
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <h4 class="modal-title">{{text tourEdit_publishStep1Title}}</h4>
                 </div>
                 <div class="modal-body">
                     {{#if haveValidationErrors}}
@@ -479,8 +461,8 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
+                    <h4 class="modal-title">{{text "tourEdit_publishStep2Title"}}</h4>
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <h4 class="modal-title">{{text tourEdit_publishStep2Title}}</h4>
                 </div>
                 <div class="modal-body">
                     <form role="form">
@@ -503,8 +485,8 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
+                    <h4 class="modal-title">{{text "header_help"}}</h4>
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <h4 class="modal-title">Help</h4>
                 </div>
                 <div class="modal-body">
                     {{partial "partials/about-collaboration"}}
