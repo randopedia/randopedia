@@ -131,9 +131,7 @@ export default Ember.Service.extend({
     checkIfLoggedIn : function() {
       console.log("checkIfLoggedIn");
 
-      var emberOauth2 = this.get('emberOauth2');
-      emberOauth2.setProvider('facebook');
-      var token = emberOauth2.getToken();
+      var token = this.get('emberOauth2').getToken();
       var user = this.get('currentUser');
 
       if(user && user.get('authenticated') === true) {
