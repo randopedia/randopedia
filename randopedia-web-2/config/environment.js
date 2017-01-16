@@ -65,7 +65,7 @@ module.exports = function(environment) {
       clientId: '719190645609-c0ogrmvrbtgbl5ohlb81d0lflf31uo51.apps.googleusercontent.com',
       authBaseUri: 'https://accounts.google.com/o/oauth2/auth',
       redirectUri: 'http://test.randopedia.net' + '/auth/google/callback',
-      scope: 'public write'
+      scope: 'https://www.googleapis.com/auth/userinfo.profile'
     };
 
     var facebook = {
