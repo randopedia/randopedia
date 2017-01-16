@@ -60,7 +60,7 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
-    console.debug("env==production");
+    console.log("env==production");
     var google = {
       clientId: '719190645609-c0ogrmvrbtgbl5ohlb81d0lflf31uo51.apps.googleusercontent.com',
       authBaseUri: 'https://accounts.google.com/o/oauth2/auth',
