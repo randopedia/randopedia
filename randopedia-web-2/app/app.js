@@ -30,7 +30,8 @@ App = Ember.Application.extend({
 
         if(url.indexOf('test') > 0) {
             facebookAppId = config.EmberENV.facebookAppIdTest;
-
+            googleAppId = config.EmberENV.googleAppId;
+            
         } else if(url.indexOf('www.randopedia.net') > 0) {
             facebookAppId = config.EmberENV.facebookAppIdProd;
             googleAppId = config.EmberENV.googleAppIdProd;

@@ -11,14 +11,7 @@ module.exports = function(environment) {
         // Here you can enable experimental features on an ember canary build
         // e.g. 'with-controller': true
       },
-      'ember-oauth2': {
-        google: {
-          clientId: 'xxxxxxxxxxxx',
-          authBaseUri: 'https://accounts.google.com/o/oauth2/auth',
-          redirectUri: 'https://oauth2-login-demo.appspot.com/oauth/callback',
-          scope: 'public write'
-        }
-      }
+      'ember-oauth2': {}
     },
 
     APP: {
@@ -35,9 +28,9 @@ module.exports = function(environment) {
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
 
     var google = {
-      clientId: 'xxxxxxxxxxxx',
+      clientId: '991673526883.apps.googleusercontent.com',
       authBaseUri: 'https://accounts.google.com/o/oauth2/auth',
-      redirectUri: 'https://oauth2-login-demo.appspot.com/oauth/callback',
+      redirectUri: 'http://localhost:4200' + '/auth/google/callback',
       scope: 'public write'
     };
 
@@ -67,13 +60,24 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
+    console.debug("env==production");
+    var google = {
+      clientId: '719190645609-c0ogrmvrbtgbl5ohlb81d0lflf31uo51.apps.googleusercontent.com',
+      authBaseUri: 'https://accounts.google.com/o/oauth2/auth',
+      redirectUri: 'http://test.randopedia.net:4200' + '/auth/google/callback',
+      scope: 'public write'
+    };
+
     var facebook = {
       clientId: '181281108742349',
       authBaseUri: 'https://www.facebook.com/dialog/oauth',
       redirectUri: 'http://test.randopedia.net' + '/auth/facebook/callback',
       scope: ''
     }
+    
     ENV.EmberENV['ember-oauth2'].facebook = facebook;
+    ENV.EmberENV['ember-oauth2'].google = google;
+
     ENV.minifyJS = {
         enabled: false
     };

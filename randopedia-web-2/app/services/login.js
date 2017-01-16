@@ -27,16 +27,34 @@ export default Ember.Service.extend({
         });
       });
     },
+    
     loginWithGoogle: function() {
-        //App.oauth.setProviderId('google');
-        //App.oauth.init();
-        //App.oauth.authorize();
+      console.debug("loginWithGoogle");
+      var emberOauth2 = this.get('emberOauth2');
+      emberOauth2.setProvider('google');
+      var self = this;
+      emberOauth2.authorize().then(function(response) {
+        self.poll(function() {
+          if(response.location.hash) {
+            return true;
+          } else {
+            return false;
+          }
+        }, 2000, 150).then(function() {
+          emberOauth2.trigger('redirect', response.location.hash);
+          self.requestAuthentication();
+          response.close();
+        }).catch(function(error) {
+          console.log('Polling for token timed out', error);
+        });
+      });
     },
 
     logout: function() {
         this.removeToken();
         this.get('alert').showSuccessMessage('You were logged out.');
     },
+
     poll : function(fn, timeout, interval) {
       var endTime = Number(new Date()) + (timeout || 2000);
       interval = interval || 100;
@@ -55,6 +73,7 @@ export default Ember.Service.extend({
       };
       return new Promise(checkCondition);
     },
+
     requestAuthentication: function() {
       console.debug('requestAuthentication');
       var store = this.get('store');
@@ -84,6 +103,7 @@ export default Ember.Service.extend({
         self.get('alert').showErrorMessage('An error occured when trying to log in, please try again. ');
       });
     },
+
     removeToken : function() {
       var currentUser = this.get('currentUser');
       if(currentUser) {
@@ -92,6 +112,7 @@ export default Ember.Service.extend({
       }
       this.get('emberOauth2').expireAccessToken();
     },
+
     checkTokenExpired : function(token) {
         if(token) {
             var expires = new Date(token.expires_in*1000);
@@ -102,33 +123,39 @@ export default Ember.Service.extend({
         }
         return true;
     },
+
     performBackgroundLogIn : function() {
       this.checkIfLoggedIn();
     },
+
     checkIfLoggedIn : function() {
-      //this.set("user", {userName: "Bj�rn Asplund", userId: "521716365"});
-      //return true;
-      //return false;
+      console.debug("checkIfLoggedIn");
+      
       var emberOauth2 = this.get('emberOauth2');
       emberOauth2.setProvider('facebook');
       var token = emberOauth2.getToken();
       var user = this.get('currentUser');
+
       if(user && user.get('authenticated') === true) {
         var now = new Date();
         var tokenExp = user.get('tokenExp');
         return tokenExp > now;
+
       } else {
         if(!this.checkTokenExpired(token)) {
           this.requestAuthentication();
           return true;
+
         } else {
           return false;
         }
       }
     },
+
     isLoggedIn: Ember.computed('currentUser.authenticated', function() {
       return this.checkIfLoggedIn();
     }),
+
     isAdmin: Ember.computed('currentUser.authenticated', function() {
       var user = this.get('currentUser');
       if (!user || !user.get('authenticated')) {
