@@ -160,7 +160,7 @@
             </button>
             {{/if}}
             {{#if hasPaths}}
-            <button class="btn btn-primary" {{action "downloadGpxFile" }}>
+            <button class="btn btn-primary" data-toggle="modal" data-target="#tourDetailsDownloadGpxWarningModal">
                 <i class="fa fa-download" aria-hidden="true"></i> GPX
             </button>
             {{/if}}
@@ -254,12 +254,34 @@
 
     {{ partial "partials/footer"}}
 
+    <div class="modal fade" id="tourDetailsDownloadGpxWarningModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">{{text "downloadGpxFile"}}</h4>
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-danger" role="alert">
+                        {{text 'downloadGpxWarningText'}}
+                    </div>                    
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-default pull-right" data-dismiss="modal">{{text "common_cancel"}}</button>
+                    <button class="btn btn-primary pull-right" {{action "downloadGpxFile" }}>
+                        <i class="fa fa-download" aria-hidden="true"></i> GPX
+                    </button>
+                </div>                
+            </div>
+        </div>
+    </div>
+
     <div class="modal fade" id="tourDetailsGradeGuideModal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                     <h4 class="modal-title" id="myModalLabel">{{text "grades_header"}}</h4>
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 </div>
                 <div class="modal-body">
                     {{partial "partials/about-grades"}}

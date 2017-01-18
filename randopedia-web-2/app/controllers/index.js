@@ -1,14 +1,6 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
-    alert: Ember.inject.service(),
-
-    init: function() {
-        var self = this;
-
-        self._super();
-    },
-
     actions: {
         mapZoomChanged: function(zoomLevel) {
             this.set('currentMapZoomLevel', zoomLevel);
@@ -18,6 +10,10 @@ export default Ember.Controller.extend({
         },
         mapTypeIdChanged: function(mapTypeId) {
             this.set('currentMapTypeId', mapTypeId);
+        },
+        reloadTourItems: function() {
+            console.log("reloadTourItems");
+            this.set('model', this.get('store').findAll('tourItem'));
         }
-    },
+    }
 });

@@ -38,7 +38,7 @@ export default RESTAdapter.extend({
                   }
               }
 
-              //xhr.setRequestHeader('X-Header-Language', App.language);
+              xhr.setRequestHeader('X-Header-Language', 'no') ; // App.language);
           };
 
           hash.success = function(json) {
