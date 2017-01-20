@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import RESTAdapter from 'ember-data/adapters/rest';
+import LocationHelper from '../utils/location-helper';
 
 export default RESTAdapter.extend({
     namespace: 'api',
@@ -37,8 +38,7 @@ export default RESTAdapter.extend({
                       xhr.setRequestHeader('X-Header-Provider', emberOauth2.getToken().provider_id);
                   }
               }
-
-              //xhr.setRequestHeader('X-Header-Language', App.language);
+              xhr.setRequestHeader('X-Header-Language', LocationHelper.resolveLanguageCodeFromLocation());
           };
 
           hash.success = function(json) {

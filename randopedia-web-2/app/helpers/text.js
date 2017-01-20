@@ -1,8 +1,10 @@
 import Ember from 'ember';
 import texts from '../utils/texts';
 
-export function text(id) {
-    return texts.get(id);
-}
-
-export default Ember.Helper.helper(text);
+export default Ember.Helper.extend({
+  language : Ember.inject.service(),
+  compute(id) {
+    let language = this.get('language');
+    return texts.get(id, language.getLanguage());
+  }
+});

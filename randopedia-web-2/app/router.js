@@ -3,7 +3,7 @@ import config from './config/environment';
 
 const Router = Ember.Router.extend({
   location: config.locationType,
-  rootURL: config.rootURL
+  rootURL: getLanguageFromUrl(window.location.pathname)
 });
 
 Router.map(function() {
@@ -23,5 +23,23 @@ Router.map(function() {
   this.route('tags');
   this.route('tag', {path: '/tags/:tag_id'});
 });
+
+function getLanguageFromUrl(url) {
+  if(url.indexOf('/') >= 0) {
+    var parts = url.split('/');
+    if(parts.length > 1) {
+      var lang = parts[1];
+      if('no' === lang) {
+        return '/no/';
+      } else {
+        return '/';
+      }
+    } else {
+      return '/';
+    }
+  } else {
+    return '/';
+  }
+};
 
 export default Router;

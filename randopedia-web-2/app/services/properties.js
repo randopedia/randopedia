@@ -9,4 +9,5 @@ export default Ember.Service.extend({
   getTourForMapView: function() {
     return this.get('tourForMapView');
   }
+
 });

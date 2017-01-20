@@ -2,14 +2,13 @@
 
 const texts = {};
 
-texts.get = function (identifier) {
-
+texts.get = function (identifier, language) {
     if (!texts.dictionary[identifier]) {
         console.log("Couldn't resolve text " + identifier);
         return "";
     }
 
-    if (App.language === "no") {
+    if (language === "no") {
         if (!texts.dictionary[identifier].no) {
             console.log("Couldn't resolve norwegian text for " + identifier);
             return "";
@@ -37,7 +36,7 @@ texts.dictionary = {
     common_continue: {
         no: "Fortsett",
         eng: "Continue"
-    },   
+    },
     common_siteSlogan: {
         no: "Topptursdatabasen",
         eng: "The ski tour database"
@@ -49,7 +48,7 @@ texts.dictionary = {
     common_publish: {
         no: "Publiser",
         eng: "Publish"
-    },    
+    },
     dashboard_onInstagram: {
         no: "på Instagram",
         eng: "on Instagram"
@@ -449,19 +448,19 @@ texts.dictionary = {
     tourEdit_publishStep2Title: {
         no: "Publiser tur (Trinn 2 av 2)",
         eng: "Publish tour (Step 2 of 2)"
-    },    
+    },
     tourEdit_tourDataIsValid: {
         no: "All turdata er gyldig",
         eng: "Tour data is valid"
-    },    
+    },
     tourEdit_tourIsReadyToPublish: {
         no: "Turen er klar for publisering",
         eng: "The tour is ready to be published."
-    },    
+    },
     tourEdit_whatDidYouChange: {
         no: "Hva har du endret?",
         eng: "What did you change?"
-    },    
+    },
     tourEdit_DiscardChanges: {
         no: "Forkast endringer",
         eng: "Discard changes"

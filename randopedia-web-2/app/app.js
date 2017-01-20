@@ -12,7 +12,6 @@ App = Ember.Application.extend({
     modulePrefix: config.modulePrefix,
     podModulePrefix: config.podModulePrefix,
     Resolver,
-    language: null,
 
     ready: function() {
         if (locationHelper.removeAndRedirectPageIfUrlContainsHashbang()) {
@@ -31,7 +30,7 @@ App = Ember.Application.extend({
         if(url.indexOf('test') > 0) {
             facebookAppId = config.EmberENV.facebookAppIdTest;
             googleAppId = config.EmberENV.googleAppId;
-            
+
         } else if(url.indexOf('www.randopedia.net') > 0) {
             facebookAppId = config.EmberENV.facebookAppIdProd;
             googleAppId = config.EmberENV.googleAppIdProd;
@@ -47,13 +46,13 @@ App = Ember.Application.extend({
             facebookAppId = config.EmberENV.facebookAppIdLocalhost;
             googleAppId = config.EmberENV.googleAppIdLocalhost;
         }
-        
+
         // Facebook api initialization
         (function(d, s, id) {
             var js, fjs = d.getElementsByTagName(s)[0];
             if (d.getElementById(id)) {
                 return;
-            } 
+            }
             js = d.createElement(s); js.id = id;
             js.src = "//connect.facebook.net/sv_SE/sdk.js#xfbml=1&version=v2.5&appId=" + config.EmberENV.facebookAppIdProd;
             fjs.parentNode.insertBefore(js, fjs);
