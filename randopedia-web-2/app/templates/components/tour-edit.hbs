@@ -2,8 +2,8 @@
 
     {{#if draftValidationErrors}}
     <div class="row">
-        <div class="col col-xs-12">
-            <div class="alert alert-danger" role="alert">
+        <div class="col">
+            <div class="alert alert-danger text-center" role="alert">
                 <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 {{text "tourEdit_nameNotSetOnSave"}}
             </div>
@@ -13,8 +13,8 @@
 
     {{#if isDraft}}
     <div class="row">
-        <div class="col col-xs-12">
-            <div class="alert alert-warning alert-dismissible" role="alert">
+        <div class="col">
+            <div class="alert alert-warning alert-dismissible text-center" role="alert">
                 <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 {{text "tour_tourIsDraft"}}
             </div>
@@ -22,19 +22,8 @@
     </div>
     {{/if}}
 
-    {{#if isDeleted}}
     <div class="row">
-        <div class="col col-xs-12">
-            <div class="alert alert-danger" role="alert">
-                <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                Tour is marked as deleted and will eventually be permanently deleted from the databse.
-            </div>
-        </div>
-    </div>
-    {{/if}}
-
-    <div class="row">
-        <div class="col col-xs-12">
+        <div class="col">
             <div class="alert alert-info text-center" role="alert">
             {{#if hasChanges}}
                 {{#if havePendingOperations}}
@@ -50,7 +39,7 @@
     </div>
 
     <div class="row">
-        <div class="col col-xs-12">
+        <div class="col">
 
             <ul class="nav nav-pills" role="tablist">
                 <li class="nav-item"><a class="nav-link active" href="#details-panel" role="tab" data-toggle="pill">{{text "tourEdit_details"}}</a></li>

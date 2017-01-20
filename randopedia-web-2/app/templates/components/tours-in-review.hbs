@@ -10,7 +10,7 @@
         There are currently {{reviews.length}} tours in review.
     </div>
 
-    {{#each tour in reviews}}
+    {{#each reviews as |tour|}}
         {{tour-item tour=tour}}
     {{/each}}
 

@@ -114,10 +114,10 @@ var dataValidator = (function() {
         if(!validator.isPosNumber(tour.grade, true)) {
             validationErrors.push("Grade");
         }  
-        if(!validator.mediumDesc(tour.hazardsDescription, !tour.haveHazards || isDraftOrInReview)) {
+        if(!validator.mediumDesc(tour.hazardsDescription, true)) {
             validationErrors.push("Hazards description");
         }  
-        if(!validator.mediumDesc(tour.toolsDescription, !tour.requiresTools || isDraftOrInReview)) {
+        if(!validator.mediumDesc(tour.toolsDescription, true)) {
             validationErrors.push("Requires skills description");
         }        
         if(!validator.isPosNumber(tour.degreesMax, true)) {

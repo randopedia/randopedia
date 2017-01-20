@@ -73,9 +73,17 @@ texts.dictionary = {
         no: "høydemeter med rå skikjøring.",
         eng: "meters of awesome skiing."
     },
+    downloadGpxFile: {
+        no: "Laste ned GPX fil",
+        eng: "Download GPX file"
+    },
+    downloadGpxWarningText: {
+        no: "ADVARSEL: Mange ruter er tegnet for hånd på kartet, og derfor bør GPX-filen brukes med forsiktighet.",
+        eng: "WARNING: Many tour paths are drawn by hand on the map and therefore should the GPX file be used with caution."
+    },      
     error_getLocation: {
-        no: "Couldn't resolve position, is location service enabled on your device?",
-        eng: "Couldn't resolve position, is location service enabled on your device?"
+        no: "Kunne ikke finne din posisjon, er posisjonstjenesten aktivert på enheten din?",
+        eng: "Couldn't resolve your position, is location service enabled on your device?"
     },
     grades_header: {
         no: "Vanskelighetsgrader",
@@ -249,6 +257,10 @@ texts.dictionary = {
         no: "Legg til rute",
         eng: "Add path"
     },
+    map_addPath: {
+        no: "Legg til rute",
+        eng: "Add path"
+    }, 
     tagCloud_header: {
         no: "Randopedias tagger",
         eng: "Here are the top tags for randopedia"

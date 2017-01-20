@@ -39,6 +39,7 @@ export default RESTAdapter.extend({
                   }
               }
               xhr.setRequestHeader('X-Header-Language', LocationHelper.resolveLanguageCodeFromLocation());
+
           };
 
           hash.success = function(json) {

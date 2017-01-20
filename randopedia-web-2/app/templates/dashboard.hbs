@@ -5,11 +5,11 @@
             {{text "header_statistics"}}
         </h3>
         <div class="card-block">
-            {{text "dashboard_funfact1"}} <em>{{stats.publishedTours}}</em> {{text "dashboard_funfact2"}} <em>{{stats.totalGain}}</em> {{text "dashboard_funfact3"}} <em>{{stats.totalLoss}}</em> {{text "dashboard_funfact4"}}
+            {{text "dashboard_funfact1"}} <strong>{{stats.publishedTours}}</strong> {{text "dashboard_funfact2"}} <strong>{{stats.totalGain}}</strong> {{text "dashboard_funfact3"}} <strong>{{stats.totalLoss}}</strong> {{text "dashboard_funfact4"}}
         </div>
     </div>
-    <div class="spacer-y"></div>
-    <div class="card">
+    
+    <div class="card spacer-y">
         <h3 class="card-header">
             {{text "dashboard_lastUpdatedTours"}}
         </h3>
@@ -19,7 +19,7 @@
     </div>
 
     {{#if login.isLoggedIn}}
-    <div class="card">
+    <div class="card spacer-y">
         <h3 class="card-header">
             {{text "header_toursInReview"}}
         </h3>
