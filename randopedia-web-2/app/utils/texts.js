@@ -2,28 +2,6 @@
 
 const texts = {};
 
-texts.get = function (identifier, language) {
-    if (!texts.dictionary[identifier]) {
-        console.log("Couldn't resolve text " + identifier);
-        return "";
-    }
-
-    if (language === "no") {
-        if (!texts.dictionary[identifier].no) {
-            console.log("Couldn't resolve norwegian text for " + identifier);
-            return "";
-        }
-        return texts.dictionary[identifier].no;
-
-    } else {
-        if (!texts.dictionary[identifier].eng) {
-            console.log("Couldn't resolve english text for " + identifier);
-            return "";
-        }
-        return texts.dictionary[identifier].eng;
-    }
-};
-
 texts.dictionary = {
     common_cancel: {
         no: "Avbryt",
@@ -261,6 +239,10 @@ texts.dictionary = {
         no: "Legg til rute",
         eng: "Add path"
     }, 
+    search_placeholder: {
+        no: 'Søk toppturer...',
+        eng: 'Search ski tours...'
+    },
     tagCloud_header: {
         no: "Randopedias tagger",
         eng: "Here are the top tags for randopedia"

@@ -3,6 +3,7 @@ import LocationHelper from '../utils/location-helper';
 
 export default Ember.Component.extend({
     login: Ember.inject.service(),
+    language: Ember.inject.service(),
 
     actions: {
         topbarmenulink: function (routeName) {
