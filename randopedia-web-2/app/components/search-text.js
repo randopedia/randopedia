@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import texts from '../utils/texts';
 
 export default Ember.TextField.extend({
     text: Ember.inject.service(),

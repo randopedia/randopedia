@@ -1,6 +1,4 @@
-﻿import App from 'ember';
-
-const texts = {};
+﻿const texts = {};
 
 texts.dictionary = {
     common_cancel: {
@@ -15,6 +13,10 @@ texts.dictionary = {
         no: "Fortsett",
         eng: "Continue"
     },
+    common_delete: {
+        no: "Slett",
+        eng: "Delete"
+    },    
     common_siteSlogan: {
         no: "Topptursdatabasen",
         eng: "The ski tour database"
@@ -235,10 +237,10 @@ texts.dictionary = {
         no: "Legg til rute",
         eng: "Add path"
     },
-    map_addPath: {
-        no: "Legg til rute",
-        eng: "Add path"
-    }, 
+    map_deletePath: {
+        no: "Slett valgd rute",
+        eng: "Delete selected path"
+    },
     search_placeholder: {
         no: 'Søk toppturer...',
         eng: 'Search ski tours...'

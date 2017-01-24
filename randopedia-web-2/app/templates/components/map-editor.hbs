@@ -42,15 +42,15 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
+                    <h4 class="modal-title">{{text 'map_deletePath'}}</h4>
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <h4 class="modal-title">Delete paths</h4>
                 </div>
                 <div class="modal-body">
                     Are you sure you want to delete the selected paths from the tour?
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-secondary pull-right" data-dismiss="modal">Cancel</button>
-                    <button class="btn btn-danger pull-right" data-dismiss="modal" {{action "deleteRoutes"  }}>Delete</button>
+                    <button class="btn btn-secondary pull-right" data-dismiss="modal">{{text 'common_cancel'}}</button>
+                    <button class="btn btn-danger pull-right" data-dismiss="modal" {{action "deleteRoutes"  }}>{{text 'common_delete'}}</button>
                 </div>
             </div>
         </div>
@@ -60,8 +60,8 @@
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
+                    <h4 class="modal-title">{{text 'map_editPaths'}}</h4>
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <h4 class="modal-title">Edit paths</h4>
                 </div>
                 <div class="modal-body">
                     <label for="inputAspect">Set type on selected path(s)</label>
@@ -72,8 +72,8 @@
                         {{/x-select}}                        
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-secondary pull-right" data-dismiss="modal">Cancel</button>
-                    <button class="btn btn-primary pull-right" data-dismiss="modal" {{action "updatePathsType"  }}>Update</button>
+                    <button class="btn btn-secondary pull-right" data-dismiss="modal">{{text 'common_cancel'}}</button>
+                    <button class="btn btn-primary pull-right" data-dismiss="modal" {{action "updatePathsType"  }}>{{text 'common_update'}}</button>
                 </div>
             </div>
         </div>

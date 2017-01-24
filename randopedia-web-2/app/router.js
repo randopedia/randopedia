@@ -40,6 +40,6 @@ function getLanguageFromUrl(url) {
   } else {
     return '/';
   }
-};
+}
 
 export default Router;

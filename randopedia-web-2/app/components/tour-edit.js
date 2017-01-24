@@ -323,7 +323,7 @@ export default Ember.Component.extend({
     }),
 
     mapDataIsValid: Ember.computed('tour.mapGeoJson', function() {
-        return GeoHelper.geojsonContainsSummitPoint(this.get("tour.mapGeoJson")) && GeoHelper.geojsonContainsPath(this.get("tour.mapGeoJson"))
+        return GeoHelper.geojsonContainsSummitPoint(this.get("tour.mapGeoJson")) && GeoHelper.geojsonContainsPath(this.get("tour.mapGeoJson"));
     }),
 
     hasChanges: Ember.computed('tour.hasDirtyAttributes', 'newImage', 'tagsIsDirty', function() {
@@ -442,5 +442,5 @@ export default Ember.Component.extend({
 
     grades: Ember.computed(function() {
         return Fixtures.Grades;
-    }),
+    })
 });

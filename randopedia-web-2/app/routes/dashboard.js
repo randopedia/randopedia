@@ -16,7 +16,6 @@ export default Ember.Route.extend({
     controller.set('tags', models.tags);
     controller.set('stats', models.statistics);
     controller.set('tours', models.tours);
-
-    controller.set('login', this.get('login'))
+    controller.set('login', this.get('login'));
   }
 });

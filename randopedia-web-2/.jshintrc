@@ -3,6 +3,7 @@
     "document",
     "window",
     "-Promise",
+    "Promise",
     "togpx",
     "saveAs",
     "marked",
@@ -12,7 +13,8 @@
     "$Jssor$",
     "$JssorBulletNavigator$",
     "$JssorArrowNavigator$",
-    "$JssorSlider$"
+    "$JssorSlider$",
+    "moment"
   ],
   "browser": true,
   "boss": true,
