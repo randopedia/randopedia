@@ -34,7 +34,6 @@
                     <span><i class="fa fa-check-square-o"></i> English</span>
                     <a class="lang" {{action "setlanguage" "no"}}><i class="fa fa-square-o"></i> Norsk</a>
                     {{/if}}
-
                 </div>                
             </div>
 
@@ -61,6 +60,11 @@
                     <label class="uppercase">RANDOPEDIA - {{text 'common_siteSlogan'}}</label>
                 </div>
             </div>
+            <div class="row">
+                <div class="col text-center">
+                    <a class="lang text-center" {{action "topbarmenulink" "collapseNavbar" }}> <i class="fa fa-close" aria-hidden="true"></i> {{text "common_close"}}</a>  
+                </div>
+            </div>            
 
         </div>
     {{/if}}
