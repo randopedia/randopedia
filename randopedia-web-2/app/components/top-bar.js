@@ -29,7 +29,6 @@ export default Ember.Component.extend({
         },
 
         closeMenu: function() {
-            console.debug("closeMenu top-bar");
             this.send('collapseNavbar');
         },
 

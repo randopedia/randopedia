@@ -4,7 +4,9 @@ export default Ember.Component.extend({
     actions: {
         openTour: function() {
             this.get("router").transitionTo("tour", this.get("tour.id"));
-            this.get("tourWasOpened")();
+            if(this.get("tourWasOpened")) {
+                this.get("tourWasOpened")();
+            }
         }
     }
 });
