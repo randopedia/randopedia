@@ -66,17 +66,17 @@ module.exports = function(environment) {
     var google = {
       clientId: '719190645609-c0ogrmvrbtgbl5ohlb81d0lflf31uo51.apps.googleusercontent.com',
       authBaseUri: 'https://accounts.google.com/o/oauth2/auth',
-      redirectUri: 'http://test.randopedia.net' + '/auth/google/callback',
+      redirectUri: 'http://www.randopedia.net' + '/auth/google/callback',
       scope: 'https://www.googleapis.com/auth/userinfo.profile'
     };
 
     var facebook = {
-      clientId: '181281108742349',
+      clientId: '387025698094707',
       authBaseUri: 'https://www.facebook.com/dialog/oauth',
-      redirectUri: 'http://test.randopedia.net' + '/auth/facebook/callback',
+      redirectUri: 'http://www.randopedia.net' + '/auth/facebook/callback',
       scope: ''
     }
-    
+
     ENV.EmberENV['ember-oauth2'].facebook = facebook;
     ENV.EmberENV['ember-oauth2'].google = google;
 

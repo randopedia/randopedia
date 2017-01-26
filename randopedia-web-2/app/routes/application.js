@@ -5,7 +5,7 @@ export default Ember.Route.extend({
   login: Ember.inject.service(),
   language: Ember.inject.service(),
 
-  setupController(/* controller, model */) {
+  setupController() {
     this.get('login').performBackgroundLogIn();
     this.get('language').setLanguage(LocationHelper.resolveLanguageCodeFromLocation());
   }

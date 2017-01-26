@@ -10,7 +10,7 @@ export default Ember.Service.extend({
     loginWithFacebook: function() {
       this.login('facebook');
     },
-    
+
     loginWithGoogle: function() {
       this.login('google');
     },
@@ -111,10 +111,15 @@ export default Ember.Service.extend({
     },
 
     performBackgroundLogIn : function() {
-      this.checkIfLoggedIn();
+      if(!this.checkIfLoggedIn('facebook')) {
+        this.checkIfLoggedIn('google');
+      }
     },
 
-    checkIfLoggedIn : function() {
+    checkIfLoggedIn : function(provider) {
+      var emberOauth2 = this.get('emberOauth2');
+      emberOauth2.setProvider('facebook');
+
       var token = this.get('emberOauth2').getToken();
       var user = this.get('currentUser');
 
@@ -135,7 +140,11 @@ export default Ember.Service.extend({
     },
 
     isLoggedIn: Ember.computed('currentUser.authenticated', function() {
-      return this.checkIfLoggedIn();
+      var loggedIn = this.checkIfLoggedIn('facebook');
+      if(!loggedIn) {
+        loggedIn = this.checkIfLoggedIn('google');
+      }
+      return loggedIn;
     }),
 
     isAdmin: Ember.computed('currentUser.authenticated', function() {
