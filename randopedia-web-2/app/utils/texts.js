@@ -17,6 +17,10 @@ texts.dictionary = {
         no: "Slett",
         eng: "Delete"
     },    
+    common_download: {
+        no: "Last ned",
+        eng: "Download"
+    },
     common_siteSlogan: {
         no: "Topptursdatabasen",
         eng: "The ski tour database"
