@@ -37,7 +37,7 @@ export default Ember.Helper.extend({
 
         for(var i = 0; i < fixtureObject.length; i++) {
             if (fixtureObject[i].value === value) {
-                if (this.get("language").isNorwegian && fixtureObject[i].name_no) {
+                if (this.get("language.isNorwegian") && fixtureObject[i].name_no) {
                     return fixtureObject[i].name_no;
                 }
                 return fixtureObject[i].name;
