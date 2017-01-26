@@ -1,11 +1,11 @@
 import Ember from 'ember';
 import Fixtures from '../utils/fixtures';
-import texts from '../utils/texts';
 import GeoHelper from '../utils/geo-helper';
 
 export default Ember.Component.extend({
     alert: Ember.inject.service(),
     properties: Ember.inject.service(),
+    text: Ember.inject.service(),
 
     settings: {
         detailedZoomLevel: 13,
@@ -90,22 +90,35 @@ export default Ember.Component.extend({
         return null;
     },
 
+    highlightedPaths: [],
+
     highlightTour: function (tour) {
         var self = this;
         var tourMapObject = self.findTourMapObject(tour);
 
         tourMapObject.paths.forEach(function(polyline) {
-            polyline.setOptions({ strokeWeight: Fixtures.MapObjectStyles.SELECTED_PATH_WIDTH });
+
+            var path = polyline.getPath();
+
+            var shadow = new google.maps.Polyline({
+                path: path,
+                strokeColor: 'yellow',
+                strokeOpacity: 0.4,
+                strokeWeight: 8
+            });
+
+            shadow.setMap(self.get('map'));
+
+            self.get('highlightedPaths').push(shadow);
         });
     },
 
     unhighlightTour: function(tour) {
         var self = this;
-        var tourMapObject = self.findTourMapObject(tour);
-
-        tourMapObject.paths.forEach(function(polyline) {
-            polyline.setOptions({ strokeWeight: Fixtures.MapObjectStyles.DEFAULT_PATH_WIDTH });
+        self.get('highlightedPaths').forEach(function (polyline) {
+            polyline.setMap(null);
         });
+        self.set('highlightedPaths', []);
     },
 
     zoomToTour: function (tour) {
@@ -224,7 +237,7 @@ export default Ember.Component.extend({
                 new google.maps.Size(40, 40));
 
             self.set('myPositionMarker', new google.maps.Marker({
-                title: texts.get("map_myPosition"),
+                title: self.get('text').getText("map_myPosition"),
                 position: pos,
                 map: self.get('map'),
                 icon: pinIcon
@@ -232,7 +245,7 @@ export default Ember.Component.extend({
 
             var html =
                 '<div style="background-color:#fff;width:200px;height:100px">' +
-                '<h4>' + texts.get("map_myPosition") + '</h4>' +
+                '<h4>' + self.get('text').getText("map_myPosition") + '</h4>' +
                 '<p style="font-size:1.1em;">' +
                 'Lat: ' + GeoHelper.roundCoordinate(pos.lat()) + '<br>' +
                 'Lng: ' + GeoHelper.roundCoordinate(pos.lng()) +
@@ -268,7 +281,7 @@ export default Ember.Component.extend({
                     console.log("Location error: " + errMsg);
                 }
 
-                self.get("alert").showErrorMessage(texts.get("error_getLocation") + " Error message: " + err.code + " - " + errMsg);
+                self.get("alert").showErrorMessage(self.get('text').getText("error_getLocation") + " Error message: " + err.code + " - " + errMsg);
                 self.set('waitingForPosition', false);
             }
 
@@ -285,7 +298,7 @@ export default Ember.Component.extend({
 
         }, function(error) {
             console.log("Error when getting position: " + error);
-            self.get("alert").showErrorMessage(texts.get("error_getLocation"));
+            self.get("alert").showErrorMessage(self.get('text').getText("error_getLocation"));
             self.set('waitingForPosition', false);
         });
     },
