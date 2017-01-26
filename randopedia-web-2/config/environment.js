@@ -43,9 +43,11 @@ module.exports = function(environment) {
 
     ENV.host = "/randopedia/api";
     ENV.port = "8080";
-
-    ENV.EmberENV['ember-oauth2'].facebook = facebook;
+    
     ENV.EmberENV['ember-oauth2'].google = google;
+    ENV.EmberENV['ember-oauth2'].googleWWW = google;
+    ENV.EmberENV['ember-oauth2'].facebook = facebook;
+    ENV.EmberENV['ember-oauth2'].facebookWWW = facebook;
   }
 
   if (environment === 'test') {
@@ -61,24 +63,28 @@ module.exports = function(environment) {
 
   if (environment === 'production') {
 
-    // TODO: change redirectUri's and enable minifyJS when deploying new version to prod
-
-    var google = {
-      clientId: '719190645609-c0ogrmvrbtgbl5ohlb81d0lflf31uo51.apps.googleusercontent.com',
-      authBaseUri: 'https://accounts.google.com/o/oauth2/auth',
-      redirectUri: 'http://www.randopedia.net' + '/auth/google/callback',
-      scope: 'https://www.googleapis.com/auth/userinfo.profile'
-    };
-
-    var facebook = {
-      clientId: '387025698094707',
-      authBaseUri: 'https://www.facebook.com/dialog/oauth',
-      redirectUri: 'http://www.randopedia.net' + '/auth/facebook/callback',
-      scope: ''
+    function getGoogle(url) {
+      return {
+        clientId: '719190645609-c0ogrmvrbtgbl5ohlb81d0lflf31uo51.apps.googleusercontent.com',
+        authBaseUri: 'https://accounts.google.com/o/oauth2/auth',
+        redirectUri: 'http://' + url + '/auth/google/callback',
+        scope: 'https://www.googleapis.com/auth/userinfo.profile'
+      };
     }
 
-    ENV.EmberENV['ember-oauth2'].facebook = facebook;
-    ENV.EmberENV['ember-oauth2'].google = google;
+    function getFacebook(url) {
+      return {
+        clientId: '387025698094707',
+        authBaseUri: 'https://www.facebook.com/dialog/oauth',
+        redirectUri: 'http://' + url + '/auth/facebook/callback',
+        scope: ''
+      };
+    }
+
+    ENV.EmberENV['ember-oauth2'].google = getGoogle('randopedia.net');
+    ENV.EmberENV['ember-oauth2'].googleWWW = getGoogle('www.randopedia.net');
+    ENV.EmberENV['ember-oauth2'].facebook = getFacebook('randopedia.net');
+    ENV.EmberENV['ember-oauth2'].facebookWWW = getFacebook('www.randopedia.net');
 
     ENV.minifyJS = {
         enabled: false

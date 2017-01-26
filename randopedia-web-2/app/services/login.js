@@ -8,11 +8,19 @@ export default Ember.Service.extend({
     isLoggingIn: false,
 
     loginWithFacebook: function() {
-      this.login('facebook');
+      if(document.location.toString().indexOf('www.randopedia.net') > 0) {
+        this.login('facebookWWW');
+      } else {
+        this.login('facebook');
+      }
     },
 
     loginWithGoogle: function() {
-      this.login('google');
+      if(document.location.toString().indexOf('www.randopedia.net') > 0) {
+        this.login('googleWWW');
+      } else {
+        this.login('google');
+      }
     },
 
     login: function(provider) {
@@ -111,14 +119,21 @@ export default Ember.Service.extend({
     },
 
     performBackgroundLogIn : function() {
-      if(!this.checkIfLoggedIn('facebook')) {
-        this.checkIfLoggedIn('google');
+      if(this.checkIfLoggedIn('facebook')) {
+        return;
       }
+      if(this.checkIfLoggedIn('facebookWWW')) {
+        return;
+      }
+      if(this.checkIfLoggedIn('google')) {
+        return;
+      }      
+      this.checkIfLoggedIn('googleWWW');
     },
 
     checkIfLoggedIn : function(provider) {
       var emberOauth2 = this.get('emberOauth2');
-      emberOauth2.setProvider('facebook');
+      emberOauth2.setProvider(provider);
 
       var token = this.get('emberOauth2').getToken();
       var user = this.get('currentUser');
@@ -142,7 +157,13 @@ export default Ember.Service.extend({
     isLoggedIn: Ember.computed('currentUser.authenticated', function() {
       var loggedIn = this.checkIfLoggedIn('facebook');
       if(!loggedIn) {
+        loggedIn = this.checkIfLoggedIn('facebookWWW');
+      }      
+      if(!loggedIn) {
         loggedIn = this.checkIfLoggedIn('google');
+      }      
+      if(!loggedIn) {
+        loggedIn = this.checkIfLoggedIn('googleWWW');
       }
       return loggedIn;
     }),
