@@ -27,27 +27,8 @@ module.exports = function(environment) {
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
 
-    var google = {
-      clientId: '991673526883.apps.googleusercontent.com',
-      authBaseUri: 'https://accounts.google.com/o/oauth2/auth',
-      redirectUri: 'http://localhost:4200' + '/auth/google/callback',
-      scope: 'public write'
-    };
-
-    var facebook = {
-      clientId: '579258552116376',
-      authBaseUri: 'https://www.facebook.com/dialog/oauth',
-      redirectUri: 'http://localhost:4200' + '/auth/facebook/callback',
-      scope: ''
-    }
-
     ENV.host = "/randopedia/api";
     ENV.port = "8080";
-    
-    ENV.EmberENV['ember-oauth2'].google = google;
-    ENV.EmberENV['ember-oauth2'].googleWWW = google;
-    ENV.EmberENV['ember-oauth2'].facebook = facebook;
-    ENV.EmberENV['ember-oauth2'].facebookWWW = facebook;
   }
 
   if (environment === 'test') {
@@ -62,32 +43,8 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
-
-    function getGoogle(url) {
-      return {
-        clientId: '719190645609-c0ogrmvrbtgbl5ohlb81d0lflf31uo51.apps.googleusercontent.com',
-        authBaseUri: 'https://accounts.google.com/o/oauth2/auth',
-        redirectUri: 'http://' + url + '/auth/google/callback',
-        scope: 'https://www.googleapis.com/auth/userinfo.profile'
-      };
-    }
-
-    function getFacebook(url) {
-      return {
-        clientId: '387025698094707',
-        authBaseUri: 'https://www.facebook.com/dialog/oauth',
-        redirectUri: 'http://' + url + '/auth/facebook/callback',
-        scope: ''
-      };
-    }
-
-    ENV.EmberENV['ember-oauth2'].google = getGoogle('randopedia.net');
-    ENV.EmberENV['ember-oauth2'].googleWWW = getGoogle('www.randopedia.net');
-    ENV.EmberENV['ember-oauth2'].facebook = getFacebook('randopedia.net');
-    ENV.EmberENV['ember-oauth2'].facebookWWW = getFacebook('www.randopedia.net');
-
     ENV.minifyJS = {
-        enabled: false
+        enabled: true
     };
   }
 

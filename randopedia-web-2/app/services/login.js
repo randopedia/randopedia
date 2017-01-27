@@ -8,19 +8,11 @@ export default Ember.Service.extend({
     isLoggingIn: false,
 
     loginWithFacebook: function() {
-      if(document.location.toString().indexOf('www.randopedia.net') > 0) {
-        this.login('facebookWWW');
-      } else {
-        this.login('facebook');
-      }
+      this.login('facebook');
     },
 
     loginWithGoogle: function() {
-      if(document.location.toString().indexOf('www.randopedia.net') > 0) {
-        this.login('googleWWW');
-      } else {
-        this.login('google');
-      }
+      this.login('google');
     },
 
     login: function(provider) {
@@ -62,17 +54,17 @@ export default Ember.Service.extend({
           setTimeout(checkCondition, interval, resolve, reject);
         }
         else {
-          reject(new Error('timed out for ' + fn + ': ' + arguments));
+          reject(new Error('Timed out for ' + fn + ': ' + arguments));
         }
       };
       return new Promise(checkCondition);
     },
 
     requestAuthentication: function() {
-      console.debug('requestAuthentication');
-      var store = this.get('store');
-      var emberOauth2 = this.get('emberOauth2');
       var self = this;
+      var store = self.get('store');
+      var emberOauth2 = self.get('emberOauth2');
+
       // Create a user object and let server return a user id
       var user;
       if(!self.get('currentUser')){
@@ -85,13 +77,15 @@ export default Ember.Service.extend({
       user.set('tokenExp', new Date(token.expires_in*1000));
       user.set('authenticated', false);
       self.set('isLoggingIn', true);
+
       // Save user, get updated user with id and data in response
       user.save().then(function() {
         self.set('isLoggingIn', false);
         self.set('currentUser', user);
-        self.get('alert').showSuccessMessage('You were successfully logged in. ', 2000);
+        self.get('alert').showSuccessMessage('You were successfully logged in.', 2000);
+
       }).catch(function(error) {
-        console.debug('error during login ', error);
+        console.log('Error during login ', error);
         self.set('isLoggingIn', false);
         emberOauth2.expireAccessToken();
         self.get('alert').showErrorMessage('An error occured when trying to log in, please try again. ');
@@ -119,16 +113,9 @@ export default Ember.Service.extend({
     },
 
     performBackgroundLogIn : function() {
-      if(this.checkIfLoggedIn('facebook')) {
-        return;
+      if(!this.checkIfLoggedIn('facebook')) {
+        this.checkIfLoggedIn('google');
       }
-      if(this.checkIfLoggedIn('facebookWWW')) {
-        return;
-      }
-      if(this.checkIfLoggedIn('google')) {
-        return;
-      }      
-      this.checkIfLoggedIn('googleWWW');
     },
 
     checkIfLoggedIn : function(provider) {
@@ -155,15 +142,9 @@ export default Ember.Service.extend({
     },
 
     isLoggedIn: Ember.computed('currentUser.authenticated', function() {
-      var loggedIn = this.checkIfLoggedIn('facebook');
-      if(!loggedIn) {
-        loggedIn = this.checkIfLoggedIn('facebookWWW');
-      }      
+      var loggedIn = this.checkIfLoggedIn('facebook');  
       if(!loggedIn) {
         loggedIn = this.checkIfLoggedIn('google');
-      }      
-      if(!loggedIn) {
-        loggedIn = this.checkIfLoggedIn('googleWWW');
       }
       return loggedIn;
     }),
