@@ -63,22 +63,22 @@
     </div>
 
     <div class="row">
-        <div class="col col-lg-6">
+        <div class="col">
 
             <div class="row">
-                <div class="col-5 col-sm-4 col-lg-3">
+                <div class="col-5 col-sm-4 col-lg-2">
                     <label class="uppercase">{{text "tour_time"}}:</label>
                 </div>
-                <div class="col-7 col-sm-8 col-lg-9">
+                <div class="col-7 col-sm-8 col-lg-10">
                     {{#if tour.timingMin}}{{tour.timingMin}}{{/if}}{{#if tour.timingMax}}-{{tour.timingMax}}{{/if}}h
                 </div>
             </div>
 
             <div class="row">
-                <div class="col-5 col-sm-4 col-lg-3">
+                <div class="col-5 col-sm-4 col-lg-2">
                     <label class="uppercase">{{text "tour_elevation"}}:</label>
                 </div>
-                <div class="col-7 col-sm-8 col-lg-9">
+                <div class="col-7 col-sm-8 col-lg-10">
                     {{#if tour.elevationGain}}
                     {{tour.elevationGain}}m &uarr;
                     {{/if}}
@@ -90,10 +90,10 @@
 
             {{#if tour.grade}}
             <div class="row">
-                <div class="col-5 col-sm-4 col-lg-3">
+                <div class="col-5 col-sm-4 col-lg-2">
                     <label class="uppercase">{{text "tour_grade"}}:</label>
                 </div>
-                <div class="col-7 col-sm-8 col-lg-9">
+                <div class="col-7 col-sm-8 col-lg-10">
                     <a data-toggle="modal" data-target="#tourDetailsGradeGuideModal">{{resolveSelectName 'Grades' tour.grade}}</a>
                 </div>
             </div>
@@ -101,10 +101,10 @@
 
             {{#if tour.degreesMax}}
             <div class="row">
-                <div class="col-5 col-sm-4 col-lg-3">
+                <div class="col-5 col-sm-4 col-lg-2">
                     <label class="uppercase">{{text "tour_steepness"}}:</label>
                 </div>
-                <div class="col-7 col-sm-8 col-lg-9">
+                <div class="col-7 col-sm-8 col-lg-10">
                     {{tour.degreesMax}}&#176;
                 </div>
             </div>
@@ -113,10 +113,10 @@
             {{#if tour.timeOfYearFrom}}
             {{#if tour.timeOfYearTo}}
             <div class="row">
-                <div class="col-5 col-sm-4 col-lg-3">
+                <div class="col-5 col-sm-4 col-lg-2">
                     <label class="uppercase">{{text "tour_season"}}:</label>
                 </div>
-                <div class="col-7 col-sm-8 col-lg-9">
+                <div class="col-7 col-sm-8 col-lg-10">
                     {{resolveSelectName 'Months' tour.timeOfYearFrom}} - {{resolveSelectName 'Months' tour.timeOfYearTo}}
                 </div>
             </div>
@@ -125,10 +125,10 @@
 
             {{#if tour.aspect}}
             <div class="row">
-                <div class="col-5 col-sm-4 col-lg-3">
+                <div class="col-5 col-sm-4 col-lg-2">
                     <label class="uppercase">{{text "tour_aspect"}}:</label>
                 </div>
-                <div class="col-7 col-sm-8 col-lg-9">
+                <div class="col-7 col-sm-8 col-lg-10">
                     {{resolveSelectName 'Aspects' tour.aspect}}
                 </div>
             </div>
@@ -136,10 +136,10 @@
 
             {{#if tour.tags}}
             <div class="row">
-                <div class="col-5 col-sm-4 col-lg-3">
+                <div class="col-5 col-sm-4 col-lg-2">
                     <label class="uppercase">{{text "tour_tags"}}:</label>
                 </div>
-                <div class="col-7 col-sm-8 col-lg-9">
+                <div class="col-7 col-sm-8 col-lg-10">
                     {{#each tour.tags as |tag|}}
                          {{#link-to 'tag' tag}} #{{tag}} {{/link-to}} 
                     {{/each}}
