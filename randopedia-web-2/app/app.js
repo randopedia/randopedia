@@ -51,7 +51,12 @@ App = Ember.Application.extend({
             }
         };
 
-        console.log("Facebook redirectUri " + window.EmberENV['ember-oauth2'].facebook.redirectUri);
+        // Add attribute to make it possible to close modals with link-to helper
+        Ember.LinkComponent.reopen({
+            attributeBindings: ['data-dismiss']
+        });
+
+        console.log("Google redirectUri " + window.EmberENV['ember-oauth2'].google.redirectUri);
 
         // Facebook api initialization
         (function(d, s, id) {

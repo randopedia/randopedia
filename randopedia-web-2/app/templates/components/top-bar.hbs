@@ -20,9 +20,7 @@
 
                     <a {{action "topbarmenulink" "about" }}> <i class="fa fa-info-circle" aria-hidden="true"></i> {{text "header_about"}}</a>       
 
-                    {{#unless login.isLoggedIn}}
-                    <a {{action "topbarmenulink" "collapseNavbar" }} data-toggle="modal" data-target="#loginViewModalId"><i class="fa fa-plus" aria-hidden="true"></i> {{text "header_addNewTour"}}</a>
-                    {{/unless}}    
+                    <a {{action "topbarmenulink" "help" }}> <i class="fa fa-question-circle" aria-hidden="true"></i> {{text "header_help"}}</a>
                 </div>
 
                 <div class="col col-md-4">
@@ -34,7 +32,7 @@
                     <span><i class="fa fa-check-square-o"></i> English</span>
                     <a class="lang" {{action "setlanguage" "no"}}><i class="fa fa-square-o"></i> Norsk</a>
                     {{/if}}
-                </div>                
+                </div>           
             </div>
 
             <div class="row">
@@ -50,6 +48,8 @@
                         <a {{action "logout" }}><i class="fa fa-sign-out" aria-hidden="true"></i> {{text "header_logout"}}</a>
                     </div>
                     {{else}}
+                    <a class="spacer-y-top" {{action "topbarmenulink" "collapseNavbar" }} data-toggle="modal" data-target="#loginViewModalId"><i class="fa fa-plus" aria-hidden="true"></i> {{text "header_addNewTour"}}</a>
+                    <hr />
                     <a {{action "topbarmenulink" "collapseNavbar" }} class="center" data-toggle="modal" data-target="#loginViewModalId"><i class="fa fa-sign-in" aria-hidden="true"></i> {{text "header_login"}}</a>   
                     {{/if}}
                 </div>
