@@ -7,7 +7,7 @@
             width: 55px;
             height: 55px;
             cursor: pointer;
-            background: url(/images/jssor/a03.png) no-repeat;
+            background: url(/assets/images/jssor/a03.png) no-repeat;
             overflow: hidden;
         }
 
@@ -42,7 +42,7 @@
             height: 45px;
             width: 100%;
             color: #F1F1F1;
-            font-size: 1.2em;
+            font-size: 1rem;
         }
 
         .image-caption-text {
@@ -66,7 +66,7 @@
         </div>
         {{/each}}
 
-        {{#if view.haveMoreThanOneImage}}
+        {{#if haveMoreThanOneImage}}
         <span u="arrowleft" class="jssora03l" style="top: 123px; left: 8px;"></span>
         <span u="arrowright" class="jssora03r" style="top: 123px; right: 8px;"></span>
         {{/if}}

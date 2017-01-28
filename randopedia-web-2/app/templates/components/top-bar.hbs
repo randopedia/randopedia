@@ -13,7 +13,7 @@
     {{#if showNavbarMenu}}
         <div class="menu">
             <div class="row">
-                <div class="col col-md-4 offset-md-2">
+                <div class="col-12 col-md-4 offset-md-2">
                     <a {{action "topbarmenulink" "index" }}><i class="fa fa-map" aria-hidden="true"></i> {{text "header_map"}}</a>
 
                     <a {{action "topbarmenulink" "dashboard" }}><i class="fa fa-tachometer" aria-hidden="true"></i> {{text "header_dashboard"}}</a>
@@ -23,20 +23,7 @@
                     <a {{action "topbarmenulink" "help" }}> <i class="fa fa-question-circle" aria-hidden="true"></i> {{text "header_help"}}</a>
                 </div>
 
-                <div class="col col-md-4">
-                    <h4>{{text "header_language"}}</h4>
-                    {{#if language.isNorwegian}}
-                    <a class="lang" {{action "setlanguage"}}><i class="fa fa-square-o"></i> English</a>
-                    <span><i class="fa fa-check-square-o"></i> Norsk</span>
-                    {{else}}
-                    <span><i class="fa fa-check-square-o"></i> English</span>
-                    <a class="lang" {{action "setlanguage" "no"}}><i class="fa fa-square-o"></i> Norsk</a>
-                    {{/if}}
-                </div>           
-            </div>
-
-            <div class="row">
-                <div class="col col-md-4 offset-md-4 text-center"> 
+                <div class="col-12 col-md-4"> 
                     {{#if login.isLoggedIn}}
                     <div class="login-menu-container">
                         <hr />
@@ -53,6 +40,20 @@
                     <a {{action "topbarmenulink" "collapseNavbar" }} class="center" data-toggle="modal" data-target="#loginViewModalId"><i class="fa fa-sign-in" aria-hidden="true"></i> {{text "header_login"}}</a>   
                     {{/if}}
                 </div>
+          
+            </div>
+
+            <div class="row">
+                <div class="col-12 col-md-4 offset-md-2">
+                    <h4 class="spacer-y-top">{{text "header_language"}}</h4>
+                    {{#if language.isNorwegian}}
+                    <a class="lang" {{action "setlanguage"}}><i class="fa fa-square-o"></i> English</a>
+                    <span><i class="fa fa-check-square-o"></i> Norsk</span>
+                    {{else}}
+                    <span><i class="fa fa-check-square-o"></i> English</span>
+                    <a class="lang" {{action "setlanguage" "no"}}><i class="fa fa-square-o"></i> Norsk</a>
+                    {{/if}}
+                </div> 
             </div>
 
             <div class="row">
