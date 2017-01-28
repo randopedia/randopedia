@@ -4,6 +4,7 @@ export default Ember.Service.extend({
     alert: Ember.inject.service(),
     emberOauth2: Ember.inject.service(),
     store : Ember.inject.service(),
+    text: Ember.inject.service(),
     currentUser: null,
     isLoggingIn: false,
 
@@ -38,7 +39,7 @@ export default Ember.Service.extend({
 
     logout: function() {
         this.removeToken();
-        this.get('alert').showSuccessMessage('You were logged out.');
+        this.get('alert').showSuccessMessage(this.get("text").getText('login_loggedOutMsg'));
     },
 
     poll : function(fn, timeout, interval) {
@@ -82,13 +83,13 @@ export default Ember.Service.extend({
       user.save().then(function() {
         self.set('isLoggingIn', false);
         self.set('currentUser', user);
-        self.get('alert').showSuccessMessage('You were successfully logged in.', 2000);
+        self.get('alert').showSuccessMessage(self.get("text").getText('login_loggedInMsg'), 2000);
 
       }).catch(function(error) {
         console.log('Error during login ', error);
         self.set('isLoggingIn', false);
         emberOauth2.expireAccessToken();
-        self.get('alert').showErrorMessage('An error occured when trying to log in, please try again. ');
+        self.get('alert').showErrorMessage(self.get("text".getText("login_errorWhenLoggingIn")));
       });
     },
 

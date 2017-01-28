@@ -189,6 +189,18 @@ texts.dictionary = {
         no: "Logg inn for å legge til eller oppdatere turer.",
         eng: "Please login to add or update tours."
     },
+    login_errorWhenLoggingIn: {
+        no: "Det oppstod en feil ved innloggingen, vennligst prøv igjen.",
+        eng: "An error occured when trying to log in, please try again."
+    },    
+    login_loggedInMsg: {
+        no: "Du er nu logget inn.",
+        eng: "You were successfully logged in."
+    },    
+    login_loggedOutMsg: {
+        no: "Du blev logget ut.",
+        eng: "You were logged out."
+    },
     login_Login: {
         no: "Logg inn",
         eng: "Login"
