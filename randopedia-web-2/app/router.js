@@ -17,6 +17,9 @@ Router.map(function() {
     this.route('facebook', function() {
       this.route('callback');
     });
+    this.route('google', function() {
+      this.route('callback');
+    });    
   });
   this.route('mytours');
   this.route('tags');
