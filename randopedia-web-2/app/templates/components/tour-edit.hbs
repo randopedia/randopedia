@@ -362,12 +362,12 @@
                         
                     {{#unless isPublished}}
                         <button class="btn btn-secondary" disabled={{isSendToReviewDisabled}} {{action "sendToReview" }}>
-                            <i class="fa fa-eye"></i> {{text "tourEdit_sendToReview"}}
+                            <i class="fa fa-eye"></i> {{#if isInReview}} {{text "common_save"}} {{else}} {{text "tourEdit_sendToReview"}} {{/if}}
                         </button>
 
                         {{#unless isInReview}}
                         <button class="btn btn-secondary" disabled={{isSaveAsDraftDisabled}} {{action "saveAsDraft" }}>
-                            <i class="fa fa-floppy-o"></i> {{text "tourEdit_saveAsDraft"}}
+                            <i class="fa fa-floppy-o"></i>{{#if isDraft}} {{text "common_save"}} {{else}} {{text "tourEdit_saveAsDraft"}} {{/if}}
                         </button>
                         {{/unless}}
 
@@ -478,7 +478,7 @@
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 </div>
                 <div class="modal-body">
-                    {{partial "partials/about-collaboration"}}
+                    {{about-collaboration}}
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-default pull-right" data-dismiss="modal">{{text 'common_close'}}</button>

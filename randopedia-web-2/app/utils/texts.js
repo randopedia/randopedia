@@ -25,8 +25,12 @@ texts.dictionary = {
         no: "Topptursdatabasen",
         eng: "The ski tour database"
     },
-    common_update: {
+    common_save: {
         no: "Lagre",
+        eng: "Save"
+    },    
+    common_update: {
+        no: "Oppdater",
         eng: "Update"
     },
     common_publish: {
@@ -362,7 +366,7 @@ texts.dictionary = {
         eng: "Elevation loss"
     },
     tourEdit_imagesUploadNotPossibleTOurNotSaved: {
-        no: "Det går ikke å laste opp bilder før turen er lagret. Publiser eller lagre som kladd først.",
+        no: "Det går ikke å laste opp bilder før turen er lagret. Publiser eller lagre som utkast først.",
         eng: "Images cannot be uploaded until tour is saved. Publish or save as draft first."
     },
     tourEdit_highestPoint: {
@@ -418,7 +422,7 @@ texts.dictionary = {
         eng: "Send to review"
     },
     tourEdit_saveAsDraft: {
-        no: "Lagre som draft",
+        no: "Lagre som utkast",
         eng: "Save as draft"
     },
     tourEdit_saving: {
