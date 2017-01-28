@@ -3,11 +3,11 @@
 var EmberApp = require('ember-cli/lib/broccoli/ember-app');
 
 module.exports = function(defaults) {
-  var app = new EmberApp(defaults, {
-    minifyJS: {
-      enabled: true
-    },
-  });
+  var app = new EmberApp(defaults, {});
+
+  if(app.env === 'production') {
+    app.options.minifyJS.enabled = true;
+  }
 
   app.import('bower_components/moment/moment.js');
   app.import('vendor/FileSaver.min.js');

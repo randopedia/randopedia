@@ -43,9 +43,7 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
-    ENV.minifyJS = {
-        enabled: true
-    };
+
   }
 
   return ENV;
