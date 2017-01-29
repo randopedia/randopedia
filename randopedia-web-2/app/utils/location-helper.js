@@ -14,6 +14,20 @@
         return false;
     },
 
+    redirectToNorwegian : function() {
+        var pathname = window.location.href;
+        if(pathname.indexOf('localhost:4200') > 0) {
+          if(pathname.endsWith('4200/no')) {
+            window.location = pathname + '/';
+            return true;
+          }
+        } else if(pathname.endsWith(".net/no")) {
+          window.location = pathname + '/';
+          return true;
+        }
+        return false;
+    },
+
     resolveLanguageCodeFromLocation: function () {
         var pathname = window.location.pathname;
         if (pathname.indexOf("/no", 0) === 0) {
@@ -34,7 +48,7 @@
             return "/no" + pathname.slice(index + 3);
         }
 
-        if (code === "no") { // ENGLISH TO NORWEGIAN 
+        if (code === "no") { // ENGLISH TO NORWEGIAN
             return "/no" + pathname;
         }
 

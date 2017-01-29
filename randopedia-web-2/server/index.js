@@ -9,8 +9,8 @@ module.exports = function(app) {
   app.use(morgan('dev'));
 
   // Comment out if running proxy API
-  //mocks.forEach(function(route) { route(app); });
-  
+  mocks.forEach(function(route) { route(app); });
+
   proxies.forEach(function(route) { route(app); });
 
 };

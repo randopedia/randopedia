@@ -17,7 +17,11 @@ App = Ember.Application.extend({
         if (locationHelper.removeAndRedirectPageIfUrlContainsHashbang()) {
             return;
         }
-        
+
+        if (locationHelper.redirectToNorwegian()) {
+          return;
+        }
+
         var location = document.location.toString();
         var domain, facebookClientId, googleClientId;
 
@@ -33,7 +37,7 @@ App = Ember.Application.extend({
                 domain = 'randopedia.net';
             }
             facebookClientId = '387025698094707';
-            googleClientId = '719190645609-c0ogrmvrbtgbl5ohlb81d0lflf31uo51.apps.googleusercontent.com'; 
+            googleClientId = '719190645609-c0ogrmvrbtgbl5ohlb81d0lflf31uo51.apps.googleusercontent.com';
         }
 
         window.EmberENV['ember-oauth2'] = {
@@ -42,7 +46,7 @@ App = Ember.Application.extend({
                 authBaseUri: 'https://www.facebook.com/dialog/oauth',
                 redirectUri: 'http://' + domain + '/auth/facebook/callback',
                 scope: ''
-            },            
+            },
             google: {
                 clientId: googleClientId,
                 authBaseUri: 'https://accounts.google.com/o/oauth2/auth',
