@@ -256,7 +256,7 @@
                                 <div class="form-group">
                                     <span class="checkbox">
                                         <label class={{if tour.haveHazards 'checked'}}>
-                                            {{input type="checkbox" checkedBinding="tour.haveHazards" class="hide"}}
+                                            {{input type="checkbox" checked=tour.haveHazards class="hide"}}
                                             <span class="glyphicon glyphicon-ok"></span>
                                             <span>{{text "tour_hazards"}}</span>
                                         </label>
@@ -271,7 +271,7 @@
                                 <div class="form-group">
                                     <span class="checkbox">
                                         <label class={{if tour.requiresTools 'checked'}}>
-                                            {{input type="checkbox" checkedBinding="tour.requiresTools" class="hide"}}
+                                            {{input type="checkbox" checked=tour.requiresTools class="hide"}}
                                             <span class="glyphicon glyphicon-ok"></span>
                                             <span>{{text "tourEdit_mountaineering"}}</span>
                                         </label>
