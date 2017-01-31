@@ -8,6 +8,14 @@ export default Ember.Service.extend({
     currentUser: null,
     isLoggingIn: false,
 
+    clearAllTokens: function() {
+      var emberOauth2 = this.get('emberOauth2');
+      emberOauth2.setProvider('facebook');
+      emberOauth2.expireAccessToken();
+      emberOauth2.setProvider('google');
+      emberOauth2.expireAccessToken();
+    },
+
     loginWithFacebook: function() {
       this.login('facebook');
     },
@@ -18,6 +26,9 @@ export default Ember.Service.extend({
 
     login: function(provider) {
       var emberOauth2 = this.get('emberOauth2');
+
+      this.clearAllTokens();
+
       emberOauth2.setProvider(provider);
       var self = this;
       emberOauth2.authorize().then(function(response) {
@@ -99,7 +110,7 @@ export default Ember.Service.extend({
         currentUser.set('authenticated', false);
         this.set('currentUser', null);
       }
-      this.get('emberOauth2').expireAccessToken();
+      this.clearAllTokens();
 
       console.log("removeToken, user: " + this.get("currentUser"));
       console.log("removeToken, user: " + this.get("currentUser.authenticated"));
@@ -153,13 +164,13 @@ export default Ember.Service.extend({
     },
 
     isLoggedIn: Ember.computed('currentUser.authenticated', function() {
-      var loggedIn = this.checkIfLoggedIn('facebook');  
-      console.log("isLoggedIn, facebook: " + loggedIn);
-      if(!loggedIn) {
-        loggedIn = this.checkIfLoggedIn('google');
-        console.log("isLoggedIn, google: " + loggedIn);
+      var user = this.get('currentUser');
+      if(user && user.get('authenticated')) {
+        var now = new Date();
+        var tokenExp = user.get('tokenExp');
+        return tokenExp > now;
       }
-      return loggedIn;
+      return false;
     }),
 
     isAdmin: Ember.computed('currentUser.authenticated', function() {
