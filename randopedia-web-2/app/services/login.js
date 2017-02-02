@@ -111,10 +111,6 @@ export default Ember.Service.extend({
         this.set('currentUser', null);
       }
       this.clearAllTokens();
-
-      console.log("removeToken, user: " + this.get("currentUser"));
-      console.log("removeToken, user: " + this.get("currentUser.authenticated"));
-      console.log("removeToken, checkTokenExpired: " + this.checkTokenExpired());
     },
 
     checkTokenExpired : function(token) {
@@ -122,25 +118,19 @@ export default Ember.Service.extend({
             var expires = new Date(token.expires_in*1000);
             var now = new Date();
             if(expires > now) {
-              console.log("checkTokenExpired, not expired")
                 return false;
             }
         }
-        console.log("checkTokenExpired, expired")
         return true;
     },
 
     performBackgroundLogIn : function() {
-      console.log("performBackgroundLogIn");
-
       if(!this.checkIfLoggedIn('facebook')) {
         this.checkIfLoggedIn('google');
       }
     },
 
     checkIfLoggedIn : function(provider) {
-      console.log("checkIfLoggedIn " + provider);
-
       var emberOauth2 = this.get('emberOauth2');
       emberOauth2.setProvider(provider);
 

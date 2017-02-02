@@ -60,8 +60,6 @@ App = Ember.Application.extend({
             attributeBindings: ['data-dismiss']
         });
 
-        console.log("Google redirectUri " + window.EmberENV['ember-oauth2'].google.redirectUri);
-
         // Facebook api initialization
         (function(d, s, id) {
             var js, fjs = d.getElementsByTagName(s)[0];
