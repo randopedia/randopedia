@@ -113,12 +113,6 @@ var dataValidator = (function() {
         }  
         if(!validator.isPosNumber(tour.grade, true)) {
             validationErrors.push("Grade");
-        }  
-        if(!validator.mediumDesc(tour.hazardsDescription, true)) {
-            validationErrors.push("Hazards description");
-        }  
-        if(!validator.mediumDesc(tour.toolsDescription, true)) {
-            validationErrors.push("Requires skills description");
         }        
         if(!validator.isPosNumber(tour.degreesMax, true)) {
             validationErrors.push("Steepness");
@@ -132,12 +126,30 @@ var dataValidator = (function() {
         if(!validator.isPosNumber(tour.timeOfYearTo, true)) {
             validationErrors.push("Season to");
         }
-        if(!validator.mediumDesc(tour.accessPoint, isDraftOrInReview)) {
+        if(!validator.mediumDesc(tour.hazardsDescriptionEng, true)) {
+            validationErrors.push("Hazards description");
+        } 
+        if(!validator.mediumDesc(tour.hazardsDescriptionNo, true)) {
+            validationErrors.push("Hazards description (Norwegian)");
+        }  
+        if(!validator.mediumDesc(tour.toolsDescriptionEng, true)) {
+            validationErrors.push("Requires skills description");
+        }          
+        if(!validator.mediumDesc(tour.toolsDescriptionNo, true)) {
+            validationErrors.push("Requires skills description (Norwegian)");
+        }          
+        if(!validator.mediumDesc(tour.accessPointEng, true)) {
             validationErrors.push("Access point");
         }        
-        if(!validator.longDesc(tour.itinerary, isDraftOrInReview)) {
+        if(!validator.mediumDesc(tour.accessPointNo, true)) {
+            validationErrors.push("Access point (Norwegian)");
+        }        
+        if(!validator.longDesc(tour.itineraryEng, true)) {
             validationErrors.push("Description");
         } 
+        if(!validator.longDesc(tour.itineraryNo, true)) {
+            validationErrors.push("Description (Norwegian)");
+        }         
         
         return validationErrors;
     }

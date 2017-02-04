@@ -6,5 +6,5 @@ export default DS.Model.extend({
   registeredUsers : attr('number'),
   tourDrafts : attr('number'),
   totalGain : attr('number'),
-  totalLoss : attr('number')
+  totalLoss : attr('number'),
 });

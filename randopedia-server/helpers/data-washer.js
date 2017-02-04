@@ -23,18 +23,32 @@ var dataWasher = (function() {
     }
 	
 	function normalWash(text) {
-		text = removeWhitespace(text);
+        if(!text) {
+            return "";
+        }
+
+        text = removeWhitespace(text);
         text = replaceHtmlChars(text);
 		text = capitalizeFirstLetter(text);
+
 		return text;
 	}
 	
     function washTour(tour) {
 		tour.name = normalWash(tour.name);
-        tour.itinerary = normalWash(tour.itinerary);
-        tour.accessPoint = normalWash(tour.accessPoint);
-        tour.hazardsDescription = normalWash(tour.hazardsDescription);
-        tour.toolsDescription = normalWash(tour.toolsDescription);
+
+        tour.itineraryEng = normalWash(tour.itineraryEng);
+        tour.itineraryNo = normalWash(tour.itineraryNo);
+
+        tour.accessPointEng = normalWash(tour.accessPointEng);
+        tour.accessPointNo = normalWash(tour.accessPointNo);
+        
+        tour.hazardsDescriptionEng = normalWash(tour.hazardsDescriptionEng);
+        tour.hazardsDescriptionNo = normalWash(tour.hazardsDescriptionNo);
+        
+        tour.toolsDescriptionEng = normalWash(tour.toolsDescriptionEng);
+        tour.toolsDescriptionNo = normalWash(tour.toolsDescriptionNo);
+        
         return tour;
     }
 

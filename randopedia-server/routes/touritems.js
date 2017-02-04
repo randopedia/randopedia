@@ -17,7 +17,6 @@ router.get("/", function (req, res) {
             res.send({tourItems : tours});
         });
     } else {
-        console.log('Getting tour items');
         common.getUserFromRequest(token, provider)
             .then(function (user) {
                 if (usersTours) {
@@ -35,7 +34,6 @@ router.get("/", function (req, res) {
                         return;
                     }
                     tourService.getTours(status, user, req, function (tours) {
-                        console.log('sending response with tourItems');
                         res.send({tourItems: tours});
                     });
                 }

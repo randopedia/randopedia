@@ -1,19 +1,19 @@
 <div class="multi-lang-textbox">
-    <ul class="nav nav-tabs justify-content-end">
+    <ul class="nav nav-tabs justify-content-end {{if isDisabled "disabled"}}">
         <li class="nav-item">
-            <a class="nav-link {{if language.isEnglish "active"}}" href="#eng" role="tab" data-toggle="tab">English</a>
+            <a class="nav-link {{if language.isEnglish "active"}}" href="#{{englishId}}" role="tab" data-toggle="tab">English</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link {{if language.isNorwegian "active"}}" href="#no" role="tab" data-toggle="tab">Norsk</a>
+            <a class="nav-link {{if language.isNorwegian "active"}}" href="#{{norwegianId}}" role="tab" data-toggle="tab">Norsk</a>
         </li>
     </ul>
 
     <div class="tab-content">
-        <div class="tab-pane {{if language.isEnglish "active"}}" id="eng" role="tabpanel">
-            {{textarea value=textEnglish maxlength=maxLength class="form-control" }}
+        <div class="tab-pane {{if language.isEnglish "active"}}" id={{englishId}} role="tabpanel">
+            {{textarea value=textEnglish maxlength=maxLength rows=rows disabled=isDisabled class="form-control" placeholder="English text" }}
         </div>
-        <div class="tab-pane {{if language.isNorwegian "active"}}" id="no" role="tabpanel">
-            {{textarea value=textNorwegian maxlength=maxLength class="form-control" }}
+        <div class="tab-pane {{if language.isNorwegian "active"}}" id={{norwegianId}} role="tabpanel">
+            {{textarea value=textNorwegian maxlength=maxLength rows=rows disabled=isDisabled class="form-control" placeholder="Norwegian text" }}
         </div>
     </div>
 </div>

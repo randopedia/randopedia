@@ -18,7 +18,8 @@ var tourService = (function () {
     }
 
     function isTourPublishedForTheFirstTime(originalTour, tour) {
-        return (originalTour.status == enums.TourStatus.DRAFT && tour.status === enums.TourStatus.PUBLISHED) || (originalTour.status === enums.TourStatus.IN_REVIEW && tour.status === enums.TourStatus.PUBLISHED);
+        return (originalTour.status == enums.TourStatus.DRAFT && tour.status === enums.TourStatus.PUBLISHED) || 
+                (originalTour.status === enums.TourStatus.IN_REVIEW && tour.status === enums.TourStatus.PUBLISHED);
     }
 
     function execCallback(param, callback) {
@@ -39,7 +40,6 @@ var tourService = (function () {
     }
 
     function getTours(status, user, req, callback) {
-        console.log('tourService.getTours');
         if (status === enums.TourStatus.DRAFT.toString()) {
             if(!user) {
                 execCallback([], callback);
@@ -54,7 +54,6 @@ var tourService = (function () {
         }
         else {
             tourRepository.getTours(status, req).then(function (tours) {
-                console.log('callbacking response from tourRepository');
                 execCallback(tours, callback);
 
             }).catch(function (error) {
@@ -122,6 +121,7 @@ var tourService = (function () {
             tourActionRepository.save(user, createdTour, enums.TourActionType.CREATE, req);
 
             if (isTourPublishedWhenCreated(createdTour)) {
+                // TODO: create PUBLISH action, currently does not work
                 //tourActionRepository.save(user, createdTour, enums.TourActionType.PUBLISH, tour.publishComment, req);
             }
 
@@ -144,7 +144,7 @@ var tourService = (function () {
             return;
         }
 
-        tour.tags = common.mergeTags(tour.tags, tour.itinerary);
+        tour.tags = common.mergeTags(tour.tags, tour.itineraryEng, tour.itineraryNo);
 
         tourRepository.getTour(tour.id, req).then(function (data) {
             var originalTour = data.tour;
@@ -152,16 +152,17 @@ var tourService = (function () {
                 tourActionRepository.save(user, updatedTour, enums.TourActionType.UPDATE, req, tour.publishComment);
 
                 if (isTourSentToReview(originalTour, tour)) {
+                    // TODO: create SENT_TO_REVIEW action, currently does not work
                     //tourActionRepository.save(user, updatedTour, enums.TourActionType.SENT_TO_REVIEW, req, "Sent to review");
 
                 } else if (isTourPublishedForTheFirstTime(originalTour, tour)) {
+                    // TODO: create PUBLISH action, currently does not work
                     //tourActionRepository.save(user, updatedTour, enums.TourActionType.PUBLISH, req, "First published");
                 }
 
                 if (callback) {
                     callback(updatedTour);
                 }
-
             });
 
         }).catch(function (error) {
@@ -225,13 +226,11 @@ var tourService = (function () {
                 if (callback) {
                     callback();
                 }
-
             });
 
         }).catch(function (error) {
             console.log(error);
         });
-
     }
 
     function addReviewComment(comment, callback) {

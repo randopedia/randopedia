@@ -18,40 +18,24 @@ var tourRepository = (function () {
         }
         var tour = doc.toObject();
         tour.id = tour.clientId;
-        var lang = req.get('X-Header-Language');
-        if("no" === lang) {
-            if(tour.itinerary) {
-                tour.itinerary = tour.itinerary.no;
-            }
-            if(tour.shortDescription) {
-                tour.shortDescription = tour.shortDescription.no;
-            }
-            if(tour.accessPoint) {
-                tour.accessPoint = tour.accessPoint.no;
-            }
-            if(tour.hazardsDescription) {
-                tour.hazardsDescription = tour.hazardsDescription.no;
-            }
-            if(tour.toolsDescription) {
-                tour.toolsDescription = tour.toolsDescription.no;
-            }
-        } else {
-            if(tour.itinerary) {
-                tour.itinerary = tour.itinerary.eng;
-            }
-            if(tour.shortDescription) {
-                tour.shortDescription = tour.shortDescription.eng;
-            }
-            if(tour.accessPoint) {
-                tour.accessPoint = tour.accessPoint.eng;
-            }
-             if(tour.hazardsDescription) {
-                tour.hazardsDescription = tour.hazardsDescription.eng;
-            }
-            if(tour.toolsDescription) {
-                tour.toolsDescription = tour.toolsDescription.eng;
-            }
+
+        if(tour.itinerary) {
+            tour.itineraryEng = tour.itinerary.eng;
+            tour.itineraryNo = tour.itinerary.no;
         }
+        if(tour.accessPoint) {
+            tour.accessPointEng = tour.accessPoint.eng;
+            tour.accessPointNo = tour.accessPoint.no;
+        }
+        if(tour.hazardsDescription) {
+            tour.hazardsDescriptionEng = tour.hazardsDescription.eng;
+            tour.hazardsDescriptionNo = tour.hazardsDescription.no;
+        }
+        if(tour.toolsDescription) {
+            tour.toolsDescriptionEng = tour.toolsDescription.eng;
+            tour.toolsDescriptionNo = tour.toolsDescription.no;
+        }
+
         return tour;
     }
 
@@ -126,8 +110,6 @@ var tourRepository = (function () {
     *  Returns TourItems
     */
     function getTours(status, req) {
-        console.log('tourRepository.getTours');
-        var test = req.get('X-Header-Language');
         var deferred = Q.defer();
 
         status = !status ? enums.TourStatus.PUBLISHED : status;
@@ -140,13 +122,11 @@ var tourRepository = (function () {
                 }
             }).sort({updatedStamp : 'desc'}).limit(5);
         } else {
-            console.log('getting tours from db');
             Tour.find({ status: status }, tourItemFields, function (err, result) {
                 if (err) {
-                    console.log('could not get tours from db');
+                    console.log('Could not get tours from db: ' + err);
                     deferred.reject(err);
                 } else {
-                    console.log('loaded tours from db');
                     deferred.resolve(documentsToTours(result, req));
                 }
             });
@@ -277,101 +257,53 @@ var tourRepository = (function () {
         return deferred.promise;
     }
 
-    function setNewTourLanguageSpecificData(tour, lang) {
+    function setNewTourLanguageSpecificData(tour) {
         var itinerary = {};
-        var shortDescription = {};
         var accessPoint = {};
-        var toolsDescription = {};
         var hazardsDescription = {};
-        itinerary.no = tour.itinerary;
-        itinerary.eng = tour.itinerary;
-        shortDescription.no = tour.shortDescription;
-        shortDescription.eng = tour.shortDescription;
-        accessPoint.no = tour.accessPoint;
-        accessPoint.eng = tour.accessPoint;
-        toolsDescription.no = tour.toolsDescription;
-        toolsDescription.eng = tour.toolsDescription;
-        hazardsDescription.no = tour.hazardsDescription;
-        hazardsDescription.eng = tour.hazardsDescription;
+        var toolsDescription = {};
+
+        itinerary.eng = tour.itineraryEng;
+        itinerary.no = tour.itineraryNo;
+        
+        accessPoint.eng = tour.accessPointEng;
+        accessPoint.no = tour.accessPointNo;
+        
+        hazardsDescription.eng = tour.hazardsDescriptionEng;
+        hazardsDescription.no = tour.hazardsDescriptionNo;
+
+        toolsDescription.eng = tour.toolsDescriptionEng;
+        toolsDescription.no = tour.toolsDescriptionNo;
+
         tour.itinerary = itinerary;
-        tour.shortDescription = shortDescription;
         tour.accessPoint = accessPoint;
-        tour.toolsDescription = toolsDescription;
         tour.hazardsDescription = hazardsDescription;
+        tour.toolsDescription = toolsDescription;
     }
 
     function updateTourLanguageSpecificData(existingTour, tour, lang) {
-        var itinerary = existingTour.itinerary;
-        if(!itinerary) {
-            itinerary = {};
-        }
-        var shortDescription = existingTour.shortDescription;
-        if(!shortDescription) {
-            shortDescription = {};
-        }
-        var accessPoint = existingTour.accessPoint;
-        if(!accessPoint) {
-            accessPoint = {};
-        }
-        var hazardsDescription = existingTour.hazardsDescription;
-        if(!hazardsDescription) {
-            hazardsDescription = {};
-        }
-        var toolsDescription = existingTour.toolsDescription;
-        if(!toolsDescription) {
-            toolsDescription = {};
-        }
+        var itinerary = existingTour.itinerary || {};
+        var accessPoint = existingTour.accessPoint || {};
+        var hazardsDescription = existingTour.hazardsDescription  || {};
+        var toolsDescription = existingTour.toolsDescription || {};
 
-        if("no" === lang) {
-            itinerary.no = tour.itinerary;
-            shortDescription.no = tour.shortDescription;
-            accessPoint.no = tour.accessPoint;
-            hazardsDescription.no = tour.hazardsDescription;
-            toolsDescription.no = tour.toolsDescription;
-            if(!itinerary.eng) {
-                itinerary.eng = tour.itinerary;
-            }
-            if(!shortDescription.eng) {
-                shortDescription.eng = tour.shortDescription;
-            }
-            if(!accessPoint.eng) {
-                accessPoint.eng = tour.accessPoint;
-            }
-            if(!hazardsDescription.eng) {
-                hazardsDescription.eng = tour.hazardsDescription;
-            }
-            if(!toolsDescription.eng) {
-                toolsDescription.eng = tour.toolsDescription;
-            }
-        } else {
-            itinerary.eng = tour.itinerary;
-            shortDescription.eng = tour.shortDescription;
-            accessPoint.eng = tour.accessPoint;
-            hazardsDescription.eng = tour.hazardsDescription;
-            toolsDescription.eng = tour.toolsDescription;
-            if(!itinerary.no) {
-                itinerary.no = tour.itinerary;
-            }
-            if(!shortDescription.no) {
-                shortDescription.no = tour.shortDescription;
-            }
-            if(!accessPoint.no) {
-                accessPoint.no = tour.accessPoint;
-            }
-            if(!hazardsDescription.no) {
-                hazardsDescription.no = tour.hazardsDescription;
-            }
-            if(!toolsDescription.no) {
-                toolsDescription.no = tour.toolsDescription;
-            }
-        }
+        itinerary.eng = tour.itineraryEng;
+        itinerary.no = tour.itineraryNo;
+        
+        accessPoint.eng = tour.accessPointEng;
+        accessPoint.no = tour.accessPointNo;
+        
+        hazardsDescription.eng = tour.hazardsDescriptionEng;
+        hazardsDescription.no = tour.hazardsDescriptionNo;
+
+        toolsDescription.eng = tour.toolsDescriptionEng;
+        toolsDescription.no = tour.toolsDescriptionNo;
+
         tour.itinerary = itinerary;
-        tour.shortDescription = shortDescription;
         tour.accessPoint = accessPoint;
         tour.hazardsDescription = hazardsDescription;
         tour.toolsDescription = toolsDescription;
     }
-
 
     function saveTour(tour, req) {
         var deferred = Q.defer();
@@ -385,8 +317,8 @@ var tourRepository = (function () {
                     deferred.reject(err);
 
                 } else {
-                    var lang = req.get('X-Header-Language');
-                    setNewTourLanguageSpecificData(tour, lang);
+
+                    setNewTourLanguageSpecificData(tour);
 
                     if(result.length > 0) {
                         tour.clientId = clientId + "_" + result.length;
@@ -407,9 +339,8 @@ var tourRepository = (function () {
         } else {
             Tour.findOne({clientId : tour.id}, function(err, result) {
                 var existingTour = result.toObject();
-
-                var lang = req.get('X-Header-Language');
-                updateTourLanguageSpecificData(existingTour, tour, lang);
+                
+                updateTourLanguageSpecificData(existingTour, tour);
 
                 Tour.findOneAndUpdate({ clientId: tour.id }, tour, {'new': true}, function (err, result) {
                     if (err) {

@@ -23,11 +23,9 @@ var common = (function () {
 
     function getUserFromRequest(token, provider) {
         // returns a promise. Use facebook/google repository and user repository
-        console.log('getUserFromRequest');
         if('facebook' === provider) {
             return facebookRepository.getExternalUser(token)
                 .then(function(facebookUser) {
-                    console.log('found facebook user');
                     return userRepository.findUser(facebookUser);
                 }, function(error) {
                     console.log('getUserFromRequest, error: ' + error);
@@ -36,7 +34,6 @@ var common = (function () {
         } else {
             return googleRepository.getExternalUser(token)
                 .then(function(googleUser) {
-                    console.log('found google user');
                     return userRepository.findUser(googleUser);
                 }, function(error) {
                     console.log('getUserFromRequest, error: ' + error);
@@ -87,18 +84,21 @@ var common = (function () {
         return tags;
     }
 
-    function mergeTags(tags, itinerary) {
-        var itineraryTags = getTagsFromText(itinerary);
+    function mergeTags(tags, text1, text2) {
         tags = tags || [];
+
+        var itineraryTags = getTagsFromText(text1);
+        itineraryTags.push(getTagsFromText(text2));
 
         itineraryTags.forEach(function (tag) {
             if (tags.indexOf(tag) === -1) {
                 tags.push(tag);
             }
         });
+        
         return tags;
     }
-
+   
     return {
         getTextId : getTextId,
         getUserFromRequest : getUserFromRequest,

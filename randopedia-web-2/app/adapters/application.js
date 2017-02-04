@@ -30,16 +30,12 @@ export default RESTAdapter.extend({
           hash.beforeSend = function(xhr) {
               var emberOauth2 = adapter.get('emberOauth2');
               var token = emberOauth2.getToken();
-              console.log('has token for header: ', token);
               if(token !== null && typeof token !== 'undefined') {
                   var expires = new Date(token.expires_in*1000);
                   var now = new Date();
                   if(expires > now) {
-                      console.log('token not expired, setting header');
                       xhr.setRequestHeader('X-Header-Token', emberOauth2.getAccessToken());
                       xhr.setRequestHeader('X-Header-Provider', emberOauth2.getToken().provider_id);
-                  } else {
-                    console.log('token not null, but expired');
                   }
               }
               xhr.setRequestHeader('X-Header-Language', LocationHelper.resolveLanguageCodeFromLocation());

@@ -56,7 +56,7 @@
                             <div class="col-12 col-md-8">
                                 <div class="form-group">
                                     <label for="inputName">{{text "tourEdit_nameOfTour"}}</label>
-                                    <button type="button" class="info pull-right" data-toggle="popover" data-placement="right" data-trigger="focus" title="Name" data-content="The name of the tour. Name is required and must be between 3 and 80 characters long."></button>
+                                    <button type="button" class="info pull-right" data-toggle="popover" data-trigger="focus" title="Name" data-content="The name of the tour. Name is required and must be between 3 and 80 characters long."></button>
                                     <div class="{{unless nameIsValid 'validation-error'}}">
                                         {{input placeholder="" pattern="^.{3,80}$" value=tour.name id="inputName" class="form-control"}}
                                     </div>
@@ -80,12 +80,16 @@
                         <div class="row">
                             <div class="col col-xs-12">
                                 <div class="form-group">
-                                    <label for="inputAccessPoint">{{text "tour_accessPoint"}}</label>
-                                    <button type="button" class="info pull-right" data-toggle="popover" data-trigger="focus"
-                                            title="Access point"
+                                    <label>{{text "tour_accessPoint"}}</label>
+                                    <button type="button" class="info" data-toggle="popover" data-trigger="focus"
+                                            title="Access point" data-container="body" data-placement="bottom"
                                             data-content="Description of the access point and how to get there. The access point description can have a maximum of 1000 characters."></button>
                                             <div class="{{unless accessPointIsValid 'validation-error'}}">
-                                                {{textarea value=tour.accessPoint maxlength="1000" id="inputAccessPoint" class="form-control" }}
+                                                {{multi-lang-textbox 
+                                                    textEnglish=tour.accessPointEng 
+                                                    textNorwegian=tour.accessPointNo
+                                                    maxLength=1000
+                                                    rows=3 }}
                                             </div>
                                 </div>
                             </div>
@@ -94,12 +98,16 @@
                         <div class="row">
                             <div class="col col-xs-12">
                                 <div class="form-group">
-                                    <label for="inputDescription">{{text "tour_description"}}</label>
-                                    <button type="button" class="info pull-right" data-toggle="popover" data-trigger="focus"
+                                    <label >{{text "tour_description"}}</label>
+                                    <button type="button" class="info" data-toggle="popover" data-trigger="focus"
                                             title="Description"
                                             data-content="Description of the tour itinerary and anything else that could be useful. Description can have a maximum of 10000 characters."></button>
                                             <div class="{{unless descriptionIsValid 'validation-error'}}">
-                                                {{textarea value=tour.itinerary maxlength="10000" id="inputDescription" rows="8" class="form-control"}}
+                                                {{multi-lang-textbox 
+                                                    textEnglish=tour.itineraryEng 
+                                                    textNorwegian=tour.itineraryNo
+                                                    maxLength=10000
+                                                    rows=8}}
                                             </div>
                                 </div>
                             </div>
@@ -261,10 +269,14 @@
                                             <span>{{text "tour_hazards"}}</span>
                                         </label>
                                     </span>
-                                    <button type="button" class="info pull-right" data-toggle="popover" data-trigger="focus"
+                                    <button type="button" class="info" data-toggle="popover" data-trigger="focus" data-placement="right"
                                             title="Hazards"
                                             data-content="Description of any special hazards that skiers should be aware of. Description can have a maximum of 500 characters."></button>
-                                    {{textarea value=tour.hazardsDescription disabledBinding="haveNoHazards" maxlength="500" id="inputHazards" class="form-control"}}
+                                                {{multi-lang-textbox 
+                                                    textEnglish=tour.hazardsDescriptionEng 
+                                                    textNorwegian=tour.hazardsDescriptionNo
+                                                    isDisabled=haveNoHazards
+                                                    maxlength=500}}
                                 </div>
                             </div>
                             <div class="col-12 col-md-6">
@@ -276,10 +288,14 @@
                                             <span>{{text "tourEdit_mountaineering"}}</span>
                                         </label>
                                     </span>
-                                    <button type="button" class="info pull-right" data-toggle="popover" data-trigger="focus"
+                                    <button type="button" class="info" data-toggle="popover" data-trigger="focus" data-placement="right"
                                             title="Skills/Equipment"
                                             data-content="Description of any mountaineering skills or equipment needed. Rappels, glacier safety equipment etc. Description can have a maximum of 500 characters."></button>
-                                    {{textarea value=tour.toolsDescription disabledBinding="doesNotRequireTools" maxlength="500" id="inputTools" class="form-control"}}
+                                            {{multi-lang-textbox 
+                                                textEnglish=tour.toolsDescriptionEng 
+                                                textNorwegian=tour.toolsDescriptionNo                                     
+                                                isDisabled=doesNotRequireTools 
+                                                maxlength=500 }}
                                 </div>
                             </div>
                         </div>

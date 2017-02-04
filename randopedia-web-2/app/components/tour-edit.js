@@ -216,7 +216,7 @@ export default Ember.Component.extend({
         }
 
         self.set("havePendingOperations", true);
-        
+
         self.get("tour").save().then(
             function() {                           
                 self.set("havePendingOperations", false);
@@ -286,12 +286,12 @@ export default Ember.Component.extend({
         return this.get("validation").name(this.get('tour.name'));
     }),
 
-    accessPointIsValid: Ember.computed('tour.accessPoint', function() {
-        return this.get("validation").mediumDesc(this.get('tour.accessPoint'), false);
+    accessPointIsValid: Ember.computed('tour.{accessPointEng,accessPointNo}', function() {
+        return this.get("validation").mediumDesc(this.get('tour.accessPointEng'), false) || this.get("validation").mediumDesc(this.get('tour.accessPointNo'), false);
     }),
 
-    descriptionIsValid: Ember.computed('tour.itinerary', function() {
-        return this.get("validation").longDesc(this.get('tour.itinerary'), false);
+    descriptionIsValid: Ember.computed('tour.{itineraryEng,itineraryNo}', function() {
+        return this.get("validation").longDesc(this.get('tour.itineraryEng'), false) || this.get("validation").longDesc(this.get('tour.itineraryNo'), false);
     }),
 
     tagsAreValid: Ember.computed('tour.tags', function() {

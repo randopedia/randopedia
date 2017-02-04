@@ -375,7 +375,7 @@ texts.dictionary = {
     },
     tourEdit_history: {
         no: "Historikk",
-        eng: "History"
+        eng: "Update history"
     },
     tourEdit_nameNotSetOnSave: {
         no: "Turen kunne ikke lagres, navn må angis.",
@@ -407,7 +407,7 @@ texts.dictionary = {
     },
     tourEdit_mountaineering: {
         no: "Klatreferdigheter/utstyr",
-        eng: "Mountaineering skills/equipment"
+        eng: "Skills/equipment"
     },
     tourEdit_nameOfTour: {
         no: "Navn på tur",

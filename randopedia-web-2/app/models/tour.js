@@ -3,8 +3,7 @@ import attr from 'ember-data/attr';
 
 export default DS.Model.extend({
   name: attr(),
-  accessPoint: attr(),
-  itinerary: attr(),
+  
   timingMax: attr(),
   timingMin: attr(),
   elevationGain: attr(),
@@ -19,9 +18,16 @@ export default DS.Model.extend({
   aspect: attr(),
   country: attr(),
   haveHazards: attr(),
-  hazardsDescription: attr(),
   requiresTools: attr(),
-  toolsDescription: attr(), 
+  
+  itineraryEng: attr(),
+  itineraryNo: attr(),
+  accessPointEng: attr(),
+  accessPointNo: attr(),
+  toolsDescriptionEng: attr(),
+  toolsDescriptionNo: attr(), 
+  hazardsDescriptionEng: attr(),
+  hazardsDescriptionNo: attr(),
 
   mapGeoJson: attr(),
 
@@ -31,4 +37,5 @@ export default DS.Model.extend({
 
   images: DS.hasMany('image', { async: true }),
   actions: DS.hasMany('action', { async: true })
+
 });

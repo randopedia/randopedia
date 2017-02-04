@@ -14,12 +14,30 @@ export default Ember.Component.extend({
             this.get('router').transitionTo('index');
         },
         downloadGpxFile: function () {
-            var saveSuccess = GeoHelper.saveAsGpx(this.get("tour.mapGeoJson"), this.get("tour.name"), this.get("tour.itinerary"));
+            var saveSuccess = GeoHelper.saveAsGpx(this.get("tour.mapGeoJson"), this.get("tour.name"), this.get("language").translateProperty(this, "tour.itinerary"));
             if (!saveSuccess) {
                 alert.showErrorMessage("Could not save gpx file. Most likely because your browser does not support the File API.");
             }
         }
     },
+
+    markedDescription: Ember.computed('tour', function() {
+        var desc = this.get("language").translateProperty(this, "tour.itinerary");       
+        var descWithLinks = desc.replace(/#(\S*)/g,"<a href=\"/tags/$1\">#$1</a>");
+        return marked(descWithLinks);
+    }),
+
+    accessPoint: Ember.computed('tour', function() {
+        return this.get("language").translateProperty(this, "tour.accessPoint");
+    }),
+
+    hazardsDescription: Ember.computed('tour', function() {
+        return this.get("language").translateProperty(this, "tour.hazardsDescription");
+    }),
+
+    toolsDescription: Ember.computed('tour', function() {
+        return this.get("language").translateProperty(this ,"tour.toolsDescription");
+    }),            
 
     summitPoint: Ember.computed('tour', function() {
         return GeoHelper.getSummitPoint(this.get("tour.mapGeoJson"));
@@ -62,14 +80,6 @@ export default Ember.Component.extend({
 
     doesNotRequireTools: Ember.computed('tour', function() {
         return !this.get("tour.requiresTools");
-    }),
-
-    markedItinerary: Ember.computed('tour', function() {
-        if(!this.get("tour.itinerary")){
-            return null;
-        }
-        var linkedItinerary = this.get("tour.itinerary").replace(/#(\S*)/g,"<a href=\"/tags/$1\">#$1</a>");
-        return marked(linkedItinerary);
     }),
 
     checkIfIncomplete: function() {
