@@ -310,12 +310,16 @@ texts.dictionary = {
         eng: "Instagram feed"
     },
     tour_markedAsIncomplete: {
-        no: "Denne tur er markert som ikke ferdig, så noen viktig informasjon kan mangle",
-        eng: "This tour is marked as incomplete so it might lack some important information"
+        no: "Denne turen er merket som ufullstendig, så det kan være noen viktig informasjon som mangler eller er feil.",
+        eng: "This tour is marked as incomplete so it might be some important information that is missing or being incorrect."
     },
     tour_mountaineering: {
         no: "Klatremoment",
         eng: "Mountaineering"
+    },
+    tour_moreActions: {
+        no: "Flere handlinger",
+        eng: "More actions"
     },
     tour_season: {
         no: "Sesong",
@@ -374,9 +378,21 @@ texts.dictionary = {
         eng: "Highest point"
     },
     tourEdit_history: {
-        no: "Historikk",
-        eng: "Update history"
+        no: "Logg",
+        eng: "Log"
     },
+    tourEdit_markAsIncomplete: {
+        no: "Merk tur som ufullstendig",
+        eng: "Mark tour as incomplete"
+    },
+    tourEdit_unmarkIncomplete: {
+        no: "Fjern 'merk som fullstendig'",
+        eng: "Remove incomplete mark"
+    },
+    tourEdit_tourIsIncomplete: {
+        no: "This tour is marked as incomplete, it's published and fully available but some important information is missing or being incorrect.",
+        eng: "This tour is marked as incomplete, it's published and fully available but some important information is missing or being incorrect."
+    },                
     tourEdit_nameNotSetOnSave: {
         no: "Turen kunne ikke lagres, navn må angis.",
         eng: "Couldn't save tour, name must be set."
@@ -401,6 +417,10 @@ texts.dictionary = {
         no: "Hovedsaklig aspekt",
         eng: "Main aspect of slopes"
     },
+    tourEdit_status: {
+        no: "Status",
+        eng: "Tour status"
+    },    
     tourEdit_map: {
         no: "Kart",
         eng: "Map"

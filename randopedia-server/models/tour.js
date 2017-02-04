@@ -25,10 +25,11 @@ var TourSchema = mongoose.Schema(
         mapPaths: Object,
         mapGeoJson: Object,
         country: String,
+        status: Number,
+        isIncomplete: Boolean,
         tags: Object,
         tourImages: Object,
         portfolioImage: Object,
-        status: Number,
         actions: Object,
         comments: Object,
         updatedStamp: Date

@@ -1,11 +1,11 @@
 
 <div class="tour-details-component">
-    <div class="hidden">{{!-- view.imageLoaded --}}</div>
+    <div class="hidden"></div>
 
     {{#if isDraft}}
     <div class="row">
         <div class="col col-xs-12">
-            <div class="alert alert-info alert-dismissible" role="alert">
+            <div class="alert alert-info alert-dismissible text-center" role="alert">
                 <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 This tour is a draft, it has not yet been published
             </div>
@@ -15,7 +15,7 @@
     {{#if isInReview}}
     <div class="row">
         <div class="col col-xs-12">
-            <div class="alert alert-info alert-dismissible" role="alert">
+            <div class="alert alert-info alert-dismissible text-center" role="alert">
                 <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 This tour is in review, it has not yet been published
             </div>
@@ -23,27 +23,17 @@
     </div>
     {{/if}}
 
-    {{#if isIncomplete}}
+    {{#if tour.isIncomplete}}
     <div class="row">
         <div class="col col-xs-12">
-            <div class="alert alert-warning" role="alert">
+            <div class="alert alert-warning text-center" role="alert">
                 <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                {{text "tour_markedAsIncomplete"}}
+                <i class="fa fa-exclamation-circle" aria-hidden="true"></i> {{text "tour_markedAsIncomplete"}}
             </div>
         </div>
     </div>
     {{/if}}
 
-    {{#if isDeleted}}
-    <div class="row">
-        <div class="col">
-            <div class="alert alert-danger" role="alert">
-                <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                Tour is marked as deleted and will eventually be deleted from the database
-            </div>
-        </div>
-    </div>
-    {{/if}}
     {{/if}}
 
     <div class="row">

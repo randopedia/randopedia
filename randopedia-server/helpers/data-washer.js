@@ -23,7 +23,7 @@ var dataWasher = (function() {
     }
 	
 	function normalWash(text) {
-        if(!text) {
+        if(!text || !text.length) {
             return "";
         }
 

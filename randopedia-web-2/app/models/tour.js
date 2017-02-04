@@ -36,6 +36,7 @@ export default DS.Model.extend({
   tags: attr(),
 
   images: DS.hasMany('image', { async: true }),
-  actions: DS.hasMany('action', { async: true })
+  actions: DS.hasMany('action', { async: true }),
 
+  isIncomplete: attr()
 });

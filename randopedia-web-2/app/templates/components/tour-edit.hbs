@@ -22,6 +22,16 @@
     </div>
     {{/if}}
 
+    {{#if tour.isIncomplete}}
+    <div class="row">
+        <div class="col">
+            <div class="alert alert-warning alert-dismissible text-center" role="alert">
+                <i class="fa fa-exclamation-circle" aria-hidden="true"></i> {{text "tourEdit_tourIsIncomplete"}}
+            </div>
+        </div>
+    </div>
+    {{/if}}    
+
     <div class="row">
         <div class="col">
             <div class="alert alert-info text-center" role="alert">
@@ -40,11 +50,19 @@
 
     <div class="row">
         <div class="col">
+            <span class="pull-right">{{text "tourEdit_status"}}: <em>{{displayStatus}}</em></span>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col">
 
             <ul class="nav nav-pills" role="tablist">
                 <li class="nav-item"><a class="nav-link active" href="#details-panel" role="tab" data-toggle="pill">{{text "tourEdit_details"}}</a></li>
                 <li class="nav-item"><a class="nav-link" href="#map-panel" role="tab" data-toggle="pill">{{text "tourEdit_map"}}</a></li>
                 <li class="nav-item"><a class="nav-link" href="#images-panel" role="tab" data-toggle="pill">{{text "tour_images"}}</a></li>
+                <li class="nav-item" style="margin-left: 2rem"><a class="nav-link" href="#more-actions-panel" role="tab" data-toggle="pill">{{text "tour_moreActions"}}</a></li>
                 <li class="nav-item right"><a class="nav-link" href="#history-panel" role="tab" data-toggle="pill">{{text "tourEdit_history"}}</a></li>
             </ul>
 
@@ -325,15 +343,27 @@
                         </div>
                     </div>
                 </div>
+                
+                <div id="more-actions-panel" class="tab-pane">
+                    <div class="row">
+                        <div class="col">
+                            <div class="spacer-y">
+                                <button class="btn btn-secondary" disabled={{isSendToReviewDisabled}} {{action "sendToReview" }}>
+                                    <i class="fa fa-eye"></i> {{#if isInReview}} {{text "common_save"}} {{else}} {{text "tourEdit_sendToReview"}} {{/if}}
+                                </button>
+                            </div>
+                            <div class="spacer-y">
+                                <button class="btn btn-secondary" disabled={{isNotPublished}} {{action "toggleIncomplete" }}>
+                                    <i class="fa fa-exclamation-circle" aria-hidden="true"></i>{{#if tour.isIncomplete}} {{text "tourEdit_unmarkIncomplete"}} {{else}} {{text "tourEdit_markAsIncomplete"}} {{/if}}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <div id="history-panel" class="tab-pane">
                     <div class="row">
-                        <div class="col-12 spacing">
-                            Tour status: <em>{{displayStatus}}</em>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
+                        <div class="col">
                             <div class="table-responsive">
                                 <table class="table table-striped">
                                     <thead>
@@ -368,6 +398,7 @@
         <div class="row">
             <div class="col">
                 <div class="btn-toolbar">
+
                     <button class="btn btn-secondary" data-toggle="modal" data-target="#editTourHelpModal">
                         <i class="fa fa-question"></i> {{text "header_help"}}
                     </button>
@@ -390,8 +421,9 @@
                     {{/unless}}
 
                     <button class="btn btn-secondary spacer-x-left" {{action "startCancelingEditTour" }}>
-                        <i class="fa fa-times"></i> {{text "tourEdit_exit"}}
-                    </button>
+                        <i class="fa fa-times"></i>  {{text "tourEdit_exit"}}
+                    </button>  
+
                 </div>  
             </div>
         </div>

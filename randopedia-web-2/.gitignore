@@ -15,5 +15,5 @@
 /libpeerconnection.log
 npm-debug.log
 testem.log
-
+debug.log
 *.bat

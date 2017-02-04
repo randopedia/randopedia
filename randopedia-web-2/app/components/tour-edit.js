@@ -111,6 +111,10 @@ export default Ember.Component.extend({
             self.saveAndExit();
         },
     
+        toggleIncomplete: function() {
+            this.set("tour.isIncomplete", !this.get("tour.isIncomplete"));
+        },
+
         saveAsDraft: function () {
             var self = this;
 
@@ -368,6 +372,10 @@ export default Ember.Component.extend({
 
     isPublished: Ember.computed('tour.status', function() {
         return this.get("tour.status") === Fixtures.TourStatus.PUBLISHED;
+    }),
+
+    isNotPublished: Ember.computed('tour.status', function() {
+        return this.get("tour.status") !== Fixtures.TourStatus.PUBLISHED;
     }),
     
     isDraft: Ember.computed('tour.status', function() {
