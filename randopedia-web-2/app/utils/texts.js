@@ -313,13 +313,17 @@ texts.dictionary = {
         no: "Instagram",
         eng: "Instagram feed"
     },
+    tour_tourIsDraft: {
+        no: "Utkast, turen er ikke publisert og bare du kan se den.",
+        eng: "This tour is a draft. Is has not yet been published and only you can see it."
+    },    
     tour_markedAsIncomplete: {
         no: "Denne turen er merket som ufullstendig, så det kan være noen viktig informasjon som mangler eller er feil.",
         eng: "This tour is marked as incomplete. It might be some important information that's missing or is incorrect."
     },
     tour_isInReview: {
         no: "Denne turen er under vurdering, den er ikke publisert og bare synlig for inloggede brukere.",
-        eng: "This tour is in review, it has not yet been published and are only visible to logged in users."
+        eng: "This tour is in review. It has not yet been published and is only visible to logged in users."
     },    
     tour_mountaineering: {
         no: "Klatremoment",
@@ -344,10 +348,6 @@ texts.dictionary = {
     tour_time: {
         no: "Tid",
         eng: "Time"
-    },
-    tour_tourIsDraft: {
-        no: "Utkast, turen er ikke publisert",
-        eng: "This is a draft, the tour has not yet been published."
     },
     tour_viewTourOnMap: {
         no: "Vis på kart",
