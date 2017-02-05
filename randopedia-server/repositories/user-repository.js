@@ -4,23 +4,28 @@ var Q = require('q');
 
 var userRepository = (function() {
 
-    function findOrCreateUser(facebookUser, llToken) {
+    function findOrCreateUser(providerUser, llToken, provider) {
         var deferred = Q.defer();
-        userModel.findOne({'userId': facebookUser.id}, function(err, user) {
+        userModel.findOne({'userId': providerUser.id}, function(err, user) {
             if(err) {
                 deferred.reject(err);
             } else {
+                var now = new Date().getTime();
+
                 if(user != null) {
                     user.longLivedToken = llToken;
-                    user.save(function(err) {
-                    });
+                    user.lastLogin = now;
+                    user.save(function(err) {} );
                     deferred.resolve(user.toObject());
                 } else {
                     var newUser = new userModel(
                         {
-                            id: facebookUser.id,
-                            userId : facebookUser.id,
-                            userName : facebookUser.name,
+                            id: providerUser.id,
+                            userId : providerUser.id,
+                            userName : providerUser.name,
+                            provider: provider,
+                            created: now,
+                            lastLogin: now,
                             longLivedToken : llToken,
                             authenticated : true
                         });
@@ -38,9 +43,9 @@ var userRepository = (function() {
         return deferred.promise;
     }
 
-    function findUser(facebookUser) {
+    function findUser(providerUser) {
         var deferred = Q.defer();
-        userModel.findOne({'userId' : facebookUser.id}, function(err, user) {
+        userModel.findOne({'userId' : providerUser.id}, function(err, user) {
             if(err) {
                 console.log('Error when finding user. ' + err);
                 deferred.reject(err);

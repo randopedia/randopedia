@@ -5,6 +5,9 @@ var UserSchema = mongoose.Schema(
     {
         userName : String,
         userId : String,
+        provider: String,
+        created: Number,
+        lastLogin: Number,
         longLivedToken : String
     },
     {

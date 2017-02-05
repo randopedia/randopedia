@@ -15,7 +15,7 @@ var authService = (function () {
                     return facebookRepository.getExternalUser(llToken)
                         .then(function(facebookUser) {
                             console.log('got user from facebook: ' + facebookUser.id);
-                            return userRepository.findOrCreateUser(facebookUser, llToken);
+                            return userRepository.findOrCreateUser(facebookUser, llToken, provider);
                         })
                         .then(function(user) {
                             user.authenticated = true;
@@ -33,7 +33,7 @@ var authService = (function () {
                     return googleRepository.getExternalUser(token)
                         .then(function(googleUser) {
                             console.log('got user from google: ' + googleUser);
-                            return userRepository.findOrCreateUser(googleUser);
+                            return userRepository.findOrCreateUser(googleUser, null, provider);
                         })
                         .then(function(user) {
                             user.authenticated = true;
