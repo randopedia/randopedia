@@ -144,7 +144,9 @@ var tourService = (function () {
             return;
         }
 
-        tour.tags = common.mergeTags(tour.tags, tour.itineraryEng, tour.itineraryNo);
+        // TODO: Merge tags from descriptions are comment out because it currently doesn't work. Tags that are removed from description
+        // is not deleted from tour.
+        // tour.tags = common.mergeTags(tour.tags, tour.itineraryEng, tour.itineraryNo);
 
         tourRepository.getTour(tour.id, req).then(function (data) {
             var originalTour = data.tour;

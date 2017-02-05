@@ -23,7 +23,7 @@ export default Ember.Component.extend({
 
     markedDescription: Ember.computed('tour', function() {
         var desc = this.get("language").translateProperty(this, "tour.itinerary");       
-        var descWithLinks = desc.replace(/#(\S*)/g,"<a href=\"/tags/$1\">#$1</a>");
+        var descWithLinks = !desc ? "" : desc.replace(/#(\S*)/g,"<a href=\"/tags/$1\">#$1</a>");
         return marked(descWithLinks);
     }),
 

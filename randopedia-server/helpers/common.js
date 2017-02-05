@@ -86,9 +86,17 @@ var common = (function () {
 
     function mergeTags(tags, text1, text2) {
         tags = tags || [];
+        var itineraryTags = [];
 
-        var itineraryTags = getTagsFromText(text1);
-        itineraryTags.push(getTagsFromText(text2));
+        var tagsFromText1 = getTagsFromText(text1);
+        if(tagsFromText1.length > 0) {
+            itineraryTags.push(tagsFromText1);
+        }
+
+        var tagsFromText2 = getTagsFromText(text2);
+        if(tagsFromText2.length > 0) {
+            itineraryTags.push(tagsFromText2);
+        }
 
         itineraryTags.forEach(function (tag) {
             if (tags.indexOf(tag) === -1) {
