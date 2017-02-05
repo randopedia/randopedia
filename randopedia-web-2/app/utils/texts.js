@@ -61,6 +61,10 @@ texts.dictionary = {
         no: "høydemeter med rå skikjøring.",
         eng: "meters of awesome skiing."
     },
+    dashboard_funfact5: {
+        no: "skikjørere har bidratt med turdata.",
+        eng: "cool skier dudes have contributed with ski tour data."
+    },    
     downloadGpxFile: {
         no: "Laste ned GPX fil",
         eng: "Download GPX file"
