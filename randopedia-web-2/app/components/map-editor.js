@@ -5,9 +5,9 @@ import GeoHelper from '../utils/geo-helper';
 export default Ember.Component.extend({
     settings: {
         mapRootElementId: '#tourEditMapRootElement',
-        defaultZoomLevel: 3,
+        defaultZoomLevel: 5,
         detailedZoomLevel: 13,
-        defaultMapCenter: new google.maps.LatLng(46.5, 8.5)
+        defaultMapCenter: new google.maps.LatLng(55, 10.5)
     },
 
     mapRootElement: null,
