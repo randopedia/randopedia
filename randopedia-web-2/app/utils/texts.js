@@ -315,8 +315,12 @@ texts.dictionary = {
     },
     tour_markedAsIncomplete: {
         no: "Denne turen er merket som ufullstendig, så det kan være noen viktig informasjon som mangler eller er feil.",
-        eng: "This tour is marked as incomplete so it might be some important information that is missing or being incorrect."
+        eng: "This tour is marked as incomplete. It might be some important information that's missing or is incorrect."
     },
+    tour_isInReview: {
+        no: "Denne turen er under vurdering, den er ikke publisert og bare synlig for inloggede brukere.",
+        eng: "This tour is in review, it has not yet been published and are only visible to logged in users."
+    },    
     tour_mountaineering: {
         no: "Klatremoment",
         eng: "Mountaineering"
@@ -392,11 +396,7 @@ texts.dictionary = {
     tourEdit_unmarkIncomplete: {
         no: "Fjern 'merk som fullstendig'",
         eng: "Remove incomplete mark"
-    },
-    tourEdit_tourIsIncomplete: {
-        no: "This tour is marked as incomplete, it's published and fully available but some important information is missing or being incorrect.",
-        eng: "This tour is marked as incomplete, it's published and fully available but some important information is missing or being incorrect."
-    },                
+    },               
     tourEdit_nameNotSetOnSave: {
         no: "Turen kunne ikke lagres, navn må angis.",
         eng: "Couldn't save tour, name must be set."
