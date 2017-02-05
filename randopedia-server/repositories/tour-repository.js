@@ -8,7 +8,7 @@ var TourAction = require("../models/tour-action");
 var common = require("../helpers/common");
 var enums = require("../enums");
 
-var tourItemFields = "mapGeoJson name grade elevationLoss elevationGain timingMin timingMax shortDescription clientId";
+var tourItemFields = "mapGeoJson name grade elevationLoss elevationGain timingMin timingMax elevationMax clientId";
 
 var tourRepository = (function () {
 

@@ -1,6 +1,6 @@
 <div class="tour-item">  
     <div class="item-panel">
-        <h4> <a {{action "openTour"}}>{{tour.name}}</a></h4>
+        <h4> <a {{action "openTour"}}>{{tour.name}}</a> <span class="small">({{tour.elevationMax}}m)</span></h4>
         <div class="item-props">    
             {{resolveSelectName 'Grades' tour.grade}} | 
             {{tour.timingMin}}-{{tour.timingMax}}h | 
