@@ -77,6 +77,10 @@ texts.dictionary = {
         no: "Kunne ikke finne din posisjon, er posisjonstjenesten aktivert på enheten din?",
         eng: "Couldn't resolve your position, is location service enabled on your device?"
     },
+    footer_tags: {
+        no: "Populere tags",
+        eng: "Popular tags"
+    },
     grades_header: {
         no: "Vanskelighetsgrader",
         eng: "Grades"

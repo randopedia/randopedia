@@ -428,10 +428,12 @@ export default Ember.Component.extend({
             }
 
             self.zoomAndHighlightTour(tour);
+
+            properties.setTourForMapView(null);
         }
 
         self.showTourRoutesIfZoomed(map.getZoom());
-
+        
     },
 
     showTourInfo: Ember.computed("selectedTour", function() {
