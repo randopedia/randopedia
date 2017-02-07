@@ -9,7 +9,7 @@
         <i class="fa fa-map-marker"></i>
     </button>
     {{#if showTourInfo}}
-    <div class="tour-info">
+    <div class="tour-info load-animation">
         <h4>
             <button type="button" class="close" {{action "closeInfoWindowAction" }}><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
             {{#link-to "tour" selectedTour.id}} {{selectedTour.name}} {{/link-to}} <span class="small">({{selectedTour.elevationMax}}m)</span>
