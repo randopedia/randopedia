@@ -291,9 +291,8 @@ export default Ember.Component.extend({
                 maximumAge: 10000
             };
 
-            // Turned off for now. Getting error on watch, maybe because we need to be on https?
-            // var id = navigator.geolocation.watchPosition(onWatchPositionUpdate, onWatchPositionError, watchOptions);
-            // self.set('myPositionWatchId', id);
+            var id = navigator.geolocation.watchPosition(onWatchPositionUpdate, onWatchPositionError, watchOptions);
+            self.set('myPositionWatchId', id);
             self.set('waitingForPosition', false);
 
         }, function(error) {
@@ -396,7 +395,6 @@ export default Ember.Component.extend({
 
         var markerCluster = new MarkerClusterer(map, this.get('markers'));
         markerCluster.setMaxZoom(self.settings.showRoutesOnZoomLevel - 3);
-        // self.set('oms', new OverlappingMarkerSpiderfier(map));
 
         google.maps.event.addListener(map, 'zoom_changed', function () {
             var newZoomLevel = self.get('map').getZoom();
