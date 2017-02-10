@@ -291,8 +291,9 @@ export default Ember.Component.extend({
                 maximumAge: 10000
             };
 
-            var id = navigator.geolocation.watchPosition(onWatchPositionUpdate, onWatchPositionError, watchOptions);
-            self.set('myPositionWatchId', id);
+            // Turned off for now. Getting error on watch, maybe because we need to be on https? - na, something else is also wrong, getting error on update.
+            // var id = navigator.geolocation.watchPosition(onWatchPositionUpdate, onWatchPositionError, watchOptions);
+            // self.set('myPositionWatchId', id);
             self.set('waitingForPosition', false);
 
         }, function(error) {
