@@ -38,7 +38,7 @@ export default Ember.Service.extend({
           } else {
             return false;
           }
-        }, 2000, 150).then(function() {
+        }, 60000, 150).then(function() {
           emberOauth2.trigger('redirect', response.location.hash);
           self.requestAuthentication();
           response.close();
