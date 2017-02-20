@@ -26,50 +26,21 @@ export default Ember.Service.extend({
 
     login: function(provider) {
       var emberOauth2 = this.get('emberOauth2');
-
-      this.clearAllTokens();
-
-      emberOauth2.setProvider(provider);
       var self = this;
-      emberOauth2.authorize().then(function(response) {
-        self.poll(function() {
-          if(response.location.hash) {
-            return true;
-          } else {
-            return false;
-          }
-        }, 60000, 150).then(function() {
-          emberOauth2.trigger('redirect', response.location.hash);
+      window.addEventListener("message", function(event) {
+        if(event.origin === window.location.origin) {
+          emberOauth2.trigger('redirect', event.data);
           self.requestAuthentication();
-          response.close();
-        }).catch(function(error) {
-          console.log('Polling for token timed out', error);
-        });
-      });
+        }
+      }, false);
+      this.clearAllTokens();
+      emberOauth2.setProvider(provider);
+      emberOauth2.authorize().then(function(response) { });
     },
 
     logout: function() {
         this.removeToken();
         this.get('alert').showSuccessMessage(this.get("text").getText('login_loggedOutMsg'));
-    },
-
-    poll : function(fn, timeout, interval) {
-      var endTime = Number(new Date()) + (timeout || 2000);
-      interval = interval || 100;
-
-      var checkCondition = function(resolve, reject) {
-        var result = fn();
-        if(result) {
-          resolve(result);
-        }
-        else if (Number(new Date()) < endTime) {
-          setTimeout(checkCondition, interval, resolve, reject);
-        }
-        else {
-          reject(new Error('Timed out for ' + fn + ': ' + arguments));
-        }
-      };
-      return new Promise(checkCondition);
     },
 
     requestAuthentication: function() {
