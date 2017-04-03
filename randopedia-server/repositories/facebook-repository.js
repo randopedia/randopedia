@@ -15,7 +15,8 @@ var facebookRepository = (function() {
         request(url, function (error, response, body) {
             if (!error && response.statusCode == 200) {
                 console.log('body', body);
-                console.log('token', body.access_token);
+                var jsonResponse = JSON.parse(body);
+                console.log('token', jsonResponse.access_token);
                 var llToken = body.split('=')[1];
                 deferred.resolve(llToken);
             } else {
