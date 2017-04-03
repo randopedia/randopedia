@@ -11,7 +11,7 @@ var authService = (function () {
         if('facebook' === provider) {
             facebookRepository.generateLongLivedToken(token)
                 .then(function(llToken) {
-                    console.log('got token');
+                    console.log('got ll token', llToken);
                     return facebookRepository.getExternalUser(llToken)
                         .then(function(facebookUser) {
                             console.log('got user from facebook: ' + facebookUser.id);
