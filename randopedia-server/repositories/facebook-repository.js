@@ -17,7 +17,7 @@ var facebookRepository = (function() {
                 console.log('body', body);
                 var jsonResponse = JSON.parse(body);
                 console.log('token', jsonResponse.access_token);
-                var llToken = body.split('=')[1];
+                var llToken = jsonResponse.access_token;
                 deferred.resolve(llToken);
             } else {
                 console.log(error);
