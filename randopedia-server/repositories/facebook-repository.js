@@ -11,12 +11,9 @@ var facebookRepository = (function() {
             + '&client_secret=' + config.facebook.app_secret
             + '&fb_exchange_token=' + token;
         var deferred = Q.defer();
-        console.log('request to facebook ', url);
         request(url, function (error, response, body) {
             if (!error && response.statusCode == 200) {
-                console.log('body', body);
                 var jsonResponse = JSON.parse(body);
-                console.log('token', jsonResponse.access_token);
                 var llToken = jsonResponse.access_token;
                 deferred.resolve(llToken);
             } else {
