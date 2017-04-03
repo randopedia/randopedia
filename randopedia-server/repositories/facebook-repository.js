@@ -28,6 +28,7 @@ var facebookRepository = (function() {
             + '?access_token=' + longLivedToken;
 
         var deferred = Q.defer();
+        console.log('getExternalUser ', longLivedToken);
         if(longLivedToken) {
             request(url, function(error, response, body) {
                 if(!error && response.statusCode == 200) {
@@ -40,7 +41,7 @@ var facebookRepository = (function() {
         } else {
             deferred.reject("No token");
         }
-        
+
         return deferred.promise;
     }
 
@@ -48,7 +49,7 @@ var facebookRepository = (function() {
         generateLongLivedToken : generateLongLivedToken,
         getExternalUser : getExternalUser
     };
-    
+
 })();
 
 module.exports = facebookRepository;
