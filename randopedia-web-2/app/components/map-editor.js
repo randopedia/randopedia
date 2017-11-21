@@ -62,68 +62,68 @@ export default Ember.Component.extend({
         self.get('controller').send('updateGeoJson', geojson);
     },
 
-    // importGeoJson: function(geojson) {
-    //     var self = this;
+    importGeoJson: function(geojson) {
+        var self = this;
 
-    //     if (!GeoHelper.validateGeoJson(geojson)) {
-    //         self.set('gpxDataIsInvalid', true);
-    //         return;
-    //     }
+        if (!GeoHelper.validateGeoJson(geojson)) {
+            self.set('gpxDataIsInvalid', true);
+            return;
+        }
 
-    //     geojson = GeoHelper.cleanImportedGeoJson(geojson);
+        geojson = GeoHelper.cleanImportedGeoJson(geojson);
 
-    //     // TODO: Refactor out to helper method(s)
-    //     var minDistanceBetweenPoints = 40;
-    //     geojson.features.forEach(function(feature) {
-    //         var geometry = feature.geometry;
+        // TODO: Refactor out to helper method(s)
+        var minDistanceBetweenPoints = 40;
+        geojson.features.forEach(function(feature) {
+            var geometry = feature.geometry;
 
-    //         if (geometry.type === "LineString") {
-    //             var coordinatesToBeDeleted = [];
-    //             var prevCoord = null;
-    //             // console.log('BEFORE: ' + geometry.coordinates.length);
-    //             for (var i = 0; i < geometry.coordinates.length; i++) {
+            if (geometry.type === "LineString") {
+                var coordinatesToBeDeleted = [];
+                var prevCoord = null;
+                console.debug('BEFORE: ' + geometry.coordinates.length);
+                for (var i = 0; i < geometry.coordinates.length; i++) {
 
-    //                 var currentCoord = geometry.coordinates[i];
+                    var currentCoord = geometry.coordinates[i];
 
-    //                 if (!prevCoord) {
-    //                     prevCoord = currentCoord;
-    //                     continue;
-    //                 }
+                    if (!prevCoord) {
+                        prevCoord = currentCoord;
+                        continue;
+                    }
 
-    //                 var pt1 = { type: 'Point', coordinates: [prevCoord[0], prevCoord[1]] };
-    //                 var pt2 = { type: 'Point', coordinates: [currentCoord[0], currentCoord[1]] };
+                    var pt1 = { type: 'Point', coordinates: [prevCoord[0], prevCoord[1]] };
+                    var pt2 = { type: 'Point', coordinates: [currentCoord[0], currentCoord[1]] };
 
-    //                 var distance = gju.pointDistance(pt1, pt2);
+                    var distance = gju.pointDistance(pt1, pt2);
 
-    //                 if (distance < minDistanceBetweenPoints && (geometry.coordinates.length - 1)) {
-    //                     coordinatesToBeDeleted.push(currentCoord);
-    //                 } else {
-    //                     prevCoord = geometry.coordinates[i];
-    //                 }
-    //             }
+                    if (distance < minDistanceBetweenPoints && (geometry.coordinates.length - 1)) {
+                        coordinatesToBeDeleted.push(currentCoord);
+                    } else {
+                        prevCoord = geometry.coordinates[i];
+                    }
+                }
 
-    //             coordinatesToBeDeleted.forEach(function(coord) {
-    //                 var index = geometry.coordinates.indexOf(coord);
-    //                 if (index !== -1) {
-    //                     geometry.coordinates.splice(index, 1);
-    //                 }
-    //             });
+                coordinatesToBeDeleted.forEach(function(coord) {
+                    var index = geometry.coordinates.indexOf(coord);
+                    if (index !== -1) {
+                        geometry.coordinates.splice(index, 1);
+                    }
+                });
 
-    //             //  console.log('AFTER: ' + geometry.coordinates.length);
-    //         }
-    //     });
+                console.debug('AFTER: ' + geometry.coordinates.length);
+            }
+        });
 
-    //     self.set('loadingGpxData', true);
-    //     self.get('controller').send('updateGeoJson', geojson);
+        self.set('loadingGpxData', true);
+        self.get('controller').send('updateGeoJson', geojson);
 
-    //     setTimeout(function() {
-    //         self.parseGeoJson();
-    //         self.setZoomAndCenter();
-    //         self.set('loadingGpxData', false);
-    //         self.set('gpxDataWasLoaded', true);
-    //         self.set('gpxDataIsInvalid', false);
-    //     }, 500);
-    // },
+        setTimeout(function() {
+            self.parseGeoJson();
+            self.setZoomAndCenter();
+            self.set('loadingGpxData', false);
+            self.set('gpxDataWasLoaded', true);
+            self.set('gpxDataIsInvalid', false);
+        }, 500);
+    },
 
     setZoomAndCenter: function () {
         // If tour has paths they are used to set bounds (both zoom and center)
@@ -256,6 +256,38 @@ export default Ember.Component.extend({
         self.get('currentMapPolylines').push(polyline);
         self.saveGeoJson();
     },
+    change: function (evt) {
+        if (window.File && window.FileReader && window.FileList && window.Blob) {
+            var self = this;
+            var input = evt.target;
+            if (input.files) {
+                for (var i = 0; i < input.files.length; i++) {
+                    self.readFile(input.files[i]);
+                }
+            }
+        } else {
+            App.Alerts.showErrorMessage('Could not import gpx file. Most likely because your browser does not support the File API.');
+        }
+    },
+
+    readFile: function (data) {
+        var self = this;
+
+        if (data) {
+            var reader = new FileReader();
+            reader.onloadend = function () {
+                self.saveGpxFile(reader);
+            };
+            reader.readAsText(data);
+        }
+    },
+
+    saveGpxFile: function (reader) {
+        var parser = new DOMParser();
+        var xmlDoc = parser.parseFromString(reader.result, "application/xml");
+        var geojson = toGeoJSON.gpx(xmlDoc);
+        this.importGeoJson(geojson);
+    },
 
     actions: {
         clearDrawingMode: function() {
@@ -302,7 +334,7 @@ export default Ember.Component.extend({
         clearSelectedPolylines: function() {
             this.set('selectedPolylines', []);
         },
-        
+
         selectPathType: function(pathType) {
             this.set("pathType", pathType ? pathType.value : null);
         },
@@ -310,11 +342,11 @@ export default Ember.Component.extend({
         updatePaths: function(geoJson) {
             this.set("tour.mapGeoJson", geoJson);
         },
-        
+
         deletePaths: function() {
             this.set("tour.mapGeoJson", null);
         },
-        
+
         updateGeoJson: function(geoJson) {
             this.set("tour.mapGeoJson", geoJson);
         }
@@ -331,7 +363,7 @@ export default Ember.Component.extend({
     haveSelectedPaths: Ember.computed('selectedPolylines.[]', function() {
         return this.get('selectedPolylines').length > 0;
     }),
-   
+
     pathTypes: Ember.computed(function() {
         return Fixtures.PathTypes;
     }),
