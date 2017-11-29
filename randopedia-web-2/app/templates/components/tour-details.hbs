@@ -76,7 +76,7 @@
                     <label class="uppercase">{{text "tour_grade"}}:</label>
                 </div>
                 <div class="col-7 col-sm-8 col-lg-10">
-                    <a data-toggle="modal" data-target="#tourDetailsGradeGuideModal">{{resolveSelectName 'Grades' tour.grade}}</a>
+                    <a data-toggle="modal" data-target="#tourDetailsGradeGuideModal">{{resolve-select-name 'Grades' tour.grade}}</a>
                 </div>
             </div>
             {{/if}}
@@ -99,7 +99,7 @@
                     <label class="uppercase">{{text "tour_season"}}:</label>
                 </div>
                 <div class="col-7 col-sm-8 col-lg-10">
-                    {{resolveSelectName 'Months' tour.timeOfYearFrom}} - {{resolveSelectName 'Months' tour.timeOfYearTo}}
+                    {{resolve-select-name 'Months' tour.timeOfYearFrom}} - {{resolve-select-name 'Months' tour.timeOfYearTo}}
                 </div>
             </div>
             {{/if}}
@@ -111,7 +111,7 @@
                     <label class="uppercase">{{text "tour_aspect"}}:</label>
                 </div>
                 <div class="col-7 col-sm-8 col-lg-10">
-                    {{resolveSelectName 'Aspects' tour.aspect}}
+                    {{resolve-select-name 'Aspects' tour.aspect}}
                 </div>
             </div>
             {{/if}}
@@ -123,7 +123,7 @@
                 </div>
                 <div class="col-7 col-sm-8 col-lg-10">
                     {{#each tour.tags as |tag|}}
-                         {{#link-to 'tag' tag}} #{{tag}} {{/link-to}} 
+                         {{#link-to 'tag' tag}} #{{tag}} {{/link-to}}
                     {{/each}}
                 </div>
             </div>
@@ -182,7 +182,7 @@
                 </div>
             </div>
         </div>
-    </div>    
+    </div>
 
     <div class="row">
         {{#if tour.haveHazards}}
@@ -246,14 +246,14 @@
                 <div class="modal-body">
                     <div class="alert alert-danger" role="alert">
                         {{text 'downloadGpxWarningText'}}
-                    </div>                    
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-default pull-right" data-dismiss="modal">{{text "common_cancel"}}</button>
                     <button class="btn btn-primary pull-right" data-dismiss="modal" {{action "downloadGpxFile" }}>
                         <i class="fa fa-download" aria-hidden="true"></i> {{text 'common_download'}}
                     </button>
-                </div>                
+                </div>
             </div>
         </div>
     </div>

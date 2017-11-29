@@ -1,6 +1,6 @@
-import Ember from 'ember';
+import Component from '@ember/component';
 
-export default Ember.Component.extend({
+export default Component.extend({
     instagramClientId: "772df9d235554f3eacd13196e0f8302d",
     loading: true,
     tagName: null,

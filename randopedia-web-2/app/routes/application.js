@@ -1,9 +1,10 @@
-import Ember from 'ember';
+import { inject as service } from '@ember/service';
+import Route from '@ember/routing/route';
 import LocationHelper from '../utils/location-helper';
 
-export default Ember.Route.extend({
-  login: Ember.inject.service(),
-  language: Ember.inject.service(),
+export default Route.extend({
+  login: service(),
+  language: service(),
 
   setupController() {
     this.get('login').performBackgroundLogIn();

@@ -1,8 +1,9 @@
-﻿import Ember from 'ember';
+import { inject as service } from '@ember/service';
+import Helper from '@ember/component/helper';
 import Fixtures from '../utils/fixtures';
 
-export default Ember.Helper.extend({
-    language: Ember.inject.service(),
+export default Helper.extend({
+    language: service(),
   
     compute (params) {
         var fixture = params[0];

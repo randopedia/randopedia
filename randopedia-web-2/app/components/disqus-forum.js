@@ -1,6 +1,7 @@
-import Ember from 'ember';
+import { scheduleOnce } from '@ember/runloop';
+import Component from '@ember/component';
 
-export default Ember.Component.extend({
+export default Component.extend({
     elementId: 'disqus_thread',
     classNames: ['comments'],
     timer : null,
@@ -33,7 +34,7 @@ export default Ember.Component.extend({
         var postTitle = this.get('tour.name') + ' -Randopedia - The ski tour database';
         var postUrl = window.location.href;
 
-        Ember.run.scheduleOnce('afterRender', function() {
+        scheduleOnce('afterRender', function() {
             window.DISQUS.reset({
                 reload: true,
                 config: function () {

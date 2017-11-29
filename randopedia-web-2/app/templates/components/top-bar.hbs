@@ -1,7 +1,7 @@
 <div class="top-bar">
     <div class="bg-panel {{if showNavbarSearch 'search-is-open'}}">
         <a class="logo" {{action "topbarmenulink" "index" }}>Randopedia</a>
-        
+
         <a class="menu-button" {{action "toggleNavbarMenu" }} >
             <i class="fa fa-bars {{if showNavbarMenu 'selected'}}"></i>
         </a>
@@ -18,16 +18,16 @@
 
                     <a {{action "topbarmenulink" "dashboard" }}><i class="fa fa-tachometer" aria-hidden="true"></i> {{text "header_dashboard"}}</a>
 
-                    <a {{action "topbarmenulink" "about" }}> <i class="fa fa-info-circle" aria-hidden="true"></i> {{text "header_about"}}</a>       
+                    <a {{action "topbarmenulink" "about" }}> <i class="fa fa-info-circle" aria-hidden="true"></i> {{text "header_about"}}</a>
 
                     <a {{action "topbarmenulink" "help" }}> <i class="fa fa-question-circle" aria-hidden="true"></i> {{text "header_help"}}</a>
                 </div>
 
-                <div class="col-12 col-md-4"> 
+                <div class="col-12 col-md-4">
                     {{#if login.isLoggedIn}}
                     <div class="login-menu-container">
                         <hr />
-                        <h4><i class="fa fa-user"></i> {{maxString login.currentUser.userName 50}}</h4>
+                        <h4><i class="fa fa-user"></i> {{max-string login.currentUser.userName 50}}</h4>
                         <hr />
                         <a {{action "topbarmenulink" "tour.new" }}><i class="fa fa-plus" aria-hidden="true"></i> {{text "header_addNewTour"}}</a>
                         <a {{action "topbarmenulink" "mytours" }}><i class="fa fa-database" aria-hidden="true"></i> {{text "header_myTours"}}</a>
@@ -37,10 +37,10 @@
                     {{else}}
                     <a class="spacer-y-top" {{action "topbarmenulink" "collapseNavbar" }} data-toggle="modal" data-target="#loginViewModalId"><i class="fa fa-plus" aria-hidden="true"></i> {{text "header_addNewTour"}}</a>
                     <hr />
-                    <a {{action "topbarmenulink" "collapseNavbar" }} class="center" data-toggle="modal" data-target="#loginViewModalId"><i class="fa fa-sign-in" aria-hidden="true"></i> {{text "header_login"}}</a>   
+                    <a {{action "topbarmenulink" "collapseNavbar" }} class="center" data-toggle="modal" data-target="#loginViewModalId"><i class="fa fa-sign-in" aria-hidden="true"></i> {{text "header_login"}}</a>
                     {{/if}}
                 </div>
-          
+
             </div>
 
             <div class="row">
@@ -53,7 +53,7 @@
                     <span><i class="fa fa-check-square-o"></i> English</span>
                     <a class="lang" {{action "setlanguage" "no"}}><i class="fa fa-square-o"></i> Norsk</a>
                     {{/if}}
-                </div> 
+                </div>
             </div>
 
             <div class="row">
@@ -63,16 +63,16 @@
             </div>
             <div class="row">
                 <div class="col text-center">
-                    <a class="lang text-center" {{action "topbarmenulink" "collapseNavbar" }}> <i class="fa fa-close" aria-hidden="true"></i> {{text "common_close"}}</a>  
+                    <a class="lang text-center" {{action "topbarmenulink" "collapseNavbar" }}> <i class="fa fa-close" aria-hidden="true"></i> {{text "common_close"}}</a>
                 </div>
-            </div>            
+            </div>
 
         </div>
     {{/if}}
 
     {{#if showNavbarSearch}}
         {{tour-search tourWasOpened=(action "closeMenu")}}
-    {{/if}}    
+    {{/if}}
 
     </div>
 

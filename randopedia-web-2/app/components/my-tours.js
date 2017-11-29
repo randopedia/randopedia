@@ -1,10 +1,11 @@
-import Ember from 'ember';
+import { inject as service } from '@ember/service';
+import Component from '@ember/component';
 import Fixtures from '../utils/fixtures';
 
-export default Ember.Component.extend({
-    alert: Ember.inject.service(),
-    login: Ember.inject.service(),
-    store: Ember.inject.service(),
+export default Component.extend({
+    alert: service(),
+    login: service(),
+    store: service(),
     user: null,
     drafts: [],
     updates: [],

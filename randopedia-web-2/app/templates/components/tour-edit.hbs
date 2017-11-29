@@ -41,7 +41,7 @@
             </div>
         </div>
     </div>
-    {{/if}}    
+    {{/if}}
 
     <div class="row">
         <div class="col">
@@ -89,7 +89,7 @@
                                     <div class="{{unless nameIsValid 'validation-error'}}">
                                         {{input placeholder="" pattern="^.{3,80}$" value=tour.name id="inputName" class="form-control"}}
                                     </div>
-                                </div> 
+                                </div>
                             </div>
                             <div class="col-12 col-md-4">
                                 <div class="form-group">
@@ -114,8 +114,8 @@
                                             title="Access point" data-container="body" data-placement="bottom"
                                             data-content="Description of the access point and how to get there. The access point description can have a maximum of 1000 characters."></button>
                                             <div class="{{unless accessPointIsValid 'validation-error'}}">
-                                                {{multi-lang-textbox 
-                                                    textEnglish=tour.accessPointEng 
+                                                {{multi-lang-textbox
+                                                    textEnglish=tour.accessPointEng
                                                     textNorwegian=tour.accessPointNo
                                                     maxLength=1000
                                                     rows=3 }}
@@ -132,8 +132,8 @@
                                             title="Description"
                                             data-content="Description of the tour itinerary and anything else that could be useful. Description can have a maximum of 10000 characters."></button>
                                             <div class="{{unless descriptionIsValid 'validation-error'}}">
-                                                {{multi-lang-textbox 
-                                                    textEnglish=tour.itineraryEng 
+                                                {{multi-lang-textbox
+                                                    textEnglish=tour.itineraryEng
                                                     textNorwegian=tour.itineraryNo
                                                     maxLength=10000
                                                     rows=8}}
@@ -301,8 +301,8 @@
                                     <button type="button" class="info" data-toggle="popover" data-trigger="focus" data-placement="right"
                                             title="Hazards"
                                             data-content="Description of any special hazards that skiers should be aware of. Description can have a maximum of 500 characters."></button>
-                                                {{multi-lang-textbox 
-                                                    textEnglish=tour.hazardsDescriptionEng 
+                                                {{multi-lang-textbox
+                                                    textEnglish=tour.hazardsDescriptionEng
                                                     textNorwegian=tour.hazardsDescriptionNo
                                                     isDisabled=haveNoHazards
                                                     maxlength=500}}
@@ -320,10 +320,10 @@
                                     <button type="button" class="info" data-toggle="popover" data-trigger="focus" data-placement="right"
                                             title="Skills/Equipment"
                                             data-content="Description of any mountaineering skills or equipment needed. Rappels, glacier safety equipment etc. Description can have a maximum of 500 characters."></button>
-                                            {{multi-lang-textbox 
-                                                textEnglish=tour.toolsDescriptionEng 
-                                                textNorwegian=tour.toolsDescriptionNo                                     
-                                                isDisabled=doesNotRequireTools 
+                                            {{multi-lang-textbox
+                                                textEnglish=tour.toolsDescriptionEng
+                                                textNorwegian=tour.toolsDescriptionNo
+                                                isDisabled=doesNotRequireTools
                                                 maxlength=500 }}
                                 </div>
                             </div>
@@ -354,7 +354,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div id="more-actions-panel" class="tab-pane">
                     <div class="row">
                         <div class="col">
@@ -388,8 +388,8 @@
                                     <tbody>
                                         {{#each sortedActions as |action|}}
                                         <tr>
-                                            <td>{{displayDateTime action.time}}</td>
-                                            <td>{{resolveSelectName 'TourActions' action.type}}</td>
+                                            <td>{{display-date-time action.time}}</td>
+                                            <td>{{resolve-select-name 'TourActions' action.type}}</td>
                                             <td>{{action.userName}}</td>
                                             <td>{{action.comment}}</td>
                                         </tr>
@@ -417,7 +417,7 @@
                     <button class="btn btn-primary" disabled={{isStartPublishDisabled}} {{action "startPublishTour" }}>
                         <i class="fa fa-cloud-upload"></i> {{text "tourEdit_publish"}}
                     </button>
-                        
+
                     {{#unless isPublished}}
                         <button class="btn btn-secondary" disabled={{isSendToReviewDisabled}} {{action "sendToReview" }}>
                             <i class="fa fa-eye"></i> {{#if isInReview}} {{text "common_save"}} {{else}} {{text "tourEdit_sendToReview"}} {{/if}}
@@ -433,9 +433,9 @@
 
                     <button class="btn btn-secondary spacer-x-left" {{action "startCancelingEditTour" }}>
                         <i class="fa fa-times"></i>  {{text "tourEdit_exit"}}
-                    </button>  
+                    </button>
 
-                </div>  
+                </div>
             </div>
         </div>
     </div>

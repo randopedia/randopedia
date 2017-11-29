@@ -1,10 +1,11 @@
-import Ember from 'ember';
+import { computed } from '@ember/object';
+import Service, { inject as service } from '@ember/service';
 
-export default Ember.Service.extend({
-    alert: Ember.inject.service(),
-    emberOauth2: Ember.inject.service(),
-    store : Ember.inject.service(),
-    text: Ember.inject.service(),
+export default Service.extend({
+    alert: service(),
+    emberOauth2: service(),
+    store : service(),
+    text: service(),
     currentUser: null,
     isLoggingIn: false,
 
@@ -124,7 +125,7 @@ export default Ember.Service.extend({
       }
     },
 
-    isLoggedIn: Ember.computed('currentUser.authenticated', function() {
+    isLoggedIn: computed('currentUser.authenticated', function() {
       var user = this.get('currentUser');
       if(user && user.get('authenticated')) {
         var now = new Date();
@@ -134,7 +135,7 @@ export default Ember.Service.extend({
       return false;
     }),
 
-    isAdmin: Ember.computed('currentUser.authenticated', function() {
+    isAdmin: computed('currentUser.authenticated', function() {
       var user = this.get('currentUser');
       if (!user || !user.get('authenticated')) {
           return false;

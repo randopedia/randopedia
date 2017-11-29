@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import { helper } from '@ember/component/helper';
 
 export function displayDateTime(params/*, hash*/) {
   if(!params || !params[0]) { 
@@ -10,4 +10,4 @@ export function displayDateTime(params/*, hash*/) {
   return moment(time).format("YYYY-MM-DD HH:mm");
 }
 
-export default Ember.Helper.helper(displayDateTime);
+export default helper(displayDateTime);

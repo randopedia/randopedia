@@ -1,8 +1,8 @@
-import Ember from 'ember';
+import { helper } from '@ember/component/helper';
 
 // Appending '...' to strings longer that the defined max length
 
-export default Ember.Helper.helper(function(params) {
+export default helper(function(params) {
     if(!params || !params[0]) { 
         return ""; 
     }

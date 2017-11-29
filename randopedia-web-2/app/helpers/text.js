@@ -1,7 +1,8 @@
-import Ember from 'ember';
+import { inject as service } from '@ember/service';
+import Helper from '@ember/component/helper';
 
-export default Ember.Helper.extend({
-  text : Ember.inject.service(),
+export default Helper.extend({
+  text : service(),
 
   compute (id) {
     return this.get("text").getText(id);

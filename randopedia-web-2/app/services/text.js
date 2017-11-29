@@ -1,8 +1,8 @@
-import Ember from 'ember';
+import Service, { inject as service } from '@ember/service';
 import texts from '../utils/texts';
 
-export default Ember.Service.extend({
-    language: Ember.inject.service(),
+export default Service.extend({
+    language: service(),
 
     getText: function (identifier) {
         if (!texts.dictionary[identifier]) {

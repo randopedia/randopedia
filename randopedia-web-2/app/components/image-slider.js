@@ -1,6 +1,7 @@
-import Ember from 'ember';
+import { computed } from '@ember/object';
+import Component from '@ember/component';
 
-export default Ember.Component.extend({
+export default Component.extend({
     images: [],
 
     didInsertElement() {
@@ -49,7 +50,7 @@ export default Ember.Component.extend({
         //responsive code end
     },
 
-    haveMoreThanOneImage: Ember.computed('images', function() {
+    haveMoreThanOneImage: computed('images', function() {
         return this.get("images.length") > 1;
     })
 });

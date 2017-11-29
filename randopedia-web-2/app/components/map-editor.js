@@ -1,8 +1,9 @@
-import Ember from 'ember';
+import { computed } from '@ember/object';
+import Component from '@ember/component';
 import Fixtures from '../utils/fixtures';
 import GeoHelper from '../utils/geo-helper';
 
-export default Ember.Component.extend({
+export default Component.extend({
     settings: {
         mapRootElementId: '#tourEditMapRootElement',
         defaultZoomLevel: 5,
@@ -352,19 +353,19 @@ export default Ember.Component.extend({
         }
     },
 
-    hasSummitPointMarker: Ember.computed('summitPointMarker', function() {
+    hasSummitPointMarker: computed('summitPointMarker', function() {
         return this.get('summitPointMarker') !== null;
     }),
 
-    isDeletePathsDisabled: Ember.computed('selectedPolylines.[]', function() {
+    isDeletePathsDisabled: computed('selectedPolylines.[]', function() {
         return !this.get('haveSelectedPaths');
     }),
 
-    haveSelectedPaths: Ember.computed('selectedPolylines.[]', function() {
+    haveSelectedPaths: computed('selectedPolylines.[]', function() {
         return this.get('selectedPolylines').length > 0;
     }),
 
-    pathTypes: Ember.computed(function() {
+    pathTypes: computed(function() {
         return Fixtures.PathTypes;
     }),
 

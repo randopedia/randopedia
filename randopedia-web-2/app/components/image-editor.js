@@ -1,9 +1,11 @@
-import Ember from 'ember';
+import { computed } from '@ember/object';
+import { inject as service } from '@ember/service';
+import Component from '@ember/component';
 
-export default Ember.Component.extend({
-    login: Ember.inject.service(),
-    store: Ember.inject.service(),
-    alert: Ember.inject.service(),
+export default Component.extend({
+    login: service(),
+    store: service(),
+    alert: service(),
 
     change: function (evt) {
         if (window.File && window.FileReader && window.FileList && window.Blob) {
@@ -183,7 +185,7 @@ export default Ember.Component.extend({
         }
     },
 
-    hasNewImage: Ember.computed('newImage', function() {
+    hasNewImage: computed('newImage', function() {
         return this.get("newImage");
     })
 

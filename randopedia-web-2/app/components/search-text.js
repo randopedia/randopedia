@@ -1,7 +1,8 @@
-import Ember from 'ember';
+import { inject as service } from '@ember/service';
+import TextField from '@ember/component/text-field';
 
-export default Ember.TextField.extend({
-    text: Ember.inject.service(),
+export default TextField.extend({
+    text: service(),
     attributeBindings: ['placeholder'],
     placeholder: null,
     classNames: ['form-control','search-textfield'],

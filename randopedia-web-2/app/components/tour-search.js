@@ -1,10 +1,11 @@
-import Ember from 'ember';
+import { inject as service } from '@ember/service';
+import Component from '@ember/component';
 
-export default Ember.Component.extend({
+export default Component.extend({
     classNames: ['searchbox'],
     query : null,
     tours : null,
-    store : Ember.inject.service(),
+    store : service(),
 
     onSearchQueryChanged : function() {
         var query = this.get('query');

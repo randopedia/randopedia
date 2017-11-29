@@ -1,8 +1,9 @@
-import Ember from 'ember';
+import { inject as service } from '@ember/service';
+import Route from '@ember/routing/route';
 
-export default Ember.Route.extend({
-  emberOauth2: Ember.inject.service(),
-  login: Ember.inject.service(),
+export default Route.extend({
+  emberOauth2: service(),
+  login: service(),
 
   setupController() {
     var hash = window.location.hash;
