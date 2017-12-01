@@ -1,12 +1,14 @@
-import Ember from 'ember';
+import { computed } from '@ember/object';
+import { inject as service } from '@ember/service';
+import Component from '@ember/component';
 import Fixtures from '../utils/fixtures';
 import GeoHelper from '../utils/geo-helper';
 
-export default Ember.Component.extend({
-    login: Ember.inject.service(),
-    language: Ember.inject.service(),
-    alert: Ember.inject.service(),
-    validation: Ember.inject.service(),
+export default Component.extend({
+    login: service(),
+    language: service(),
+    alert: service(),
+    validation: service(),
 
     showAdvancedOptions: false,
     haveValidationErrors: false,
@@ -286,55 +288,55 @@ export default Ember.Component.extend({
 
     // COMPUTED PROPS
 
-    nameIsValid: Ember.computed('tour.name', function() {
+    nameIsValid: computed('tour.name', function() {
         return this.get("validation").name(this.get('tour.name'));
     }),
 
-    accessPointIsValid: Ember.computed('tour.{accessPointEng,accessPointNo}', function() {
+    accessPointIsValid: computed('tour.{accessPointEng,accessPointNo}', function() {
         return this.get("validation").mediumDesc(this.get('tour.accessPointEng'), false) || this.get("validation").mediumDesc(this.get('tour.accessPointNo'), false);
     }),
 
-    descriptionIsValid: Ember.computed('tour.{itineraryEng,itineraryNo}', function() {
+    descriptionIsValid: computed('tour.{itineraryEng,itineraryNo}', function() {
         return this.get("validation").longDesc(this.get('tour.itineraryEng'), false) || this.get("validation").longDesc(this.get('tour.itineraryNo'), false);
     }),
 
-    tagsAreValid: Ember.computed('tour.tags', function() {
+    tagsAreValid: computed('tour.tags', function() {
         return this.get("tour.tags.length") > 0;
     }),
 
-    elevationGainIsValid: Ember.computed('tour.elevationGain', function() {
+    elevationGainIsValid: computed('tour.elevationGain', function() {
         return this.get("validation").isPosNumberOrNull(this.get("tour.elevationGain"));
     }),
 
-    elevationLossIsValid: Ember.computed('tour.elevationLoss', function() {
+    elevationLossIsValid: computed('tour.elevationLoss', function() {
         return this.get("validation").isPosNumberOrNull(this.get("tour.elevationLoss"));
     }),
 
-    elevationMaxIsValid: Ember.computed('tour.elevationMax', function() {
+    elevationMaxIsValid: computed('tour.elevationMax', function() {
         return this.get("validation").isPosNumberOrNull(this.get("tour.elevationMax"));
     }),
 
-    timingMinIsValid: Ember.computed('tour.timingMin', function() {
+    timingMinIsValid: computed('tour.timingMin', function() {
         return this.get("validation").isPosNumberOrNull(this.get("tour.timingMin"));
     }),
 
-    timingMaxIsValid: Ember.computed('tour.timingMax', function() {
+    timingMaxIsValid: computed('tour.timingMax', function() {
         return this.get("validation").isPosNumberOrNull(this.get("tour.timingMax"));
     }),
 
-    degreesMaxIsValid: Ember.computed('tour.degreesMax', function() {
+    degreesMaxIsValid: computed('tour.degreesMax', function() {
         return this.get("validation").isPosNumberOrNull(this.get("tour.degreesMax"));
     }),
 
-    mapDataIsValid: Ember.computed('tour.mapGeoJson', function() {
+    mapDataIsValid: computed('tour.mapGeoJson', function() {
         return GeoHelper.geojsonContainsSummitPoint(this.get("tour.mapGeoJson")) && GeoHelper.geojsonContainsPath(this.get("tour.mapGeoJson"));
     }),
 
-    hasChanges: Ember.computed('tour.hasDirtyAttributes', 'newImage', 'tagsIsDirty', function() {
+    hasChanges: computed('tour.hasDirtyAttributes', 'newImage', 'tagsIsDirty', function() {
         return this.get("tour.hasDirtyAttributes") || this.get("tagsIsDirty") || this.get("hasNewImage");
     }),
     
-    isStartPublishDisabled: Ember.computed('tour.{status,name,hasDirtyAttributes}', 'newImage', 'tagsIsDirty', 'havePendingOperations', function() {
+    isStartPublishDisabled: computed('tour.{status,name,hasDirtyAttributes}', 'newImage', 'tagsIsDirty', 'havePendingOperations', function() {
         if (this.get("havePendingOperations") || this.get("isDeleted") || !this.get("validation").name(this.get("tour.name"))) {
             return true;
         }
@@ -346,7 +348,7 @@ export default Ember.Component.extend({
         return true;
     }),
     
-    isSaveAsDraftDisabled: Ember.computed('tour.{status,name,hasDirtyAttributes}', 'newImage', 'tagsIsDirty', 'havePendingOperations', function() {
+    isSaveAsDraftDisabled: computed('tour.{status,name,hasDirtyAttributes}', 'newImage', 'tagsIsDirty', 'havePendingOperations', function() {
         if (this.get("havePendingOperations") || this.get("isDeleted") || !this.get("validation").name(this.get("tour.name"))) {
             return true;
         }
@@ -358,7 +360,7 @@ export default Ember.Component.extend({
         return !this.get("isDraft") || !this.get("hasChanges");
     }),
 
-    isSendToReviewDisabled: Ember.computed('tour.{status,name,hasDirtyAttributes}', 'newImage', 'tagsIsDirty', 'havePendingOperations', function() {
+    isSendToReviewDisabled: computed('tour.{status,name,hasDirtyAttributes}', 'newImage', 'tagsIsDirty', 'havePendingOperations', function() {
         if (this.get("havePendingOperations") || this.get("isDeleted") || !this.get("validation").name(this.get("tour.name")) || this.get('isPublished')) {
             return true;
         }
@@ -370,27 +372,27 @@ export default Ember.Component.extend({
         return this.get("isInReview") && !this.get("hasChanges");
     }),
 
-    isPublished: Ember.computed('tour.status', function() {
+    isPublished: computed('tour.status', function() {
         return this.get("tour.status") === Fixtures.TourStatus.PUBLISHED;
     }),
 
-    isNotPublished: Ember.computed('tour.status', function() {
+    isNotPublished: computed('tour.status', function() {
         return this.get("tour.status") !== Fixtures.TourStatus.PUBLISHED;
     }),
     
-    isDraft: Ember.computed('tour.status', function() {
+    isDraft: computed('tour.status', function() {
         return this.get("tour.status") === Fixtures.TourStatus.DRAFT;
     }),
 
-    isInReview: Ember.computed('tour.status', function() {
+    isInReview: computed('tour.status', function() {
         return this.get("tour.status") === Fixtures.TourStatus.IN_REVIEW;
     }),
     
-    isDeleted: Ember.computed('tour.status', function() {
+    isDeleted: computed('tour.status', function() {
         return this.get("tour.status") === Fixtures.TourStatus.DELETED;
     }),
     
-    displayStatus: Ember.computed('tour.status', function() {
+    displayStatus: computed('tour.status', function() {
         switch (this.get("tour.status")) {
             case Fixtures.TourStatus.PUBLISHED:
                 return "Published";
@@ -405,50 +407,50 @@ export default Ember.Component.extend({
         }
     }),
 
-    hasImages: Ember.computed('tour.images.length', function() {
+    hasImages: computed('tour.images.length', function() {
         return !this.get("tour.images") ? false : this.get("tour.images.length") > 0;
     }),
     
-    hasNewImage: Ember.computed('newImage', function() {
+    hasNewImage: computed('newImage', function() {
         return !this.get("newImage") ? false : true;
     }),
 
-    hasPaths: Ember.computed('tour.mapGeoJson', function() {
+    hasPaths: computed('tour.mapGeoJson', function() {
         return !this.get("tour.mapGeoJson") ? false : true;
     }),
     
     // todo: ?
-    isIncomplete: Ember.computed('tour.name', function() {
+    isIncomplete: computed('tour.name', function() {
         return this.get("isDraft") ? false : false;
     }),
     
-    haveNoHazards: Ember.computed('tour.haveHazards', function() {
+    haveNoHazards: computed('tour.haveHazards', function() {
         return !this.get("tour.haveHazards");
     }),
 
-    doesNotRequireTools: Ember.computed('tour.requiresTools', function() {
+    doesNotRequireTools: computed('tour.requiresTools', function() {
         return !this.get("tour.requiresTools");
     }),
     
-    sortedActions: Ember.computed('tour.actions.[]', function() {
+    sortedActions: computed('tour.actions.[]', function() {
         return this.get("tour.actions").sortBy("time");
     }),
 
     // Wrappers for fixtures lists (does not directly bind in handlebars..)
 
-    months: Ember.computed(function() {
+    months: computed(function() {
         return Fixtures.Months;
     }),
 
-    aspects: Ember.computed(function() {
+    aspects: computed(function() {
         return Fixtures.Aspects;
     }),
 
-    countries: Ember.computed(function() {
+    countries: computed(function() {
         return Fixtures.Countries;
     }),
 
-    grades: Ember.computed(function() {
+    grades: computed(function() {
         return Fixtures.Grades;
     })
 });

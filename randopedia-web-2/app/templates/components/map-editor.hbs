@@ -25,6 +25,11 @@
                         <i class="fa fa-trash-o"></i>
                     </button>
                 </div>
+                <div class="btn-group">
+                    <button class="btn btn-secondary" data-toggle="modal" data-target="#importGpxModal">
+                        <i class="fa fa-pencil-square-o"></i>&nbsp;GPX
+                    </button>
+                </div>
 
             </div>
         </div>
@@ -69,7 +74,7 @@
                             {{#each pathTypes as |pathType|}}
                                 {{#xs.option value=pathType.value}} {{pathType.name}} {{/xs.option}}
                             {{/each}}
-                        {{/x-select}}                        
+                        {{/x-select}}
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary pull-right" data-dismiss="modal">{{text 'common_cancel'}}</button>
@@ -78,4 +83,53 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="importGpxModal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Import GPX file</h4>
+                </div>
+                <div class="modal-body">
+                    {{#if gpxDataIsInvalid}}
+                        <div class="alert alert-warning" role="alert">
+                            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                            GPX file seems to be invalid, couldn't complete import.
+                        </div>
+                    {{/if}}
+                    {{#if gpxDataWasLoaded}}
+                        <div class="alert alert-success" role="alert">
+                            Map data was successfully imported.
+                        </div>
+                    {{else}}
+                        {{#if loadingGpxData}}
+                            <div class="alert alert-info" role="alert">
+                                Loading map data from GPX file... This can take a few seconds and the page may lock during loading
+                            </div>
+                        {{else}}
+                            <div class="alert alert-info" role="alert">
+                                For performance reasons the tracks might be compressed (some points ignored). Only tracks will be imported. Waypoints and metadata in the GPX file are ignored.
+                            </div>
+                            <div class="btn-group">
+                                <label class="btn btn-secondary btn-file">
+                                    Select GPX file to import <input type="file" id="gpxFileInputElement" accept=".gpx" hidden>
+                                </label>
+                            </div>
+                        {{/if}}
+                    {{/if}}
+
+                </div>
+               <div class="modal-footer">
+                 {{#unless loadingGpxData}}
+                      {{#if gpxDataWasLoaded}}
+                          <button class="btn btn-default pull-right" data-dismiss="modal" {{action "closeGpxImportModal" target="view" }}>Close</button>
+                      {{else}}
+                          <button class="btn btn-default pull-right" data-dismiss="modal">Cancel</button>
+                      {{/if}}
+                  {{/unless}}
+               </div>
+           </div>
+       </div>
+     </div>
+
 </div>

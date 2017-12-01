@@ -1,9 +1,10 @@
-import Ember from 'ember';
+import { inject as service } from '@ember/service';
+import Component from '@ember/component';
 import LocationHelper from '../utils/location-helper';
 
-export default Ember.Component.extend({
-    login: Ember.inject.service(),
-    language: Ember.inject.service(),
+export default Component.extend({
+    login: service(),
+    language: service(),
 
     actions: {
         topbarmenulink: function (routeName) {

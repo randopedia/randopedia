@@ -1,12 +1,14 @@
-import Ember from 'ember';
+import { computed } from '@ember/object';
+import { inject as service } from '@ember/service';
+import Component from '@ember/component';
 import Fixtures from '../utils/fixtures';
 import GeoHelper from '../utils/geo-helper';
 
-export default Ember.Component.extend({
-    login: Ember.inject.service(),
-    language: Ember.inject.service(),
-    alert: Ember.inject.service(),
-    properties: Ember.inject.service(),
+export default Component.extend({
+    login: service(),
+    language: service(),
+    alert: service(),
+    properties: service(),
 
     actions: {
         viewTourOnMap: function() {
@@ -21,64 +23,64 @@ export default Ember.Component.extend({
         }
     },
 
-    markedDescription: Ember.computed('tour', function() {
+    markedDescription: computed('tour', function() {
         var desc = this.get("language").translateProperty(this, "tour.itinerary");       
         var descWithLinks = !desc ? "" : desc.replace(/#(\S*)/g,"<a href=\"/tags/$1\">#$1</a>");
         return marked(descWithLinks);
     }),
 
-    accessPoint: Ember.computed('tour', function() {
+    accessPoint: computed('tour', function() {
         return this.get("language").translateProperty(this, "tour.accessPoint");
     }),
 
-    hazardsDescription: Ember.computed('tour', function() {
+    hazardsDescription: computed('tour', function() {
         return this.get("language").translateProperty(this, "tour.hazardsDescription");
     }),
 
-    toolsDescription: Ember.computed('tour', function() {
+    toolsDescription: computed('tour', function() {
         return this.get("language").translateProperty(this ,"tour.toolsDescription");
     }),            
 
-    summitPoint: Ember.computed('tour', function() {
+    summitPoint: computed('tour', function() {
         return GeoHelper.getSummitPoint(this.get("tour.mapGeoJson"));
     }),
 
-    isPublished: Ember.computed('tour', function() {
+    isPublished: computed('tour', function() {
         return this.get("tour.status") === Fixtures.TourStatus.PUBLISHED;
     }),
 
-    isDraft: Ember.computed('tour', function() {
+    isDraft: computed('tour', function() {
         return this.get("tour.status") === Fixtures.TourStatus.DRAFT;
     }),
 
-    isInReview: Ember.computed('tour', function () {
+    isInReview: computed('tour', function () {
         return this.get("tour.status") === Fixtures.TourStatus.IN_REVIEW;
     }),
 
-    isDeleted: Ember.computed('tour', function() {
+    isDeleted: computed('tour', function() {
         return this.get("tour.status") === Fixtures.TourStatus.DELETED;
     }),
 
-    hasImages: Ember.computed('tour', function(){
+    hasImages: computed('tour', function(){
         if(!this.get("tour.images")){
             return false;
         }
         return this.get("tour.images.length") > 0;
     }),
 
-    hasMapData: Ember.computed('tour', function () {
+    hasMapData: computed('tour', function () {
         return GeoHelper.validateGeoJson(this.get("tour.mapGeoJson"));
     }),
 
-    hasPaths: Ember.computed('tour', function() {
+    hasPaths: computed('tour', function() {
         return GeoHelper.geojsonContainsPath(this.get("tour.mapGeoJson"));
     }),
 
-    haveNoHazards: Ember.computed('tour', function() {
+    haveNoHazards: computed('tour', function() {
         return !this.get("tour.haveHazards");
     }),
 
-    doesNotRequireTools: Ember.computed('tour', function() {
+    doesNotRequireTools: computed('tour', function() {
         return !this.get("tour.requiresTools");
     }),
 

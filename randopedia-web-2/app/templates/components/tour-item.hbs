@@ -1,9 +1,9 @@
-<div class="tour-item">  
+<div class="tour-item">
     <div class="item-panel load-animation">
         <h4> <a {{action "openTour"}}>{{tour.name}}</a> <span class="small">({{tour.elevationMax}}m)</span></h4>
-        <div class="item-props">    
-            {{resolveSelectName 'Grades' tour.grade}} | 
-            {{tour.timingMin}}-{{tour.timingMax}}h | 
+        <div class="item-props">
+            {{resolve-select-name 'Grades' tour.grade}} | 
+            {{tour.timingMin}}-{{tour.timingMax}}h |
             {{tour.elevationGain}}m &uarr; {{tour.elevationLoss}}m &darr;
         </div>
     </div>

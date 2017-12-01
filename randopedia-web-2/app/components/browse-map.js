@@ -1,11 +1,13 @@
-import Ember from 'ember';
+import { computed } from '@ember/object';
+import { inject as service } from '@ember/service';
+import Component from '@ember/component';
 import Fixtures from '../utils/fixtures';
 import GeoHelper from '../utils/geo-helper';
 
-export default Ember.Component.extend({
-    alert: Ember.inject.service(),
-    properties: Ember.inject.service(),
-    text: Ember.inject.service(),
+export default Component.extend({
+    alert: service(),
+    properties: service(),
+    text: service(),
 
     settings: {
         detailedZoomLevel: 13,
@@ -432,10 +434,10 @@ export default Ember.Component.extend({
         }
 
         self.showTourRoutesIfZoomed(map.getZoom());
-        
+
     },
 
-    showTourInfo: Ember.computed("selectedTour", function() {
+    showTourInfo: computed("selectedTour", function() {
         return this.get('selectedTour') !== null;
     }),
 

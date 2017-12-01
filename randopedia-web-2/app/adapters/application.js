@@ -1,13 +1,17 @@
-import Ember from 'ember';
+import $ from 'jquery';
+import { run } from '@ember/runloop';
+import { keys } from '@ember/polyfills';
+import { Promise as EmberPromise } from 'rsvp';
+import { inject as service } from '@ember/service';
 import RESTAdapter from 'ember-data/adapters/rest';
 import LocationHelper from '../utils/location-helper';
 
 export default RESTAdapter.extend({
     namespace: 'api',
-    emberOauth2: Ember.inject.service(),
+    emberOauth2: service(),
     ajax: function(url, type, hash) {
         var adapter = this;
-        return new Ember.RSVP.Promise(function(resolve, reject) {
+        return new EmberPromise(function(resolve, reject) {
           hash = hash || {};
           hash.url = url;
           hash.type = type;
@@ -21,7 +25,7 @@ export default RESTAdapter.extend({
           if (adapter.headers !== undefined) {
             var headers = adapter.headers;
             hash.beforeSend = function (xhr) {
-              Ember.keys(headers).forEach(function(key) {
+              keys(headers).forEach(function(key) {
                 xhr.setRequestHeader(key, headers[key]);
               });
             };
@@ -43,7 +47,7 @@ export default RESTAdapter.extend({
           };
 
           hash.success = function(json) {
-            Ember.run(null, resolve, json);
+            run(null, resolve, json);
           };
 
           hash.error = function(jqXHR, textStatus, errorThrown) {
@@ -51,12 +55,12 @@ export default RESTAdapter.extend({
               jqXHR.then = null;
             }
 
-            Ember.run(null, reject, jqXHR);
+            run(null, reject, jqXHR);
 
             console.log(textStatus);
             console.log(errorThrown);
           };
-          Ember.$.ajax(hash);
+          $.ajax(hash);
         });
     }
 });
