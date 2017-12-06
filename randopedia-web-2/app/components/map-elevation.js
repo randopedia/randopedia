@@ -5,7 +5,7 @@ import Fixtures from '../utils/fixtures';
 export default Ember.Component.extend({
     zoomLevel: 13,
       
-    didInsertElement() {
+    didRender() {
         this._super(...arguments);
 
         var self = this;
@@ -43,7 +43,6 @@ export default Ember.Component.extend({
         var polyline = new google.maps.Polyline({
             path: path,
             strokeColor: Fixtures.MapObjectStyles.DEFAULT_PATH_COLOR,
-            strokeOpacity: 0.4,
             map: map
         });
 
