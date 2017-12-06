@@ -223,6 +223,17 @@
     </div>
     {{/if}}
 
+    {{#if hasPaths}}
+    <div class="card spacer-y">
+        <h4 class="card-header">
+            {{text "tour_elevationChart"}}
+        </h4>
+        <div class="card-block">
+            {{map-elevation tour=tour}}
+        </div>
+    </div>
+    {{/if}}
+
     {{#if isPublished}}
     <div class="card spacer-y">
         <h4 class="card-header">

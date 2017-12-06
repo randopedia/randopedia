@@ -301,6 +301,10 @@ texts.dictionary = {
         no: "Høyde",
         eng: "Elevation"
     },
+    tour_elevationChart: {
+        no: "Høydediagrammer",
+        eng: "Elevation charts"
+    },
     tour_grade: {
         no: "Grad",
         eng: "Grade"
