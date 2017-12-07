@@ -9,7 +9,6 @@ module.exports = function(defaults) {
     app.options.minifyJS.enabled = true;
   }
 
-  app.import('bower_components/moment/moment.js');
   app.import('vendor/FileSaver.min.js');
   app.import('vendor/marked.js');
   app.import('vendor/togpx.js');
@@ -18,6 +17,7 @@ module.exports = function(defaults) {
   app.import('vendor/markerclusterer.js');
   app.import('vendor/togeojson.js');
   app.import('vendor/geojson-utils.js');
+  app.import('vendor/shims/moment.js');
   app.import('bower_components/jqcloud2/dist/jqcloud.min.js')
 
 

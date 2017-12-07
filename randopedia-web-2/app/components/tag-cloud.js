@@ -25,7 +25,7 @@ export default Component.extend({
             var containerWidth = $(".tagcloud-component").width();
             if (containerWidth) {
                 $(".tagcloud-container").width(containerWidth);
-            
+
             } else {
                 window.setTimeout(scaleCloud, 30);
             }

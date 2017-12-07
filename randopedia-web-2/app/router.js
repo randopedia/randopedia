@@ -10,6 +10,7 @@ Router.map(function() {
   this.route('tour', {path: '/tours/:tour_id'});
   this.route('tour.edit', {path:'/tours/:tour_id/edit'});
   this.route('tour.new', {path:'/tours/new'});
+  this.route('tour.new-from-gpx', {path:'/tours/new-from-gpx'});
   this.route('about');
   this.route('help');
   this.route('dashboard');
@@ -19,7 +20,7 @@ Router.map(function() {
     });
     this.route('google', function() {
       this.route('callback');
-    });    
+    });
   });
   this.route('mytours');
   this.route('tags');
