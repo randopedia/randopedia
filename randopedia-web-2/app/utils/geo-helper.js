@@ -105,6 +105,24 @@ var GeoHelper = {
         return mapObjects;
     },
 
+    getGoogleLPathsFromTourGeoJson: function(geojson) {
+        var self = this;
+        var paths = [];
+
+        if (!geojson || !GeoHelper.validateGeoJson(geojson)) {
+            return paths;
+        }
+
+        for(var i = 0; i < geojson.features.length; i++) {
+            var geometry = geojson.features[i].geometry;
+            if(geometry.type === "LineString") {
+                var path = GeoHelper.geoJsonCoordinatesToGoogleLatLngArray(geometry.coordinates);
+                paths.push(path);
+            }
+        }
+        return paths;
+    },
+
     getGoogleMarker: function (coordinates, randoType, makeDraggable, title) {
         if (!randoType) {
             randoType = Fixtures.MapSymbolTypes.SUMMIT_POINT;
