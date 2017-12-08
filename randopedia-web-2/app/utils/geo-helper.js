@@ -106,7 +106,6 @@ var GeoHelper = {
     },
 
     getGoogleLPathsFromTourGeoJson: function(geojson) {
-        var self = this;
         var paths = [];
 
         if (!geojson || !GeoHelper.validateGeoJson(geojson)) {

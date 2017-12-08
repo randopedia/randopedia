@@ -2,8 +2,14 @@ import { computed } from '@ember/object';
 import Component from '@ember/component';
 import Fixtures from '../utils/fixtures';
 import GeoHelper from '../utils/geo-helper';
+import { inject as service } from '@ember/service';
+
+var toGeoJSON = toGeoJSON || null;
+var gju = gju || null;
 
 export default Component.extend({
+    alert: service(),
+
     settings: {
         mapRootElementId: '#tourEditMapRootElement',
         defaultZoomLevel: 5,
@@ -267,7 +273,7 @@ export default Component.extend({
                 }
             }
         } else {
-            App.Alerts.showErrorMessage('Could not import gpx file. Most likely because your browser does not support the File API.');
+            this.get("alert").showErrorMessage('Could not import gpx file. Most likely because your browser does not support the File API.');
         }
     },
 

@@ -12,7 +12,7 @@ export default Component.extend({
 
     actions: {
         viewTourOnMap: function() {
-            this.get('properties').setTourForMapView(this.get('tour'));
+            this.set('properties.tourForMapView', this.get('tour'));
             this.get('router').transitionTo('index');
         },
         downloadGpxFile: function () {

@@ -93,7 +93,7 @@ export default Ember.Component.extend({
         //todo: Doesn't work for some reason...
         //GeoHelper.setMapTypeIfDefaultDiffersFromCurrent(map, this.get("tour.country"));
 
-        var elevator = new google.maps.ElevationService;
+        var elevator = new google.maps.ElevationService();
         
         var self = this;
         paths.forEach(function(path) {
