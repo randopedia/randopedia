@@ -36,7 +36,7 @@ export default Service.extend({
       }, false);
       this.clearAllTokens();
       emberOauth2.setProvider(provider);
-      emberOauth2.authorize().then(function(response) { });
+      emberOauth2.authorize().then(function() { });
     },
 
     logout: function() {
