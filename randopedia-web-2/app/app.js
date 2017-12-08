@@ -8,8 +8,6 @@ import locationHelper from './utils/location-helper';
 
 //let App;
 
-Ember.MODEL_FACTORY_INJECTIONS = true;
-
 let App = Application.extend({
     modulePrefix: config.modulePrefix,
     podModulePrefix: config.podModulePrefix,
