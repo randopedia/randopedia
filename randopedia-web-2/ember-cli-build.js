@@ -18,7 +18,7 @@ module.exports = function(defaults) {
   app.import('vendor/togeojson.js');
   app.import('vendor/geojson-utils.js');
   app.import('vendor/shims/moment.js');
-  app.import('bower_components/jqcloud2/dist/jqcloud.min.js')
+  app.import('node_modules/jqcloud2/dist/jqcloud.min.js')
 
 
   // Use `app.import` to add additional libraries to the generated

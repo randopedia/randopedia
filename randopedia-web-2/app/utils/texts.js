@@ -1,4 +1,4 @@
-﻿const texts = {};
+const texts = {};
 
 texts.dictionary = {
     common_cancel: {

@@ -40,7 +40,7 @@ Fixtures.MapObjectStyles = {
     SELECTED_PATH_COLOR: 'blue'
 };
 
-Fixtures.UndefinedString = "N/A",
+Fixtures.UndefinedString = "N/A";
 
 Fixtures.TourActions = [
     {value: null, name: Fixtures.UndefinedString},
