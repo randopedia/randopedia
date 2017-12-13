@@ -9,5 +9,20 @@ module.exports = {
     browser: true
   },
   rules: {
+    "no-console": "off"
+  },
+  globals: {
+    "$": true,
+    "google": true,
+    "MarkerClusterer": true,
+    "marked": true,
+    "togpx": true,
+    "saveAs": true, // from togpx lib
+    "toGeoJSON": true,
+    "gju": true, // from togeojson lib
+    "$Jssor$": true,
+    "$JssorArrowNavigator$": true,
+    "$JssorSlider$": true, 
+    "$JssorBulletNavigator$": true
   }
 };
