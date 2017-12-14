@@ -3,8 +3,8 @@ import Component from '@ember/component';
 import Fixtures from '../utils/fixtures';
 import GeoHelper from '../utils/geo-helper';
 import { inject as service } from '@ember/service';
+import toGeoJSON from 'togeojson';
 
-var toGeoJSON = toGeoJSON || null;
 var gju = gju || null;
 
 export default Component.extend({

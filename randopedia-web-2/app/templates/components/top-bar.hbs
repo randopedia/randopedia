@@ -30,6 +30,7 @@
                         <h4><i class="fa fa-user"></i> {{max-string login.currentUser.userName 50}}</h4>
                         <hr />
                         <a {{action "topbarmenulink" "tour.new" }}><i class="fa fa-plus" aria-hidden="true"></i> {{text "header_addNewTour"}}</a>
+                        <a {{action "topbarmenulink" "tour.new-from-gpx" }}><i class="fa fa-plus" aria-hidden="true"></i> {{text "header_addFromGpx"}}</a>
                         <a {{action "topbarmenulink" "mytours" }}><i class="fa fa-database" aria-hidden="true"></i> {{text "header_myTours"}}</a>
                         <hr />
                         <a {{action "logout" }}><i class="fa fa-sign-out" aria-hidden="true"></i> {{text "header_logout"}}</a>

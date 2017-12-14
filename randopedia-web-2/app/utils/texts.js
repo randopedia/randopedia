@@ -16,7 +16,7 @@ texts.dictionary = {
     common_delete: {
         no: "Slett",
         eng: "Delete"
-    },    
+    },
     common_download: {
         no: "Last ned",
         eng: "Download"
@@ -28,7 +28,7 @@ texts.dictionary = {
     common_save: {
         no: "Lagre",
         eng: "Save"
-    },    
+    },
     common_update: {
         no: "Oppdater",
         eng: "Update"
@@ -64,7 +64,7 @@ texts.dictionary = {
     dashboard_funfact5: {
         no: "skikjørere har bidratt med turdata.",
         eng: "cool skier dudes have contributed with ski tour data."
-    },    
+    },
     downloadGpxFile: {
         no: "Laste ned GPX fil",
         eng: "Download GPX file"
@@ -72,7 +72,7 @@ texts.dictionary = {
     downloadGpxWarningText: {
         no: "ADVARSEL: Mange ruter er tegnet for hånd på kartet, og derfor bør GPX-filen brukes med forsiktighet.",
         eng: "WARNING: Many tour paths are drawn by hand on the map and therefore should the GPX file be used with caution."
-    },      
+    },
     error_getLocation: {
         no: "Kunne ikke finne din posisjon, er posisjonstjenesten aktivert på enheten din?",
         eng: "Couldn't resolve your position, is location service enabled on your device?"
@@ -112,6 +112,10 @@ texts.dictionary = {
     header_about: {
         no: "Om",
         eng: "About"
+    },
+    header_addFromGpx: {
+        no: "Legg til tur fra GPX-fil",
+        eng: "Add new tour from GPX file"
     },
     header_addNewTour: {
         no: "Legg til ny tur",
@@ -204,11 +208,11 @@ texts.dictionary = {
     login_errorWhenLoggingIn: {
         no: "Det oppstod en feil ved innloggingen, vennligst prøv igjen.",
         eng: "An error occured when trying to log in, please try again."
-    },    
+    },
     login_loggedInMsg: {
         no: "Du er nu logget inn.",
         eng: "You were successfully logged in."
-    },    
+    },
     login_loggedOutMsg: {
         no: "Du blev logget ut.",
         eng: "You were logged out."
@@ -324,7 +328,7 @@ texts.dictionary = {
     tour_tourIsDraft: {
         no: "Utkast, turen er ikke publisert og bare du kan se den.",
         eng: "This tour is a draft. Is has not yet been published and only you can see it."
-    },    
+    },
     tour_markedAsIncomplete: {
         no: "Denne turen er merket som ufullstendig, så det kan være noen viktig informasjon som mangler eller er feil.",
         eng: "This tour is marked as incomplete. It might be some important information that's missing or is incorrect."
@@ -332,7 +336,7 @@ texts.dictionary = {
     tour_isInReview: {
         no: "Denne turen er under vurdering, den er ikke publisert og bare synlig for inloggede brukere.",
         eng: "This tour is in review. It has not yet been published and is only visible to logged in users."
-    },    
+    },
     tour_mountaineering: {
         no: "Klatremoment",
         eng: "Mountaineering"
@@ -404,7 +408,7 @@ texts.dictionary = {
     tourEdit_unmarkIncomplete: {
         no: "Fjern 'merk som fullstendig'",
         eng: "Remove incomplete mark"
-    },               
+    },
     tourEdit_nameNotSetOnSave: {
         no: "Turen kunne ikke lagres, navn må angis.",
         eng: "Couldn't save tour, name must be set."
@@ -432,7 +436,7 @@ texts.dictionary = {
     tourEdit_status: {
         no: "Status",
         eng: "Tour status"
-    },    
+    },
     tourEdit_map: {
         no: "Kart",
         eng: "Map"

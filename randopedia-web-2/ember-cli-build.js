@@ -15,9 +15,9 @@ module.exports = function(defaults) {
   app.import('vendor/jssor.slider.min.js');
   app.import('vendor/jquery.bootstrap-growl.min.js');
   app.import('vendor/markerclusterer.js');
-  app.import('vendor/togeojson.js');
   app.import('vendor/geojson-utils.js');
   app.import('vendor/shims/moment.js');
+  app.import('vendor/shims/togeojson.js');
   app.import('node_modules/jqcloud2/dist/jqcloud.min.js')
 
 
