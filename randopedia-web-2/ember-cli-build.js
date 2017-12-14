@@ -3,7 +3,12 @@
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 
 module.exports = function(defaults) {
-  let app = new EmberApp(defaults, {});
+  let app = new EmberApp(defaults, {
+    nodeModulesToVendor: [
+      'node_modules/togeojson/',
+      'node_modules/moment/min/'
+    ]
+  });
 
   if(app.env === 'production') {
     app.options.minifyJS.enabled = true;
@@ -16,6 +21,8 @@ module.exports = function(defaults) {
   app.import('vendor/jquery.bootstrap-growl.min.js');
   app.import('vendor/markerclusterer.js');
   app.import('vendor/geojson-utils.js');
+  app.import('vendor/togeojson.js');
+  app.import('vendor/moment.min.js');
   app.import('vendor/shims/moment.js');
   app.import('vendor/shims/togeojson.js');
   app.import('node_modules/jqcloud2/dist/jqcloud.min.js')

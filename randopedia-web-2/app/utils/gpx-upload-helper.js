@@ -14,6 +14,7 @@ export const validateGeoJson = (geojson) => {
 };
 
 export const getGeoJSONFromReader = (reader) => {
+  console.log('toGeoJSON', Object.keys(toGeoJSON));
     var parser = new DOMParser();
     var xmlDoc = parser.parseFromString(reader.result, "application/xml");
     var geojson = toGeoJSON.gpx(xmlDoc);

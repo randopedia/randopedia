@@ -1,7 +1,5 @@
 import Component from '@ember/component';
 import GpxUploadHelper from '../utils/gpx-upload-helper';
-import togeojson from 'togeojson';
-import moment from 'moment';
 
 export default Component.extend({
 
@@ -9,7 +7,6 @@ export default Component.extend({
   gpxDataWasLoaded: false,
 
   didInsertElement() {
-    console.log('insert element', Object.keys(moment));
   },
 
   change: function (evt) {

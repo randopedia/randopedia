@@ -18,11 +18,10 @@ module.exports = {
     "marked": true,
     "togpx": true,
     "saveAs": true, // from togpx lib
-    "toGeoJSON": true,
     "gju": true, // from togeojson lib
     "$Jssor$": true,
     "$JssorArrowNavigator$": true,
-    "$JssorSlider$": true, 
+    "$JssorSlider$": true,
     "$JssorBulletNavigator$": true
   }
 };

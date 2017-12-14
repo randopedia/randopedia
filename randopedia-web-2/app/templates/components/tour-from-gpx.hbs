@@ -6,26 +6,10 @@
     </div>
     <div class="row">
       <div class="col">
-        {{#if gpxDataIsInvalid}}
-            <div class="alert alert-warning" role="alert">
-                <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                GPX file seems to be invalid, couldn't complete import.
-            </div>
-        {{/if}}
-        {{#if gpxDataWasLoaded}}
-            <div class="alert alert-success" role="alert">
-                Map data was successfully imported.
-            </div>
-        {{else}}
-            {{#if loadingGpxData}}
-                <div class="alert alert-info" role="alert">
-                    Loading map data from GPX file... This can take a few seconds and the page may lock during loading
-                </div>
-            {{/if}}
-        {{/if}}
+
         <div>
-          For performance reasons the tracks might be compressed (some points ignored). Only tracks will be imported. Waypoints and metadata in the GPX file are ignored.
-          After the GPX data has been validated, simply choose a name for your tour and save it. Thats it!
+          <p>For performance reasons the tracks might be compressed (some points ignored). Only tracks will be imported. Waypoints and metadata in the GPX file are ignored.</p>
+          <p>After the GPX data has been validated, simply choose a name for your tour and save it. Thats it!</p>
         </div>
         {{#unless gpxDataWasLoaded}}
         <div class="btn-group">
@@ -36,7 +20,23 @@
         {{/unless}}
       </div>
     </div>
-
+    {{#if gpxDataIsInvalid}}
+        <div class="alert alert-warning" role="alert">
+            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            GPX file seems to be invalid, couldn't complete import.
+        </div>
+    {{/if}}
+    {{#if gpxDataWasLoaded}}
+        <div class="alert alert-success" role="alert">
+            Map data was successfully imported.
+        </div>
+    {{else}}
+        {{#if loadingGpxData}}
+            <div class="alert alert-info" role="alert">
+                Loading map data from GPX file... This might take a few seconds!
+            </div>
+        {{/if}}
+    {{/if}}
     <div class="row">
       <div class="col">
 
