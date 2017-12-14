@@ -24,8 +24,8 @@
             <span>{{#link-to "tour" tour.id}} {{text "map_viewTourDetails"}} {{/link-to}}</span>
         </div>
         <div class="checkbox">
-            <label {{bind-attr class="showOnlySelectedToursPaths:checked" }}>
-                {{input type="checkbox" checked=showOnlySelectedToursPaths class="hide"}}
+            <label class={{if showOnlySelectedToursPaths "checked" }}>
+                {{input type="checkbox" checkedBinding="showOnlySelectedToursPaths" class="hide"}}
                 <span class="glyphicon glyphicon-ok"></span>
                 <span>{{text "map_hideOtherTours"}}</span>
             </label>

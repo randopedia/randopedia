@@ -5,8 +5,6 @@ import GeoHelper from '../utils/geo-helper';
 import { inject as service } from '@ember/service';
 import toGeoJSON from 'togeojson';
 
-var gju = gju || null;
-
 export default Component.extend({
     alert: service(),
 
@@ -87,7 +85,7 @@ export default Component.extend({
             if (geometry.type === "LineString") {
                 var coordinatesToBeDeleted = [];
                 var prevCoord = null;
-                console.debug('BEFORE: ' + geometry.coordinates.length);
+
                 for (var i = 0; i < geometry.coordinates.length; i++) {
 
                     var currentCoord = geometry.coordinates[i];
@@ -115,8 +113,6 @@ export default Component.extend({
                         geometry.coordinates.splice(index, 1);
                     }
                 });
-
-                console.debug('AFTER: ' + geometry.coordinates.length);
             }
         });
 
