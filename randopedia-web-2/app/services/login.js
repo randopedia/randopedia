@@ -62,6 +62,7 @@ export default Service.extend({
       user.set('authenticated', false);
       self.set('isLoggingIn', true);
 
+      // If user is not null, this will be a put/update.
       // Save user, get updated user with id and data in response
       user.save().then(function() {
         self.set('isLoggingIn', false);

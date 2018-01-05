@@ -116,7 +116,9 @@ var bukollen = {
   });
 
   toursRouter.post('/', function(req, res) {
-    res.status(201).end();
+    res.send({
+      "tours":[tour1]
+    });
   });
 
   toursRouter.get('/:id', function (req, res) {
