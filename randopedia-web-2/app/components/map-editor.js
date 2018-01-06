@@ -64,7 +64,7 @@ export default Component.extend({
         }
 
         var geojson = GeoHelper.getGeoJsonFromGoogleObjects(mapObjects);
-        self.get('controller').send('updateGeoJson', geojson);
+        this.set("tour.mapGeoJson", geojson);
     },
 
     importGeoJson: function(geojson) {
@@ -117,7 +117,7 @@ export default Component.extend({
         });
 
         self.set('loadingGpxData', true);
-        self.get('controller').send('updateGeoJson', geojson);
+        self.set("tour.mapGeoJson", geojson); 
 
         setTimeout(function() {
             self.parseGeoJson();

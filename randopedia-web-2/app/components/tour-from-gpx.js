@@ -11,7 +11,6 @@ export default Component.extend({
   },
 
   change: function (evt) {
-      console.log('file upload event');
       this.set('loadingGpxData', true);
       if (window.File && window.FileReader && window.FileList && window.Blob) {
           var self = this;
@@ -47,7 +46,6 @@ export default Component.extend({
           self.set('gpxDataIsInvalid', true);
           return;
       }
-      console.log('gpx data was uploaded');
       this.set('tour.mapGeoJson', geojson);
       this.set('loadingGpxData', false);
       this.set('gpxDataWasLoaded', true);
@@ -59,12 +57,10 @@ export default Component.extend({
       var self = this;
       this.get("tour").save().then(
           function() {
-              console.log('saved ok');
               self.set("havePendingOperations", false);
               self.get("router").transitionTo("tour", self.get("tour"));
           },
           function(error) {
-              console.log('error on save', error.status);
               var status = error.status;
               if(status === 400) {
                   self.get("alert").showErrorMessage("Oh noes, there are validation errors, please try again. ");
