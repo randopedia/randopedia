@@ -86,7 +86,7 @@ mongoose.connect(connectString, mongoOptions, function(err, res) {
     }
 });
 
-var server = app.listen(8080, function () {
+var server = app.listen(8181, function () {
 
     var connectString = 'mongodb://localhost/randopedia';
     var mongoOptions = {};
