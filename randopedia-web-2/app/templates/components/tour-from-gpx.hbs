@@ -1,7 +1,25 @@
-<div class="modal-header">
-    <h4 class="modal-title">Import GPX file</h4>
-</div>
-<div class="modal-body">
+<div class="tour-edit">
+    <div class="row">
+        <div class="col">
+            <h2>Create a tour from GPX</h2>
+        </div>
+    </div>
+    <div class="row">
+      <div class="col">
+
+        <div>
+          <p>For performance reasons the tracks might be compressed (some points ignored). Only tracks will be imported. Waypoints and metadata in the GPX file are ignored.</p>
+          <p>After the GPX data has been validated, simply choose a name for your tour and save it. Thats it!</p>
+        </div>
+        {{#unless gpxDataWasLoaded}}
+        <div class="btn-group">
+            <label class="btn btn-secondary btn-file">
+                Select GPX file to import <input type="file" id="gpxFileInputElement" accept=".gpx" hidden>
+            </label>
+        </div>
+        {{/unless}}
+      </div>
+    </div>
     {{#if gpxDataIsInvalid}}
         <div class="alert alert-warning" role="alert">
             <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -15,27 +33,40 @@
     {{else}}
         {{#if loadingGpxData}}
             <div class="alert alert-info" role="alert">
-                Loading map data from GPX file... This can take a few seconds and the page may lock during loading
-            </div>
-        {{else}}
-            <div class="alert alert-info" role="alert">
-                For performance reasons the tracks might be compressed (some points ignored). Only tracks will be imported. Waypoints and metadata in the GPX file are ignored.
-            </div>
-            <div class="btn-group">
-                <label class="btn btn-secondary btn-file">
-                    Select GPX file to import <input type="file" id="gpxFileInputElement" accept=".gpx" hidden>
-                </label>
+                Loading map data from GPX file... This might take a few seconds!
             </div>
         {{/if}}
     {{/if}}
+    <div class="row">
+      <div class="col">
 
-</div>
-<div class="modal-footer">
- {{#unless loadingGpxData}}
-      {{#if gpxDataWasLoaded}}
-          <button class="btn btn-default pull-right" data-dismiss="modal" {{action "closeGpxImportModal" target="view" }}>Close</button>
-      {{else}}
-          <button class="btn btn-default pull-right" data-dismiss="modal">Cancel</button>
-      {{/if}}
-  {{/unless}}
+      </div>
+    </div>
+
+    {{#if gpxDataWasLoaded}}
+    <div class="row">
+      <div class="col">
+        <div class="form-group">
+          <label for="inputName">
+            Name of tour:
+          </label>
+          <div class="{{unless nameIsValid 'validation-error'}}">
+              {{input placeholder="" pattern="^.{3,80}$" value=tour.name id="inputName" class="form-control"}}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <div class="btn-toolbar">
+          <button class="btn btn-primary" disabled={{isStartPublishDisabled}} {{action "saveTour"}}>
+              <i class="fa fa-cloud-upload"></i> {{text "tourEdit_publish"}}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    {{/if}}
+
 </div>

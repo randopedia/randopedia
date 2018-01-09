@@ -16,7 +16,7 @@ export default Component.extend({
     validationErrors: [],
     validationWarnings: [],
     allTags: null,
-    
+
     didInsertElement: function() {
         $('a[data-toggle="pill"]').on('shown.bs.tab', function () {
             // Hack to make sure content is loaded correctly, solves issue with Google Maps view not being rendered
@@ -25,13 +25,13 @@ export default Component.extend({
 
         $('[data-toggle="popover"]').popover({placement: 'left'});
     },
-       
+
     actions: {
         startPublishTour: function () {
             this.set('haveValidationErrors', !this.validateForPublish());
             $('#publishTourStep1Modal').modal('show');
         },
-        
+
         continueToPublishStep2: function() {
             $('#publishTourStep1Modal').modal('hide');
             $('#publishTourStep2Modal').modal('show');
@@ -41,7 +41,7 @@ export default Component.extend({
             this.send('publishTour');
             $('#publishTourStep2Modal').modal('hide');
         },
-        
+
         startCancelingEditTour: function() {
             if(this.get('hasChanges'))  {
                 $('#discardChangesTourModal').modal('show');
@@ -49,25 +49,25 @@ export default Component.extend({
                 this.send('cancelEditTour');
             }
         },
-        
+
         confirmDiscardChanges: function() {
             $('#discardChangesTourModal').modal('hide');
             this.send('cancelEditTour');
         },
-        
+
         closeConfirmDiscardChangesDialog: function() {
             $('#discardChangesTourModal').modal('hide');
-        },        
-        
+        },
+
         toggleAdvancedOption: function() {
             this.set('showAdvancedOptions', !this.get('showAdvancedOptions'));
         },
-        
+
         confirmDeleteTour: function() {
             this.send('deleteTour');
             $('#confirmDeleteImageModal').modal('hide');
         },
-        
+
         startDeleteImage: function(image) {
             this.set('imageToDelete', image);
         },
@@ -77,7 +77,7 @@ export default Component.extend({
             this.send('closeConfirmDeleteImage');
             this.set('imageToDelete', null);
         },
-    
+
         tagsUpdated: function (tags) {
             tags = tags || [];
             this.set("tour.tags", tags);
@@ -90,21 +90,21 @@ export default Component.extend({
             if (!self.get("tour.id")) {
                 self.get("tour").deleteRecord();
                 self.get("router").transitionTo("index");
-            
-            } else {                
+
+            } else {
                 self.get("tour").rollbackAttributes();
                 self.set("newImage", null);
                 self.get("router").transitionTo("tour", self.get("tour"));
             }
         },
-    
+
         publishTour: function () {
             var self = this;
 
             if (self.get("havePendingOperations")) {
                 return;
             }
-            
+
             if (!self.validateForPublish()) {
                 self.get("alert").showErrorMessage("There are validation errors, please correct and try again. ");
                 return;
@@ -112,7 +112,7 @@ export default Component.extend({
             self.get("tour").set("status", Fixtures.TourStatus.PUBLISHED);
             self.saveAndExit();
         },
-    
+
         toggleIncomplete: function() {
             this.set("tour.isIncomplete", !this.get("tour.isIncomplete"));
         },
@@ -125,10 +125,10 @@ export default Component.extend({
             }
 
             self.set("draftValidationErrors", false);
-            
+
             if (!self.validateForDraft()) {
                 self.get("alert").showErrorMessage("There are validation errors, tour name must be set before saving. ");
-                return; 
+                return;
             }
             self.get("tour").set("status", Fixtures.TourStatus.DRAFT);
             self.saveAndExit();
@@ -155,7 +155,7 @@ export default Component.extend({
             if(self.get("havePendingOperations")){
                 return;
             }
-            
+
             self.set("havePendingOperations", true);
             var newImage = this.get("newImage");
             newImage.save().then(
@@ -164,9 +164,9 @@ export default Component.extend({
                     self.set("havePendingOperations", false);
 
                     self.get("tour").reload();
-                   
+
                     self.get("alert").showSuccessMessage("Image was successfully added.", self.get("alert").long_delay);
-                }, 
+                },
                 function(error) {
                     var status = error.status;
                     if(status === 401) {
@@ -184,11 +184,11 @@ export default Component.extend({
                 }
             );
         },
-        
+
         removeNewImage: function() {
             this.set("newImage", null);
         },
-       
+
         // SELECT BOX ACTIONS
 
         selectCountry: function(country) {
@@ -224,11 +224,11 @@ export default Component.extend({
         self.set("havePendingOperations", true);
 
         self.get("tour").save().then(
-            function() {                           
+            function() {
                 self.set("havePendingOperations", false);
                 self.get("alert").showSuccessMessage("Tour was successfully saved. ");
                 self.get("router").transitionTo("tour", self.get("tour"));
-            }, 
+            },
             function(error) {
                 var status = error.status;
                 if(status === 400) {
@@ -243,7 +243,7 @@ export default Component.extend({
                 }
                 self.set("havePendingOperations", false);
             }
-        );    
+        );
     },
 
     addImageForUpload: function(imageData) {
@@ -252,36 +252,36 @@ export default Component.extend({
         image.set("tour", this.get("tour"));
         this.set("newImage", image);
     },
-    
+
     validateForDraft: function() {
-        return this.get("nameIsValid") && 
-               this.get("elevationGainIsValid") && 
+        return this.get("nameIsValid") &&
+               this.get("elevationGainIsValid") &&
                this.get("elevationLossIsValid") &&
-               this.get("elevationMaxIsValid") && 
-               this.get("timingMinIsValid") && 
-               this.get("timingMaxIsValid") && 
+               this.get("elevationMaxIsValid") &&
+               this.get("timingMinIsValid") &&
+               this.get("timingMaxIsValid") &&
                this.get("degreesMaxIsValid");
     },
-    
-    validateForPublish: function() {      
-        return this.get("nameIsValid") && 
+
+    validateForPublish: function() {
+        return this.get("nameIsValid") &&
                this.get("accessPointIsValid") &&
-               this.get("descriptionIsValid") && 
-               this.get("tagsAreValid") && 
+               this.get("descriptionIsValid") &&
+               this.get("tagsAreValid") &&
                this.get("mapDataIsValid") &&
-               this.get("elevationGainIsValid") && 
-               this.get("elevationLossIsValid") && 
-               this.get("elevationMaxIsValid") && 
-               this.get("timingMinIsValid") && 
-               this.get("timingMaxIsValid") && 
+               this.get("elevationGainIsValid") &&
+               this.get("elevationLossIsValid") &&
+               this.get("elevationMaxIsValid") &&
+               this.get("timingMinIsValid") &&
+               this.get("timingMaxIsValid") &&
                this.get("degreesMaxIsValid");
     },
-    
+
     replaceHtmlChars: function() {
-        if(!this.get("tour.itinerary")){ 
-            return; 
+        if(!this.get("tour.itinerary")){
+            return;
         }
-    
+
         var str = this.get("tour.itinerary").replace(/</g, "&lt;").replace(/>/g, "&gt;");
         this.set("tour.itinerary", str);
     },
@@ -335,7 +335,7 @@ export default Component.extend({
     hasChanges: computed('tour.hasDirtyAttributes', 'newImage', 'tagsIsDirty', function() {
         return this.get("tour.hasDirtyAttributes") || this.get("tagsIsDirty") || this.get("hasNewImage");
     }),
-    
+
     isStartPublishDisabled: computed('tour.{status,name,hasDirtyAttributes}', 'newImage', 'tagsIsDirty', 'havePendingOperations', function() {
         if (this.get("havePendingOperations") || this.get("isDeleted") || !this.get("validation").name(this.get("tour.name"))) {
             return true;
@@ -344,10 +344,10 @@ export default Component.extend({
         if(this.get("isDraft") || this.get("isInReview") || this.get("hasChanges")) {
             return false;
         }
-        
+
         return true;
     }),
-    
+
     isSaveAsDraftDisabled: computed('tour.{status,name,hasDirtyAttributes}', 'newImage', 'tagsIsDirty', 'havePendingOperations', function() {
         if (this.get("havePendingOperations") || this.get("isDeleted") || !this.get("validation").name(this.get("tour.name"))) {
             return true;
@@ -379,7 +379,7 @@ export default Component.extend({
     isNotPublished: computed('tour.status', function() {
         return this.get("tour.status") !== Fixtures.TourStatus.PUBLISHED;
     }),
-    
+
     isDraft: computed('tour.status', function() {
         return this.get("tour.status") === Fixtures.TourStatus.DRAFT;
     }),
@@ -387,11 +387,11 @@ export default Component.extend({
     isInReview: computed('tour.status', function() {
         return this.get("tour.status") === Fixtures.TourStatus.IN_REVIEW;
     }),
-    
+
     isDeleted: computed('tour.status', function() {
         return this.get("tour.status") === Fixtures.TourStatus.DELETED;
     }),
-    
+
     displayStatus: computed('tour.status', function() {
         switch (this.get("tour.status")) {
             case Fixtures.TourStatus.PUBLISHED:
@@ -410,7 +410,7 @@ export default Component.extend({
     hasImages: computed('tour.images.length', function() {
         return !this.get("tour.images") ? false : this.get("tour.images.length") > 0;
     }),
-    
+
     hasNewImage: computed('newImage', function() {
         return !this.get("newImage") ? false : true;
     }),
@@ -418,12 +418,12 @@ export default Component.extend({
     hasPaths: computed('tour.mapGeoJson', function() {
         return !this.get("tour.mapGeoJson") ? false : true;
     }),
-    
+
     // todo: ?
     isIncomplete: computed('tour.name', function() {
         return this.get("isDraft") ? false : false;
     }),
-    
+
     haveNoHazards: computed('tour.haveHazards', function() {
         return !this.get("tour.haveHazards");
     }),
@@ -431,7 +431,7 @@ export default Component.extend({
     doesNotRequireTools: computed('tour.requiresTools', function() {
         return !this.get("tour.requiresTools");
     }),
-    
+
     sortedActions: computed('tour.actions.[]', function() {
         return this.get("tour.actions").sortBy("time");
     }),

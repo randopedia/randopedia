@@ -2,8 +2,12 @@ import { computed } from '@ember/object';
 import Component from '@ember/component';
 import Fixtures from '../utils/fixtures';
 import GeoHelper from '../utils/geo-helper';
+import { inject as service } from '@ember/service';
+import toGeoJSON from 'togeojson';
 
 export default Component.extend({
+    alert: service(),
+
     settings: {
         mapRootElementId: '#tourEditMapRootElement',
         defaultZoomLevel: 5,
@@ -60,7 +64,7 @@ export default Component.extend({
         }
 
         var geojson = GeoHelper.getGeoJsonFromGoogleObjects(mapObjects);
-        self.get('controller').send('updateGeoJson', geojson);
+        this.set("tour.mapGeoJson", geojson);
     },
 
     importGeoJson: function(geojson) {
@@ -81,7 +85,7 @@ export default Component.extend({
             if (geometry.type === "LineString") {
                 var coordinatesToBeDeleted = [];
                 var prevCoord = null;
-                console.debug('BEFORE: ' + geometry.coordinates.length);
+
                 for (var i = 0; i < geometry.coordinates.length; i++) {
 
                     var currentCoord = geometry.coordinates[i];
@@ -109,13 +113,11 @@ export default Component.extend({
                         geometry.coordinates.splice(index, 1);
                     }
                 });
-
-                console.debug('AFTER: ' + geometry.coordinates.length);
             }
         });
 
         self.set('loadingGpxData', true);
-        self.get('controller').send('updateGeoJson', geojson);
+        self.set("tour.mapGeoJson", geojson); 
 
         setTimeout(function() {
             self.parseGeoJson();
@@ -267,7 +269,7 @@ export default Component.extend({
                 }
             }
         } else {
-            App.Alerts.showErrorMessage('Could not import gpx file. Most likely because your browser does not support the File API.');
+            this.get("alert").showErrorMessage('Could not import gpx file. Most likely because your browser does not support the File API.');
         }
     },
 

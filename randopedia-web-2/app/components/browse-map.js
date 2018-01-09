@@ -12,9 +12,6 @@ export default Component.extend({
     settings: {
         detailedZoomLevel: 13,
         showRoutesOnZoomLevel: 12,
-        defaultMapCenter: new google.maps.LatLng(58.0, 13.5),
-        defaultZoomLevel: 4,
-        defaultMapTypeId: google.maps.MapTypeId.TERRAIN,
         mapRootElementId: '#tourMapRootElement'
     },
 
@@ -25,79 +22,60 @@ export default Component.extend({
     currentTourMapObjects: [],
     myPositionMarker: null,
     myPositionWatchId: null,
-    selectedTour: null,
+    tour: null,
     showOnlySelectedToursPaths: false,
     isShowingPaths: false,
+    highlightedPaths: [],
 
     didInsertElement() {
         this._super(...arguments);
-
-        if (!this.get('zoomLevel')) {
-            this.set('zoomLevel', this.settings.defaultZoomLevel);
-        }
-
-        if (!this.get('mapCenter')) {
-            this.set('mapCenter', this.settings.defaultMapCenter);
-        }
-
-        if (!this.get('mapTypeId')) {
-            this.set('mapTypeId', this.settings.defaultMapTypeId);
-        }
-
         this.addTourMarkers(this.get('tours'));
     },
 
-    zoomAndHighlightTour: function (tour) {
-        this.zoomToTour(tour);
-        this.openInfoWindow(tour);
+    zoomAndHighlightTour: function () {
+        if(!this.get("tour")) {
+            return null;
+        }
+
+        this.zoomToTour();
+        this.highlightSelectedTour();
     },
 
-    openInfoWindow: function (tour) {
-        this.highlightTour(tour);
-        this.set('selectedTour', tour);
+    unselectTour: function() {
+        this.unhighlightTour();
+        this.set('showOnlytoursPaths', false);
+        this.toggleOtherToursPaths();
+        this.set('tour', null);
     },
 
-    closeInfoWindow: function() {
-        this.unhighlightTour(this.get('selectedTour'));
-        this.set('showOnlySelectedToursPaths', false);
-        this.toggleOtherToursPaths(); // Why isn't this triggered automatically by the observes statement?
-        this.set('selectedTour', null);
-    },
-
-    toggleInfoWindow: function (tour) {
-        // No selected tour, open
-        if (!this.get('selectedTour')) {
-            this.openInfoWindow(tour);
+    setSelectedTour: function (tour) {
+        // No tour is currently selected
+        if (!this.get('tour')) {
+            this.set('tour', tour);
+            this.highlightSelectedTour();
             return;
         }
+
         // Same tour as current selected, close
-        if (this.get('selectedTour.id') === tour.get('id')) {
-            this.closeInfoWindow();
+        if (this.get('tour.id') === tour.get('id')) {
+            this.unselectTour();
             return;
         }
-        // Close current and open new selected tour
-        this.closeInfoWindow();
-        this.openInfoWindow(tour);
+
+        // Close current, set new tour as selected and highlight
+        this.unselectTour();
+        this.set("tour", tour);
+        this.highlightSelectedTour();
     },
 
-    findTourMapObject: function(tour) {
-        var self = this;
-        var tourObjects = self.get('currentTourMapObjects');
-
-        for (var i = 0; i < tourObjects.length; i++) {
-            if (tourObjects[i].tourId === tour.get('id')) {
-                return tourObjects[i];
-            }
+    highlightSelectedTour: function () {
+        if(!this.get("tour")) {
+            return null;
         }
-        return null;
-    },
 
-    highlightedPaths: [],
+        var tourMapObject = this.findTourMapObject();
 
-    highlightTour: function (tour) {
         var self = this;
-        var tourMapObject = self.findTourMapObject(tour);
-
         tourMapObject.paths.forEach(function(polyline) {
 
             var path = polyline.getPath();
@@ -115,20 +93,32 @@ export default Component.extend({
         });
     },
 
-    unhighlightTour: function(tour) {
-        var self = this;
-        self.get('highlightedPaths').forEach(function (polyline) {
+    unhighlightTour: function() {
+        this.get('highlightedPaths').forEach(function (polyline) {
             polyline.setMap(null);
         });
-        self.set('highlightedPaths', []);
+        this.set('highlightedPaths', []);
     },
 
-    zoomToTour: function (tour) {
-        var self = this;
-        var map = self.get("map");
-        var tourMapObject = self.findTourMapObject(tour);
+    findTourMapObject: function() {
+        var tourObjects = this.get('currentTourMapObjects');
+        for (var i = 0; i < tourObjects.length; i++) {
+            if (tourObjects[i].tourId === this.get('tour.id')) {
+                return tourObjects[i];
+            }
+        }
+        return null;
+    },
 
-        GeoHelper.setMapTypeIfDefaultDiffersFromCurrent(map, tour.get("country"));
+    zoomToTour: function () {
+        if(!this.get("tour")) {
+            return null;
+        }
+
+        var map = this.get("map");
+        var tourMapObject = this.findTourMapObject();
+
+        GeoHelper.setMapTypeIfDefaultDiffersFromCurrent(map, this.get("tour.country"));
 
         if (tourMapObject.paths.length > 0) {
             var bounds = new google.maps.LatLngBounds();
@@ -140,21 +130,20 @@ export default Component.extend({
             map.fitBounds(bounds);
 
         } else if (tourMapObject.marker !== null) {
-            map.setZoom(self.settings.detailedZoomLevel);
+            map.setZoom(this.settings.detailedZoomLevel);
             map.setCenter(tourMapObject.marker.position);
 
         } else {
-            map.setZoom(self.settings.defaultZoomLevel);
-            map.setCenter(self.settings.defaultMapCenter);
+            map.setZoom(this.settings.defaultZoomLevel);
+            map.setCenter(this.settings.defaultMapCenter);
         }
     },
 
     toggleOtherToursPaths: function () {
-        var self = this;
-        if (self.get('showOnlySelectedToursPaths')) {
-            self.hideTourRoutes(true);
+        if (this.get('showOnlySelectedToursPaths')) {
+            this.hideTourRoutes(true);
         } else {
-            self.showTourRoutes();
+            this.showTourRoutes();
         }
     }.observes('showOnlySelectedToursPaths'),
 
@@ -172,24 +161,23 @@ export default Component.extend({
     },
 
     showTourRoutesIfZoomed: function () {
-        var self = this;
-
-        if (self.get('isShowingPaths')) {
-            if (!self.get('isPathsAlreadyShown')) {
-                self.showTourRoutes();
+        if (this.get('isShowingPaths')) {
+            if (!this.get('isPathsAlreadyShown')) {
+                this.showTourRoutes();
             }
         } else {
-            self.hideTourRoutes();
+            this.hideTourRoutes();
         }
     },
 
     showTourRoutes: function() {
-        var self = this;
-        if (!self.get('isShowingPaths')) {
+        if (!this.get('isShowingPaths')) {
             return;
         }
+
+        var self = this;
         self.get('currentTourMapObjects').forEach(function (tourMapObject) {
-            if (!self.get('showOnlySelectedToursPaths') || (tourMapObject.tourId === self.get('selectedTour').get('id'))) {
+            if (!self.get('showOnlySelectedToursPaths') || (tourMapObject.tourId === self.get('tour.id'))) {
                 tourMapObject.paths.forEach(function (polyline) {
                     polyline.setMap(self.get('map'));
                 });
@@ -201,7 +189,7 @@ export default Component.extend({
     hideTourRoutes: function(dontHideSelectedTour) {
         var self = this;
         self.get('currentTourMapObjects').forEach(function (tourMapObject) {
-            if (!dontHideSelectedTour || (tourMapObject.tourId !== self.get('selectedTour').get('id'))) {
+            if (!dontHideSelectedTour || (tourMapObject.tourId !== self.get('tour.id'))) {
                 tourMapObject.paths.forEach(function (polyline) {
                     polyline.setMap(null);
                 });
@@ -263,37 +251,37 @@ export default Component.extend({
             self.get('map').setCenter(pos);
             self.get('map').setZoom(self.settings.detailedZoomLevel);
 
-            function onWatchPositionUpdate(newPosition) {
-                self.get('myPositionMarker').set('position', new google.maps.LatLng(newPosition.coords.latitude, newPosition.coords.longitude));
-            }
+            // WATCH POSITION FUNCTIONALITY TURNED OFF FOR NOW - DOES NOT REALLY WORK
+            // function onWatchPositionUpdate(newPosition) {
+            //     self.get('myPositionMarker').set('position', new google.maps.LatLng(newPosition.coords.latitude, newPosition.coords.longitude));
+            // }
 
-            function onWatchPositionError(err) {
-                var errMsg;
+            // function onWatchPositionError(err) {
+            //     var errMsg;
 
-                if (err.code === 1) {
-                    errMsg = "Access is denied.";
-                    console.log("Location error: " + errMsg);
+            //     if (err.code === 1) {
+            //         errMsg = "Access is denied.";
+            //         console.log("Location error: " + errMsg);
 
-                } else if (err.code === 2) {
-                    errMsg = "Position is unavailable.";
-                    console.log("Location error: " + errMsg);
+            //     } else if (err.code === 2) {
+            //         errMsg = "Position is unavailable.";
+            //         console.log("Location error: " + errMsg);
 
-                } else {
-                    errMsg = "Unknown error.";
-                    console.log("Location error: " + errMsg);
-                }
+            //     } else {
+            //         errMsg = "Unknown error.";
+            //         console.log("Location error: " + errMsg);
+            //     }
 
-                self.get("alert").showErrorMessage(self.get('text').getText("error_getLocation") + " Error message: " + err.code + " - " + errMsg);
-                self.set('waitingForPosition', false);
-            }
+            //     self.get("alert").showErrorMessage(self.get('text').getText("error_getLocation") + " Error message: " + err.code + " - " + errMsg);
+            //     self.set('waitingForPosition', false);
+            // }
 
-            var watchOptions = {
-                enableHighAccuracy: true,
-                timeout: 5000,
-                maximumAge: 10000
-            };
+            // var watchOptions = {
+            //     enableHighAccuracy: true,
+            //     timeout: 5000,
+            //     maximumAge: 10000
+            // };
 
-            // Turned off for now. Getting error on watch, maybe because we need to be on https? - na, something else is also wrong, getting error on update.
             // var id = navigator.geolocation.watchPosition(onWatchPositionUpdate, onWatchPositionError, watchOptions);
             // self.set('myPositionWatchId', id);
             self.set('waitingForPosition', false);
@@ -344,7 +332,7 @@ export default Component.extend({
             });
 
             google.maps.event.addListener(marker, 'click', function () {
-                self.toggleInfoWindow(tour);
+                self.setSelectedTour(tour);
             });
 
             self.get('currentTourMapObjects').push({
@@ -361,13 +349,10 @@ export default Component.extend({
 
     initMap: function() {
         var self = this;
-        self.set('mapRootElement', self.$(self.settings.mapRootElementId));
-
-        var properties = this.get('properties');
-        var tour = properties.getTourForMapView();
+        var tour = self.get("tour");
 
         var mapOptions = {
-            mapTypeId: self.get("mapTypeId"),
+            mapTypeId: self.get('properties.mapTypeId'),
             mapTypeControl: true,
             mapTypeControlOptions: {
                 mapTypeIds: GeoHelper.mapTypeControlOptions,
@@ -388,11 +373,11 @@ export default Component.extend({
             streetViewControl:false,
             overviewMapControl:true,
             rotateControl:false,
-            center: self.get('mapCenter'),
-            zoom: self.get('zoomLevel')
+            center: self.get('properties.mapCenter'),
+            zoom: self.get('properties.zoomLevel')
         };
 
-        var map = new google.maps.Map(this.get('mapRootElement').get(0), mapOptions);
+        var map = new google.maps.Map(self.$(self.settings.mapRootElementId).get(0), mapOptions);
         GeoHelper.setMapTypes(map);
         self.set('map', map);
 
@@ -428,17 +413,15 @@ export default Component.extend({
                 map.setMapTypeId(defaultMapTypeForCountry);
             }
 
-            self.zoomAndHighlightTour(tour);
-
-            properties.setTourForMapView(null);
+            self.zoomAndHighlightTour();
         }
 
         self.showTourRoutesIfZoomed(map.getZoom());
 
     },
 
-    showTourInfo: computed("selectedTour", function() {
-        return this.get('selectedTour') !== null;
+    showTourInfo: computed("tour", function() {
+        return this.get('tour') !== null;
     }),
 
     actions: {
@@ -446,10 +429,10 @@ export default Component.extend({
             this.showCurrentPosition();
         },
         closeInfoWindowAction: function () {
-            this.closeInfoWindow();
+            this.unselectTour();
         },
         zoomToSelectedTourAction: function() {
-            this.zoomToTour(this.get('selectedTour'));
+            this.zoomToTour();
         }
     }
 });

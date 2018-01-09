@@ -1,7 +1,7 @@
 import Fixtures from './fixtures';
 
 var GeoHelper = {
-    
+
     validateGeoJson: function(geojson) {
         if(!geojson) {
             return false;
@@ -13,20 +13,20 @@ var GeoHelper = {
             return false;
         }
 
-        // TODO: Add when all tours are updated 
+        // TODO: Add when all tours are updated
         //if (!geojson.features[0].properties || !geojson.features[0].properties.name) {
         //    return false;
         //}
 
         return true;
     },
-    
+
     geoJsonCoordinatesToGoogleLatLngArray: function(coordinates) {
         var array = [];
         for (var i = 0; i < coordinates.length; i++) {
             var coordinate = coordinates[i];
             array.push(new google.maps.LatLng(coordinate[1], coordinate[0]));
-        }    
+        }
         return array;
     },
 
@@ -41,7 +41,7 @@ var GeoHelper = {
     roundCoordinate: function(latOrLng) {
         return Math.round(latOrLng * 1000000) / 1000000;
     },
-    
+
     getGeoJsonFromGoogleObjects: function (googleMapObjects) {
 
         var geojson = {
@@ -70,7 +70,7 @@ var GeoHelper = {
                     geometry: {
                         type: "LineString",
                         coordinates: GeoHelper.googleLatLngArrayToGeoJsonCoordinates(polylinePath),
-                        
+
                     }
                 });
             }
@@ -106,7 +106,6 @@ var GeoHelper = {
     },
 
     getGoogleLPathsFromTourGeoJson: function(geojson) {
-        var self = this;
         var paths = [];
 
         if (!geojson || !GeoHelper.validateGeoJson(geojson)) {
@@ -266,9 +265,9 @@ var GeoHelper = {
 
         return null;
     },
-    
+
     // Map types
-    
+
     mapTypeControlOptions: [
         google.maps.MapTypeId.TERRAIN,
         google.maps.MapTypeId.SATELLITE,
@@ -276,18 +275,18 @@ var GeoHelper = {
         'norgeskart',
         'eniroair'
     ],
-    
+
     setMapTypes: function(map) {
         map.mapTypes.set('osm', GeoHelper.mapTypes.osm());
         map.mapTypes.set('norgeskart', GeoHelper.mapTypes.norgeskart());
         map.mapTypes.set('eniroair', GeoHelper.mapTypes.eniroair());
     },
-    
+
     getDefaultMapTypeIdForCountry: function(country) {
         if (country === "NOR") {
             return "norgeskart";
         }
-        
+
         return google.maps.MapTypeId.TERRAIN;
     },
 
@@ -315,19 +314,19 @@ var GeoHelper = {
                 name: "OpenTopoMap (Europe)",
             });
         },
-                
+
         norgeskart: function() {
             return new google.maps.ImageMapType({
                 getTileUrl: function(coord, zoom) {
                     return 'http://opencache.statkart.no/gatekeeper/gk/gk.open_gmaps?layers=topo2&zoom=' + zoom + '&x=' + coord.x + '&y=' + coord.y;
                 },
-                tileSize: new google.maps.Size(256, 256), 
+                tileSize: new google.maps.Size(256, 256),
                 isPng: true,
                 minZoom: 1,
                 maxZoom: 20,
                 name: 'Norgeskart (NOR)'
               });
-        },     
+        },
 
         eniroair: function() {
             return new google.maps.ImageMapType({
@@ -343,7 +342,7 @@ var GeoHelper = {
                 name: 'Eniro aerial (NOR/SWE)'
             });
         },
-        
+
         lantmateriet: function() {
             return new google.maps.ImageMapType({
                 getTileUrl: function (/* tile , zoom */) {
@@ -368,15 +367,15 @@ var GeoHelper = {
                     var url = "http://maps-open.lantmateriet.se/open/topowebb-ccby/v1/wmts?request=GetTiles&version=1.0.0&service=wmts";
                     return url;
                 },
-                tileSize: new google.maps.Size(256, 256), 
+                tileSize: new google.maps.Size(256, 256),
                 opacity: 1,
                 isPng: false,
                 minZoom: 1,
                 maxZoom: 20,
                 name: 'SWE'
             });
-        },      
-    }  
+        },
+    }
 };
 
 export default GeoHelper;

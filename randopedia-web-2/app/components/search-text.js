@@ -7,7 +7,7 @@ export default TextField.extend({
     placeholder: null,
     classNames: ['form-control','search-textfield'],
 
-    didInsertElement() {
+    didReceiveAttrs() {
         this.set("placeholder", this.get("text").getText('search_placeholder'));
     }
 });

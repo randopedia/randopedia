@@ -1,4 +1,4 @@
-﻿var LocationHelper = {
+var LocationHelper = {
     removeAndRedirectPageIfUrlContainsHashbang: function () {
         var url = document.location.toString();
         var hashbangIndex = url.indexOf('/#!');

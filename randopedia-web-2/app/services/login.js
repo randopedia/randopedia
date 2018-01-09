@@ -28,15 +28,20 @@ export default Service.extend({
     login: function(provider) {
       var emberOauth2 = this.get('emberOauth2');
       var self = this;
-      window.addEventListener("message", function(event) {
+      var handler = function(event) {
         if(event.origin === window.location.origin) {
           emberOauth2.trigger('redirect', event.data);
           self.requestAuthentication();
+          event.stopPropagation();
         }
-      }, false);
+      }
+      window.addEventListener("message", handler, false);
+      setTimeout(function() {
+        window.removeEventListener("message", handler, false);
+      }, 10000);
       this.clearAllTokens();
       emberOauth2.setProvider(provider);
-      emberOauth2.authorize().then(function(response) { });
+      emberOauth2.authorize().then(function() { });
     },
 
     logout: function() {
@@ -56,12 +61,14 @@ export default Service.extend({
       } else {
           user = self.get('currentUser');
       }
+
       user.set('token', emberOauth2.getAccessToken());
       var token = emberOauth2.getToken();
       user.set('tokenExp', new Date(token.expires_in*1000));
       user.set('authenticated', false);
       self.set('isLoggingIn', true);
 
+      // If user is not null, this will be a put/update.
       // Save user, get updated user with id and data in response
       user.save().then(function() {
         self.set('isLoggingIn', false);
@@ -69,7 +76,7 @@ export default Service.extend({
         self.get('alert').showSuccessMessage(self.get("text").getText('login_loggedInMsg'), 2000);
 
       }).catch(function(error) {
-        console.log('Error during login ', error);
+        console.log('error during login', error);
         self.set('isLoggingIn', false);
         emberOauth2.expireAccessToken();
         self.get('alert').showErrorMessage(self.get("text".getText("login_errorWhenLoggingIn")));
@@ -108,7 +115,6 @@ export default Service.extend({
 
       var token = this.get('emberOauth2').getToken();
       var user = this.get('currentUser');
-
       if(user && user.get('authenticated') === true) {
         var now = new Date();
         var tokenExp = user.get('tokenExp');

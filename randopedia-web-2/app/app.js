@@ -1,14 +1,9 @@
-import LinkComponent from '@ember/routing/link-component';
 import Application from '@ember/application';
 import Ember from 'ember';
 import Resolver from './resolver';
 import loadInitializers from 'ember-load-initializers';
 import config from './config/environment';
 import locationHelper from './utils/location-helper';
-
-//let App;
-
-Ember.MODEL_FACTORY_INJECTIONS = true;
 
 let App = Application.extend({
     modulePrefix: config.modulePrefix,
@@ -56,11 +51,6 @@ let App = Application.extend({
                 scope: 'https://www.googleapis.com/auth/userinfo.profile'
             }
         };
-
-        // Add attribute to make it possible to close modals with link-to helper
-        /*LinkComponent.reopen({
-            attributeBindings: ['data-dismiss']
-        });*/
 
         // Facebook api initialization
         (function(d, s, id) {
