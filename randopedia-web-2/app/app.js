@@ -41,7 +41,7 @@ let App = Application.extend({
             facebook: {
                 clientId: facebookClientId,
                 authBaseUri: 'https://www.facebook.com/dialog/oauth',
-                redirectUri: 'http://' + domain + '/auth/facebook/callback',
+                redirectUri: 'https://' + domain + '/auth/facebook/callback',
                 scope: ''
             },
             google: {
