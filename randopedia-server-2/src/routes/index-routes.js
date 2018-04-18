@@ -1,7 +1,9 @@
-import {Router} from 'express'
-import toursRoutes from './tours'
+// @flow
 
-const router = Router
+import {Router} from 'express'
+import toursRoutes from './tour-routes'
+
+const router = Router()
 
 router.use('/tours', toursRoutes)
 

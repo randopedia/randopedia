@@ -1,0 +1,7 @@
+{
+  "presets": [
+    "flow",
+    "es2017-node7"
+  ],
+  "plugins": ["transform-class-properties"]
+}
