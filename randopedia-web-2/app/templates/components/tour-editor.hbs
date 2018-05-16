@@ -1,0 +1,58 @@
+<h1>Tour wizard</h1>
+
+<div>
+    {{#step-manager as |w|}}
+        {{#w.step name='a'}}
+            <div>
+                Tour status: {{tourStatus}}
+            </div>
+
+            <button {{action w.transition-to 'b'}}>Next</button>
+        {{/w.step}}
+
+        {{#w.step name='b'}}
+            <div>
+                <div class="form-group">
+                    <label for="inputName">{{text "tourEdit_nameOfTour"}}</label>
+                    <button type="button" class="info pull-right" data-toggle="popover" data-trigger="focus" title="Name" data-content="The name of the tour. Name is required and must be between 3 and 80 characters long."></button>
+                    <div class="{{unless nameIsValid 'validation-error'}}">
+                        {{input placeholder="" pattern="^.{3,80}$" value=tour.name id="inputName" class="form-control"}}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputCountry">{{text "tourEdit_country"}}</label>
+                    <button type="button" class="info pull-right" data-toggle="popover" data-trigger="focus"
+                            title="Country"
+                            data-content="The country where the tour is located."></button>
+                    {{#x-select value=tour.country action="selectCountry" as |xs|}}
+                        {{#each countries as |country|}}
+                            {{#xs.option value=country.value}} {{country.name}} {{/xs.option}}
+                        {{/each}}
+                    {{/x-select}}
+                </div>
+            </div>
+
+            <div>
+                <button {{action w.transition-to 'a'}}>Back</button>
+                {{#each w.steps as |step|}}
+                    <button
+                        local-class="progress-dot"
+                        aria-pressed={{eq w.currentStep step}}
+                        {{action w.transition-to step}}>Q
+                    </button>
+                {{/each}}
+                <button {{action w.transition-to 'c'}}>Next</button>
+            </div>
+            
+        {{/w.step}}
+
+            {{#w.step name='c'}}
+            This is the last step!
+
+            <button {{action w.transition-to 'b'}}>
+            Wait, go back!
+            </button>
+        {{/w.step}}
+
+    {{/step-manager}}
+</div>

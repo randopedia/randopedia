@@ -25,6 +25,10 @@ Router.map(function() {
   this.route('mytours');
   this.route('tags');
   this.route('tag', {path: '/tags/:tag_id'});
+
+  // POC for new tour edit
+  this.route('tour.edit2', {path:'/tours/:tour_id/edit2'});
+  this.route('tour.new2', {path:'/tours/new2'});
 });
 
 function getLanguageFromUrl(url) {
