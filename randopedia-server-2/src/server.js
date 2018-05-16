@@ -17,6 +17,4 @@ app.listen(8080, () => {
   log.info('Server started!') // eslint-disable-line no-console
 })
 
-
-
 export default app
