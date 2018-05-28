@@ -7,7 +7,8 @@
     "start": "flow && nodemon --exec npm run babel-node -- ./src/server.js",
     "lint": "eslint src",
     "flow": "flow",
-    "build": "babel src -d dist"
+    "build": "babel src -d dist",
+    "serve": "node dist/server.js"
   },
   "author": "",
   "dependencies": {
